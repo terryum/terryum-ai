@@ -6,28 +6,27 @@
 
 ## 공통 규칙 (모든 페이지)
 - 모바일 우선 반응형
-- 상단 네비(데스크톱): Home / What I write / What I read / About
-- 상단 네비(모바일 라벨): Home / Ideas / Research / About
-- 모바일 라벨 매핑: Ideas = What I write, Research = What I read (경로 동일)
-- 언어 스위처: KO / EN
+- 상단 네비: Home / Ideas / Research / About (PC/모바일 동일)
+- 언어 스위처: 원형 버튼 (KO / EN)
+- 테마 토글: 원형 버튼 (라이트/다크 전환, localStorage 저장, 시스템 프리퍼런스 fallback)
 - 외부 링크 새 탭 열기
 - 더미 개발 모드 지원 (더미 카드/더미 상세)
 
 ## 핵심 구조 원칙 (중요)
-- What I write와 What I read는 **동일한 정보 구조/레이아웃**을 사용한다.
+- Ideas와 Research는 **동일한 정보 구조/레이아웃**을 사용한다.
 - 목록/상세 화면은 **공용 템플릿**으로 구현하고, 차이는 표시 필드만 분기한다.
 - 목적: 유지보수 단순화 + 독자 읽기 경험 일관성 확보
 
 ## 1) Home
 ### 섹션 구성 (위→아래)
 1. Hero / Intro (이름, 소개, 프로필 사진, 소셜 아이콘)
-2. Latest from What I write (카드 3개 + View all)
-3. Latest from What I read (카드 3개 + View all)
+2. Latest Ideas (카드 3개 + View all)
+3. Latest Research (카드 3개 + View all)
 4. Newsletter subscribe block (v1)
 5. Footer
 
 ## 2) Content Index Template (공용)
-> What I write 목록 / What I read 목록 공통
+> Ideas 목록 / Research 목록 공통
 
 ### 공용 레이아웃
 - 페이지 제목
@@ -44,11 +43,11 @@
 - 카드 전체 클릭 가능
 
 ### 탭별 차이 (목록)
-- What I write: 기본 카드 사용
-- What I read: 기본 카드 + 출처 배지(arXiv 등) + 원문 링크 아이콘(선택)
+- Ideas: 기본 카드 사용
+- Research: 기본 카드 + 출처 배지(arXiv 등) + 원문 링크 아이콘(선택)
 
 ## 3) Content Detail Template (공용)
-> What I write 상세 / What I read 상세 공통
+> Ideas 상세 / Research 상세 공통
 
 ### 공용 레이아웃 (위→아래)
 1. 헤더 메타 영역 (제목, 발행일, 태그, 언어 전환 링크)
@@ -59,8 +58,8 @@
 6. 하단 CTA (다른 탭/About 링크)
 
 ### 탭별 차이 (상세)
-- What I write: 공용 레이아웃 그대로 사용
-- What I read: 공용 레이아웃 + 상단 원문 정보 블록 추가
+- Ideas: 공용 레이아웃 그대로 사용
+- Research: 공용 레이아웃 + 상단 원문 정보 블록 추가
   - arXiv/원문 링크
   - 원문 제목(선택)
   - 저자/출처(선택)
@@ -74,8 +73,9 @@
 5. 
 
 ## 공통 컴포넌트 사양 (v1)
-- Header/Nav (모바일/데스크톱 라벨 분리 지원)
-- LanguageSwitcher
+- Header/Nav
+- ThemeToggle (다크/라이트 전환 원형 버튼)
+- LanguageSwitcher (한/영 전환 원형 버튼)
 - ProfileIntroBlock
 - ContentIndexPage (공용 템플릿)
 - ContentDetailPage (공용 템플릿)

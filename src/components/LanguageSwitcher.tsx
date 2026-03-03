@@ -23,7 +23,7 @@ export default function LanguageSwitcher({ locale }: { locale: Locale }) {
   return (
     <button
       onClick={handleSwitch}
-      className="text-sm text-text-muted hover:text-accent transition-colors px-2 py-1"
+      className="w-8 h-8 rounded-full border border-line-default flex items-center justify-center text-xs font-medium text-text-muted hover:text-accent transition-colors"
       aria-label={`Switch to ${altLocale === 'ko' ? 'Korean' : 'English'}`}
     >
       {altLabel}

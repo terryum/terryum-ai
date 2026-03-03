@@ -21,7 +21,7 @@
 - 특히 중요:
   - 명확한 제목/요약/헤딩 구조
   - 안정적 URL + canonical + hreflang
-  - 출처 링크(특히 What I read의 arXiv 원문 링크)
+  - 출처 링크(특히 Research의 arXiv 원문 링크)
   - robots 정책의 의도적 관리(검색 크롤러 차단 실수 금지)
 - v1 기본 정책: OpenAI/Google 관련 크롤러 정책은 허용, 향후 `robots.txt`에서 분리 제어 가능
 
@@ -33,10 +33,10 @@
 - `lang` + `hreflang`
 - robots 기본 `index,follow`
 
-### 포스트 상세 (Write / Read 공통 템플릿)
+### 포스트 상세 (Ideas / Research 공통 템플릿)
 - 공통: 위 항목 + `og:type=article`
 - 권장: `article:published_time`, `article:modified_time`, `article:tag`
-- What I read 추가: 원문 링크(arXiv/출처) 표시, 가능 시 `citation`/`sameAs`
+- Research 추가: 원문 링크(arXiv/출처) 표시, 가능 시 `citation`/`sameAs`
 
 ## 구조화 데이터 (JSON-LD) 규칙
 - v1 기본 타입:

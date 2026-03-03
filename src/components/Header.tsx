@@ -4,19 +4,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 import type { Locale } from '@/lib/i18n';
 
 interface NavItem {
   href: string;
   label: string;
-  mobileLabel: string;
 }
 
 interface HeaderProps {
   locale: Locale;
   dict: {
     nav: { home: string; write: string; read: string; about: string };
-    nav_mobile: { write: string; read: string };
   };
 }
 
@@ -25,10 +24,10 @@ export default function Header({ locale, dict }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { href: `/${locale}`, label: dict.nav.home, mobileLabel: dict.nav.home },
-    { href: `/${locale}/write`, label: dict.nav.write, mobileLabel: dict.nav_mobile.write },
-    { href: `/${locale}/read`, label: dict.nav.read, mobileLabel: dict.nav_mobile.read },
-    { href: `/${locale}/about`, label: dict.nav.about, mobileLabel: dict.nav.about },
+    { href: `/${locale}`, label: dict.nav.home },
+    { href: `/${locale}/write`, label: dict.nav.write },
+    { href: `/${locale}/read`, label: dict.nav.read },
+    { href: `/${locale}/about`, label: dict.nav.about },
   ];
 
   function isActive(href: string) {
@@ -61,25 +60,32 @@ export default function Header({ locale, dict }: HeaderProps) {
                 {item.label}
               </Link>
             ))}
-            <LanguageSwitcher locale={locale} />
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <LanguageSwitcher locale={locale} />
+            </div>
           </nav>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden p-2 text-text-secondary"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          {/* Mobile: icon buttons + hamburger */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <LanguageSwitcher locale={locale} />
+            <button
+              className="p-2 text-text-secondary"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile nav panel */}
@@ -97,12 +103,9 @@ export default function Header({ locale, dict }: HeaderProps) {
                 }`}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
-                {item.mobileLabel}
+                {item.label}
               </Link>
             ))}
-            <div className="px-2">
-              <LanguageSwitcher locale={locale} />
-            </div>
           </nav>
         )}
       </div>

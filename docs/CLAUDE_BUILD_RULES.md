@@ -11,9 +11,8 @@
 - `CURRENT_STATUS.md`는 append 금지, 항상 최신 스냅샷으로 덮어쓰기
 
 ## 2) 구현 절대 규칙
-- `What I write` / `What I read`는 **공용 템플릿**으로 구현
-- 차이는 최소 필드만 허용(예: Read의 arXiv 원문 링크/출처)
-- 모바일 메뉴 라벨은 `Ideas`, `Research` 사용
+- `Ideas` / `Research`는 **공용 템플릿**으로 구현 (경로: `/write`, `/read`)
+- 차이는 최소 필드만 허용(예: Research의 arXiv 원문 링크/출처)
 - i18n 라우팅/언어 fallback은 `I18N_ROUTING.md` 임의 변경 금지
 
 ## 3) 인프라/보안 규칙

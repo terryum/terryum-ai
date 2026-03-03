@@ -7,7 +7,17 @@
       "Bash(timeout 15 npx next:*)",
       "mcp__github__create_repository",
       "Bash(gh auth:*)",
-      "Bash(gh repo:*)"
+      "Bash(gh repo:*)",
+      "mcp__github__list_issues",
+      "Bash(curl:*)",
+      "Bash(npx vercel:*)",
+      "Bash(ipconfig:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(rm:*)",
+      "WebFetch(domain:www.swyx.io)",
+      "WebSearch",
+      "WebFetch(domain:dev.to)"
     ]
   },
   "enableAllProjectMcpServers": true,

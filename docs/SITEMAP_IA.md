@@ -7,15 +7,11 @@
 
 ## 글로벌 내비게이션
 - Home
-- What I write
-- What I read
+- Ideas
+- Research
 - About
 - Language Switcher (KO / EN)
 - Social Links (icon)
-
-모바일 라벨: 
-- What I write → Ideas, 
-- What I read → Research
 
 ## URL 구조 (언어별)
 - `/` : 브라우저 언어 감지 후 `/ko` 또는 `/en`으로 라우팅
@@ -23,8 +19,8 @@
 
 ### 페이지 경로
 - Home: `/ko`, `/en`
-- What I write list: `/ko/write`, `/en/write`
-- What I read list: `/ko/read`, `/en/read`
+- Ideas: `/ko/write`, `/en/write`
+- Research: `/ko/read`, `/en/read`
 - About: `/ko/about`, `/en/about`
 
 ### 상세 포스트 경로
@@ -46,29 +42,29 @@
 - Hero (이름, 한 줄 소개, 프로필 사진)
 - Short Bio (요약 소개)
 - Social Links
-- Latest from What I write (최근 글)
-- Latest from What I read (최근 논문/리포트 요약)
+- Latest Ideas (최근 글)
+- Latest Research (최근 논문/리포트 요약)
 - Newsletter CTA 영역 (v1 폼 연동 예정)
 
-### 2) What I write (목록)
+### 2) Ideas (목록)
 - 페이지 소개 문구
 - 글 카드 리스트 (썸네일, 제목, 요약, 발행일, 태그)
 - 기본 정렬: 최신순
 - 페이지네이션 또는 Load More (구현 방식은 기술 문서에서 결정)
 
-### 2-1) What I write (상세)
+### 2-1) Ideas (상세)
 - 제목 / 메타정보 (날짜, 태그)
 - 본문(MDX/Markdown 렌더링)
 - 언어 전환 링크 (KO/EN 대응 포스트)
 - 이전/다음 글 링크 (옵션)
 
-### 3) What I read (목록)
+### 3) Research (목록)
 - 페이지 소개 문구
 - 글 카드 리스트 (썸네일, 제목, 요약, 발행일, 태그)
 - 기본 정렬: 최신순
 - 페이지네이션 또는 Load More (구현 방식은 기술 문서에서 결
 
-### 3-1) What I read (상세)
+### 3-1) Research (상세)
 - 제목 / 메타정보 (날짜, 태그)
 - 본문(MDX/Markdown 렌더링)
 - 언어 전환 링크 (KO/EN 대응 포스트)

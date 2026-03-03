@@ -22,7 +22,7 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
       <article className="flex gap-4">
         {/* Thumbnail */}
         {post.cover_image && (
-          <div className="hidden sm:block flex-shrink-0 w-24 h-24 relative rounded overflow-hidden bg-gray-100">
+          <div className="hidden sm:block flex-shrink-0 w-24 h-24 relative rounded overflow-hidden bg-bg-surface">
             <Image
               src={post.cover_image}
               alt={post.title}

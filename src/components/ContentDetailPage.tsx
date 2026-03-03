@@ -80,7 +80,7 @@ export default function ContentDetailPage({
 
       {/* Cover image */}
       {meta.cover_image && (
-        <div className="relative w-full aspect-video mb-8 rounded-lg overflow-hidden bg-gray-100">
+        <div className="relative w-full aspect-video mb-8 rounded-lg overflow-hidden bg-bg-surface">
           <Image
             src={meta.cover_image}
             alt={meta.title}
@@ -93,7 +93,7 @@ export default function ContentDetailPage({
       )}
 
       {/* MDX body */}
-      <div className="prose prose-gray max-w-none">
+      <div className="prose max-w-none">
         {children}
       </div>
     </article>

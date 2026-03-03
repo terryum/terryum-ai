@@ -23,9 +23,8 @@
 - 과도한 CMS/복잡한 백엔드 기능은 v1에 넣지 않음
 
 ## 구현 절대 규칙
-- `What I write` / `What I read`는 **공용 템플릿**으로 구현
-- 차이는 최소 필드만 허용 (예: Read의 arXiv 원문 링크/출처)
-- 모바일 메뉴 라벨: `Ideas`, `Research`
+- `Ideas` / `Research`는 **공용 템플릿**으로 구현 (경로: `/write`, `/read`)
+- 차이는 최소 필드만 허용 (예: Research의 arXiv 원문 링크/출처)
 - i18n 라우팅/fallback은 `docs/I18N_ROUTING.md` 기준으로 구현
 
 ## 콘텐츠/자동화 규칙

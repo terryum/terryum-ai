@@ -5,17 +5,29 @@
 - 원칙: 가독성 우선 / 여백 중심 / 무채색 기반 / 포인트 컬러 최소 사용 / 빠른 로딩
 
 ## 핵심 원칙
-1. 배경은 순백색(`#FFFFFF`) 유지
-2. 텍스트/라인은 검정 대신 짙은 회색 사용
+1. 라이트 모드 기본, 다크 모드 지원 (사용자 토글 + 시스템 프리퍼런스)
+2. 텍스트/라인은 검정 대신 짙은 회색 사용 (다크: 밝은 회색)
 3. 카드/그림자 최소화, 여백과 타이포 대비로 위계 구성
-4. 포인트 컬러 `#0D9488`은 링크·활성 상태·강조선 중심으로만 사용
+4. 포인트 컬러(Teal)는 링크·활성 상태·강조선 중심으로만 사용
 5. 단일 컬럼 중심(읽기 폭 제한), 한/영 혼용 가독성 최적화
 
-## 색상 토큰
-- `bg.base #FFFFFF`
-- `text.primary #111827` / `text.secondary #374151` / `text.muted #6B7280`
-- `line.default #E5E7EB` / `line.strong #D1D5DB` / `line.dark #9CA3AF`
-- `accent.primary #0D9488` / `accent.hover #0F766E` / `accent.soft`(필요 시만)
+## 색상 토큰 (라이트/다크 모드)
+| Token | Light | Dark | 비고 |
+|-------|-------|------|------|
+| `bg.base` | `#FFFFFF` | `#111827` | 페이지 배경 |
+| `bg.surface` | `#F9FAFB` | `#1F2937` | 카드/코드블록/칩 배경 |
+| `text.primary` | `#111827` | `#F9FAFB` | 제목/강조 텍스트 |
+| `text.secondary` | `#374151` | `#D1D5DB` | 본문 텍스트 |
+| `text.muted` | `#6B7280` | `#9CA3AF` | 보조/캡션 텍스트 |
+| `line.default` | `#E5E7EB` | `#1F2937` | 기본 구분선 |
+| `line.strong` | `#D1D5DB` | `#374151` | 강한 구분선 |
+| `line.dark` | `#9CA3AF` | `#4B5563` | 진한 구분선 |
+| `accent` | `#0D9488` | `#14B8A6` | 링크/활성 상태/강조 |
+| `accent.hover` | `#0F766E` | `#2DD4BF` | 호버 상태 |
+
+- 모든 text 토큰은 해당 배경 대비 WCAG AA 이상
+- 다크 모드: `[data-theme="dark"]` 셀렉터로 CSS 변수 오버라이드 (Tailwind `dark:` 미사용)
+- 테마 전환: localStorage 저장, 첫 방문 시 `prefers-color-scheme` 따름
 - Teal 사용 범위: 링크, 현재 메뉴/탭, focus ring, blockquote 좌측선, 소수 CTA
 - Teal 금지 범위: 큰 배경면, 카드 배경, 본문 기본 텍스트
 - 화면 전체 Teal 면적 비중 5% 이하 목표
@@ -38,14 +50,13 @@
 - 홈/목록 `max-w-3xl`, 상세 본문 `max-w-2xl ~ max-w-3xl`
 - 단일 컬럼 중심, 패딩: 모바일 `px-4`, 태블릿 `px-6`, 데스크톱 `px-8`
 - 섹션 간격: 기본 24px, 주요 섹션 40~56px
-- 데스크톱 메뉴: `Home / What I write / What I read / About`
-- 모바일 라벨: `What I write → Ideas`, `What I read → Research`
+- 메뉴: `Home / Ideas / Research / About` (PC/모바일 동일)
 - 활성 메뉴: Teal 텍스트 + 얇은 밑줄(또는 상단선) 중 하나만 사용
 - 소셜 아이콘은 헤더/About 상단 배치, 컬러 과장 금지
 
 ## 공통 템플릿 규칙 (중요)
-- `What I write` / `What I read`는 동일한 목록/상세 템플릿 사용
-- 차이는 메타 표시 필드만 허용 (`What I read`에만 원문 링크/arXiv 출처 배지)
+- `Ideas` / `Research`는 동일한 목록/상세 템플릿 사용
+- 차이는 메타 표시 필드만 허용 (`Research`에만 원문 링크/arXiv 출처 배지)
 - 본문 타이포/목차/이미지/구분선 스타일은 공통 유지
 
 ## 컴포넌트 스타일

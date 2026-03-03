@@ -1,13 +1,9 @@
 {
   "nav": {
     "home": "Home",
-    "write": "What I write",
-    "read": "What I read",
-    "about": "About"
-  },
-  "nav_mobile": {
     "write": "Ideas",
-    "read": "Research"
+    "read": "Research",
+    "about": "About"
   },
   "hero": {
     "name": "Terry Taewoong Um",
@@ -37,16 +33,16 @@
     "contact_label": "연락처"
   },
   "write_index": {
-    "title": "What I write",
+    "title": "Ideas",
     "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 생각을 나눕니다."
   },
   "read_index": {
-    "title": "What I read",
+    "title": "Research",
     "description": "관심 있게 읽은 논문과 아티클의 핵심을 정리합니다."
   },
   "home": {
-    "latest_write": "Latest from What I write",
-    "latest_read": "Latest from What I read",
+    "latest_write": "Latest Ideas",
+    "latest_read": "Latest Research",
     "view_all": "전체 보기"
   },
   "detail": {

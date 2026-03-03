@@ -44,7 +44,7 @@ export default async function HomePage({
         {dict.hero.bio_short}
       </p>
 
-      {/* Latest from What I write */}
+      {/* Latest Ideas */}
       <LatestSection
         title={dict.home.latest_write}
         viewAllHref={`/${lang}/write`}
@@ -53,7 +53,7 @@ export default async function HomePage({
         locale={lang}
       />
 
-      {/* Latest from What I read */}
+      {/* Latest Research */}
       <LatestSection
         title={dict.home.latest_read}
         viewAllHref={`/${lang}/read`}
