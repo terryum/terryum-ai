@@ -1,0 +1,23 @@
+{
+  "post_id": "2026-03-03-physical-ai-factory-note",
+  "slug": "physical-ai-factory-note",
+  "status": "published",
+  "locales": [
+    "ko",
+    "en"
+  ],
+  "published_at": "2026-03-03T14:00:00+09:00",
+  "updated_at": "2026-03-03T14:00:00+09:00",
+  "assets": {
+    "cover_image": "cover.webp",
+    "body_images": [
+      "fig-01-robot-cell-overview.png",
+      "fig-02-data-loop-diagram.png"
+    ]
+  },
+  "pipeline": {
+    "dummy_content": true,
+    "cover_generated_mode": "placeholder-local-generated",
+    "meta_generated_at": "2026-03-03T10:29:27.537546"
+  }
+}

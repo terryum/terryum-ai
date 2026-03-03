@@ -1,0 +1,52 @@
+# --- Dependencies ---
+node_modules/
+
+# --- Build outputs ---
+.next/
+out/
+dist/
+build/
+coverage/
+
+# --- Auto-generated from posts ---
+public/posts/
+
+# --- Logs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# --- Environment files (secrets) ---
+.env
+.env.local
+.env*.local
+!.env.example
+
+# --- Vercel / local deployment state ---
+.vercel/
+
+# --- Claude / MCP local-only configs (if created locally) ---
+.mcp.json
+.mcp.local.json
+
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# --- Temp / caches ---
+.tmp/
+temp/
+.cache/
+
+# --- Python (if utility scripts are added later) ---
+__pycache__/
+*.pyc
+.venv/

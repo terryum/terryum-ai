@@ -1,0 +1,18 @@
+import Link from 'next/link';
+
+export default function GlobalNotFound() {
+  return (
+    <div className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8 py-20 text-center">
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">Page Not Found</h1>
+      <p className="text-gray-500 mb-8">
+        The page you requested does not exist.
+      </p>
+      <Link
+        href="/"
+        className="text-sm text-teal-600 hover:text-teal-700 transition-colors underline underline-offset-2"
+      >
+        Back to Home
+      </Link>
+    </div>
+  );
+}

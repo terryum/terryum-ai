@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "home": "Home",
+    "write": "What I write",
+    "read": "What I read",
+    "about": "About"
+  },
+  "nav_mobile": {
+    "write": "Ideas",
+    "read": "Research"
+  },
+  "hero": {
+    "name": "Terry Taewoong Um",
+    "tagline": "AI & Robotics Researcher · Innovating Manufacturing with Physical AI",
+    "bio_short": "I studied robotics at Seoul National University and researched deep learning for human/robot motion at the University of Waterloo. In 2019, I founded ART Lab, a beauty-AI startup that brought AI & Robotics Tech to the beauty industry. In 2024, ART Lab was acquired by Cosmax, the world's #1 cosmetics ODM company. I now lead AI & Robotics Tech at Cosmax, driving manufacturing innovation through Physical AI."
+  },
+  "about": {
+    "title": "About",
+    "bio_detailed": [
+      {
+        "heading": "Starting with Robots",
+        "content": "I built my foundation in robotics studying Mechanical & Aerospace Engineering at Seoul National University. After graduation, I developed defense robots at LIG Nex1 and research robots at KIST, gaining hands-on engineering experience."
+      },
+      {
+        "heading": "Discovering Deep Learning",
+        "content": "At the University of Waterloo, I researched applying deep learning to human and robot motion. This experience convinced me that AI could fundamentally transform robotics."
+      },
+      {
+        "heading": "Founding a Beauty-AI Startup",
+        "content": "In 2019, I left my PhD program and returned to Korea to found ART Lab (AI & Robotics Tech Lab). We brought AI and robotics technology to the beauty industry, creating innovative solutions for skin analysis and personalized cosmetics recommendations."
+      },
+      {
+        "heading": "Cosmax and Physical AI",
+        "content": "After being acquired by Cosmax, the world's #1 cosmetics ODM company, in 2024, I took on the role of AI & Robotics Tech Lead. I'm now on a mission to revolutionize manufacturing with Physical AI, integrating my experiences across robotics, AI, beauty startups, and cosmetics manufacturing."
+      }
+    ],
+    "contact_label": "Contact"
+  },
+  "write_index": {
+    "title": "What I write",
+    "description": "Thoughts on AI, robotics, startups, and manufacturing innovation."
+  },
+  "read_index": {
+    "title": "What I read",
+    "description": "Key takeaways from papers and articles I find interesting."
+  },
+  "home": {
+    "latest_write": "Latest from What I write",
+    "latest_read": "Latest from What I read",
+    "view_all": "View all"
+  },
+  "detail": {
+    "back_to_list": "Back to list",
+    "source_label": "Source",
+    "author_label": "Author",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "fallback_banner": "The English version of this article is not available yet.",
+  "not_found": {
+    "title": "Page Not Found",
+    "description": "The page you requested does not exist.",
+    "back_home": "Back to Home"
+  },
+  "footer": {
+    "copyright": "Terry Um"
+  },
+  "meta": {
+    "site_name": "Terry Um"
+  }
+}
