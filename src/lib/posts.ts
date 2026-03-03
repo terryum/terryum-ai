@@ -27,7 +27,7 @@ function normalizeMeta(data: Record<string, unknown>, slug: string): PostMeta {
     locale: (data.locale as string) || 'ko',
     title: (data.title as string) || 'Untitled',
     summary: (data.summary as string) || '',
-    slug: (data.slug as string) || slug,
+    slug,
     published_at: (data.published_at as string) || new Date().toISOString(),
     updated_at: (data.updated_at as string) || (data.published_at as string) || new Date().toISOString(),
     status: (data.status as 'draft' | 'published') || 'draft',
@@ -72,14 +72,11 @@ export async function getPostsByType(
   contentType: 'writing' | 'reading'
 ): Promise<PostMeta[]> {
   const slugs = await getAllSlugs();
-  const posts: PostMeta[] = [];
-
-  for (const slug of slugs) {
-    const meta = await getPostMeta(slug, locale);
-    if (meta && meta.status === 'published' && meta.content_type === contentType) {
-      posts.push(meta);
-    }
-  }
+  const allMeta = await Promise.all(slugs.map((slug) => getPostMeta(slug, locale)));
+  const posts = allMeta.filter(
+    (meta): meta is PostMeta =>
+      meta !== null && meta.status === 'published' && meta.content_type === contentType
+  );
 
   return posts.sort(
     (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
@@ -116,34 +113,26 @@ export async function getPostAlternateLocale(
 
 export async function getAllPostParams(): Promise<{ lang: string; slug: string }[]> {
   const slugs = await getAllSlugs();
-  const params: { lang: string; slug: string }[] = [];
-
-  for (const slug of slugs) {
-    for (const locale of ['ko', 'en']) {
+  const checks = slugs.flatMap((slug) =>
+    (['ko', 'en'] as const).map(async (locale) => {
       const exists = await postExistsForLocale(slug, locale);
-      if (exists) {
-        params.push({ lang: locale, slug });
-      }
-    }
-  }
-
-  return params;
+      return exists ? { lang: locale as string, slug } : null;
+    })
+  );
+  const results = await Promise.all(checks);
+  return results.filter((r): r is { lang: string; slug: string } => r !== null);
 }
 
 export async function getPostParamsByType(
   contentType: 'writing' | 'reading'
 ): Promise<{ lang: string; slug: string }[]> {
   const slugs = await getAllSlugs();
-  const params: { lang: string; slug: string }[] = [];
-
-  for (const slug of slugs) {
-    for (const locale of ['ko', 'en']) {
+  const checks = slugs.flatMap((slug) =>
+    (['ko', 'en'] as const).map(async (locale) => {
       const meta = await getPostMeta(slug, locale);
-      if (meta && meta.content_type === contentType) {
-        params.push({ lang: locale, slug });
-      }
-    }
-  }
-
-  return params;
+      return meta && meta.content_type === contentType ? { lang: locale as string, slug } : null;
+    })
+  );
+  const results = await Promise.all(checks);
+  return results.filter((r): r is { lang: string; slug: string } => r !== null);
 }

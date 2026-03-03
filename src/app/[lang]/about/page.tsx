@@ -35,11 +35,12 @@ export default async function AboutPage({
     <div className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8 py-10">
       {/* Profile section */}
       <div className="flex flex-col items-center text-center mb-10">
-        <div className="w-32 h-32 relative rounded-full overflow-hidden bg-gray-100 mb-4">
+        <div className="w-32 h-32 relative rounded-full overflow-hidden bg-bg-surface mb-4">
           <Image
             src="/images/profile-placeholder.svg"
             alt={dict.hero.name}
             fill
+            sizes="128px"
             className="object-cover"
             priority
           />

@@ -10,11 +10,12 @@ export default function HeroSection({ name, tagline }: HeroSectionProps) {
   return (
     <section className="flex flex-col sm:flex-row items-center gap-6 py-10">
       {/* Profile photo */}
-      <div className="flex-shrink-0 w-28 h-28 relative rounded-full overflow-hidden bg-gray-100">
+      <div className="flex-shrink-0 w-28 h-28 relative rounded-full overflow-hidden bg-bg-surface">
         <Image
           src="/images/profile-placeholder.svg"
           alt={name}
           fill
+          sizes="112px"
           className="object-cover"
           priority
         />
