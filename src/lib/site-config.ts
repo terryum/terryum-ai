@@ -1,6 +1,6 @@
 export const SITE_CONFIG = {
   name: 'Terry Um',
-  profileImage: '/images/profile-placeholder.svg',
+  profileImage: '/images/profile_terry.jpeg',
   social: {
     github: 'https://github.com/terry-um',
     linkedin: 'https://linkedin.com/in/terryum',
