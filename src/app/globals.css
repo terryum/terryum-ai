@@ -81,6 +81,15 @@ body {
   font-size: 0.875em;
 }
 
+/* Hide scrollbar for gallery scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Skip to content for accessibility */
 .skip-to-content {
   position: absolute;

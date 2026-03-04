@@ -1,63 +1,34 @@
 ---
-post_id: "2505-forcevla-force-aware-moe"
 locale: "ko"
 title: "ForceVLA: 접촉이 많은 조작을 위한 힘 인식 MoE 기반 VLA 모델"
 summary: "기존 VLA 모델이 시각·언어에만 의존해 접촉이 많은 조작에서 한계를 보이는 문제를, 6축 힘-토크 피드백을 Mixture-of-Experts로 융합하는 ForceVLA 프레임워크로 해결한 연구. 5가지 접촉 태스크에서 기존 대비 평균 23.2%p 성능 향상을 달성했다."
-slug: "2505-forcevla-force-aware-moe"
-published_at: "2025-05-28T00:00:00Z"
-updated_at: "2026-03-04T00:00:00Z"
-status: "published"
-content_type: "reading"
-tags:
-  - "Research"
-  - "Robotics"
-  - "VLA"
-  - "Force Sensing"
-  - "Manipulation"
-  - "NeurIPS 2025"
-cover_image: "./cover.webp"
-cover_caption: "Figure 1: Overview of the ForceVLA framework."
 card_summary: "시각·언어에만 의존하던 VLA 모델에 6축 힘-토크 피드백을 MoE로 융합하여, 접촉이 잦은 5가지 로봇 조작에서 기존 대비 평균 23.2%p 성능 향상을 달성했다."
-reading_time_min: 8
-source_url: "https://arxiv.org/abs/2505.22159"
-source_title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
-source_author: "Jiawen Yu et al."
-source_type: "arXiv"
-source_project_url: "https://sites.google.com/view/forcevla2025"
-source_authors_full:
-  - "Jiawen Yu (Fudan University)"
-  - "Hairuo Liu (Shanghai Jiao Tong University)"
-  - "Qiaojun Yu (Shanghai AI Lab)"
-  - "Jieji Ren (Shanghai Jiao Tong University)"
-  - "Ce Hao (National University of Singapore)"
-  - "Haitong Ding (Shanghai University)"
-  - "Guangyu Huang (Xi'an Jiaotong University)"
-  - "Guofan Huang (Fudan University)"
-  - "Yan Song (Fudan University)"
-  - "Panpan Cai (Shanghai Jiao Tong University)"
-  - "Cewu Lu (Shanghai Jiao Tong University)"
-  - "Wenqiang Zhang (Fudan University)"
-references:
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Black et al. (2024)"
-    description: "ForceVLA의 베이스 프레임워크. 비전-언어-행동 flow 모델로, ForceVLA는 이 위에 힘 인식 MoE를 추가한 구조."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control"
-  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
-    author: "Kim et al. (2024)"
-    description: "오픈소스 VLA 모델. 본 논문에서 주요 비교 대상으로 언급."
-    arxiv_url: "https://arxiv.org/abs/2406.09246"
-    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
-  - title: "RT-1: Robotics Transformer for Real-World Control at Scale"
-    author: "Brohan et al. (2022)"
-    description: "대규모 실세계 로봇 데이터 기반 Transformer. VLA 연구의 기반이 된 핵심 선행 연구."
-    arxiv_url: "https://arxiv.org/abs/2212.06817"
-    scholar_url: "https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale"
+terrys_memo: ""
 translation_of: null
 translated_to:
   - "en"
-newsletter_eligible: false
-featured: false
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Black et al. (2024)"
+    description: "ForceVLA의 베이스 프레임워크. 비전-언어-행동 flow 모델로, ForceVLA는 이 위에 힘 인식 MoE를 추가한 구조. 본 논문에서 π₀를 baseline으로 직접 비교."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control"
+    project_url: "https://physicalintelligence.company/blog/pi0"
+    category: "foundational"
+  - title: "RT-1: Robotics Transformer for Real-World Control at Scale"
+    author: "Brohan et al. (2022)"
+    description: "대규모 실세계 로봇 데이터 기반 Transformer. VLA 연구의 기반이 된 핵심 선행 연구로, ForceVLA가 이 계보를 잇는다."
+    arxiv_url: "https://arxiv.org/abs/2212.06817"
+    scholar_url: "https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale"
+    project_url: "https://robotics-transformer1.github.io"
+    category: "foundational"
+  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+    author: "Kim et al. (2024)"
+    description: "오픈소스 VLA 모델. 본 논문에서 주요 비교 대상으로 사용되어 ForceVLA의 힘 인식 융합이 기존 VLA 대비 우위를 보이는 근거."
+    arxiv_url: "https://arxiv.org/abs/2406.09246"
+    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
+    project_url: "https://openvla.github.io/"
+    category: "recent"
 ---
 
 ## TL;DR
@@ -66,9 +37,7 @@ VLA 모델에 힘 감지가 빠져있어 접촉이 많은 조작에서 한계를
 
 ## 문제
 
-기존 Vision-Language-Action(VLA) 모델은 시각과 언어 입력에 주로 의존하며, 물리적 접촉이 중요한 조작 태스크에서 한계를 보인다. 플러그 삽입, 표면 닦기, 오이 껍질 벗기기 같은 태스크는 접촉 단계마다 요구되는 힘의 크기와 방향이 달라지지만, 기존 모델은 이러한 동적 변화를 감지하고 적응하는 메커니즘이 없다.
-
-특히 시각적 가림(occlusion)이 발생하거나 접촉 역학이 불확실한 상황에서, 힘/촉각 피드백 없이는 정밀한 제어가 불가능하다. 기존에도 힘 데이터를 단순 concatenation으로 추가하는 시도가 있었지만, 태스크 단계별로 힘 정보의 중요도가 달라지는 점을 반영하지 못했다.
+기존 Vision-Language-Action(VLA) 모델은 시각과 언어 입력에 주로 의존하며, 물리적 접촉이 중요한 조작 태스크에서 한계를 보인다. 최근 힘 데이터를 단순 concatenation으로 추가하는 시도가 있었지만, 태스크 단계별로 힘 정보의 중요도가 달라지는 점을 반영하지 못했다. 이 논문은 플러그 삽입, 표면 닦기, 오이 껍질 벗기기 같은 접촉 태스크에서 단계별로 요구되는 힘의 크기와 방향이 달라지는 문제, 특히 시각적 가림(occlusion) 상황에서 힘/촉각 피드백 없이는 정밀한 제어가 불가능한 문제를 다룬다.
 
 ## 핵심 아이디어
 
@@ -81,25 +50,44 @@ VLA 모델에 힘 감지가 빠져있어 접촉이 많은 조작에서 한계를
 - **Flow-based Action Head**: 융합된 멀티모달 특징을 element-wise addition으로 행동 생성 헤드에 주입
 - **ForceVLA-Data**: 5가지 태스크, 244개 시연, 14만 타임스텝의 동기화된 비전/고유감각/힘-토크 데이터셋
 
+<Figure src="./fig-4.jpg" alt="Task setup overview" caption="평가에 사용된 태스크 설정 개요. (a) USB 삽입, (b) 펌프 병, (c) 플러그 삽입, (d) 오이 껍질 벗기기, (e) 보드 닦기. 정밀 삽입부터 도구를 이용한 표면 상호작용까지 다양한 접촉 역학과 조작 기술을 포함한다." number={4} />
+
+<Collapsible title="구체적 방법">
+
+ForceVLA의 학습 파이프라인은 크게 세 단계로 구성된다.
+
+**1단계 — 힘 토큰화**: 로봇 엔드이펙터의 6축 힘-토크 센서에서 수집한 raw 데이터(f ∈ R^6)를 선형 투영 레이어를 통해 2048차원 토큰으로 변환한다. 이 토큰은 VLM의 임베딩 공간과 동일한 차원을 가진다.
+
+**2단계 — FVLMoE 융합**: VLM(π₀)이 시각-언어 입력을 처리한 뒤, 그 출력 임베딩과 힘 토큰이 FVLMoE 모듈에 입력된다. 게이팅 네트워크 G(x) = Softmax(W_g · x)가 입력 토큰을 4개 전문가 중 top-1 전문가로 라우팅한다. 각 전문가는 독립적인 FFN(Feed-Forward Network)으로, 서로 다른 태스크 단계에 특화된 융합 패턴을 학습한다.
+
+**3단계 — 행동 생성**: MoE 출력은 element-wise addition으로 flow-based action head에 주입되어 연속적인 로봇 행동(관절 위치/속도)을 생성한다. Flow matching 기반으로 학습하며, 노이즈에서 행동 시퀀스로의 denoising 과정을 거친다.
+
+**학습 전략**: π₀의 사전학습된 가중치는 고정(frozen)하고, FVLMoE 모듈과 힘 토큰화 레이어만 학습한다. 이를 통해 VLM의 사전학습 표현을 보존하면서 힘 정보를 효과적으로 통합한다.
+
+**Load balancing loss**: 전문가 활용의 균형을 위해 auxiliary loss를 추가하여, 특정 전문가에 토큰이 편중되지 않도록 조절한다.
+
+<Figure src="./fig-1.jpg" alt="ForceVLA vs baselines comparison" caption="ForceVLA와 힘 입력 없는 베이스라인 비교. 힘 피드백 없이는 정책이 자세 오류를 교정하지 못하고 삽입을 잘못 완료한다. 반면, ForceVLA는 외부 힘 신호를 활용하여 삽입 전략을 동적으로 조정하며, 초기 정렬 오류에도 불구하고 성공적으로 실행한다." number={1} />
+
+</Collapsible>
+
 ## 주요 결과
 
 - **평균 성공률 60.5%** (5개 접촉 태스크), 힘 없는 π₀-base 대비 **+23.2%p** 향상 (37.3% → 60.5%)
 - **플러그 삽입 태스크 성공률 ~80%**, 단순 힘 concatenation 방식(π₀-base w/ F, 40.2%) 대비 대폭 향상
 - **시각 가림(occlusion) 조건에서 90% 성공률** — 힘 피드백이 시각 정보 부재를 보상함을 입증
 
-## 한계점
+<Figure src="./fig-5.png" alt="Main task success rates" caption="여러 방법의 주요 태스크 성공률. ForceVLA는 5가지 접촉 밀집 태스크에서 모든 베이스라인을 크게 앞선다." number={5} />
 
-### 저자가 언급한 한계점
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- 힘 정보를 단순 concatenation이 아닌 MoE 기반 동적 라우팅으로 융합하는 최초의 VLA 프레임워크
+- 시각적 가림(occlusion) 상황에서도 힘 피드백만으로 90% 성공률 달성, 힘-비전 상보성 입증
+- 244개 시연만으로 접촉 태스크 5종에서 일관된 성능 향상, 소규모 데이터 효율성 시연
+
+### 한계점
 
 - **추정 외력 사용**: 직접 측정이 아닌 추정된 외력 값을 사용하므로, 극도의 촉각 민감도가 요구되는 시나리오에서 정밀도 한계 가능
 - **고가 센서 의존성**: 실험이 통합 힘-토크 센서를 갖춘 고가 로봇 플랫폼(Flexiv Rizon)에서 수행되어 범용 접근성 제한
-
-### AI 분석 한계점
-
-- **소규모 데이터**: 244개 시연(태스크당 ~50개)은 다른 VLA 연구 대비 매우 적은 규모로, 스케일링 시 성능 변화 불확실 (추론)
-- **단일 로봇 플랫폼**: Flexiv Rizon + Dahuan 그리퍼 조합에서만 검증되어, 다른 로봇/그리퍼로의 전이 가능성 미검증 (추론)
-- **제한된 태스크 다양성**: 5개 태스크 모두 테이블탑 조작에 한정, 이동 조작이나 양팔 조작 등 복잡한 시나리오 미포함 (추론)
-
-## Terry's memo
-
-{/* empty */}
+- 🤖 **단일 로봇 플랫폼**: Flexiv Rizon + Dahuan 그리퍼 조합에서만 검증되어, 다른 로봇/그리퍼로의 전이 가능성 미검증

@@ -51,6 +51,12 @@
     "author_label": "저자",
     "view_all_authors": "모든 저자 보기",
     "references_label": "주요 참조 논문",
+    "references_foundational": "근본 참조 논문",
+    "references_recent": "극복 대상 최근 논문",
+    "figures_gallery": "Figures",
+    "tables_gallery": "Tables",
+    "appendix_label": "부록",
+    "terrys_memo_label": "Terry's memo",
     "prev": "이전 글",
     "next": "다음 글"
   },

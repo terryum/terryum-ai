@@ -1,0 +1,150 @@
+{
+  "post_id": "2505-forcevla-force-aware-moe",
+  "slug": "2505-forcevla-force-aware-moe",
+  "published_at": "2025-05-28T00:00:00Z",
+  "updated_at": "2026-03-04T00:00:00Z",
+  "status": "published",
+  "content_type": "reading",
+  "tags": ["Research", "Robotics", "VLA", "Force Sensing", "Manipulation", "NeurIPS 2025"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Overview of our ForceVLA model. Visual and language inputs are processed by a pre-trained VLM to form contextual embeddings. External force signals are projected and fused with VLM outputs via the FVLMoE module. The resulting multimodal features guide a flow-based action head to generate contact-aware robot actions.",
+  "reading_time_min": 8,
+  "source_url": "https://arxiv.org/abs/2505.22159",
+  "source_title": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
+  "source_author": "Jiawen Yu et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://sites.google.com/view/forcevla2025",
+  "source_authors_full": [
+    "Jiawen Yu (Fudan University)",
+    "Hairuo Liu (Shanghai Jiao Tong University)",
+    "Qiaojun Yu (Shanghai AI Lab)",
+    "Jieji Ren (Shanghai Jiao Tong University)",
+    "Ce Hao (National University of Singapore)",
+    "Haitong Ding (Shanghai University)",
+    "Guangyu Huang (Xi'an Jiaotong University)",
+    "Guofan Huang (Fudan University)",
+    "Yan Song (Fudan University)",
+    "Panpan Cai (Shanghai Jiao Tong University)",
+    "Cewu Lu (Shanghai Jiao Tong University)",
+    "Wenqiang Zhang (Fudan University)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.jpg",
+      "caption": "Comparison between ForceVLA and baselines without force input. Without force feedback, the policy fails to correct pose errors and completes insertion incorrectly. In contrast, ForceVLA leverages external force signals to adjust insertion strategies dynamically, leading to successful execution despite initial misalignment.",
+      "caption_ko": "ForceVLA와 힘 입력 없는 베이스라인 비교. 힘 피드백 없이는 정책이 자세 오류를 교정하지 못하고 삽입을 잘못 완료한다. 반면, ForceVLA는 외부 힘 신호를 활용하여 삽입 전략을 동적으로 조정하며, 초기 정렬 오류에도 불구하고 성공적으로 실행한다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.jpg",
+      "caption": "Robot manipulation tasks setting.",
+      "caption_ko": "로봇 조작 태스크 설정.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Overview of our ForceVLA model. Visual and language inputs are processed by a pre-trained VLM to form contextual embeddings. External force signals are projected and fused with VLM outputs via the FVLMoE module. The resulting multimodal features guide a flow-based action head to generate contact-aware robot actions.",
+      "caption_ko": "ForceVLA 모델 개요. 시각·언어 입력을 사전학습된 VLM이 처리하여 문맥 임베딩을 형성한다. 외부 힘 신호는 투영된 후 FVLMoE 모듈을 통해 VLM 출력과 융합된다. 결과 멀티모달 특징이 flow 기반 행동 헤드를 이끌어 접촉 인식 로봇 행동을 생성한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.jpg",
+      "caption": "Overview of task setups used in evaluation. (a) Insert USB, (b) pump bottle, (c) insert plug, (d) peel cucumber, and (e) wipe board. These tasks span diverse contact dynamics and manipulation skills, from precise insertions to tool-mediated surface interactions.",
+      "caption_ko": "평가에 사용된 태스크 설정 개요. (a) USB 삽입, (b) 펌프 병, (c) 플러그 삽입, (d) 오이 껍질 벗기기, (e) 보드 닦기. 정밀 삽입부터 도구를 이용한 표면 상호작용까지 다양한 접촉 역학과 조작 기술을 포함한다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Main task success rates across different methods. ForceVLA significantly outperforms all baselines on five contact-rich tasks.",
+      "caption_ko": "여러 방법의 주요 태스크 성공률. ForceVLA는 5가지 접촉 밀집 태스크에서 모든 베이스라인을 크게 앞선다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.jpg",
+      "caption": "Variants of generalization settings used in our experiments.",
+      "caption_ko": "실험에 사용된 일반화 설정 변형.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.jpg",
+      "caption": "Trajectory visualizations across tasks and conditions.",
+      "caption_ko": "태스크와 조건별 궤적 시각화.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.jpg",
+      "caption": "Our data collection system setup.",
+      "caption_ko": "데이터 수집 시스템 구성.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Open-loop evaluation of expert load across different task completion percentages for various tasks.",
+      "caption_ko": "다양한 태스크에 대해 태스크 완료 비율별 전문가 부하의 오픈루프 평가.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.jpg",
+      "caption": "Key frames from Pump Bottle task videos.",
+      "caption_ko": "펌프 병 태스크 비디오의 주요 프레임.",
+      "number": 10
+    },
+    {
+      "src": "./fig-11.jpg",
+      "caption": "Key frames from Insert USB task videos.",
+      "caption_ko": "USB 삽입 태스크 비디오의 주요 프레임.",
+      "number": 11
+    },
+    {
+      "src": "./fig-12.jpg",
+      "caption": "Key frames from Wipe Board task videos.",
+      "caption_ko": "보드 닦기 태스크 비디오의 주요 프레임.",
+      "number": 12
+    },
+    {
+      "src": "./fig-13.jpg",
+      "caption": "Key frames from Insert Plug task videos.",
+      "caption_ko": "플러그 삽입 태스크 비디오의 주요 프레임.",
+      "number": 13
+    },
+    {
+      "src": "./fig-14.jpg",
+      "caption": "Key frames from Insert Plug Generalization task 1 videos.",
+      "caption_ko": "플러그 삽입 일반화 태스크 1 비디오의 주요 프레임.",
+      "number": 14
+    },
+    {
+      "src": "./fig-15.jpg",
+      "caption": "Key frames from Insert Plug Generalization task 2 videos.",
+      "caption_ko": "플러그 삽입 일반화 태스크 2 비디오의 주요 프레임.",
+      "number": 15
+    },
+    {
+      "src": "./fig-16.jpg",
+      "caption": "Key frames from Insert Plug Generalization task 3 videos.",
+      "caption_ko": "플러그 삽입 일반화 태스크 3 비디오의 주요 프레임.",
+      "number": 16
+    },
+    {
+      "src": "./fig-17.jpg",
+      "caption": "Key frames from Insert Plug Occlusion task 1 videos.",
+      "caption_ko": "플러그 삽입 시각 가림 태스크 1 비디오의 주요 프레임.",
+      "number": 17
+    },
+    {
+      "src": "./fig-18.jpg",
+      "caption": "Key frames from Insert Plug Occlusion task 2 videos.",
+      "caption_ko": "플러그 삽입 시각 가림 태스크 2 비디오의 주요 프레임.",
+      "number": 18
+    },
+    {
+      "src": "./fig-19.jpg",
+      "caption": "Key frames from Insert Plug Unstable task videos.",
+      "caption_ko": "플러그 삽입 불안정 태스크 비디오의 주요 프레임.",
+      "number": 19
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

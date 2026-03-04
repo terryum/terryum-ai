@@ -14,6 +14,7 @@
    - 결과 숫자는 표/본문/캡션에서 확인된 수치만 사용
    - 불확실하면 `확인 불가` 또는 `추정` 명시
 3. **허위 수치 생성 절대 금지**
+4. **Figure 캡션 원문 전체 작성** — 생략/축약 금지, 원문 캡션 그대로
 
 ---
 
@@ -25,26 +26,54 @@
 - **문제 + key insight** 위주, 수치 불필요
 - 예: "VLA 모델에 힘 감지가 빠져있어 접촉이 많은 조작에서 한계를 보이는 문제를, MoE 기반 힘-비전-언어 융합으로 해결했다."
 
-### 2. 문제 (Problem / Why now?)
-- 기존 한계, 왜 지금 중요한지, 논문의 문제 정의
+### 2. 문제 (1문단 압축)
+- **3-beat 구조**: 기존 한계 → 최근 연구 한계 → 이 논문이 다루는 문제
+- 3-5문장, 1문단으로 압축
 
-### 3. 핵심 아이디어 (Key Idea)
-- 기존 대비 차별점 1-2문장 + 핵심 구성 요소 bullet
+### 3. 핵심 아이디어
+- 기존 대비 차별점 설명 + 핵심 구성 요소 bullet
+- **본문 이미지 1장** 포함: `<Figure src="./fig-N.png" caption="Figure N: ..." />`
+- 캡션은 **원문 전체** 작성 (절대 생략/축약 금지)
 
-### 4. 주요 결과 (숫자 1-3개)
-- 가장 중요한 정량 결과 + baseline 비교
+### 4. 구체적 방법 (Collapsible)
+- `<Collapsible title="구체적 방법">` 으로 래핑 (기본 접혀있음)
+- 내용: 알고리즘 상세, cost function, 수식, 학습 전략 등
+- 본문 이미지 1장 포함 가능 (선택)
+- 관심 있는 독자가 펼쳐서 읽는 용도
+
+### 5. 주요 결과
+- 가장 중요한 정량 결과 bullet (수치 1-3개)
+- baseline 비교 포함
+- **주요 표 이미지 1장**: `<Figure src="./tab-N.png" caption="Table N: ..." />`
 - 수치 출처를 표/본문/캡션에서 확인
 
-### 5. 한계점
-- **저자 언급 한계**: future work / discussion 기반
-- **AI 분석 한계**: 재현성/범용성/실제적용성/비교공정성 관점 (추론임 명시)
+### 6. 달성점과 한계점
+- **새롭게 달성한 점**: 이 논문이 기존 대비 새롭게 이룬 것 (2-3개 bullet)
+- **한계점**:
+  - 저자 언급 한계: future work / discussion 기반
+  - AI 분석 한계: 1개만, `🤖` 표시 (재현성/범용성/실제적용성/비교공정성 관점)
 
-### 6. Terry's memo
-- 기본값 비워두기 (`{/* empty */}`)
+### 7. Terry's memo
+- 비어있으면 `- *(None)*` 출력
+
+### 8-9. (MDX 바깥, 자동 렌더링)
+- **Key References**: frontmatter `references` 기반, `foundational`/`recent` 카테고리 분리
+- **Figure 갤러리 + Table 갤러리**: frontmatter `figures`/`tables` 기반
 
 ---
 
 ## 추출 규칙
+
+### 1저자 Google Scholar URL 추출
+- Google Scholar에서 논문 제목 검색 → 1저자 프로필 링크 추출
+- 못 찾으면 빈 값 (SourceInfoBlock에서 비활성화)
+- frontmatter 키: `first_author_scholar_url`
+
+### Figure/Table 전수 추출
+- **소스 우선순위**: arXiv HTML > PDF fallback
+- 모든 figure → `fig-N.png`, 모든 table → `tab-N.png`
+- 각 항목의 캡션 원문 전체 기록 (frontmatter `figures`/`tables` 배열)
+- 캡션 생략/축약 절대 금지
 
 ### 주요 결과 추출
 - 우선순위: 결과 표 > 실험 문단 > 그림 캡션 > Abstract
@@ -52,14 +81,18 @@
 
 ### 한계점 추출
 - **A. 저자 언급**: Limitations, Discussion, Future Work, Conclusion에 근거
-- **B. AI 분석**: 재현성/범용성/실제적용성/비교공정성에서만 추론, `(추론)` 표기
+- **B. AI 분석**: 1개만, 재현성/범용성/실제적용성/비교공정성에서 선택, `🤖` 표기
 
-### 주요 참조논문 선택 (1-3개)
-- 본문에서 자주 언급된 비교 대상 / 핵심 baseline / 직접 선행연구
-- 각 항목 필드: `title`, `author` (`"First Author et al. (YYYY)"`), `description`, `arxiv_url`, `scholar_url`
+### 주요 참조논문 선택
+- **근본 참조 (foundational)**: 2-3개 — 연구의 기반이 되는 핵심 선행 연구
+- **극복 대상 (recent)**: 1-2개 — 이 논문이 직접 비교/극복하려는 최근 연구
+- 각 항목 필드: `title`, `author`, `description`, `arxiv_url`, `scholar_url`, `category`
+- `description`: 논문 요약 + **현재 논문에서 어떤 맥락으로 언급했는지** (데스크톱 약 2줄)
 
-### 본문 이미지 선택 (`fig-*.png`, 1-3개)
-- 우선순위: 실험 장면(실사진) > overview 이미지 > qualitative results
+### 본문 이미지 선택 (MDX 본문에 삽입할 것)
+- 핵심 아이디어 섹션: overview/framework 이미지 1장
+- 주요 결과 섹션: 주요 결과 표 이미지 1장
+- 구체적 방법 섹션: 상세 아키텍처/알고리즘 이미지 1장 (선택)
 
 ---
 

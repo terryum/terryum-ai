@@ -1,3 +1,21 @@
+export interface FigureItem {
+  src: string;
+  caption: string;
+  caption_ko?: string;
+  number: number;
+}
+
+export interface Reference {
+  title: string;
+  author?: string;
+  description: string;
+  arxiv_url?: string;
+  scholar_url?: string;
+  project_url?: string;
+  post_slug?: string;
+  category?: 'foundational' | 'recent';
+}
+
 export interface PostMeta {
   post_id: string;
   locale: string;
@@ -23,17 +41,16 @@ export interface PostMeta {
   source_type?: string;
   source_project_url?: string;
   source_authors_full?: string[];
+  first_author_scholar_url?: string;
   // Key references
-  references?: {
-    title: string;
-    author?: string;
-    description: string;
-    arxiv_url?: string;
-    scholar_url?: string;
-  }[];
+  references?: Reference[];
+  // Figure/Table galleries
+  figures?: FigureItem[];
+  tables?: FigureItem[];
   // Translation tracking
   translation_of?: string | null;
   translated_to?: string[];
+  terrys_memo?: string;
   newsletter_eligible?: boolean;
   featured?: boolean;
 }

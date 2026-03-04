@@ -16,6 +16,12 @@
 - 문서 내용을 재서술하지 말고, 필요한 제약조건만 유지한다.
 - 세부 규칙 충돌/모호함이 있으면 해당 전용 문서를 다시 확인한다.
 
+## Research 포스팅 fast path
+- arXiv 링크 + "포스팅 해줘" 요청 시:
+  1. `memory/posting-pipeline.md` **하나만** 읽고 바로 실행
+  2. `docs/00_READ_FIRST.md`, `docs/POSTING_WORKFLOW.md` 읽지 않음
+  3. 요약 톤/규칙이 변경됐다는 지시가 있을 때만 `docs/RESEARCH_SUMMARY_RULES.md` 참조
+
 ## v1 범위 (절대)
 - v1은 **자체사이트만 개발**
 - **뉴스레터/Substack 기능은 v2** (v1에 구현하지 않음)
