@@ -44,11 +44,11 @@ export default function ContentDetailPage({
   const localizedFigures = localizeGalleryItems(meta.figures, locale);
   const localizedTables = localizeGalleryItems(meta.tables, locale);
 
-  // Resolve cover caption with i18n: match cover_image against figures[], fallback to cover_caption
+  // Resolve cover caption with i18n: match cover_caption text against figures[], fallback to cover_caption as-is
   let coverCaption = meta.cover_caption;
   let coverFigureNumber: number | undefined;
-  if (meta.cover_image && meta.figures) {
-    const match = meta.figures.find((f) => f.src === meta.cover_image);
+  if (meta.cover_caption && meta.figures) {
+    const match = meta.figures.find((f) => f.caption === meta.cover_caption);
     if (match) {
       coverCaption = locale === 'ko' && match.caption_ko ? match.caption_ko : match.caption;
       coverFigureNumber = match.number;
