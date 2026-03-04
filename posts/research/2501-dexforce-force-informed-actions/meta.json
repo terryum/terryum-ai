@@ -1,0 +1,84 @@
+{
+  "post_id": "2501-dexforce-force-informed-actions",
+  "slug": "2501-dexforce-force-informed-actions",
+  "published_at": "2025-01-17T00:00:00Z",
+  "updated_at": "2026-03-05T00:00:00Z",
+  "status": "published",
+  "content_type": "reading",
+  "tags": ["Research", "Robotics", "Dexterous Manipulation", "Force Control", "Imitation Learning", "RA-L 2025"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "The DexForce two-stage demonstration collection procedure, illustrated with a one-finger task where the robot must slide a purple square along a fixed surface to the red goal region. Note: visualization shows −f, the contact force exerted by the object onto the finger.",
+  "reading_time_min": 7,
+  "source_url": "https://arxiv.org/abs/2501.10356",
+  "source_title": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
+  "source_author": "Claire Chen et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://clairelc.github.io/dexforce.github.io/",
+  "source_authors_full": [
+    "Claire Chen (Stanford University)",
+    "Zhongchun Yu (Stanford University)",
+    "Hojung Choi (Stanford University)",
+    "Mark Cutkosky (Stanford University)",
+    "Jeannette Bohg (Stanford University)"
+  ],
+  "first_author_scholar_url": "https://scholar.google.com/citations?user=87H5EdIAAAAJ&hl=en",
+  "figures": [
+    {
+      "src": "./fig-1.jpg",
+      "caption": "DexForce extracts force-informed actions (orange squares) from kinesthetic demonstrations by augmenting observed robot positions (blue circles) according to contact forces (orange arrows) measured with 6-axis force-torque sensors (green). Executing force-informed actions allows the robot to reproduce forces applied in the kinesthetic demonstration, thereby executing the task. DexForce enables collection of high-quality demonstrations for training policies on contact-rich tasks like unscrewing a nut, opening an AirPods case and flipping a box.",
+      "caption_ko": "DexForce는 6축 힘-토크 센서(초록)로 측정한 접촉 힘(주황 화살표)에 따라 관찰된 로봇 위치(파란 원)를 보정하여 힘 정보 기반 행동(주황 사각형)을 추출한다. 힘 정보 기반 행동을 실행하면 로봇이 kinesthetic 시연에서 가해진 힘을 재현하여 태스크를 수행할 수 있다. DexForce는 너트 풀기, AirPods 케이스 열기, 상자 뒤집기 같은 접촉 밀집 태스크의 고품질 시연 수집을 가능하게 한다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.jpg",
+      "caption": "The left column shows kinesthetic demonstrations where the operator applies a small force and a larger force to a surface. In both scenarios, even though different amounts of force are applied, the current fingertip position recorded during demonstrations is the same. The difference between observed fingertip positions and force-informed targets is proportional to contact force f. Note: visualization shows −f, the contact force exerted by the object onto the finger.",
+      "caption_ko": "왼쪽 열은 작업자가 표면에 작은 힘과 큰 힘을 가하는 kinesthetic 시연을 보여준다. 두 시나리오 모두 다른 크기의 힘이 가해지지만, 시연 중 기록되는 현재 손끝 위치는 동일하다. 관찰된 손끝 위치와 힘 정보 기반 목표 사이의 차이는 접촉 힘 f에 비례한다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.jpg",
+      "caption": "The DexForce two-stage demonstration collection procedure, illustrated with a one-finger task where the robot must slide a purple square along a fixed surface to the red goal region. Note: visualization shows −f, the contact force exerted by the object onto the finger.",
+      "caption_ko": "DexForce 2단계 시연 수집 절차. 로봇이 보라색 사각형을 고정 표면 위에서 빨간 목표 영역까지 밀어야 하는 한 손가락 태스크로 설명한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.jpg",
+      "caption": "Task names, descriptions, example trajectories, success criteria, and number of training demonstrations.",
+      "caption_ko": "태스크 이름, 설명, 예시 궤적, 성공 기준, 학습 시연 횟수.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.jpg",
+      "caption": "In demonstrations, objects are randomly initialized within green regions. For in-distribution evaluations, 30 initial poses are sampled from these regions. For unscrew nut demonstrations, mount position is fixed and initial nut rotation randomized between 0°-360°. OOD scenarios: For unscrew nut, initial rotation between 360°-900°. For flip box, the box is 100g heavier.",
+      "caption_ko": "시연에서 물체는 초록 영역 내에서 무작위로 초기화된다. In-distribution 평가에서는 30개 초기 자세를 해당 영역에서 샘플링한다. OOD 시나리오: 너트 풀기는 초기 회전 360°-900°, 상자 뒤집기는 100g 더 무거운 상자를 사용한다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.jpg",
+      "caption": "Hardware setup - Robot: Allegro hand; Camera: wrist-mounted RealSense D435 (blue), capturing RGB images, with fisheye lens attachment (pink) increasing field of view to capture entire hand workspace; Force-torque sensors: Two CoinFT sensors (green) mounted at bases of thumb and index finger, recording 6-axis force-torque measurements.",
+      "caption_ko": "하드웨어 구성 - 로봇: Allegro 핸드; 카메라: 손목 장착 RealSense D435(파란색), 어안 렌즈 부착(분홍)으로 전체 작업 공간 촬영; 힘-토크 센서: 엄지와 검지 손가락 기저부에 장착된 두 개의 CoinFT 센서(초록), 6축 힘-토크 측정.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Using force-informed actions to train policies is critical for policy learning success. Policies trained directly on observed fingertip positions, which do not account for contact forces, have near-zero success rates.",
+      "caption_ko": "힘 정보 기반 행동으로 정책을 학습시키는 것이 정책 학습 성공에 결정적이다. 접촉 힘을 고려하지 않고 관찰된 손끝 위치로 직접 학습한 정책은 성공률이 거의 0%이다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "Force observation ablation results for six in-distribution evaluations (first three rows) and two out-of-distribution (OOD) evaluations (bottom row). Success rate increase or decrease from RGB-only policies to RGB, F/T and RGB, 0/1 policies is shown with arrows between bars. Asterisk denotes statistical significance (Fisher's exact test, α = 0.05). Tasks are ordered from highest to lowest success rate increase from RGB-only to RGB, F/T.",
+      "caption_ko": "6개 in-distribution 평가(상단 3행)와 2개 out-of-distribution(OOD) 평가(하단)의 힘 관측 ablation 결과. RGB 전용 정책에서 RGB+F/T 및 RGB+0/1 정책으로의 성공률 증감이 화살표로 표시된다. 별표는 통계적 유의성(Fisher 정확 검정, α = 0.05)을 나타낸다.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Sensitivity analysis of kf for each task. Each bar represents average ranges of kf resulting in successful DexForce demonstrations, across five unique kinesthetic demonstrations. Standard deviations of minimum and maximum kf values are also shown.",
+      "caption_ko": "각 태스크에 대한 kf 민감도 분석. 각 막대는 5개의 고유한 kinesthetic 시연에서 DexForce 시연이 성공하는 kf 범위의 평균을 나타낸다. 최솟값과 최댓값의 표준편차도 표시된다.",
+      "number": 9
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

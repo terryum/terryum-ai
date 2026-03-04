@@ -1,0 +1,100 @@
+---
+locale: "en"
+title: "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation"
+summary: "DexForce leverages contact forces from kinesthetic demonstrations to compute force-informed action targets for dexterous manipulation. Across six tasks, policies trained with force-informed actions achieve 76% average success rate, while policies ignoring contact forces achieve near-zero success."
+card_summary: "DexForce computes force-informed actions from kinesthetic demonstrations using a simple spring model — 76% success across 6 dexterous tasks vs. near-zero without force."
+translation_of: "2501-dexforce-force-informed-actions:ko"
+terrys_memo: ""
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al."
+    description: "The policy learning backbone of DexForce. A visuomotor policy framework that generates actions via a diffusion process from observation-action pairs, which DexForce builds upon to learn force-informed actions."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    category: "foundational"
+  - title: "Impedance Control: An Approach to Manipulation"
+    author: "Hogan"
+    description: "The foundational control theory behind DexForce. Defines position-force relationships via spring-damper models, providing the theoretical basis for DexForce's force-informed target computation."
+    scholar_url: "https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan"
+    category: "foundational"
+  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+    author: "Zhao et al."
+    description: "The ACT framework for learning fine-grained bimanual manipulation with low-cost hardware. A representative teleoperation-based demonstration approach that DexForce compares against to show kinesthetic teaching advantages."
+    arxiv_url: "https://arxiv.org/abs/2304.13705"
+    category: "foundational"
+  - title: "ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture System"
+    author: "Liu et al."
+    description: "Force-centric imitation learning using external motion capture. Similarly uses force information for policy learning, but relies on external capture systems rather than DexForce's direct kinesthetic teaching approach."
+    arxiv_url: "https://arxiv.org/abs/2404.04298"
+    category: "recent"
+  - title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
+    author: "Yu et al."
+    description: "Combines force-aware MoE with VLA models for contact-rich manipulation. While DexForce focuses on contact forces at the dexterous hand level, ForceVLA fuses external forces with VLMs at the robot arm level."
+    arxiv_url: "https://arxiv.org/abs/2505.22159"
+    post_slug: "2505-forcevla-force-aware-moe"
+    category: "recent"
+---
+
+## TL;DR
+
+DexForce computes force-informed action targets from contact forces measured during kinesthetic demonstrations. A single spring model parameter achieves 76% average success across six dexterous manipulation tasks, while policies ignoring forces achieve near-zero success.
+
+## Problem
+
+Dexterous manipulation requires applying proper forces at correct contact locations and timings. Teleoperation-based demonstration collection suffers from two fundamental limitations: (1) kinematic differences between human and robot hands make intuitive control difficult, and (2) lack of haptic feedback makes force regulation impossible. As a result, observed robot fingertip positions alone lose critical force information — the same position is recorded regardless of how much force is applied during contact. DexForce addresses this by combining kinesthetic teaching with 6-axis force-torque sensors.
+
+## Key Idea
+
+DexForce's core insight is remarkably simple: **offset target positions proportionally to contact forces**.
+
+- **Spring model**: `xf = xo + kf·f` — adds force (f) × stiffness coefficient (kf) to observed position (xo) to compute force-informed target (xf)
+- **Single parameter**: kf = 0.0045 applied identically across all tasks (no task-specific tuning required)
+- **Two-stage demonstration**: (1) Kinesthetic teaching records position + force → computes force-informed targets, (2) Robot-only replay collects training observations (operator hand removed)
+- **Impedance control execution**: Learned policy outputs force-informed targets, and the impedance controller naturally generates appropriate contact forces
+
+<Figure src="./fig-1.jpg" caption="DexForce extracts force-informed actions (orange squares) from kinesthetic demonstrations by augmenting observed robot positions (blue circles) according to contact forces (orange arrows) measured with 6-axis force-torque sensors (green)." number={1} />
+
+<Collapsible title="Detailed Method">
+
+### Cartesian Impedance Control
+
+DexForce builds on Cartesian impedance control. Control force is computed as `F = kp(xd - xc) - kv(ẋc)` (kp=310, kv=2), converted to joint torques via `τ = J^T·F + g`.
+
+### Force-Informed Target Computation
+
+During kinesthetic demonstrations, fingertip positions and contact forces are recorded simultaneously. The key observation is that under impedance control, observed positions during contact differ from actual targets — because the contacted object pushes the fingertip back. The spring model `xf = xo + kf·f` compensates for this difference.
+
+### Two-Stage Demonstration Collection
+
+**Stage 1**: Records T-timestep position and force sequences from kinesthetic demonstration, computes force-informed target sequence via the spring model.
+
+**Stage 2**: Replays the computed target sequence through the impedance controller while recording robot-only observations (RGB, force, moments). This stage produces data under identical conditions to test time (no operator hand in scene).
+
+<Figure src="./fig-4.jpg" caption="Task names, descriptions, example trajectories, success criteria, and number of training demonstrations." number={4} />
+
+### Policy Architecture
+
+Uses CNN-based Diffusion Policy with ResNet18 image encoder. Observations consist of RGB images + 6-axis force-torque data, recorded at 30Hz → downsampled to 10Hz, with observation horizon 2, action prediction horizon 16, and execution horizon 8 timesteps.
+
+</Collapsible>
+
+## Main Results
+
+- **Force-informed actions are critical**: 76% average success rate across six tasks. Policies trained on observed positions without force achieve **near-zero** success — contact occurs but necessary forces are not generated
+- **Force observations help**: RGB + 6-axis force outperforms RGB-only on all tasks. Statistically significant improvements on AirPods opening (10% → 70%, +60%p) and nut unscrewing (33% → 78%, +45%p). Binary contact signals (0/1) underperform 6-axis force data on all tasks
+- **kf sensitivity**: Single kf=0.0045 falls within the permissible range for all six tasks. Precision tasks (AirPods, nut) have narrower permissible ranges, consistent with which tasks benefit most from force observations
+
+<Figure src="./fig-7.png" caption="Using force-informed actions to train policies is critical for policy learning success. Policies trained directly on observed fingertip positions, which do not account for contact forces, have near-zero success rates." number={7} />
+
+## Achievements and Limitations
+
+**Achievements**
+- A single spring model with one parameter achieves consistent performance across six diverse dexterous manipulation tasks
+- Systematically demonstrates that force information matters in both actions and observations through controlled experiments
+- Effective policy learning from as few as 5-10 demonstrations
+
+**Limitations**
+- Kinesthetic teaching is limited to one demonstration per operator session, making large-scale data collection inefficient
+- Only two fingers can be simultaneously controlled (physical constraint of hand-guided demonstration)
+- Performance degrades in OOD settings (~50% success), showing generalization limitations
+
+🤖 The spring model's simplicity is both its strength and limitation. It works empirically without explicitly modeling soft contact or friction, but may struggle with more complex contact dynamics (e.g., deformable object manipulation). Additionally, the CoinFT 6-axis force-torque sensors are required hardware, limiting applicability to existing robot systems without such sensors.
