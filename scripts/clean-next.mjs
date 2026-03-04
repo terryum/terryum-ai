@@ -1,8 +1,11 @@
 import { rm } from 'fs/promises';
 
 try {
-  await rm('.next', { recursive: true, force: true });
-  console.log('Cleaned .next cache');
+  await Promise.all([
+    rm('.next', { recursive: true, force: true }),
+    rm('tsconfig.tsbuildinfo', { force: true }),
+  ]);
+  console.log('Cleaned .next cache + tsconfig.tsbuildinfo');
 } catch {
-  // directory may not exist — no-op
+  // files may not exist — no-op
 }

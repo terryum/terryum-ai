@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import TagChip from './TagChip';
 import SourceInfoBlock from './SourceInfoBlock';
 import AppendixSection from './AppendixSection';
+import Figure from './Figure';
 import LanguageSwitcher from './LanguageSwitcher';
 import { localizeGalleryItems } from '@/lib/localize';
 import type { PostMeta } from '@/types/post';
@@ -43,6 +43,17 @@ export default function ContentDetailPage({
 
   const localizedFigures = localizeGalleryItems(meta.figures, locale);
   const localizedTables = localizeGalleryItems(meta.tables, locale);
+
+  // Resolve cover caption with i18n: match cover_image against figures[], fallback to cover_caption
+  let coverCaption = meta.cover_caption;
+  let coverFigureNumber: number | undefined;
+  if (meta.cover_image && meta.figures) {
+    const match = meta.figures.find((f) => f.src === meta.cover_image);
+    if (match) {
+      coverCaption = locale === 'ko' && match.caption_ko ? match.caption_ko : match.caption;
+      coverFigureNumber = match.number;
+    }
+  }
 
   return (
     <article className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8 py-10">
@@ -97,24 +108,13 @@ export default function ContentDetailPage({
 
       {/* Cover image */}
       {meta.cover_image && (
-        <figure className="mb-8">
-          <div className="rounded-lg overflow-hidden bg-bg-surface flex justify-center">
-            <Image
-              src={meta.cover_image}
-              alt={meta.title}
-              width={1200}
-              height={675}
-              className="w-full h-auto max-h-96 object-contain"
-              sizes="(max-width: 768px) 100vw, 672px"
-              priority
-            />
-          </div>
-          {meta.cover_caption && (
-            <figcaption className="text-sm text-text-muted text-left mt-2">
-              {meta.cover_caption}
-            </figcaption>
-          )}
-        </figure>
+        <Figure
+          src={meta.cover_image}
+          caption={coverCaption || ''}
+          alt={meta.title}
+          number={coverFigureNumber}
+          isCover
+        />
       )}
 
       {/* MDX body */}

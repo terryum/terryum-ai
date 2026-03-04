@@ -63,7 +63,7 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
                 sizes="224px"
               />
             </div>
-            <p className="text-xs text-text-muted text-left mt-1.5 line-clamp-2 leading-relaxed min-h-[2.75rem]">
+            <p className="text-xs text-text-muted text-left mt-1 line-clamp-2">
               {item.caption}
             </p>
           </button>

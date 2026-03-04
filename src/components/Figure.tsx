@@ -10,22 +10,28 @@ interface FigureProps {
   caption: string;
   alt?: string;
   number?: number;
+  priority?: boolean;
+  isCover?: boolean;
 }
 
-export default function Figure({ src, caption, alt, number }: FigureProps) {
+export default function Figure({ src, caption, alt, number, priority, isCover }: FigureProps) {
   const [open, setOpen] = useState(false);
+
+  const imgWidth = isCover ? 1200 : FIGURE_DIMENSIONS.width;
+  const imgHeight = isCover ? 675 : FIGURE_DIMENSIONS.height;
 
   return (
     <>
-      <figure className="my-6 cursor-pointer group" onClick={() => setOpen(true)}>
+      <figure className={`${isCover ? 'mb-8' : 'my-6'} cursor-pointer group`} onClick={() => setOpen(true)}>
         <div className="rounded-lg overflow-hidden bg-bg-surface flex justify-center relative">
           <Image
             src={src}
             alt={alt || caption}
-            width={FIGURE_DIMENSIONS.width}
-            height={FIGURE_DIMENSIONS.height}
+            width={imgWidth}
+            height={imgHeight}
             className="w-full h-auto max-h-96 object-contain"
             sizes="(max-width: 768px) 100vw, 672px"
+            priority={priority ?? isCover}
           />
           <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/10 transition-colors">
             <svg

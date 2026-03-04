@@ -36,7 +36,7 @@ export default function ContentIndexPage({
   return (
     <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-10">
       <h1 className="text-2xl font-bold text-text-primary tracking-tight">{title}</h1>
-      <p className="text-text-muted mt-2 mb-8">{description}</p>
+      <p className="text-sm text-text-muted mt-2 mb-8">{description}</p>
 
       {allTags && filterDict ? (
         <FilterablePostList

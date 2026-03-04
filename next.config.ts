@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
   },
+  webpack(config) {
+    // Limit parallelism to reduce Windows worker memory pressure
+    config.parallelism = 2;
+    return config;
+  },
   async headers() {
     return [
       {
