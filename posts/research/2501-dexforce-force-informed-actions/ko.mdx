@@ -1,0 +1,99 @@
+---
+locale: "ko"
+title: "DexForce: Kinesthetic 시연의 접촉 힘을 활용한 Dexterous Manipulation"
+summary: "접촉 밀집 dexterous manipulation에서 kinesthetic 시연의 힘 정보를 활용해 force-informed action을 계산하는 DexForce를 제안한다. 6개 태스크에서 평균 76% 성공률을 달성했으며, 힘을 고려하지 않은 정책은 거의 0% 성공률을 보였다."
+card_summary: "Kinesthetic 시연의 접촉 힘으로 force-informed action을 계산하는 DexForce — 6개 태스크 평균 76% 성공, 힘 미사용 시 거의 0%."
+terrys_memo: ""
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al."
+    description: "DexForce의 정책 학습 backbone. 관측-행동 쌍에서 diffusion 과정으로 행동을 생성하는 visuomotor 정책 프레임워크로, DexForce는 이를 기반으로 force-informed action을 학습한다."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    category: "foundational"
+  - title: "Impedance Control: An Approach to Manipulation"
+    author: "Hogan"
+    description: "DexForce의 제어 기반이 되는 impedance control의 고전 이론. 위치-힘 관계를 스프링-댐퍼 모델로 정의하며, DexForce의 force-informed target 계산의 이론적 토대를 제공한다."
+    scholar_url: "https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan"
+    category: "foundational"
+  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+    author: "Zhao et al."
+    description: "저비용 하드웨어로 양팔 섬세한 조작을 학습하는 ACT 프레임워크. 텔레오퍼레이션 기반 시연 수집의 대표적 접근으로, DexForce가 kinesthetic 시연의 우위를 비교하는 맥락에서 참조한다."
+    arxiv_url: "https://arxiv.org/abs/2304.13705"
+    category: "foundational"
+  - title: "ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture System"
+    author: "Liu et al."
+    description: "힘-모션 캡처 시스템을 이용한 force-centric imitation learning. DexForce와 유사하게 힘 정보를 학습에 활용하지만, 외부 모션 캡처에 의존하는 반면 DexForce는 직접 kinesthetic teaching으로 힘을 측정한다."
+    arxiv_url: "https://arxiv.org/abs/2404.04298"
+    category: "recent"
+  - title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
+    author: "Yu et al."
+    description: "VLA 모델에 힘 인식 MoE를 결합한 최근 연구. DexForce가 dexterous hand의 접촉 힘에 집중하는 반면, ForceVLA는 로봇 팔 단위에서 외부 힘을 VLM과 융합하는 접근을 취한다."
+    arxiv_url: "https://arxiv.org/abs/2505.22159"
+    post_slug: "2505-forcevla-force-aware-moe"
+    category: "recent"
+---
+
+## TL;DR
+
+Kinesthetic 시연에서 측정한 접촉 힘으로 force-informed action target을 계산하는 DexForce를 제안한다. 간단한 스프링 모델 하나로 6개 dexterous manipulation 태스크에서 평균 76% 성공률을 달성하며, 힘을 무시한 정책 대비 압도적 차이를 보인다.
+
+## 문제
+
+Dexterous manipulation은 적절한 힘을 정확한 접촉 위치와 타이밍에 가해야 한다. 텔레오퍼레이션 기반 시연 수집은 두 가지 근본적 한계가 있다: (1) 인간 손과 로봇 손의 운동학적 차이로 직관적 제어가 어렵고, (2) 촉각 피드백이 없어 힘 조절이 불가능하다. 이로 인해 관찰된 로봇 손끝 위치만으로는 실제 가해진 힘 정보가 소실된다 — 같은 위치에서 다른 크기의 힘을 가해도 기록되는 위치는 동일하기 때문이다. DexForce는 kinesthetic teaching과 6축 힘-토크 센서를 결합하여 이 문제를 해결한다.
+
+## 핵심 아이디어
+
+DexForce의 핵심은 놀라울 정도로 단순하다: **접촉 힘에 비례하여 목표 위치를 보정**하는 것이다.
+
+- **스프링 모델**: `xf = xo + kf·f` — 관찰 위치(xo)에 힘(f) × 강성 계수(kf)를 더해 force-informed target(xf)을 계산
+- **단일 파라미터**: kf = 0.0045로 모든 태스크에 동일하게 적용 (태스크별 튜닝 불필요)
+- **2단계 시연 수집**: (1) Kinesthetic teaching으로 위치+힘 기록 → force-informed target 계산, (2) 로봇 단독 재현으로 학습용 관측 수집 (작업자 손 제거)
+- **Impedance control 기반 실행**: 학습된 정책이 force-informed target을 출력하면, impedance controller가 적절한 접촉 힘을 자연스럽게 생성
+
+<Figure src="./fig-1.jpg" caption="DexForce는 6축 힘-토크 센서(초록)로 측정한 접촉 힘(주황 화살표)에 따라 관찰된 로봇 위치(파란 원)를 보정하여 힘 정보 기반 행동(주황 사각형)을 추출한다." number={1} />
+
+<Collapsible title="구체적 방법">
+
+### Cartesian Impedance Control
+
+DexForce는 Cartesian impedance control을 기반으로 한다. 제어 힘은 `F = kp(xd - xc) - kv(ẋc)`로 계산되며(kp=310, kv=2), Joint torque `τ = J^T·F + g`로 변환된다.
+
+### Force-Informed Target 계산
+
+Kinesthetic 시연 중 작업자가 로봇 손가락을 잡고 태스크를 수행하면, 손끝 위치와 접촉 힘이 동시에 기록된다. 핵심 관찰은 impedance controller 하에서 접촉 시 관찰 위치가 실제 목표와 다르다는 점이다 — 접촉 물체가 손끝을 밀어내기 때문이다. 스프링 모델 `xf = xo + kf·f`는 이 차이를 보상한다.
+
+### 2단계 시연 수집
+
+**Stage 1**: Kinesthetic 시연에서 T 타임스텝의 위치 시퀀스와 힘 시퀀스를 기록하고, 스프링 모델로 force-informed target 시퀀스를 계산한다.
+
+**Stage 2**: 계산된 target 시퀀스를 impedance controller로 재현하면서 로봇 단독 관측(RGB, 힘, 모멘트)을 기록한다. 이 단계는 학습 시와 동일한 조건(작업자 손 없는 장면)의 데이터를 만든다.
+
+<Figure src="./fig-4.jpg" caption="태스크 이름, 설명, 예시 궤적, 성공 기준, 학습 시연 횟수." number={4} />
+
+### 정책 아키텍처
+
+ResNet18 이미지 인코더를 사용하는 CNN 기반 Diffusion Policy를 채택한다. 관측은 RGB 이미지 + 6축 힘-토크 데이터로 구성되며, 30Hz 기록 → 10Hz 다운샘플링, 관측 horizon 2, 행동 예측 horizon 16, 실행 horizon 8 타임스텝으로 설정한다.
+
+</Collapsible>
+
+## 주요 결과
+
+- **Force-informed action의 결정적 중요성**: 6개 태스크 평균 76% 성공률 달성. 힘을 고려하지 않은 관찰 위치 기반 정책은 **거의 0%** 성공률 — 접촉은 발생하지만 필요한 힘을 생성하지 못함
+- **힘 관측의 효과**: RGB+6축 힘 관측이 RGB 전용 대비 모든 태스크에서 향상. 특히 AirPods 열기(10% → 70%, +60%p), 너트 풀기(33% → 78%, +45%p)에서 통계적으로 유의미한 개선. 이진 접촉 신호(0/1)는 6축 힘 데이터보다 모든 태스크에서 열등
+- **kf 민감도**: 단일 kf=0.0045가 6개 태스크 모두의 허용 범위에 포함. 정밀 태스크(AirPods, 너트)의 허용 범위가 좁아 힘 관측 효과가 큰 태스크와 일치
+
+<Figure src="./fig-7.png" caption="힘 정보 기반 행동으로 정책을 학습시키는 것이 정책 학습 성공에 결정적이다. 접촉 힘을 고려하지 않고 관찰된 손끝 위치로 직접 학습한 정책은 성공률이 거의 0%이다." number={7} />
+
+## 달성점과 한계점
+
+**달성점**
+- 단순한 스프링 모델 하나(파라미터 1개)로 6개 다양한 dexterous manipulation 태스크에서 일관된 성능 달성
+- 힘 정보가 행동(action)과 관측(observation) 양쪽 모두에서 중요하다는 것을 체계적 실험으로 증명
+- 5~10개의 소수 시연으로도 효과적인 정책 학습 가능
+
+**한계점**
+- Kinesthetic teaching은 작업자당 1개 시연만 가능해 대규모 데이터 수집에 비효율적
+- 동시 제어 가능한 손가락이 2개로 제한 (인간이 직접 잡고 시연하는 방식의 물리적 제약)
+- OOD 환경에서 성능 하락 (약 50% 성공률)으로 일반화에 한계
+
+🤖 스프링 모델의 단순함이 강점이자 한계다. 연성 접촉이나 마찰을 명시적으로 모델링하지 않으면서도 경험적으로 작동하지만, 더 복잡한 접촉 역학(예: 변형체 조작)에서는 한계가 있을 수 있다. 또한 6축 힘-토크 센서(CoinFT)가 필수 하드웨어이므로 기존 로봇 시스템에의 적용성은 제한적이다.
