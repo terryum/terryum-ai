@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3040",
-    "dev:clean": "node scripts/clean-next.mjs && next dev -p 3040",
+    "dev": "node scripts/clean-next.mjs && next dev -p 3040",
     "build": "node scripts/clean-next.mjs && node scripts/copy-post-images.mjs && node scripts/generate-thumbnails.mjs && next build",
     "start": "next start",
     "lint": "next lint",
