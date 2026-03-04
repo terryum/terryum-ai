@@ -54,6 +54,11 @@
     "prev": "Previous",
     "next": "Next"
   },
+  "filter": {
+    "show_more": "Show more tags",
+    "show_less": "Show less",
+    "no_results": "No posts match the selected tags."
+  },
   "fallback_banner": "The English version of this article is not available yet.",
   "not_found": {
     "title": "Page Not Found",

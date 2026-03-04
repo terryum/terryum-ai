@@ -1,6 +1,7 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
-import { getPostsByType } from '@/lib/posts';
+import { getAllPosts } from '@/lib/posts';
+import { computeTagCounts, sortTagsByCount, getTagLabel } from '@/lib/tags';
 import ContentIndexPage from '@/components/ContentIndexPage';
 import type { Metadata } from 'next';
 
@@ -30,7 +31,15 @@ export default async function ResearchPage({
   if (!isValidLocale(lang)) return null;
 
   const dict = await getDictionary(lang);
-  const posts = await getPostsByType(lang, 'reading');
+  const posts = await getAllPosts(lang);
+
+  const tagCounts = computeTagCounts(posts);
+  const sorted = sortTagsByCount(tagCounts);
+  const allTags = sorted.map(({ slug, count }) => ({
+    slug,
+    label: getTagLabel(slug, lang),
+    count,
+  }));
 
   return (
     <ContentIndexPage
@@ -38,6 +47,9 @@ export default async function ResearchPage({
       title={dict.research_index.title}
       description={dict.research_index.description}
       posts={posts}
+      allTags={allTags}
+      initialSelectedTags={['research']}
+      filterDict={dict.filter}
     />
   );
 }

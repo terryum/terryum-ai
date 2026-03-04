@@ -1,0 +1,11 @@
+{
+  "tags": [
+    { "slug": "research", "label": { "ko": "Research", "en": "Research" }, "category": "content_type" },
+    { "slug": "ideas", "label": { "ko": "Ideas", "en": "Ideas" }, "category": "content_type" },
+    { "slug": "robotics", "label": { "ko": "Robotics", "en": "Robotics" }, "category": "topic" },
+    { "slug": "vla", "label": { "ko": "VLA", "en": "VLA" }, "category": "topic" },
+    { "slug": "force-sensing", "label": { "ko": "Force Sensing", "en": "Force Sensing" }, "category": "topic" },
+    { "slug": "manipulation", "label": { "ko": "Manipulation", "en": "Manipulation" }, "category": "topic" },
+    { "slug": "neurips-2025", "label": { "ko": "NeurIPS 2025", "en": "NeurIPS 2025" }, "category": "venue" }
+  ]
+}

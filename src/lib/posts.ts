@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
 import type { Post, PostMeta } from '@/types/post';
+import { normalizeTagSlug } from '@/lib/tags';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
 const CATEGORIES = ['research', 'idea'] as const;
@@ -68,6 +69,15 @@ function normalizeMeta(
     coverThumb = `/posts/${slug}/${coverThumb.slice(2)}`;
   }
 
+  // Auto-inject content_type tag based on folder
+  const rawTags: string[] = (data.tags as string[]) || [];
+  const tagSlugs = rawTags.map((t) => normalizeTagSlug(t));
+  const contentTypeTag = category === 'research' ? 'Research' : 'Ideas';
+  const contentTypeSlug = normalizeTagSlug(contentTypeTag);
+  if (!tagSlugs.includes(contentTypeSlug)) {
+    rawTags.unshift(contentTypeTag);
+  }
+
   return {
     post_id: (data.post_id as string) || slug,
     locale: (data.locale as string) || 'ko',
@@ -78,7 +88,7 @@ function normalizeMeta(
     updated_at: (data.updated_at as string) || (data.published_at as string) || new Date().toISOString(),
     status: (data.status as 'draft' | 'published') || 'draft',
     content_type: contentType as 'writing' | 'reading',
-    tags: (data.tags as string[]) || [],
+    tags: rawTags,
     cover_image: coverImage,
     cover_caption: data.cover_caption as string | undefined,
     cover_thumb: coverThumb,
@@ -177,6 +187,17 @@ export async function getAllPostParams(): Promise<{ lang: string; slug: string }
   );
   const results = await Promise.all(checks);
   return results.filter((r): r is { lang: string; slug: string } => r !== null);
+}
+
+export async function getAllPosts(locale: string): Promise<PostMeta[]> {
+  const slugs = await getAllSlugs();
+  const allMeta = await Promise.all(slugs.map((slug) => getPostMeta(slug, locale)));
+  const posts = allMeta.filter(
+    (meta): meta is PostMeta => meta !== null && meta.status === 'published'
+  );
+  return posts.sort(
+    (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+  );
 }
 
 export async function getPostParamsByType(
