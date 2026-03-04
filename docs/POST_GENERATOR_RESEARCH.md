@@ -15,7 +15,6 @@
 - `ko.mdx`, `en.mdx`, `cover.webp`
 
 ### 출력 (옵션)
-- `cover_thumb.webp` (카드 썸네일용, 1:1 크롭)
 - `fig-*.png` (본문용 figure 이미지)
 - `tab-*.png` (본문용 table 이미지)
 
@@ -56,10 +55,10 @@
 - 출력: `cover.webp`
 - `cover_caption`: 선택한 figure의 원문 캡션 그대로 (번역하지 않음)
 
-### Step 4-1) Cover Thumbnail (선택)
-- `cover.webp`에서 핵심 영역을 1:1 크롭 → `cover_thumb.webp`
-- 최소 해상도: 192×192px (2× 대응)
-- 없으면 `cover.webp`가 center crop으로 대체됨
+### Step 4-1) Cover Thumbnail (자동 생성)
+- 빌드타임에 `generate-thumbnails.mjs`가 자동 생성 (수동 작업 불필요)
+- ko.mdx frontmatter `title` → SVG (컬러 배경 + 텍스트) → 112×112 webp (~2-3KB)
+- 출력: `public/posts/<slug>/cover-thumb.webp`
 
 ### Step 4-2) Figure/Table 전수 추출
 
@@ -219,7 +218,7 @@ MDX 내 `<Figure>` 컴포넌트 클릭 시 Lightbox 열림. hover 시 확대 아
 
 ### 기본 파일
 - [ ] `meta.json`, `ko.mdx`, `en.mdx`, `cover.webp` 생성
-- [ ] `cover_thumb.webp` 생성 (선택)
+- [ ] `cover-thumb.webp` — 빌드타임 자동 생성 (수동 불필요)
 - [ ] `paper/<slug>.pdf` 저장
 - [ ] `post_id == slug == 폴더명` 일치
 - [ ] `posts/research/<slug>/`에 배치

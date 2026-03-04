@@ -52,7 +52,7 @@ export default function ImageLightbox({
       onClick={onClose}
     >
       <div
-        className="relative max-w-[90vw] max-h-[90vh] flex flex-col items-center"
+        className="relative max-w-[min(90vw,1200px)] max-h-[90vh] flex flex-col items-center"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
@@ -86,8 +86,8 @@ export default function ImageLightbox({
             alt={item.caption}
             width={1200}
             height={800}
-            className="max-h-[75vh] w-auto h-auto object-contain rounded-lg"
-            sizes="90vw"
+            className="max-h-[min(75vh,800px)] w-auto h-auto object-contain rounded-lg"
+            sizes="(min-width: 1200px) 1200px, 90vw"
           />
 
           {/* Next arrow */}
@@ -105,7 +105,7 @@ export default function ImageLightbox({
         </div>
 
         {/* Caption */}
-        <p className="text-white/80 text-base text-left mt-3 max-w-2xl leading-relaxed px-4">
+        <p className="text-white/80 text-sm md:text-lg text-left mt-3 max-w-2xl leading-relaxed px-4">
           {item.caption}
         </p>
 

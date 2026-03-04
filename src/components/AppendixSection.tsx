@@ -41,14 +41,14 @@ export default function AppendixSection({
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-semibold text-text-primary mb-6 pb-2 border-b border-line-default">
+      <h2 className="text-2xl font-bold text-text-primary mb-6 pb-2 border-b border-line-default">
         {labels.appendix_label || 'Appendix'}
       </h2>
 
       {/* Figures */}
       {hasFigures && (
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">
+          <h3 className="text-xl font-semibold text-text-primary mb-4">
             {labels.figures_gallery || 'Figures'}
           </h3>
           <ImageGallery items={figures} />
@@ -58,7 +58,7 @@ export default function AppendixSection({
       {/* Tables */}
       {hasTables && (
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">
+          <h3 className="text-xl font-semibold text-text-primary mb-4">
             {labels.tables_gallery || 'Tables'}
           </h3>
           <ImageGallery items={tables} />
@@ -68,7 +68,7 @@ export default function AppendixSection({
       {/* Key References */}
       {hasReferences && (
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">
+          <h3 className="text-xl font-semibold text-text-primary mb-4">
             {labels.references_label}
           </h3>
 
@@ -76,7 +76,7 @@ export default function AppendixSection({
             <>
               {foundational.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-sm font-medium text-text-muted mb-3">
+                  <h4 className="text-base font-semibold text-text-muted mb-3">
                     {labels.references_foundational || 'Foundational References'}
                   </h4>
                   <div className="flex flex-col gap-3">
@@ -89,7 +89,7 @@ export default function AppendixSection({
 
               {recent.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-sm font-medium text-text-muted mb-3">
+                  <h4 className="text-base font-semibold text-text-muted mb-3">
                     {labels.references_recent || 'Recent Work to Overcome'}
                   </h4>
                   <div className="flex flex-col gap-3">
@@ -121,7 +121,7 @@ export default function AppendixSection({
       {/* Terry's memo */}
       {hasMemo && (
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-text-primary mb-4">
+          <h3 className="text-xl font-semibold text-text-primary mb-4">
             {labels.terrys_memo_label || "Terry's memo"}
           </h3>
           <div className="text-sm text-text-secondary leading-relaxed bg-bg-surface/40 border border-line-default rounded-lg p-4">

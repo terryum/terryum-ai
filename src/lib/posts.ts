@@ -102,7 +102,11 @@ function normalizeMeta(
   const contentType = resolveContentType(data, category);
   const coverImage = resolvePostAssetPath((data.cover_image as string) || '', slug);
   const rawThumb = (data.cover_thumb as string) || undefined;
-  const coverThumb = rawThumb ? resolvePostAssetPath(rawThumb, slug) : undefined;
+  const coverThumb = rawThumb
+    ? resolvePostAssetPath(rawThumb, slug)
+    : coverImage
+      ? `/posts/${slug}/cover-thumb.webp`
+      : undefined;
   const tags = normalizeTags(data, category);
 
   return {
