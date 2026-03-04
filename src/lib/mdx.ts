@@ -2,6 +2,8 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import Image from 'next/image';
 import Link from 'next/link';
 import { createElement } from 'react';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import Collapsible from '@/components/Collapsible';
 import Figure from '@/components/Figure';
 import { resolvePostAssetPath } from '@/lib/paths';
@@ -48,7 +50,13 @@ function createMDXComponents(slug: string) {
 export async function renderMDX(source: string, slug: string) {
   const { content, frontmatter } = await compileMDX({
     source,
-    options: { parseFrontmatter: true },
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+      },
+    },
     components: createMDXComponents(slug),
   });
 

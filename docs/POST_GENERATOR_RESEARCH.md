@@ -44,6 +44,7 @@
 - **`docs/RESEARCH_SUMMARY_RULES.md`에 따라** 수행
 - 입력: PDF 전문
 - 출력: TL;DR, 문제, 핵심 아이디어, 구체적 방법, 주요 결과, 달성점과 한계점, 참조논문, card_summary
+- **주요 수식 LaTeX 추출**: 핵심 방정식을 LaTeX로 변환하여 MDX 본문에 `$...$` / `$$...$$`로 삽입 (수식 작성 규칙은 `RESEARCH_SUMMARY_RULES.md` 참조)
 
 ### Step 4) Cover 이미지 선택 및 다운로드
 - 선택 우선순위:

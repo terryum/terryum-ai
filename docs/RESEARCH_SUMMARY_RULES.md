@@ -129,6 +129,18 @@
 
 ---
 
+## 수식 작성 원칙
+
+- **인라인 수식**: `$...$` — 변수, 짧은 수식 (예: `$x_f = x_o + k_f \cdot f$`)
+- **블록 수식**: `$$...$$` — 핵심 방정식 (display math, 중앙 정렬)
+- **변수 표기**: subscript `x_f`, superscript `J^\top`, dot `\dot{x}`, hat `\hat{y}`
+- **함수/연산자**: `\text{Softmax}`, `\text{MoE}` 등 text 래핑
+- **집합/공간**: `\mathbb{R}^6`, `\mathbb{R}^{d}` 등
+- **backtick 코드 대신 LaTeX 사용**: 수식은 항상 `$...$` 또는 `$$...$$`로 작성 (backtick은 코드 전용)
+- 논문 PDF에서 수식 추출 시 LaTeX로 정확하게 옮기기
+
+---
+
 ## 한국어/영어 작성 원칙
 
 - 제목/고유명사/기술 용어는 원문 유지 우선

@@ -44,7 +44,7 @@ Existing Vision-Language-Action (VLA) models depend primarily on visual and ling
 
 Key components:
 
-- **Force tokenization**: Raw 6-axis force-torque data (f ∈ R^6) linearly projected to a 2048-dim token
+- **Force tokenization**: Raw 6-axis force-torque data ($f \in \mathbb{R}^6$) linearly projected to a 2048-dim token
 - **Sparse MoE**: Gating network selects top-1 expert per token, activating different experts per task phase
 - **Flow-based Action Head**: Fused multimodal features injected via element-wise addition into the action generation head
 - **ForceVLA-Data**: 5 tasks, 244 demonstrations, 140K synchronized vision/proprioception/force-torque timesteps
@@ -55,13 +55,13 @@ Key components:
 
 ForceVLA's training pipeline consists of three main stages.
 
-**Stage 1 — Force Tokenization**: Raw 6-axis force-torque data (f ∈ R^6) from the robot end-effector sensor is transformed into a 2048-dimensional token via a linear projection layer, matching the VLM embedding dimension.
+**Stage 1 — Force Tokenization**: Raw 6-axis force-torque data ($f \in \mathbb{R}^6$) from the robot end-effector sensor is transformed into a 2048-dimensional token via a linear projection layer, matching the VLM embedding dimension.
 
-**Stage 2 — FVLMoE Fusion**: After the VLM (π₀) processes visual-language inputs, its output embeddings and the force token are fed into the FVLMoE module. A gating network G(x) = Softmax(W_g · x) routes input tokens to the top-1 of 4 experts. Each expert is an independent FFN that learns specialized fusion patterns for different task phases.
+**Stage 2 — FVLMoE Fusion**: After the VLM ($\pi_0$) processes visual-language inputs, its output embeddings and the force token are fed into the FVLMoE module. A gating network $G(x) = \text{Softmax}(W_g \cdot x)$ routes input tokens to the top-1 of 4 experts. Each expert is an independent FFN that learns specialized fusion patterns for different task phases.
 
 **Stage 3 — Action Generation**: MoE output is injected via element-wise addition into a flow-based action head that generates continuous robot actions (joint positions/velocities). Training uses flow matching, denoising from noise to action sequences.
 
-**Training Strategy**: The pretrained π₀ weights are frozen, and only the FVLMoE module and force tokenization layer are trained, preserving the VLM's pretrained representations while effectively integrating force information.
+**Training Strategy**: The pretrained $\pi_0$ weights are frozen, and only the FVLMoE module and force tokenization layer are trained, preserving the VLM's pretrained representations while effectively integrating force information.
 
 **Load balancing loss**: An auxiliary loss ensures balanced expert utilization, preventing token concentration on specific experts.
 
@@ -71,8 +71,8 @@ ForceVLA's training pipeline consists of three main stages.
 
 ## Key Results
 
-- **60.5% average success rate** across 5 contact tasks, **+23.2%p** over force-free π₀-base (37.3% → 60.5%)
-- **~80% success on plug insertion**, significantly outperforming naive force concatenation (π₀-base w/ F at 40.2%)
+- **60.5% average success rate** across 5 contact tasks, **+23.2%p** over force-free $\pi_0$-base (37.3% → 60.5%)
+- **~80% success on plug insertion**, significantly outperforming naive force concatenation ($\pi_0$-base w/ F at 40.2%)
 - **90% success under visual occlusion** — demonstrating that force feedback compensates for missing visual information
 
 <Figure src="./fig-5.png" alt="Main task success rates" caption="Main task success rates across different methods. ForceVLA significantly outperforms all baselines on five contact-rich tasks." number={5} />

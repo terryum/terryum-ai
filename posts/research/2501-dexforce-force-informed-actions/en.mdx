@@ -46,8 +46,8 @@ Dexterous manipulation requires applying proper forces at correct contact locati
 
 DexForce's core insight is remarkably simple: **offset target positions proportionally to contact forces**.
 
-- **Spring model**: `xf = xo + kf·f` — adds force (f) × stiffness coefficient (kf) to observed position (xo) to compute force-informed target (xf)
-- **Single parameter**: kf = 0.0045 applied identically across all tasks (no task-specific tuning required)
+- **Spring model**: $x_f = x_o + k_f \cdot f$ — adds force ($f$) × stiffness coefficient ($k_f$) to observed position ($x_o$) to compute force-informed target ($x_f$)
+- **Single parameter**: $k_f = 0.0045$ applied identically across all tasks (no task-specific tuning required)
 - **Two-stage demonstration**: (1) Kinesthetic teaching records position + force → computes force-informed targets, (2) Robot-only replay collects training observations (operator hand removed)
 - **Impedance control execution**: Learned policy outputs force-informed targets, and the impedance controller naturally generates appropriate contact forces
 
@@ -57,11 +57,11 @@ DexForce's core insight is remarkably simple: **offset target positions proporti
 
 ### Cartesian Impedance Control
 
-DexForce builds on Cartesian impedance control. Control force is computed as `F = kp(xd - xc) - kv(ẋc)` (kp=310, kv=2), converted to joint torques via `τ = J^T·F + g`.
+DexForce builds on Cartesian impedance control. Control force is computed as $F = k_p(x_d - x_c) - k_v \dot{x}_c$ ($k_p=310$, $k_v=2$), converted to joint torques via $\tau = J^\top F + g$.
 
 ### Force-Informed Target Computation
 
-During kinesthetic demonstrations, fingertip positions and contact forces are recorded simultaneously. The key observation is that under impedance control, observed positions during contact differ from actual targets — because the contacted object pushes the fingertip back. The spring model `xf = xo + kf·f` compensates for this difference.
+During kinesthetic demonstrations, fingertip positions and contact forces are recorded simultaneously. The key observation is that under impedance control, observed positions during contact differ from actual targets — because the contacted object pushes the fingertip back. The spring model $x_f = x_o + k_f \cdot f$ compensates for this difference.
 
 ### Two-Stage Demonstration Collection
 
@@ -81,7 +81,7 @@ Uses CNN-based Diffusion Policy with ResNet18 image encoder. Observations consis
 
 - **Force-informed actions are critical**: 76% average success rate across six tasks. Policies trained on observed positions without force achieve **near-zero** success — contact occurs but necessary forces are not generated
 - **Force observations help**: RGB + 6-axis force outperforms RGB-only on all tasks. Statistically significant improvements on AirPods opening (10% → 70%, +60%p) and nut unscrewing (33% → 78%, +45%p). Binary contact signals (0/1) underperform 6-axis force data on all tasks
-- **kf sensitivity**: Single kf=0.0045 falls within the permissible range for all six tasks. Precision tasks (AirPods, nut) have narrower permissible ranges, consistent with which tasks benefit most from force observations
+- **$k_f$ sensitivity**: Single $k_f=0.0045$ falls within the permissible range for all six tasks. Precision tasks (AirPods, nut) have narrower permissible ranges, consistent with which tasks benefit most from force observations
 
 <Figure src="./fig-7.png" caption="Using force-informed actions to train policies is critical for policy learning success. Policies trained directly on observed fingertip positions, which do not account for contact forces, have near-zero success rates." number={7} />
 
