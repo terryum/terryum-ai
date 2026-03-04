@@ -51,7 +51,7 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
           <button
             key={item.number}
             onClick={() => setLightboxIndex(i)}
-            className="flex-none w-48 md:w-56 snap-start cursor-pointer group/item text-left"
+            className="flex-none w-48 md:w-56 snap-start cursor-pointer group/item text-left self-start"
           >
             <div className="rounded-lg overflow-hidden bg-bg-surface border border-line-default hover:border-accent transition-colors">
               <Image
@@ -63,7 +63,7 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
                 sizes="224px"
               />
             </div>
-            <p className="text-xs text-text-muted text-left mt-1 line-clamp-2">
+            <p className="text-xs text-text-muted text-left mt-1 line-clamp-3">
               {item.caption}
             </p>
           </button>
