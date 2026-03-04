@@ -7,6 +7,7 @@
   "content_type": "reading",
   "tags": ["Research", "Robotics", "Dexterous Manipulation", "Force Control", "Imitation Learning", "RA-L 2025"],
   "cover_image": "./cover.webp",
+  "thumb_source": "./fig-6.jpg",
   "cover_caption": "The DexForce two-stage demonstration collection procedure, illustrated with a one-finger task where the robot must slide a purple square along a fixed surface to the red goal region. Note: visualization shows −f, the contact force exerted by the object onto the finger.",
   "reading_time_min": 7,
   "source_url": "https://arxiv.org/abs/2501.10356",

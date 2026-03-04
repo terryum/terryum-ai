@@ -7,6 +7,7 @@
   "content_type": "reading",
   "tags": ["Research", "Robotics", "VLA", "Force Sensing", "Manipulation", "NeurIPS 2025"],
   "cover_image": "./cover.webp",
+  "thumb_source": "./fig-2.jpg",
   "cover_caption": "Overview of our ForceVLA model. Visual and language inputs are processed by a pre-trained VLM to form contextual embeddings. External force signals are projected and fused with VLM outputs via the FVLMoE module. The resulting multimodal features guide a flow-based action head to generate contact-aware robot actions.",
   "reading_time_min": 8,
   "source_url": "https://arxiv.org/abs/2505.22159",
