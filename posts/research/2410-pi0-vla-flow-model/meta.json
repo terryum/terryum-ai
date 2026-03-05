@@ -1,0 +1,128 @@
+{
+  "post_id": "2410-pi0-vla-flow-model",
+  "slug": "2410-pi0-vla-flow-model",
+  "source_date": "2024-10-31T00:00:00Z",
+  "published_at": "2026-03-05T00:00:00Z",
+  "updated_at": "2026-03-05T00:00:00Z",
+  "status": "published",
+  "content_type": "reading",
+  "tags": ["Research", "Robotics", "VLA", "Foundation Model", "Flow Matching", "Manipulation", "RSS 2025"],
+  "cover_image": "./cover.webp",
+  "thumb_source": "./fig-2.jpeg",
+  "cover_caption": "Overview of our framework. We start with a pre-training mixture, which consists of both our own dexterous manipulation datasets and open-source data. We use this to pre-train π₀, our generalist robot policy, which uses a pre-trained VLM and a novel flow matching action expert. We can directly evaluate the pre-trained model or fine-tune it to downstream tasks using high-quality task-specific data.",
+  "reading_time_min": 10,
+  "source_url": "https://arxiv.org/abs/2410.24164",
+  "source_title": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
+  "source_author": "Kevin Black et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://physicalintelligence.company/blog/pi0",
+  "source_authors_full": [
+    "Kevin Black (Physical Intelligence)",
+    "Noah Brown (Physical Intelligence)",
+    "Danny Driess (Physical Intelligence)",
+    "Adnan Esmail (Physical Intelligence)",
+    "Michael Equi (Physical Intelligence)",
+    "Chelsea Finn (Physical Intelligence)",
+    "Niccolo Fusai (Physical Intelligence)",
+    "Lachy Groom (Physical Intelligence)",
+    "Karol Hausman (Physical Intelligence)",
+    "Brian Ichter (Physical Intelligence)",
+    "Szymon Jakubczak (Physical Intelligence)",
+    "Tim Jones (Physical Intelligence)",
+    "Liyiming Ke (Physical Intelligence)",
+    "Sergey Levine (Physical Intelligence)",
+    "Adrian Li-Bell (Physical Intelligence)",
+    "Mohith Mothukuri (Physical Intelligence)",
+    "Suraj Nair (Physical Intelligence)",
+    "Karl Pertsch (Physical Intelligence)",
+    "Lucy Xiaoyang Shi (Physical Intelligence)",
+    "James Tanner (Physical Intelligence)",
+    "Quan Vuong (Physical Intelligence)",
+    "Anna Walling (Physical Intelligence)",
+    "Haohuan Wang (Physical Intelligence)",
+    "Ury Zhilinsky (Physical Intelligence)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-2.jpeg",
+      "caption": "π₀ controls a mobile manipulator to fold laundry. Our model is pre-trained on diverse data from 7 distinct robot configurations and 68 tasks, and can then either be prompted directly or fine-tuned to complex downstream tasks.",
+      "caption_ko": "π₀가 모바일 매니퓰레이터를 제어하여 세탁물을 접는 장면. 7가지 로봇 구성과 68개 태스크의 다양한 데이터로 사전학습되며, 직접 프롬프트하거나 복잡한 하위 태스크에 파인튜닝할 수 있다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Overview of our framework. We start with a pre-training mixture, which consists of both our own dexterous manipulation datasets and open-source data. We use this to pre-train π₀, our generalist robot policy, which uses a pre-trained VLM and a novel flow matching action expert. We can directly evaluate the pre-trained model or fine-tune it to downstream tasks using high-quality task-specific data.",
+      "caption_ko": "프레임워크 개요. 자체 정교 조작 데이터셋과 오픈소스 데이터로 구성된 사전학습 혼합 데이터로 시작한다. 사전학습된 VLM과 새로운 flow matching 행동 전문가를 사용하는 범용 로봇 정책 π₀를 학습하며, 사전학습 모델을 직접 평가하거나 고품질 태스크 전용 데이터로 하위 태스크에 파인튜닝할 수 있다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Overview of our dataset: The pre-training mixture consists of a subset of OXE and the π dataset. The π dataset alone covers 68 tasks collected across 7 different robot configurations.",
+      "caption_ko": "데이터셋 개요: 사전학습 혼합 데이터는 OXE 부분집합과 π 데이터셋으로 구성된다. π 데이터셋만으로 7가지 로봇 구성에서 수집된 68개 태스크를 포함한다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "The robots used in our experiments. These include single and dual-arm manipulators with 6-DoF and 7-DoF arms, as well as holonomic and nonholonomic mobile manipulators.",
+      "caption_ko": "실험에 사용된 로봇들. 6-DoF 및 7-DoF 단일/양팔 매니퓰레이터와 홀로노믹/비홀로노믹 모바일 매니퓰레이터를 포함한다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Out-of-box evaluation tasks: To evaluate our base model, we run it after pre-training on five tasks: shirt folding, bussing easy, bussing hard, grocery bagging, and toast out of toaster.",
+      "caption_ko": "사전학습 직후 평가 태스크: 셔츠 접기, 식기 정리(쉬움), 식기 정리(어려움), 식료품 봉투 담기, 토스트 꺼내기의 5가지 태스크.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Out-of-box evaluation results: We evaluate π₀ trained for the full 700k steps, a version trained for 160k steps that matches the number of updates for baseline models, and π₀-small.",
+      "caption_ko": "사전학습 직후 평가 결과: 700k 스텝 전체 학습된 π₀, 베이스라인과 동일한 160k 스텝 버전, π₀-small을 비교 평가.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "The tasks in our language evaluation. We evaluate our model on 3 different language-conditioned tasks, each of which requires following a sequence of intermediate language commands.",
+      "caption_ko": "언어 조건 평가 태스크. 순차적 중간 언어 명령을 따르는 3가지 언어 조건 태스크에서 모델을 평가한다.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Language evaluation. We compare 'flat' versions of our policies, which receive only the overall task command, with versions receiving intermediate language commands from a human or high-level VLM.",
+      "caption_ko": "언어 평가. 전체 태스크 명령만 받는 'flat' 버전과, 사람 또는 상위 VLM의 중간 언어 명령을 받는 버전을 비교한다.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.png",
+      "caption": "Fine-tuning evaluation tasks: We fine-tune our model to a variety of downstream tasks that are distinct from the tasks seen in pre-training.",
+      "caption_ko": "파인튜닝 평가 태스크: 사전학습에서 보지 못한 다양한 하위 태스크에 모델을 파인튜닝한다.",
+      "number": 10
+    },
+    {
+      "src": "./fig-11.png",
+      "caption": "Fine-tuning with varying amounts of data. π₀ can learn some easier tasks even with smaller amounts of data, and the pre-trained model often attains a larger improvement over the model trained from scratch.",
+      "caption_ko": "다양한 데이터 양에 따른 파인튜닝. π₀는 적은 데이터로도 쉬운 태스크를 학습할 수 있으며, 사전학습 모델이 처음부터 학습한 모델 대비 더 큰 향상을 보인다.",
+      "number": 11
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "We evaluate a range of complex and temporally extended tasks. This includes: folding laundry from a bin with a stationary (a) or mobile (b) robot, bussing a real lunch table (c), assembling a box (d), packing a to-go box (e), and packing eggs (f).",
+      "caption_ko": "복잡한 장시간 태스크 평가. 고정형(a) 또는 모바일(b) 로봇의 세탁물 접기, 실제 점심 테이블 정리(c), 박스 조립(d), 테이크아웃 박스 포장(e), 달걀 포장(f).",
+      "number": 12
+    },
+    {
+      "src": "./fig-13.png",
+      "caption": "Post-training results on complex tasks in terms of average scores over 10 trials. The full pre-trained π₀ model attains more than 50% of the maximum score across all of the tasks.",
+      "caption_ko": "복잡한 태스크의 사후학습 결과 (10회 평균 점수). 전체 사전학습된 π₀ 모델이 모든 태스크에서 최대 점수의 50% 이상을 달성한다.",
+      "number": 13
+    },
+    {
+      "src": "./fig-14.png",
+      "caption": "Flow matching timestep sampling distribution. We sample τ from a shifted beta distribution that emphasizes lower timesteps (corresponding to noisier actions).",
+      "caption_ko": "Flow matching 타임스텝 샘플링 분포. 더 낮은 타임스텝(더 노이즈가 많은 행동에 해당)에 가중치를 두는 shifted beta 분포에서 τ를 샘플링한다.",
+      "number": 14
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

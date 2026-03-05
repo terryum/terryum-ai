@@ -1,0 +1,101 @@
+---
+locale: "en"
+title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+summary: "A VLM-based foundation model combining pre-trained vision-language understanding with flow matching action generation, pre-trained on 10,000+ hours across 7 robot configurations and 68 tasks. Achieves up to 3-4x performance improvement over training from scratch on complex dexterous tasks like laundry folding and box assembly."
+card_summary: "A robot foundation model combining a pre-trained VLM with flow matching-based action generation, trained on 10,000+ hours across 7 robots and 68 tasks to perform complex dexterous manipulation from laundry folding to box assembly with a single model."
+terrys_memo: ""
+translation_of: "2410-pi0-vla-flow-model:ko"
+translated_to: []
+references:
+  - title: "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control"
+    author: "Brohan et al. (2023)"
+    description: "Early VLA work leveraging vision-language models for robot action generation. π₀ extends this lineage with flow matching and large-scale pre-training."
+    arxiv_url: "https://arxiv.org/abs/2307.15818"
+    scholar_url: "https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge"
+    category: "foundational"
+  - title: "Octo: An Open-Source Generalist Robot Policy"
+    author: "Ghosh et al. (2024)"
+    description: "Open-source generalist robot policy based on the OXE dataset. A key baseline for π₀, showing significantly lower performance in out-of-box evaluation."
+    arxiv_url: "https://arxiv.org/abs/2405.12213"
+    scholar_url: "https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy"
+    project_url: "https://octo-models.github.io/"
+    category: "recent"
+  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+    author: "Kim et al. (2024)"
+    description: "Open-source VLA model used as a direct comparison target. π₀ significantly outperformed it in both out-of-box and fine-tuning evaluations."
+    arxiv_url: "https://arxiv.org/abs/2406.09246"
+    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
+    project_url: "https://openvla.github.io/"
+    category: "recent"
+  - title: "Flow Matching for Generative Modeling"
+    author: "Lipman et al. (2023)"
+    description: "Theoretical foundation for flow matching, the core action generation technique in π₀. A generative modeling framework that learns continuous transformations from noise to action sequences."
+    arxiv_url: "https://arxiv.org/abs/2210.02747"
+    scholar_url: "https://scholar.google.com/scholar?q=flow+matching+generative+modeling+Lipman"
+    category: "foundational"
+---
+
+## TL;DR
+
+A robot foundation model combining a pre-trained VLM with flow matching-based action generation, trained on 10,000+ hours across 7 robots and 68 tasks to perform complex dexterous manipulation from laundry folding to box assembly with a single model.
+
+## Problem
+
+Traditional robot learning has focused on training task-specific policies individually, facing three core challenges: data scarcity, limited generalization, and fragile robustness. Recent VLA models like RT-2, Octo, and OpenVLA attempted multi-task learning, but discrete token-based action generation proved insufficient for high-frequency dexterous manipulation (50Hz). This paper applies the LLM pre-training/fine-tuning paradigm to robotics at scale, pre-training on large-scale data from diverse robot platforms and then efficiently transferring to complex downstream tasks.
+
+## Key Idea
+
+**VLM + Flow Matching Action Expert**: A pre-trained 3B VLM (PaliGemma) serves as the vision-language backbone, while action generation is handled by a flow matching-based continuous action expert rather than discrete tokens. This enables high-frequency continuous action chunks up to 50Hz and applies the LLM-style pre-training → post-training two-phase recipe to robotics.
+
+Key components:
+
+- **Flow Matching Action Generation**: Learns a vector field transforming noise to action sequences ($H=50$ steps), with 10-step Euler integration at inference
+- **Action Expert**: A separate 300M parameter expert network for robot proprioception/action tokens, enabling efficient inference
+- **Blockwise Causal Attention**: Three-block attention over image·language / robot state / noisy actions, with bidirectional attention within action tokens
+- **Large-scale Pre-training**: 7 robot configurations, 68 tasks, 10,000+ hours of demonstration data (OXE + proprietary π dataset)
+
+<Figure src="./fig-5.png" alt="Robots used in experiments" caption="The robots used in our experiments. These include single and dual-arm manipulators with 6-DoF and 7-DoF arms, as well as holonomic and nonholonomic mobile manipulators." number={5} />
+
+<Collapsible title="Detailed Method">
+
+π₀'s architecture and training pipeline consists of three main parts.
+
+**1. Flow Matching Action Generation**: Given observation $\mathbf{o}_t = [\mathbf{I}^1_t, ..., \mathbf{I}^n_t, \ell_t, \mathbf{q}_t]$, the model generates action chunks $\mathbf{A}_t = [\mathbf{a}_t, ..., \mathbf{a}_{t+H-1}]$. During training, it learns a denoising vector field from noisy actions $\mathbf{A}^\tau_t = \tau \mathbf{A}_t + (1-\tau)\epsilon$, with the loss function:
+
+$$L^\tau(\theta) = \mathbb{E}_{p(\mathbf{A}_t|\mathbf{o}_t), q(\mathbf{A}^\tau_t|\mathbf{A}_t)} \| \mathbf{v}_\theta(\mathbf{A}^\tau_t, \mathbf{o}_t) - \mathbf{u}(\mathbf{A}^\tau_t | \mathbf{A}_t) \|^2$$
+
+At inference, 10-step forward Euler integration: $\mathbf{A}^{\tau+\delta}_t = \mathbf{A}^\tau_t + \delta \mathbf{v}_\theta(\mathbf{A}^\tau_t, \mathbf{o}_t)$
+
+**2. Action Expert Architecture**: VLM language/vision processing is separated from robot action generation, with VLM tokens and action tokens using independent weights. The action expert uses a reduced configuration (width=1024, mlp_dim=4096) for fast inference. Flow matching timestep $\tau$ is injected via sinusoidal positional encoding.
+
+**3. Pre-training → Post-training Two-Phase Recipe**: Pre-training uses diverse but variable-quality large-scale data to learn broad physical capabilities and error recovery behaviors. Post-training uses small amounts of high-quality task-specific data to learn refined execution. Pre-training alone doesn't produce fluent strategies, while post-training alone doesn't teach error recovery — both phases are essential.
+
+**Timestep Sampling**: $\tau$ is sampled from a shifted beta distribution $p(\tau) = \text{Beta}(\frac{s-\tau}{s}; 1.5, 1)$ ($s=0.999$), emphasizing lower (noisier) timesteps.
+
+**Cross-robot Training**: Different action dimensions (6-DoF to 17-DoF) are zero-padded to 18 dimensions, with task-robot combination weights adjusted by $n^{0.43}$ to balance data imbalance.
+
+<Figure src="./fig-2.jpeg" alt="π₀ laundry folding" caption="π₀ controls a mobile manipulator to fold laundry. Our model is pre-trained on diverse data from 7 distinct robot configurations and 68 tasks, and can then either be prompted directly or fine-tuned to complex downstream tasks." number={2} />
+
+</Collapsible>
+
+## Key Results
+
+- **Out-of-box (zero-shot) evaluation**: π₀ significantly outperformed OpenVLA and Octo across 5 tasks, achieving ~95% on shirt folding vs OpenVLA ~10%
+- **Fine-tuning efficiency**: Pre-trained π₀ achieved up to **2x** performance over training from scratch on most tasks, with pre-training advantage amplified on harder tasks
+- **Complex long-horizon tasks**: On 7 tasks requiring 5-20 minutes (laundry folding, box assembly, egg packing, etc.), pre-trained + post-trained model achieved **3-4x** performance over training from scratch
+
+<Figure src="./fig-7.png" alt="Out-of-box evaluation results" caption="Out-of-box evaluation results: We evaluate π₀ trained for the full 700k steps, a version trained for 160k steps that matches the number of updates for baseline models, and π₀-small." number={7} />
+
+## Achievements and Limitations
+
+### What's New
+
+- First implementation of 50Hz high-frequency dexterous manipulation in a VLA framework via flow matching continuous action generation
+- Largest-scale robot foundation model pre-trained on 10,000+ hours across 7 robot configurations and 68 tasks
+- Achieved long-horizon dexterous tasks (5-20 minutes, including laundry folding and box assembly) via end-to-end learning — described by the authors as "the longest dexterous tasks in the end-to-end robot learning literature"
+
+### Limitations
+
+- **Dataset composition understanding**: Optimal data combinations and data requirements for near-perfect performance remain unclear
+- **Transfer scope uncertainty**: Transferability to significantly different domains like autonomous driving, navigation, and legged locomotion remains unverified
+- 🤖 **Proprietary data**: 90.9% of pre-training data is proprietary (π dataset), severely limiting reproducibility for external researchers

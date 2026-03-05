@@ -1,0 +1,102 @@
+---
+locale: "ko"
+title: "π₀: 범용 로봇 제어를 위한 비전-언어-행동 Flow 모델"
+summary: "대규모 다중 로봇 데이터로 사전학습한 VLM 기반 foundation model에 flow matching 행동 전문가를 결합하여, 세탁물 접기·박스 조립 등 복잡한 정교 조작 태스크를 단일 모델로 수행하는 연구. 7가지 로봇 구성·68개 태스크에서 사전학습 후, 파인튜닝 시 처음부터 학습 대비 최대 3-4배 성능 향상을 달성했다."
+card_summary: "사전학습된 VLM 위에 flow matching 기반 행동 생성을 결합한 로봇 foundation model로, 7가지 로봇·68개 태스크의 만 시간 이상 데이터로 학습하여 세탁물 접기부터 박스 조립까지 복잡한 정교 조작을 단일 모델로 수행한다."
+terrys_memo: ""
+translation_of: null
+translated_to:
+  - "en"
+references:
+  - title: "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control"
+    author: "Brohan et al. (2023)"
+    description: "비전-언어 모델을 로봇 행동 생성에 활용한 초기 VLA 연구. π₀가 이 계보를 이으면서 flow matching과 대규모 사전학습으로 확장한 기반."
+    arxiv_url: "https://arxiv.org/abs/2307.15818"
+    scholar_url: "https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge"
+    category: "foundational"
+  - title: "Octo: An Open-Source Generalist Robot Policy"
+    author: "Ghosh et al. (2024)"
+    description: "OXE 데이터셋 기반 오픈소스 범용 로봇 정책. π₀의 주요 비교 대상으로, 사전학습 직후 평가에서 π₀ 대비 크게 뒤처지는 결과를 보였다."
+    arxiv_url: "https://arxiv.org/abs/2405.12213"
+    scholar_url: "https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy"
+    project_url: "https://octo-models.github.io/"
+    category: "recent"
+  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+    author: "Kim et al. (2024)"
+    description: "오픈소스 VLA 모델. π₀의 직접 비교 대상으로, 사전학습 직후 및 파인튜닝 평가 모두에서 π₀가 크게 앞서는 결과를 보였다."
+    arxiv_url: "https://arxiv.org/abs/2406.09246"
+    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
+    project_url: "https://openvla.github.io/"
+    category: "recent"
+  - title: "Flow Matching for Generative Modeling"
+    author: "Lipman et al. (2023)"
+    description: "π₀의 행동 생성 핵심 기법인 flow matching의 이론적 기반. 노이즈에서 행동 시퀀스로의 연속적 변환을 학습하는 생성 모델링 프레임워크."
+    arxiv_url: "https://arxiv.org/abs/2210.02747"
+    scholar_url: "https://scholar.google.com/scholar?q=flow+matching+generative+modeling+Lipman"
+    category: "foundational"
+---
+
+## TL;DR
+
+사전학습된 VLM 위에 flow matching 기반 행동 생성을 결합한 로봇 foundation model로, 7가지 로봇·68개 태스크의 만 시간 이상 데이터로 학습하여 세탁물 접기부터 박스 조립까지 복잡한 정교 조작을 단일 모델로 수행한다.
+
+## 문제
+
+기존 로봇 학습은 단일 태스크에 특화된 정책을 개별 학습하는 방식이 주류였으며, 데이터 부족·일반화 한계·취약한 강건성이라는 세 가지 핵심 문제를 안고 있었다. 최근 RT-2, Octo, OpenVLA 등 VLA 모델이 등장하여 다중 태스크 학습을 시도했지만, 이산 토큰 기반 행동 생성의 한계로 고주파 정교 조작(50Hz)에는 적합하지 않았다. 이 논문은 LLM의 사전학습-파인튜닝 패러다임을 로보틱스에 본격 적용하여, 다양한 로봇 플랫폼에서 수집한 대규모 데이터로 사전학습한 뒤 복잡한 하위 태스크에 효율적으로 전이하는 문제를 다룬다.
+
+## 핵심 아이디어
+
+**VLM + Flow Matching Action Expert**: 사전학습된 3B VLM(PaliGemma)을 비전-언어 백본으로 사용하되, 행동 생성은 이산 토큰이 아닌 flow matching 기반 연속 행동 전문가가 담당한다. 이를 통해 최대 50Hz의 고주파 연속 행동 청크를 생성하며, LLM 스타일의 사전학습→사후학습 2단계 레시피를 로보틱스에 적용한다.
+
+핵심 구성 요소:
+
+- **Flow Matching 행동 생성**: 노이즈에서 행동 시퀀스($H=50$ 스텝)로 변환하는 벡터 필드를 학습, 10회 Euler 적분으로 추론
+- **Action Expert**: VLM과 별도의 300M 파라미터 전문가 네트워크로, 로봇 고유감각/행동 토큰만 처리하여 추론 효율성 확보
+- **Blockwise Causal Attention**: 이미지·언어 / 로봇 상태 / 노이즈 행동의 3블록 어텐션으로, 행동 토큰이 전체 입력에 양방향 어텐션
+- **대규모 사전학습**: 7가지 로봇 구성, 68개 태스크, 10,000시간 이상의 시연 데이터 (OXE + 자체 π 데이터셋)
+
+<Figure src="./fig-5.png" alt="Robots used in experiments" caption="실험에 사용된 로봇들. 6-DoF 및 7-DoF 단일/양팔 매니퓰레이터와 홀로노믹/비홀로노믹 모바일 매니퓰레이터를 포함한다." number={5} />
+
+<Collapsible title="구체적 방법">
+
+π₀의 아키텍처와 학습 파이프라인은 크게 세 부분으로 구성된다.
+
+**1. Flow Matching 기반 행동 생성**: 관측 $\mathbf{o}_t = [\mathbf{I}^1_t, ..., \mathbf{I}^n_t, \ell_t, \mathbf{q}_t]$가 주어지면, 행동 청크 $\mathbf{A}_t = [\mathbf{a}_t, ..., \mathbf{a}_{t+H-1}]$을 생성한다. 학습 시 노이즈 행동 $\mathbf{A}^\tau_t = \tau \mathbf{A}_t + (1-\tau)\epsilon$에서 denoising 벡터 필드를 학습하며, 손실 함수는:
+
+$$L^\tau(\theta) = \mathbb{E}_{p(\mathbf{A}_t|\mathbf{o}_t), q(\mathbf{A}^\tau_t|\mathbf{A}_t)} \| \mathbf{v}_\theta(\mathbf{A}^\tau_t, \mathbf{o}_t) - \mathbf{u}(\mathbf{A}^\tau_t | \mathbf{A}_t) \|^2$$
+
+추론 시 forward Euler로 10스텝 적분: $\mathbf{A}^{\tau+\delta}_t = \mathbf{A}^\tau_t + \delta \mathbf{v}_\theta(\mathbf{A}^\tau_t, \mathbf{o}_t)$
+
+**2. Action Expert 아키텍처**: VLM의 언어/비전 처리와 로봇 행동 생성을 분리하여, VLM 토큰과 행동 토큰이 각각 독립적 가중치를 사용한다. Action expert는 width=1024, mlp_dim=4096의 축소된 구성으로 빠른 추론을 가능케 한다. Flow matching 타임스텝 $\tau$는 sinusoidal positional encoding으로 주입된다.
+
+**3. 사전학습-사후학습 2단계 레시피**: 사전학습은 다양하지만 품질이 고르지 않은 대규모 데이터로 광범위한 물리적 능력과 오류 복구 행동을 학습한다. 사후학습은 소량의 고품질 태스크 전용 데이터로 정교한 실행을 학습한다. 사전학습만으로는 유창한 전략이 나오지 않고, 사후학습만으로는 오류 복구를 학습하지 못하므로 양쪽 모두 필수적이다.
+
+**타임스텝 샘플링**: $\tau$를 shifted beta 분포 $p(\tau) = \text{Beta}(\frac{s-\tau}{s}; 1.5, 1)$ ($s=0.999$)에서 샘플링하여, 더 노이즈가 많은 저 타임스텝에 가중치를 둔다.
+
+**교차 로봇 학습**: 서로 다른 행동 차원(6-DoF~17-DoF)을 최대 18차원으로 zero-padding하고, 태스크-로봇 조합별로 $n^{0.43}$으로 가중치를 조절하여 데이터 불균형을 보정한다.
+
+<Figure src="./fig-2.jpeg" alt="π₀ laundry folding" caption="π₀가 모바일 매니퓰레이터를 제어하여 세탁물을 접는 장면. 7가지 로봇 구성과 68개 태스크의 다양한 데이터로 사전학습되며, 직접 프롬프트하거나 복잡한 하위 태스크에 파인튜닝할 수 있다." number={2} />
+
+</Collapsible>
+
+## 주요 결과
+
+- **사전학습 직후(zero-shot) 평가**: 5개 태스크 평균에서 π₀가 OpenVLA·Octo를 대폭 상회, 셔츠 접기에서 ~95% vs OpenVLA ~10%
+- **파인튜닝 효율성**: 사전학습된 π₀가 처음부터 학습한 모델 대비 대부분 태스크에서 **최대 2배** 성능, 어려운 태스크에서 사전학습 이점이 더 극대화
+- **복잡한 장시간 태스크**: 세탁물 접기·박스 조립·달걀 포장 등 5-20분 소요 태스크 7종에서, 사전학습+사후학습 모델이 처음부터 학습 대비 **3-4배** 성능 달성
+
+<Figure src="./fig-7.png" alt="Out-of-box evaluation results" caption="사전학습 직후 평가 결과: 700k 스텝 전체 학습된 π₀, 베이스라인과 동일한 160k 스텝 버전, π₀-small을 비교 평가." number={7} />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- Flow matching 기반 연속 행동 생성으로 50Hz 고주파 정교 조작을 VLA 프레임워크에서 최초 구현
+- 7가지 로봇 구성·68개 태스크의 10,000시간 이상 데이터로 사전학습한 최대 규모 로봇 foundation model
+- 세탁물 접기, 박스 조립 등 5-20분 소요되는 장시간 정교 조작을 end-to-end 학습으로 달성 — 저자들에 따르면 "end-to-end 로봇 학습 문헌에서 가장 긴 정교 태스크"
+
+### 한계점
+
+- **데이터 구성 이해 부족**: 어떤 데이터 조합이 최적 성능을 내는지, 완벽한 성능에 필요한 데이터 규모가 얼마인지 여전히 불명확
+- **전이 범위 불확실**: 자율주행, 내비게이션, 보행 로봇 등 현재 학습 도메인과 크게 다른 영역으로의 전이 가능성 미검증
+- 🤖 **자체 데이터 비공개**: 사전학습 데이터의 90.9%가 비공개 자체 데이터(π 데이터셋)로, 외부 연구자의 재현성이 크게 제한됨
