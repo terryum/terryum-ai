@@ -7,6 +7,7 @@ export const SITE_CONFIG = {
     github: 'https://github.com/terryum',
     facebook: 'https://facebook.com/terry.artlab',
     instagram: 'https://instagram.com/terry.artlab',
+    youtube: 'https://www.youtube.com/@TerryTaeWoongUm',
     x: 'https://x.com/TerryUm_ML',
     email: '#', // obfuscated in SocialIcons component
     googleScholar: 'https://scholar.google.com/citations?user=9Zgeg14AAAAJ',
