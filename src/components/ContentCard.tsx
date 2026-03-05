@@ -11,6 +11,11 @@ interface ContentCardProps {
   locale: string;
 }
 
+function formatSourceDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}. ${d.getMonth() + 1}`;
+}
+
 export default function ContentCard({ post, locale }: ContentCardProps) {
   const section = post.content_type === 'writing' ? 'ideas' : 'research';
   const href = `/${locale}/${section}/${post.slug}`;
@@ -18,6 +23,12 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
     locale === 'ko' ? 'ko-KR' : 'en-US',
     { year: 'numeric', month: 'short', day: 'numeric' }
   );
+
+  const summary = post.card_summary || post.summary;
+  const sourceDateLabel =
+    post.content_type === 'reading' && post.source_date
+      ? formatSourceDate(post.source_date)
+      : null;
 
   return (
     <Link href={href} className="block group border-b border-line-default py-6 first:pt-0 last:border-b-0">
@@ -39,9 +50,12 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug">
             {post.title}
+            {sourceDateLabel && (
+              <span className="text-xs font-normal text-text-muted ml-1.5">{sourceDateLabel}</span>
+            )}
           </h3>
           <p className="text-sm text-text-muted mt-1 line-clamp-4 sm:line-clamp-3">
-            {post.card_summary || post.summary}
+            {summary}
           </p>
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             <time className="text-xs text-text-muted">{dateStr}</time>

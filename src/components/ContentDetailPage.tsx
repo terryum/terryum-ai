@@ -56,7 +56,7 @@ export default function ContentDetailPage({
   }
 
   return (
-    <article className="max-w-2xl mx-auto px-4 md:px-6 lg:px-8 py-10">
+    <article className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-10">
       {/* Back to list */}
       <Link
         href={`/${locale}/${section}`}
@@ -101,7 +101,8 @@ export default function ContentDetailPage({
           sourceProjectUrl={meta.source_project_url}
           sourceAuthorsFull={meta.source_authors_full}
           firstAuthorScholarUrl={meta.first_author_scholar_url}
-          publishedAt={meta.published_at}
+          sourceDate={meta.source_date}
+          className="mb-8"
           labels={labels}
         />
       )}
@@ -131,6 +132,19 @@ export default function ContentDetailPage({
         terrys_memo={meta.terrys_memo}
         labels={labels}
       />
+
+      {/* Bottom back to list */}
+      <div className="mt-12 pt-6 border-t border-line-default">
+        <Link
+          href={`/${locale}/${section}`}
+          className="text-sm text-text-muted hover:text-accent transition-colors inline-flex items-center gap-1"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          {labels.back_to_list}
+        </Link>
+      </div>
     </article>
   );
 }

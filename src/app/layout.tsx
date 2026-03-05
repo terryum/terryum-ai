@@ -15,6 +15,18 @@ export const metadata: Metadata = {
     default: 'Terry Um',
   },
   description: 'AI & Robotics researcher, startup founder — exploring Physical AI for manufacturing innovation.',
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  other: {
+    'robots': 'noai, noimageai',
+  },
 };
 
 const themeInitScript = `

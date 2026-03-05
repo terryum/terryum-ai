@@ -1,6 +1,6 @@
 export default function HomeLoading() {
   return (
-    <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 animate-pulse">
+    <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 animate-pulse">
       {/* Hero skeleton */}
       <div className="flex flex-col sm:flex-row items-center gap-6 py-10">
         <div className="flex-shrink-0 w-28 h-28 rounded-full bg-bg-surface" />

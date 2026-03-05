@@ -28,7 +28,7 @@ export default async function LangLayout({
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      <Footer copyright={dict.footer.copyright} />
+      <Footer copyright={dict.footer.copyright} locale={lang} />
     </div>
   );
 }

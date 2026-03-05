@@ -27,7 +27,7 @@ export interface ContentIndexProps {
 export async function buildContentIndexProps(
   lang: string,
   config: {
-    dictKey: 'research_index' | 'ideas_index';
+    dictKey: 'research_index' | 'ideas_index' | 'essays_index';
     initialTag: string;
   }
 ): Promise<ContentIndexProps | null> {
@@ -71,8 +71,8 @@ export async function buildContentDetailProps(
   lang: string,
   slug: string,
   config: {
-    contentType: 'reading' | 'writing';
-    routeSegment: 'research' | 'ideas';
+    contentType: 'reading' | 'writing' | 'essay';
+    routeSegment: 'research' | 'ideas' | 'essays';
   }
 ): Promise<ContentDetailProps> {
   if (!isValidLocale(lang)) notFound();

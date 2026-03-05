@@ -25,7 +25,7 @@ export interface PostMeta {
   published_at: string;
   updated_at: string;
   status: 'draft' | 'published';
-  content_type: 'writing' | 'reading';
+  content_type: 'writing' | 'reading' | 'essay';
   tags: string[];
   cover_image: string;
   cover_caption?: string;
@@ -35,6 +35,7 @@ export interface PostMeta {
   seo_title?: string;
   seo_description?: string;
   // Reading-specific fields
+  source_date?: string;
   source_url?: string;
   source_title?: string;
   source_author?: string;

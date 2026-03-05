@@ -16,7 +16,7 @@ interface NavItem {
 interface HeaderProps {
   locale: Locale;
   dict: {
-    nav: { home: string; ideas: string; research: string; about: string };
+    nav: { home: string; ideas: string; essays: string; research: string; about: string };
   };
 }
 
@@ -27,6 +27,7 @@ export default function Header({ locale, dict }: HeaderProps) {
   const navItems: NavItem[] = [
     { href: `/${locale}`, label: dict.nav.home },
     { href: `/${locale}/ideas`, label: dict.nav.ideas },
+    { href: `/${locale}/essays`, label: dict.nav.essays },
     { href: `/${locale}/research`, label: dict.nav.research },
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
@@ -38,7 +39,7 @@ export default function Header({ locale, dict }: HeaderProps) {
 
   return (
     <header className="border-b border-line-default">
-      <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           {/* Logo / Site name */}
           <Link href={`/${locale}`} className="font-semibold text-text-primary tracking-tight">

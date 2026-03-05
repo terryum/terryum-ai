@@ -1,6 +1,6 @@
 export default function ListSkeleton() {
   return (
-    <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-10 animate-pulse">
+    <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 py-10 animate-pulse">
       {/* Title skeleton */}
       <div className="mb-8">
         <div className="h-8 w-48 bg-bg-surface rounded" />

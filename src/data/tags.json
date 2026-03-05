@@ -2,6 +2,7 @@
   "tags": [
     { "slug": "research", "label": { "ko": "Research", "en": "Research" }, "category": "content_type" },
     { "slug": "ideas", "label": { "ko": "Ideas", "en": "Ideas" }, "category": "content_type" },
+    { "slug": "essays", "label": { "ko": "Essays", "en": "Essays" }, "category": "content_type" },
     { "slug": "robotics", "label": { "ko": "Robotics", "en": "Robotics" }, "category": "topic" },
     { "slug": "vla", "label": { "ko": "VLA", "en": "VLA" }, "category": "topic" },
     { "slug": "force-sensing", "label": { "ko": "Force Sensing", "en": "Force Sensing" }, "category": "topic" },

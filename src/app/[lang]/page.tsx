@@ -1,6 +1,7 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
-import { getLatestPosts } from '@/lib/posts';
+import { getPostsByType } from '@/lib/posts';
+import { getBioContent, getBioPlainText } from '@/lib/about';
 import HeroSection from '@/components/HeroSection';
 import LatestSection from '@/components/LatestSection';
 import type { Metadata } from 'next';
@@ -15,10 +16,12 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const dict = await getDictionary(lang as Locale);
+  const locale = lang as Locale;
+  const dict = await getDictionary(locale);
+  const bioText = await getBioPlainText(locale);
   return {
     title: `${dict.hero.name} | ${dict.hero.tagline}`,
-    description: dict.hero.bio_short,
+    description: bioText,
   };
 }
 
@@ -31,25 +34,33 @@ export default async function HomePage({
   if (!isValidLocale(lang)) return null;
 
   const dict = await getDictionary(lang);
-  const latestWriting = await getLatestPosts(lang, 'writing', 3);
-  const latestReading = await getLatestPosts(lang, 'reading', 3);
+  const bioContent = await getBioContent(lang);
+  const latestWriting = await getPostsByType(lang, 'writing');
+  const latestEssays = await getPostsByType(lang, 'essay');
+  const latestReading = await getPostsByType(lang, 'reading');
 
   return (
-    <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8">
-      {/* Hero */}
-      <HeroSection name={dict.hero.name} tagline={dict.hero.tagline} />
-
-      {/* Short bio */}
-      <p className="text-sm text-text-muted leading-relaxed pb-4 border-b border-line-default">
-        {dict.hero.bio_short}
-      </p>
+    <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+      {/* Hero + Bio */}
+      <HeroSection name={dict.hero.name} bio={bioContent} />
 
       {/* Latest Ideas */}
       <LatestSection
         title={dict.home.latest_ideas}
         viewAllHref={`/${lang}/ideas`}
         viewAllText={dict.home.view_all}
+        showMoreText={dict.home.show_more}
         posts={latestWriting}
+        locale={lang}
+      />
+
+      {/* Latest Essays */}
+      <LatestSection
+        title={dict.home.latest_essays}
+        viewAllHref={`/${lang}/essays`}
+        viewAllText={dict.home.view_all}
+        showMoreText={dict.home.show_more}
+        posts={latestEssays}
         locale={lang}
       />
 
@@ -58,6 +69,7 @@ export default async function HomePage({
         title={dict.home.latest_research}
         viewAllHref={`/${lang}/research`}
         viewAllText={dict.home.view_all}
+        showMoreText={dict.home.show_more}
         posts={latestReading}
         locale={lang}
       />

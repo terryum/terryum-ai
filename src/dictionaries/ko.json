@@ -2,48 +2,36 @@
   "nav": {
     "home": "Home",
     "ideas": "Ideas",
+    "essays": "Essays",
     "research": "Research",
     "about": "About"
   },
   "hero": {
     "name": "Terry Taewoong Um",
-    "tagline": "AI & Robotics 연구자 · Physical AI로 제조업을 혁신합니다",
-    "bio_short": "서울대에서 로봇공학을 전공하고, 캐나다 워털루 대학교에서 딥러닝과 로봇 모션을 연구했습니다. 2019년 뷰티AI 스타트업 ART Lab을 창업해 AI & Robotics Tech으로 뷰티산업의 혁신을 이끌었고, 2024년 세계 1위 화장품 ODM 기업 코스맥스에 인수되었습니다. 현재 코스맥스에서 AI & Robotics Tech 총괄로서 Physical AI를 통한 제조 혁신을 추진하고 있습니다."
+    "tagline": "AI & Robotics 연구자 · Physical AI로 제조업을 혁신합니다"
   },
   "about": {
     "title": "About",
-    "bio_detailed": [
-      {
-        "heading": "로봇에서 시작하다",
-        "content": "서울대학교에서 기계항공공학을 전공하며 로봇공학의 기초를 다졌습니다. 졸업 후 LIG넥스원에서 방산 로봇을, KIST에서 연구용 로봇을 개발하며 실전 경험을 쌓았습니다."
-      },
-      {
-        "heading": "딥러닝과의 만남",
-        "content": "캐나다 University of Waterloo에서 딥러닝을 휴먼 모션과 로봇 모션에 적용하는 연구를 진행했습니다. 이 과정에서 AI가 로보틱스를 근본적으로 바꿀 수 있다는 확신을 갖게 되었습니다."
-      },
-      {
-        "heading": "뷰티AI 스타트업 창업",
-        "content": "2019년 박사과정을 중단하고 한국으로 돌아와 ART Lab(AI & Robotics Tech Lab)을 창업했습니다. 뷰티산업에 AI와 로보틱스 기술을 접목해 피부 분석, 맞춤형 화장품 추천 등 혁신적인 솔루션을 만들었습니다."
-      },
-      {
-        "heading": "코스맥스, 그리고 Physical AI",
-        "content": "2024년 세계 1위 화장품 ODM 기업 코스맥스에 인수된 후, AI & Robotics Tech 총괄을 맡고 있습니다. 로봇, AI, 뷰티스타트업, 화장품 제조업에서의 경험을 통합해 Physical AI로 제조업을 혁신하는 미션을 수행하고 있습니다."
-      }
-    ],
     "contact_label": "연락처"
   },
   "ideas_index": {
     "title": "Ideas",
     "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 생각을 나눕니다."
   },
+  "essays_index": {
+    "title": "Essays",
+    "description": "일상에 대한 생각을 나눕니다."
+  },
   "research_index": {
-    "title": "Research",
+    "title": "Research Notes",
     "description": "관심 있게 읽은 논문과 아티클의 핵심을 정리합니다."
   },
   "home": {
     "latest_ideas": "Latest Ideas",
-    "latest_research": "Latest Research",
-    "view_all": "전체 보기"
+    "latest_essays": "Latest Essays",
+    "latest_research": "Latest Research Notes",
+    "view_all": "전체 보기",
+    "show_more": "더 보기"
   },
   "detail": {
     "back_to_list": "목록으로",

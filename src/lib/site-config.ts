@@ -1,16 +1,20 @@
 export const SITE_CONFIG = {
   name: 'Terry Um',
   profileImage: '/images/profile_terry.jpeg',
+  profileImageOriginal: '/images/profile_terry_original.jpg',
   social: {
-    github: 'https://github.com/terry-um',
     linkedin: 'https://linkedin.com/in/terryum',
-    x: 'https://x.com/terryum_ai',
-    email: 'mailto:hello@terryum.io',
+    github: 'https://github.com/terryum',
+    facebook: 'https://facebook.com/terry.artlab',
+    instagram: 'https://instagram.com/terry.artlab',
+    x: 'https://x.com/TerryUm_ML',
+    email: '#', // obfuscated in SocialIcons component
+    googleScholar: 'https://scholar.google.com/citations?user=9Zgeg14AAAAJ',
   },
 } as const;
 
 /** Tag slugs that represent content types — filtered out in ContentCard tag display */
-export const CONTENT_TYPE_TAG_SLUGS = new Set(['research', 'ideas']);
+export const CONTENT_TYPE_TAG_SLUGS = new Set(['research', 'ideas', 'essays']);
 
 /** Max tags to show in TagFilterBar before "show more" */
 export const TAG_DISPLAY_LIMIT = 6;

@@ -1,7 +1,8 @@
-import { LinkBadge } from './LinkBadge';
+import { LinkBadge, InternalLinkBadge } from './LinkBadge';
 import AuthorList from './AuthorList';
+import type { Locale } from '@/lib/i18n';
 
-interface SourceInfoBlockProps {
+export interface SourceInfoBlockProps {
   sourceUrl?: string;
   sourceTitle?: string;
   sourceAuthor?: string;
@@ -9,16 +10,21 @@ interface SourceInfoBlockProps {
   sourceProjectUrl?: string;
   sourceAuthorsFull?: string[];
   firstAuthorScholarUrl?: string;
-  publishedAt?: string;
-  labels: {
+  sourceDate?: string;
+  scholarUrl?: string;
+  description?: string;
+  postSlug?: string;
+  locale?: Locale;
+  className?: string;
+  labels?: {
     source_label: string;
     author_label: string;
     view_all_authors: string;
   };
 }
 
-function formatSourceDate(publishedAt: string): string {
-  const d = new Date(publishedAt);
+export function formatSourceDate(dateStr: string): string {
+  const d = new Date(dateStr);
   return `${d.getUTCFullYear()}. ${d.getUTCMonth() + 1}`;
 }
 
@@ -34,17 +40,29 @@ export default function SourceInfoBlock({
   sourceProjectUrl,
   sourceAuthorsFull,
   firstAuthorScholarUrl,
-  publishedAt,
+  sourceDate,
+  scholarUrl: scholarUrlProp,
+  description,
+  postSlug,
+  locale,
+  className,
+  labels,
 }: SourceInfoBlockProps) {
   if (!sourceUrl && !sourceTitle) return null;
 
-  const dateStr = publishedAt ? formatSourceDate(publishedAt) : null;
-  const scholarUrl = sourceTitle ? buildScholarUrl(sourceTitle) : null;
+  const dateStr = sourceDate ? formatSourceDate(sourceDate) : null;
+  const scholarUrl = scholarUrlProp || (sourceTitle ? buildScholarUrl(sourceTitle) : null);
+  const loc = locale || 'en';
 
   return (
-    <div className="border border-line-default rounded-lg p-4 md:p-5 mb-8 text-sm bg-bg-surface/40">
+    <div className={`border border-line-default rounded-lg p-4 md:p-5 text-sm bg-bg-surface/40${className ? ` ${className}` : ''}`}>
       {/* Link badges (top) */}
-      <div className="flex items-center gap-1.5 mb-3">
+      <div className="flex items-center gap-1.5 mb-3 flex-wrap">
+        {postSlug && (
+          <InternalLinkBadge href={`/${loc}/research/${postSlug}`}>
+            Post
+          </InternalLinkBadge>
+        )}
         {sourceUrl && <LinkBadge href={sourceUrl}>{sourceType || 'arXiv'}</LinkBadge>}
         {scholarUrl && <LinkBadge href={scholarUrl}>Google Scholar</LinkBadge>}
         {sourceProjectUrl && <LinkBadge href={sourceProjectUrl}>Project</LinkBadge>}
@@ -70,12 +88,24 @@ export default function SourceInfoBlock({
 
       {/* Author + Date */}
       {sourceAuthor && (
-        <AuthorList
-          sourceAuthor={sourceAuthor}
-          firstAuthorScholarUrl={firstAuthorScholarUrl}
-          publishedDate={dateStr}
-          sourceAuthorsFull={sourceAuthorsFull}
-        />
+        sourceAuthorsFull && sourceAuthorsFull.length > 0 ? (
+          <AuthorList
+            sourceAuthor={sourceAuthor}
+            firstAuthorScholarUrl={firstAuthorScholarUrl}
+            publishedDate={dateStr}
+            sourceAuthorsFull={sourceAuthorsFull}
+          />
+        ) : (
+          <p className="text-text-muted text-xs mt-1">
+            {sourceAuthor}
+            {dateStr && <span className="ml-1">({dateStr})</span>}
+          </p>
+        )
+      )}
+
+      {/* Description (for reference cards) */}
+      {description && (
+        <p className="text-text-muted text-xs mt-1">{description}</p>
       )}
     </div>
   );

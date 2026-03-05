@@ -6,7 +6,7 @@ import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath } from '@/lib/paths';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
-const CATEGORIES = ['research', 'idea'] as const;
+const CATEGORIES = ['research', 'idea', 'essay'] as const;
 
 async function readMetaJson(postDir: string): Promise<Record<string, unknown> | null> {
   try {
@@ -26,9 +26,10 @@ function stripUndefined(obj: Record<string, unknown>): Record<string, unknown> {
 }
 type PostCategory = (typeof CATEGORIES)[number];
 
-const CATEGORY_TO_CONTENT_TYPE: Record<PostCategory, 'reading' | 'writing'> = {
+const CATEGORY_TO_CONTENT_TYPE: Record<PostCategory, 'reading' | 'writing' | 'essay'> = {
   research: 'reading',
   idea: 'writing',
+  essay: 'essay',
 };
 
 async function resolvePostPath(
@@ -63,12 +64,12 @@ export async function getAllSlugs(): Promise<string[]> {
 function resolveContentType(
   data: Record<string, unknown>,
   category?: PostCategory
-): 'writing' | 'reading' {
+): 'writing' | 'reading' | 'essay' {
   if (category) return CATEGORY_TO_CONTENT_TYPE[category];
   let ct = (data.content_type || data.kind || 'writing') as string;
   if (ct === 'write' || ct === 'ideas') ct = 'writing';
   if (ct === 'read' || ct === 'research') ct = 'reading';
-  return ct as 'writing' | 'reading';
+  return ct as 'writing' | 'reading' | 'essay';
 }
 
 function normalizeTags(
@@ -77,7 +78,7 @@ function normalizeTags(
 ): string[] {
   const rawTags: string[] = (data.tags as string[]) || [];
   const tagSlugs = rawTags.map((t) => normalizeTagSlug(t));
-  const contentTypeTag = category === 'research' ? 'Research' : 'Ideas';
+  const contentTypeTag = category === 'research' ? 'Research' : category === 'essay' ? 'Essays' : 'Ideas';
   if (!tagSlugs.includes(normalizeTagSlug(contentTypeTag))) {
     rawTags.unshift(contentTypeTag);
   }
@@ -127,6 +128,7 @@ function normalizeMeta(
     reading_time_min: data.reading_time_min as number | undefined,
     seo_title: data.seo_title as string | undefined,
     seo_description: data.seo_description as string | undefined,
+    source_date: data.source_date as string | undefined,
     source_url: data.source_url as string | undefined,
     source_title: data.source_title as string | undefined,
     source_author: data.source_author as string | undefined,
@@ -175,7 +177,7 @@ export async function getPostMeta(slug: string, locale: string): Promise<PostMet
 
 export async function getPostsByType(
   locale: string,
-  contentType: 'writing' | 'reading'
+  contentType: 'writing' | 'reading' | 'essay'
 ): Promise<PostMeta[]> {
   const slugs = await getAllSlugs();
   const allMeta = await Promise.all(slugs.map((slug) => getPostMeta(slug, locale)));
@@ -191,7 +193,7 @@ export async function getPostsByType(
 
 export async function getLatestPosts(
   locale: string,
-  contentType: 'writing' | 'reading',
+  contentType: 'writing' | 'reading' | 'essay',
   limit: number
 ): Promise<PostMeta[]> {
   const posts = await getPostsByType(locale, contentType);
@@ -243,7 +245,7 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
 }
 
 export async function getPostParamsByType(
-  contentType: 'writing' | 'reading'
+  contentType: 'writing' | 'reading' | 'essay'
 ): Promise<{ lang: string; slug: string }[]> {
   const slugs = await getAllSlugs();
   const checks = slugs.flatMap((slug) =>
