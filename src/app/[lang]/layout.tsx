@@ -1,10 +1,14 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type Locale } from '@/lib/i18n';
+import { isValidLocale, LOCALES, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getAllPosts } from '@/lib/posts';
 import { getNavTabs } from '@/lib/tabs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
+export function generateStaticParams() {
+  return LOCALES.map((lang) => ({ lang }));
+}
 
 export default async function LangLayout({
   children,

@@ -101,6 +101,7 @@ export default function ContentDetailPage({
           sourceProjectUrl={meta.source_project_url}
           sourceAuthorsFull={meta.source_authors_full}
           firstAuthorScholarUrl={meta.first_author_scholar_url}
+          scholarUrl={meta.google_scholar_url}
           sourceDate={meta.source_date}
           className="mb-8"
           labels={labels}

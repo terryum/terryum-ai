@@ -43,6 +43,9 @@ export interface PostMeta {
   source_project_url?: string;
   source_authors_full?: string[];
   first_author_scholar_url?: string;
+  google_scholar_url?: string;
+  citation_count?: number;
+  citation_updated_at?: string;
   // Key references
   references?: Reference[];
   // Figure/Table galleries

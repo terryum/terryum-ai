@@ -136,6 +136,9 @@ function normalizeMeta(
     source_project_url: data.source_project_url as string | undefined,
     source_authors_full: data.source_authors_full as string[] | undefined,
     first_author_scholar_url: data.first_author_scholar_url as string | undefined,
+    google_scholar_url: data.google_scholar_url as string | undefined,
+    citation_count: data.citation_count as number | undefined,
+    citation_updated_at: data.citation_updated_at as string | undefined,
     references: ((data.references as Reference[] | undefined) || [])?.map((ref) => ({
       ...ref,
       category: ref.category || undefined,

@@ -3,6 +3,8 @@ import { buildContentDetailProps } from '@/lib/content-page-helpers';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return getAllPostParams();
 }
