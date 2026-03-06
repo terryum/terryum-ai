@@ -4,7 +4,7 @@ import { getDictionary, type Dictionary } from '@/lib/dictionaries';
 import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale } from '@/lib/posts';
 import { computeTagCounts, sortTagsByCount, getTagLabel } from '@/lib/tags';
 import { renderMDX } from '@/lib/mdx';
-import { TAB_TAG_SLUGS } from '@/lib/site-config';
+import { TAB_CONFIG, TAB_TAG_SLUGS } from '@/lib/site-config';
 import type { PostMeta } from '@/types/post';
 
 /* ─── Index page helpers ─── */
@@ -15,6 +15,11 @@ interface TagItem {
   count: number;
 }
 
+interface TabTitleEntry {
+  title: string;
+  description: string;
+}
+
 export interface ContentIndexProps {
   locale: string;
   title: string;
@@ -23,6 +28,7 @@ export interface ContentIndexProps {
   allTags: TagItem[];
   initialSelectedTags: string[];
   filterDict: Dictionary['filter'];
+  tabTitles: Record<string, TabTitleEntry>;
 }
 
 export async function buildContentIndexProps(
@@ -51,6 +57,19 @@ export async function buildContentIndexProps(
 
   const section = dict.posts_index;
 
+  // Build tabTitles from dictionary tabs_index
+  const tabTitles: Record<string, TabTitleEntry> = {};
+  const tabsIndex = (dict as Record<string, unknown>).tabs_index as
+    Record<string, { title: string; description: string }> | undefined;
+  if (tabsIndex) {
+    for (const tab of TAB_CONFIG) {
+      const entry = tabsIndex[tab.slug];
+      if (entry) {
+        tabTitles[tab.slug] = { title: entry.title, description: entry.description };
+      }
+    }
+  }
+
   return {
     locale: lang,
     title: section.title,
@@ -59,6 +78,7 @@ export async function buildContentIndexProps(
     allTags,
     initialSelectedTags: [],
     filterDict: dict.filter,
+    tabTitles,
   };
 }
 

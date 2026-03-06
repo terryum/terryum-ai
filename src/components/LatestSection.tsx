@@ -14,6 +14,7 @@ interface LatestSectionProps {
   posts: PostMeta[];
   locale: string;
   showMoreText?: string;
+  emptyText?: string;
 }
 
 export default function LatestSection({
@@ -23,6 +24,7 @@ export default function LatestSection({
   posts,
   locale,
   showMoreText,
+  emptyText,
 }: LatestSectionProps) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const visiblePosts = posts.slice(0, visibleCount);
@@ -43,7 +45,7 @@ export default function LatestSection({
       </div>
 
       {posts.length === 0 ? (
-        <p className="text-text-muted text-sm py-4">No posts yet.</p>
+        <p className="text-text-muted text-sm py-4">{emptyText ?? 'No posts yet.'}</p>
       ) : (
         <div>
           {visiblePosts.map((post) => (

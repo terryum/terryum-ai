@@ -15,12 +15,27 @@
     "title": "Posts",
     "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 글을 나눕니다."
   },
+  "tabs_index": {
+    "ideas": {
+      "title": "Ideas",
+      "description": "아이디어, 생각, 인사이트를 정리합니다."
+    },
+    "essays": {
+      "title": "Essays",
+      "description": "깊이 있는 주제에 대한 에세이를 씁니다."
+    },
+    "research": {
+      "title": "Research Notes",
+      "description": "AI·로보틱스 논문을 읽고 핵심 내용을 정리합니다."
+    }
+  },
   "home": {
     "latest_ideas": "Latest Ideas",
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Research Notes",
     "view_all": "전체 보기",
-    "show_more": "더 보기"
+    "show_more": "더 보기",
+    "no_posts_yet": "아직 글이 없습니다."
   },
   "detail": {
     "back_to_list": "목록으로",

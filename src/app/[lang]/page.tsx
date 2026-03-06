@@ -54,7 +54,7 @@ export default async function HomePage({
       href: `/${lang}/posts?tab=${tab.slug}`,
       posts: getPostsForTab(allPosts, tab.slug).slice(0, 5),
     }))
-    .filter(s => s.posts.length > 0);
+;
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
@@ -71,6 +71,7 @@ export default async function HomePage({
           showMoreText={dict.home.show_more}
           posts={section.posts}
           locale={lang}
+          emptyText={dict.home.no_posts_yet}
         />
       ))}
     </div>

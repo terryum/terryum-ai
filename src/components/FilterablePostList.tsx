@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import TagFilterBar from './TagFilterBar';
 import ContentCard from './ContentCard';
 import { normalizeTagSlug } from '@/lib/tags';
@@ -14,6 +15,11 @@ interface TagItem {
   count: number;
 }
 
+interface TabTitleEntry {
+  title: string;
+  description: string;
+}
+
 interface FilterablePostListProps {
   locale: string;
   posts: PostMeta[];
@@ -22,9 +28,12 @@ interface FilterablePostListProps {
   showMoreLabel: string;
   showLessLabel: string;
   noResultsLabel: string;
+  defaultTitle: string;
+  defaultDescription: string;
+  tabTitles?: Record<string, TabTitleEntry>;
 }
 
-export default function FilterablePostList({
+function FilterablePostListInner({
   locale,
   posts,
   allTags,
@@ -32,53 +41,45 @@ export default function FilterablePostList({
   showMoreLabel,
   showLessLabel,
   noResultsLabel,
+  defaultTitle,
+  defaultDescription,
+  tabTitles,
 }: FilterablePostListProps) {
-  const [selectedTab, setSelectedTab] = useState<string | null>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      // Backward compat: ?tags=research → treat as ?tab=research
-      const tagsParam = params.get('tags');
-      if (tagsParam && TAB_TAG_SLUGS.has(tagsParam)) {
-        return tagsParam;
-      }
-      return params.get('tab');
-    }
-    return null;
-  });
+  const searchParams = useSearchParams();
+  const selectedTab = searchParams.get('tab');
 
   const [selectedTags, setSelectedTags] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const tagsParam = params.get('tags');
       if (tagsParam) {
-        // Filter out tab tags from ?tags= param
         return tagsParam.split(',').filter(t => t && !TAB_TAG_SLUGS.has(t));
       }
     }
     return initialSelectedTags;
   });
 
-  // Sync URL query params
+  // Sync tags to URL
   useEffect(() => {
-    const params = new URLSearchParams();
-    if (selectedTab) {
-      params.set('tab', selectedTab);
-    }
+    const params = new URLSearchParams(window.location.search);
+    // Preserve existing tab param
+    const currentTab = params.get('tab');
+    const newParams = new URLSearchParams();
+    if (currentTab) newParams.set('tab', currentTab);
     if (selectedTags.length > 0) {
-      params.set('tags', selectedTags.join(','));
+      newParams.set('tags', selectedTags.join(','));
     }
-    const qs = params.toString();
+    const qs = newParams.toString();
     const newUrl = qs
       ? `${window.location.pathname}?${qs}`
       : window.location.pathname;
     window.history.replaceState(null, '', newUrl);
-  }, [selectedTab, selectedTags]);
+  }, [selectedTags]);
 
-  // Listen for popstate (back/forward) to sync tab from URL
+  // Listen for popstate (back/forward)
   useEffect(() => {
     function onPopState() {
       const params = new URLSearchParams(window.location.search);
-      setSelectedTab(params.get('tab'));
       const tags = params.get('tags');
       setSelectedTags(tags ? tags.split(',').filter(t => t && !TAB_TAG_SLUGS.has(t)) : []);
     }
@@ -127,8 +128,15 @@ export default function FilterablePostList({
       .sort((a, b) => b.count - a.count);
   }, [allTags, tabFilteredPosts]);
 
+  // Resolve title/description based on current tab
+  const currentTitle = (selectedTab && tabTitles?.[selectedTab]?.title) || defaultTitle;
+  const currentDescription = (selectedTab && tabTitles?.[selectedTab]?.description) || defaultDescription;
+
   return (
     <div>
+      <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
+      <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
+
       <TagFilterBar
         availableTags={availableTags}
         selectedSlugs={selectedTags}
@@ -147,5 +155,18 @@ export default function FilterablePostList({
         </div>
       )}
     </div>
+  );
+}
+
+export default function FilterablePostList(props: FilterablePostListProps) {
+  return (
+    <Suspense fallback={
+      <div>
+        <h1 className="text-2xl font-bold text-text-primary tracking-tight">{props.defaultTitle}</h1>
+        <p className="text-sm text-text-muted mt-2 mb-8">{props.defaultDescription}</p>
+      </div>
+    }>
+      <FilterablePostListInner {...props} />
+    </Suspense>
   );
 }

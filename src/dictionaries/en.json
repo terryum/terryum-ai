@@ -15,12 +15,27 @@
     "title": "Posts",
     "description": "Writings on AI, robotics, startups, and manufacturing innovation."
   },
+  "tabs_index": {
+    "ideas": {
+      "title": "Ideas",
+      "description": "Ideas, thoughts, and insights."
+    },
+    "essays": {
+      "title": "Essays",
+      "description": "In-depth essays on various topics."
+    },
+    "research": {
+      "title": "Research Notes",
+      "description": "Reading notes on AI and robotics papers."
+    }
+  },
   "home": {
     "latest_ideas": "Latest Ideas",
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Research Notes",
     "view_all": "View all",
-    "show_more": "Show more"
+    "show_more": "Show more",
+    "no_posts_yet": "No posts yet."
   },
   "detail": {
     "back_to_list": "Back to list",

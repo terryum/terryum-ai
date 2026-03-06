@@ -39,6 +39,7 @@ export default async function PostsPage({
       allTags={props.allTags}
       initialSelectedTags={props.initialSelectedTags}
       filterDict={props.filterDict}
+      tabTitles={props.tabTitles}
     />
   );
 }
