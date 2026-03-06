@@ -16,6 +16,7 @@
   "source_author": "Jiawen Yu et al.",
   "source_type": "arXiv",
   "source_project_url": "https://sites.google.com/view/forcevla2025",
+  "google_scholar_url": "https://scholar.google.com/scholar?cluster=15663024891498547659&hl=en&as_sdt=0,5",
   "source_authors_full": [
     "Jiawen Yu (Fudan University)",
     "Hairuo Liu (Shanghai Jiao Tong University)",
@@ -148,5 +149,7 @@
   ],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "citation_count": 3,
+  "citation_updated_at": "2026-03-06T17:19:00.000Z"
 }

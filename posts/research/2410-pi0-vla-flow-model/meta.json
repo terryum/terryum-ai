@@ -16,6 +16,7 @@
   "source_author": "Kevin Black et al.",
   "source_type": "arXiv",
   "source_project_url": "https://physicalintelligence.company/blog/pi0",
+  "google_scholar_url": "https://scholar.google.com/scholar?cluster=10726000093355292369&hl=en&as_sdt=0,5",
   "source_authors_full": [
     "Kevin Black (Physical Intelligence)",
     "Noah Brown (Physical Intelligence)",
@@ -124,5 +125,7 @@
   ],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "citation_count": 847,
+  "citation_updated_at": "2026-03-06T17:19:00.000Z"
 }

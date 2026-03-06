@@ -9,9 +9,14 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
   },
-  webpack(config) {
+  webpack(config, { dev }) {
     // Limit parallelism to reduce Windows worker memory pressure
     config.parallelism = 2;
+    // Use in-memory cache in dev to prevent OneDrive/filesystem cache corruption
+    // that causes recurring 500 errors
+    if (dev) {
+      config.cache = { type: 'memory' };
+    }
     return config;
   },
   async redirects() {

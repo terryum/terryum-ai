@@ -11,23 +11,27 @@ interface ContentCardProps {
   locale: string;
 }
 
-function formatSourceDate(dateStr: string): string {
+function formatSourceDateShort(dateStr: string, locale: string): string {
   const d = new Date(dateStr);
-  return `${d.getFullYear()}. ${d.getMonth() + 1}`;
+  return d.toLocaleDateString(locale === 'ko' ? 'ko-KR' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+  });
 }
 
 export default function ContentCard({ post, locale }: ContentCardProps) {
   const href = `/${locale}/posts/${post.slug}`;
-  const dateStr = new Date(post.published_at).toLocaleDateString(
-    locale === 'ko' ? 'ko-KR' : 'en-US',
-    { year: 'numeric', month: 'short', day: 'numeric' }
-  );
+  const isReading = post.content_type === 'reading';
+
+  // Reading: show source_date (paper publish date); Writing/Essay: show published_at (posting date)
+  const metaDateStr = isReading && post.source_date
+    ? formatSourceDateShort(post.source_date, locale)
+    : new Date(post.published_at).toLocaleDateString(
+        locale === 'ko' ? 'ko-KR' : 'en-US',
+        { year: 'numeric', month: 'short', day: 'numeric' }
+      );
 
   const summary = post.card_summary || post.summary;
-  const sourceDateLabel =
-    post.content_type === 'reading' && post.source_date
-      ? formatSourceDate(post.source_date)
-      : null;
 
   return (
     <Link href={href} className="block group border-b border-line-default py-6 first:pt-0 last:border-b-0">
@@ -49,17 +53,20 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug">
             {post.title}
-            {sourceDateLabel && (
-              <span className="text-xs font-normal text-text-muted ml-1.5">{sourceDateLabel}</span>
-            )}
           </h3>
-          <p className="text-sm text-text-muted mt-1 line-clamp-8 sm:line-clamp-4">
+          {isReading && post.source_author && (
+            <p className="text-xs text-text-muted mt-0.5">{post.source_author}</p>
+          )}
+          <p className="text-sm text-text-muted mt-1 line-clamp-4 sm:line-clamp-3">
             {summary}
           </p>
           <div className="flex items-center gap-2 mt-2 flex-wrap">
-            <time className="text-xs text-text-muted">{dateStr}</time>
-            {post.content_type === 'reading' && post.source_type && (
+            <time className="text-xs text-text-muted">{metaDateStr}</time>
+            {isReading && post.source_type && (
               <SourceBadge sourceType={post.source_type} />
+            )}
+            {post.citation_count != null && post.citation_count > 0 && (
+              <span className="text-xs text-text-muted">Cited {post.citation_count.toLocaleString()}</span>
             )}
             {post.tags
               .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
