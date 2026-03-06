@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import TagChip from './TagChip';
-import SourceBadge from './SourceBadge';
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
 import type { PostMeta } from '@/types/post';
@@ -55,19 +54,17 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
             {post.title}
           </h3>
           {isReading && post.source_author && (
-            <p className="text-xs text-text-muted mt-0.5">{post.source_author}</p>
+            <p className="text-xs text-text-muted mt-0.5">
+              {post.source_author}
+              {post.source_date && ` · ${formatSourceDateShort(post.source_date, locale)}`}
+              {post.citation_count != null && post.citation_count > 0 && ` · Cited ${post.citation_count}`}
+            </p>
           )}
           <p className="text-sm text-text-muted mt-1 line-clamp-4 sm:line-clamp-3">
             {summary}
           </p>
           <div className="flex items-center gap-2 mt-2 flex-wrap">
-            <time className="text-xs text-text-muted">{metaDateStr}</time>
-            {isReading && post.source_type && (
-              <SourceBadge sourceType={post.source_type} />
-            )}
-            {post.citation_count != null && post.citation_count > 0 && (
-              <span className="text-xs text-text-muted">Cited {post.citation_count.toLocaleString()}</span>
-            )}
+            {!isReading && <time className="text-xs text-text-muted">{metaDateStr}</time>}
             {post.tags
               .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
               .slice(0, 3)

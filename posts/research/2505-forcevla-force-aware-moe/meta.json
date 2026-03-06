@@ -6,7 +6,14 @@
   "updated_at": "2026-03-04T00:00:00Z",
   "status": "published",
   "content_type": "reading",
-  "tags": ["Research", "Robotics", "VLA", "Force Sensing", "Manipulation", "NeurIPS 2025"],
+  "tags": [
+    "Research",
+    "Robotics",
+    "VLA",
+    "Force Sensing",
+    "Manipulation",
+    "NeurIPS 2025"
+  ],
   "cover_image": "./cover.webp",
   "thumb_source": "./fig-2.jpg",
   "cover_caption": "Overview of our ForceVLA model. Visual and language inputs are processed by a pre-trained VLM to form contextual embeddings. External force signals are projected and fused with VLM outputs via the FVLMoE module. The resulting multimodal features guide a flow-based action head to generate contact-aware robot actions.",
@@ -16,7 +23,7 @@
   "source_author": "Jiawen Yu et al.",
   "source_type": "arXiv",
   "source_project_url": "https://sites.google.com/view/forcevla2025",
-  "google_scholar_url": "https://scholar.google.com/scholar?cluster=15663024891498547659&hl=en&as_sdt=0,5",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=ForceVLA%3A+Enhancing+VLA+Models+with+a+Force-aware+MoE+for+Contact-rich+Manipulation&btnG=",
   "source_authors_full": [
     "Jiawen Yu (Fudan University)",
     "Hairuo Liu (Shanghai Jiao Tong University)",
@@ -150,6 +157,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "citation_count": 3,
-  "citation_updated_at": "2026-03-06T17:19:00.000Z"
+  "citation_count": 37,
+  "citation_updated_at": "2026-03-06T19:01:04.272Z"
 }

@@ -1,7 +1,8 @@
 /**
- * Update citation counts for research posts using Semantic Scholar API.
- * Reads arXiv IDs from meta.json source_url, fetches citation counts,
- * and writes citation_count + citation_updated_at back to meta.json.
+ * Update citation counts for research posts.
+ * Priority:
+ *   1. meta.google_scholar_url → scrape "Cited by N" from Google Scholar HTML
+ *   2. Fallback: Semantic Scholar API (via arXiv ID in source_url)
  *
  * Usage: node scripts/update-citations.mjs
  */
@@ -18,7 +19,25 @@ function extractArxivId(url) {
   return match ? match[1] : null;
 }
 
-async function fetchCitationCount(arxivId) {
+async function fetchCitationFromGoogleScholar(scholarUrl) {
+  try {
+    const res = await fetch(scholarUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      },
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    const match = html.match(/Cited by ([\d,]+)/);
+    if (!match) return null;
+    return parseInt(match[1].replace(/,/g, ''), 10);
+  } catch {
+    return null;
+  }
+}
+
+async function fetchCitationFromSemanticScholar(arxivId) {
   const url = `${API_BASE}/arXiv:${arxivId}?fields=citationCount,title,year`;
   const res = await fetch(url);
   if (!res.ok) {
@@ -26,6 +45,10 @@ async function fetchCitationCount(arxivId) {
     throw new Error(`Semantic Scholar API error: ${res.status} ${res.statusText}`);
   }
   return res.json();
+}
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
 }
 
 async function main() {
@@ -47,39 +70,54 @@ async function main() {
       continue;
     }
 
-    const arxivId = extractArxivId(meta.source_url);
-    if (!arxivId) {
-      console.log(`  SKIP ${slug}: no arXiv ID in source_url`);
-      skipped++;
-      continue;
+    let count = null;
+    let source = null;
+
+    if (meta.google_scholar_url) {
+      console.log(`  Fetching ${slug} from Google Scholar...`);
+      count = await fetchCitationFromGoogleScholar(meta.google_scholar_url);
+      if (count != null) {
+        source = 'Google Scholar';
+      } else {
+        console.log(`    Google Scholar failed, falling back to Semantic Scholar...`);
+      }
+      // Delay after Google Scholar request to avoid rate limiting
+      await sleep(2000 + Math.random() * 1000);
     }
 
-    console.log(`  Fetching ${slug} (arXiv:${arxivId})...`);
-    try {
-      const data = await fetchCitationCount(arxivId);
-      if (!data) {
-        console.log(`    Not found on Semantic Scholar, skipping`);
+    if (count == null) {
+      const arxivId = extractArxivId(meta.source_url);
+      if (!arxivId) {
+        console.log(`  SKIP ${slug}: no arXiv ID in source_url`);
         skipped++;
         continue;
       }
-
-      const count = data.citationCount ?? 0;
-      const now = new Date().toISOString();
-
-      console.log(`    "${data.title}" (${data.year}) — Cited ${count}`);
-
-      meta.citation_count = count;
-      meta.citation_updated_at = now;
-
-      await fs.writeFile(metaPath, JSON.stringify(meta, null, 2) + '\n', 'utf-8');
-      updated++;
-    } catch (err) {
-      console.error(`    Error: ${err.message}`);
-      skipped++;
+      console.log(`  Fetching ${slug} from Semantic Scholar (arXiv:${arxivId})...`);
+      try {
+        const data = await fetchCitationFromSemanticScholar(arxivId);
+        if (!data) {
+          console.log(`    Not found on Semantic Scholar, skipping`);
+          skipped++;
+          continue;
+        }
+        count = data.citationCount ?? 0;
+        source = `Semantic Scholar ("${data.title}", ${data.year})`;
+      } catch (err) {
+        console.error(`    Error: ${err.message}`);
+        skipped++;
+        continue;
+      }
+      await sleep(1000);
     }
 
-    // Rate limit: 100 requests per 5 minutes for unauthenticated
-    await new Promise((r) => setTimeout(r, 1000));
+    const now = new Date().toISOString();
+    console.log(`    → ${count} citations [${source}]`);
+
+    meta.citation_count = count;
+    meta.citation_updated_at = now;
+
+    await fs.writeFile(metaPath, JSON.stringify(meta, null, 2) + '\n', 'utf-8');
+    updated++;
   }
 
   console.log(`\nDone: ${updated} updated, ${skipped} skipped`);

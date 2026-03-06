@@ -23,7 +23,7 @@
   "source_author": "Claire Chen et al.",
   "source_type": "arXiv",
   "source_project_url": "https://clairelc.github.io/dexforce.github.io/",
-  "google_scholar_url": "https://scholar.google.com/scholar?cluster=3505091928557892498&hl=en&as_sdt=0,5",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=",
   "source_authors_full": [
     "Claire Chen (Stanford University)",
     "Zhongchun Yu (Stanford University)",
@@ -91,6 +91,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "citation_count": 32,
-  "citation_updated_at": "2026-03-06T17:19:18.514Z"
+  "citation_count": 33,
+  "citation_updated_at": "2026-03-06T19:01:01.978Z"
 }

@@ -6,7 +6,15 @@
   "updated_at": "2026-03-05T00:00:00Z",
   "status": "published",
   "content_type": "reading",
-  "tags": ["Research", "Robotics", "VLA", "Foundation Model", "Flow Matching", "Manipulation", "RSS 2025"],
+  "tags": [
+    "Research",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "Flow Matching",
+    "Manipulation",
+    "RSS 2025"
+  ],
   "cover_image": "./cover.webp",
   "thumb_source": "./fig-2.jpeg",
   "cover_caption": "Overview of our framework. We start with a pre-training mixture, which consists of both our own dexterous manipulation datasets and open-source data. We use this to pre-train π₀, our generalist robot policy, which uses a pre-trained VLM and a novel flow matching action expert. We can directly evaluate the pre-trained model or fine-tune it to downstream tasks using high-quality task-specific data.",
@@ -16,7 +24,7 @@
   "source_author": "Kevin Black et al.",
   "source_type": "arXiv",
   "source_project_url": "https://physicalintelligence.company/blog/pi0",
-  "google_scholar_url": "https://scholar.google.com/scholar?cluster=10726000093355292369&hl=en&as_sdt=0,5",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pi0%3A+A+Vision-Language-Action+Flow+Model+for+General+Robot+Control&btnG=",
   "source_authors_full": [
     "Kevin Black (Physical Intelligence)",
     "Noah Brown (Physical Intelligence)",
@@ -126,6 +134,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "citation_count": 847,
-  "citation_updated_at": "2026-03-06T17:19:00.000Z"
+  "citation_count": 1330,
+  "citation_updated_at": "2026-03-06T19:00:59.494Z"
 }

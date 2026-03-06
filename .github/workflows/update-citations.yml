@@ -2,7 +2,7 @@ name: Update Citation Counts
 
 on:
   schedule:
-    - cron: '0 9 * * 1' # Every Monday at 9:00 UTC
+    - cron: '0 15 * * 0' # Every Monday 00:00 KST (Sunday 15:00 UTC)
   workflow_dispatch: # Allow manual trigger
 
 jobs:
