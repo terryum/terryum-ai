@@ -1,9 +1,6 @@
 {
   "nav": {
     "home": "Home",
-    "ideas": "Ideas",
-    "essays": "Essays",
-    "research": "Research",
     "about": "About"
   },
   "hero": {
@@ -14,17 +11,9 @@
     "title": "About",
     "contact_label": "연락처"
   },
-  "ideas_index": {
-    "title": "Ideas",
-    "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 생각을 나눕니다."
-  },
-  "essays_index": {
-    "title": "Essays",
-    "description": "일상에 대한 생각을 나눕니다."
-  },
-  "research_index": {
-    "title": "Research Notes",
-    "description": "관심 있게 읽은 논문과 아티클의 핵심을 정리합니다."
+  "posts_index": {
+    "title": "Posts",
+    "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 글을 나눕니다."
   },
   "home": {
     "latest_ideas": "Latest Ideas",

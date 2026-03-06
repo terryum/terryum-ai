@@ -4,6 +4,7 @@ import { getDictionary, type Dictionary } from '@/lib/dictionaries';
 import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale } from '@/lib/posts';
 import { computeTagCounts, sortTagsByCount, getTagLabel } from '@/lib/tags';
 import { renderMDX } from '@/lib/mdx';
+import { TAB_TAG_SLUGS } from '@/lib/site-config';
 import type { PostMeta } from '@/types/post';
 
 /* ─── Index page helpers ─── */
@@ -26,10 +27,6 @@ export interface ContentIndexProps {
 
 export async function buildContentIndexProps(
   lang: string,
-  config: {
-    dictKey: 'research_index' | 'ideas_index' | 'essays_index';
-    initialTag: string;
-  }
 ): Promise<ContentIndexProps | null> {
   if (!isValidLocale(lang)) return null;
 
@@ -44,7 +41,15 @@ export async function buildContentIndexProps(
     count,
   }));
 
-  const section = dict[config.dictKey];
+  // Remove tab tags from the tag list (tab filtering is handled by navigation)
+  const filteredTags = allTags.filter((t) => !TAB_TAG_SLUGS.has(t.slug));
+  allTags.length = 0;
+  allTags.push(...filteredTags);
+
+  // Sort by count
+  allTags.sort((a, b) => b.count - a.count);
+
+  const section = dict.posts_index;
 
   return {
     locale: lang,
@@ -52,7 +57,7 @@ export async function buildContentIndexProps(
     description: section.description,
     posts,
     allTags,
-    initialSelectedTags: [config.initialTag],
+    initialSelectedTags: [],
     filterDict: dict.filter,
   };
 }
@@ -70,10 +75,6 @@ export interface ContentDetailProps {
 export async function buildContentDetailProps(
   lang: string,
   slug: string,
-  config: {
-    contentType: 'reading' | 'writing' | 'essay';
-    routeSegment: 'research' | 'ideas' | 'essays';
-  }
 ): Promise<ContentDetailProps> {
   if (!isValidLocale(lang)) notFound();
 
@@ -83,12 +84,10 @@ export async function buildContentDetailProps(
     const altLocale = lang === 'ko' ? 'en' : 'ko';
     const existsInAlt = await postExistsForLocale(slug, altLocale);
     if (existsInAlt) {
-      redirect(`/${altLocale}/${config.routeSegment}/${slug}`);
+      redirect(`/${altLocale}/posts/${slug}`);
     }
     notFound();
   }
-
-  if (post.meta.content_type !== config.contentType) notFound();
 
   const dict = await getDictionary(lang);
   const { content } = await renderMDX(post.content, slug);

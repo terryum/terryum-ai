@@ -59,7 +59,7 @@ export default function SourceInfoBlock({
       {/* Link badges (top) */}
       <div className="flex items-center gap-1.5 mb-3 flex-wrap">
         {postSlug && (
-          <InternalLinkBadge href={`/${loc}/research/${postSlug}`}>
+          <InternalLinkBadge href={`/${loc}/posts/${postSlug}`}>
             Post
           </InternalLinkBadge>
         )}

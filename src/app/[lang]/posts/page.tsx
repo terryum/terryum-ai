@@ -16,21 +16,18 @@ export async function generateMetadata({
   const { lang } = await params;
   const dict = await getDictionary(lang as Locale);
   return {
-    title: dict.ideas_index.title,
-    description: dict.ideas_index.description,
+    title: dict.posts_index.title,
+    description: dict.posts_index.description,
   };
 }
 
-export default async function IdeasPage({
+export default async function PostsPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  const props = await buildContentIndexProps(lang, {
-    dictKey: 'ideas_index',
-    initialTag: 'ideas',
-  });
+  const props = await buildContentIndexProps(lang);
   if (!props) return null;
 
   return (

@@ -1,7 +1,9 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
-import { getPostsByType } from '@/lib/posts';
+import { getAllPosts } from '@/lib/posts';
 import { getBioContent, getBioPlainText } from '@/lib/about';
+import { TAB_CONFIG } from '@/lib/site-config';
+import { getPostsForTab } from '@/lib/tabs';
 import HeroSection from '@/components/HeroSection';
 import LatestSection from '@/components/LatestSection';
 import type { Metadata } from 'next';
@@ -25,6 +27,13 @@ export async function generateMetadata({
   };
 }
 
+// Map tab slugs to dictionary keys for section titles
+const TAB_DICT_KEY: Record<string, string> = {
+  ideas: 'latest_ideas',
+  essays: 'latest_essays',
+  research: 'latest_research',
+};
+
 export default async function HomePage({
   params,
 }: {
@@ -35,44 +44,35 @@ export default async function HomePage({
 
   const dict = await getDictionary(lang);
   const bioContent = await getBioContent(lang);
-  const latestWriting = await getPostsByType(lang, 'writing');
-  const latestEssays = await getPostsByType(lang, 'essay');
-  const latestReading = await getPostsByType(lang, 'reading');
+  const allPosts = await getAllPosts(lang);
+
+  const sections = TAB_CONFIG
+    .slice()
+    .sort((a, b) => a.order - b.order)
+    .map(tab => ({
+      title: dict.home[TAB_DICT_KEY[tab.slug] as keyof typeof dict.home] || tab.slug,
+      href: `/${lang}/posts?tab=${tab.slug}`,
+      posts: getPostsForTab(allPosts, tab.slug).slice(0, 5),
+    }))
+    .filter(s => s.posts.length > 0);
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
       {/* Hero + Bio */}
       <HeroSection name={dict.hero.name} bio={bioContent} />
 
-      {/* Latest Ideas */}
-      <LatestSection
-        title={dict.home.latest_ideas}
-        viewAllHref={`/${lang}/ideas`}
-        viewAllText={dict.home.view_all}
-        showMoreText={dict.home.show_more}
-        posts={latestWriting}
-        locale={lang}
-      />
-
-      {/* Latest Essays */}
-      <LatestSection
-        title={dict.home.latest_essays}
-        viewAllHref={`/${lang}/essays`}
-        viewAllText={dict.home.view_all}
-        showMoreText={dict.home.show_more}
-        posts={latestEssays}
-        locale={lang}
-      />
-
-      {/* Latest Research */}
-      <LatestSection
-        title={dict.home.latest_research}
-        viewAllHref={`/${lang}/research`}
-        viewAllText={dict.home.view_all}
-        showMoreText={dict.home.show_more}
-        posts={latestReading}
-        locale={lang}
-      />
+      {/* Dynamic sections from TAB_CONFIG */}
+      {sections.map((section) => (
+        <LatestSection
+          key={section.href}
+          title={section.title}
+          viewAllHref={section.href}
+          viewAllText={dict.home.view_all}
+          showMoreText={dict.home.show_more}
+          posts={section.posts}
+          locale={lang}
+        />
+      ))}
     </div>
   );
 }

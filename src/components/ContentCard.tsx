@@ -3,7 +3,7 @@ import Image from 'next/image';
 import TagChip from './TagChip';
 import SourceBadge from './SourceBadge';
 import { normalizeTagSlug } from '@/lib/tags';
-import { CONTENT_TYPE_TAG_SLUGS } from '@/lib/site-config';
+import { TAB_TAG_SLUGS } from '@/lib/site-config';
 import type { PostMeta } from '@/types/post';
 
 interface ContentCardProps {
@@ -17,8 +17,7 @@ function formatSourceDate(dateStr: string): string {
 }
 
 export default function ContentCard({ post, locale }: ContentCardProps) {
-  const section = post.content_type === 'writing' ? 'ideas' : 'research';
-  const href = `/${locale}/${section}/${post.slug}`;
+  const href = `/${locale}/posts/${post.slug}`;
   const dateStr = new Date(post.published_at).toLocaleDateString(
     locale === 'ko' ? 'ko-KR' : 'en-US',
     { year: 'numeric', month: 'short', day: 'numeric' }
@@ -63,7 +62,7 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
               <SourceBadge sourceType={post.source_type} />
             )}
             {post.tags
-              .filter((tag) => !CONTENT_TYPE_TAG_SLUGS.has(normalizeTagSlug(tag)))
+              .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
               .slice(0, 3)
               .map((tag) => (
                 <TagChip key={tag} tag={tag} />
