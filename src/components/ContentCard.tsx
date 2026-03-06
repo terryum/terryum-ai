@@ -33,7 +33,7 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
   const summary = post.card_summary || post.summary;
 
   return (
-    <Link href={href} className="block group border-b border-line-default py-6 first:pt-0 last:border-b-0">
+    <Link href={href} className="block group py-4 first:pt-0">
       <article className="flex gap-6">
         {/* Thumbnail */}
         {(post.cover_thumb || post.cover_image) && (

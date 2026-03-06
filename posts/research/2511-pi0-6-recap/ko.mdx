@@ -1,0 +1,100 @@
+---
+locale: "ko"
+title: "π₀.₆: 경험으로부터 배우는 VLA"
+summary: "Physical Intelligence가 VLA 모델을 실세계 배포 이후 RL로 지속 개선하는 RECAP 방법을 제안했다. Advantage conditioning으로 데모·on-policy 데이터·사람 개입을 통합 학습하여, 가장 어려운 태스크에서 처리량을 2배 이상 향상시켰다."
+card_summary: "VLA 모델이 실제 배포 이후 스스로 개선되기 어렵다는 문제를, advantage conditioning 기반 RECAP 방법으로 데모·on-policy 데이터·사람 개입을 통합하여 실세계 RL 파인튜닝을 가능하게 했다."
+terrys_memo: ""
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "Physical Intelligence의 범용 로봇 VLA 모델. 사전학습된 VLM 백본과 flow matching action expert를 결합한 구조로, π₀.₆*의 베이스 모델이다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pi0+Vision-Language-Action+Flow+Model+General+Robot+Control&btnG="
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "Advantage-Weighted Regression: Simple and Scalable Off-Policy Reinforcement Learning"
+    author: "Xue Bin Peng et al. (2019)"
+    description: "행동 클로닝 손실에 advantage 가중치를 곱하는 간단한 오프라인 RL 방법. RECAP이 직접 비교하는 베이스라인으로, advantage conditioning 아이디어의 선구 연구다."
+    arxiv_url: "https://arxiv.org/abs/1910.00177"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Advantage-Weighted+Regression+Simple+Scalable+Off-Policy+Reinforcement+Learning&btnG="
+    category: "recent"
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "John Schulman et al. (2017)"
+    description: "클리핑 기반 policy gradient 알고리즘. RECAP이 직접 비교하는 온라인 RL 베이스라인으로, VLA 규모에서 PPO 대비 RECAP의 효율성을 검증하는 데 사용된다."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Proximal+Policy+Optimization+Algorithms+Schulman&btnG="
+    category: "recent"
+---
+
+## TL;DR
+
+VLA 모델이 실제 배포 이후 스스로 개선되기 어렵다는 문제를, advantage conditioning 기반 RECAP 방법으로 데모·on-policy 데이터·사람 개입을 통합하여 실세계 RL 파인튜닝을 가능하게 했다.
+
+## 문제
+
+대규모 모방학습(IL)으로 학습된 VLA 모델은 실세계 배포 이후 추가 개선이 어렵다. 다양한 실환경 데이터(성공 에피소드, 실패 에피소드, 전문가 개입)가 쌓여도 이를 RL 학습에 통합하는 통합 프레임워크가 없었다. AWR이나 PPO 같은 기존 RL 방법은 VLA 규모에서 불안정하거나 샘플 비효율적이며, 이기종 데이터를 자연스럽게 처리하지 못했다. 이 논문은 실세계 반복 배포를 통해 VLA가 스스로 개선되는 실용적인 방법론을 제시한다.
+
+## 핵심 아이디어
+
+RECAP(RL with Experience and Corrections via Advantage-conditioned Policies)의 핵심은 value function이 예측한 **advantage를 이진 indicator token**으로 변환해 VLA의 prefix에 삽입하는 것이다:
+
+- **Advantage conditioning**: $I \in \{0, 1\}$ indicator를 VLA 입력 앞에 추가 — $I=1$이면 "이 행동이 현재 정책보다 유리함"을 의미
+- **Multi-task value function**: 성공까지 남은 스텝 수를 $(-1, 0)$으로 정규화하여 예측 (0 = 성공 완료)
+- **이기종 데이터 통합**: 오프라인 데모, on-policy 수집 데이터, 전문가 개입 데이터를 하나의 프레임워크로 처리
+- **π₀.₆* 사전학습**: 전체 RECAP 파이프라인의 시작점으로, 오프라인 RL로 학습된 범용 VLA
+
+<Figure src="./fig-6.png" caption="실험에 사용된 태스크 시각화. 세 가지 세탁물 변형, 박스 조립, 에스프레소 기계로 커피 음료 만들기를 포함한다." number={6} />
+
+<Collapsible title="구체적 방법">
+
+### Value Function 학습
+
+성공까지 남은 스텝 수를 예측하는 multi-task 분산적 가치함수를 학습한다. 목표값을 이산화(discretized)하고 cross-entropy 손실로 훈련한다:
+
+$$V(o) = \mathbb{E}\left[\frac{t_{success} - t}{T_{max}}\right]$$
+
+여기서 $t_{success}$는 성공 스텝, $T_{max}$는 최대 에피소드 길이. 정규화 범위 $(-1, 0)$에서 0이 성공이다.
+
+### Advantage Conditioning
+
+아래 이론적 결과에 기반한다: 단조증가함수 $g$를 이용해
+
+$$\hat{\pi}(a|o) \propto \pi_{ref}(a|o) \cdot p(I \mid A^{\pi_{ref}}(o, a))^{\beta}$$
+
+로 정의된 정책 $\hat{\pi}$는 $\pi_{ref}$를 반드시 개선한다. 여기서
+
+$$p(I \mid A^{\pi_{ref}}(o,a)) = \frac{g(A^{\pi_{ref}}(o,a))}{\int g(A^{\pi_{ref}}(o,a'))\,da'}$$
+
+이를 실용적으로 구현하기 위해 advantage를 이진 indicator $I$로 이산화 — 임계값 이상이면 $I=1$, 미만이면 $I=0$으로 설정한다.
+
+### 반복 개선 루프
+
+1. **데이터 수집**: 현재 π₀.₆*로 태스크 실행, 성공/실패 레이블링, 전문가 개입 기록
+2. **Value function 업데이트**: 수집된 에피소드로 가치함수 재학습
+3. **Advantage-conditioned 학습**: 이진 indicator로 컨디셔닝된 VLA 재학습
+
+이 루프를 여러 iteration 반복하여 지속 개선한다.
+
+</Collapsible>
+
+## 주요 결과
+
+- **세탁물 접기 (다양, 가장 어려운 아이템)**: RECAP 적용 후 처리량(throughput) 2배 이상 향상, 실패율 2배 이상 감소
+- **에스프레소 만들기**: 처리량 2배 이상 향상; 13시간 연속 자율 운영 시연
+- **박스 조립**: 여러 iteration에 걸쳐 지속 개선 (처음에는 소폭 하락 후 큰 폭 향상)
+- **AWR/PPO 대비**: 세탁물 태스크에서 AWR, PPO 대비 월등히 높은 throughput 달성
+
+<Figure src="./fig-7.png" caption="처리량 (다양한 세탁물 – 가장 어려운 아이템). 시간당 성공 완료 태스크 수. RECAP을 적용한 π₀.₆*(Ours)가 모든 단계에서 처리량을 크게 향상시킨다." number={7} />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+
+- 실세계 배포 데이터를 이용한 VLA의 반복적 RL 자기개선 파이프라인을 실증적으로 검증
+- 이진 advantage indicator라는 간단한 컨디셔닝 방식으로 이기종 데이터(데모 + on-policy + 개입)를 통합 처리
+- 실가정 환경에서의 세탁물 접기, 에스프레소 만들기 등 장시간 자율 운영 시연
+
+**한계점**
+
+- **저자 언급**: 시스템이 완전 자율화되지 않음 — 보상 레이블링, 전문가 개입, 에피소드 리셋에 여전히 사람의 노력이 필요하다. 탐색(exploration)이 주로 정책의 확률적 다양성과 사람 개입에 의존하며 체계적이지 않다. 완전 온라인 RL 루프(실시간 정책·가치함수 업데이트) 대신 반복적 오프라인 업데이트 방식을 사용한다.
+- 🤖 advantage indicator를 이진으로 이산화하면 정보 손실이 발생하며, 연속적인 advantage 값을 활용하는 방법과의 비교가 없어 이 설계 선택의 최적성이 불분명하다.

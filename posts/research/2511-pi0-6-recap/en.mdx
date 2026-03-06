@@ -1,0 +1,101 @@
+---
+locale: "en"
+translation_of: "2511-pi0-6-recap:ko"
+title: "π₀.₆: a VLA That Learns From Experience"
+summary: "Physical Intelligence proposes RECAP, a method for continuously improving VLA models through real-world RL after deployment. By integrating demonstrations, on-policy data, and human interventions via advantage conditioning, it more than doubles task throughput on the hardest tasks."
+card_summary: "VLA models struggle to improve through real-world deployment. RECAP (RL with Experience and Corrections via Advantage-conditioned Policies) solves this by incorporating demonstrations, on-policy data, and human interventions into a unified advantage-conditioned RL framework, more than doubling task throughput on the hardest tasks."
+terrys_memo: ""
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "Physical Intelligence's generalist robot VLA model combining a pre-trained VLM backbone with a flow matching action expert. This is the base model that π₀.₆* builds upon and extends with RECAP."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pi0+Vision-Language-Action+Flow+Model+General+Robot+Control&btnG="
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "Advantage-Weighted Regression: Simple and Scalable Off-Policy Reinforcement Learning"
+    author: "Xue Bin Peng et al. (2019)"
+    description: "A simple offline RL method that multiplies behavior cloning loss by advantage weights. A direct comparison baseline in RECAP and a precursor to the advantage conditioning idea this paper builds upon."
+    arxiv_url: "https://arxiv.org/abs/1910.00177"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Advantage-Weighted+Regression+Simple+Scalable+Off-Policy+Reinforcement+Learning&btnG="
+    category: "recent"
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "John Schulman et al. (2017)"
+    description: "A clipping-based policy gradient algorithm. Used as an online RL baseline in RECAP experiments, demonstrating RECAP's superior efficiency and stability at VLA scale."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Proximal+Policy+Optimization+Algorithms+Schulman&btnG="
+    category: "recent"
+---
+
+## TL;DR
+
+VLA models struggle to improve through real-world deployment. RECAP (RL with Experience and Corrections via Advantage-conditioned Policies) solves this by incorporating demonstrations, on-policy data, and human interventions into a unified advantage-conditioned RL framework, more than doubling task throughput on the hardest tasks.
+
+## Problem
+
+VLA models trained via large-scale imitation learning are difficult to improve after real-world deployment. Even as heterogeneous deployment data accumulates — successful episodes, failures, and expert interventions — there was no unified framework to incorporate it into RL training. Existing RL methods like AWR and PPO are either unstable or sample-inefficient at VLA scale, and struggle to handle heterogeneous data naturally. This paper presents a practical methodology for VLAs to iteratively improve through real-world deployments.
+
+## Key Idea
+
+The core of RECAP is converting the value function's predicted **advantage into a binary indicator token** prepended to the VLA's context:
+
+- **Advantage conditioning**: An indicator $I \in \{0, 1\}$ is prepended to VLA inputs — $I=1$ means "this action is advantageous over the current policy"
+- **Multi-task value function**: Predicts steps-to-success normalized to $(-1, 0)$ (0 = task complete)
+- **Heterogeneous data integration**: Offline demonstrations, on-policy collected data, and expert intervention data unified in one framework
+- **π₀.₆* pre-training**: The generalist VLA trained with offline RL, serving as the starting point for RECAP fine-tuning
+
+<Figure src="./fig-6.png" caption="Illustrations of the tasks used in our experiments. Tasks include three different laundry variants, assembling boxes, and making coffee drinks with an espresso machine." number={6} />
+
+<Collapsible title="Method Details">
+
+### Value Function Training
+
+A multi-task distributional value function is trained to predict the number of steps to success, normalized by maximum episode length:
+
+$$V(o) = \mathbb{E}\left[\frac{t_{success} - t}{T_{max}}\right]$$
+
+where $t_{success}$ is the success step and $T_{max}$ is the maximum episode length. The target range is $(-1, 0)$ where 0 denotes success. Trained with cross-entropy loss on discretized return buckets.
+
+### Advantage Conditioning
+
+Based on the theoretical result that for a monotonically increasing function $g$, the policy
+
+$$\hat{\pi}(a|o) \propto \pi_{ref}(a|o) \cdot p(I \mid A^{\pi_{ref}}(o, a))^{\beta}$$
+
+is guaranteed to improve over $\pi_{ref}$, where
+
+$$p(I \mid A^{\pi_{ref}}(o,a)) = \frac{g(A^{\pi_{ref}}(o,a))}{\int g(A^{\pi_{ref}}(o,a'))\,da'}$$
+
+For practical implementation, the advantage is binarized into indicator $I$ — set to 1 if advantage exceeds a threshold, 0 otherwise.
+
+### Iterative Improvement Loop
+
+1. **Data collection**: Run current π₀.₆* on tasks, label success/failure, record expert interventions
+2. **Value function update**: Retrain value function on collected episodes
+3. **Advantage-conditioned training**: Retrain VLA conditioned on binary indicator
+
+This loop is repeated across multiple iterations for continuous improvement.
+
+</Collapsible>
+
+## Key Results
+
+- **Diverse laundry (hardest item)**: RECAP achieves more than 2× throughput improvement, more than 2× reduction in failure rate
+- **Espresso making**: More than 2× throughput; 13-hour continuous autonomous operation demonstrated
+- **Box assembly**: Continuous improvement over multiple iterations (slight initial drop, then large gains)
+- **vs. AWR/PPO**: Far superior throughput on laundry tasks compared to both AWR and PPO baselines
+
+<Figure src="./fig-7.png" caption="Throughput (diverse laundry – hardest item). We show the number of successfully completed tasks per hour. Error bars show standard error. Recap applied to π₀.₆* (Ours) leads to substantial improvements in throughput across all stages." number={7} />
+
+## Achievements & Limitations
+
+**What this paper achieves**
+
+- First empirical validation of an iterative RL self-improvement pipeline for VLAs using real-world deployment data
+- Simple binary advantage indicator elegantly unifies heterogeneous data (demonstrations + on-policy + interventions) in a single training framework
+- Demonstrates long-horizon autonomous operation in real homes (laundry folding, espresso making)
+
+**Limitations**
+
+- **Author-stated**: The system is not fully autonomous — reward labeling, expert interventions, and episode resets still require human effort. Exploration is largely greedy, relying on policy stochasticity and human interventions rather than systematic exploration. Uses iterative offline updates rather than a fully online RL loop.
+- 🤖 Binarizing the advantage into a discrete indicator discards information about the magnitude of improvement; no ablation compares continuous advantage conditioning, leaving the optimality of this design choice unclear.
