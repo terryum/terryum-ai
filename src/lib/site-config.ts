@@ -14,8 +14,24 @@ export const SITE_CONFIG = {
   },
 } as const;
 
-/** Tag slugs that represent content types — filtered out in ContentCard tag display */
-export const CONTENT_TYPE_TAG_SLUGS = new Set(['research', 'ideas', 'essays']);
+/* ─── Tab system ─── */
+
+export interface TabDefinition {
+  slug: string;        // URL param value & tag slug
+  matchTags: string[]; // posts matching ANY of these tags belong to this tab
+  order: number;       // display order in nav menu
+}
+
+export const TAB_CONFIG: TabDefinition[] = [
+  { slug: 'ideas',    matchTags: ['ideas'],    order: 0 },
+  { slug: 'essays',   matchTags: ['essays'],   order: 1 },
+  { slug: 'research', matchTags: ['research'], order: 2 },
+];
+
+/** All tab matchTags combined — used to hide tab tags from TagFilterBar & ContentCard */
+export const TAB_TAG_SLUGS = new Set(TAB_CONFIG.flatMap(t => t.matchTags));
+
+export const ETC_TAB_SLUG = 'etc';
 
 /** Max tags to show in TagFilterBar before "show more" */
 export const TAG_DISPLAY_LIMIT = 6;

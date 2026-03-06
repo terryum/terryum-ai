@@ -14,6 +14,18 @@ const nextConfig: NextConfig = {
     config.parallelism = 2;
     return config;
   },
+  async redirects() {
+    return [
+      // Index page redirects
+      { source: '/:locale/research', destination: '/:locale/posts?tab=research', permanent: true },
+      { source: '/:locale/ideas', destination: '/:locale/posts?tab=ideas', permanent: true },
+      { source: '/:locale/essays', destination: '/:locale/posts?tab=essays', permanent: true },
+      // Detail page redirects
+      { source: '/:locale/research/:slug', destination: '/:locale/posts/:slug', permanent: true },
+      { source: '/:locale/ideas/:slug', destination: '/:locale/posts/:slug', permanent: true },
+      { source: '/:locale/essays/:slug', destination: '/:locale/posts/:slug', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

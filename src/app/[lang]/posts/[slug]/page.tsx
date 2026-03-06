@@ -1,10 +1,10 @@
-import { getPost, getPostParamsByType } from '@/lib/posts';
+import { getPost, getAllPostParams } from '@/lib/posts';
 import { buildContentDetailProps } from '@/lib/content-page-helpers';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
 export async function generateStaticParams() {
-  return getPostParamsByType('essay');
+  return getAllPostParams();
 }
 
 export async function generateMetadata({
@@ -21,17 +21,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function EssaysDetailPage({
+export default async function PostDetailPage({
   params,
 }: {
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang, slug } = await params;
   const { locale, post, content, alternateLocale, labels } =
-    await buildContentDetailProps(lang, slug, {
-      contentType: 'essay',
-      routeSegment: 'essays',
-    });
+    await buildContentDetailProps(lang, slug);
 
   return (
     <ContentDetailPage

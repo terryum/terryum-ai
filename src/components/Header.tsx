@@ -1,40 +1,46 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useState, Suspense } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import ThemeToggle from './ThemeToggle';
 import { SITE_CONFIG } from '@/lib/site-config';
 import type { Locale } from '@/lib/i18n';
+import type { NavTabItem } from '@/lib/tabs';
 
 interface NavItem {
   href: string;
   label: string;
+  tabSlug?: string;
 }
 
 interface HeaderProps {
   locale: Locale;
   dict: {
-    nav: { home: string; ideas: string; essays: string; research: string; about: string };
+    nav: { home: string; about: string };
   };
+  navTabs: NavTabItem[];
 }
 
-export default function Header({ locale, dict }: HeaderProps) {
+function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const currentTab = searchParams.get('tab');
 
   const navItems: NavItem[] = [
     { href: `/${locale}`, label: dict.nav.home },
-    { href: `/${locale}/ideas`, label: dict.nav.ideas },
-    { href: `/${locale}/essays`, label: dict.nav.essays },
-    { href: `/${locale}/research`, label: dict.nav.research },
+    ...navTabs.map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug })),
     { href: `/${locale}/about`, label: dict.nav.about },
   ];
 
-  function isActive(href: string) {
-    if (href === `/${locale}`) return pathname === `/${locale}`;
-    return pathname.startsWith(href);
+  function isActive(item: NavItem) {
+    if (item.href === `/${locale}`) return pathname === `/${locale}`;
+    if (item.tabSlug) {
+      return pathname.startsWith(`/${locale}/posts`) && currentTab === item.tabSlug;
+    }
+    return pathname.startsWith(item.href);
   }
 
   return (
@@ -50,14 +56,14 @@ export default function Header({ locale, dict }: HeaderProps) {
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={item.tabSlug || item.href}
                 href={item.href}
                 className={`text-sm transition-colors ${
-                  isActive(item.href)
+                  isActive(item)
                     ? 'text-accent border-b-2 border-accent pb-[1px]'
                     : 'text-text-secondary hover:text-accent'
                 }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
+                aria-current={isActive(item) ? 'page' : undefined}
               >
                 {item.label}
               </Link>
@@ -95,15 +101,15 @@ export default function Header({ locale, dict }: HeaderProps) {
           <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-3">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={item.tabSlug || item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 className={`text-sm px-2 py-1 transition-colors ${
-                  isActive(item.href)
+                  isActive(item)
                     ? 'text-accent font-medium'
                     : 'text-text-secondary hover:text-accent'
                 }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
+                aria-current={isActive(item) ? 'page' : undefined}
               >
                 {item.label}
               </Link>
@@ -112,5 +118,21 @@ export default function Header({ locale, dict }: HeaderProps) {
         )}
       </div>
     </header>
+  );
+}
+
+export default function Header(props: HeaderProps) {
+  return (
+    <Suspense fallback={
+      <header className="border-b border-line-default">
+        <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14">
+            <span className="font-semibold text-text-primary tracking-tight">{SITE_CONFIG.name}</span>
+          </div>
+        </div>
+      </header>
+    }>
+      <HeaderInner {...props} />
+    </Suspense>
   );
 }

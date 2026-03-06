@@ -1,9 +1,6 @@
 {
   "nav": {
     "home": "Home",
-    "ideas": "Ideas",
-    "essays": "Essays",
-    "research": "Research",
     "about": "About"
   },
   "hero": {
@@ -14,17 +11,9 @@
     "title": "About",
     "contact_label": "Contact"
   },
-  "ideas_index": {
-    "title": "Ideas",
-    "description": "Thoughts on AI, robotics, startups, and manufacturing innovation."
-  },
-  "essays_index": {
-    "title": "Essays",
-    "description": "Thoughts on everyday life."
-  },
-  "research_index": {
-    "title": "Research Notes",
-    "description": "Key takeaways from papers and articles I find interesting."
+  "posts_index": {
+    "title": "Posts",
+    "description": "Writings on AI, robotics, startups, and manufacturing innovation."
   },
   "home": {
     "latest_ideas": "Latest Ideas",
