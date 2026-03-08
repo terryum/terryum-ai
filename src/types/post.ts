@@ -45,6 +45,8 @@ export interface PostMeta {
   first_author_scholar_url?: string;
   google_scholar_url?: string;
   citation_count?: number;
+  citation_status?: 'manual' | 'ok' | 'failed';
+  citation_manual?: boolean;
   citation_updated_at?: string;
   // Key references
   references?: Reference[];

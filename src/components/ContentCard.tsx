@@ -57,7 +57,11 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
             <p className="text-xs text-text-muted mt-0.5">
               {post.source_author}
               {post.source_date && ` · ${formatSourceDateShort(post.source_date, locale)}`}
-              {post.citation_count != null && post.citation_count > 0 && ` · Cited ${post.citation_count}`}
+              {post.citation_status === 'failed'
+                ? ' · Cited 00'
+                : post.citation_count != null && post.citation_count > 0
+                  ? ` · Cited ${post.citation_count}`
+                  : null}
             </p>
           )}
           <p className="text-sm text-text-muted mt-1 line-clamp-4 sm:line-clamp-3">

@@ -2,7 +2,7 @@ name: Update Citation Counts
 
 on:
   schedule:
-    - cron: '0 15 * * 0' # Every Monday 00:00 KST (Sunday 15:00 UTC)
+    - cron: '0 15 * * *' # Every day 00:00 KST (15:00 UTC)
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -17,6 +17,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
+      - run: npm ci
+
+      - run: npx playwright install chromium --with-deps
 
       - run: npm run update-citations
 

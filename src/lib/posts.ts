@@ -138,6 +138,8 @@ function normalizeMeta(
     first_author_scholar_url: data.first_author_scholar_url as string | undefined,
     google_scholar_url: data.google_scholar_url as string | undefined,
     citation_count: data.citation_count as number | undefined,
+    citation_status: data.citation_status as 'manual' | 'ok' | 'failed' | undefined,
+    citation_manual: data.citation_manual as boolean | undefined,
     citation_updated_at: data.citation_updated_at as string | undefined,
     references: ((data.references as Reference[] | undefined) || [])?.map((ref) => ({
       ...ref,

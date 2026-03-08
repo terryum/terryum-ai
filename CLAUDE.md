@@ -6,9 +6,8 @@
 
 ## 시작 순서 (항상)
 1. `CLAUDE.md` (이 파일)
-2. `docs/00_READ_FIRST.md`
-3. `docs/CURRENT_STATUS.md`
-4. 현재 작업에 필요한 `docs/*.md`만 선택해서 읽기
+2. `docs/CURRENT_STATUS.md`
+3. 현재 작업에 필요한 `docs/*.md`만 선택해서 읽기
 
 ## 작업 방식 (중요)
 - 모든 문서를 한 번에 읽지 않는다.
@@ -19,7 +18,7 @@
 ## Research 포스팅 fast path
 - arXiv 링크 + "포스팅 해줘" 요청 시:
   1. `memory/posting-pipeline.md` **하나만** 읽고 바로 실행
-  2. `docs/00_READ_FIRST.md`, `docs/POSTING_WORKFLOW.md` 읽지 않음
+  2. `docs/POSTING_WORKFLOW.md` 읽지 않음
   3. 요약 톤/규칙이 변경됐다는 지시가 있을 때만 `docs/RESEARCH_SUMMARY_RULES.md` 참조
 
 ## v1 범위 (절대)

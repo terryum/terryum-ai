@@ -1,50 +1,92 @@
 /**
  * Update citation counts for research posts.
- * Priority:
- *   1. meta.google_scholar_url → scrape "Cited by N" from Google Scholar HTML
- *   2. Fallback: Semantic Scholar API (via arXiv ID in source_url)
+ *
+ * SOURCE: Google Scholar ONLY (no Semantic Scholar API).
+ * Method: Playwright (Chromium headless) → search by sanitized source_title
+ *         → read "Cited by N" from first result.
+ *
+ * ⚠ DO NOT switch to Semantic Scholar API or any other source.
+ *   The only allowed change is improving how the Google Scholar search URL is built.
  *
  * Usage: node scripts/update-citations.mjs
+ *
+ * Retry policy:
+ *   - citation_status === 'failed'  → always retry (daily)
+ *   - citation_manual === true      → always retry (to upgrade manual value to real data)
+ *   - citation_status === 'ok'      → skip if updated within 6 days (effectively weekly)
+ *   - no citation_updated_at        → always crawl (new entry)
+ *
+ *   On success: update citation_count, set citation_status='ok', clear citation_manual
+ *   On failure with citation_manual: keep manual value, leave citation_status='manual'
+ *   On failure without manual:       set citation_status='failed', keep old citation_count
  */
 
 import fs from 'fs/promises';
 import path from 'path';
 
 const RESEARCH_DIR = path.join(process.cwd(), 'posts', 'research');
-const API_BASE = 'https://api.semanticscholar.org/graph/v1/paper';
+const SKIP_IF_OK_WITHIN_DAYS = 6;
 
-function extractArxivId(url) {
-  if (!url) return null;
-  const match = url.match(/arxiv\.org\/abs\/(\d+\.\d+)/);
-  return match ? match[1] : null;
+/**
+ * Remove Greek letters (U+0370-U+03FF) and subscript/superscript chars (U+2070-U+209F)
+ * from a title, then drop any tokens that have no word characters left.
+ * e.g. "π₀.₆: a VLA That Learns From Experience"  → "a VLA That Learns From Experience"
+ *      "π₀: A Vision-Language-Action Flow Model…"  → "A Vision-Language-Action Flow Model…"
+ */
+function sanitizeTitle(title) {
+  return title
+    .replace(/[\u0370-\u03FF\u2070-\u209F]/g, '')
+    .split(/\s+/)
+    .filter((token) => token.length > 0 && /\w/.test(token))
+    .join(' ')
+    .trim();
+}
+
+function buildScholarUrl(title) {
+  const cleaned = sanitizeTitle(title);
+  return `https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=${encodeURIComponent(cleaned).replace(/%20/g, '+')}&btnG=`;
+}
+
+/**
+ * Returns true if this post should be crawled this run.
+ * Skips posts that were successfully crawled within SKIP_IF_OK_WITHIN_DAYS days.
+ */
+function shouldCrawl(meta) {
+  if (!meta.citation_updated_at) return true;
+  if (meta.citation_manual) return true;
+  if (meta.citation_status === 'failed') return true;
+  if (meta.citation_status !== 'ok') return true;
+
+  const updatedAt = new Date(meta.citation_updated_at);
+  const daysSince = (Date.now() - updatedAt.getTime()) / (1000 * 60 * 60 * 24);
+  return daysSince >= SKIP_IF_OK_WITHIN_DAYS;
 }
 
 async function fetchCitationFromGoogleScholar(scholarUrl) {
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled'],
+  });
   try {
-    const res = await fetch(scholarUrl, {
-      headers: {
-        'User-Agent':
-          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      },
-    });
-    if (!res.ok) return null;
-    const html = await res.text();
-    const match = html.match(/Cited by ([\d,]+)/);
+    const page = await browser.newPage();
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto(scholarUrl, { waitUntil: 'domcontentloaded' });
+
+    const citedByText = await page
+      .locator('.gs_ri')
+      .first()
+      .locator('a', { hasText: /Cited by \d+/ })
+      .textContent({ timeout: 10000 });
+
+    const match = citedByText.match(/\d[\d,]*/);
     if (!match) return null;
-    return parseInt(match[1].replace(/,/g, ''), 10);
+    return parseInt(match[0].replace(/,/g, ''), 10);
   } catch {
     return null;
+  } finally {
+    await browser.close();
   }
-}
-
-async function fetchCitationFromSemanticScholar(arxivId) {
-  const url = `${API_BASE}/arXiv:${arxivId}?fields=citationCount,title,year`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    if (res.status === 404) return null;
-    throw new Error(`Semantic Scholar API error: ${res.status} ${res.statusText}`);
-  }
-  return res.json();
 }
 
 function sleep(ms) {
@@ -57,6 +99,7 @@ async function main() {
 
   let updated = 0;
   let skipped = 0;
+  let failed = 0;
 
   for (const slug of dirs) {
     const metaPath = path.join(RESEARCH_DIR, slug, 'meta.json');
@@ -70,57 +113,51 @@ async function main() {
       continue;
     }
 
-    let count = null;
-    let source = null;
+    // Build Scholar URL from stored override or auto-generate from sanitized title
+    const scholarUrl =
+      meta.google_scholar_url || (meta.source_title ? buildScholarUrl(meta.source_title) : null);
 
-    if (meta.google_scholar_url) {
-      console.log(`  Fetching ${slug} from Google Scholar...`);
-      count = await fetchCitationFromGoogleScholar(meta.google_scholar_url);
-      if (count != null) {
-        source = 'Google Scholar';
-      } else {
-        console.log(`    Google Scholar failed, falling back to Semantic Scholar...`);
-      }
-      // Delay after Google Scholar request to avoid rate limiting
-      await sleep(2000 + Math.random() * 1000);
+    if (!scholarUrl) {
+      console.log(`  SKIP ${slug}: no source_title or google_scholar_url`);
+      skipped++;
+      continue;
     }
 
-    if (count == null) {
-      const arxivId = extractArxivId(meta.source_url);
-      if (!arxivId) {
-        console.log(`  SKIP ${slug}: no arXiv ID in source_url`);
-        skipped++;
-        continue;
-      }
-      console.log(`  Fetching ${slug} from Semantic Scholar (arXiv:${arxivId})...`);
-      try {
-        const data = await fetchCitationFromSemanticScholar(arxivId);
-        if (!data) {
-          console.log(`    Not found on Semantic Scholar, skipping`);
-          skipped++;
-          continue;
-        }
-        count = data.citationCount ?? 0;
-        source = `Semantic Scholar ("${data.title}", ${data.year})`;
-      } catch (err) {
-        console.error(`    Error: ${err.message}`);
-        skipped++;
-        continue;
-      }
-      await sleep(1000);
+    if (!shouldCrawl(meta)) {
+      console.log(`  SKIP ${slug}: recently updated (status=ok)`);
+      skipped++;
+      continue;
     }
 
+    console.log(`  Fetching ${slug} from Google Scholar... [status=${meta.citation_status ?? 'none'}, manual=${!!meta.citation_manual}]`);
+    const count = await fetchCitationFromGoogleScholar(scholarUrl);
     const now = new Date().toISOString();
-    console.log(`    → ${count} citations [${source}]`);
 
-    meta.citation_count = count;
-    meta.citation_updated_at = now;
+    if (count != null) {
+      console.log(`    → ${count} citations [Google Scholar]`);
+      meta.citation_count = count;
+      meta.citation_status = 'ok';
+      meta.citation_updated_at = now;
+      delete meta.citation_manual;
+      updated++;
+    } else {
+      if (meta.citation_manual) {
+        // Keep manual value; don't change citation_status
+        console.log(`    Crawl failed — keeping manual value (${meta.citation_count})`);
+      } else {
+        // No manual fallback — mark as failed ("00" in UI)
+        console.log(`    Crawl failed — marking as failed (UI shows "00")`);
+        meta.citation_status = 'failed';
+        meta.citation_updated_at = now;
+      }
+      failed++;
+    }
 
     await fs.writeFile(metaPath, JSON.stringify(meta, null, 2) + '\n', 'utf-8');
-    updated++;
+    await sleep(2000 + Math.random() * 1000);
   }
 
-  console.log(`\nDone: ${updated} updated, ${skipped} skipped`);
+  console.log(`\nDone: ${updated} updated, ${failed} failed, ${skipped} skipped`);
 }
 
 main().catch((err) => {
