@@ -80,7 +80,7 @@
     "Ury Zhilinsky (Physical Intelligence)",
     "Zhiyuan Zhou (Physical Intelligence)"
   ],
-  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pi0.6+VLA+That+Learns+From+Experience+RECAP&btnG=",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=a+VLA+That+Learns+From+Experience&btnG=",
   "figures": [
     {
       "src": "./fig-2.png",
@@ -116,6 +116,8 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "citation_count": 0,
+  "citation_count": 31,
+  "citation_status": "manual",
+  "citation_manual": true,
   "citation_updated_at": "2026-03-07T00:00:00Z"
 }
