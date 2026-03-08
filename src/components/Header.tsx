@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -48,7 +49,15 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
       <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
           {/* Logo / Site name */}
-          <Link href={`/${locale}`} className="font-semibold text-text-primary tracking-tight">
+          <Link href={`/${locale}`} className="flex items-center gap-2 font-semibold text-text-primary tracking-tight">
+            <Image
+              src="/images/logo-header.webp"
+              alt={SITE_CONFIG.name}
+              width={28}
+              height={28}
+              className="rounded-md"
+              priority
+            />
             {SITE_CONFIG.name}
           </Link>
 
@@ -127,7 +136,10 @@ export default function Header(props: HeaderProps) {
       <header className="border-b border-line-default">
         <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
-            <span className="font-semibold text-text-primary tracking-tight">{SITE_CONFIG.name}</span>
+            <span className="flex items-center gap-2 font-semibold text-text-primary tracking-tight">
+              <Image src="/images/logo-header.webp" alt={SITE_CONFIG.name} width={28} height={28} className="rounded-md" priority />
+              {SITE_CONFIG.name}
+            </span>
           </div>
         </div>
       </header>
