@@ -51,11 +51,11 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           {/* Logo / Site name */}
           <Link href={`/${locale}`} className="flex items-center gap-2 font-semibold text-text-primary tracking-tight">
             <Image
-              src="/images/logo-t.webp"
+              src="/images/logo-transparent-256.webp"
               alt={SITE_CONFIG.name}
               width={32}
               height={32}
-              className="drop-shadow-sm"
+              sizes="32px"
               priority
             />
             {SITE_CONFIG.name}
@@ -137,7 +137,7 @@ export default function Header(props: HeaderProps) {
         <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
             <span className="flex items-center gap-2 font-semibold text-text-primary tracking-tight">
-              <Image src="/images/logo-t.webp" alt={SITE_CONFIG.name} width={32} height={32} className="drop-shadow-sm" priority />
+              <Image src="/images/logo-transparent-256.webp" alt={SITE_CONFIG.name} width={32} height={32} sizes="32px" priority />
               {SITE_CONFIG.name}
             </span>
           </div>
