@@ -8,8 +8,6 @@ dist/
 build/
 coverage/
 
-# --- Auto-generated from posts ---
-public/posts/
 
 # --- Paper PDFs (large files) ---
 paper/
