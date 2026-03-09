@@ -1,11 +1,27 @@
 {
   "post_id": "2501-dexforce-force-informed-actions",
   "slug": "2501-dexforce-force-informed-actions",
+  "post_number": 3,
   "source_date": "2025-01-17T00:00:00Z",
   "published_at": "2026-03-05T00:00:00Z",
   "updated_at": "2026-03-05T00:00:00Z",
   "status": "published",
   "content_type": "reading",
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "force-control", "demonstration-learning"],
+  "key_concepts": ["force-informed-actions", "kinesthetic-demonstration", "compliance-control", "F/T-sensing"],
+  "methodology": ["imitation-learning", "force-position-mapping"],
+  "contribution_type": "method",
+  "relations": [
+    { "target": "2505-forcevla-force-aware-moe", "type": "related" }
+  ],
+  "ai_summary": {
+    "one_liner": "Extract force-informed action targets from kinesthetic demos to reproduce contact forces in policy execution",
+    "problem": "Kinesthetic demonstrations record positions but lose contact force information critical for contact-rich tasks",
+    "solution": "Two-stage pipeline: record kinesthetic demo with F/T sensors, compute virtual targets offset by compliance model",
+    "key_result": "Near-zero to 77-97% success rate improvement on contact-rich dexterous tasks vs position-only baselines",
+    "limitations": ["Requires per-task compliance gain tuning", "Two F/T sensors only (thumb + index)", "Single dexterous hand platform"]
+  },
   "tags": [
     "Research",
     "Robotics",

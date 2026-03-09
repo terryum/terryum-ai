@@ -73,6 +73,9 @@ export default function ContentDetailPage({
 
       {/* Header meta */}
       <header className="mb-8">
+        {meta.post_number != null && (
+          <span className="font-mono text-xs text-text-muted">#{meta.post_number}</span>
+        )}
         <h1 className="text-2xl md:text-3xl font-bold text-text-primary tracking-tight leading-snug">
           {meta.title}
         </h1>

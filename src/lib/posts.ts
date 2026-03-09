@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import matter from 'gray-matter';
-import type { Post, PostMeta, FigureItem, Reference } from '@/types/post';
+import type { Post, PostMeta, FigureItem, Reference, PostRelation, AISummary } from '@/types/post';
 import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath } from '@/lib/paths';
 
@@ -153,6 +153,17 @@ function normalizeMeta(
     translated_to: data.translated_to as string[] | undefined,
     newsletter_eligible: data.newsletter_eligible as boolean | undefined,
     featured: data.featured as boolean | undefined,
+    // AI Memory fields
+    post_number: data.post_number as number | undefined,
+    domain: data.domain as string | undefined,
+    subfields: data.subfields as string[] | undefined,
+    key_concepts: data.key_concepts as string[] | undefined,
+    methodology: data.methodology as string[] | undefined,
+    contribution_type: data.contribution_type as PostMeta['contribution_type'],
+    relations: data.relations as PostRelation[] | undefined,
+    ai_summary: data.ai_summary as AISummary | undefined,
+    idea_status: data.idea_status as PostMeta['idea_status'],
+    related_posts: data.related_posts as string[] | undefined,
   };
 }
 

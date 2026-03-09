@@ -1,0 +1,363 @@
+{
+  "generated_at": "2026-03-09T23:00:43.499Z",
+  "total_posts": 5,
+  "posts": [
+    {
+      "post_number": 1,
+      "slug": "2505-forcevla-force-aware-moe",
+      "content_type": "reading",
+      "title_en": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
+      "title_ko": "ForceVLA: 접촉이 많은 조작을 위한 힘 인식 MoE 기반 VLA 모델",
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "force-control",
+        "visuomotor-policy"
+      ],
+      "key_concepts": [
+        "VLA",
+        "flow-matching",
+        "MoE",
+        "force-torque-sensing"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "mixture-of-experts"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Research",
+        "Robotics",
+        "VLA",
+        "Force Sensing",
+        "Manipulation",
+        "NeurIPS 2025"
+      ],
+      "source_author": "Jiawen Yu et al.",
+      "source_date": "2025-05-28T00:00:00Z",
+      "published_at": "2026-03-04T00:00:00Z",
+      "citation_count": 37,
+      "ai_summary": {
+        "one_liner": "Force-aware MoE module for VLA that dynamically routes F/T info across task phases",
+        "problem": "VLA models lack force sensing, failing at contact-rich manipulation",
+        "solution": "FVLMoE sparse MoE fusing 6-axis F/T with VLM embeddings via gating network",
+        "key_result": "+23.2%p avg success rate over baselines on 5 contact-rich tasks",
+        "limitations": [
+          "Single-arm only",
+          "F/T sensor at end-effector only",
+          "No sim-to-real transfer"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "builds_on"
+        },
+        {
+          "target": "2501-dexforce-force-informed-actions",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
+    },
+    {
+      "post_number": 2,
+      "slug": "2410-pi0-vla-flow-model",
+      "content_type": "reading",
+      "title_en": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
+      "title_ko": "π₀: 범용 로봇 제어를 위한 비전-언어-행동 Flow 모델",
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "foundation-model",
+        "visuomotor-policy"
+      ],
+      "key_concepts": [
+        "VLA",
+        "flow-matching",
+        "pre-training",
+        "fine-tuning"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "flow-matching",
+        "pre-training"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Research",
+        "Robotics",
+        "VLA",
+        "Foundation Model",
+        "Flow Matching",
+        "Manipulation",
+        "RSS 2025"
+      ],
+      "source_author": "Kevin Black et al.",
+      "source_date": "2024-10-31T00:00:00Z",
+      "published_at": "2026-03-05T00:00:00Z",
+      "citation_count": 1330,
+      "ai_summary": {
+        "one_liner": "Generalist VLA policy using pre-trained VLM + flow matching action expert for multi-robot control",
+        "problem": "No single generalist robot policy that works across diverse embodiments and tasks",
+        "solution": "Pre-trained 3B VLM backbone with flow matching action expert, trained on 10K+ hours of diverse robot data",
+        "key_result": "50%+ max score on complex long-horizon tasks; strong zero-shot and fine-tuning transfer",
+        "limitations": [
+          "Requires large-scale robot data",
+          "Limited to manipulation tasks tested",
+          "No force/tactile sensing"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2511-pi0-6-recap",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
+    },
+    {
+      "post_number": 3,
+      "slug": "2501-dexforce-force-informed-actions",
+      "content_type": "reading",
+      "title_en": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
+      "title_ko": "DexForce: Kinesthetic 시연의 접촉 힘을 활용한 Dexterous Manipulation",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "force-control",
+        "demonstration-learning"
+      ],
+      "key_concepts": [
+        "force-informed-actions",
+        "kinesthetic-demonstration",
+        "compliance-control",
+        "F/T-sensing"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "force-position-mapping"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Research",
+        "Robotics",
+        "Dexterous Manipulation",
+        "Force Control",
+        "Imitation Learning",
+        "RA-L 2025"
+      ],
+      "source_author": "Claire Chen et al.",
+      "source_date": "2025-01-17T00:00:00Z",
+      "published_at": "2026-03-05T00:00:00Z",
+      "citation_count": 33,
+      "ai_summary": {
+        "one_liner": "Extract force-informed action targets from kinesthetic demos to reproduce contact forces in policy execution",
+        "problem": "Kinesthetic demonstrations record positions but lose contact force information critical for contact-rich tasks",
+        "solution": "Two-stage pipeline: record kinesthetic demo with F/T sensors, compute virtual targets offset by compliance model",
+        "key_result": "Near-zero to 77-97% success rate improvement on contact-rich dexterous tasks vs position-only baselines",
+        "limitations": [
+          "Requires per-task compliance gain tuning",
+          "Two F/T sensors only (thumb + index)",
+          "Single dexterous hand platform"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2505-forcevla-force-aware-moe",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
+    },
+    {
+      "post_number": 4,
+      "slug": "2511-pi0-6-recap",
+      "content_type": "reading",
+      "title_en": "π₀.₆: a VLA That Learns From Experience",
+      "title_ko": "π₀.₆: 경험으로부터 배우는 VLA",
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "foundation-model",
+        "reinforcement-learning"
+      ],
+      "key_concepts": [
+        "VLA",
+        "reinforcement-learning",
+        "value-function",
+        "advantage-weighted-regression",
+        "iterative-improvement"
+      ],
+      "methodology": [
+        "reinforcement-learning",
+        "advantage-weighted-regression",
+        "flow-matching"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Research",
+        "Robotics",
+        "VLA",
+        "Reinforcement Learning",
+        "Foundation Model",
+        "Manipulation"
+      ],
+      "source_author": "Ali Amin et al.",
+      "source_date": "2025-11-18",
+      "published_at": "2026-03-07T00:00:00Z",
+      "citation_count": 31,
+      "ai_summary": {
+        "one_liner": "RL-based iterative improvement method (Recap) for VLA policies using advantage-weighted regression with a learned value function",
+        "problem": "VLA policies plateau with imitation learning alone; no scalable RL method for real-robot VLA fine-tuning",
+        "solution": "Recap: train separate value function from VLM, compute binarized advantages, condition VLA on success indicator",
+        "key_result": "2-3x throughput improvement on complex real-world tasks (laundry, box assembly, espresso) over IL-only baseline",
+        "limitations": [
+          "Requires autonomous data collection infrastructure",
+          "Binary advantage only",
+          "Tested on single bimanual platform"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "builds_on"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
+    },
+    {
+      "post_number": 5,
+      "slug": "260310-on-the-manifold-frist-post",
+      "content_type": "writing",
+      "title_en": "On the Manifold",
+      "title_ko": "On the Manifold",
+      "domain": "robotics",
+      "subfields": [
+        "research-philosophy"
+      ],
+      "key_concepts": [
+        "manifold",
+        "research-direction",
+        "blog-introduction"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Ideas"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-03-10T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "First blog post introducing the research manifold concept and blog's purpose",
+        "problem": "Need a space to organize and share research thoughts beyond paper summaries",
+        "solution": "Blog as a manifold connecting research ideas, papers, and personal insights",
+        "key_result": "Establishes the blog's identity and research direction",
+        "limitations": [
+          "Introductory post only",
+          "No technical depth"
+        ]
+      },
+      "relations": [],
+      "idea_status": "exploring",
+      "related_posts": [
+        "2410-pi0-vla-flow-model",
+        "2505-forcevla-force-aware-moe"
+      ]
+    }
+  ],
+  "knowledge_graph": {
+    "edges": [
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2410-pi0-vla-flow-model",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2501-dexforce-force-informed-actions",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2511-pi0-6-recap",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      }
+    ]
+  },
+  "concept_index": {
+    "VLA": [
+      1,
+      2,
+      4
+    ],
+    "flow-matching": [
+      1,
+      2
+    ],
+    "MoE": [
+      1
+    ],
+    "force-torque-sensing": [
+      1
+    ],
+    "pre-training": [
+      2
+    ],
+    "fine-tuning": [
+      2
+    ],
+    "force-informed-actions": [
+      3
+    ],
+    "kinesthetic-demonstration": [
+      3
+    ],
+    "compliance-control": [
+      3
+    ],
+    "F/T-sensing": [
+      3
+    ],
+    "reinforcement-learning": [
+      4
+    ],
+    "value-function": [
+      4
+    ],
+    "advantage-weighted-regression": [
+      4
+    ],
+    "iterative-improvement": [
+      4
+    ],
+    "manifold": [
+      5
+    ],
+    "research-direction": [
+      5
+    ],
+    "blog-introduction": [
+      5
+    ]
+  },
+  "domain_stats": {
+    "robotics": 5
+  }
+}

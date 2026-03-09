@@ -84,6 +84,12 @@
 - 각 항목의 **캡션 원문 전체** 기록 → `figures`/`tables` 배열
 - 캡션 생략/축약 절대 금지
 
+### Step 4-3) AI Memory 메타데이터 생성
+- `post_number`: `posts/index.json`의 마지막 번호 +1 (없으면 `node scripts/generate-index.mjs` 먼저 실행)
+- `domain`, `subfields`, `key_concepts`, `methodology`, `contribution_type`: 논문 내용 기반 분류
+- `relations`: 기존 포스트와의 의미적 관계 (builds_on, extends, related 등)
+- `ai_summary`: 논문의 problem/solution/result를 구조화 (영어 단일)
+
 ### Step 5) MDX 파일 생성
 - `ko.mdx`: 한국어 요약 본문 + frontmatter
 - `en.mdx`: 영어 번역본 (`locale: "en"`, `translation_of: "<slug>:ko"`)
@@ -105,10 +111,13 @@
 | **구체적 방법** (Collapsible 내) | teaser/comparison (보통 Fig 1) | 마지막 문단 뒤 | 선택 |
 | **주요 결과** | main results chart/table (보통 Fig 5) | bullet list 뒤 | **필수** |
 
-### Step 6) 검증 + Git push
+### Step 6) 인덱스 재생성
+- `node scripts/generate-index.mjs` 실행 → `posts/index.json` 갱신
+
+### Step 7) 검증 + Git push
 - `POSTING_WORKFLOW.md` 공통 검증 체크리스트 수행
 
-### Step 6-1) 기존 포스트 역참조 업데이트
+### Step 7-1) 기존 포스트 역참조 업데이트
 새 포스트 생성 시:
 1. 새 포스트의 `source_url`(arXiv URL)이 기존 포스트 references의 `arxiv_url`과 일치하는지 확인
 2. 일치하면 기존 포스트의 해당 reference에 `post_slug` 추가 (ko.mdx, en.mdx 모두)
@@ -126,6 +135,7 @@
 |---|---|
 | `post_id` | slug과 동일 |
 | `slug` | 폴더명과 동일 |
+| `post_number` | 글로벌 순번 (등록순, 변경 불가). 새 포스트 시 마지막 번호 +1 |
 | `published_at` | ISO 8601 |
 | `updated_at` | ISO 8601 |
 | `status` | `"draft"` 또는 `"published"` |
@@ -169,6 +179,31 @@
 - `number`: 원문 figure/table 번호 (정수)
 | `newsletter_eligible` | `false` (v1 미사용) |
 | `featured` | `false` |
+
+#### AI Memory 필드 (meta.json)
+| 키 | 설명 |
+|---|---|
+| `domain` | 최상위 연구 분야 (`robotics`, `ml`, `cv`, `nlp`, `rl`, `multimodal`) |
+| `subfields` | 세부 분야 배열 (lowercase, hyphenated) |
+| `key_concepts` | 핵심 개념 배열 (AI semantic matching용, lowercase, hyphenated) |
+| `methodology` | 사용된 기술적 접근 방법 배열 |
+| `contribution_type` | `"method"` \| `"benchmark"` \| `"survey"` \| `"theoretical"` \| `"system"` \| `"analysis"` |
+| `relations` | 포스트 간 의미적 관계: `[{target: "<slug>", type: "<relation_type>"}]` |
+| `ai_summary` | AI 기계 읽기용 구조화 요약 (아래 참조) |
+
+##### ai_summary 구조
+```json
+"ai_summary": {
+  "one_liner": "한 줄 요약 (영어)",
+  "problem": "해결하려는 문제",
+  "solution": "제안하는 해법",
+  "key_result": "핵심 정량 결과",
+  "limitations": ["한계점 1", "한계점 2"]
+}
+```
+
+##### relations 타입
+`builds_on` | `extends` | `contradicts` | `supports` | `compares_with` | `related` | `inspired_by`
 
 ### MDX frontmatter (언어별 필드)
 | 키 | 설명 |
@@ -230,6 +265,11 @@ MDX 내 `<Figure>` 컴포넌트 클릭 시 Lightbox 열림. hover 시 확대 아
 - [ ] `cover_caption`, `card_summary` 작성 (권장)
 - [ ] `references` 존재 (3-5개, category 포함)
 - [ ] `first_author_scholar_url` 확인 (optional)
+- [ ] `post_number` 부여 (글로벌 순번, 마지막 +1)
+- [ ] `domain`, `subfields`, `key_concepts`, `methodology`, `contribution_type` 작성
+- [ ] `ai_summary` 작성 (one_liner, problem, solution, key_result, limitations)
+- [ ] `relations` 작성 (기존 포스트와의 관계)
+- [ ] `node scripts/generate-index.mjs` 실행 → `posts/index.json` 갱신
 
 ### Figure/Table 이미지 검증
 - [ ] `fig-N.{ext}` 파일이 포스트 디렉토리에 존재 (갯수 확인)

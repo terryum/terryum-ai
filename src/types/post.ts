@@ -16,6 +16,19 @@ export interface Reference {
   category?: 'foundational' | 'recent';
 }
 
+export interface PostRelation {
+  target: string;
+  type: 'builds_on' | 'extends' | 'contradicts' | 'supports' | 'compares_with' | 'related' | 'inspired_by';
+}
+
+export interface AISummary {
+  one_liner: string;
+  problem: string;
+  solution: string;
+  key_result: string;
+  limitations: string[];
+}
+
 export interface PostMeta {
   post_id: string;
   locale: string;
@@ -60,6 +73,18 @@ export interface PostMeta {
   terrys_memo?: string;
   newsletter_eligible?: boolean;
   featured?: boolean;
+  // AI Memory fields
+  post_number?: number;
+  domain?: string;
+  subfields?: string[];
+  key_concepts?: string[];
+  methodology?: string[];
+  contribution_type?: 'method' | 'benchmark' | 'survey' | 'theoretical' | 'system' | 'analysis';
+  relations?: PostRelation[];
+  ai_summary?: AISummary;
+  // Ideas-specific
+  idea_status?: 'hypothesis' | 'exploring' | 'validated' | 'abandoned' | 'incorporated';
+  related_posts?: string[];
 }
 
 export interface Post {

@@ -107,6 +107,7 @@ sharp('posts/<type>/<slug>/cover_Original.png')
 {
   "post_id": "<slug>",
   "slug": "<slug>",
+  "post_number": <N>,
   "published_at": "<ISO 8601>",
   "updated_at": "<ISO 8601>",
   "status": "published",
@@ -115,6 +116,18 @@ sharp('posts/<type>/<slug>/cover_Original.png')
   "cover_image": "./cover.webp",
   "thumb_source": "./thumb_original.png",
   "reading_time_min": <N>,
+  "domain": "<최상위 연구 분야>",
+  "subfields": ["<세부 분야>"],
+  "key_concepts": ["<핵심 개념>"],
+  "idea_status": "<hypothesis|exploring|validated|abandoned|incorporated>",
+  "related_posts": ["<관련 포스트 slug>"],
+  "ai_summary": {
+    "one_liner": "<한 줄 요약>",
+    "problem": "<문제>",
+    "solution": "<해법>",
+    "key_result": "<핵심 결과>",
+    "limitations": ["<한계점>"]
+  },
   "figures": [],
   "tables": [],
   "newsletter_eligible": false,
@@ -162,6 +175,7 @@ terrys_memo: ""
 ```bash
 node scripts/copy-post-images.mjs
 node scripts/generate-thumbnails.mjs
+node scripts/generate-index.mjs
 ```
 
 ---
@@ -186,6 +200,13 @@ node scripts/generate-thumbnails.mjs
 | `tables` | array | 테이블 이미지 배열 (통상 `[]`) |
 | `newsletter_eligible` | boolean | `false` (v1 미사용) |
 | `featured` | boolean | `false` |
+| `post_number` | number | 글로벌 순번 (등록순, 마지막 +1) |
+| `domain` | string | 최상위 연구 분야 |
+| `subfields` | string[] | 세부 분야 |
+| `key_concepts` | string[] | 핵심 개념 (AI semantic matching용) |
+| `idea_status` | string | Ideas 전용: `hypothesis` \| `exploring` \| `validated` \| `abandoned` \| `incorporated` |
+| `related_posts` | string[] | 관련 포스트 slug 목록 |
+| `ai_summary` | object | AI 구조화 요약 (`one_liner`, `problem`, `solution`, `key_result`, `limitations`) |
 
 > Research 전용 필드 (`source_url`, `source_title`, `source_author`, `source_type`, `source_authors_full`, `cover_caption` 등)는 **사용하지 않음**.
 
@@ -228,6 +249,11 @@ node scripts/generate-thumbnails.mjs
 - [ ] `tags` 첫 번째 항목이 `"Ideas"` 또는 `"Essays"` (대문자) — 탭 표시 필수
 - [ ] `source_*` 필드 없음
 - [ ] `card_summary` 작성
+- [ ] `post_number` 부여 (글로벌 순번, 마지막 +1)
+- [ ] `domain`, `subfields`, `key_concepts` 작성
+- [ ] `idea_status` 설정 (Ideas 포스트만)
+- [ ] `ai_summary` 작성
+- [ ] `node scripts/generate-index.mjs` 실행
 
 ### MDX 본문
 - [ ] TL;DR 섹션 없음

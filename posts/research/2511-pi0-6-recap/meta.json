@@ -1,10 +1,26 @@
 {
   "post_id": "2511-pi0-6-recap",
   "slug": "2511-pi0-6-recap",
+  "post_number": 4,
   "published_at": "2026-03-07T00:00:00Z",
   "updated_at": "2026-03-07T00:00:00Z",
   "status": "published",
   "content_type": "reading",
+  "domain": "robotics",
+  "subfields": ["manipulation", "foundation-model", "reinforcement-learning"],
+  "key_concepts": ["VLA", "reinforcement-learning", "value-function", "advantage-weighted-regression", "iterative-improvement"],
+  "methodology": ["reinforcement-learning", "advantage-weighted-regression", "flow-matching"],
+  "contribution_type": "method",
+  "relations": [
+    { "target": "2410-pi0-vla-flow-model", "type": "builds_on" }
+  ],
+  "ai_summary": {
+    "one_liner": "RL-based iterative improvement method (Recap) for VLA policies using advantage-weighted regression with a learned value function",
+    "problem": "VLA policies plateau with imitation learning alone; no scalable RL method for real-robot VLA fine-tuning",
+    "solution": "Recap: train separate value function from VLM, compute binarized advantages, condition VLA on success indicator",
+    "key_result": "2-3x throughput improvement on complex real-world tasks (laundry, box assembly, espresso) over IL-only baseline",
+    "limitations": ["Requires autonomous data collection infrastructure", "Binary advantage only", "Tested on single bimanual platform"]
+  },
   "tags": [
     "Research",
     "Robotics",

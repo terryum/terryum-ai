@@ -66,6 +66,9 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug">
+            {post.post_number != null && (
+              <span className="font-mono text-xs text-text-muted mr-1.5">#{post.post_number}</span>
+            )}
             {post.title}
           </h3>
           {isReading && post.source_author && (

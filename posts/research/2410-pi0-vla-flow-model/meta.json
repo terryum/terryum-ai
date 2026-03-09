@@ -1,11 +1,27 @@
 {
   "post_id": "2410-pi0-vla-flow-model",
   "slug": "2410-pi0-vla-flow-model",
+  "post_number": 2,
   "source_date": "2024-10-31T00:00:00Z",
   "published_at": "2026-03-05T00:00:00Z",
   "updated_at": "2026-03-05T00:00:00Z",
   "status": "published",
   "content_type": "reading",
+  "domain": "robotics",
+  "subfields": ["manipulation", "foundation-model", "visuomotor-policy"],
+  "key_concepts": ["VLA", "flow-matching", "pre-training", "fine-tuning"],
+  "methodology": ["imitation-learning", "flow-matching", "pre-training"],
+  "contribution_type": "method",
+  "relations": [
+    { "target": "2511-pi0-6-recap", "type": "related" }
+  ],
+  "ai_summary": {
+    "one_liner": "Generalist VLA policy using pre-trained VLM + flow matching action expert for multi-robot control",
+    "problem": "No single generalist robot policy that works across diverse embodiments and tasks",
+    "solution": "Pre-trained 3B VLM backbone with flow matching action expert, trained on 10K+ hours of diverse robot data",
+    "key_result": "50%+ max score on complex long-horizon tasks; strong zero-shot and fine-tuning transfer",
+    "limitations": ["Requires large-scale robot data", "Limited to manipulation tasks tested", "No force/tactile sensing"]
+  },
   "tags": [
     "Research",
     "Robotics",

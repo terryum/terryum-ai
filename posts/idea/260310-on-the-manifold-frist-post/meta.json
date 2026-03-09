@@ -1,6 +1,7 @@
 {
   "post_id": "260310-on-the-manifold-frist-post",
   "slug": "260310-on-the-manifold-frist-post",
+  "post_number": 5,
   "published_at": "2026-03-10T00:00:00Z",
   "updated_at": "2026-03-10T00:00:00Z",
   "status": "published",
@@ -11,6 +12,18 @@
   "thumb_fit": "contain",
   "thumb_padding": 0.72,
   "reading_time_min": 2,
+  "domain": "robotics",
+  "subfields": ["research-philosophy"],
+  "key_concepts": ["manifold", "research-direction", "blog-introduction"],
+  "idea_status": "exploring",
+  "related_posts": ["2410-pi0-vla-flow-model", "2505-forcevla-force-aware-moe"],
+  "ai_summary": {
+    "one_liner": "First blog post introducing the research manifold concept and blog's purpose",
+    "problem": "Need a space to organize and share research thoughts beyond paper summaries",
+    "solution": "Blog as a manifold connecting research ideas, papers, and personal insights",
+    "key_result": "Establishes the blog's identity and research direction",
+    "limitations": ["Introductory post only", "No technical depth"]
+  },
   "figures": [],
   "tables": [],
   "newsletter_eligible": false,
