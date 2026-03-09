@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  name: 'Terry Um',
+  name: 'On the Manifold',
   profileImage: '/images/profile_terry.webp',
   profileImageOriginal: '/images/profile_terry_original.jpg',
   social: {
