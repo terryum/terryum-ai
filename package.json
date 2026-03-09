@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "update-citations": "node scripts/update-citations.mjs"
+    "update-citations": "node scripts/update-citations.mjs",
+    "generate-logos": "node scripts/generate-logos.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -23,13 +24,14 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
-    "playwright": "^1.50.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "^15.2.0",
+    "playwright": "^1.50.0",
+    "png-to-ico": "^3.0.1",
     "postcss": "^8.5.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.0.0",
