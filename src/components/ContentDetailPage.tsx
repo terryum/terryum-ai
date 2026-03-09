@@ -35,7 +35,10 @@ export default function ContentDetailPage({
   alternateLocale,
   labels,
 }: ContentDetailPageProps) {
-  const section = 'posts';
+  const tabSlug =
+    meta.content_type === 'reading' ? 'research' :
+    meta.content_type === 'essay'   ? 'essays'   : 'ideas';
+  const section = `posts?tab=${tabSlug}`;
   const dateStr = new Date(meta.published_at).toLocaleDateString(
     locale === 'ko' ? 'ko-KR' : 'en-US',
     { year: 'numeric', month: 'long', day: 'numeric' }

@@ -16,6 +16,33 @@
 
 ---
 
+## 태깅 아키텍처
+
+### 카테고리 구조
+- Research / Ideas / Essays는 모두 `posts/` 하위의 Post이며, **타입 구분이 없는 동일한 구조**이다.
+- 헤더 탭(Ideas / Essays / Research)은 **해당 카테고리 태그 유무로만 분류**된다.
+  - 따라서 **카테고리 태그가 없으면 탭에 표시되지 않음**.
+- `src/lib/posts.ts`의 `normalizeTags()` 함수가 폴더 경로를 기반으로 카테고리 태그를 자동 prepend한다.
+  - `posts/idea/` → `"Ideas"` 태그 자동 추가 (없을 때만)
+  - `posts/essay/` → `"Essays"` 태그 자동 추가 (없을 때만)
+  - `posts/research/` → `"Research"` 태그 자동 추가 (없을 때만)
+
+### 태깅 규칙
+- **첫 번째 태그**: 카테고리 태그 (`"Ideas"` 또는 `"Essays"`) — **대문자**, 명시적 작성 권장
+- **추가 태그**: 글의 주제/키워드를 영어로 (예: `"AI"`, `"Philosophy"`, `"Labor"`)
+- 자동 보완이 있어도 명시적 작성이 Research 포스트와 일관성을 유지함
+
+### 예시
+```json
+// Ideas 포스트
+"tags": ["Ideas", "AI", "Philosophy"]
+
+// Essays 포스트
+"tags": ["Essays", "Technology", "Society"]
+```
+
+---
+
 ## 입력 케이스
 
 ### Case A: 한글 + 영문 모두 제공
@@ -84,7 +111,7 @@ sharp('posts/<type>/<slug>/cover_Original.png')
   "updated_at": "<ISO 8601>",
   "status": "published",
   "content_type": "writing",
-  "tags": ["<ideas 또는 essays>"],
+  "tags": ["<Ideas 또는 Essays>", "<주제 태그1>", "<주제 태그2>"],
   "cover_image": "./cover.webp",
   "thumb_source": "./thumb_original.png",
   "reading_time_min": <N>,
@@ -151,7 +178,7 @@ node scripts/generate-thumbnails.mjs
 | `updated_at` | string | ISO 8601 |
 | `status` | string | `"draft"` 또는 `"published"` |
 | `content_type` | string | `"writing"` |
-| `tags` | string[] | `["ideas"]` 또는 `["essays"]` + 추가 태그 |
+| `tags` | string[] | `["Ideas"]` 또는 `["Essays"]` + 추가 태그 (카테고리 태그 **대문자** 필수) |
 | `cover_image` | string | `"./cover.webp"` |
 | `thumb_source` | string | 썸네일 소스 (optional) |
 | `reading_time_min` | number | 읽기 시간 (분) |
@@ -198,6 +225,7 @@ node scripts/generate-thumbnails.mjs
 
 ### 메타데이터
 - [ ] `content_type: "writing"` 설정
+- [ ] `tags` 첫 번째 항목이 `"Ideas"` 또는 `"Essays"` (대문자) — 탭 표시 필수
 - [ ] `source_*` 필드 없음
 - [ ] `card_summary` 작성
 

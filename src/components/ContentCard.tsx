@@ -38,13 +38,28 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
         {/* Thumbnail */}
         {(post.cover_thumb || post.cover_image) && (
           <div className="hidden sm:block flex-shrink-0 w-36 h-36 relative rounded overflow-hidden bg-bg-surface">
-            <Image
-              src={post.cover_thumb || post.cover_image}
-              alt={post.title}
-              fill
-              className="object-cover"
-              sizes="144px"
-            />
+            {post.thumb_fit === 'contain' ? (
+              // absolute inset-3 creates a CSS containing block for the fill Image,
+              // so bg-bg-surface shows in the 12px gap — no image transparency needed
+              <div className="absolute inset-3 bg-bg-surface">
+                <Image
+                  src={post.cover_thumb || post.cover_image}
+                  alt={post.title}
+                  fill
+                  className="object-contain"
+                  sizes="120px"
+                  unoptimized
+                />
+              </div>
+            ) : (
+              <Image
+                src={post.cover_thumb || post.cover_image}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes="144px"
+              />
+            )}
           </div>
         )}
 

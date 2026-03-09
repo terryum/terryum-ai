@@ -124,6 +124,7 @@ function normalizeMeta(
     cover_image: coverImage,
     cover_caption: data.cover_caption as string | undefined,
     cover_thumb: coverThumb,
+    thumb_fit: (data.thumb_fit as 'cover' | 'contain') || undefined,
     card_summary: data.card_summary as string | undefined,
     reading_time_min: data.reading_time_min as number | undefined,
     seo_title: data.seo_title as string | undefined,

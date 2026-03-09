@@ -30,6 +30,7 @@ export interface PostMeta {
   cover_image: string;
   cover_caption?: string;
   cover_thumb?: string;
+  thumb_fit?: 'cover' | 'contain';
   card_summary?: string;
   reading_time_min?: number;
   seo_title?: string;

@@ -6,6 +6,9 @@
  *   - thumb_source: source image (e.g. "./fig-6.jpg"), fallback: cover.webp
  *   - thumb_position: sharp crop position (e.g. "top", "left", "centre")
  *   - thumb_extract: {left, top, width, height} for manual crop region
+ *   - thumb_fit: 'cover' (default, crops to fill) or 'contain' (shrink+transparent pad)
+ *   - thumb_padding: 0–1 fill ratio for contain fit (e.g. 0.75 = image fills 75% of canvas)
+ *   - thumb_background: override padding color {r,g,b,alpha}, default transparent for contain
  *
  * Run: node scripts/generate-thumbnails.mjs
  */
@@ -29,6 +32,11 @@ async function getThumbConfig(postDir) {
         : null,
       position: meta.thumb_position || 'centre',
       extract: meta.thumb_extract || null, // {left, top, width, height}
+      fit: meta.thumb_fit || 'cover', // 'cover' (crop) or 'contain' (shrink+pad)
+      padding: meta.thumb_padding ?? 1.0, // 0–1: fill ratio for contain (1 = full canvas)
+      background: meta.thumb_background || (meta.thumb_fit === 'contain'
+        ? { r: 0, g: 0, b: 0, alpha: 0 }   // transparent for contain (blends with card bg)
+        : { r: 255, g: 255, b: 255, alpha: 1 }),
     };
   } catch {
     return { source: null, position: 'centre', extract: null };
@@ -85,9 +93,19 @@ async function generateThumbnails() {
         if (config.extract) {
           pipeline = pipeline.extract(config.extract);
         }
-        pipeline = pipeline
-          .resize(SIZE, SIZE, { fit: 'cover', position: config.position })
-          .webp({ quality: 80 });
+        if (config.fit === 'contain' && config.padding < 1.0) {
+          // Resize to padded inner size, then extend to full canvas with transparent bg
+          const inner = Math.round(SIZE * config.padding);
+          const padA = Math.floor((SIZE - inner) / 2);
+          const padB = SIZE - inner - padA;
+          pipeline = pipeline
+            .resize(inner, inner, { fit: 'contain', background: config.background })
+            .extend({ top: padA, bottom: padB, left: padA, right: padB, background: config.background });
+        } else {
+          pipeline = pipeline
+            .resize(SIZE, SIZE, { fit: config.fit, position: config.position, background: config.background });
+        }
+        pipeline = pipeline.webp({ quality: 80 });
         await pipeline.toFile(thumbPath);
         generated++;
       } catch (err) {
