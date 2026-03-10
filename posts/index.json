@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-10T00:23:02.988Z",
-  "total_posts": 6,
+  "generated_at": "2026-03-10T01:11:28.809Z",
+  "total_posts": 7,
   "posts": [
     {
       "post_number": 1,
@@ -324,6 +324,48 @@
       "relations": [],
       "idea_status": null,
       "related_posts": null
+    },
+    {
+      "post_number": 7,
+      "slug": "260310-brain-augmentation",
+      "content_type": "writing",
+      "title_en": "Brain Augmentation",
+      "title_ko": "Brain Augmentation",
+      "domain": "ml",
+      "subfields": [
+        "ai-research-methodology",
+        "human-ai-collaboration"
+      ],
+      "key_concepts": [
+        "brain-augmentation",
+        "ai-scientist",
+        "self-evolving-ai",
+        "research-methodology"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Ideas"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-03-10T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI-centered research: building environments where AI scientists can sustain self-improving knowledge creation",
+        "problem": "Traditional human-centered research cannot keep pace with AI's growing capabilities in reading, reasoning, and generating knowledge",
+        "solution": "Build a collaborative space where AI scientists can explore, connect dots, and self-amplify knowledge beyond human mediation",
+        "key_result": "Establishes the vision for AI-centered research and the purpose of this site as an AI scientist's laboratory",
+        "limitations": [
+          "Vision-level post",
+          "No concrete implementation details"
+        ]
+      },
+      "relations": [],
+      "idea_status": "exploring",
+      "related_posts": [
+        "260310-on-the-manifold-frist-post"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -427,9 +469,22 @@
     ],
     "kalman-filter": [
       6
+    ],
+    "brain-augmentation": [
+      7
+    ],
+    "ai-scientist": [
+      7
+    ],
+    "self-evolving-ai": [
+      7
+    ],
+    "research-methodology": [
+      7
     ]
   },
   "domain_stats": {
-    "robotics": 6
+    "robotics": 6,
+    "ml": 1
   }
 }
