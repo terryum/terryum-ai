@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-09T23:00:43.499Z",
-  "total_posts": 5,
+  "generated_at": "2026-03-10T00:23:02.988Z",
+  "total_posts": 6,
   "posts": [
     {
       "post_number": 1,
@@ -270,6 +270,60 @@
         "2410-pi0-vla-flow-model",
         "2505-forcevla-force-aware-moe"
       ]
+    },
+    {
+      "post_number": 6,
+      "slug": "2407-stretchable-glove-hand-pose",
+      "content_type": "reading",
+      "title_en": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
+      "title_ko": "신축성 글러브 기반의 포괄적 동작 데이터를 활용한 정확하고 강건한 손 자세 재구성",
+      "domain": "robotics",
+      "subfields": [
+        "wearable-sensing",
+        "hand-tracking",
+        "soft-robotics",
+        "teleoperation"
+      ],
+      "key_concepts": [
+        "stretchable-sensor",
+        "liquid-metal",
+        "forward-kinematics",
+        "bone-length-estimation",
+        "joint-angle-estimation",
+        "kalman-filter"
+      ],
+      "methodology": [
+        "gaussian-process-regression",
+        "bayesian-estimation",
+        "forward-kinematics"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Research",
+        "Robotics",
+        "Wearable",
+        "Hand Tracking",
+        "Soft Robotics",
+        "Nature Communications"
+      ],
+      "source_author": "Myungsun Park et al.",
+      "source_date": "2024-07-09T00:00:00Z",
+      "published_at": "2026-03-10T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Stretchable liquid-metal glove that estimates both finger bone lengths and joint angles from a single sensing mechanism for accurate hand pose reconstruction",
+        "problem": "Existing hand tracking gloves require bulky multi-sensor setups or manual bone length measurement, and evaluate only on limited hand poses",
+        "solution": "One-size-fits-all stretchable glove with 9 eGaIn traces that estimates bone lengths via initial stretch + Bayesian refinement, and joint angles via Kalman filter, using comprehensive motion data for calibration",
+        "key_result": "Bone length error 2.1mm, joint angle error 4.16°, fingertip 3D error 4.02mm — outperforming commercial hand tracking systems",
+        "limitations": [
+          "Only tracks 3 fingers (thumb, index, middle)",
+          "Bone length refinement requires constrained poses",
+          "Linear sensor model limits accuracy"
+        ]
+      },
+      "relations": [],
+      "idea_status": null,
+      "related_posts": null
     }
   ],
   "knowledge_graph": {
@@ -355,9 +409,27 @@
     ],
     "blog-introduction": [
       5
+    ],
+    "stretchable-sensor": [
+      6
+    ],
+    "liquid-metal": [
+      6
+    ],
+    "forward-kinematics": [
+      6
+    ],
+    "bone-length-estimation": [
+      6
+    ],
+    "joint-angle-estimation": [
+      6
+    ],
+    "kalman-filter": [
+      6
     ]
   },
   "domain_stats": {
-    "robotics": 5
+    "robotics": 6
   }
 }
