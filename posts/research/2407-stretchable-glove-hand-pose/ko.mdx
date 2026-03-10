@@ -1,0 +1,98 @@
+---
+locale: "ko"
+title: "신축성 글러브 기반의 포괄적 동작 데이터를 활용한 정확하고 강건한 손 자세 재구성"
+summary: "기존 손 추적 글러브가 제한된 자세만 인식하거나 복잡한 다중 센서를 필요로 하는 문제를, 9개 액체 금속 센서 하나의 메커니즘으로 뼈 길이와 관절 각도를 동시에 추정하는 원사이즈 신축 글러브로 해결한 연구. 뼈 길이 오차 2.1mm, 관절 각도 오차 4.16°, 손끝 3D 오차 4.02mm를 달성하여 상용 시스템 대비 절반 이하의 오차를 기록했다."
+card_summary: "기존 손 추적 글러브의 제한적 자세 인식과 복잡한 다중 센서 문제를, 단일 신축 센싱 메커니즘으로 뼈 길이와 관절 각도를 동시 추정하는 원사이즈 글러브로 해결했다."
+terrys_memo: ""
+translation_of: null
+translated_to:
+  - "en"
+references:
+  - title: "Dexpilot: Vision-Based Teleoperation of Dexterous Robotic Hand-Arm System"
+    author: "Handa et al. (2020)"
+    description: "비전 기반 로봇 손 원격 조종 시스템. 본 논문이 글러브 기반 원격 조종의 대안적 접근으로 비교하며, 촉각/착용형 센서의 장점을 부각하는 맥락에서 인용."
+    arxiv_url: "https://arxiv.org/abs/1910.03135"
+    scholar_url: "https://scholar.google.com/scholar?q=Dexpilot+vision+based+teleoperation+dexterous+robotic+hand"
+    category: "foundational"
+  - title: "Evaluation of hand-tracking systems in teleoperation and virtual dexterous manipulation"
+    author: "Mizera et al. (2019)"
+    description: "다양한 상용 손 추적 시스템의 원격 조종 성능을 체계적으로 평가한 연구. 본 논문이 자사 글러브의 관절 각도 추정 정확도를 비교하는 주요 벤치마크로 활용."
+    scholar_url: "https://scholar.google.com/scholar?q=Evaluation+hand+tracking+systems+teleoperation+virtual+dexterous+manipulation+Mizera"
+    category: "foundational"
+  - title: "Consistent and reproducible direct ink writing of eutectic gallium–indium for high-quality soft sensors"
+    author: "Kim et al. (2018)"
+    description: "eGaIn(공정 갈륨-인듐) 액체 금속 직접 잉크 프린팅 기술. 본 논문의 센서 제작 기반이 되는 핵심 선행 연구로, 센싱 레이어의 eGaIn 트레이스 제작 방법론에 직접 활용."
+    scholar_url: "https://scholar.google.com/scholar?q=Consistent+reproducible+direct+ink+writing+eutectic+gallium+indium+soft+sensors"
+    category: "foundational"
+  - title: "IMU sensor-based electronic goniometric glove for clinical finger movement analysis"
+    author: "Connolly et al. (2017)"
+    description: "IMU 기반 손가락 관절 측정 글러브. 상용 손 추적 시스템 중 가장 작은 오차를 보고한 연구로, 본 논문이 손끝 위치 오차(4.02mm)가 이의 절반 이하임을 보이며 직접 비교."
+    scholar_url: "https://scholar.google.com/scholar?q=IMU+sensor+electronic+goniometric+glove+clinical+finger+movement"
+    category: "recent"
+---
+
+## TL;DR
+
+기존 손 추적 글러브의 제한적 자세 인식과 복잡한 다중 센서 문제를, 단일 신축 센싱 메커니즘으로 뼈 길이와 관절 각도를 동시 추정하는 **원사이즈 신축 글러브**로 해결했다.
+
+## 문제
+
+기존 손 추적 시스템은 관절 각도를 측정하기 위해 다중 센서(IMU, 인코더, 굽힘 센서)를 조합하거나, 비전 기반 방식에 의존하여 카메라 설정과 가림(occlusion)에 취약했다. 특히 착용자의 손 크기(뼈 길이)를 파악하기 위해 별도의 수동 측정이나 비전 기반 보정이 필요했으며, 이는 정밀한 정운동학(FK) 재구성의 큰 오차 원인이었다. 또한 대부분의 선행 연구는 제한된 수의 일반적 손 자세로만 평가되어, 비일상적이고 복잡한 자세에서의 강건성이 검증되지 않았다.
+
+## 핵심 아이디어
+
+**단일 신축 센싱 메커니즘으로 뼈 길이와 관절 각도를 동시 추정**: 9개의 eGaIn(공정 갈륨-인듐) 액체 금속 트레이스가 새겨진 소프트 센싱 레이어가 착용 시 사전 신장(pre-stretch)되면서 손 크기를 초기 추정하고, 이후 동적 손 동작 중 센서 신호 분포를 이용한 베이지안 보정으로 뼈 길이를 정밀화한다. 관절 각도는 칼만 필터 기반 선형 시스템 모델로 실시간 추정한다.
+
+핵심 구성 요소:
+
+- **다중 강성 기판**: 두께 변화로 센서 감도를 3.4 게이지 팩터까지 향상, 단일 소재로 구현
+- **앵커 포인트 설계**: 후크앤루프 패치로 센서를 뼈 중앙에 고정, 센서 신호와 관절 각도 간 단사(injective) 관계 보장
+- **포괄적 동작 데이터**: 맞춤형 모션 캡처 프레임으로 수집한 자유 손 동작 데이터로 보정, 제한된 자세가 아닌 전체 가동 범위 평가
+- **정운동학(FK) 재구성**: 추정된 뼈 길이 + 관절 각도로 제약 조건 없이 임의 자세 재구성
+
+<Figure src="./fig-2.png" alt="모션 캡처 설정 및 FK 모델" caption="포괄적 손 동작 데이터셋의 수집, 모델링, 후처리. a 각 손가락 뼈의 강체를 정의하는 맞춤형 역반사 마커 프레임을 사용한 모션 캡처 설정(좌)과 맞춤형 모션 캡처 카메라 스탠드(우). b 각 손가락 뼈의 로컬 프레임, 관절 위치, 착용자의 손 해부학을 정의하는 파라미터를 보여주는 영점 자세의 정운동학 손 모델." number={2} />
+
+<Collapsible title="구체적 방법">
+
+시스템은 크게 세 단계로 손 자세를 재구성한다.
+
+**1단계 — 뼈 길이 초기 추정**: 센싱 레이어가 착용자의 손에 사전 신장될 때, 9개 센서의 초기 저항값이 손 크기에 따라 고유한 패턴을 형성한다. 13명의 피험자 데이터에서 가우시안 과정 회귀(Gaussian Process Regression)로 센서 신호 → 10개 뼈 길이 매핑을 학습한다. 평균 절대 오차 2.06mm (~6.9%).
+
+**2단계 — 뼈 길이 베이지안 보정**: 착용자가 손을 움직이면, 센서 신호의 통계적 분포가 손 크기에 따라 달라진다. 베이즈 규칙을 적용하여 사후 분포를 갱신한다:
+
+$$\hat{x}_k = \hat{x}_{k-1} + P_{k-1}M^\top(MP_{k-1}M^\top + \hat{\Sigma})^{-1}(y_k - M\hat{x}_{k-1})$$
+
+8가지 지정 자세 동안 수집한 센서 신호의 평균과 분산을 뼈 길이에 선형 피팅하여 우도 함수를 구성한다. 평균 8.3%의 추가 오차 감소를 달성한다.
+
+**3단계 — 관절 각도 실시간 추정**: 상태 벡터 $x_k \in \mathbb{R}^{10 \times 6}$과 관측 $y_k \in \mathbb{R}^9$의 선형 시스템 모델을 칼만 필터로 추정한다:
+
+$$x_{k+1} = Ax_k + w_k, \quad y_k = Hx_k + v_k$$
+
+여기서 $A$는 상태 전이 행렬, $H$는 관측 행렬, $w_k$와 $v_k$는 각각 프로세스 노이즈와 측정 노이즈이다. 손 크기별로 별도 보정하여 사전 신장 차이를 보상한다.
+
+<Figure src="./fig-3.png" alt="뼈 길이 보정 과정" caption="신호 분포를 이용한 뼈 길이의 실시간 보정. a 뼈 길이 추정 보정을 위해 수행된 손 자세 모음. b I-M abd. 센서 신호의 히스토그램과 가우시안 근사 및 추정 분포. c 세 참가자에 대한 연속 손 동작 시간에 따른 10개 뼈의 평균 추정 오차 그래프. d 보정 전후의 추정 및 실제 뼈 길이의 그래프 표현." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- **뼈 길이 추정 오차 평균 2.1mm** (뼈 길이 대비 ~6.9%), 베이지안 보정 후 추가 8.3% 감소
+- **관절 각도 추정 오차 평균 4.16°**, 모든 손 크기와 보정 조건에서 상용 손 추적 시스템 대비 우수
+- **손끝 3D 위치 오차 평균 4.02mm** — 상용 시스템 중 최소 보고 오차의 **절반 이하**
+- 가상 숫자 패드, 그림자극, Allegro Hand 원격 조종 등 3가지 응용에서 비일상적 자세 포함 강건한 재구성 시연
+
+<Figure src="./fig-5.png" alt="손끝 위치 추정 결과" caption="손끝 위치 추정. a 뼈 길이와 관절 각도 추정을 이용한 손끝 위치 예측 테스트 설정. b 작은 손 피험자의 실제(모션 캡처) 및 추정 손끝 위치의 3D 궤적. c 큰 손 피험자의 3D 궤적(i)과 시간 궤적(ii)." number={5} />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- 단일 신축 센싱 메커니즘으로 뼈 길이와 관절 각도를 동시 추정하는 최초의 원사이즈 글러브 시스템
+- 포괄적 자유 손 동작 데이터로 보정·평가하여, 비일상적 자세(그림자극 등)에서도 FK 재구성의 강건성 입증
+- 상용 손 추적 시스템 대비 절반 이하의 손끝 위치 오차(4.02mm)와 Allegro Hand 원격 조종 시연
+
+### 한계점
+
+- **3손가락 한정**: 엄지, 검지, 중지만 직접 측정하며, 약지와 소지는 중지의 비율로 추정하여 독립적 제어 불가
+- **보정 자세 제약**: 뼈 길이 베이지안 보정이 8가지 지정 자세로 제한되어, 임의 동작 중 보정은 미래 과제로 남겨둠
+- 🤖 **선형 센서 모델**: 관절 각도 추정에 선형 시스템 모델을 사용하여, 비선형 센서 응답이 지배적인 극단 자세에서 정확도 저하 가능성

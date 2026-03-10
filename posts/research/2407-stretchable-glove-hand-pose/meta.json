@@ -1,0 +1,95 @@
+{
+  "post_id": "2407-stretchable-glove-hand-pose",
+  "slug": "2407-stretchable-glove-hand-pose",
+  "post_number": 6,
+  "source_date": "2024-07-09T00:00:00Z",
+  "published_at": "2026-03-10T00:00:00Z",
+  "updated_at": "2026-03-10T00:00:00Z",
+  "status": "published",
+  "content_type": "reading",
+  "domain": "robotics",
+  "subfields": ["wearable-sensing", "hand-tracking", "soft-robotics", "teleoperation"],
+  "key_concepts": ["stretchable-sensor", "liquid-metal", "forward-kinematics", "bone-length-estimation", "joint-angle-estimation", "kalman-filter"],
+  "methodology": ["gaussian-process-regression", "bayesian-estimation", "forward-kinematics"],
+  "contribution_type": "system",
+  "relations": [],
+  "ai_summary": {
+    "one_liner": "Stretchable liquid-metal glove that estimates both finger bone lengths and joint angles from a single sensing mechanism for accurate hand pose reconstruction",
+    "problem": "Existing hand tracking gloves require bulky multi-sensor setups or manual bone length measurement, and evaluate only on limited hand poses",
+    "solution": "One-size-fits-all stretchable glove with 9 eGaIn traces that estimates bone lengths via initial stretch + Bayesian refinement, and joint angles via Kalman filter, using comprehensive motion data for calibration",
+    "key_result": "Bone length error 2.1mm, joint angle error 4.16°, fingertip 3D error 4.02mm — outperforming commercial hand tracking systems",
+    "limitations": ["Only tracks 3 fingers (thumb, index, middle)", "Bone length refinement requires constrained poses", "Linear sensor model limits accuracy"]
+  },
+  "tags": [
+    "Research",
+    "Robotics",
+    "Wearable",
+    "Hand Tracking",
+    "Soft Robotics",
+    "Nature Communications"
+  ],
+  "cover_image": "./cover.webp",
+  "thumb_source": "./fig-6.png",
+  "cover_caption": "Glove hardware design. a Schematic diagram of the proposed glove system hardware comprising the soft sensing layer, the textile glove interface, and the watch-type circuit board shown with the hand of the wearer. b Image of the initial state of the soft sensing layer (left) and its pre-stretched state (right) when anchored onto a medium-sized hand; the inset images show the multi-stiffness substrate structure and its characteristic deformation when stretched. c Placement of the liquid-metal sensor traces with respect to the hand. d Design of the textile glove interface composed of elastic fabric for unrestricted hand motion and hook-and-loop straps at anchoring points.",
+  "reading_time_min": 8,
+  "source_url": "https://www.nature.com/articles/s41467-024-50101-w",
+  "source_title": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
+  "source_author": "Myungsun Park et al.",
+  "source_type": "Nature Communications",
+  "source_authors_full": [
+    "Myungsun Park (Seoul National University / Soft Robotics Research Center)",
+    "Taejun Park (Seoul National University / Soft Robotics Research Center)",
+    "Soah Park (Seoul National University)",
+    "Sohee John Yoon (Seoul National University / Soft Robotics Research Center)",
+    "Sumin Helen Koo (Seoul National University)",
+    "Yong-Lae Park (Seoul National University / Soft Robotics Research Center / Institute of Advanced Machines and Design)"
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Stretchable+glove+for+accurate+and+robust+hand+pose+reconstruction+based+on+comprehensive+motion+data",
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Glove hardware design. a Schematic diagram of the proposed glove system hardware comprising the soft sensing layer, the textile glove interface, and the watch-type circuit board shown with the hand of the wearer. b Image of the initial state of the soft sensing layer (left) and its pre-stretched state (right) when anchored onto a medium-sized hand; the inset images show the multi-stiffness substrate structure and its characteristic deformation when stretched. c Placement of the liquid-metal sensor traces with respect to the hand. M middle, I index, T thumb, PIP proximal interphalangeal, IP interphalangeal, MCP metacarpophalangeal, CMC carpometacarpal, flex flexion, abd abduction. d Design of the textile glove interface composed of elastic fabric for unrestricted hand motion and hook-and-loop straps at anchoring points.",
+      "caption_ko": "글러브 하드웨어 설계. a 소프트 센싱 레이어, 텍스타일 글러브 인터페이스, 시계형 회로 기판으로 구성된 제안 글러브 시스템의 하드웨어 개략도. b 소프트 센싱 레이어의 초기 상태(좌)와 중간 크기 손에 고정된 사전 신장 상태(우); 삽입 이미지는 다중 강성 기판 구조와 신장 시 특성 변형을 보여줌. c 손에 대한 액체 금속 센서 트레이스의 배치. M 중지, I 검지, T 엄지, PIP 근위지절간, IP 지절간, MCP 중수지절, CMC 수근중수, flex 굴곡, abd 외전. d 자유로운 손 움직임을 위한 탄성 원단과 고정점의 후크앤루프 스트랩으로 구성된 텍스타일 글러브 인터페이스 설계.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Collecting, modeling, and post-processing of the comprehensive hand motion dataset. a Motion-capture setup for collecting hand motion data with custom retro-reflective marker frames to define the rigid body of each finger bone (left), and custom motion-capture camera stand (right). b Forward kinematic hand model at zero-pose showing the local frame of each finger bone, the joint positions, and the parameters defining the wearer's hand anatomy. Rs, Rbase, Rmeta, and Rprox represent the global motion-capture frame, the local hand base, metacarpal bone, and proximal phalanx frames, respectively. α, γ, and θ represent abduction offset, roll offset, and joint angles. c Reconstruction of motion-captured hand poses using the FK model with the post-processed joint angles and the subject's bone lengths.",
+      "caption_ko": "포괄적 손 동작 데이터셋의 수집, 모델링, 후처리. a 각 손가락 뼈의 강체를 정의하는 맞춤형 역반사 마커 프레임을 사용한 모션 캡처 설정(좌)과 맞춤형 모션 캡처 카메라 스탠드(우). b 각 손가락 뼈의 로컬 프레임, 관절 위치, 착용자의 손 해부학을 정의하는 파라미터를 보여주는 영점 자세의 정운동학 손 모델. Rs, Rbase, Rmeta, Rprox는 각각 글로벌 모션 캡처 프레임, 로컬 손 기저, 중수골, 근위 지골 프레임을 나타냄. α, γ, θ는 외전 오프셋, 롤 오프셋, 관절 각도를 나타냄. c 후처리된 관절 각도와 피험자의 뼈 길이를 사용한 FK 모델에 의한 모션 캡처 손 자세 재구성.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Real-time refinement of bone lengths using signal distributions. a Collection of hand poses conducted for the refinement of bone lengths estimation. All motions were restricted to these eight poses. IP interphalangeal, MCP metacarpophalangeal, CMC carpometacarpal, PIP proximal interphalangeal, flex flexion, abd abduction. b Histogram of the sensor signals of I-M abd. in Fig. 1c collected over the hand motion test; its Gaussian approximation defined by the true mean and variance of the histogram, and the estimated distribution defined by the mean and covariance estimated from the subject's bone lengths. c Plot of average estimation errors of 10 bones with respect to time of continuous hand motions, shown for three participants (P1—P3). d Graphical representation of the estimated and true bone lengths before and after the refinement.",
+      "caption_ko": "신호 분포를 이용한 뼈 길이의 실시간 보정. a 뼈 길이 추정 보정을 위해 수행된 손 자세 모음. 모든 동작은 이 8가지 자세로 제한됨. IP 지절간, MCP 중수지절, CMC 수근중수, PIP 근위지절간, flex 굴곡, abd 외전. b I-M abd. 센서 신호의 히스토그램; 히스토그램의 실제 평균과 분산으로 정의된 가우시안 근사와 피험자의 뼈 길이로 추정된 평균과 공분산으로 정의된 추정 분포. c 세 참가자(P1-P3)에 대한 연속 손 동작 시간에 따른 10개 뼈의 평균 추정 오차 그래프. d 보정 전후의 추정 및 실제 뼈 길이의 그래프 표현.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Real-time estimation of joint angles. Collection of hand poses conducted during the calibration (a) and the evaluation (b) for the joint angle estimation. c Graphical representation of the correlation between the joint angles (vertical) and the sensor signals (horizontal) in calibration dataset. d Plot of the time trajectories of the estimated and true joint angles for the large hand subject in the self-calibration group. T Thumb, I Index, M Middle, IP interphalangeal, PIP proximal interphalangeal, MCP metacarpophalangeal, CMC carpometacarpal, flex flexion, abd abduction.",
+      "caption_ko": "관절 각도의 실시간 추정. 관절 각도 추정을 위한 보정(a)과 평가(b) 중 수행된 손 자세 모음. c 보정 데이터셋에서 관절 각도(수직)와 센서 신호(수평) 간 상관관계의 그래프 표현. d 자기 보정 그룹의 큰 손 피험자에 대한 추정 및 실제 관절 각도의 시간 궤적 그래프. T 엄지, I 검지, M 중지, IP 지절간, PIP 근위지절간, MCP 중수지절, CMC 수근중수, flex 굴곡, abd 외전.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Fingertip position estimation. a Test setup for prediction of the fingertip position using the bone length and the joint angle estimations. b 3D trajectories of the true (motion captured) and the estimated fingertip positions for the small-handed subject. c 3D trajectories (i) and the time trajectory (ii) of the true (motion captured) and estimated fingertip positions for the large-handed subject.",
+      "caption_ko": "손끝 위치 추정. a 뼈 길이와 관절 각도 추정을 이용한 손끝 위치 예측 테스트 설정. b 작은 손 피험자의 실제(모션 캡처) 및 추정 손끝 위치의 3D 궤적. c 큰 손 피험자의 3D 궤적(i)과 시간 궤적(ii).",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Real-time hand pose reconstruction. a Armature and mesh of the virtual hand created in an open-source 3D computer graphics software tool (Blender). b (i) Image of the wearer's real hand during various free hand motions and (ii) the corresponding real-time reconstruction of the hand poses in the virtual environment. c (i) Image of the wearer's real hand during three different grasping poses (ii) corresponding real-time reconstruction of the hand pose. d (i) Image of the wearer's real hand during modified Kapandji test (ii) corresponding real-time reconstruction of the hand pose.",
+      "caption_ko": "실시간 손 자세 재구성. a 오픈소스 3D 컴퓨터 그래픽스 소프트웨어(Blender)에서 생성한 가상 손의 아마추어와 메시. b (i) 다양한 자유 손 동작 중 착용자의 실제 손 이미지와 (ii) 가상 환경에서의 대응하는 실시간 손 자세 재구성. c (i) 세 가지 파지 자세 중 착용자의 실제 손 이미지 (ii) 대응하는 실시간 손 자세 재구성. d (i) 수정된 카판디 테스트 중 착용자의 실제 손 이미지 (ii) 대응하는 실시간 손 자세 재구성.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Applications of the hand tracking system. a Application of virtual number pad typing of five-digit number (top) and arithmetic operation (bottom). b Real world environment (i) and twin virtual environment (Blender) (ii) for real-time virtual shadowgraphy. (iii) Examples of virtual shadowgraphy showing the real hand and the shadow (left) and the virtual hand and shadow (right). c Teleoperation of an anthropomorphic robot hand (Allegro hand, Wonik Robotics) for three dexterous manipulation tasks: repositioning and grasping a ball, scrolling a mouse, and rotating a volume knob.",
+      "caption_ko": "손 추적 시스템의 응용. a 다섯 자리 숫자(상단)와 산술 연산(하단)의 가상 숫자 패드 타이핑 응용. b 실시간 가상 그림자극을 위한 실제 환경(i)과 쌍둥이 가상 환경(Blender)(ii). (iii) 실제 손과 그림자(좌) 및 가상 손과 그림자(우)를 보여주는 가상 그림자극 예시. c 인체형 로봇 핸드(Allegro hand, Wonik Robotics)를 이용한 세 가지 정밀 조작 원격 조종: 공 재배치 및 잡기, 마우스 스크롤, 볼륨 노브 회전.",
+      "number": 7
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

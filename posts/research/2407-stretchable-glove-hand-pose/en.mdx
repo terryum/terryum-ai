@@ -1,0 +1,97 @@
+---
+locale: "en"
+title: "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data"
+summary: "Existing hand tracking gloves only recognize limited poses or require complex multi-sensor setups. This work proposes a one-size-fits-all stretchable glove with 9 liquid-metal sensors that simultaneously estimates bone lengths and joint angles. It achieves bone length error of 2.1mm, joint angle error of 4.16°, and fingertip 3D error of 4.02mm — less than half the smallest reported error among commercial systems."
+card_summary: "Existing hand tracking gloves are limited in pose recognition and require complex multi-sensor setups. This work solves both with a one-size-fits-all stretchable glove that simultaneously estimates bone lengths and joint angles from a single sensing mechanism."
+terrys_memo: ""
+translation_of: "2407-stretchable-glove-hand-pose:ko"
+translated_to: []
+references:
+  - title: "Dexpilot: Vision-Based Teleoperation of Dexterous Robotic Hand-Arm System"
+    author: "Handa et al. (2020)"
+    description: "Vision-based robotic hand teleoperation system. Cited as an alternative approach to glove-based teleoperation, highlighting the advantages of tactile/wearable sensing."
+    arxiv_url: "https://arxiv.org/abs/1910.03135"
+    scholar_url: "https://scholar.google.com/scholar?q=Dexpilot+vision+based+teleoperation+dexterous+robotic+hand"
+    category: "foundational"
+  - title: "Evaluation of hand-tracking systems in teleoperation and virtual dexterous manipulation"
+    author: "Mizera et al. (2019)"
+    description: "Systematic evaluation of commercial hand tracking systems for teleoperation. Used as the primary benchmark for comparing joint angle estimation accuracy of the proposed glove."
+    scholar_url: "https://scholar.google.com/scholar?q=Evaluation+hand+tracking+systems+teleoperation+virtual+dexterous+manipulation+Mizera"
+    category: "foundational"
+  - title: "Consistent and reproducible direct ink writing of eutectic gallium–indium for high-quality soft sensors"
+    author: "Kim et al. (2018)"
+    description: "eGaIn liquid metal direct ink printing technology. Core prior work underlying the sensor fabrication of this paper, directly used for creating the eGaIn traces on the sensing layer."
+    scholar_url: "https://scholar.google.com/scholar?q=Consistent+reproducible+direct+ink+writing+eutectic+gallium+indium+soft+sensors"
+    category: "foundational"
+  - title: "IMU sensor-based electronic goniometric glove for clinical finger movement analysis"
+    author: "Connolly et al. (2017)"
+    description: "IMU-based finger joint measurement glove reporting the smallest error among commercial hand tracking systems. Directly compared to show the proposed glove achieves less than half the fingertip position error (4.02mm)."
+    scholar_url: "https://scholar.google.com/scholar?q=IMU+sensor+electronic+goniometric+glove+clinical+finger+movement"
+    category: "recent"
+---
+
+## TL;DR
+
+Existing hand tracking gloves are limited in pose recognition and require complex multi-sensor setups. This work solves both with a **one-size-fits-all stretchable glove** that simultaneously estimates bone lengths and joint angles from a single sensing mechanism.
+
+## Problem
+
+Existing hand tracking systems either combine multiple sensors (IMUs, encoders, bending sensors) to measure joint angles, or rely on vision-based approaches that are susceptible to camera setup requirements and occlusion. Determining the wearer's hand size (bone lengths) typically requires separate manual measurement or vision-based calibration, which is a major source of error in forward kinematic (FK) reconstruction. Moreover, most prior work evaluated performance on a limited set of common hand poses, leaving robustness on unconventional and complex poses unverified.
+
+## Key Idea
+
+**Simultaneous bone length and joint angle estimation from a single stretchable sensing mechanism**: A soft sensing layer with 9 eGaIn (eutectic gallium-indium) liquid-metal traces is pre-stretched when worn, providing an initial estimate of hand size. Bone lengths are then refined via Bayesian updates using sensor signal distributions during dynamic hand motion, while joint angles are estimated in real time using a Kalman filter-based linear system model.
+
+Key components:
+
+- **Multi-stiffness substrate**: Thickness variation increases sensor sensitivity to a gauge factor of 3.4, implemented with a single material
+- **Anchor point design**: Hook-and-loop patches fix sensors to bone midpoints, ensuring an injective mapping between sensor signals and joint angles
+- **Comprehensive motion data**: Calibration uses free hand motion data collected with custom motion-capture frames, evaluating across the full range of motion rather than limited poses
+- **FK reconstruction**: Estimated bone lengths + joint angles enable constraint-free reconstruction of arbitrary poses
+
+<Figure src="./fig-2.png" alt="Motion capture setup and FK model" caption="Collecting, modeling, and post-processing of the comprehensive hand motion dataset. a Motion-capture setup for collecting hand motion data with custom retro-reflective marker frames to define the rigid body of each finger bone (left), and custom motion-capture camera stand (right). b Forward kinematic hand model at zero-pose showing the local frame of each finger bone, the joint positions, and the parameters defining the wearer's hand anatomy." number={2} />
+
+<Collapsible title="Detailed Method">
+
+The system reconstructs hand poses in three main stages.
+
+**Stage 1 — Initial bone length estimation**: When the sensing layer is pre-stretched onto the wearer's hand, the initial resistance values of 9 sensors form a unique pattern depending on hand size. Gaussian Process Regression maps sensor signals → 10 bone lengths using data from 13 subjects. Mean absolute error: 2.06mm (~6.9%).
+
+**Stage 2 — Bayesian bone length refinement**: As the wearer moves their fingers, the statistical distribution of sensor signals varies with hand size. Bayes' rule updates the posterior:
+
+$$\hat{x}_k = \hat{x}_{k-1} + P_{k-1}M^\top(MP_{k-1}M^\top + \hat{\Sigma})^{-1}(y_k - M\hat{x}_{k-1})$$
+
+The mean and variance of sensor signals collected during 8 designated poses are linearly fitted to bone lengths to construct the likelihood function, achieving an additional 8.3% error reduction on average.
+
+**Stage 3 — Real-time joint angle estimation**: A linear system model with state vector $x_k \in \mathbb{R}^{10 \times 6}$ and observation $y_k \in \mathbb{R}^9$ is estimated via Kalman filter:
+
+$$x_{k+1} = Ax_k + w_k, \quad y_k = Hx_k + v_k$$
+
+where $A$ is the state transition matrix, $H$ is the observation matrix, and $w_k$, $v_k$ are process and measurement noise, respectively. Separate calibration per hand size compensates for pre-stretch differences.
+
+<Figure src="./fig-3.png" alt="Bone length refinement process" caption="Real-time refinement of bone lengths using signal distributions. a Collection of hand poses conducted for the refinement of bone lengths estimation. b Histogram of the sensor signals of I-M abd. collected over the hand motion test; its Gaussian approximation defined by the true mean and variance of the histogram, and the estimated distribution defined by the mean and covariance estimated from the subject's bone lengths. c Plot of average estimation errors of 10 bones with respect to time of continuous hand motions, shown for three participants. d Graphical representation of the estimated and true bone lengths before and after the refinement." number={3} />
+
+</Collapsible>
+
+## Key Results
+
+- **Bone length estimation error: 2.1mm average** (~6.9% of bone length), with additional 8.3% reduction after Bayesian refinement
+- **Joint angle estimation error: 4.16° average**, outperforming commercial hand tracking systems across all hand sizes and calibration conditions
+- **Fingertip 3D position error: 4.02mm average** — **less than half** the smallest reported error among commercial systems
+- Robust reconstruction demonstrated across 3 applications including virtual number pad typing, shadowgraphy, and Allegro Hand teleoperation with unconventional poses
+
+<Figure src="./fig-5.png" alt="Fingertip position estimation results" caption="Fingertip position estimation. a Test setup for prediction of the fingertip position using the bone length and the joint angle estimations. b 3D trajectories of the true (motion captured) and the estimated fingertip positions for the small-handed subject. c 3D trajectories (i) and the time trajectory (ii) of the true (motion captured) and estimated fingertip positions for the large-handed subject." number={5} />
+
+## Achievements and Limitations
+
+### What's New
+
+- First one-size-fits-all glove system that simultaneously estimates bone lengths and joint angles from a single stretchable sensing mechanism
+- Calibration and evaluation using comprehensive free hand motion data, proving FK reconstruction robustness even on unconventional poses (e.g., shadowgraphy)
+- Achieved less than half the fingertip position error (4.02mm) of commercial systems, with Allegro Hand teleoperation demonstration
+
+### Limitations
+
+- **3-finger limitation**: Only thumb, index, and middle fingers are directly measured; ring and little fingers are estimated as proportions of the middle finger, preventing independent control
+- **Constrained refinement poses**: Bayesian bone length refinement is limited to 8 designated poses; refinement during arbitrary motion is left for future work
+- 🤖 **Linear sensor model**: Joint angle estimation uses a linear system model, potentially degrading accuracy at extreme poses where nonlinear sensor responses dominate
