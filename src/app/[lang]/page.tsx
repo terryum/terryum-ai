@@ -51,7 +51,7 @@ export default async function HomePage({
     .map(tab => ({
       title: dict.home[TAB_DICT_KEY[tab.slug] as keyof typeof dict.home] || tab.slug,
       href: `/${lang}/posts?tab=${tab.slug}`,
-      posts: getPostsForTab(allPosts, tab.slug).slice(0, 5),
+      posts: getPostsForTab(allPosts, tab.slug),
     }))
 ;
 
