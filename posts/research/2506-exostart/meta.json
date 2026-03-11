@@ -10,6 +10,7 @@
   "cover_image": "./cover.webp",
   "cover_caption": "Overview framework showing three stages: (a) Human demonstration with an exoskeleton: collecting demonstrations via real-world interaction; (b) Dynamics filtering: applying trajectory optimization for dynamically feasible simulated trajectories; (c) Auto-curriculum RL and distillation: training teacher policies from filtered trajectories, then distilling into vision-based student policies for zero-shot real-world transfer.",
   "reading_time_min": 8,
+  "source_date": "2025-06-13",
   "source_url": "https://arxiv.org/abs/2506.11775",
   "source_title": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
   "source_author": "Zilin Si et al.",

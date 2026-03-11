@@ -10,6 +10,7 @@
   "cover_image": "./cover.webp",
   "cover_caption": "(a) DEXOP is a passive exoskeleton that links human hand movements to passive robotic hand movements through mechanical linkages. (b) DEXOP enables humans to collect task demonstrations of diverse and highly dexterous tasks. (c) Data collected by DEXOP can be used to train policies that transfer to robots.",
   "reading_time_min": 7,
+  "source_date": "2025-09-04",
   "source_url": "https://arxiv.org/abs/2509.04441",
   "source_title": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
   "source_author": "Hao-Shu Fang et al.",

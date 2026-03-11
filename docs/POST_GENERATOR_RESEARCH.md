@@ -142,7 +142,7 @@
 | `content_type` | `"reading"` (참고용; 폴더가 실제 결정) |
 | `tags` | 문자열 배열 (자동 생성, 많음, 내부 색인용) |
 | `display_tags` | 유저 노출용 2차 태그 (2-5개, 수동 큐레이션). 없으면 `tags` fallback |
-| `source_date` | 논문 최초 제출일 또는 저널 발행월 (ISO 날짜, 예: `"2025-05-01"`). arXiv v1 제출일 기준 |
+| `source_date` | 논문 최초 제출일 또는 저널 발행월 (ISO 날짜, 예: `"2025-05-01"`). arXiv v1 제출일 기준. **카드 저자명 옆에 연/월로 표시** (글 발행일 아님) |
 | `cover_image` | `"./cover.webp"` |
 | `cover_caption` | 원문 figure 캡션 (번역 안 함) |
 | `cover_thumb` | `"./cover_thumb.webp"` (optional) |

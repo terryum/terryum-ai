@@ -73,8 +73,17 @@ async function fetchCitationFromGoogleScholar(scholarUrl) {
     ],
   });
   try {
-    const page = await browser.newPage();
-    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
+    const context = await browser.newContext({
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+      locale: 'en-US',
+      timezoneId: 'America/New_York',
+    });
+    // Hide navigator.webdriver flag (primary bot-detection signal)
+    await context.addInitScript(() => {
+      Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+    });
+    const page = await context.newPage();
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto(scholarUrl, { waitUntil: 'domcontentloaded' });
 
