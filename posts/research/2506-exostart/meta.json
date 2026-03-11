@@ -6,7 +6,14 @@
   "updated_at": "2026-03-11T00:00:00+09:00",
   "status": "published",
   "content_type": "reading",
-  "tags": ["dexterous-manipulation", "exoskeleton", "sim-to-real", "reinforcement-learning", "imitation-learning", "data-collection"],
+  "tags": [
+    "dexterous-manipulation",
+    "exoskeleton",
+    "sim-to-real",
+    "reinforcement-learning",
+    "imitation-learning",
+    "data-collection"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Overview framework showing three stages: (a) Human demonstration with an exoskeleton: collecting demonstrations via real-world interaction; (b) Dynamics filtering: applying trajectory optimization for dynamically feasible simulated trajectories; (c) Auto-curriculum RL and distillation: training teacher policies from filtered trajectories, then distilling into vision-based student policies for zero-shot real-world transfer.",
   "reading_time_min": 8,
@@ -17,24 +24,78 @@
   "source_type": "arXiv",
   "source_project_url": "https://sites.google.com/view/exostart",
   "source_authors_full": [
-    {"name": "Zilin Si", "affiliation": "Carnegie Mellon University"},
-    {"name": "Jose Enrique Chen", "affiliation": "Google DeepMind"},
-    {"name": "M. Emre Karagozler", "affiliation": "Google DeepMind"},
-    {"name": "Antonia Bronars", "affiliation": "Massachusetts Institute of Technology"},
-    {"name": "Jonathan Hutchinson", "affiliation": "Google DeepMind"},
-    {"name": "Thomas Lampe", "affiliation": "Google DeepMind"},
-    {"name": "Nimrod Gileadi", "affiliation": "Google DeepMind"},
-    {"name": "Taylor Howell", "affiliation": "Google DeepMind"},
-    {"name": "Stefano Saliceti", "affiliation": "Google DeepMind"},
-    {"name": "Lukasz Barczyk", "affiliation": "Google DeepMind"},
-    {"name": "Ilan Olivarez Correa", "affiliation": "Google DeepMind"},
-    {"name": "Tom Erez", "affiliation": "Google DeepMind"},
-    {"name": "Mohit Shridhar", "affiliation": "Google DeepMind"},
-    {"name": "Murilo Fernandes Martins", "affiliation": "Google DeepMind"},
-    {"name": "Konstantinos Bousmalis", "affiliation": "Google DeepMind"},
-    {"name": "Nicolas Heess", "affiliation": "Google DeepMind"},
-    {"name": "Francesco Nori", "affiliation": "Google DeepMind"},
-    {"name": "Maria Bauza", "affiliation": "Google DeepMind"}
+    {
+      "name": "Zilin Si",
+      "affiliation": "Carnegie Mellon University"
+    },
+    {
+      "name": "Jose Enrique Chen",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "M. Emre Karagozler",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Antonia Bronars",
+      "affiliation": "Massachusetts Institute of Technology"
+    },
+    {
+      "name": "Jonathan Hutchinson",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Thomas Lampe",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Nimrod Gileadi",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Taylor Howell",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Stefano Saliceti",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Lukasz Barczyk",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Ilan Olivarez Correa",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Tom Erez",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Mohit Shridhar",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Murilo Fernandes Martins",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Konstantinos Bousmalis",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Nicolas Heess",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Francesco Nori",
+      "affiliation": "Google DeepMind"
+    },
+    {
+      "name": "Maria Bauza",
+      "affiliation": "Google DeepMind"
+    }
   ],
   "figures": [
     {
@@ -72,14 +133,42 @@
   "newsletter_eligible": false,
   "featured": false,
   "domain": "robotics",
-  "subfields": ["dexterous-manipulation", "sim-to-real", "reinforcement-learning", "data-collection"],
-  "key_concepts": ["exoskeleton", "dynamics-filtering", "auto-curriculum", "teacher-student-distillation", "zero-shot-transfer", "trajectory-optimization", "mjpc"],
-  "methodology": ["sensorized-exoskeleton", "mjpc-trajectory-optimization", "auto-curriculum-rl", "policy-distillation", "ar-tag-pose-estimation"],
+  "subfields": [
+    "dexterous-manipulation",
+    "sim-to-real",
+    "reinforcement-learning",
+    "data-collection"
+  ],
+  "key_concepts": [
+    "exoskeleton",
+    "dynamics-filtering",
+    "auto-curriculum",
+    "teacher-student-distillation",
+    "zero-shot-transfer",
+    "trajectory-optimization",
+    "mjpc"
+  ],
+  "methodology": [
+    "sensorized-exoskeleton",
+    "mjpc-trajectory-optimization",
+    "auto-curriculum-rl",
+    "policy-distillation",
+    "ar-tag-pose-estimation"
+  ],
   "contribution_type": "system",
   "relations": [
-    {"target": "2505-dexumi", "type": "related"},
-    {"target": "2501-dexforce-force-informed-actions", "type": "related"},
-    {"target": "2505-forcevla-force-aware-moe", "type": "related"}
+    {
+      "target": "2505-dexumi",
+      "type": "related"
+    },
+    {
+      "target": "2501-dexforce-force-informed-actions",
+      "type": "related"
+    },
+    {
+      "target": "2505-forcevla-force-aware-moe",
+      "type": "related"
+    }
   ],
   "ai_summary": {
     "one_liner": "ExoStart converts ~10 exoskeleton demonstrations into dexterous robot manipulation policies via dynamics filtering, auto-curriculum RL, and vision-based distillation for zero-shot real-world transfer.",
@@ -92,5 +181,7 @@
     ]
   },
   "thumb_source": "./fig-3.png",
-  "thumb_position": "centre"
+  "thumb_position": "centre",
+  "citation_status": "failed",
+  "citation_updated_at": "2026-03-11T15:54:22.496Z"
 }

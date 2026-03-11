@@ -6,7 +6,14 @@
   "updated_at": "2026-03-11T00:00:00+09:00",
   "status": "published",
   "content_type": "reading",
-  "tags": ["dexterous-manipulation", "exoskeleton", "teleoperation", "data-collection", "imitation-learning", "robot-hand"],
+  "tags": [
+    "dexterous-manipulation",
+    "exoskeleton",
+    "teleoperation",
+    "data-collection",
+    "imitation-learning",
+    "robot-hand"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "(a) DEXOP is a passive exoskeleton that links human hand movements to passive robotic hand movements through mechanical linkages. (b) DEXOP enables humans to collect task demonstrations of diverse and highly dexterous tasks. (c) Data collected by DEXOP can be used to train policies that transfer to robots.",
   "reading_time_min": 7,
@@ -17,18 +24,54 @@
   "source_type": "arXiv",
   "source_project_url": "https://dex-op.github.io",
   "source_authors_full": [
-    {"name": "Hao-Shu Fang", "affiliation": "MIT, Improbable AI Lab"},
-    {"name": "Branden Romero", "affiliation": "MIT, Improbable AI Lab"},
-    {"name": "Yichen Xie", "affiliation": "UC Berkeley"},
-    {"name": "Arthur Hu", "affiliation": "MIT"},
-    {"name": "Bo-Ruei Huang", "affiliation": "MIT"},
-    {"name": "Juan Alvarez", "affiliation": "MIT"},
-    {"name": "Matthew Kim", "affiliation": "MIT"},
-    {"name": "Gabriel Margolis", "affiliation": "MIT, Improbable AI Lab"},
-    {"name": "Kavya Anbarasu", "affiliation": "MIT"},
-    {"name": "Masayoshi Tomizuka", "affiliation": "UC Berkeley"},
-    {"name": "Edward Adelson", "affiliation": "MIT"},
-    {"name": "Pulkit Agrawal", "affiliation": "MIT, Improbable AI Lab"}
+    {
+      "name": "Hao-Shu Fang",
+      "affiliation": "MIT, Improbable AI Lab"
+    },
+    {
+      "name": "Branden Romero",
+      "affiliation": "MIT, Improbable AI Lab"
+    },
+    {
+      "name": "Yichen Xie",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Arthur Hu",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Bo-Ruei Huang",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Juan Alvarez",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Matthew Kim",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Gabriel Margolis",
+      "affiliation": "MIT, Improbable AI Lab"
+    },
+    {
+      "name": "Kavya Anbarasu",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Masayoshi Tomizuka",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Edward Adelson",
+      "affiliation": "MIT"
+    },
+    {
+      "name": "Pulkit Agrawal",
+      "affiliation": "MIT, Improbable AI Lab"
+    }
   ],
   "figures": [
     {
@@ -96,14 +139,42 @@
   "newsletter_eligible": false,
   "featured": false,
   "domain": "robotics",
-  "subfields": ["dexterous-manipulation", "teleoperation", "data-collection", "imitation-learning"],
-  "key_concepts": ["passive-exoskeleton", "mechanical-linkage", "4-bar-linkage", "direct-contact-feedback", "co-design", "data-efficiency", "dexterous-hand"],
-  "methodology": ["passive-exoskeleton-hardware", "4-bar-linkage-design", "diffusion-policy", "behavioral-cloning", "humanoid-deployment"],
+  "subfields": [
+    "dexterous-manipulation",
+    "teleoperation",
+    "data-collection",
+    "imitation-learning"
+  ],
+  "key_concepts": [
+    "passive-exoskeleton",
+    "mechanical-linkage",
+    "4-bar-linkage",
+    "direct-contact-feedback",
+    "co-design",
+    "data-efficiency",
+    "dexterous-hand"
+  ],
+  "methodology": [
+    "passive-exoskeleton-hardware",
+    "4-bar-linkage-design",
+    "diffusion-policy",
+    "behavioral-cloning",
+    "humanoid-deployment"
+  ],
   "contribution_type": "system",
   "relations": [
-    {"target": "2505-dexumi", "type": "related"},
-    {"target": "2506-exostart", "type": "related"},
-    {"target": "2407-stretchable-glove-hand-pose", "type": "related"}
+    {
+      "target": "2505-dexumi",
+      "type": "related"
+    },
+    {
+      "target": "2506-exostart",
+      "type": "related"
+    },
+    {
+      "target": "2407-stretchable-glove-hand-pose",
+      "type": "related"
+    }
   ],
   "ai_summary": {
     "one_liner": "DEXOP is a passive exoskeleton that mechanically links human and robot fingers, enabling direct-contact dexterous demonstration collection at up to 8× the speed of teleoperation.",
@@ -116,5 +187,7 @@
     ]
   },
   "thumb_source": "./fig-7.png",
-  "thumb_position": "centre"
+  "thumb_position": "centre",
+  "citation_status": "failed",
+  "citation_updated_at": "2026-03-11T15:54:25.426Z"
 }
