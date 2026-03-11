@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T06:13:42.952Z",
-  "total_posts": 9,
+  "generated_at": "2026-03-11T06:29:10.195Z",
+  "total_posts": 10,
   "posts": [
     {
       "post_number": 1,
@@ -513,6 +513,75 @@
       ],
       "idea_status": null,
       "related_posts": null
+    },
+    {
+      "post_number": 10,
+      "slug": "2509-dexop",
+      "content_type": "reading",
+      "title_en": "DEXOP: Passive Exoskeleton That Mechanically Links Human and Robot Fingers",
+      "title_ko": "DEXOP: 인간 손가락을 로봇 손가락에 기계적으로 연결하는 Passive Exoskeleton",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "teleoperation",
+        "data-collection",
+        "imitation-learning"
+      ],
+      "key_concepts": [
+        "passive-exoskeleton",
+        "mechanical-linkage",
+        "4-bar-linkage",
+        "direct-contact-feedback",
+        "co-design",
+        "data-efficiency",
+        "dexterous-hand"
+      ],
+      "methodology": [
+        "passive-exoskeleton-hardware",
+        "4-bar-linkage-design",
+        "diffusion-policy",
+        "behavioral-cloning",
+        "humanoid-deployment"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "dexterous-manipulation",
+        "exoskeleton",
+        "teleoperation",
+        "data-collection",
+        "imitation-learning",
+        "robot-hand"
+      ],
+      "source_author": "Hao-Shu Fang et al.",
+      "source_date": null,
+      "published_at": "2026-03-11T00:00:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "DEXOP is a passive exoskeleton that mechanically links human and robot fingers, enabling direct-contact dexterous demonstration collection at up to 8× the speed of teleoperation.",
+        "problem": "Dexterous robot manipulation requires high-quality demonstrations of complex multi-finger tasks, but teleoperation is slow (seconds per action), lacks natural contact feedback, and produces noisy data for contact-rich manipulation.",
+        "solution": "A passive exoskeleton (DEXOP) with 4-bar linkages directly coupling human and robot finger joints, requiring no actuation or calibration. Humans manipulate objects naturally while the robot hand mirrors their movements; tactile sensors provide supplementary force data.",
+        "key_result": "DEXOP achieves up to 8× higher task throughput than teleoperation (bulb install: 11s vs 86s); policies trained on 160 DEXOP + 40 TeleOP demos achieve 51.3% vs 42.5% success for pure TeleOP, collected in half the time.",
+        "limitations": [
+          "Requires per-robot-hand co-design; current EyeSight hand lacks full human hand DOF for in-hand reorientation",
+          "Provides proprioceptive but not tactile feedback to the human operator"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2505-dexumi",
+          "type": "related"
+        },
+        {
+          "target": "2506-exostart",
+          "type": "related"
+        },
+        {
+          "target": "2407-stretchable-glove-hand-pose",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
     }
   ],
   "knowledge_graph": {
@@ -570,6 +639,21 @@
       {
         "from": "2506-exostart",
         "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2506-exostart",
+        "type": "related"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2407-stretchable-glove-hand-pose",
         "type": "related"
       }
     ]
@@ -701,10 +785,31 @@
     ],
     "mjpc": [
       9
+    ],
+    "passive-exoskeleton": [
+      10
+    ],
+    "mechanical-linkage": [
+      10
+    ],
+    "4-bar-linkage": [
+      10
+    ],
+    "direct-contact-feedback": [
+      10
+    ],
+    "co-design": [
+      10
+    ],
+    "data-efficiency": [
+      10
+    ],
+    "dexterous-hand": [
+      10
     ]
   },
   "domain_stats": {
-    "robotics": 8,
+    "robotics": 9,
     "ml": 1
   }
 }

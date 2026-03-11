@@ -1,0 +1,119 @@
+{
+  "post_id": "2509-dexop",
+  "slug": "2509-dexop",
+  "post_number": 10,
+  "published_at": "2026-03-11T00:00:00+09:00",
+  "updated_at": "2026-03-11T00:00:00+09:00",
+  "status": "published",
+  "content_type": "reading",
+  "tags": ["dexterous-manipulation", "exoskeleton", "teleoperation", "data-collection", "imitation-learning", "robot-hand"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "(a) DEXOP is a passive exoskeleton that links human hand movements to passive robotic hand movements through mechanical linkages. (b) DEXOP enables humans to collect task demonstrations of diverse and highly dexterous tasks. (c) Data collected by DEXOP can be used to train policies that transfer to robots.",
+  "reading_time_min": 7,
+  "source_url": "https://arxiv.org/abs/2509.04441",
+  "source_title": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
+  "source_author": "Hao-Shu Fang et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://dex-op.github.io",
+  "source_authors_full": [
+    {"name": "Hao-Shu Fang", "affiliation": "MIT, Improbable AI Lab"},
+    {"name": "Branden Romero", "affiliation": "MIT, Improbable AI Lab"},
+    {"name": "Yichen Xie", "affiliation": "UC Berkeley"},
+    {"name": "Arthur Hu", "affiliation": "MIT"},
+    {"name": "Bo-Ruei Huang", "affiliation": "MIT"},
+    {"name": "Juan Alvarez", "affiliation": "MIT"},
+    {"name": "Matthew Kim", "affiliation": "MIT"},
+    {"name": "Gabriel Margolis", "affiliation": "MIT, Improbable AI Lab"},
+    {"name": "Kavya Anbarasu", "affiliation": "MIT"},
+    {"name": "Masayoshi Tomizuka", "affiliation": "UC Berkeley"},
+    {"name": "Edward Adelson", "affiliation": "MIT"},
+    {"name": "Pulkit Agrawal", "affiliation": "MIT, Improbable AI Lab"}
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "(a) DEXOP is a passive exoskeleton that links human hand movements to passive robotic hand movements through mechanical linkages. (b) DEXOP enables humans to collect task demonstrations of diverse and highly dexterous tasks. (c) Data collected by DEXOP can be used to train policies that transfer to robots.",
+      "caption_ko": "(a) DEXOP은 기계적 링크를 통해 인간 손의 움직임을 로봇 손의 수동 움직임으로 연결하는 passive exoskeleton이다. (b) DEXOP은 다양하고 매우 정밀한 태스크의 시연 수집을 가능하게 한다. (c) DEXOP으로 수집한 데이터는 로봇에 전이 가능한 정책 학습에 사용된다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Hardware overview: (a) Variants of DEXOP: DEXOP-12 (4 fingers and 12 DOF), the most advanced DEXOP; DEXOP-9 without the ring finger (3 fingers and 9 DOF); and DEXOP-7 without abduction joints on index and middle fingers (3 fingers, 7 DOF, and co-designed with EyeSight hand). (b) Illustration of a human hand controlling the DEXOP-9 to grasp a ball, along with the tactile sensor readings and robotic hand pose.",
+      "caption_ko": "하드웨어 개요: (a) DEXOP 변형들: DEXOP-12(4손가락, 12 DOF), DEXOP-9(약지 제외, 3손가락 9 DOF), DEXOP-7(집게/중지 내전 관절 제외, 3손가락 7 DOF, EyeSight 손과 co-design). (b) 인간 손이 DEXOP-9로 공을 쥐는 모습과 촉각 센서 판독값 및 로봇 손 자세.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "A depiction of joints in a human hand's kinematic chain. The blue joints are presented in DEXOP-12.",
+      "caption_ko": "인간 손의 kinematic chain 관절 묘사. 파란색 관절이 DEXOP-12에 구현된 관절이다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "(a) Exploded view of the DEXOP-12 system. (b) Top: Annotated view of the 4-bar linkages coupling the index, middle and ring fingers of the robot hand and exoskeleton. Bottom: Annotated view of the rotary linkage system coupling the thumb of the robot hand and exoskeleton.",
+      "caption_ko": "(a) DEXOP-12 시스템 분해도. (b) 위: 집게·중지·약지의 로봇 손과 exoskeleton을 연결하는 4-bar linkage 주석 뷰. 아래: 엄지의 로봇 손과 exoskeleton을 연결하는 회전 링크 시스템 주석 뷰.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Illustration of evaluation tasks. Drilling: the user must pick up a drill standing upright on a table, then insert the drill bit into an M2 screw head and tighten it by actuating the drill. Bottle opening: with the bottle placed within the workspace of the hand, the user grasps the bottle and then uses the thumb to unscrew the cap. Box Packaging: the user approaches the an open box, and folds the side flaps before closing the top flap by folding the the securing flap into the box. Bulb installation: the task is composed of three parts, a lamp base, a light bulb, and a light shade. The user picks and screws the light bulb into the lamp base before placing the light shade over the entire assembly.",
+      "caption_ko": "평가 태스크 설명. 드릴링: 탁자 위의 드릴을 집어 M2 나사 헤드에 드릴 비트를 삽입하고 드릴을 구동해 조임. 병 열기: 작업 공간 내 병을 쥐고 엄지로 뚜껑을 여는 것. 박스 포장: 열린 박스에 접근하여 측면 플랩을 접고 상단 플랩을 박스에 고정. 전구 설치: 램프 베이스에 전구를 꽂아 조이고 전등갓을 씌우는 세 단계 태스크.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Comparison of task throughput of the drilling, bulb installation, box packaging and bottle opening tasks with TeleOP system, DEXOP and human hand. DEXOP achieves much higher throughput than TeleOP.",
+      "caption_ko": "드릴링, 전구 설치, 박스 포장, 병 열기 태스크에서 TeleOP, DEXOP, 인간 손의 태스크 처리량 비교. DEXOP은 TeleOP보다 훨씬 높은 처리량을 달성한다.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Various tasks illustrating the dexterity that DEXOP can achieve. Arrows in the figure denote the motion of the object or its part being manipulated.",
+      "caption_ko": "DEXOP이 달성할 수 있는 정밀성을 보여주는 다양한 태스크. 그림의 화살표는 조작 중인 물체 또는 그 부분의 움직임을 나타낸다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "(a) A Unitree H1 with EyeSight hands used for policy evaluation. (b) The DEXOP and AirExo setup, used for both teleop and DEXOP data collection. (c) The views from the left and right wrist cameras mounted on the exoskeleton system.",
+      "caption_ko": "(a) 정책 평가에 사용된 EyeSight 손을 장착한 Unitree H1 휴머노이드. (b) teleoperation과 DEXOP 데이터 수집 모두에 사용된 DEXOP 및 AirExo 설정. (c) exoskeleton 시스템에 장착된 왼쪽·오른쪽 손목 카메라 뷰.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Illustration of our task for policy learning. Wrist camera images highlighted in green showcase successful actions for each stage, while images in red show different failure modes, such as misaligning the light bulb during insertion. Each of the six stages is shown in states after their respective actions have been performed successfully.",
+      "caption_ko": "정책 학습을 위한 태스크 설명. 초록색 강조 손목 카메라 이미지는 각 단계의 성공적인 동작을, 빨간색은 전구 삽입 시 정렬 실패 등 다양한 실패 모드를 보여준다. 6단계 각각은 해당 동작이 성공적으로 수행된 후의 상태를 보여준다.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.png",
+      "caption": "(a) Success rates of policies trained on mixed DEXOP and TeleOP data, broken down by task step. Note that these are cumulative success rates, where performance in earlier stages affects the outcomes of subsequent stages. (b) Speed comparison of data collection for DEXOP and TeleOP, averaged time for each trajectory by task step. Error bars denote the standard error of the mean.",
+      "caption_ko": "(a) DEXOP과 TeleOP 혼합 데이터로 학습한 정책의 태스크 단계별 성공률. 이전 단계 성능이 이후 단계 결과에 영향을 미치는 누적 성공률임. (b) 태스크 단계별 DEXOP과 TeleOP의 데이터 수집 속도 비교(평균 시간). 오차 막대는 평균의 표준 오차를 나타낸다.",
+      "number": 10
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "teleoperation", "data-collection", "imitation-learning"],
+  "key_concepts": ["passive-exoskeleton", "mechanical-linkage", "4-bar-linkage", "direct-contact-feedback", "co-design", "data-efficiency", "dexterous-hand"],
+  "methodology": ["passive-exoskeleton-hardware", "4-bar-linkage-design", "diffusion-policy", "behavioral-cloning", "humanoid-deployment"],
+  "contribution_type": "system",
+  "relations": [
+    {"target": "2505-dexumi", "type": "related"},
+    {"target": "2506-exostart", "type": "related"},
+    {"target": "2407-stretchable-glove-hand-pose", "type": "related"}
+  ],
+  "ai_summary": {
+    "one_liner": "DEXOP is a passive exoskeleton that mechanically links human and robot fingers, enabling direct-contact dexterous demonstration collection at up to 8× the speed of teleoperation.",
+    "problem": "Dexterous robot manipulation requires high-quality demonstrations of complex multi-finger tasks, but teleoperation is slow (seconds per action), lacks natural contact feedback, and produces noisy data for contact-rich manipulation.",
+    "solution": "A passive exoskeleton (DEXOP) with 4-bar linkages directly coupling human and robot finger joints, requiring no actuation or calibration. Humans manipulate objects naturally while the robot hand mirrors their movements; tactile sensors provide supplementary force data.",
+    "key_result": "DEXOP achieves up to 8× higher task throughput than teleoperation (bulb install: 11s vs 86s); policies trained on 160 DEXOP + 40 TeleOP demos achieve 51.3% vs 42.5% success for pure TeleOP, collected in half the time.",
+    "limitations": [
+      "Requires per-robot-hand co-design; current EyeSight hand lacks full human hand DOF for in-hand reorientation",
+      "Provides proprioceptive but not tactile feedback to the human operator"
+    ]
+  },
+  "thumb_source": "./fig-7.png",
+  "thumb_position": "centre"
+}

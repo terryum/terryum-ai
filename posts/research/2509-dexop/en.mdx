@@ -1,0 +1,108 @@
+---
+locale: "en"
+title: "DEXOP: Passive Exoskeleton That Mechanically Links Human and Robot Fingers"
+summary: "DEXOP is a passive exoskeleton using 4-bar linkages to directly couple human and robot finger joints — no actuators, no calibration. Humans manipulate objects naturally while the robot hand mirrors their movements, providing direct contact feedback. It achieves up to 8× higher data collection throughput than teleoperation, and policies trained on DEXOP data achieve 51.3% success vs 42.5% for teleoperation-only data, collected in half the time."
+card_summary: "A passive exoskeleton with 4-bar linkages that mechanically couples human and robot fingers, with no actuators or calibration required. Direct contact feedback enables natural manipulation at up to 8× teleoperation speed, producing higher-quality demonstration data for dexterous robot learning."
+seo_title: "DEXOP: Passive Mechanical Exoskeleton for 8× Faster Dexterous Robot Demonstration Collection"
+seo_description: "DEXOP's 4-bar linkage mechanism directly couples human and robot fingers for natural dexterous demonstration collection. Achieves up to 8× faster throughput than teleoperation and higher policy success rates on complex manipulation tasks."
+translation_of: "2509-dexop:ko"
+terrys_memo: ""
+references:
+  - title: "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots"
+    author: "Chi et al. (2024)"
+    description: "The original UMI paper for grippers that established the paradigm of using human demonstrations for robot learning. DEXOP extends this to dexterous hands using mechanical linkage as the key innovation over visual/software-based bridging approaches."
+    arxiv_url: "https://arxiv.org/abs/2402.10329"
+    category: "foundational"
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al. (2023)"
+    description: "The diffusion-based imitation learning backbone used in DEXOP for policy training. Its multi-modal action distribution learning suits complex dexterous manipulation where many valid action sequences exist."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    category: "foundational"
+  - title: "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning"
+    author: "Shaw et al. (2023)"
+    description: "An anthropomorphic robot hand platform representing the class of dexterous hands DEXOP targets. DEXOP-12 is designed to kinematically replicate such multi-finger robot hand structures via exoskeleton linkages."
+    arxiv_url: "https://arxiv.org/abs/2309.06440"
+    category: "foundational"
+  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
+    author: "Xu et al. (2025)"
+    description: "A concurrent exoskeleton-based dexterous data collection approach. DexUMI resolves the visual gap via AI inpainting after collecting demonstrations, while DEXOP uses mechanical linkage for direct kinematic transfer — eliminating visual gap by design but requiring per-robot hardware fabrication."
+    arxiv_url: "https://arxiv.org/abs/2505.21864"
+    post_slug: "2505-dexumi"
+    category: "recent"
+  - title: "ExoStart: Efficient Learning for Dexterous Manipulation with Sensorized Exoskeleton Demonstrations"
+    author: "Si et al. (2025)"
+    description: "Another concurrent exoskeleton-based approach that routes demonstrations through dynamics filtering and RL for sim-to-real transfer. DEXOP's passive linkage approach avoids simulation entirely, trading RL's generalization benefits for a simpler, faster data-to-policy pipeline."
+    arxiv_url: "https://arxiv.org/abs/2506.11775"
+    post_slug: "2506-exostart"
+    category: "recent"
+---
+
+## TL;DR
+
+Teleoperation is too slow and unnatural for collecting high-quality dexterous manipulation demonstrations. DEXOP mechanically links human and robot fingers via 4-bar linkages — no actuators, no calibration — so that natural human manipulation is instantly mirrored by the robot hand with direct contact feedback. This achieves up to **8× higher throughput** than teleoperation and produces better robot policies in half the collection time.
+
+## Problem
+
+Dexterous robot manipulation learning remains bottlenecked by demonstration data quality and collection speed. Teleoperation forces operators to control robot hands through external interfaces, losing natural contact feel and severely limiting collection rates for complex tasks. Existing exoskeleton approaches track human hand movements via sensors and retarget them to robot joints, but this retargeting introduces kinematic mismatch that degrades data quality. The challenge is to capture the full richness of human dexterous manipulation — including contact forces and fine motor coordination — directly as robot training data.
+
+## Core Idea
+
+DEXOP's key innovation is **passive mechanical linkage**: 4-bar linkages physically couple human and robot finger joints with no electronics, motors, or calibration in the kinematic chain.
+
+- **Passive exoskeleton**: Wearing DEXOP connects each human finger joint to the corresponding robot hand joint through 4-bar linkages — movement is instantaneously mirrored
+- **Direct contact feedback**: Contact forces experienced by the robot hand transmit back through the linkages to the human's fingers, enabling natural tactile-guided manipulation
+- **Three variants (co-design)**: DEXOP-12 (4 fingers, 12 DOF), DEXOP-9 (3 fingers, 9 DOF), DEXOP-7 (3 fingers, 7 DOF, co-designed with EyeSight hand) — linkage geometry optimized per robot hand
+- **Minimal pipeline**: No retargeting or dynamics filtering needed; collected data directly feeds diffusion policy training
+
+<Figure src="./fig-2.png" caption="Fig. 2: Hardware overview: (a) Variants of DEXOP: DEXOP-12 (4 fingers and 12 DOF), the most advanced DEXOP; DEXOP-9 without the ring finger (3 fingers and 9 DOF); and DEXOP-7 without abduction joints on index and middle fingers (3 fingers, 7 DOF, and co-designed with EyeSight hand). (b) Illustration of a human hand controlling the DEXOP-9 to grasp a ball, along with the tactile sensor readings and robotic hand pose." number={2} />
+
+<Collapsible title="Method Details">
+
+### Linkage Design
+
+Each finger uses a 4-bar linkage mechanism that couples the exoskeleton input link to the robot hand output link via two connecting links, mapping human finger joint angle $\theta_{\text{human}}$ to robot finger joint angle $\theta_{\text{robot}}$ with near-linear correspondence across the working range. The thumb requires a separate rotary linkage system due to its additional rotational degrees of freedom.
+
+The co-design process adjusts exoskeleton link geometry to match specific robot hand joint ranges and finger proportions. For DEXOP-7 (EyeSight hand), abduction joints on the index and middle fingers are removed and the thumb linkage is re-optimized to align with the EyeSight hand's actuator placement.
+
+### Sensing and Data Collection
+
+- **Joint angles**: Read directly from robot hand encoders — no external hand tracking required
+- **Tactile**: FSR sensors on robot fingertips capture contact forces
+- **Vision**: Left/right wrist cameras mounted on the exoskeleton + external cameras
+
+The full setup pairs DEXOP with an AirExo arm exoskeleton to enable whole-arm manipulation demonstrations.
+
+<Figure src="./fig-4.png" caption="Fig. 4: (a) Exploded view of the DEXOP-12 system. (b) Top: Annotated view of the 4-bar linkages coupling the index, middle and ring fingers of the robot hand and exoskeleton. Bottom: Annotated view of the rotary linkage system coupling the thumb of the robot hand and exoskeleton." number={4} />
+
+</Collapsible>
+
+## Key Results
+
+**Data collection throughput (Figure 6):**
+
+- **Drilling**: DEXOP 6 completions/min vs TeleOP 0/min (teleoperation impractical)
+- **Bulb installation**: DEXOP 11s vs TeleOP 86s — **8× faster**
+- **Box packaging**: DEXOP 5/min vs TeleOP 0.15/min — **7× faster**
+- **Bottle opening**: DEXOP 12/min vs TeleOP 5/min — **2.4× faster**
+
+**Policy learning success rates (Table 2, bulb installation):**
+
+- 160 DEXOP + 40 TeleOP mixed: **51.3%±3.2%** success in 139 min collection
+- 200 TeleOP only: **42.5%±3.2%** success in 283 min collection
+
+Higher success rate achieved in **half the collection time**.
+
+<Figure src="./fig-10.png" caption="Fig. 10: (a) Success rates of policies trained on mixed DEXOP and TeleOP data, broken down by task step. Note that these are cumulative success rates, where performance in earlier stages affects the outcomes of subsequent stages. (b) Speed comparison of data collection for DEXOP and TeleOP, averaged time for each trajectory by task step. Error bars denote the standard error of the mean." number={10} />
+
+## Achievements and Limitations
+
+**What's newly achieved:**
+- Pure mechanical linkage (no actuators, batteries, or calibration) achieves reliable human-to-robot dexterous motion transfer
+- Direct contact feedback enables natural manipulation of contact-rich tasks (drilling, bulb installation) that are practically infeasible with teleoperation
+- Better policy performance at half the data collection cost vs. teleoperation-only baselines
+
+**Limitations:**
+- Per-robot-hand co-design and linkage fabrication required for each new robot platform
+- Provides proprioceptive but not tactile feedback to the human operator — subtle surface textures felt by the robot are not conveyed to the human
+- Current EyeSight hand lacks full human hand DOF, limiting tasks requiring in-hand reorientation or complex palm contact
+- 🤖 Policy evaluation focuses on a single task (bulb installation); it remains unclear whether DEXOP's data quality advantage generalizes uniformly across a broader and more diverse task suite
