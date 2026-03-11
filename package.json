@@ -12,6 +12,7 @@
     "generate-logos": "node scripts/generate-logos.mjs"
   },
   "dependencies": {
+    "@google-analytics/data": "^5.2.1",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.33",
     "next": "^15.2.0",
