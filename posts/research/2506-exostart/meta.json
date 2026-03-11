@@ -1,0 +1,95 @@
+{
+  "post_id": "2506-exostart",
+  "slug": "2506-exostart",
+  "post_number": 9,
+  "published_at": "2026-03-11T00:00:00+09:00",
+  "updated_at": "2026-03-11T00:00:00+09:00",
+  "status": "published",
+  "content_type": "reading",
+  "tags": ["dexterous-manipulation", "exoskeleton", "sim-to-real", "reinforcement-learning", "imitation-learning", "data-collection"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Overview framework showing three stages: (a) Human demonstration with an exoskeleton: collecting demonstrations via real-world interaction; (b) Dynamics filtering: applying trajectory optimization for dynamically feasible simulated trajectories; (c) Auto-curriculum RL and distillation: training teacher policies from filtered trajectories, then distilling into vision-based student policies for zero-shot real-world transfer.",
+  "reading_time_min": 8,
+  "source_url": "https://arxiv.org/abs/2506.11775",
+  "source_title": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
+  "source_author": "Zilin Si et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://sites.google.com/view/exostart",
+  "source_authors_full": [
+    {"name": "Zilin Si", "affiliation": "Carnegie Mellon University"},
+    {"name": "Jose Enrique Chen", "affiliation": "Google DeepMind"},
+    {"name": "M. Emre Karagozler", "affiliation": "Google DeepMind"},
+    {"name": "Antonia Bronars", "affiliation": "Massachusetts Institute of Technology"},
+    {"name": "Jonathan Hutchinson", "affiliation": "Google DeepMind"},
+    {"name": "Thomas Lampe", "affiliation": "Google DeepMind"},
+    {"name": "Nimrod Gileadi", "affiliation": "Google DeepMind"},
+    {"name": "Taylor Howell", "affiliation": "Google DeepMind"},
+    {"name": "Stefano Saliceti", "affiliation": "Google DeepMind"},
+    {"name": "Lukasz Barczyk", "affiliation": "Google DeepMind"},
+    {"name": "Ilan Olivarez Correa", "affiliation": "Google DeepMind"},
+    {"name": "Tom Erez", "affiliation": "Google DeepMind"},
+    {"name": "Mohit Shridhar", "affiliation": "Google DeepMind"},
+    {"name": "Murilo Fernandes Martins", "affiliation": "Google DeepMind"},
+    {"name": "Konstantinos Bousmalis", "affiliation": "Google DeepMind"},
+    {"name": "Nicolas Heess", "affiliation": "Google DeepMind"},
+    {"name": "Francesco Nori", "affiliation": "Google DeepMind"},
+    {"name": "Maria Bauza", "affiliation": "Google DeepMind"}
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Overview framework showing three stages: (a) Human demonstration with an exoskeleton: collecting demonstrations via real-world interaction; (b) Dynamics filtering: applying trajectory optimization for dynamically feasible simulated trajectories; (c) Auto-curriculum RL and distillation: training teacher policies from filtered trajectories, then distilling into vision-based student policies for zero-shot real-world transfer.",
+      "caption_ko": "세 단계 파이프라인 개요: (a) exoskeleton을 이용한 인간 시연 수집; (b) 궤적 최적화를 통한 dynamics filtering으로 물리적으로 실현 가능한 시뮬레이션 궤적 생성; (c) auto-curriculum RL 교사 정책 학습 후 vision 기반 학생 정책으로 증류하여 실세계 zero-shot 전이.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "(a) Finger design of the exoskeleton; (b) Sensorized data collection environment; (c) 3D-printed and real objects used for policy evaluation (without AR tags) and data collection (with AR tags).",
+      "caption_ko": "(a) exoskeleton 손가락 설계; (b) 센서 기반 데이터 수집 환경; (c) 정책 평가용(AR 태그 없음)과 데이터 수집용(AR 태그 부착) 3D 프린팅 및 실제 오브젝트.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "The seven tasks used for experimental validation: Key Lock, Nut Unscrew, Peg Insertion, Box Stand, Cube Flip, Case Open, and Bulb Install.",
+      "caption_ko": "실험 검증에 사용된 7가지 태스크: Key Lock, Nut Unscrew, Peg Insertion, Box Stand, Cube Flip, Case Open, Bulb Install.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Demonstrates data augmentation capabilities through dynamics filtering: (a) object position and location augmentation; (b) object shape and size modification from single demonstrations.",
+      "caption_ko": "dynamics filtering을 통한 데이터 증강 능력 시연: (a) 오브젝트 위치 및 위치 증강; (b) 단일 시연으로부터 오브젝트 형태 및 크기 변형.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Simulated and real-world robot environments showing workspace setup.",
+      "caption_ko": "시뮬레이션 및 실세계 로봇 환경의 작업 공간 설정.",
+      "number": 5
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "sim-to-real", "reinforcement-learning", "data-collection"],
+  "key_concepts": ["exoskeleton", "dynamics-filtering", "auto-curriculum", "teacher-student-distillation", "zero-shot-transfer", "trajectory-optimization", "mjpc"],
+  "methodology": ["sensorized-exoskeleton", "mjpc-trajectory-optimization", "auto-curriculum-rl", "policy-distillation", "ar-tag-pose-estimation"],
+  "contribution_type": "system",
+  "relations": [
+    {"target": "2505-dexumi", "type": "related"},
+    {"target": "2501-dexforce-force-informed-actions", "type": "related"},
+    {"target": "2505-forcevla-force-aware-moe", "type": "related"}
+  ],
+  "ai_summary": {
+    "one_liner": "ExoStart converts ~10 exoskeleton demonstrations into dexterous robot manipulation policies via dynamics filtering, auto-curriculum RL, and vision-based distillation for zero-shot real-world transfer.",
+    "problem": "Dexterous manipulation learning requires many demonstrations or expensive RL training; exoskeleton demonstrations are kinematically rich but physically inconsistent with robot dynamics, creating a sim-to-real gap.",
+    "solution": "Sensorized exoskeleton (kinematically equivalent to robot hand) collects ~10 real demonstrations → MuJoCo dynamics filtering augments them into physically feasible sim trajectories → auto-curriculum RL trains a feature-based teacher policy → vision-based student policy is distilled for zero-shot real deployment.",
+    "key_result": ">50% real-world success rate on 6 of 7 complex dexterous tasks (teacher 95-99% in sim); 6× faster data collection than teleoperation.",
+    "limitations": [
+      "Per-robot-hand exoskeleton design required; sim-to-real gap from control rate mismatch (200 Hz sim vs 20 Hz real)",
+      "Object pose tracking requires AR-tagged replicas; soft-contact model failure causes 2% success on Bulb Install"
+    ]
+  },
+  "thumb_source": "./fig-3.png",
+  "thumb_position": "centre"
+}

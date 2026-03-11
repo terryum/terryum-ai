@@ -1,0 +1,100 @@
+---
+locale: "en"
+title: "ExoStart: Learning Dexterous Manipulation from ~10 Exoskeleton Demos"
+summary: "ExoStart collects ~10 demonstrations with a sensorized exoskeleton kinematically equivalent to the robot hand, converts them into physically feasible simulation trajectories via MuJoCo dynamics filtering, then trains an auto-curriculum RL teacher policy and distills it into a vision-based student for zero-shot real-world transfer. It achieves >50% success on 6 of 7 complex dexterous tasks."
+card_summary: "Starting from as few as 10 exoskeleton demonstrations, ExoStart uses dynamics filtering to amplify them into physically valid sim trajectories, then trains via auto-curriculum RL and distills into a vision-based student policy for zero-shot real-world transfer — achieving >50% success on 6 of 7 complex dexterous tasks."
+seo_title: "ExoStart: Efficient Dexterous Manipulation Learning with Sensorized Exoskeleton Demonstrations"
+seo_description: "ExoStart combines ~10 exoskeleton demonstrations, MuJoCo dynamics filtering, auto-curriculum RL, and vision-based policy distillation to achieve >50% real-world success on 6 of 7 complex dexterous manipulation tasks."
+translation_of: "2506-exostart:ko"
+terrys_memo: ""
+references:
+  - title: "DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with Multi-Fingered Robots"
+    author: "Bauza et al. (2024)"
+    description: "The direct RL framework that ExoStart extends, from the same Maria Bauza group at Google DeepMind. Provides the auto-curriculum RL structure and teacher-student distillation pipeline. ExoStart adds exoskeleton demonstrations and dynamics filtering on top."
+    arxiv_url: "https://arxiv.org/abs/2409.06613"
+    category: "foundational"
+  - title: "Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo"
+    author: "Howell et al. (2022)"
+    description: "The MuJoCo Predictive Control (MJPC) engine at the core of ExoStart's dynamics filtering stage. Enables real-time trajectory optimization that converts raw exoskeleton demonstrations into physically feasible robot trajectories in simulation."
+    arxiv_url: "https://arxiv.org/abs/2212.00541"
+    category: "foundational"
+  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+    author: "Zhao et al. (2023)"
+    description: "The Action Chunking with Transformers (ACT) architecture used for ExoStart's vision-based student policy distillation. High-frequency action chunking with a transformer backbone enables precise manipulation policy learning from behavioral cloning."
+    arxiv_url: "https://arxiv.org/abs/2304.13705"
+    category: "foundational"
+  - title: "DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation"
+    author: "Wang et al. (2024)"
+    description: "A motion-capture-based dexterous data collection system for direct comparison. DexCap offers high-fidelity hand tracking but requires separate retargeting to robot joints, whereas ExoStart's exoskeleton directly captures robot-equivalent joint values."
+    arxiv_url: "https://arxiv.org/abs/2403.07788"
+    category: "recent"
+  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
+    author: "Xu et al. (2025)"
+    description: "A closely related exoskeleton-based approach that bridges kinematic and visual gaps via hardware design and AI inpainting for direct imitation learning. In contrast to ExoStart's RL + sim-to-real path, DexUMI builds robot training data directly from demonstrations without a simulation stage."
+    arxiv_url: "https://arxiv.org/abs/2505.21864"
+    post_slug: "2505-dexumi"
+    category: "recent"
+---
+
+## TL;DR
+
+Learning complex dexterous manipulation from only ~10 exoskeleton demonstrations requires solving a fundamental mismatch: collected trajectories reflect human hand dynamics, not robot dynamics. ExoStart converts demonstrations into physically valid simulation trajectories via dynamics filtering, then trains an auto-curriculum RL teacher and distills it into a vision-based student policy, achieving >50% real-world success on 6 of 7 complex dexterous tasks.
+
+## Problem
+
+Dexterous manipulation learning faces two compounding bottlenecks: data collection cost and sim-to-real transfer. Large-scale RL requires extensive training time and accurate contact dynamics modeling; teleoperation-based demonstration collection is slow and operator-intensive. While exoskeleton-based collection improves efficiency, raw exoskeleton demonstrations encode human hand forces and inertia — making them physically inconsistent with robot dynamics. Feeding them directly into imitation learning causes distribution shift at deployment. The core challenge is learning robust policies from a handful of realistic demonstrations and transferring them zero-shot to the real robot across diverse initial conditions.
+
+## Core Idea
+
+ExoStart addresses this through a **real → sim → real** three-stage pipeline that separates each sub-problem:
+
+- **Stage 1 — Exoskeleton demonstration**: A sensorized exoskeleton kinematically equivalent to the robot hand collects ~10 demonstrations per task — up to 6× faster than teleoperation
+- **Stage 2 — Dynamics filtering**: MuJoCo Predictive Control (MJPC) re-optimizes raw exoskeleton trajectories into physically feasible robot trajectories in simulation; augments with object position, shape, and size variation to amplify a single demo into many diverse trajectories
+- **Stage 3 — Auto-curriculum RL + distillation**: Filtered trajectories seed an auto-curriculum that trains a feature-based teacher policy (95–99% sim success) → behavioral cloning distills into a vision-based ACT student for zero-shot real-world deployment
+
+<Figure src="./fig-3.png" caption="Fig. 3: The seven tasks used for experimental validation: Key Lock, Nut Unscrew, Peg Insertion, Box Stand, Cube Flip, Case Open, and Bulb Install." number={3} />
+
+<Collapsible title="Method Details">
+
+### Exoskeleton Design
+
+The exoskeleton is 3D-printed to share the same kinematic structure as the target robot hand. Rotary encoders embedded in each finger joint directly measure joint angles; FSR tactile sensors provide supplementary contact force readings. AR-tagged replica objects enable precise object pose tracking during data collection.
+
+### Dynamics Filtering via MJPC
+
+Raw exoskeleton trajectory $(s_t, a_t)$ is loaded into MuJoCo. MJPC optimizes a cost function over the robot hand to reproduce the same object manipulation in simulation, with terms for arm end-effector tracking, object pose tracking, fingertip-to-keypoint distances, and finger velocity regularization. Only rollouts where "some succeed and some fail" are kept (zero-variance filtering) to ensure quality. Object position, shape, and size augmentation from a single demonstration generates a large, diverse trajectory set.
+
+### Auto-Curriculum RL and Distillation
+
+Initial states are sampled from the dynamics-filtered trajectory state distribution, forming an auto-curriculum that progresses from easy to hard initial conditions. A feature-based teacher policy is trained with PPO under a binary reward. Teacher rollout data is then used to distill a vision-based student policy using the ACT (Action Chunking Transformer) architecture via behavioral cloning.
+
+<Figure src="./fig-4.png" caption="Fig. 4: Demonstrates data augmentation capabilities through dynamics filtering: (a) object position and location augmentation; (b) object shape and size modification from single demonstrations." number={4} />
+
+</Collapsible>
+
+## Key Results
+
+Real-world success rates from Table 1 (50 episodes, vision student policy):
+
+- **Key Lock**: 56% (teacher sim 99%, 13 demos → 68 filtered)
+- **Nut Unscrew**: 50% (teacher sim 89%, 13 demos → 56 filtered)
+- **Peg Insertion**: 54% (teacher sim 99%, 10 demos → 116 filtered)
+- **Box Stand**: **94%** (teacher sim 97%, 11 demos → 103 filtered)
+- **Cube Flip**: 62% (teacher sim 95%, 9 demos → 132 filtered)
+- **Case Open**: 56% (teacher sim 99%, 13 demos → 150 filtered)
+- **Bulb Install**: 2% (fails due to MuJoCo soft-contact model limitation)
+
+Data collection efficiency: **6× faster than teleoperation** on Peg Insertion. Even a single demonstration yields 17/50 success on Key Lock; 13 demonstrations push this to 28/50.
+
+## Achievements and Limitations
+
+**What's newly achieved:**
+- Dexterous manipulation from only ~10 demonstrations per task — a new benchmark for data efficiency
+- Dynamics filtering + auto-curriculum RL combination bridges the sim-to-real gap to practical deployment levels
+- Real-world success on millimeter-precision tasks like Key Lock and AirPods Case Open
+
+**Limitations:**
+- Per-robot-hand exoskeleton fabrication required; control rate mismatch (200 Hz sim vs 20 Hz real) leaves residual dynamics gap
+- Object pose tracking requires AR-tagged replicas — not applicable to arbitrary objects
+- Bulb Install (2% success): MuJoCo soft-contact model allows object penetration, causing the teacher to learn physically unrealistic behaviors
+- 🤖 The gap between teacher (95–99% sim) and student (50–94% real) performance is not decomposed into sim-to-real visual gap vs. distillation capacity limitations, leaving the primary improvement bottleneck unclear

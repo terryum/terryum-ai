@@ -1,0 +1,99 @@
+---
+locale: "ko"
+title: "ExoStart: Exoskeleton 시연 10개로 Dexterous Manipulation 학습"
+summary: "ExoStart는 로봇 손과 kinematic 구조가 동일한 sensorized exoskeleton으로 ~10개의 시연을 수집하고, MuJoCo dynamics filtering으로 물리적으로 타당한 시뮬레이션 궤적을 증폭한 뒤, auto-curriculum RL → vision 기반 student 정책 증류를 거쳐 실세계 zero-shot transfer를 달성한다. 7가지 복잡 태스크 중 6가지에서 50% 이상 실세계 성공률을 기록했다."
+card_summary: "소수의 exoskeleton 시연에서 출발해 dynamics filtering으로 시뮬레이션 궤적을 증폭하고, auto-curriculum RL과 vision 기반 student 증류를 거쳐 복잡한 dexterous 조작의 zero-shot 실세계 전이를 달성했다. 7가지 태스크 중 6가지에서 50% 이상 성공률."
+seo_title: "ExoStart: Sensorized Exoskeleton 시연과 RL로 효율적 Dexterous Manipulation 학습"
+seo_description: "10개 내외의 exoskeleton 시연, MuJoCo dynamics filtering, auto-curriculum RL, vision student 증류를 결합해 7가지 복잡 dexterous 태스크에서 50%+ 실세계 성공률을 달성한 ExoStart."
+terrys_memo: ""
+references:
+  - title: "DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with Multi-Fingered Robots"
+    author: "Bauza et al. (2024)"
+    description: "ExoStart가 직접 확장하는 RL 프레임워크. 동일한 Maria Bauza 그룹의 선행 연구로, auto-curriculum RL 구조와 teacher-student 증류 파이프라인의 기반을 제공한다. ExoStart는 여기에 exoskeleton demonstration과 dynamics filtering을 결합한다."
+    arxiv_url: "https://arxiv.org/abs/2409.06613"
+    category: "foundational"
+  - title: "Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo"
+    author: "Howell et al. (2022)"
+    description: "ExoStart의 dynamics filtering 핵심 엔진인 MuJoCo Predictive Control(MJPC). 실시간 trajectory optimization을 통해 exoskeleton 시연을 물리적으로 실현 가능한 시뮬레이션 궤적으로 변환한다."
+    arxiv_url: "https://arxiv.org/abs/2212.00541"
+    category: "foundational"
+  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
+    author: "Zhao et al. (2023)"
+    description: "ExoStart의 vision 기반 student 정책 증류에 사용되는 Action Chunking with Transformers(ACT) 아키텍처. 고주파 동작 청킹과 transformer 구조로 정밀한 조작 정책 학습을 가능하게 한다."
+    arxiv_url: "https://arxiv.org/abs/2304.13705"
+    category: "foundational"
+  - title: "DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation"
+    author: "Wang et al. (2024)"
+    description: "모션 캡처 기반 dexterous 데이터 수집 시스템으로, ExoStart와 직접 비교 대상. DexCap은 고정밀 손 추적에 강점이 있지만 ExoStart는 이미 exoskeleton 시연을 통해 로봇 joint 값을 직접 획득하는 방식으로 차별화된다."
+    arxiv_url: "https://arxiv.org/abs/2403.07788"
+    category: "recent"
+  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
+    author: "Xu et al. (2025)"
+    description: "exoskeleton을 이용해 인간 손과 로봇 손의 kinematic/visual gap을 동시에 해소하는 관련 연구. ExoStart가 RL + sim-to-real 경로를 택하는 반면, DexUMI는 AI inpainting으로 직접 imitation learning 데이터를 구성하는 대조적인 접근이다."
+    arxiv_url: "https://arxiv.org/abs/2505.21864"
+    post_slug: "2505-dexumi"
+    category: "recent"
+---
+
+## TL;DR
+
+소수의 exoskeleton 시연(~10개)에서 복잡한 dexterous manipulation을 학습하려면, 수집된 시연이 로봇의 실제 dynamics와 다르다는 근본 문제를 해결해야 한다. ExoStart는 dynamics filtering으로 시연을 물리적으로 타당한 시뮬레이션 궤적으로 변환·증폭하고, auto-curriculum RL과 vision student 증류를 거쳐 7가지 복잡 태스크 중 6가지에서 50% 이상 실세계 성공률을 달성했다.
+
+## 문제
+
+Dexterous manipulation 학습의 핵심 난관은 데이터 수집 비용과 sim-to-real gap이다. 기존 대규모 RL 방식은 학습 시간이 길고 로봇 손의 복잡한 접촉 모델링이 어려우며, 원격 조종 방식의 demonstration 수집은 조작자 부담이 높아 효율이 낮다. 최근 exoskeleton 기반 접근이 수집 효율을 높이고 있지만, exoskeleton 시연은 인간 손의 force와 관성에서 비롯된 궤적을 담고 있어 로봇 dynamics와 물리적으로 다르다 — 이를 그대로 imitation learning에 쓰면 distribution shift가 발생한다. 결국 소수의 현실적 시연으로부터 다양한 초기 조건에 견고한 정책을 학습하고 zero-shot으로 실세계에 전이하는 것이 이 논문이 다루는 핵심 문제다.
+
+## 핵심 아이디어
+
+ExoStart는 **real → sim → real** 3단계 파이프라인으로 이 문제를 분리 해소한다.
+
+- **Stage 1 — Exoskeleton 시연 수집**: 로봇 손과 kinematic 구조가 동일하게 설계된 sensorized exoskeleton으로 태스크당 ~10개의 시연 수집. teleoperation 대비 최대 6배 빠른 수집 속도
+- **Stage 2 — Dynamics filtering**: MuJoCo Predictive Control(MJPC)을 이용해 수집된 궤적을 로봇의 실제 물리 dynamics에 맞는 시뮬레이션 궤적으로 재최적화. 단일 시연에서 오브젝트 위치, 크기, 형태 변형으로 대규모 궤적 증폭
+- **Stage 3 — Auto-curriculum RL + Student 증류**: Dynamics filtering된 궤적을 초기 조건으로 사용하는 auto-curriculum으로 feature 기반 teacher 정책 학습(sim, 95~99% 성공) → vision 기반 student 정책으로 증류하여 zero-shot 실세계 전이
+
+<Figure src="./fig-3.png" caption="Fig. 3: 실험 검증에 사용된 7가지 태스크. Key Lock, Nut Unscrew, Peg Insertion, Box Stand, Cube Flip, Case Open, Bulb Install — 정밀 삽입부터 장시간 접촉 조작까지 다양한 dexterous 능력을 요구한다." number={3} />
+
+<Collapsible title="구체적 방법">
+
+### Exoskeleton 설계
+
+Exoskeleton은 대상 로봇 손과 kinematic 구조가 동일하게 3D 프린팅으로 제작된다. 각 손가락 관절에는 rotary encoder가 내장되어 joint angle을 직접 측정하고, FSR 촉각 센서로 접촉력을 보조 수집한다. AR 태그가 부착된 replica 오브젝트를 사용해 데이터 수집 중 오브젝트 pose를 정확히 추적한다.
+
+### Dynamics Filtering (MuJoCo Predictive Control)
+
+Exoskeleton 시연 궤적 $(s_t, a_t)$를 MuJoCo 환경에 올린 뒤, MJPC 비용 함수로 시뮬레이션 내 로봇 손이 같은 물체 조작을 수행하는 물리적으로 타당한 궤적을 생성한다. 비용 항목에는 arm end-effector 추적, object pose 추적, fingertip-to-keypoint 거리, 손가락 속도 정규화가 포함된다. 성공한 일부 롤아웃만 선별("zero-variance filtering")하여 데이터 품질을 보장하고, 오브젝트 위치·형태 변형으로 단일 시연에서 수십 배의 다양한 궤적을 생성한다.
+
+### Auto-Curriculum RL + 증류
+
+Dynamics filtering 궤적의 state distribution에서 초기 상태를 샘플링하는 auto-curriculum으로 teacher 정책을 PPO 기반 RL로 학습한다. Teacher는 full state 관측(joint angle, TCP pose 등)을 사용하며 binary reward로 학습. 이후 teacher 롤아웃 데이터를 이용해 ACT(Action Chunking Transformer) 아키텍처 기반 vision student 정책을 행동 복제로 증류한다.
+
+<Figure src="./fig-4.png" caption="Fig. 4: Dynamics filtering을 통한 데이터 증강 능력. 단일 시연으로부터 오브젝트 위치·위치 변형(a)과 형태·크기 변형(b)으로 다양한 시뮬레이션 궤적을 생성한다." number={4} />
+
+</Collapsible>
+
+## 주요 결과
+
+Table 1에 따른 태스크별 실세계 성공률 (50 에피소드, vision student 정책):
+
+- **Key Lock**: 56% (teacher sim 99%, 시연 13개 → 필터링 후 68개)
+- **Nut Unscrew**: 50% (teacher sim 89%, 시연 13개 → 56개)
+- **Peg Insertion**: 54% (teacher sim 99%, 시연 10개 → 116개)
+- **Box Stand**: **94%** (teacher sim 97%, 시연 11개 → 103개)
+- **Cube Flip**: 62% (teacher sim 95%, 시연 9개 → 132개)
+- **Case Open**: 56% (teacher sim 99%, 시연 13개 → 150개)
+- **Bulb Install**: 2% (MuJoCo soft-contact 모델 한계로 실패)
+
+Teleoperation 대비 데이터 수집 효율: **Peg Insertion 기준 6배** 빠름. 단일 시연으로도 Key Lock에서 17/50 성공, 복수 시연(13개)에서 28/50로 향상.
+
+## 달성점과 한계점
+
+**새롭게 달성한 점:**
+- 태스크당 단 10개 내외의 시연으로 복잡한 dexterous 조작 학습 성공 — 데이터 효율성의 새로운 기준
+- Dynamics filtering + auto-curriculum RL 조합으로 sim-to-real gap을 실용적 수준으로 극복
+- Key Lock, AirPods Case Open 등 mm 수준 정밀도가 필요한 실제 제품 조작까지 달성
+
+**한계점:**
+- 로봇 손마다 exoskeleton 재설계 필요; 시뮬레이션(200 Hz) vs 실로봇(20 Hz) 제어 주파수 불일치로 dynamics gap 잔존
+- 오브젝트 pose 추적에 AR 태그 replica가 필요 — 임의 오브젝트 적용 불가
+- Bulb Install(2% 성공): MuJoCo soft-contact 모델이 현실의 표면 마찰을 재현하지 못해 teacher 정책 자체가 비현실적 동작 학습
+- 🤖 Teacher → Student 증류 과정에서 vision student가 teacher 성능(95~99%)의 절반 수준에 머무는 원인이 sim-to-real 시각 격차인지 행동 복제 capacity 한계인지 분석되지 않아, 향후 개선의 병목이 불명확하다

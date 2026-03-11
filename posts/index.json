@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T01:41:57.631Z",
-  "total_posts": 8,
+  "generated_at": "2026-03-11T06:13:42.952Z",
+  "total_posts": 9,
   "posts": [
     {
       "post_number": 1,
@@ -377,8 +377,8 @@
       "post_number": 8,
       "slug": "2505-dexumi",
       "content_type": "reading",
-      "title_en": "DexUMI: Human Hand as Universal Interface for Dexterous Manipulation",
-      "title_ko": "DexUMI: 인간 손을 범용 조작 인터페이스로",
+      "title_en": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
+      "title_ko": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -444,6 +444,75 @@
       ],
       "idea_status": null,
       "related_posts": null
+    },
+    {
+      "post_number": 9,
+      "slug": "2506-exostart",
+      "content_type": "reading",
+      "title_en": "ExoStart: Learning Dexterous Manipulation from ~10 Exoskeleton Demos",
+      "title_ko": "ExoStart: Exoskeleton 시연 10개로 Dexterous Manipulation 학습",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "sim-to-real",
+        "reinforcement-learning",
+        "data-collection"
+      ],
+      "key_concepts": [
+        "exoskeleton",
+        "dynamics-filtering",
+        "auto-curriculum",
+        "teacher-student-distillation",
+        "zero-shot-transfer",
+        "trajectory-optimization",
+        "mjpc"
+      ],
+      "methodology": [
+        "sensorized-exoskeleton",
+        "mjpc-trajectory-optimization",
+        "auto-curriculum-rl",
+        "policy-distillation",
+        "ar-tag-pose-estimation"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "dexterous-manipulation",
+        "exoskeleton",
+        "sim-to-real",
+        "reinforcement-learning",
+        "imitation-learning",
+        "data-collection"
+      ],
+      "source_author": "Zilin Si et al.",
+      "source_date": null,
+      "published_at": "2026-03-11T00:00:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "ExoStart converts ~10 exoskeleton demonstrations into dexterous robot manipulation policies via dynamics filtering, auto-curriculum RL, and vision-based distillation for zero-shot real-world transfer.",
+        "problem": "Dexterous manipulation learning requires many demonstrations or expensive RL training; exoskeleton demonstrations are kinematically rich but physically inconsistent with robot dynamics, creating a sim-to-real gap.",
+        "solution": "Sensorized exoskeleton (kinematically equivalent to robot hand) collects ~10 real demonstrations → MuJoCo dynamics filtering augments them into physically feasible sim trajectories → auto-curriculum RL trains a feature-based teacher policy → vision-based student policy is distilled for zero-shot real deployment.",
+        "key_result": ">50% real-world success rate on 6 of 7 complex dexterous tasks (teacher 95-99% in sim); 6× faster data collection than teleoperation.",
+        "limitations": [
+          "Per-robot-hand exoskeleton design required; sim-to-real gap from control rate mismatch (200 Hz sim vs 20 Hz real)",
+          "Object pose tracking requires AR-tagged replicas; soft-contact model failure causes 2% success on Bulb Install"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2505-dexumi",
+          "type": "related"
+        },
+        {
+          "target": "2501-dexforce-force-informed-actions",
+          "type": "related"
+        },
+        {
+          "target": "2505-forcevla-force-aware-moe",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null
     }
   ],
   "knowledge_graph": {
@@ -485,6 +554,21 @@
       },
       {
         "from": "2505-dexumi",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2506-exostart",
         "to": "2505-forcevla-force-aware-moe",
         "type": "related"
       }
@@ -576,7 +660,8 @@
       7
     ],
     "exoskeleton": [
-      8
+      8,
+      9
     ],
     "kinematic-gap": [
       8
@@ -598,10 +683,28 @@
     ],
     "workspace-optimization": [
       8
+    ],
+    "dynamics-filtering": [
+      9
+    ],
+    "auto-curriculum": [
+      9
+    ],
+    "teacher-student-distillation": [
+      9
+    ],
+    "zero-shot-transfer": [
+      9
+    ],
+    "trajectory-optimization": [
+      9
+    ],
+    "mjpc": [
+      9
     ]
   },
   "domain_stats": {
-    "robotics": 7,
+    "robotics": 8,
     "ml": 1
   }
 }
