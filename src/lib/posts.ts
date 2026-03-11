@@ -121,6 +121,7 @@ function normalizeMeta(
     status: (data.status as 'draft' | 'published') || 'draft',
     content_type: contentType,
     tags,
+    display_tags: data.display_tags as string[] | undefined,
     cover_image: coverImage,
     cover_caption: data.cover_caption as string | undefined,
     cover_thumb: coverThumb,
@@ -203,9 +204,11 @@ export async function getPostsByType(
       meta !== null && meta.status === 'published' && meta.content_type === contentType
   );
 
-  return posts.sort(
-    (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-  );
+  return posts.sort((a, b) => {
+    const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return (b.post_number ?? 0) - (a.post_number ?? 0);
+  });
 }
 
 export async function getLatestPosts(
@@ -256,9 +259,11 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
   const posts = allMeta.filter(
     (meta): meta is PostMeta => meta !== null && meta.status === 'published'
   );
-  return posts.sort(
-    (a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-  );
+  return posts.sort((a, b) => {
+    const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return (b.post_number ?? 0) - (a.post_number ?? 0);
+  });
 }
 
 export async function getPostParamsByType(

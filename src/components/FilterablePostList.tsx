@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo, useEffect, Suspense } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import TagFilterBar from './TagFilterBar';
 import ContentCard from './ContentCard';
@@ -59,6 +59,15 @@ function FilterablePostListInner({
     return initialSelectedTags;
   });
 
+  // Reset tags when tab changes
+  const prevTabRef = useRef(selectedTab);
+  useEffect(() => {
+    if (prevTabRef.current !== selectedTab) {
+      prevTabRef.current = selectedTab;
+      setSelectedTags([]);
+    }
+  }, [selectedTab]);
+
   // Sync tags to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -99,20 +108,22 @@ function FilterablePostListInner({
     return getPostsForTab(posts, selectedTab);
   }, [posts, selectedTab]);
 
-  // 2nd pass: AND filter by topic tags
+  // 2nd pass: AND filter by topic tags (display_tags takes priority over tags)
   const filteredPosts = useMemo(() => {
     if (selectedTags.length === 0) return tabFilteredPosts;
     return tabFilteredPosts.filter((post) => {
-      const postTagSlugs = post.tags.map((t) => normalizeTagSlug(t));
+      const tagsToUse = post.display_tags?.length ? post.display_tags : post.tags;
+      const postTagSlugs = tagsToUse.map((t) => normalizeTagSlug(t));
       return selectedTags.every((sel) => postTagSlugs.includes(sel));
     });
   }, [tabFilteredPosts, selectedTags]);
 
-  // Compute available topic tags (excluding tab tags)
+  // Compute available topic tags (excluding tab tags, display_tags takes priority)
   const availableTags = useMemo(() => {
     const tagCounts = new Map<string, number>();
     for (const post of tabFilteredPosts) {
-      for (const tag of post.tags) {
+      const tagsToUse = post.display_tags?.length ? post.display_tags : post.tags;
+      for (const tag of tagsToUse) {
         const slug = normalizeTagSlug(tag);
         if (!TAB_TAG_SLUGS.has(slug)) {
           tagCounts.set(slug, (tagCounts.get(slug) || 0) + 1);

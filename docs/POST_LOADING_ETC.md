@@ -1,7 +1,8 @@
-# Research Post Generator — 비-arXiv 소스 가이드
+# Research Post — 비-arXiv 소스 로딩 가이드
 
 > arXiv 외 학술 소스(Nature, IEEE, ACM 등)에서 Research 포스트를 생성할 때의 차이점과 절차를 정리한다.
 > 공통 파이프라인/스키마/MDX 구조는 `docs/POST_GENERATOR_RESEARCH.md` 참조.
+> arXiv 전용 로딩 가이드는 `docs/POST_LOADING_ARXIV.md` 참조.
 > 요약 품질/톤 규칙은 `docs/RESEARCH_SUMMARY_RULES.md` 참조.
 
 ---
@@ -28,6 +29,7 @@
 | PDF URL | `arxiv.org/pdf/<id>.pdf` | `nature.com/articles/<doi-suffix>.pdf` | 로그인 필요 (별도 다운) | 로그인 필요 |
 | Figure 추출 | arXiv HTML (`/html/<id>v<ver>/`) | Springer CDN (아래 참조) | PDF fallback | PDF fallback |
 | slug 날짜 기준 | arXiv v1 제출일 (`YYMM`) | 발행 월 (`YYMM`) | 발행 월 | 발행 월 |
+| `source_date` | arXiv v1 제출일 (ISO 날짜) | 저널 발행월 (ISO 날짜) | 발행 월 | 발행 월 |
 | 메타데이터 소스 | arXiv API / HTML | article HTML meta tags | IEEE API / HTML | ACM HTML |
 | Tables | HTML 렌더링 → `tables: []` | HTML 렌더링 → `tables: []` | 보통 PDF 이미지 | PDF 이미지 |
 
