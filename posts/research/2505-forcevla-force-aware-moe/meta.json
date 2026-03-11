@@ -195,8 +195,5 @@
   ],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false,
-  "citation_count": 37,
-  "citation_updated_at": "2026-03-11T15:54:19.354Z",
-  "citation_status": "failed"
+  "featured": false
 }

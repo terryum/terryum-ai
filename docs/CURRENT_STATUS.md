@@ -21,7 +21,6 @@
 - [x] Research Notes 6가지 이슈 수정:
   - 정렬 tiebreaker (post_number 내림차순)
   - 날짜 표시 폴백 (source_date 없으면 published_at)
-  - citation 0인용 오분류 수정 (0 → ok, null → failed)
   - display_tags 필드 추가 (PostMeta 타입, normalizeMeta, ContentCard, FilterablePostList)
   - 탭 전환 시 태그 초기화 (useRef + useEffect)
   - docs 재편: POST_LOADING_ARXIV.md, POST_LOADING_ETC.md 추가
@@ -32,7 +31,6 @@
 ## 5) 다음 3개 작업 (우선순위)
 1. 기존 포스트 meta.json에 `source_date`, `display_tags` 추가
 2. Essays 탭 첫 포스트 작성
-3. `node scripts/update-citations.mjs` 실행으로 citation 재수집
 
 ## 6) 검증 상태 (요약)
 - 빌드: 성공 (2026-03-11)

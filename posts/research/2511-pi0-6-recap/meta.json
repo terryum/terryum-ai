@@ -152,9 +152,5 @@
   ],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false,
-  "citation_count": 31,
-  "citation_status": "manual",
-  "citation_manual": true,
-  "citation_updated_at": "2026-03-07T00:00:00Z"
+  "featured": false
 }
