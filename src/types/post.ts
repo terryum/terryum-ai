@@ -40,6 +40,7 @@ export interface PostMeta {
   status: 'draft' | 'published';
   content_type: 'writing' | 'reading' | 'essay';
   tags: string[];
+  display_tags?: string[];
   cover_image: string;
   cover_caption?: string;
   cover_thumb?: string;

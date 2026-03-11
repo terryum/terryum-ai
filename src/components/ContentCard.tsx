@@ -22,9 +22,10 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
   const href = `/${locale}/posts/${post.slug}`;
   const isReading = post.content_type === 'reading';
 
-  // Reading: show source_date (paper publish date); Writing/Essay: show published_at (posting date)
-  const metaDateStr = isReading && post.source_date
-    ? formatSourceDateShort(post.source_date, locale)
+  // Reading: show source_date (or published_at fallback) in year/month format
+  // Writing/Essay: show published_at with full date
+  const metaDateStr = isReading
+    ? formatSourceDateShort(post.source_date || post.published_at, locale)
     : new Date(post.published_at).toLocaleDateString(
         locale === 'ko' ? 'ko-KR' : 'en-US',
         { year: 'numeric', month: 'short', day: 'numeric' }
@@ -74,7 +75,7 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
           {isReading && post.source_author && (
             <p className="text-xs text-text-muted mt-0.5">
               {post.source_author}
-              {post.source_date && ` · ${formatSourceDateShort(post.source_date, locale)}`}
+              {` · ${metaDateStr}`}
               {post.citation_status === 'failed'
                 ? ' · Cited 00'
                 : post.citation_count != null && post.citation_count > 0
@@ -87,7 +88,7 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
           </p>
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {!isReading && <time className="text-xs text-text-muted">{metaDateStr}</time>}
-            {post.tags
+            {(post.display_tags?.length ? post.display_tags : post.tags)
               .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
               .slice(0, 3)
               .map((tag) => (

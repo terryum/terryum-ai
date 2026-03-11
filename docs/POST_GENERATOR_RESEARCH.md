@@ -136,11 +136,13 @@
 | `post_id` | slug과 동일 |
 | `slug` | 폴더명과 동일 |
 | `post_number` | 글로벌 순번 (등록순, 변경 불가). 새 포스트 시 마지막 번호 +1 |
-| `published_at` | ISO 8601 |
+| `published_at` | ISO 8601 **실제 발행 시각** (`new Date().toISOString()`). 날짜만 쓰면 동일 날짜 내 정렬 불안정 |
 | `updated_at` | ISO 8601 |
 | `status` | `"draft"` 또는 `"published"` |
 | `content_type` | `"reading"` (참고용; 폴더가 실제 결정) |
-| `tags` | 문자열 배열 |
+| `tags` | 문자열 배열 (자동 생성, 많음, 내부 색인용) |
+| `display_tags` | 유저 노출용 2차 태그 (2-5개, 수동 큐레이션). 없으면 `tags` fallback |
+| `source_date` | 논문 최초 제출일 또는 저널 발행월 (ISO 날짜, 예: `"2025-05-01"`). arXiv v1 제출일 기준 |
 | `cover_image` | `"./cover.webp"` |
 | `cover_caption` | 원문 figure 캡션 (번역 안 함) |
 | `cover_thumb` | `"./cover_thumb.webp"` (optional) |
@@ -262,6 +264,8 @@ MDX 내 `<Figure>` 컴포넌트 클릭 시 Lightbox 열림. hover 시 확대 아
 ### 메타데이터
 - [ ] `meta.json`에 언어 무관 필드 모두 존재
 - [ ] MDX frontmatter에 언어별 필드만 존재 (중복 없음)
+- [ ] `source_date` 작성 (arXiv v1 제출일 또는 저널 발행월, ISO 날짜)
+- [ ] `display_tags` 작성 (2-5개, 유저 노출용 큐레이션 태그)
 - [ ] `cover_caption`, `card_summary` 작성 (권장)
 - [ ] `references` 존재 (3-5개, category 포함)
 - [ ] `first_author_scholar_url` 확인 (optional)

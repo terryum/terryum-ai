@@ -66,21 +66,43 @@ async function fetchCitationFromGoogleScholar(scholarUrl) {
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({
     headless: true,
-    args: ['--disable-blink-features=AutomationControlled'],
+    args: [
+      '--disable-blink-features=AutomationControlled',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
   });
   try {
     const page = await browser.newPage();
+    await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto(scholarUrl, { waitUntil: 'domcontentloaded' });
 
-    const citedByText = await page
-      .locator('.gs_ri')
-      .first()
-      .locator('a', { hasText: /Cited by \d+/ })
-      .textContent({ timeout: 10000 });
+    // Bot detection check
+    const pageContent = await page.content();
+    if (pageContent.includes('unusual traffic') || pageContent.includes('captcha')) {
+      console.log('    ⚠ Bot detection triggered');
+      return null;
+    }
 
+    // Check if any search results exist
+    const firstResult = page.locator('.gs_ri').first();
+    const resultExists = await firstResult.isVisible({ timeout: 5000 }).catch(() => false);
+    if (!resultExists) {
+      console.log('    ⚠ No search results found');
+      return null;
+    }
+
+    // "Cited by N" link — if absent, the paper has 0 citations (not a failure)
+    const citedByLocator = firstResult.locator('a', { hasText: /Cited by \d+/ });
+    const hasCitedBy = await citedByLocator.isVisible({ timeout: 3000 }).catch(() => false);
+    if (!hasCitedBy) {
+      return 0;
+    }
+
+    const citedByText = await citedByLocator.textContent({ timeout: 5000 });
     const match = citedByText.match(/\d[\d,]*/);
-    if (!match) return null;
+    if (!match) return 0;
     return parseInt(match[0].replace(/,/g, ''), 10);
   } catch {
     return null;

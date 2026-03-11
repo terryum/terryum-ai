@@ -20,6 +20,7 @@
   1. `memory/posting-pipeline.md` **하나만** 읽고 바로 실행
   2. `docs/POSTING_WORKFLOW.md` 읽지 않음
   3. 요약 톤/규칙이 변경됐다는 지시가 있을 때만 `docs/RESEARCH_SUMMARY_RULES.md` 참조
+  4. arXiv 전용 로딩 세부사항: `docs/POST_LOADING_ARXIV.md` / 비-arXiv: `docs/POST_LOADING_ETC.md`
 
 ## v1 범위 (절대)
 - v1은 **자체사이트만 개발**
