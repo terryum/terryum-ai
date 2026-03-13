@@ -12,10 +12,10 @@ function getSecret(): string {
 }
 
 export function verifyPassword(input: string): boolean {
-  const expected = process.env.ADMIN_PASSWORD;
+  const expected = process.env.ADMIN_PASSWORD?.trim();
   if (!expected) return false;
 
-  const a = Buffer.from(input);
+  const a = Buffer.from(input.trim());
   const b = Buffer.from(expected);
   if (a.length !== b.length) return false;
   return crypto.timingSafeEqual(a, b);
