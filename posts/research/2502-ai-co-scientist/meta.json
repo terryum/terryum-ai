@@ -135,8 +135,8 @@
     },
     {
       "src": "./fig-11.jpeg",
-      "caption": "Dose response curve of the novel repurposing drug candidates for acute myeloid leukemia. X-axis is the drug concentration (nM), and Y-axis is normalized cell viability (arbitrary unit). Lower cell viability indicates that the selected drug has a stronger inhibition on AML cells.",
-      "caption_ko": "급성 골수성 백혈병을 위한 신규 재목적화 약물 후보의 용량-반응 곡선. X축은 약물 농도(nM), Y축은 정규화된 세포 생존률(임의 단위). 세포 생존률이 낮을수록 선택된 약물이 AML 세포를 더 강하게 억제함을 나타낸다.",
+      "caption": "Dose response curve of novel drug repurposing candidate for AML. KIRA6 activity inhibiting KG-1, MOLM-13, and HL-60 cell viability all in nM range of drug concentration. X-axis is the drug concentration (nM), and Y-axis is normalized cell viability (arbitrary unit). Lower cell viability indicates that the selected drug has a stronger inhibition on AML cells.",
+      "caption_ko": "AML을 위한 신규 약물 재목적화 후보의 용량-반응 곡선. KIRA6가 KG-1, MOLM-13, HL-60 세포 생존률을 nM 범위의 약물 농도에서 억제한다. X축은 약물 농도(nM), Y축은 정규화된 세포 생존률(임의 단위). 세포 생존률이 낮을수록 선택된 약물이 AML 세포를 더 강하게 억제함을 나타낸다.",
       "number": 11
     },
     {
