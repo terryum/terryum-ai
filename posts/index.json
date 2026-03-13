@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-11T06:29:10.195Z",
-  "total_posts": 10,
+  "generated_at": "2026-03-13T21:11:51.488Z",
+  "total_posts": 11,
   "posts": [
     {
       "post_number": 1,
@@ -36,7 +36,7 @@
       "source_author": "Jiawen Yu et al.",
       "source_date": "2025-05-28T00:00:00Z",
       "published_at": "2026-03-04T00:00:00Z",
-      "citation_count": 37,
+      "citation_count": null,
       "ai_summary": {
         "one_liner": "Force-aware MoE module for VLA that dynamically routes F/T info across task phases",
         "problem": "VLA models lack force sensing, failing at contact-rich manipulation",
@@ -97,7 +97,7 @@
       "source_author": "Kevin Black et al.",
       "source_date": "2024-10-31T00:00:00Z",
       "published_at": "2026-03-05T00:00:00Z",
-      "citation_count": 1330,
+      "citation_count": null,
       "ai_summary": {
         "one_liner": "Generalist VLA policy using pre-trained VLM + flow matching action expert for multi-robot control",
         "problem": "No single generalist robot policy that works across diverse embodiments and tasks",
@@ -152,7 +152,7 @@
       "source_author": "Claire Chen et al.",
       "source_date": "2025-01-17T00:00:00Z",
       "published_at": "2026-03-05T00:00:00Z",
-      "citation_count": 33,
+      "citation_count": null,
       "ai_summary": {
         "one_liner": "Extract force-informed action targets from kinesthetic demos to reproduce contact forces in policy execution",
         "problem": "Kinesthetic demonstrations record positions but lose contact force information critical for contact-rich tasks",
@@ -209,7 +209,7 @@
       "source_author": "Ali Amin et al.",
       "source_date": "2025-11-18",
       "published_at": "2026-03-07T00:00:00Z",
-      "citation_count": 31,
+      "citation_count": null,
       "ai_summary": {
         "one_liner": "RL-based iterative improvement method (Recap) for VLA policies using advantage-weighted regression with a learned value function",
         "problem": "VLA policies plateau with imitation learning alone; no scalable RL method for real-robot VLA fine-tuning",
@@ -414,7 +414,7 @@
         "data-collection"
       ],
       "source_author": "Mengda Xu et al.",
-      "source_date": null,
+      "source_date": "2025-05-28",
       "published_at": "2026-03-11T00:00:00+09:00",
       "citation_count": null,
       "ai_summary": {
@@ -484,7 +484,7 @@
         "data-collection"
       ],
       "source_author": "Zilin Si et al.",
-      "source_date": null,
+      "source_date": "2025-06-13",
       "published_at": "2026-03-11T00:00:00+09:00",
       "citation_count": null,
       "ai_summary": {
@@ -553,7 +553,7 @@
         "robot-hand"
       ],
       "source_author": "Hao-Shu Fang et al.",
-      "source_date": null,
+      "source_date": "2025-09-04",
       "published_at": "2026-03-11T00:00:00+09:00",
       "citation_count": null,
       "ai_summary": {
@@ -580,6 +580,68 @@
           "type": "related"
         }
       ],
+      "idea_status": null,
+      "related_posts": null
+    },
+    {
+      "post_number": 11,
+      "slug": "2502-ai-co-scientist",
+      "content_type": "reading",
+      "title_en": "Towards an AI co-scientist",
+      "title_ko": "Towards an AI co-scientist",
+      "domain": "ml",
+      "subfields": [
+        "scientific-discovery",
+        "multi-agent",
+        "biomedical-ai",
+        "hypothesis-generation",
+        "agentic-ai"
+      ],
+      "key_concepts": [
+        "multi-agent-system",
+        "test-time-compute",
+        "elo-tournament",
+        "hypothesis-generation",
+        "drug-repurposing",
+        "scientific-reasoning",
+        "self-improving-loop",
+        "scientific-debate"
+      ],
+      "methodology": [
+        "multi-agent-llm",
+        "test-time-compute-scaling",
+        "elo-based-ranking",
+        "self-play",
+        "agentic-web-search",
+        "wet-lab-validation"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Research",
+        "AI",
+        "Multi-Agent",
+        "Scientific Discovery",
+        "Biomedical AI",
+        "Gemini",
+        "Drug Repurposing",
+        "Test-Time Compute"
+      ],
+      "source_author": "Juraj Gottweis et al.",
+      "source_date": "2025-02-26",
+      "published_at": "2026-03-14T09:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Gemini 2.0 multi-agent system that generates, debates, and evolves research hypotheses via Elo-based tournaments, with wet-lab-validated results in drug repurposing and target discovery",
+        "problem": "Scientists face breadth-depth conundrum: cross-disciplinary insight requires integrating vast literature, but no AI system could go beyond literature summarization to generate truly novel, testable research hypotheses",
+        "solution": "Multi-agent AI co-scientist with generate-debate-evolve loop: Generation, Reflection (peer review simulation), Ranking (Elo tournament with scientific debates), Proximity, Evolution, and Meta-review agents operating asynchronously on Gemini 2.0",
+        "key_result": "78.4% GPQA diamond top-1 accuracy; AML drug candidates validated in vitro at clinically applicable concentrations; 2 of 3 novel liver fibrosis epigenetic targets validated in human hepatic organoids; cf-PICI AMR hypothesis independently recapitulated in 2 days vs 10 years of lab work",
+        "limitations": [
+          "Literature search limited to open-access publications; cannot access negative results data",
+          "Cannot comprehensively reason over figures and images in papers",
+          "Inherits LLM hallucinations; Elo self-evaluation is a limited proxy metric"
+        ]
+      },
+      "relations": [],
       "idea_status": null,
       "related_posts": null
     }
@@ -806,10 +868,34 @@
     ],
     "dexterous-hand": [
       10
+    ],
+    "multi-agent-system": [
+      11
+    ],
+    "test-time-compute": [
+      11
+    ],
+    "elo-tournament": [
+      11
+    ],
+    "hypothesis-generation": [
+      11
+    ],
+    "drug-repurposing": [
+      11
+    ],
+    "scientific-reasoning": [
+      11
+    ],
+    "self-improving-loop": [
+      11
+    ],
+    "scientific-debate": [
+      11
     ]
   },
   "domain_stats": {
     "robotics": 9,
-    "ml": 1
+    "ml": 2
   }
 }
