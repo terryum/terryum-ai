@@ -20,25 +20,24 @@ export default function AdminBar({ locale }: { locale: string }) {
 
   return (
     <nav className="border-b border-line-default bg-bg-primary overflow-x-auto">
-      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between h-10">
-        <div className="flex items-center gap-4">
-          {TABS(locale).map((tab) => {
-            const active = pathname.startsWith(tab.href);
-            return (
-              <Link
-                key={tab.href}
-                href={tab.href}
-                className={`text-sm whitespace-nowrap transition-colors ${
-                  active
-                    ? 'text-accent border-b-2 border-accent pb-[1px]'
-                    : 'text-text-secondary hover:text-accent'
-                }`}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </div>
+      <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-end gap-4 h-10">
+        {TABS(locale).map((tab) => {
+          const active = pathname.startsWith(tab.href);
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className={`text-sm whitespace-nowrap transition-colors ${
+                active
+                  ? 'text-accent border-b-2 border-accent pb-[1px]'
+                  : 'text-text-secondary hover:text-accent'
+              }`}
+            >
+              {tab.label}
+            </Link>
+          );
+        })}
+        <span className="text-line-default">|</span>
         <button
           onClick={handleLogout}
           className="text-sm text-text-secondary hover:text-accent transition-colors"
