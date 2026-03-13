@@ -1,0 +1,152 @@
+{
+  "post_id": "2502-ai-co-scientist",
+  "slug": "2502-ai-co-scientist",
+  "post_number": 11,
+  "published_at": "2026-03-14T09:00:00Z",
+  "updated_at": "2026-03-14T09:00:00Z",
+  "status": "draft",
+  "content_type": "reading",
+  "domain": "ml",
+  "subfields": [
+    "scientific-discovery",
+    "multi-agent",
+    "biomedical-ai",
+    "hypothesis-generation",
+    "agentic-ai"
+  ],
+  "key_concepts": [
+    "multi-agent-system",
+    "test-time-compute",
+    "elo-tournament",
+    "hypothesis-generation",
+    "drug-repurposing",
+    "scientific-reasoning",
+    "self-improving-loop",
+    "scientific-debate"
+  ],
+  "methodology": [
+    "multi-agent-llm",
+    "test-time-compute-scaling",
+    "elo-based-ranking",
+    "self-play",
+    "agentic-web-search",
+    "wet-lab-validation"
+  ],
+  "contribution_type": "system",
+  "relations": [],
+  "ai_summary": {
+    "one_liner": "Gemini 2.0 multi-agent system that generates, debates, and evolves research hypotheses via Elo-based tournaments, with wet-lab-validated results in drug repurposing and target discovery",
+    "problem": "Scientists face breadth-depth conundrum: cross-disciplinary insight requires integrating vast literature, but no AI system could go beyond literature summarization to generate truly novel, testable research hypotheses",
+    "solution": "Multi-agent AI co-scientist with generate-debate-evolve loop: Generation, Reflection (peer review simulation), Ranking (Elo tournament with scientific debates), Proximity, Evolution, and Meta-review agents operating asynchronously on Gemini 2.0",
+    "key_result": "78.4% GPQA diamond top-1 accuracy; AML drug candidates validated in vitro at clinically applicable concentrations; 2 of 3 novel liver fibrosis epigenetic targets validated in human hepatic organoids; cf-PICI AMR hypothesis independently recapitulated in 2 days vs 10 years of lab work",
+    "limitations": [
+      "Literature search limited to open-access publications; cannot access negative results data",
+      "Cannot comprehensively reason over figures and images in papers",
+      "Inherits LLM hallucinations; Elo self-evaluation is a limited proxy metric"
+    ]
+  },
+  "tags": [
+    "Research",
+    "AI",
+    "Multi-Agent",
+    "Scientific Discovery",
+    "Biomedical AI",
+    "Gemini",
+    "Drug Repurposing",
+    "Test-Time Compute"
+  ],
+  "display_tags": [
+    "AI for Science",
+    "Multi-Agent",
+    "Gemini 2.0",
+    "Biomedical AI"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_caption": "The co-scientist discovers the novel treatment targets for liver fibrosis. Four drugs (Suggested 1-4) based on three epigenetic targets suggested by the co-scientist decrease the fold change of the fibroblast activity. The experiments were conducted in the human hepatic organoid system, the fibroblast activity was measured by the percentage fold change of fluorescence labelled on the myofibroblast. 'Untreated' indicates the normal control, the fibrosis inducer is the fibrogenic agent TGF-β, the fibrosis inhibitor indicates the fibrogenic stimulated myofibroblast treated with the fibrogenic agent inhibitor (i.e., TGF-β inhibitor), and four suggested drugs indicate the fibrogenic stimulated myofibroblast treated with each of the four drugs based on three AI co-scientist suggested epigenetic targets. The red line in each box is the median fold change of the group. The p-value indicates the statistical significance between the fibrosis inducer group and the given group. These results will be further detailed in an upcoming report.",
+  "thumb_source": "./fig-12.png",
+  "thumb_position": "centre",
+  "reading_time_min": 20,
+  "source_url": "https://arxiv.org/abs/2502.18864",
+  "source_date": "2025-02-26",
+  "source_title": "Towards an AI co-scientist",
+  "source_author": "Juraj Gottweis et al.",
+  "source_type": "arXiv",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Towards+an+AI+co-scientist&btnG=",
+  "source_authors_full": [
+    "Juraj Gottweis (Google Cloud AI Research)",
+    "Wei-Hung Weng (Google Research)",
+    "Alexander Daryin (Google Cloud AI Research)",
+    "Tao Tu (Google DeepMind)",
+    "Anil Palepu (Google Research)",
+    "Petar Sirkovic (Google Cloud AI Research)",
+    "Artiom Myaskovsky (Google Cloud AI Research)",
+    "Felix Weissenberger (Google Cloud AI Research)",
+    "Keran Rong (Google DeepMind)",
+    "Ryutaro Tanno (Google DeepMind)",
+    "Khaled Saab (Google DeepMind)",
+    "Dan Popovici (Google Research)",
+    "Jacob Blum (Stanford University School of Medicine)",
+    "Fan Zhang (Google Research)",
+    "Katherine Chou (Google Research)",
+    "Avinatan Hassidim (Google Research)",
+    "Burak Gokturk (Google Cloud AI Research)",
+    "Amin Vahdat (Google Cloud AI Research)",
+    "Pushmeet Kohli (Google DeepMind)",
+    "Yossi Matias (Google Research)",
+    "Andrew Carroll (Google Research)",
+    "Kavita Kulkarni (Google Research)",
+    "Nenad Tomasev (Google DeepMind)",
+    "Yuan Guan (Stanford University School of Medicine)",
+    "Vikram Dhillon (Houston Methodist)",
+    "Eeshit Dhaval Vaishnav (Sequome)",
+    "Byron Lee (Sequome)",
+    "Tiago R D Costa (Fleming Initiative and Imperial College London)",
+    "José R Penadés (Fleming Initiative and Imperial College London)",
+    "Gary Peltz (Stanford University School of Medicine)",
+    "Yunhan Xu (Google DeepMind)",
+    "Annalisa Pawlosky (Google Cloud AI Research)",
+    "Alan Karthikesalingam (Google Research)",
+    "Vivek Natarajan (Google Research)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-3.png",
+      "caption": "Concordance of the auto-evaluation Elo metric with AI co-scientist performance on GPQA. The blue line in the figure shows the average accuracy of co-scientist responses, grouped by their Elo rating. The red line indicates the average accuracy of the corresponding reference Gemini 2.0 responses to the same set of GPQA questions, grouped by Elo rating. Note that Elo metric is auto-evaluated and not based on the ground truth.",
+      "caption_ko": "GPQA에서 AI co-scientist 성능에 대한 Elo 자동평가 지표의 일치도. 파란 선은 Elo 점수별로 분류된 co-scientist 응답의 평균 정확도를 나타낸다. 빨간 선은 동일한 GPQA 질문에 대한 Gemini 2.0 참조 응답의 평균 정확도를 Elo 점수별로 나타낸다. Elo 지표는 자동평가되며 실제 정답 기반이 아님에 주의.",
+      "number": 3
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "AI-augmented expertise with the co-scientist through Elo-based auto-evaluation. Through its self-improvement process, the co-scientist refines and enhances expert 'best guess' solutions over time, as measured by the Elo rating on a subset of 15 curated research goals. It is important to note that the Elo metric is auto-evaluated and not based on independent ground truth.",
+      "caption_ko": "Elo 기반 자동평가를 통한 co-scientist의 AI 보강 전문성. 자기 개선 과정을 통해 co-scientist는 15개의 큐레이션된 연구 목표의 부분 집합에서 Elo 점수로 측정한 전문가의 '최선 추측' 솔루션을 시간이 지남에 따라 정제·향상시킨다.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Expert evaluation of AI co-scientist and other LLM baselines. Left: Average expert ratings on novelty and impact of the model responses across 11 expert curated research goals. Higher numbers indicate better ratings (1-5). Right: Average expert preference ranking of the results across 11 expert curated research goals generated by AI co-scientist, Gemini 2.0 Flash Thinking Experimental 12-19, Gemini 2.0 Pro Experimental, and OpenAI o1, respectively. Lower numbers indicate better rankings (1-4). The human expert preferences also appear to be concordant with relative Elo ratings as can be inferred from Figure 5. At the same time, its worth noting that these preferences and ratings reflect subjective expert assessments, not objective ground truth.",
+      "caption_ko": "AI co-scientist와 다른 LLM 베이스라인의 전문가 평가. 왼쪽: 11개의 전문가 큐레이션 연구 목표에서 모델 응답의 독창성·영향력 평균 전문가 평점(1-5점). 오른쪽: AI co-scientist, Gemini 2.0 Flash Thinking Experimental 12-19, Gemini 2.0 Pro Experimental, OpenAI o1의 평균 전문가 선호 순위(1-4; 낮을수록 좋음). 인간 전문가 선호도가 Elo 점수와 일치하는 경향을 보인다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-10.jpeg",
+      "caption": "Dose response curve of the expert selected repurposing drugs with existing evidence. Binimetinib, Pacritinib, and Cerivastatin inhibit MOLM-13 cell viability. X-axis is the drug concentration (nM), and Y-axis is normalized cell viability (arbitrary unit). Lower cell viability indicates that the selected drug has a stronger inhibition on AML cells.",
+      "caption_ko": "기존 증거가 있는 전문가 선정 재목적화 약물의 용량-반응 곡선. Binimetinib, Pacritinib, Cerivastatin이 MOLM-13 세포 생존률을 억제한다. X축은 약물 농도(nM), Y축은 정규화된 세포 생존률(임의 단위). 세포 생존률이 낮을수록 선택된 약물이 AML 세포를 더 강하게 억제함을 나타낸다.",
+      "number": 10
+    },
+    {
+      "src": "./fig-11.jpeg",
+      "caption": "Dose response curve of the novel repurposing drug candidates for acute myeloid leukemia. X-axis is the drug concentration (nM), and Y-axis is normalized cell viability (arbitrary unit). Lower cell viability indicates that the selected drug has a stronger inhibition on AML cells.",
+      "caption_ko": "급성 골수성 백혈병을 위한 신규 재목적화 약물 후보의 용량-반응 곡선. X축은 약물 농도(nM), Y축은 정규화된 세포 생존률(임의 단위). 세포 생존률이 낮을수록 선택된 약물이 AML 세포를 더 강하게 억제함을 나타낸다.",
+      "number": 11
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "The co-scientist discovers the novel treatment targets for liver fibrosis. Four drugs (Suggested 1-4) based on three epigenetic targets suggested by the co-scientist decrease the fold change of the fibroblast activity. The experiments were conducted in the human hepatic organoid system, the fibroblast activity was measured by the percentage fold change of fluorescence labelled on the myofibroblast. 'Untreated' indicates the normal control, the fibrosis inducer is the fibrogenic agent TGF-β, the fibrosis inhibitor indicates the fibrogenic stimulated myofibroblast treated with the fibrogenic agent inhibitor (i.e., TGF-β inhibitor), and four suggested drugs indicate the fibrogenic stimulated myofibroblast treated with each of the four drugs based on three AI co-scientist suggested epigenetic targets. The red line in each box is the median fold change of the group. The p-value indicates the statistical significance between the fibrosis inducer group and the given group. These results will be further detailed in an upcoming report.",
+      "caption_ko": "co-scientist가 간섬유증의 신규 치료 표적을 발견한 결과. co-scientist가 제안한 3가지 후성유전학적 표적을 기반으로 한 4가지 약물(Suggested 1-4)이 섬유아세포 활성의 배수 변화를 감소시킨다. 인간 간 오가노이드 시스템에서 실험을 수행했으며, 섬유아세포 활성은 근섬유아세포에 형광 표지된 비율의 배수 변화로 측정했다. 'Untreated'는 정상 대조군, 섬유화 유도제는 TGF-β, 섬유화 억제제는 섬유화 유도 후 TGF-β 억제제 처리군을 나타낸다. 각 박스의 빨간 선은 중앙값이며, p-value는 섬유화 유도제 그룹과 비교한 통계적 유의성을 나타낸다.",
+      "number": 12
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
