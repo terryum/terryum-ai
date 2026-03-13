@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 const TABS = (locale: string) => [
   { label: 'Notes', href: `/${locale}/admin/notes` },
+  { label: 'Post', href: `/${locale}/admin/post` },
   { label: 'Stats', href: `/${locale}/admin/stats` },
 ];
 
