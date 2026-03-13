@@ -54,6 +54,7 @@
 
 - 허위 수치/사실 생성 절대 금지 — 결과 숫자는 표/본문/캡션 확인된 수치만
 - Figure 캡션: 원문 전체 작성, 생략/축약 금지
+- **MDX Figure 캡션 i18n 규칙**: `ko.mdx`의 `<Figure caption="...">` 값은 반드시 `meta.json`의 해당 figure `caption_ko` 값을 사용. `en.mdx`는 `caption` (영문) 사용. `meta.json` 작성 시 `caption`과 `caption_ko` 두 필드를 동시에 생성할 것
 - `cover.webp`가 없으면 가장 대표적인 figure를 cover.webp로 복사
 - 이미지 리네임 후 본문 경로 미치환 상태로 커밋 금지
 - `node scripts/copy-post-images.mjs` 실행 포함 (Step 8 후 또는 build 전)

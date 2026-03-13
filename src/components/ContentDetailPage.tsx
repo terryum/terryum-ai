@@ -6,6 +6,7 @@ import Figure from './Figure';
 import LanguageSwitcher from './LanguageSwitcher';
 import ShareButton from './ShareButton';
 import { localizeGalleryItems } from '@/lib/localize';
+import { FigureGroupProvider } from '@/contexts/FigureGroupContext';
 import type { PostMeta } from '@/types/post';
 import type { Locale } from '@/lib/i18n';
 
@@ -128,9 +129,11 @@ export default function ContentDetailPage({
       )}
 
       {/* MDX body */}
-      <div className="prose max-w-none">
-        {children}
-      </div>
+      <FigureGroupProvider figures={localizedFigures}>
+        <div className="prose max-w-none">
+          {children}
+        </div>
+      </FigureGroupProvider>
 
       {/* Appendix */}
       <AppendixSection

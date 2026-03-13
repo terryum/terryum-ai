@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import ImageLightbox from './ImageLightbox';
 import { FIGURE_DIMENSIONS } from '@/lib/site-config';
+import { useFigureGroup } from '@/contexts/FigureGroupContext';
 
 interface FigureProps {
   src: string;
@@ -16,13 +17,26 @@ interface FigureProps {
 
 export default function Figure({ src, caption, alt, number, priority, isCover }: FigureProps) {
   const [open, setOpen] = useState(false);
+  const { figures } = useFigureGroup();
+
+  const groupIndex = figures.findIndex((f) => f.number === number);
+  const hasGroup = figures.length > 1 && groupIndex >= 0;
+
+  const lightboxItems = hasGroup ? figures : [{ src, caption, number: number || 0 }];
+  const initialIndex = hasGroup ? groupIndex : 0;
+  const [lightboxIndex, setLightboxIndex] = useState(initialIndex);
 
   const imgWidth = isCover ? 1200 : FIGURE_DIMENSIONS.width;
   const imgHeight = isCover ? 675 : FIGURE_DIMENSIONS.height;
 
+  const handleOpen = () => {
+    setLightboxIndex(initialIndex);
+    setOpen(true);
+  };
+
   return (
     <>
-      <figure className={`${isCover ? 'mb-8' : 'my-6'} cursor-pointer group`} onClick={() => setOpen(true)}>
+      <figure className={`${isCover ? 'mb-8' : 'my-6'} cursor-pointer group`} onClick={handleOpen}>
         <div className="rounded-lg overflow-hidden bg-bg-surface flex justify-center relative">
           <Image
             src={src}
@@ -58,10 +72,10 @@ export default function Figure({ src, caption, alt, number, priority, isCover }:
 
       {open && (
         <ImageLightbox
-          items={[{ src, caption, number: number || 0 }]}
-          currentIndex={0}
+          items={lightboxItems}
+          currentIndex={lightboxIndex}
           onClose={() => setOpen(false)}
-          onNavigate={() => {}}
+          onNavigate={setLightboxIndex}
         />
       )}
     </>
