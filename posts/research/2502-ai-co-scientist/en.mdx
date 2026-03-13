@@ -94,20 +94,21 @@ GPQA diamond set questions were posed as research goals to validate that Elo cor
 
 **Automated evaluation**:
 - **78.4% top-1 accuracy** on GPQA diamond set (selecting highest Elo result per question)
-- Consistent Elo improvement with more test-time compute across 203 distinct research goals
+- On 15 expert-curated goals: co-scientist outperformed Gemini 2.0 Pro, Gemini 2.0 Flash Thinking, OpenAI o1, **OpenAI o3-mini-high, DeepSeek R1**, and human expert "best guess" hypotheses by Elo
 
-**Expert evaluation** (11 of 15 curated research goals):
-- Average preference rank: **2.36/4** (best) vs. Gemini 2.0 Flash Thinking, Gemini 2.0 Pro, OpenAI o1
+**Expert evaluation** (11 of 15 curated research goals, 4-model comparison):
+- Average preference rank: co-scientist **2.36** < Gemini 2.0 Pro **2.45** = OpenAI o1 **2.45** < Gemini Flash Thinking **2.73** (1=best, 4=worst)
 - Novelty: **3.64/5**, Impact: **3.09/5**
-- LLM judge agreement (o3-mini, o1, Gemini 2.0 Pro, Gemini Flash) — co-scientist ranked most preferred across all evaluators
+- LLM judge agreement (o3-mini, o1, Gemini 2.0 Pro, Gemini Flash) — co-scientist ranked most preferred across all four evaluators
 
 **AML drug repurposing** (wet-lab validated):
-- Binimetinib, Pacritinib, and Cerivastatin **inhibit MOLM-13 AML cell viability at clinically applicable concentrations**
-- Novel repurposing candidates (KIRA6, Leflunomide, DMF) also showed in vitro inhibitory effects
-- 78 NIH Specific Aims Page-format proposals rated positively across all 15 evaluation axes by 6 expert hematologists/oncologists
+- Candidates with prior evidence: Binimetinib (**IC50 7 nM** in MOLM-13), Pacritinib, Cerivastatin all inhibit MOLM-13 cell viability at clinically applicable concentrations
+- Novel candidates: KIRA6 (IRE1α inhibitor) — **IC50 13 nM** in KG-1 cells, 517 nM in MOLM-13 — a completely novel repurposing with no prior AML evidence
+- 78 NIH Specific Aims Page-format proposals rated positively across all 15 evaluation axes by 6 expert hematologists/oncologists (avg 8 years experience)
 
 **Liver fibrosis novel targets** (wet-lab validated):
-- Of 15 ranked hypotheses, 3 were selected for experimentation; **drugs targeting 2 of 3 novel epigenetic targets showed significant anti-fibrotic activity in human hepatic organoids** without cellular toxicity
+- All 4 drugs based on 3 epigenetic targets showed statistically significant fibroblast activity reduction (p<0.001 to p<0.0001) vs fibrosis inducer
+- **Drugs targeting 2 of 3 novel epigenetic targets showed significant anti-fibrotic activity in human hepatic organoids** without cellular toxicity
 - One validated target is already an FDA-approved drug for another indication → immediate repurposing opportunity
 
 **Antimicrobial resistance** (parallel in silico discovery):
