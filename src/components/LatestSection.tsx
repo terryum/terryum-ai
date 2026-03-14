@@ -15,6 +15,8 @@ interface LatestSectionProps {
   locale: string;
   showMoreText?: string;
   emptyText?: string;
+  showTabTag?: boolean;
+  hidePubDate?: boolean;
 }
 
 export default function LatestSection({
@@ -25,6 +27,8 @@ export default function LatestSection({
   locale,
   showMoreText,
   emptyText,
+  showTabTag,
+  hidePubDate,
 }: LatestSectionProps) {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const visiblePosts = posts.slice(0, visibleCount);
@@ -49,7 +53,7 @@ export default function LatestSection({
       ) : (
         <div>
           {visiblePosts.map((post) => (
-            <ContentCard key={post.post_id} post={post} locale={locale} />
+            <ContentCard key={post.post_id} post={post} locale={locale} showTabTag={showTabTag} hidePubDate={hidePubDate} />
           ))}
           {hasMore && (
             <button

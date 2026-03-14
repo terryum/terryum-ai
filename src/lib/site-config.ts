@@ -24,10 +24,10 @@ export interface TabDefinition {
 }
 
 export const TAB_CONFIG: TabDefinition[] = [
-  { slug: 'ideas',    matchTags: ['ideas'],    order: 0, author: 'terry' },
-  { slug: 'essays',   matchTags: ['essays'],   order: 1, author: 'terry' },
-  { slug: 'research', matchTags: ['research'], order: 2, author: 'ai'    },
-  { slug: 'reviews',  matchTags: ['reviews'],  order: 3, author: 'ai'    },
+  { slug: 'research', matchTags: ['research'], order: 0, author: 'ai'    },
+  { slug: 'notes',    matchTags: ['notes'],    order: 1, author: 'ai'    },
+  { slug: 'ideas',    matchTags: ['ideas'],    order: 2, author: 'terry' },
+  { slug: 'essays',   matchTags: ['essays'],   order: 3, author: 'terry' },
 ];
 
 /** All tab matchTags combined — used to hide tab tags from TagFilterBar & ContentCard */

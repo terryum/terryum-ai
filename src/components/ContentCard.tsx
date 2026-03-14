@@ -3,11 +3,23 @@ import Image from 'next/image';
 import TagChip from './TagChip';
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
+import tagsData from '@/data/tags.json';
 import type { PostMeta } from '@/types/post';
 
 interface ContentCardProps {
   post: PostMeta;
   locale: string;
+  showTabTag?: boolean;
+  hidePubDate?: boolean;
+}
+
+function getTabLabel(post: PostMeta, locale: string): string | null {
+  const tabSlug = post.tags
+    .map(normalizeTagSlug)
+    .find(tag => TAB_TAG_SLUGS.has(tag));
+  if (!tabSlug) return null;
+  const tagDef = tagsData.tags.find(t => t.slug === tabSlug);
+  return tagDef?.label[locale as 'ko' | 'en'] ?? tabSlug;
 }
 
 function formatSourceDateShort(dateStr: string, locale: string): string {
@@ -18,7 +30,7 @@ function formatSourceDateShort(dateStr: string, locale: string): string {
   });
 }
 
-export default function ContentCard({ post, locale }: ContentCardProps) {
+export default function ContentCard({ post, locale, showTabTag, hidePubDate }: ContentCardProps) {
   const href = `/${locale}/posts/${post.slug}`;
   const isReading = post.content_type === 'reading';
 
@@ -82,13 +94,21 @@ export default function ContentCard({ post, locale }: ContentCardProps) {
             {summary}
           </p>
           <div className="flex items-center gap-2 mt-2 flex-wrap">
-            {!isReading && <time className="text-xs text-text-muted">{metaDateStr}</time>}
-            {(post.display_tags?.length ? post.display_tags : post.tags)
-              .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
-              .slice(0, 3)
-              .map((tag) => (
-                <TagChip key={tag} tag={tag} />
-              ))}
+            {!isReading && !hidePubDate && <time className="text-xs text-text-muted">{metaDateStr}</time>}
+            {(() => {
+              const tabLabel = showTabTag ? getTabLabel(post, locale) : null;
+              const otherTags = (post.display_tags?.length ? post.display_tags : post.tags)
+                .filter((tag) => !TAB_TAG_SLUGS.has(normalizeTagSlug(tag)))
+                .slice(0, tabLabel ? 2 : 3);
+              return (
+                <>
+                  {tabLabel && <TagChip tag={tabLabel} />}
+                  {otherTags.map((tag) => (
+                    <TagChip key={tag} tag={tag} />
+                  ))}
+                </>
+              );
+            })()}
           </div>
         </div>
       </article>
