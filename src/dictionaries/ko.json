@@ -28,16 +28,18 @@
       "title": "Papers",
       "description": "AI·로보틱스 논문을 읽고 핵심 내용을 정리합니다."
     },
-    "reviews": {
-      "title": "Reviews",
-      "description": "AI가 작성한 제품, 도서 등 리뷰를 담습니다."
+    "notes": {
+      "title": "Notes",
+      "description": "AI가 작성한 제품, 도서 등 노트를 담습니다."
     }
   },
   "home": {
     "latest_ideas": "Latest Tech",
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Papers",
-    "latest_reviews": "Latest Reviews",
+    "latest_notes": "Latest Notes",
+    "latest_from_ai": "Latest from AI",
+    "latest_from_terry": "Latest from Terry",
     "view_all": "전체 보기",
     "show_more": "더 보기",
     "no_posts_yet": "아직 글이 없습니다."

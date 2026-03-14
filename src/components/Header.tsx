@@ -31,18 +31,56 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const currentTab = searchParams.get('tab');
 
-  const navItems: NavItem[] = [
-    { href: `/${locale}`, label: dict.nav.home },
-    ...navTabs.map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author })),
-    { href: `/${locale}/about`, label: dict.nav.about },
-  ];
+  const aiTabs: NavItem[] = navTabs
+    .filter(tab => tab.author === 'ai')
+    .map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author }));
+
+  const terryTabs: NavItem[] = navTabs
+    .filter(tab => tab.author === 'terry')
+    .map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author }));
+
+  const aboutItem: NavItem = { href: `/${locale}/about`, label: dict.nav.about };
 
   function isActive(item: NavItem) {
-    if (item.href === `/${locale}`) return pathname === `/${locale}`;
     if (item.tabSlug) {
       return pathname.startsWith(`/${locale}/posts`) && currentTab === item.tabSlug;
     }
     return pathname.startsWith(item.href);
+  }
+
+  function TabLink({ item }: { item: NavItem }) {
+    return (
+      <Link
+        key={item.tabSlug || item.href}
+        href={item.href}
+        className={`text-sm transition-colors ${
+          isActive(item)
+            ? 'text-accent border-b-2 border-accent pb-[1px]'
+            : 'text-text-secondary hover:text-accent'
+        }`}
+        aria-current={isActive(item) ? 'page' : undefined}
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  function MobileTabLink({ item }: { item: NavItem }) {
+    return (
+      <Link
+        key={item.tabSlug || item.href}
+        href={item.href}
+        onClick={() => setMobileOpen(false)}
+        className={`text-sm px-2 py-1 transition-colors ${
+          isActive(item)
+            ? 'text-accent font-medium'
+            : 'text-text-secondary hover:text-accent'
+        }`}
+        aria-current={isActive(item) ? 'page' : undefined}
+      >
+        {item.label}
+      </Link>
+    );
   }
 
   return (
@@ -63,31 +101,24 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.tabSlug || item.href}
-                href={item.href}
-                className={`flex items-center gap-1 text-sm transition-colors ${
-                  isActive(item)
-                    ? 'text-accent border-b-2 border-accent pb-[1px]'
-                    : 'text-text-secondary hover:text-accent'
-                }`}
-                aria-current={isActive(item) ? 'page' : undefined}
-              >
-                {item.label}
-                {item.author && (
-                  <span className={`text-[10px] px-1 py-px rounded font-medium leading-none ${
-                    item.author === 'ai'
-                      ? 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400'
-                      : 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400'
-                  }`}>
-                    {item.author === 'ai' ? 'AI' : 'Terry'}
-                  </span>
-                )}
-              </Link>
-            ))}
-            <div className="flex items-center gap-2">
+          <nav className="hidden md:flex items-center gap-1">
+            {/* AI group */}
+            <span className="text-xs text-text-muted font-medium px-1.5">AI</span>
+            <div className="flex items-center gap-4">
+              {aiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
+            </div>
+
+            {/* Separator */}
+            <div className="w-px h-4 bg-line-default mx-2" />
+
+            {/* Terry group */}
+            <span className="text-xs text-text-muted font-medium px-1.5">Terry</span>
+            <div className="flex items-center gap-4">
+              {terryTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
+              <TabLink item={aboutItem} />
+            </div>
+
+            <div className="flex items-center gap-2 ml-4">
               <ThemeToggle />
               <LanguageSwitcher locale={locale} />
             </div>
@@ -117,31 +148,18 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
 
         {/* Mobile nav panel */}
         {mobileOpen && (
-          <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.tabSlug || item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-1.5 text-sm px-2 py-1 transition-colors ${
-                  isActive(item)
-                    ? 'text-accent font-medium'
-                    : 'text-text-secondary hover:text-accent'
-                }`}
-                aria-current={isActive(item) ? 'page' : undefined}
-              >
-                {item.label}
-                {item.author && (
-                  <span className={`text-[10px] px-1 py-px rounded font-medium leading-none ${
-                    item.author === 'ai'
-                      ? 'bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400'
-                      : 'bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400'
-                  }`}>
-                    {item.author === 'ai' ? 'AI' : 'Terry'}
-                  </span>
-                )}
-              </Link>
-            ))}
+          <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-1">
+            {/* AI group */}
+            <span className="text-xs text-text-muted font-medium px-2 pb-1 pt-0.5">AI</span>
+            {aiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
+
+            {/* Separator */}
+            <div className="h-px bg-line-default my-2 mx-2" />
+
+            {/* Terry group */}
+            <span className="text-xs text-text-muted font-medium px-2 pb-1 pt-0.5">Terry</span>
+            {terryTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
+            <MobileTabLink item={aboutItem} />
           </nav>
         )}
       </div>

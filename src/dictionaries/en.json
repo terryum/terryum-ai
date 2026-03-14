@@ -28,16 +28,18 @@
       "title": "Papers",
       "description": "Reading notes on AI and robotics papers."
     },
-    "reviews": {
-      "title": "Reviews",
-      "description": "AI-generated reviews on products, books, and more."
+    "notes": {
+      "title": "Notes",
+      "description": "AI-generated notes on products, books, and more."
     }
   },
   "home": {
     "latest_ideas": "Latest Tech",
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Papers",
-    "latest_reviews": "Latest Reviews",
+    "latest_notes": "Latest Notes",
+    "latest_from_ai": "Latest from AI",
+    "latest_from_terry": "Latest from Terry",
     "view_all": "View all",
     "show_more": "Show more",
     "no_posts_yet": "No posts yet."

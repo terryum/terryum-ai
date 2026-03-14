@@ -3,7 +3,7 @@ import { getDictionary } from '@/lib/dictionaries';
 import { getAllPosts } from '@/lib/posts';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { TAB_CONFIG } from '@/lib/site-config';
-import { getPostsForTab } from '@/lib/tabs';
+import { normalizeTagSlug } from '@/lib/tags';
 import HeroSection from '@/components/HeroSection';
 import LatestSection from '@/components/LatestSection';
 import type { Metadata } from 'next';
@@ -26,13 +26,8 @@ export async function generateMetadata({
   };
 }
 
-// Map tab slugs to dictionary keys for section titles
-const TAB_DICT_KEY: Record<string, string> = {
-  ideas: 'latest_ideas',
-  essays: 'latest_essays',
-  research: 'latest_research',
-  reviews: 'latest_reviews',
-};
+const aiMatchTags = new Set(TAB_CONFIG.filter(t => t.author === 'ai').flatMap(t => t.matchTags));
+const terryMatchTags = new Set(TAB_CONFIG.filter(t => t.author === 'terry').flatMap(t => t.matchTags));
 
 export default async function HomePage({
   params,
@@ -46,15 +41,13 @@ export default async function HomePage({
   const bioContent = await getBioContent(lang);
   const allPosts = await getAllPosts(lang);
 
-  const sections = TAB_CONFIG
-    .slice()
-    .sort((a, b) => a.order - b.order)
-    .map(tab => ({
-      title: dict.home[TAB_DICT_KEY[tab.slug] as keyof typeof dict.home] || tab.slug,
-      href: `/${lang}/posts?tab=${tab.slug}`,
-      posts: getPostsForTab(allPosts, tab.slug),
-    }))
-;
+  const aiPosts = allPosts.filter(p => p.tags.some(tag => aiMatchTags.has(normalizeTagSlug(tag))));
+  const terryPosts = allPosts.filter(p => p.tags.some(tag => terryMatchTags.has(normalizeTagSlug(tag))));
+
+  const sections = [
+    { title: dict.home.latest_from_ai,    href: `/${lang}/posts`, posts: aiPosts    },
+    { title: dict.home.latest_from_terry, href: `/${lang}/posts`, posts: terryPosts },
+  ];
 
   return (
     <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
@@ -64,7 +57,7 @@ export default async function HomePage({
       {/* Dynamic sections from TAB_CONFIG */}
       {sections.map((section) => (
         <LatestSection
-          key={section.href}
+          key={section.href + section.title}
           title={section.title}
           viewAllHref={section.href}
           viewAllText={dict.home.view_all}
@@ -72,6 +65,8 @@ export default async function HomePage({
           posts={section.posts}
           locale={lang}
           emptyText={dict.home.no_posts_yet}
+          showTabTag={true}
+          hidePubDate={true}
         />
       ))}
     </div>
