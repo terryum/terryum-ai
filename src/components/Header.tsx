@@ -103,8 +103,8 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
             {/* AI group */}
-            <span className="text-xs text-text-muted font-medium px-1.5">AI</span>
-            <div className="flex items-center gap-4">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400">AI</span>
+            <div className="flex items-center gap-4 ml-1">
               {aiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
             </div>
 
@@ -112,8 +112,8 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
             <div className="w-px h-4 bg-line-default mx-2" />
 
             {/* Terry group */}
-            <span className="text-xs text-text-muted font-medium px-1.5">Terry</span>
-            <div className="flex items-center gap-4">
+            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400">Terry</span>
+            <div className="flex items-center gap-4 ml-1">
               {terryTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
               <TabLink item={aboutItem} />
             </div>
@@ -150,14 +150,14 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
         {mobileOpen && (
           <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-1">
             {/* AI group */}
-            <span className="text-xs text-text-muted font-medium px-2 pb-1 pt-0.5">AI</span>
+            <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none bg-violet-100 text-violet-600 dark:bg-violet-900/40 dark:text-violet-400">AI</span>
             {aiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
 
             {/* Separator */}
             <div className="h-px bg-line-default my-2 mx-2" />
 
             {/* Terry group */}
-            <span className="text-xs text-text-muted font-medium px-2 pb-1 pt-0.5">Terry</span>
+            <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none bg-sky-100 text-sky-600 dark:bg-sky-900/40 dark:text-sky-400">Terry</span>
             {terryTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
             <MobileTabLink item={aboutItem} />
           </nav>
