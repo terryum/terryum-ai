@@ -18,19 +18,19 @@
   "tabs_index": {
     "ideas": {
       "title": "Tech",
-      "description": "Thoughts on AI, Robotics, and change."
+      "description": "Terry writes about tech and how the future is changing."
     },
     "essays": {
       "title": "Essays",
-      "description": "Thoughts on people and life."
+      "description": "Terry shares thoughts that arise from the moments of everyday life."
     },
     "research": {
       "title": "Papers",
-      "description": "Reading notes on AI and robotics papers."
+      "description": "AI reads Physical AI papers and distills the key ideas."
     },
     "notes": {
       "title": "Notes",
-      "description": "AI-generated notes on products, books, and more."
+      "description": "AI analyzes papers and proposes new insights."
     }
   },
   "home": {

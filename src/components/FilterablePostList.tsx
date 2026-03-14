@@ -59,16 +59,24 @@ function FilterablePostListInner({
     return initialSelectedTags;
   });
 
-  // Reset tags when tab changes
+  const [starredOnly, setStarredOnly] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return new URLSearchParams(window.location.search).get('starred') === 'true';
+    }
+    return false;
+  });
+
+  // Reset tags and starred when tab changes
   const prevTabRef = useRef(selectedTab);
   useEffect(() => {
     if (prevTabRef.current !== selectedTab) {
       prevTabRef.current = selectedTab;
       setSelectedTags([]);
+      setStarredOnly(false);
     }
   }, [selectedTab]);
 
-  // Sync tags to URL
+  // Sync tags and starred to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     // Preserve existing tab param
@@ -78,12 +86,13 @@ function FilterablePostListInner({
     if (selectedTags.length > 0) {
       newParams.set('tags', selectedTags.join(','));
     }
+    if (starredOnly) newParams.set('starred', 'true');
     const qs = newParams.toString();
     const newUrl = qs
       ? `${window.location.pathname}?${qs}`
       : window.location.pathname;
     window.history.replaceState(null, '', newUrl);
-  }, [selectedTags]);
+  }, [selectedTags, starredOnly]);
 
   // Listen for popstate (back/forward)
   useEffect(() => {
@@ -91,6 +100,7 @@ function FilterablePostListInner({
       const params = new URLSearchParams(window.location.search);
       const tags = params.get('tags');
       setSelectedTags(tags ? tags.split(',').filter(t => t && !TAB_TAG_SLUGS.has(t)) : []);
+      setStarredOnly(params.get('starred') === 'true');
     }
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
@@ -117,6 +127,12 @@ function FilterablePostListInner({
       return selectedTags.every((sel) => postTagSlugs.includes(sel));
     });
   }, [tabFilteredPosts, selectedTags]);
+
+  // 3rd pass: filter by starred
+  const finalPosts = useMemo(() => {
+    if (!starredOnly) return filteredPosts;
+    return filteredPosts.filter(p => p.starred);
+  }, [filteredPosts, starredOnly]);
 
   // Compute available topic tags (excluding tab tags, display_tags takes priority)
   const availableTags = useMemo(() => {
@@ -148,6 +164,20 @@ function FilterablePostListInner({
       <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
       <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
 
+      {selectedTab === 'research' && (
+        <button
+          onClick={() => setStarredOnly(v => !v)}
+          className={`mb-3 inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-colors ${
+            starredOnly
+              ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-400'
+              : 'border-line-default text-text-muted hover:border-amber-300 hover:text-amber-600'
+          }`}
+        >
+          <span>★</span>
+          <span>Seminal</span>
+        </button>
+      )}
+
       <TagFilterBar
         availableTags={availableTags}
         selectedSlugs={selectedTags}
@@ -156,11 +186,11 @@ function FilterablePostListInner({
         showLessLabel={showLessLabel}
       />
 
-      {filteredPosts.length === 0 ? (
+      {finalPosts.length === 0 ? (
         <p className="text-text-muted py-8 text-center">{noResultsLabel}</p>
       ) : (
         <div>
-          {filteredPosts.map((post) => (
+          {finalPosts.map((post) => (
             <ContentCard key={post.post_id} post={post} locale={locale} />
           ))}
         </div>

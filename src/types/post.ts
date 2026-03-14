@@ -70,6 +70,7 @@ export interface PostMeta {
   terrys_memo?: string;
   newsletter_eligible?: boolean;
   featured?: boolean;
+  starred?: boolean;
   // AI Memory fields
   post_number?: number;
   domain?: string;

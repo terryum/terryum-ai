@@ -18,19 +18,19 @@
   "tabs_index": {
     "ideas": {
       "title": "Tech",
-      "description": "AI, Robotics, 그리고 변화에 대해 이야기 합니다."
+      "description": "Terry가 테크와 미래 변화에 대한 생각을 씁니다."
     },
     "essays": {
       "title": "Essays",
-      "description": "사람과 삶에 대해 이야기 합니다."
+      "description": "Terry가 일상에서 떠오른 생각을 나눕니다."
     },
     "research": {
       "title": "Papers",
-      "description": "AI·로보틱스 논문을 읽고 핵심 내용을 정리합니다."
+      "description": "AI가 피지컬AI 논문들을 읽고 핵심을 정리합니다."
     },
     "notes": {
       "title": "Notes",
-      "description": "AI가 작성한 제품, 도서 등 노트를 담습니다."
+      "description": "AI가 논문들을 분석해 새로운 인사이트를 제안합니다."
     }
   },
   "home": {

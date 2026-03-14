@@ -79,6 +79,9 @@ export default function ContentCard({ post, locale, showTabTag, hidePubDate }: C
         {/* Content */}
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug">
+            {post.starred && (
+              <span className="inline-block mr-1 text-amber-400" title="Seminal Paper">★</span>
+            )}
             {post.post_number != null && (
               <span className="font-mono text-xs text-text-muted mr-1.5">#{post.post_number}</span>
             )}
