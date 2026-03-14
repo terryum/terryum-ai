@@ -45,8 +45,8 @@ export default async function HomePage({
   const terryPosts = allPosts.filter(p => p.tags.some(tag => terryMatchTags.has(normalizeTagSlug(tag))));
 
   const sections = [
-    { title: dict.home.latest_from_ai,    href: `/${lang}/posts`, posts: aiPosts    },
     { title: dict.home.latest_from_terry, href: `/${lang}/posts`, posts: terryPosts },
+    { title: dict.home.latest_from_ai,    href: `/${lang}/posts`, posts: aiPosts    },
   ];
 
   return (
