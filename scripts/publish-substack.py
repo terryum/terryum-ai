@@ -39,7 +39,7 @@ except ImportError:
 
 import requests
 
-SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://onthemanifold.com")
+SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://terry.artlab.ai")
 SUBSTACK_COOKIE = os.environ.get("SUBSTACK_COOKIE", "")
 SUBSTACK_EN_URL = os.environ.get("NEXT_PUBLIC_SUBSTACK_EN_URL", "")
 SUBSTACK_KO_URL = os.environ.get("NEXT_PUBLIC_SUBSTACK_KO_URL", "")
@@ -120,12 +120,14 @@ def to_prosemirror(paragraphs: list[str], link: str, cta: str) -> str:
     for p in paragraphs:
         if p:
             content.append({"type": "paragraph", "content": [{"type": "text", "text": p}]})
+    # CTA 버튼 노드
     content.append({
-        "type": "paragraph",
-        "content": [
-            {"type": "text", "text": f"{cta} "},
-            {"type": "text", "marks": [{"type": "link", "attrs": {"href": link, "target": "_blank"}}], "text": link},
-        ],
+        "type": "button",
+        "attrs": {
+            "url": link,
+            "text": cta,
+            "alignment": "center",
+        },
     })
     return json.dumps({"type": "doc", "content": content})
 
@@ -139,7 +141,7 @@ def build_en_post(post: dict) -> tuple[str, str, str]:
     subtitle = summary  # 카드/이메일 헤더에 표시
     paragraphs = [p for p in [summary, card_summary] if p]
     link = f"{SITE_BASE_URL}/en/{post['content_type']}/{post['slug']}"
-    body = to_prosemirror(paragraphs, link, "Read the full article →")
+    body = to_prosemirror(paragraphs, link, "Read the full article")
     return title, subtitle, body
 
 
@@ -152,7 +154,7 @@ def build_ko_post(post: dict) -> tuple[str, str, str]:
     subtitle = summary
     paragraphs = [p for p in [summary, card_summary] if p]
     link = f"{SITE_BASE_URL}/ko/{post['content_type']}/{post['slug']}"
-    body = to_prosemirror(paragraphs, link, "전체 글 읽기 →")
+    body = to_prosemirror(paragraphs, link, "전체 글 읽기")
     return title, subtitle, body
 
 
