@@ -8,11 +8,9 @@ EN/KO Substack Publication에 티저 + 홈페이지 링크를 포스팅한다.
 사용법:
     python scripts/publish-substack.py [--dry-run] [--slug=<slug>]
 
-환경변수 (.env.local 또는 시스템 env):
-    SUBSTACK_COOKIE                 Substack 세션 쿠키 (권장, Cloudflare 우회)
-                                    Chrome → F12 → Application → Cookies → substack.com → substack.sid 값
-    SUBSTACK_EMAIL                  Substack 계정 이메일 (SUBSTACK_COOKIE 없을 때 fallback)
-    SUBSTACK_PASSWORD               Substack 계정 비밀번호 (SUBSTACK_COOKIE 없을 때 fallback)
+환경변수 (.env.local):
+    SUBSTACK_EMAIL                  Substack 계정 이메일
+    SUBSTACK_PASSWORD               Substack 계정 비밀번호
     NEXT_PUBLIC_SUBSTACK_EN_URL     영어 Substack URL (예: https://terry-en.substack.com)
     NEXT_PUBLIC_SUBSTACK_KO_URL     한국어 Substack URL (예: https://terry-ko.substack.com)
     SITE_BASE_URL                   홈페이지 베이스 URL (기본: https://onthemanifold.com)
@@ -37,7 +35,6 @@ except ImportError:
 import requests
 
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://onthemanifold.com")
-SUBSTACK_COOKIE = os.environ.get("SUBSTACK_COOKIE", "")   # 권장: substack.sid 쿠키값
 SUBSTACK_EMAIL = os.environ.get("SUBSTACK_EMAIL", "")
 SUBSTACK_PASSWORD = os.environ.get("SUBSTACK_PASSWORD", "")
 SUBSTACK_EN_URL = os.environ.get("NEXT_PUBLIC_SUBSTACK_EN_URL", "")
@@ -158,28 +155,13 @@ def get_subdomain(url: str) -> str:
 class SubstackClient:
     BASE = "https://substack.com"
 
-    def __init__(self, cookie: str = "", email: str = "", password: str = ""):
+    def __init__(self, email: str, password: str):
         self.session = requests.Session()
         self.session.headers.update({
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
             "Referer": "https://substack.com",
         })
-        if cookie:
-            self._auth_with_cookie(cookie)
-        elif email and password:
-            self._login(email, password)
-        else:
-            raise ValueError("SUBSTACK_COOKIE 또는 SUBSTACK_EMAIL+PASSWORD가 필요합니다.")
-
-    def _auth_with_cookie(self, cookie: str):
-        """브라우저 세션 쿠키로 인증 (Cloudflare 우회)."""
-        self.session.cookies.set("substack.sid", cookie, domain=".substack.com")
-        # 인증 확인
-        resp = self.session.get(f"{self.BASE}/api/v1/user/profile/self", timeout=15)
-        if resp.status_code != 200:
-            raise RuntimeError(f"쿠키 인증 실패 ({resp.status_code}) — 쿠키가 만료됐거나 잘못됐습니다.")
-        name = resp.json().get("name", "unknown")
-        print(f"  ✓ 쿠키 인증 성공 (user: {name})")
+        self._login(email, password)
 
     def _login(self, email: str, password: str):
         resp = self.session.post(
@@ -253,9 +235,8 @@ def main():
     args = parser.parse_args()
 
     if not args.dry_run:
-        if not SUBSTACK_COOKIE and not (SUBSTACK_EMAIL and SUBSTACK_PASSWORD):
-            print("Error: SUBSTACK_COOKIE 또는 SUBSTACK_EMAIL+SUBSTACK_PASSWORD가 필요합니다.", file=sys.stderr)
-            print("  권장: Chrome에서 substack.sid 쿠키를 복사해 SUBSTACK_COOKIE로 등록하세요.", file=sys.stderr)
+        if not (SUBSTACK_EMAIL and SUBSTACK_PASSWORD):
+            print("Error: .env.local에 SUBSTACK_EMAIL과 SUBSTACK_PASSWORD를 설정하세요.", file=sys.stderr)
             sys.exit(1)
 
     if not SUBSTACK_EN_URL and not SUBSTACK_KO_URL:
@@ -277,11 +258,7 @@ def main():
 
     client = None
     if not args.dry_run:
-        client = SubstackClient(
-            cookie=SUBSTACK_COOKIE,
-            email=SUBSTACK_EMAIL,
-            password=SUBSTACK_PASSWORD,
-        )
+        client = SubstackClient(SUBSTACK_EMAIL, SUBSTACK_PASSWORD)
 
     en_ok = ko_ok = False
 
