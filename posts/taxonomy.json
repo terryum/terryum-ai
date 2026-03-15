@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "nodes": {
+    "robotics": {
+      "label": { "ko": "로보틱스", "en": "Robotics" },
+      "children": ["robotics/arm", "robotics/hand", "robotics/leg", "robotics/brain"]
+    },
+    "robotics/arm": {
+      "label": { "ko": "팔·조작", "en": "Arm / Manipulation" },
+      "children": []
+    },
+    "robotics/hand": {
+      "label": { "ko": "손·파지", "en": "Hand / Grasping" },
+      "children": []
+    },
+    "robotics/leg": {
+      "label": { "ko": "다리·보행", "en": "Leg / Locomotion" },
+      "children": []
+    },
+    "robotics/brain": {
+      "label": { "ko": "로봇 두뇌", "en": "Robot Brain (VLA/Policy)" },
+      "children": []
+    },
+    "ai": {
+      "label": { "ko": "AI", "en": "AI" },
+      "children": ["ai/llm", "ai/rl", "ai/agent"]
+    },
+    "ai/llm": {
+      "label": { "ko": "LLM", "en": "LLM" },
+      "children": []
+    },
+    "ai/rl": {
+      "label": { "ko": "강화학습", "en": "Reinforcement Learning" },
+      "children": []
+    },
+    "ai/agent": {
+      "label": { "ko": "AI 에이전트", "en": "AI Agent" },
+      "children": []
+    }
+  }
+}

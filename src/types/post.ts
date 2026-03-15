@@ -18,7 +18,19 @@ export interface Reference {
 
 export interface PostRelation {
   target: string;
-  type: 'builds_on' | 'extends' | 'contradicts' | 'supports' | 'compares_with' | 'related' | 'inspired_by';
+  type:
+    | 'builds_on'
+    | 'extends'
+    | 'contradicts'
+    | 'supports'
+    | 'compares_with'
+    | 'uses_method'
+    | 'uses_dataset'
+    | 'addresses_task'
+    | 'inspired_by'
+    | 'fills_gap_of'
+    | 'identifies_limitation_of'
+    | 'related';
 }
 
 export interface AISummary {
@@ -38,7 +50,7 @@ export interface PostMeta {
   published_at: string;
   updated_at: string;
   status: 'draft' | 'published';
-  content_type: 'writing' | 'reading' | 'essay';
+  content_type: 'papers' | 'notes' | 'tech' | 'essays';
   tags: string[];
   display_tags?: string[];
   cover_image: string;
@@ -80,6 +92,9 @@ export interface PostMeta {
   contribution_type?: 'method' | 'benchmark' | 'survey' | 'theoretical' | 'system' | 'analysis';
   relations?: PostRelation[];
   ai_summary?: AISummary;
+  // Taxonomy
+  taxonomy_primary?: string;
+  taxonomy_secondary?: string[];
   // Ideas-specific
   idea_status?: 'hypothesis' | 'exploring' | 'validated' | 'abandoned' | 'incorporated';
   related_posts?: string[];

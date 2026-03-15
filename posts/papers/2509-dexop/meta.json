@@ -5,7 +5,7 @@
   "published_at": "2026-03-11T00:00:00+09:00",
   "updated_at": "2026-03-11T00:00:00+09:00",
   "status": "published",
-  "content_type": "reading",
+  "content_type": "papers",
   "tags": [
     "dexterous-manipulation",
     "exoskeleton",
@@ -165,15 +165,15 @@
   "relations": [
     {
       "target": "2505-dexumi",
-      "type": "related"
+      "type": "compares_with"
     },
     {
       "target": "2506-exostart",
-      "type": "related"
+      "type": "compares_with"
     },
     {
       "target": "2407-stretchable-glove-hand-pose",
-      "type": "related"
+      "type": "addresses_task"
     }
   ],
   "ai_summary": {
@@ -189,5 +189,9 @@
   "thumb_source": "./fig-7.png",
   "thumb_position": "centre",
   "citation_status": "failed",
-  "citation_updated_at": "2026-03-11T15:54:25.426Z"
+  "citation_updated_at": "2026-03-11T15:54:25.426Z",
+  "taxonomy_primary": "robotics/hand",
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ]
 }

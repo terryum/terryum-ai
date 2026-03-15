@@ -4,12 +4,15 @@ import { useState, useCallback, useMemo, useEffect, useRef, Suspense } from 'rea
 import { useSearchParams } from 'next/navigation';
 import TagFilterBar from './TagFilterBar';
 import ContentCard from './ContentCard';
+import TaxonomyFilter from './TaxonomyFilter';
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
 import { getPostsForTab } from '@/lib/tabs';
 import { getDisplayTags } from '@/lib/display';
 import type { PostMeta } from '@/types/post';
 import type { TagItem } from '@/types/tag';
+import type { TaxonomyNodeData } from '@/lib/content-page-helpers';
+import type { Locale } from '@/lib/i18n';
 
 interface TabTitleEntry {
   title: string;
@@ -17,7 +20,7 @@ interface TabTitleEntry {
 }
 
 interface FilterablePostListProps {
-  locale: string;
+  locale: Locale;
   posts: PostMeta[];
   allTags: TagItem[];
   initialSelectedTags: string[];
@@ -27,6 +30,8 @@ interface FilterablePostListProps {
   defaultTitle: string;
   defaultDescription: string;
   tabTitles?: Record<string, TabTitleEntry>;
+  taxonomyNodes?: Record<string, TaxonomyNodeData>;
+  taxonomyStats?: Record<string, number>;
 }
 
 function FilterablePostListInner({
@@ -40,6 +45,8 @@ function FilterablePostListInner({
   defaultTitle,
   defaultDescription,
   tabTitles,
+  taxonomyNodes = {},
+  taxonomyStats = {},
 }: FilterablePostListProps) {
   const searchParams = useSearchParams();
   const selectedTab = searchParams.get('tab');
@@ -62,13 +69,16 @@ function FilterablePostListInner({
     return false;
   });
 
-  // Reset tags and starred when tab changes
+  const [selectedTaxonomy, setSelectedTaxonomy] = useState<string | null>(null);
+
+  // Reset tags, starred, and taxonomy when tab changes
   const prevTabRef = useRef(selectedTab);
   useEffect(() => {
     if (prevTabRef.current !== selectedTab) {
       prevTabRef.current = selectedTab;
       setSelectedTags([]);
       setStarredOnly(false);
+      setSelectedTaxonomy(null);
     }
   }, [selectedTab]);
 
@@ -123,11 +133,28 @@ function FilterablePostListInner({
     });
   }, [tabFilteredPosts, selectedTags]);
 
-  // 3rd pass: filter by starred
+  // 3rd pass: filter by taxonomy (AND with tag filter)
+  const taxonomyFilteredPosts = useMemo(() => {
+    if (!selectedTaxonomy) return filteredPosts;
+    // Get all taxonomy nodes that are descendants of (or equal to) selectedTaxonomy
+    const matchNodes = new Set<string>();
+    matchNodes.add(selectedTaxonomy);
+    // Add child nodes
+    const node = taxonomyNodes[selectedTaxonomy];
+    if (node?.children) {
+      for (const child of node.children) matchNodes.add(child);
+    }
+    return filteredPosts.filter(p =>
+      (p.taxonomy_primary && matchNodes.has(p.taxonomy_primary)) ||
+      (p.taxonomy_secondary || []).some(s => matchNodes.has(s))
+    );
+  }, [filteredPosts, selectedTaxonomy, taxonomyNodes]);
+
+  // 4th pass: filter by starred
   const finalPosts = useMemo(() => {
-    if (!starredOnly) return filteredPosts;
-    return filteredPosts.filter(p => p.starred);
-  }, [filteredPosts, starredOnly]);
+    if (!starredOnly) return taxonomyFilteredPosts;
+    return taxonomyFilteredPosts.filter(p => p.starred);
+  }, [taxonomyFilteredPosts, starredOnly]);
 
   // Compute available topic tags (excluding tab tags, display_tags takes priority)
   const availableTags = useMemo(() => {
@@ -158,7 +185,17 @@ function FilterablePostListInner({
       <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
       <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
 
-      {selectedTab === 'research' && (
+      {selectedTab === 'papers' && Object.keys(taxonomyNodes).length > 0 && (
+        <TaxonomyFilter
+          locale={locale}
+          nodes={taxonomyNodes}
+          stats={taxonomyStats}
+          selectedTaxonomy={selectedTaxonomy}
+          onSelect={setSelectedTaxonomy}
+        />
+      )}
+
+      {selectedTab === 'papers' && (
         <button
           onClick={() => setStarredOnly(v => !v)}
           className={`mb-3 inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-colors ${

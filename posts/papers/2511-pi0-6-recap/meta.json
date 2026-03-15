@@ -5,7 +5,7 @@
   "published_at": "2026-03-07T00:00:00Z",
   "updated_at": "2026-03-07T00:00:00Z",
   "status": "published",
-  "content_type": "reading",
+  "content_type": "papers",
   "domain": "robotics",
   "subfields": [
     "manipulation",
@@ -43,7 +43,7 @@
     ]
   },
   "tags": [
-    "Research",
+    "Papers",
     "Robotics",
     "VLA",
     "Reinforcement Learning",
@@ -152,5 +152,6 @@
   ],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "taxonomy_primary": "robotics/brain"
 }

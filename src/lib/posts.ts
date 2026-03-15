@@ -5,8 +5,28 @@ import type { Post, PostMeta, FigureItem, Reference, PostRelation, AISummary } f
 import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath } from '@/lib/paths';
 
+const INDEX_PATH = path.join(process.cwd(), 'posts', 'index.json');
+const TAXONOMY_PATH = path.join(process.cwd(), 'posts', 'taxonomy.json');
+
+let _indexCache: Record<string, unknown> | null = null;
+let _taxonomyCache: Record<string, unknown> | null = null;
+
+export async function loadIndexJson(): Promise<Record<string, unknown>> {
+  if (_indexCache) return _indexCache;
+  const raw = await fs.readFile(INDEX_PATH, 'utf-8');
+  _indexCache = JSON.parse(raw) as Record<string, unknown>;
+  return _indexCache;
+}
+
+export async function loadTaxonomyJson(): Promise<Record<string, unknown>> {
+  if (_taxonomyCache) return _taxonomyCache;
+  const raw = await fs.readFile(TAXONOMY_PATH, 'utf-8');
+  _taxonomyCache = JSON.parse(raw) as Record<string, unknown>;
+  return _taxonomyCache;
+}
+
 const POSTS_DIR = path.join(process.cwd(), 'posts');
-const CATEGORIES = ['research', 'idea', 'essay'] as const;
+const CATEGORIES = ['papers', 'notes', 'tech', 'essays'] as const;
 
 async function readMetaJson(postDir: string): Promise<Record<string, unknown> | null> {
   try {
@@ -26,10 +46,11 @@ function stripUndefined(obj: Record<string, unknown>): Record<string, unknown> {
 }
 type PostCategory = (typeof CATEGORIES)[number];
 
-const CATEGORY_TO_CONTENT_TYPE: Record<PostCategory, 'reading' | 'writing' | 'essay'> = {
-  research: 'reading',
-  idea: 'writing',
-  essay: 'essay',
+const CATEGORY_TO_CONTENT_TYPE: Record<PostCategory, 'papers' | 'notes' | 'tech' | 'essays'> = {
+  papers: 'papers',
+  notes: 'notes',
+  tech: 'tech',
+  essays: 'essays',
 };
 
 async function resolvePostPath(
@@ -64,12 +85,11 @@ export async function getAllSlugs(): Promise<string[]> {
 function resolveContentType(
   data: Record<string, unknown>,
   category?: PostCategory
-): 'writing' | 'reading' | 'essay' {
+): 'papers' | 'notes' | 'tech' | 'essays' {
   if (category) return CATEGORY_TO_CONTENT_TYPE[category];
-  let ct = (data.content_type || data.kind || 'writing') as string;
-  if (ct === 'write' || ct === 'ideas') ct = 'writing';
-  if (ct === 'read' || ct === 'research') ct = 'reading';
-  return ct as 'writing' | 'reading' | 'essay';
+  const ct = (data.content_type as string) || 'tech';
+  if (ct === 'papers' || ct === 'notes' || ct === 'tech' || ct === 'essays') return ct;
+  return 'tech';
 }
 
 function normalizeTags(
@@ -78,7 +98,13 @@ function normalizeTags(
 ): string[] {
   const rawTags: string[] = (data.tags as string[]) || [];
   const tagSlugs = rawTags.map((t) => normalizeTagSlug(t));
-  const contentTypeTag = category === 'research' ? 'Research' : category === 'essay' ? 'Essays' : 'Ideas';
+  const contentTypeTagMap: Record<PostCategory, string> = {
+    papers: 'Papers',
+    notes: 'Notes',
+    tech: 'Tech',
+    essays: 'Essays',
+  };
+  const contentTypeTag = category ? contentTypeTagMap[category] : 'Tech';
   if (!tagSlugs.includes(normalizeTagSlug(contentTypeTag))) {
     rawTags.unshift(contentTypeTag);
   }
@@ -161,6 +187,8 @@ function normalizeMeta(
     ai_summary: data.ai_summary as AISummary | undefined,
     idea_status: data.idea_status as PostMeta['idea_status'],
     related_posts: data.related_posts as string[] | undefined,
+    taxonomy_primary: data.taxonomy_primary as string | undefined,
+    taxonomy_secondary: data.taxonomy_secondary as string[] | undefined,
   };
 }
 
@@ -191,7 +219,7 @@ export async function getPostMeta(slug: string, locale: string): Promise<PostMet
 
 export async function getPostsByType(
   locale: string,
-  contentType: 'writing' | 'reading' | 'essay'
+  contentType: 'papers' | 'notes' | 'tech' | 'essays'
 ): Promise<PostMeta[]> {
   const slugs = await getAllSlugs();
   const allMeta = await Promise.all(slugs.map((slug) => getPostMeta(slug, locale)));
@@ -209,7 +237,7 @@ export async function getPostsByType(
 
 export async function getLatestPosts(
   locale: string,
-  contentType: 'writing' | 'reading' | 'essay',
+  contentType: 'papers' | 'notes' | 'tech' | 'essays',
   limit: number
 ): Promise<PostMeta[]> {
   const posts = await getPostsByType(locale, contentType);
@@ -263,7 +291,7 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
 }
 
 export async function getPostParamsByType(
-  contentType: 'writing' | 'reading' | 'essay'
+  contentType: 'papers' | 'notes' | 'tech' | 'essays'
 ): Promise<{ lang: string; slug: string }[]> {
   const slugs = await getAllSlugs();
   const checks = slugs.flatMap((slug) =>

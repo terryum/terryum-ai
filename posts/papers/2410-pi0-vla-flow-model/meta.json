@@ -6,7 +6,7 @@
   "published_at": "2026-03-05T00:00:00Z",
   "updated_at": "2026-03-05T00:00:00Z",
   "status": "published",
-  "content_type": "reading",
+  "content_type": "papers",
   "domain": "robotics",
   "subfields": [
     "manipulation",
@@ -43,7 +43,7 @@
     ]
   },
   "tags": [
-    "Research",
+    "Papers",
     "Robotics",
     "VLA",
     "Foundation Model",
@@ -170,5 +170,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "starred": true
+  "starred": true,
+  "taxonomy_primary": "robotics/brain"
 }

@@ -40,6 +40,8 @@ export default async function PostsPage({
       initialSelectedTags={props.initialSelectedTags}
       filterDict={props.filterDict}
       tabTitles={props.tabTitles}
+      taxonomyNodes={props.taxonomyNodes}
+      taxonomyStats={props.taxonomyStats}
     />
   );
 }

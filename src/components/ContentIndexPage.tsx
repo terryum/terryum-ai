@@ -3,6 +3,8 @@ import FilterablePostList from './FilterablePostList';
 import { Container } from './ui/Container';
 import type { PostMeta } from '@/types/post';
 import type { TagItem } from '@/types/tag';
+import type { TaxonomyNodeData } from '@/lib/content-page-helpers';
+import type { Locale } from '@/lib/i18n';
 
 interface FilterDict {
   show_more: string;
@@ -16,7 +18,7 @@ interface TabTitleEntry {
 }
 
 interface ContentIndexPageProps {
-  locale: string;
+  locale: Locale | string;
   title: string;
   description: string;
   posts: PostMeta[];
@@ -24,6 +26,8 @@ interface ContentIndexPageProps {
   initialSelectedTags?: string[];
   filterDict?: FilterDict;
   tabTitles?: Record<string, TabTitleEntry>;
+  taxonomyNodes?: Record<string, TaxonomyNodeData>;
+  taxonomyStats?: Record<string, number>;
 }
 
 export default function ContentIndexPage({
@@ -35,12 +39,14 @@ export default function ContentIndexPage({
   initialSelectedTags,
   filterDict,
   tabTitles,
+  taxonomyNodes,
+  taxonomyStats,
 }: ContentIndexPageProps) {
   return (
     <Container className="py-10">
       {allTags && filterDict ? (
         <FilterablePostList
-          locale={locale}
+          locale={locale as Locale}
           posts={posts}
           allTags={allTags}
           initialSelectedTags={initialSelectedTags || []}
@@ -50,6 +56,8 @@ export default function ContentIndexPage({
           defaultTitle={title}
           defaultDescription={description}
           tabTitles={tabTitles}
+          taxonomyNodes={taxonomyNodes}
+          taxonomyStats={taxonomyStats}
         />
       ) : (
         <>

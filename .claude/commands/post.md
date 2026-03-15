@@ -6,22 +6,43 @@
 
 1. `docs/RESEARCH_SUMMARY_RULES.md` 읽기 (요약 규칙)
 2. URL 파싱 → arXiv ID 추출, 슬러그 결정 (`YYMM-<short-name>`)
-3. `https://export.arxiv.org/abs/<id>` API로 메타데이터 수집 (제목, 저자, 초록, v1 제출일)
-4. PDF 다운로드 → `posts/research/<slug>/paper/<slug>.pdf`
+3. **Graph Analysis** (새 논문 추가 전):
+   a. `posts/index.json` 로드 → `concept_index`, `posts` 배열 확인
+   b. 새 논문의 key_concepts와 기존 논문의 concept_index 비교
+   c. **taxonomy 배치 제안**:
+      - `posts/taxonomy.json`의 nodes 확인
+      - primary: key_concepts/domain에서 가장 자연스러운 taxonomy 노드 (예: VLA → `robotics/brain`)
+      - secondary: 두 번째 겹침 노드 (있으면, 예: force + VLA → `robotics/arm`)
+   d. **관계 후보 생성**:
+      - concept 2개+ 겹침 → `related`
+      - 같은 VLA/method + 이 논문이 개선 → `builds_on` 또는 `extends`
+      - 같은 task, 다른 방법 → `compares_with`
+      - 기존 논문의 한계를 보완 → `fills_gap_of`
+   e. **outlier 판단**: 기존 clusters와 concept 겹침이 1개 이하이면 경고 출력
+   f. meta.json 생성 전에 아래를 출력:
+      ```
+      📊 Graph Context:
+      - Taxonomy: robotics/brain (primary), robotics/arm (secondary)
+      - Related: [slug] (builds_on), [slug] (compares_with)
+      - Clusters: vla-robotics 클러스터에 합류
+      ```
+4. `https://export.arxiv.org/abs/<id>` API로 메타데이터 수집 (제목, 저자, 초록, v1 제출일)
+5. PDF 다운로드 → `posts/research/<slug>/paper/<slug>.pdf`
    - URL: `https://arxiv.org/pdf/<id>`
-5. arXiv HTML에서 Figure 추출 시도:
+6. arXiv HTML에서 Figure 추출 시도:
    - `GET https://arxiv.org/html/<id>v1/` → 200이면 img src 전수 추출 + 다운로드
    - **404이면 즉시 PDF fallback** (Semantic Scholar 등 외부 사이트 탐색 금지):
      a. `python scripts/extract-paper-pdf.py posts/research/<slug>/paper/<slug>.pdf posts/research/<slug>/`
      b. `extraction_report.json` 읽기 → figures/captions 자동 적용
      c. `suggested_cover`를 `cover.webp`로 PIL 변환
-6. `docs/RESEARCH_SUMMARY_RULES.md` 기준으로 `ko.mdx` + `en.mdx` 생성
+7. `docs/RESEARCH_SUMMARY_RULES.md` 기준으로 `ko.mdx` + `en.mdx` 생성
    - frontmatter: title, summary, card_summary, cover_caption, published_at (현재 ISO), source_type, source_url, source_date, display_tags, figures, tables, references
-7. `meta.json` 생성 — **status 항상 `"published"`** (draft 옵션 없음), `--featured` 시 `featured: true`
+8. `meta.json` 생성 — **status 항상 `"published"`** (draft 옵션 없음), `--featured` 시 `featured: true`
    - `display_tags`: `--tags=` 값, `terrys_memo`: `--memo=` 값
-8. `node scripts/generate-index.mjs` 실행
-9. `npm run build` 검증 (실패 시 에러 수정 후 재실행)
-10. `git add posts/ public/posts/ && git commit -m "feat(post): add <slug> (ko/en)" && git push`
+   - **Graph Analysis 결과 포함**: `taxonomy_primary`, `taxonomy_secondary`, `relations` (타입 명확히)
+9. `node scripts/generate-index.mjs` 실행
+10. `npm run build` 검증 (실패 시 에러 수정 후 재실행)
+11. `git add posts/ public/posts/ && git commit -m "feat(post): add <slug> (ko/en)" && git push`
 
 ## 플래그 파싱 규칙
 

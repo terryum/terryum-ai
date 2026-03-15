@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-03-13T21:11:51.488Z",
+  "generated_at": "2026-03-15T05:09:55.448Z",
   "total_posts": 11,
   "posts": [
     {
       "post_number": 1,
       "slug": "2505-forcevla-force-aware-moe",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
       "title_ko": "ForceVLA: 접촉이 많은 조작을 위한 힘 인식 MoE 기반 VLA 모델",
       "domain": "robotics",
@@ -26,7 +26,7 @@
       ],
       "contribution_type": "method",
       "tags": [
-        "Research",
+        "Papers",
         "Robotics",
         "VLA",
         "Force Sensing",
@@ -55,16 +55,20 @@
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "uses_method"
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ]
     },
     {
       "post_number": 2,
       "slug": "2410-pi0-vla-flow-model",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
       "title_ko": "π₀: 범용 로봇 제어를 위한 비전-언어-행동 Flow 모델",
       "domain": "robotics",
@@ -86,7 +90,7 @@
       ],
       "contribution_type": "method",
       "tags": [
-        "Research",
+        "Papers",
         "Robotics",
         "VLA",
         "Foundation Model",
@@ -116,12 +120,14 @@
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": []
     },
     {
       "post_number": 3,
       "slug": "2501-dexforce-force-informed-actions",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
       "title_ko": "DexForce: Kinesthetic 시연의 접촉 힘을 활용한 Dexterous Manipulation",
       "domain": "robotics",
@@ -142,7 +148,7 @@
       ],
       "contribution_type": "method",
       "tags": [
-        "Research",
+        "Papers",
         "Robotics",
         "Dexterous Manipulation",
         "Force Control",
@@ -171,12 +177,14 @@
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/arm",
+      "taxonomy_secondary": []
     },
     {
       "post_number": 4,
       "slug": "2511-pi0-6-recap",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "π₀.₆: a VLA That Learns From Experience",
       "title_ko": "π₀.₆: 경험으로부터 배우는 VLA",
       "domain": "robotics",
@@ -199,7 +207,7 @@
       ],
       "contribution_type": "method",
       "tags": [
-        "Research",
+        "Papers",
         "Robotics",
         "VLA",
         "Reinforcement Learning",
@@ -228,12 +236,14 @@
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": []
     },
     {
       "post_number": 5,
       "slug": "260310-on-the-manifold-frist-post",
-      "content_type": "writing",
+      "content_type": "essays",
       "title_en": "260310-on-the-manifold-frist-post",
       "title_ko": "260310-on-the-manifold-frist-post",
       "domain": "robotics",
@@ -248,7 +258,7 @@
       "methodology": [],
       "contribution_type": null,
       "tags": [
-        "Ideas",
+        "Essays",
         "AI",
         "Physical AI",
         "Research Philosophy"
@@ -272,12 +282,14 @@
       "related_posts": [
         "2410-pi0-vla-flow-model",
         "2505-forcevla-force-aware-moe"
-      ]
+      ],
+      "taxonomy_primary": null,
+      "taxonomy_secondary": []
     },
     {
       "post_number": 6,
       "slug": "2407-stretchable-glove-hand-pose",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
       "title_ko": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
       "domain": "robotics",
@@ -302,7 +314,7 @@
       ],
       "contribution_type": "system",
       "tags": [
-        "Research",
+        "Papers",
         "Robotics",
         "Wearable",
         "Hand Tracking",
@@ -326,12 +338,14 @@
       },
       "relations": [],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand",
+      "taxonomy_secondary": []
     },
     {
       "post_number": 7,
       "slug": "260310-brain-augmentation",
-      "content_type": "writing",
+      "content_type": "tech",
       "title_en": "260310-brain-augmentation",
       "title_ko": "260310-brain-augmentation",
       "domain": "ml",
@@ -348,7 +362,7 @@
       "methodology": [],
       "contribution_type": null,
       "tags": [
-        "Ideas",
+        "Tech",
         "AI",
         "Human-AI Collaboration",
         "AI Scientist"
@@ -371,12 +385,14 @@
       "idea_status": "exploring",
       "related_posts": [
         "260310-on-the-manifold-frist-post"
-      ]
+      ],
+      "taxonomy_primary": null,
+      "taxonomy_secondary": []
     },
     {
       "post_number": 8,
       "slug": "2505-dexumi",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
       "title_ko": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
       "domain": "robotics",
@@ -431,11 +447,11 @@
       "relations": [
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "related"
+          "type": "compares_with"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "addresses_task"
         },
         {
           "target": "2505-forcevla-force-aware-moe",
@@ -443,12 +459,16 @@
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/arm",
+      "taxonomy_secondary": [
+        "robotics/hand"
+      ]
     },
     {
       "post_number": 9,
       "slug": "2506-exostart",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "ExoStart: Learning Dexterous Manipulation from ~10 Exoskeleton Demos",
       "title_ko": "ExoStart: Exoskeleton 시연 10개로 Dexterous Manipulation 학습",
       "domain": "robotics",
@@ -500,24 +520,26 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "related"
+          "type": "compares_with"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "addresses_task"
         },
         {
           "target": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "addresses_task"
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/arm",
+      "taxonomy_secondary": []
     },
     {
       "post_number": 10,
       "slug": "2509-dexop",
-      "content_type": "reading",
+      "content_type": "papers",
       "title_en": "DEXOP: Passive Exoskeleton That Mechanically Links Human and Robot Fingers",
       "title_ko": "DEXOP: 인간 손가락을 로봇 손가락에 기계적으로 연결하는 Passive Exoskeleton",
       "domain": "robotics",
@@ -569,26 +591,30 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "related"
+          "type": "compares_with"
         },
         {
           "target": "2506-exostart",
-          "type": "related"
+          "type": "compares_with"
         },
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "related"
+          "type": "addresses_task"
         }
       ],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ]
     },
     {
       "post_number": 11,
       "slug": "2502-ai-co-scientist",
-      "content_type": "reading",
-      "title_en": "Towards an AI co-scientist",
-      "title_ko": "Towards an AI co-scientist",
+      "content_type": "papers",
+      "title_en": "AI co-scientist: A Multi-Agent System for Iterative Hypothesis Generation, Debate, and Evolution",
+      "title_ko": "AI co-scientist: 가설 생성·토론·진화를 반복하는 과학 연구 멀티에이전트 시스템",
       "domain": "ml",
       "subfields": [
         "scientific-discovery",
@@ -617,7 +643,7 @@
       ],
       "contribution_type": "system",
       "tags": [
-        "Research",
+        "Papers",
         "AI",
         "Multi-Agent",
         "Scientific Discovery",
@@ -643,7 +669,9 @@
       },
       "relations": [],
       "idea_status": null,
-      "related_posts": null
+      "related_posts": null,
+      "taxonomy_primary": "ai/agent",
+      "taxonomy_secondary": []
     }
   ],
   "knowledge_graph": {
@@ -656,7 +684,7 @@
       {
         "from": "2505-forcevla-force-aware-moe",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
+        "type": "uses_method"
       },
       {
         "from": "2410-pi0-vla-flow-model",
@@ -676,12 +704,12 @@
       {
         "from": "2505-dexumi",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "type": "compares_with"
       },
       {
         "from": "2505-dexumi",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
+        "type": "addresses_task"
       },
       {
         "from": "2505-dexumi",
@@ -691,33 +719,86 @@
       {
         "from": "2506-exostart",
         "to": "2505-dexumi",
-        "type": "related"
+        "type": "compares_with"
       },
       {
         "from": "2506-exostart",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
+        "type": "addresses_task"
       },
       {
         "from": "2506-exostart",
         "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
+        "type": "addresses_task"
       },
       {
         "from": "2509-dexop",
         "to": "2505-dexumi",
-        "type": "related"
+        "type": "compares_with"
       },
       {
         "from": "2509-dexop",
         "to": "2506-exostart",
-        "type": "related"
+        "type": "compares_with"
       },
       {
         "from": "2509-dexop",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "type": "addresses_task"
       }
+    ],
+    "clusters": [
+      {
+        "id": "robotics-brain",
+        "label": "robotics/brain",
+        "post_numbers": [
+          1,
+          2,
+          4
+        ],
+        "core_concepts": [
+          "VLA",
+          "flow-matching"
+        ],
+        "taxonomy_nodes": [
+          "robotics/brain"
+        ]
+      },
+      {
+        "id": "robotics-arm",
+        "label": "robotics/arm",
+        "post_numbers": [
+          3,
+          8,
+          9
+        ],
+        "core_concepts": [
+          "exoskeleton"
+        ],
+        "taxonomy_nodes": [
+          "robotics/arm"
+        ]
+      },
+      {
+        "id": "robotics-hand",
+        "label": "robotics/hand",
+        "post_numbers": [
+          6,
+          10
+        ],
+        "core_concepts": [],
+        "taxonomy_nodes": [
+          "robotics/hand"
+        ]
+      }
+    ],
+    "bridge_papers": [
+      1,
+      8,
+      10
+    ],
+    "outlier_papers": [
+      11
     ]
   },
   "concept_index": {
@@ -897,5 +978,13 @@
   "domain_stats": {
     "robotics": 9,
     "ml": 2
+  },
+  "taxonomy_stats": {
+    "robotics/brain": 3,
+    "robotics/arm:secondary": 2,
+    "robotics/arm": 3,
+    "robotics/hand": 2,
+    "robotics/hand:secondary": 1,
+    "ai/agent": 1
   }
 }

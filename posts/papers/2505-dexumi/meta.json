@@ -5,7 +5,7 @@
   "published_at": "2026-03-11T00:00:00+09:00",
   "updated_at": "2026-03-11T00:00:00+09:00",
   "status": "published",
-  "content_type": "reading",
+  "content_type": "papers",
   "tags": [
     "dexterous-manipulation",
     "teleoperation",
@@ -153,11 +153,11 @@
   "relations": [
     {
       "target": "2407-stretchable-glove-hand-pose",
-      "type": "related"
+      "type": "compares_with"
     },
     {
       "target": "2501-dexforce-force-informed-actions",
-      "type": "related"
+      "type": "addresses_task"
     },
     {
       "target": "2505-forcevla-force-aware-moe",
@@ -178,5 +178,9 @@
   "thumb_source": "./fig-5.png",
   "thumb_position": "top",
   "citation_status": "failed",
-  "citation_updated_at": "2026-03-11T15:54:16.423Z"
+  "citation_updated_at": "2026-03-11T15:54:16.423Z",
+  "taxonomy_primary": "robotics/arm",
+  "taxonomy_secondary": [
+    "robotics/hand"
+  ]
 }

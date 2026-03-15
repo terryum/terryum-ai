@@ -25,7 +25,7 @@ function getTabLabel(post: PostMeta, locale: string): string | null {
 
 export default function ContentCard({ post, locale, showTabTag, hidePubDate }: ContentCardProps) {
   const href = `/${locale}/posts/${post.slug}`;
-  const isReading = post.content_type === 'reading';
+  const isReading = post.content_type === 'papers';
 
   // Reading: show source_date (or published_at fallback) in year/month format
   // Writing/Essay: show published_at with full date

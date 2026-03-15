@@ -29,7 +29,7 @@ export default async function PostDetailPage({
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang, slug } = await params;
-  const { locale, post, content, alternateLocale, labels } =
+  const { locale, post, content, alternateLocale, labels, relatedPosts, taxonomyBreadcrumb } =
     await buildContentDetailProps(lang, slug);
 
   return (
@@ -38,6 +38,8 @@ export default async function PostDetailPage({
       meta={post.meta}
       alternateLocale={alternateLocale}
       labels={labels}
+      relatedPosts={relatedPosts}
+      taxonomyBreadcrumb={taxonomyBreadcrumb}
     >
       {content}
     </ContentDetailPage>

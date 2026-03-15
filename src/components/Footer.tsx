@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { Container } from './ui/Container';
 import { SITE_CONFIG } from '@/lib/site-config';
+import SubstackSubscribe from './SubstackSubscribe';
+import type { Locale } from '@/lib/i18n';
 
 interface FooterProps {
   copyright: string;
-  locale: string;
+  locale: Locale;
 }
 
 export default function Footer({ copyright, locale }: FooterProps) {
@@ -12,7 +14,8 @@ export default function Footer({ copyright, locale }: FooterProps) {
 
   return (
     <footer className="border-t border-line-default mt-16">
-      <Container className="py-8">
+      <Container className="py-8 flex flex-col gap-4">
+        <SubstackSubscribe locale={locale} variant="footer" />
         <div className="flex items-center justify-between">
           <Link
             href={`/${locale}`}

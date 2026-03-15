@@ -5,7 +5,7 @@
   "published_at": "2026-03-11T00:00:00+09:00",
   "updated_at": "2026-03-11T00:00:00+09:00",
   "status": "published",
-  "content_type": "reading",
+  "content_type": "papers",
   "tags": [
     "dexterous-manipulation",
     "exoskeleton",
@@ -159,15 +159,15 @@
   "relations": [
     {
       "target": "2505-dexumi",
-      "type": "related"
+      "type": "compares_with"
     },
     {
       "target": "2501-dexforce-force-informed-actions",
-      "type": "related"
+      "type": "addresses_task"
     },
     {
       "target": "2505-forcevla-force-aware-moe",
-      "type": "related"
+      "type": "addresses_task"
     }
   ],
   "ai_summary": {
@@ -183,5 +183,6 @@
   "thumb_source": "./fig-3.png",
   "thumb_position": "centre",
   "citation_status": "failed",
-  "citation_updated_at": "2026-03-11T15:54:22.496Z"
+  "citation_updated_at": "2026-03-11T15:54:22.496Z",
+  "taxonomy_primary": "robotics/arm"
 }
