@@ -44,9 +44,7 @@ export default function ContentDetailPage({
   relatedPosts = [],
   taxonomyBreadcrumb = [],
 }: ContentDetailPageProps) {
-  const tabSlug =
-    meta.content_type === 'reading' ? 'research' :
-    meta.content_type === 'essay'   ? 'essays'   : 'ideas';
+  const tabSlug = meta.content_type;
   const section = `posts?tab=${tabSlug}`;
   const dateStr = formatPostDate(meta.published_at, locale);
 
@@ -115,7 +113,7 @@ export default function ContentDetailPage({
       </header>
 
       {/* Source info block (reading only) */}
-      {meta.content_type === 'reading' && (
+      {meta.content_type === 'papers' && (
         <SourceInfoBlock
           sourceUrl={meta.source_url}
           sourceTitle={meta.source_title}
@@ -160,7 +158,7 @@ export default function ContentDetailPage({
       />
 
       {/* Related Papers (reading type only) */}
-      {meta.content_type === 'reading' && (
+      {meta.content_type === 'papers' && (
         <RelatedPapers locale={locale} relatedPosts={relatedPosts} />
       )}
 

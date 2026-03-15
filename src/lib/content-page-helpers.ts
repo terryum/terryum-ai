@@ -148,7 +148,7 @@ export async function buildContentDetailProps(
   let relatedPosts: RelatedPostData[] = [];
   let taxonomyBreadcrumb: { id: string; label: { ko: string; en: string } }[] = [];
 
-  if (post.meta.content_type === 'reading') {
+  if (post.meta.content_type === 'papers') {
     const [indexData, taxonomyData] = await Promise.all([loadIndexJson(), loadTaxonomyJson()]);
     const posts = indexData.posts as Array<{
       slug: string;

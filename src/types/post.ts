@@ -50,7 +50,7 @@ export interface PostMeta {
   published_at: string;
   updated_at: string;
   status: 'draft' | 'published';
-  content_type: 'writing' | 'reading' | 'essay';
+  content_type: 'papers' | 'notes' | 'tech' | 'essays';
   tags: string[];
   display_tags?: string[];
   cover_image: string;

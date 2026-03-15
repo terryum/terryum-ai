@@ -1,9 +1,9 @@
 {
   "tags": [
-    { "slug": "ideas",    "label": { "ko": "Tech",    "en": "Tech"    }, "category": "tab" },
-    { "slug": "essays",   "label": { "ko": "Essays",  "en": "Essays"  }, "category": "tab" },
-    { "slug": "research", "label": { "ko": "Papers",  "en": "Papers"  }, "category": "tab" },
-    { "slug": "notes",    "label": { "ko": "Notes",   "en": "Notes"   }, "category": "tab" },
+    { "slug": "tech",    "label": { "ko": "Tech",    "en": "Tech"    }, "category": "tab" },
+    { "slug": "essays",  "label": { "ko": "Essays",  "en": "Essays"  }, "category": "tab" },
+    { "slug": "papers",  "label": { "ko": "Papers",  "en": "Papers"  }, "category": "tab" },
+    { "slug": "notes",   "label": { "ko": "Notes",   "en": "Notes"   }, "category": "tab" },
     { "slug": "robotics", "label": { "ko": "Robotics", "en": "Robotics" }, "category": "topic" },
     { "slug": "vla", "label": { "ko": "VLA", "en": "VLA" }, "category": "topic" },
     { "slug": "force-sensing", "label": { "ko": "Force Sensing", "en": "Force Sensing" }, "category": "topic" },

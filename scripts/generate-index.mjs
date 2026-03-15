@@ -15,7 +15,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const POSTS_DIR = path.join(ROOT, 'posts');
-const CATEGORIES = ['research', 'idea', 'essay'];
+const CATEGORIES = ['papers', 'notes', 'tech', 'essays'];
 
 async function readFrontmatter(filePath) {
   try {
@@ -66,7 +66,7 @@ async function collectPosts() {
       posts.push({
         post_number: meta.post_number ?? null,
         slug: meta.slug || slug,
-        content_type: meta.content_type || (cat === 'research' ? 'reading' : cat === 'essay' ? 'essay' : 'writing'),
+        content_type: meta.content_type || cat,
         title_en: enFm.title || meta.source_title || slug,
         title_ko: koFm.title || meta.source_title || slug,
         domain: meta.domain || null,
@@ -200,7 +200,7 @@ function buildKnowledgeGraph(posts) {
   // Identify outlier papers: no taxonomy_primary or taxonomy_primary not in any cluster
   const outlierPapers = [];
   for (const post of posts) {
-    if (!post.post_number || post.content_type !== 'reading') continue;
+    if (!post.post_number || post.content_type !== 'papers') continue;
     if (!post.taxonomy_primary) {
       outlierPapers.push(post.post_number);
       continue;

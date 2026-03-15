@@ -5,22 +5,40 @@
   "published_at": "2026-03-10T00:00:00Z",
   "updated_at": "2026-03-10T00:00:00Z",
   "status": "published",
-  "content_type": "writing",
-  "tags": ["Ideas", "AI", "Human-AI Collaboration", "AI Scientist"],
+  "content_type": "tech",
+  "tags": [
+    "Tech",
+    "AI",
+    "Human-AI Collaboration",
+    "AI Scientist"
+  ],
   "cover_image": "./cover.webp",
   "thumb_source": "./thumbnail_brain.png",
   "reading_time_min": 3,
   "domain": "ml",
-  "subfields": ["ai-research-methodology", "human-ai-collaboration"],
-  "key_concepts": ["brain-augmentation", "ai-scientist", "self-evolving-ai", "research-methodology"],
+  "subfields": [
+    "ai-research-methodology",
+    "human-ai-collaboration"
+  ],
+  "key_concepts": [
+    "brain-augmentation",
+    "ai-scientist",
+    "self-evolving-ai",
+    "research-methodology"
+  ],
   "idea_status": "exploring",
-  "related_posts": ["260310-on-the-manifold-frist-post"],
+  "related_posts": [
+    "260310-on-the-manifold-frist-post"
+  ],
   "ai_summary": {
     "one_liner": "AI-centered research: building environments where AI scientists can sustain self-improving knowledge creation",
     "problem": "Traditional human-centered research cannot keep pace with AI's growing capabilities in reading, reasoning, and generating knowledge",
     "solution": "Build a collaborative space where AI scientists can explore, connect dots, and self-amplify knowledge beyond human mediation",
     "key_result": "Establishes the vision for AI-centered research and the purpose of this site as an AI scientist's laboratory",
-    "limitations": ["Vision-level post", "No concrete implementation details"]
+    "limitations": [
+      "Vision-level post",
+      "No concrete implementation details"
+    ]
   },
   "figures": [],
   "tables": [],

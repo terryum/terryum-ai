@@ -185,7 +185,7 @@ function FilterablePostListInner({
       <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
       <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
 
-      {selectedTab === 'research' && Object.keys(taxonomyNodes).length > 0 && (
+      {selectedTab === 'papers' && Object.keys(taxonomyNodes).length > 0 && (
         <TaxonomyFilter
           locale={locale}
           nodes={taxonomyNodes}
@@ -195,7 +195,7 @@ function FilterablePostListInner({
         />
       )}
 
-      {selectedTab === 'research' && (
+      {selectedTab === 'papers' && (
         <button
           onClick={() => setStarredOnly(v => !v)}
           className={`mb-3 inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-colors ${

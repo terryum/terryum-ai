@@ -16,7 +16,7 @@
     "description": "Writings on AI, robotics, startups, and manufacturing innovation."
   },
   "tabs_index": {
-    "ideas": {
+    "tech": {
       "title": "Tech",
       "description": "Terry writes about tech and how the future is changing."
     },
@@ -24,7 +24,7 @@
       "title": "Essays",
       "description": "Terry shares thoughts that arise from the moments of everyday life."
     },
-    "research": {
+    "papers": {
       "title": "Papers",
       "description": "AI reads Physical AI papers and distills the key ideas."
     },
