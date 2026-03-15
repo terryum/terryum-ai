@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-15T04:34:04.542Z",
+  "generated_at": "2026-03-15T04:55:57.952Z",
   "total_posts": 11,
   "posts": [
     {
@@ -243,7 +243,7 @@
     {
       "post_number": 5,
       "slug": "260310-on-the-manifold-frist-post",
-      "content_type": "writing",
+      "content_type": "essay",
       "title_en": "260310-on-the-manifold-frist-post",
       "title_ko": "260310-on-the-manifold-frist-post",
       "domain": "robotics",
@@ -258,7 +258,7 @@
       "methodology": [],
       "contribution_type": null,
       "tags": [
-        "Ideas",
+        "Essays",
         "AI",
         "Physical AI",
         "Research Philosophy"
