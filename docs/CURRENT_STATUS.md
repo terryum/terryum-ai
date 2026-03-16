@@ -4,8 +4,8 @@
 
 ## 1) 세션 스냅샷
 - 마지막 업데이트: 2026-03-16 (KST)
-- 현재 단계: Social Media 자동 공유 v2 구현 완료 (main 브랜치)
-- 전체 진행도(대략): 100% (dry run 검증 완료)
+- 현재 단계: OG 이미지 수정 완료 + Social Media v2 전체 구현 완료
+- 전체 진행도(대략): 100% (빌드 TypeScript 검증 완료)
 
 ## 2) 지금 기준 핵심 결정 (최대 5개)
 - 인프라: Cloudflare(도메인/DNS/CDN) + Vercel(배포+SSL) + GitHub
@@ -29,22 +29,31 @@
   - 플랫폼별 독립 캐시 (`.social-published.json`)
   - 토큰 만료 경고 (45일 warn / 60일 skip)
   - `docs/PLAN_SOCIAL_MEDIA_V2.md` — 토큰 갱신 가이드 포함
+- [x] **OG 이미지 수정**:
+  - `src/app/robots.ts` — 소셜 봇 허용 (facebookexternalhit, Twitterbot, LinkedInBot)
+  - `src/app/posts/[slug]/page.tsx` — generateMetadata 추가 + AutoRedirect 클라이언트 컴포넌트
+  - `src/app/posts/[slug]/AutoRedirect.tsx` — 쿠키/navigator.language 기반 클라이언트 리디렉트
+  - `scripts/generate-og-image.mjs` — cover.webp → og.png (1200×630) 변환
+  - `public/posts/*/og.png` — 11개 포스트 OG 이미지 생성 완료
 
 ## 4) 진행 중 / 막힘
-- 없음 (코드 구현 완료, 토큰 등록 대기 중)
+- 없음 (코드 구현 완료, Vercel 배포 후 Facebook Sharing Debugger 검증 필요)
 
 ## 5) 다음 3개 작업 (우선순위)
-1. **소셜미디어 사전 조건 완료** (사용자 직접 수행):
+1. **Vercel 배포 및 OG 검증**:
+   - `git add public/posts/*/og.png` 후 커밋/푸시
+   - Facebook Sharing Debugger → URL 입력 → "Scrape Again"으로 이미지 확인
+2. **소셜미디어 사전 조건 완료** (사용자 직접 수행):
    - Facebook Page 생성 → Page ID 확인 → Long-lived Token 발급
    - Threads OAuth 토큰 발급 (graph.threads.net)
    - LinkedIn OAuth 2.0 토큰 발급 (w_member_social 스코프)
    - X Developer Portal → App 생성 → OAuth 1.0a Access Token
-2. **GitHub Secrets 등록** (13개 환경변수)
-3. **실제 발행 테스트**: `python scripts/publish-social.py --slug=<slug>`
+3. **GitHub Secrets 등록** (13개 환경변수) + 실제 발행 테스트
 
 ## 6) 검증 상태 (요약)
-- 빌드: 성공 (TypeScript OK, 2026-03-15 기준)
+- 빌드: TypeScript OK (2026-03-16 기준)
 - Social publish dry run: 4개 플랫폼 모두 통과 (2026-03-16)
+- OG 이미지: 11개 포스트 og.png 생성 완료 (미배포)
 - `posts/index.json`: 11개 포스트, 3 clusters, 3 bridge papers, 1 outlier
 
 ## 7) 컨텍스트 메모 (다음 세션용)
@@ -53,3 +62,5 @@
 - 토큰 만료: Threads/LinkedIn 60일, `*_TOKEN_CREATED` 환경변수 기준 자동 경고
 - dev 서버: Turbopack 사용 중 (`npm run dev`, 포트 3040)
 - 운영 가이드: `docs/PLAN_SOCIAL_MEDIA_V2.md`
+- OG 이미지: `npm run generate-og` (신규 포스트 추가 시 실행 필요)
+- `/posts/{slug}` 페이지: 소셜봇에게 OG 태그 제공 후 클라이언트 리디렉트 (SSR redirect 제거)

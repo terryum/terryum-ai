@@ -5,7 +5,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       // Allow only major search engines
       {
-        userAgent: ['Googlebot', 'Bingbot', 'Yeti', 'DuckDuckBot'],
+        userAgent: [
+          'Googlebot',
+          'Bingbot',
+          'Yeti',
+          'DuckDuckBot',
+          'facebookexternalhit', // Facebook 링크 미리보기 (AI 학습봇 FacebookBot과 다름)
+          'Twitterbot',          // X/Twitter 링크 미리보기
+          'LinkedInBot',         // LinkedIn 링크 미리보기
+        ],
         allow: '/',
       },
       // Block AI crawlers and scrapers

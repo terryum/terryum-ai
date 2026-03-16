@@ -192,11 +192,13 @@ def get_hashtags(post: dict, locale: str) -> str:
 
 
 def build_facebook_text(post: dict) -> tuple[str, str]:
-    """(text, url)"""
+    """(text, url)
+    url은 Facebook link 파라미터용 — OG 태그가 직접 있는 언어 페이지를 사용.
+    """
     fm = read_mdx_frontmatter(post["slug"], post["content_type"], "ko")
     title = fm.get("title") or post.get("title_ko", post["slug"])
     description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
-    url = f"{SITE_BASE_URL}/posts/{post['slug']}"
+    url = f"{SITE_BASE_URL}/ko/posts/{post['slug']}"
     tags = get_hashtags(post, "ko")
 
     lines = [title, ""]

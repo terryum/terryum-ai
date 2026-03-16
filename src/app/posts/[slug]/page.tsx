@@ -1,6 +1,40 @@
-import { cookies, headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-import { LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/i18n';
+import { getPost } from '@/lib/posts';
+import type { Metadata } from 'next';
+import AutoRedirect from './AutoRedirect';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  // en 우선, 없으면 ko fallback
+  const post = (await getPost(slug, 'en')) ?? (await getPost(slug, 'ko'));
+  if (!post) return { title: 'Not Found' };
+
+  const title = post.meta.seo_title || post.meta.title;
+  const description = post.meta.seo_description || post.meta.summary;
+  // og.png 우선 (generate-og-image.mjs로 생성), 없으면 cover.webp fallback
+  const ogImage = `/posts/${slug}/og.png`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/posts/${slug}`,
+      type: 'article',
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  };
+}
 
 export default async function PostSharePage({
   params,
@@ -8,20 +42,5 @@ export default async function PostSharePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const cookieStore = await cookies();
-  const headersList = await headers();
-
-  const savedLang = cookieStore.get('preferred-lang')?.value;
-  let locale: Locale = DEFAULT_LOCALE;
-
-  if (savedLang && LOCALES.includes(savedLang as Locale)) {
-    locale = savedLang as Locale;
-  } else {
-    const acceptLang = headersList.get('accept-language') || '';
-    if (acceptLang.toLowerCase().startsWith('ko')) {
-      locale = 'ko';
-    }
-  }
-
-  redirect(`/${locale}/posts/${slug}`);
+  return <AutoRedirect slug={slug} />;
 }
