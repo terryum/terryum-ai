@@ -261,12 +261,11 @@ def build_x_text(post: dict) -> tuple[str, str]:
     tags = get_hashtags(post, "en")
 
     # URL은 Twitter t.co로 23자 고정, 해시태그 포함 후 설명 truncate
-    url_part = f" → {url}"
     tag_part = f"\n{tags}" if tags else ""
-    suffix = url_part + tag_part
+    suffix = f"\n{url}" + tag_part
 
     url_char_count = 23  # t.co URL 고정 길이
-    suffix_count = 4 + url_char_count + (1 + len(tag_part) if tags else 0)  # " → " + url + tags
+    suffix_count = 1 + url_char_count + (1 + len(tag_part) if tags else 0)  # "\n" + url + tags
     max_desc = 280 - suffix_count
 
     body = description or ""
