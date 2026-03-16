@@ -200,8 +200,8 @@ def build_en_post(post: dict) -> tuple[str, str, list[str], str]:
     title = fm.get("title") or post.get("title_en", post["slug"])
     summary = fm.get("summary", "")
     card_summary = fm.get("card_summary", "")
-    # 부제: card_summary(짧은 1-2줄) 우선, 없으면 summary 앞 120자
-    subtitle = (card_summary or summary[:120]).strip()
+    # 부제: frontmatter subtitle 우선, 없으면 card_summary, 없으면 summary 앞 80자
+    subtitle = (fm.get("subtitle") or card_summary or summary[:80]).strip()
     paragraphs = [p for p in [summary, card_summary] if p]
     link = f"{SITE_BASE_URL}/en/{post['content_type']}/{post['slug']}"
     return title, subtitle, paragraphs, link
@@ -213,8 +213,8 @@ def build_ko_post(post: dict) -> tuple[str, str, list[str], str]:
     title = fm.get("title") or post.get("title_ko", post["slug"])
     summary = fm.get("summary", "")
     card_summary = fm.get("card_summary", "")
-    # 부제: card_summary(짧은 1-2줄) 우선, 없으면 summary 앞 120자
-    subtitle = (card_summary or summary[:120]).strip()
+    # 부제: frontmatter subtitle 우선, 없으면 card_summary, 없으면 summary 앞 80자
+    subtitle = (fm.get("subtitle") or card_summary or summary[:80]).strip()
     paragraphs = [p for p in [summary, card_summary] if p]
     link = f"{SITE_BASE_URL}/ko/{post['content_type']}/{post['slug']}"
     return title, subtitle, paragraphs, link
