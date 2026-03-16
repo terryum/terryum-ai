@@ -219,10 +219,10 @@ def build_threads_text(post: dict) -> tuple[str, str]:
     url = f"{FACEBOOK_BASE_URL}/posts/{post['slug']}?utm_source=threads&utm_medium=social"
     tags = get_hashtags(post, "ko")
 
-    suffix_parts = [url]
-    if tags:
-        suffix_parts.append(tags)
-    suffix = "\n" + "\n".join(suffix_parts)
+    # URL은 link_attachment로 전달 — 텍스트에서 숨김
+    read_more = "\n\nRead more ↓"
+    tag_part = f"\n{tags}" if tags else ""
+    suffix = read_more + tag_part
 
     # 500자 제한 — 설명 truncate
     body = description or ""
@@ -307,7 +307,7 @@ def publish_facebook(text: str, url: str, dry_run: bool) -> bool:
 
 # ─── Threads API ─────────────────────────────────────────────────────────────
 
-def publish_threads(text: str, dry_run: bool) -> bool:
+def publish_threads(text: str, url: str, dry_run: bool) -> bool:
     token = os.environ.get("THREADS_ACCESS_TOKEN", "")
     user_id = os.environ.get("THREADS_USER_ID", "")
 
@@ -315,6 +315,7 @@ def publish_threads(text: str, dry_run: bool) -> bool:
         print(f"\n[DRY RUN] Threads")
         print(f"  USER_ID : {user_id or '(미설정)'}")
         print(f"  Text    :\n{text}\n")
+        print(f"  Link    : {url}")
         return True
 
     if not check_token_expiry("Threads", "THREADS_TOKEN_CREATED"):
@@ -330,7 +331,7 @@ def publish_threads(text: str, dry_run: bool) -> bool:
     # Step 1: 미디어 컨테이너 생성
     resp1 = requests.post(
         f"{base}/threads",
-        json={"media_type": "TEXT", "text": text},
+        json={"media_type": "TEXT", "text": text, "link_attachment": url},
         headers=headers,
         timeout=20,
     )
@@ -497,7 +498,7 @@ def main():
 
         elif platform == "threads":
             text, url = build_threads_text(post)
-            ok = publish_threads(text, args.dry_run)
+            ok = publish_threads(text, url, args.dry_run)
 
         elif platform == "linkedin":
             text, url = build_linkedin_text(post)
