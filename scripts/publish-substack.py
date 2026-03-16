@@ -170,7 +170,8 @@ def to_prosemirror(
         if p:
             content.append({"type": "paragraph", "content": [{"type": "text", "text": p}]})
 
-    # CTA 앞 빈 줄
+    # CTA 앞 빈 줄 2개
+    content.append({"type": "paragraph", "content": []})
     content.append({"type": "paragraph", "content": []})
 
     # 전체 글 읽기 CTA — 링크 텍스트 문단 (button 노드 사용 시 구독 위젯 사라짐)
@@ -191,7 +192,8 @@ def to_prosemirror(
             }],
         }],
     })
-    # CTA 뒤 빈 줄 (구독 위젯과 간격 확보)
+    # CTA 뒤 빈 줄 2개 (구독 위젯과 간격 확보)
+    content.append({"type": "paragraph", "content": []})
     content.append({"type": "paragraph", "content": []})
 
     return json.dumps({"type": "doc", "content": content})
