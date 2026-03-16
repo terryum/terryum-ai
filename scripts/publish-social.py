@@ -263,8 +263,8 @@ def build_x_text(post: dict) -> tuple[str, str]:
     suffix = f"\n\nRead more ↓\n{url}" + tag_part
 
     url_char_count = 23  # t.co URL 고정 길이
-    suffix_count = 14 + url_char_count + (1 + len(tag_part) if tags else 0)  # "\n\nRead more ↓\n" + url + tags
-    max_desc = 280 - suffix_count
+    suffix_count = 14 + url_char_count + len(tag_part)  # "\n\nRead more ↓\n" + url + tags
+    max_desc = 280 - suffix_count - 5  # 5자 안전 마진 (weighted count 경계 방지)
 
     body = description or ""
     if len(body) > max_desc:
