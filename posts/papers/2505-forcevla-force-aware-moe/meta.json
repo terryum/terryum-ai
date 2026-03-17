@@ -199,5 +199,6 @@
   "taxonomy_primary": "robotics/brain",
   "taxonomy_secondary": [
     "robotics/arm"
-  ]
+  ],
+  "cover_figure_number": 3
 }

@@ -182,5 +182,6 @@
   "taxonomy_primary": "robotics/arm",
   "taxonomy_secondary": [
     "robotics/hand"
-  ]
+  ],
+  "cover_figure_number": 1
 }

@@ -52,11 +52,15 @@ export default function ContentDetailPage({
   const localizedFigures = localizeGalleryItems(meta.figures, locale);
   const localizedTables = localizeGalleryItems(meta.tables, locale);
 
-  // Resolve cover caption with i18n: match cover_caption text against figures[], fallback to cover_caption as-is
+  // Resolve cover caption with i18n: use cover_figure_number → figures lookup, fallback to cover_caption as-is
   let coverCaption = meta.cover_caption;
-  let coverFigureNumber: number | undefined;
-  if (meta.cover_caption && meta.figures) {
-    const match = meta.figures.find((f) => f.caption === meta.cover_caption);
+  let coverFigureNumber: number | undefined = meta.cover_figure_number;
+  if (meta.figures) {
+    const match = meta.cover_figure_number != null
+      ? meta.figures.find((f) => f.number === meta.cover_figure_number)
+      : meta.cover_caption
+        ? meta.figures.find((f) => f.caption === meta.cover_caption)
+        : undefined;
     if (match) {
       coverCaption = locale === 'ko' && match.caption_ko ? match.caption_ko : match.caption;
       coverFigureNumber = match.number;

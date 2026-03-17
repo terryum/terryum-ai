@@ -150,6 +150,7 @@ function normalizeMeta(
     display_tags: data.display_tags as string[] | undefined,
     cover_image: coverImage,
     cover_caption: data.cover_caption as string | undefined,
+    cover_figure_number: data.cover_figure_number as number | undefined,
     cover_thumb: coverThumb,
     thumb_fit: (data.thumb_fit as 'cover' | 'contain') || undefined,
     card_summary: data.card_summary as string | undefined,

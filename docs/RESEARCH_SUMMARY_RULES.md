@@ -79,7 +79,16 @@
 ### Figure/Table 전수 추출
 - **소스 우선순위**: arXiv HTML > PDF fallback
 - 모든 figure → `fig-N.png`, 모든 table → `tab-N.png`
-- 각 항목의 캡션 원문 전체 기록 (frontmatter `figures`/`tables` 배열)
+- **meta.json figures 필드 형식** (authoritative source):
+  ```json
+  { "number": 1, "src": "./fig-1.png", "caption": "원문 영문 캡션 전체", "caption_ko": "한글 번역 캡션" }
+  ```
+- `caption`과 `caption_ko` 두 필드 **동시 생성** 필수 (한/영 캡션 전환에 사용됨)
+- **MDX frontmatter에 figures 섹션 넣지 않을 것** — meta.json이 유일한 기준. MDX frontmatter의 figures는 meta.json을 덮어써서 caption 데이터를 소실시킴
+- **cover_figure_number 필수**: 커버 이미지에 해당하는 figure의 number 값을 meta.json에 명시
+  ```json
+  "cover_figure_number": 1
+  ```
 - 캡션 생략/축약 절대 금지
 
 ### 주요 결과 추출

@@ -126,5 +126,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "taxonomy_primary": "robotics/arm"
+  "taxonomy_primary": "robotics/arm",
+  "cover_figure_number": 3
 }

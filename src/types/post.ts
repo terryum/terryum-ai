@@ -55,6 +55,7 @@ export interface PostMeta {
   display_tags?: string[];
   cover_image: string;
   cover_caption?: string;
+  cover_figure_number?: number;
   cover_thumb?: string;
   thumb_fit?: 'cover' | 'contain';
   card_summary?: string;

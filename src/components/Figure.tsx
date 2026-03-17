@@ -22,7 +22,11 @@ export default function Figure({ src, caption, alt, number, priority, isCover }:
   const groupIndex = figures.findIndex((f) => f.number === number);
   const hasGroup = figures.length > 1 && groupIndex >= 0;
 
-  const lightboxItems = hasGroup ? figures : [{ src, caption, number: number || 0 }];
+  // Use localized caption from context when number matches (enables ko/en switching)
+  const contextCaption = number != null ? figures.find((f) => f.number === number)?.caption : undefined;
+  const displayCaption = contextCaption ?? caption;
+
+  const lightboxItems = hasGroup ? figures : [{ src, caption: displayCaption, number: number || 0 }];
   const initialIndex = hasGroup ? groupIndex : 0;
   const [lightboxIndex, setLightboxIndex] = useState(initialIndex);
 
@@ -63,9 +67,9 @@ export default function Figure({ src, caption, alt, number, priority, isCover }:
             </svg>
           </div>
         </div>
-        {caption && (
+        {displayCaption && (
           <figcaption className="text-sm text-text-muted text-left mt-2 leading-relaxed">
-            {caption}
+            {displayCaption}
           </figcaption>
         )}
       </figure>

@@ -149,5 +149,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "taxonomy_primary": "ai/agent"
+  "taxonomy_primary": "ai/agent",
+  "cover_figure_number": 12
 }
