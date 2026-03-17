@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-15T05:09:55.448Z",
-  "total_posts": 11,
+  "generated_at": "2026-03-17T04:30:43.446Z",
+  "total_posts": 12,
   "posts": [
     {
       "post_number": 1,
       "slug": "2505-forcevla-force-aware-moe",
       "content_type": "papers",
       "title_en": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
-      "title_ko": "ForceVLA: 접촉이 많은 조작을 위한 힘 인식 MoE 기반 VLA 모델",
+      "title_ko": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -70,7 +70,7 @@
       "slug": "2410-pi0-vla-flow-model",
       "content_type": "papers",
       "title_en": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
-      "title_ko": "π₀: 범용 로봇 제어를 위한 비전-언어-행동 Flow 모델",
+      "title_ko": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -129,7 +129,7 @@
       "slug": "2501-dexforce-force-informed-actions",
       "content_type": "papers",
       "title_en": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
-      "title_ko": "DexForce: Kinesthetic 시연의 접촉 힘을 활용한 Dexterous Manipulation",
+      "title_ko": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -186,7 +186,7 @@
       "slug": "2511-pi0-6-recap",
       "content_type": "papers",
       "title_en": "π₀.₆: a VLA That Learns From Experience",
-      "title_ko": "π₀.₆: 경험으로부터 배우는 VLA",
+      "title_ko": "π₀.₆: a VLA That Learns From Experience",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -469,8 +469,8 @@
       "post_number": 9,
       "slug": "2506-exostart",
       "content_type": "papers",
-      "title_en": "ExoStart: Learning Dexterous Manipulation from ~10 Exoskeleton Demos",
-      "title_ko": "ExoStart: Exoskeleton 시연 10개로 Dexterous Manipulation 학습",
+      "title_en": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
+      "title_ko": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -540,8 +540,8 @@
       "post_number": 10,
       "slug": "2509-dexop",
       "content_type": "papers",
-      "title_en": "DEXOP: Passive Exoskeleton That Mechanically Links Human and Robot Fingers",
-      "title_ko": "DEXOP: 인간 손가락을 로봇 손가락에 기계적으로 연결하는 Passive Exoskeleton",
+      "title_en": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
+      "title_ko": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -613,8 +613,8 @@
       "post_number": 11,
       "slug": "2502-ai-co-scientist",
       "content_type": "papers",
-      "title_en": "AI co-scientist: A Multi-Agent System for Iterative Hypothesis Generation, Debate, and Evolution",
-      "title_ko": "AI co-scientist: 가설 생성·토론·진화를 반복하는 과학 연구 멀티에이전트 시스템",
+      "title_en": "Towards an AI co-scientist",
+      "title_ko": "Towards an AI co-scientist",
       "domain": "ml",
       "subfields": [
         "scientific-discovery",
@@ -672,6 +672,77 @@
       "related_posts": null,
       "taxonomy_primary": "ai/agent",
       "taxonomy_secondary": []
+    },
+    {
+      "post_number": 12,
+      "slug": "2504-pp-tac",
+      "content_type": "papers",
+      "title_en": "2504-pp-tac",
+      "title_ko": "2504-pp-tac",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "tactile-sensing",
+        "deformable-object-manipulation"
+      ],
+      "key_concepts": [
+        "tactile-sensor",
+        "slip-detection",
+        "diffusion-policy",
+        "force-control",
+        "deformable-objects",
+        "dexterous-hand"
+      ],
+      "methodology": [
+        "tactile-feedback",
+        "slip-detection-network",
+        "diffusion-policy",
+        "trajectory-synthesis",
+        "compliant-control"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Dexterous Manipulation",
+        "Diffusion Policy",
+        "RSS 2025"
+      ],
+      "source_author": "Pei Lin et al.",
+      "source_date": "2025-04-23",
+      "published_at": "2026-03-17T09:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Tactile-feedback dexterous hand system that picks paper-like thin deformable objects via R-Tac slip detection + online force control + diffusion policy, achieving 87.5% success rate",
+        "problem": "Robotic hands cannot reliably grasp thin, flat, deformable objects like paper and fabric due to insufficient perception for slip/force state estimation and lack of appropriate grasp motion planning",
+        "solution": "PP-Tac: dexterous hand with 4 round-shaped high-resolution tactile sensors (R-Tac) + slip detection CNN + online frictional force control + diffusion-based policy trained on synthesized pinching trajectories",
+        "key_result": "87.5% overall success rate across 4 objects (paper, plastic bag, cloth, paper bag) and 4 terrains (plane, slope, book, random)",
+        "limitations": [
+          "Constrained to specific dexterous hand morphology and fingertip-mounted sensor form factor",
+          "Trajectory synthesis assumes specific contact geometry (buckling model) that may not generalize to 3D deformable objects"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2505-dexumi",
+          "type": "related"
+        },
+        {
+          "target": "2501-dexforce",
+          "type": "related"
+        },
+        {
+          "target": "2407-stretchable-glove-hand-pose",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -745,6 +816,21 @@
         "from": "2509-dexop",
         "to": "2407-stretchable-glove-hand-pose",
         "type": "addresses_task"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2501-dexforce",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -784,9 +870,12 @@
         "label": "robotics/hand",
         "post_numbers": [
           6,
-          10
+          10,
+          12
         ],
-        "core_concepts": [],
+        "core_concepts": [
+          "dexterous-hand"
+        ],
         "taxonomy_nodes": [
           "robotics/hand"
         ]
@@ -795,7 +884,8 @@
     "bridge_papers": [
       1,
       8,
-      10
+      10,
+      12
     ],
     "outlier_papers": [
       11
@@ -948,7 +1038,8 @@
       10
     ],
     "dexterous-hand": [
-      10
+      10,
+      12
     ],
     "multi-agent-system": [
       11
@@ -973,17 +1064,32 @@
     ],
     "scientific-debate": [
       11
+    ],
+    "tactile-sensor": [
+      12
+    ],
+    "slip-detection": [
+      12
+    ],
+    "diffusion-policy": [
+      12
+    ],
+    "force-control": [
+      12
+    ],
+    "deformable-objects": [
+      12
     ]
   },
   "domain_stats": {
-    "robotics": 9,
+    "robotics": 10,
     "ml": 2
   },
   "taxonomy_stats": {
     "robotics/brain": 3,
-    "robotics/arm:secondary": 2,
+    "robotics/arm:secondary": 3,
     "robotics/arm": 3,
-    "robotics/hand": 2,
+    "robotics/hand": 3,
     "robotics/hand:secondary": 1,
     "ai/agent": 1
   }

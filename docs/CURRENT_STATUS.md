@@ -3,9 +3,9 @@
 > 목적: `/clear` 이후에도 이전 작업을 빠르게 재개하기 위한 **짧은 스냅샷** (append 금지, 매번 덮어쓰기)
 
 ## 1) 세션 스냅샷
-- 마지막 업데이트: 2026-03-16 (KST)
-- 현재 단계: OG 이미지 수정 완료 + Social Media v2 전체 구현 완료
-- 전체 진행도(대략): 100% (빌드 TypeScript 검증 완료)
+- 마지막 업데이트: 2026-03-17 (KST)
+- 현재 단계: GA4 Analytics 대시보드 확장 완료 (빌드 검증 완료)
+- 전체 진행도(대략): 100%
 
 ## 2) 지금 기준 핵심 결정 (최대 5개)
 - 인프라: Cloudflare(도메인/DNS/CDN) + Vercel(배포+SSL) + GitHub
@@ -16,51 +16,32 @@
 
 ## 3) 완료됨
 - [x] v1 전체 기능 (스캐폴딩~ForceVLA 포스팅~UI 개선)
-- [x] AI Memory 시스템: `PostMeta` 타입 확장, `generate-index.mjs` 스크립트
-- [x] Research #6~#11 포스팅 (arXiv + Nature Communications)
-- [x] 포스팅 자동화: `.claude/commands/post.md` 슬래시 커맨드 + `scripts/extract-paper-pdf.py`
-- [x] 리팩토링: 웹 포스팅 UI/API 제거, Container 컴포넌트, display.ts 헬퍼, TagItem 단일화
-- [x] Knowledge Graph Phase 1~3 (taxonomy, clusters, RelatedPapers, TaxonomyFilter)
-- [x] 탭명·디렉토리·content_type 완전 정렬
-- [x] Substack 연동 v1 (SubstackSubscribe, publish-substack.py, GitHub Actions)
-- [x] **Social Media 자동 공유 v2**:
-  - `scripts/publish-social.py` — Facebook/Threads/LinkedIn/X 공유
-  - `.github/workflows/social-publish.yml` — posts/index.json 변경 시 자동 트리거
-  - 플랫폼별 독립 캐시 (`.social-published.json`)
-  - 토큰 만료 경고 (45일 warn / 60일 skip)
-  - `docs/PLAN_SOCIAL_MEDIA_V2.md` — 토큰 갱신 가이드 포함
-- [x] **OG 이미지 수정**:
-  - `src/app/robots.ts` — 소셜 봇 허용 (facebookexternalhit, Twitterbot, LinkedInBot)
-  - `src/app/posts/[slug]/page.tsx` — generateMetadata 추가 + AutoRedirect 클라이언트 컴포넌트
-  - `src/app/posts/[slug]/AutoRedirect.tsx` — 쿠키/navigator.language 기반 클라이언트 리디렉트
-  - `scripts/generate-og-image.mjs` — cover.webp → og.png (1200×630) 변환
-  - `public/posts/*/og.png` — 11개 포스트 OG 이미지 생성 완료
+- [x] AI Memory 시스템, Research 포스팅 자동화, Social Media v2
+- [x] OG 이미지 수정 + 소셜봇 허용 (robots.ts, /posts/[slug] AutoRedirect)
+- [x] **GA4 Analytics 대시보드 확장**:
+  - `src/components/GoogleAnalytics.tsx` — gtag.js 삽입 (신규)
+  - `src/app/layout.tsx` — GoogleAnalytics 컴포넌트 추가
+  - `src/app/api/admin/stats/route.ts` — 5개 병렬 쿼리 (KPI/트렌드/유입경로/국가/포스팅별)
+  - `src/app/admin/stats/page.tsx` — recharts 기반 시각화 대시보드
+  - `src/app/admin/stats/TrendChart.tsx` — 일별 방문자 LineChart (신규)
+  - `src/app/admin/stats/SourcesChart.tsx` — 유입경로 가로 BarChart (신규)
+  - `src/app/admin/stats/CountriesChart.tsx` — 국가별 방문자 가로 BarChart (신규)
 
 ## 4) 진행 중 / 막힘
-- 없음 (코드 구현 완료, Vercel 배포 후 Facebook Sharing Debugger 검증 필요)
+- 없음 (코드 구현 완료)
 
 ## 5) 다음 3개 작업 (우선순위)
-1. **Vercel 배포 및 OG 검증**:
-   - `git add public/posts/*/og.png` 후 커밋/푸시
-   - Facebook Sharing Debugger → URL 입력 → "Scrape Again"으로 이미지 확인
-2. **소셜미디어 사전 조건 완료** (사용자 직접 수행):
-   - Facebook Page 생성 → Page ID 확인 → Long-lived Token 발급
-   - Threads OAuth 토큰 발급 (graph.threads.net)
-   - LinkedIn OAuth 2.0 토큰 발급 (w_member_social 스코프)
-   - X Developer Portal → App 생성 → OAuth 1.0a Access Token
-3. **GitHub Secrets 등록** (13개 환경변수) + 실제 발행 테스트
+1. **사용자 직접 수행**: GA4 측정 ID 취득 → `.env.local` + Vercel 환경변수에 `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX` 추가
+2. **배포 및 GA4 실시간 확인**: analytics.google.com 실시간 보고서에서 접속자 확인
+3. **Admin Stats 대시보드 검증**: `/admin` 로그인 → Stats → 7d/30d/90d 전환 + KO/EN 탭 확인
 
 ## 6) 검증 상태 (요약)
-- 빌드: TypeScript OK (2026-03-16 기준)
-- Social publish dry run: 4개 플랫폼 모두 통과 (2026-03-16)
-- OG 이미지: 11개 포스트 og.png 생성 완료 (미배포)
-- `posts/index.json`: 11개 포스트, 3 clusters, 3 bridge papers, 1 outlier
+- 빌드: TypeScript OK (2026-03-17 기준)
+- recharts 설치 완료 (39 packages)
+- `npm run build` 성공 확인
 
 ## 7) 컨텍스트 메모 (다음 세션용)
-- ai_summary 필드: dict 구조 (`one_liner`, `problem`, `solution`) — publish-social.py에서 `extract_ai_summary()` 헬퍼로 처리
-- 소셜 캐시: `.social-published.json` (gitignore됨, CI에서 커밋으로 유지)
-- 토큰 만료: Threads/LinkedIn 60일, `*_TOKEN_CREATED` 환경변수 기준 자동 경고
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` 미설정 시 gtag.js 코드가 삽입되지 않음 → 데이터 수집 없음
+- recharts 차트 컴포넌트는 `dynamic import + ssr: false`로 브라우저에서만 로드
+- UTM 파라미터: 미들웨어(Facebook), publish-social.py(Threads)에서 이미 자동 삽입 → gtag.js 설치만으로 GA4에서 자동 추적됨
 - dev 서버: Turbopack 사용 중 (`npm run dev`, 포트 3040)
-- 운영 가이드: `docs/PLAN_SOCIAL_MEDIA_V2.md`
-- OG 이미지: `npm run generate-og` (신규 포스트 추가 시 실행 필요)
-- `/posts/{slug}` 페이지: 소셜봇에게 OG 태그 제공 후 클라이언트 리디렉트 (SSR redirect 제거)
