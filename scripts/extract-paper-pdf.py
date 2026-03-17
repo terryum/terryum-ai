@@ -134,6 +134,7 @@ def map_figures_to_captions(raw_images: list[dict], captions: dict[int, str]) ->
             "page": img["page"],
             "width": img["width"],
             "height": img["height"],
+            "ext": img.get("ext", img["file"].rsplit(".", 1)[-1]),
             "caption": caption,
         })
     return figures
