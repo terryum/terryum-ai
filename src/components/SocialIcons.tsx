@@ -82,13 +82,23 @@ const socialLinks = [
 ];
 
 export default function SocialIcons({ className = '' }: { className?: string }) {
-  // Reveal mailto href only on user interaction (hover/focus/touch)
-  // so bots never see the address, but native <a> click works on all platforms.
-  function revealEmail(e: React.SyntheticEvent<HTMLAnchorElement>) {
-    const el = e.currentTarget;
-    if (el.href.endsWith('#')) {
-      el.href = `mailto:${EMAIL_PARTS[0]}@${EMAIL_PARTS[1]}`;
-    }
+  function handleEmailClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    const addr = `${EMAIL_PARTS[0]}@${EMAIL_PARTS[1]}`;
+
+    // Try native mailto: first
+    window.location.href = `mailto:${addr}`;
+
+    // Fallback: if page is still visible after 1.5s (= no mail app opened),
+    // open Gmail compose in a new tab.
+    setTimeout(() => {
+      if (!document.hidden) {
+        window.open(
+          `https://mail.google.com/mail/?view=cm&fs=1&to=${addr}`,
+          '_blank',
+        );
+      }
+    }, 1500);
   }
 
   return (
@@ -99,9 +109,7 @@ export default function SocialIcons({ className = '' }: { className?: string }) 
           href={link.href}
           target={link.name === 'Email' ? undefined : '_blank'}
           rel={link.name === 'Email' ? undefined : 'noopener noreferrer'}
-          onMouseEnter={link.name === 'Email' ? revealEmail : undefined}
-          onFocus={link.name === 'Email' ? revealEmail : undefined}
-          onTouchStart={link.name === 'Email' ? revealEmail : undefined}
+          onClick={link.name === 'Email' ? handleEmailClick : undefined}
           className="text-text-muted hover:text-accent transition-colors"
           aria-label={link.name}
         >
