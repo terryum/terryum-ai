@@ -9,7 +9,7 @@ import { join, extname } from 'path';
 
 const POSTS_DIR = join(process.cwd(), 'posts');
 const PUBLIC_POSTS_DIR = join(process.cwd(), 'public', 'posts');
-const CATEGORIES = ['research', 'idea'];
+const CATEGORIES = ['papers', 'notes', 'tech', 'essays'];
 
 const IMAGE_EXTENSIONS = new Set(['.webp', '.png', '.jpg', '.jpeg', '.gif', '.svg']);
 

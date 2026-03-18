@@ -90,18 +90,32 @@ node scripts/generate-index.mjs
 node scripts/generate-og-image.mjs
 ```
 
-### Step R10) Build 검증
+### Step R10) 포스트 검증
+```bash
+node scripts/validate-post.mjs <slug>
+```
+- **에러(❌)가 있으면 반드시 수정 후 재검증** — 에러가 0일 때까지 반복
+- 경고(⚠️)는 가능하면 해결, 불가능하면 사유 기록
+- 검증 항목: meta.json 필수필드, figures 캡션(ko/en), 파일 존재, 제목 형식, index.json 정합성
+
+### Step R11) Build 검증
 ```bash
 npm run build
 ```
 실패 시 에러 수정 후 재실행
 
-### Step R11) Git 커밋 + 푸시
+### Step R12) Git 커밋 + 푸시
 ```bash
 git add posts/ public/posts/
 git commit -m "feat(post): add <slug> (ko/en)"
 git push
 ```
+
+### Step R13) 예외 발생 시 레슨 기록
+포스팅 과정에서 **예외/우회/실패 후 복구**가 있었다면:
+1. 문제와 해결 방법을 `memory/posting-lessons.md`에 추가 (memory 시스템 사용)
+2. 원인이 파이프라인 규칙 누락이면 해당 docs 파일도 업데이트
+3. 검증 스크립트에서 잡지 못한 문제면 `validate-post.mjs`에 체크 추가
 
 ---
 
@@ -273,17 +287,27 @@ node scripts/generate-index.mjs
 node scripts/generate-og-image.mjs
 ```
 
-### Step B8) Build 검증
+### Step B8) 포스트 검증
+
+```bash
+node scripts/validate-post.mjs <slug>
+```
+에러(❌) 0일 때까지 수정 반복
+
+### Step B9) Build 검증
 
 ```bash
 npm run build
 ```
 실패 시 에러 수정 후 재실행
 
-### Step B9) Git 커밋 + 푸시
+### Step B10) Git 커밋 + 푸시
 
 ```bash
 git add posts/ public/posts/
 git commit -m "feat(post): add <slug> (ko/en)"
 git push
 ```
+
+### Step B11) 예외 발생 시 레슨 기록
+R13과 동일 — 예외/우회가 있었으면 `memory/posting-lessons.md`에 기록
