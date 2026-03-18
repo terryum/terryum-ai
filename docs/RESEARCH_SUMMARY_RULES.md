@@ -72,9 +72,9 @@
    예: "PP-Tac: Paper Picking..." → pp-tac-paper-picking
    ```
 3. **fallback URL 검증**: WebFetch로 해당 URL 접근
-   - "없는 페이지(not found)" → `first_author_scholar_url` 빈 값으로 설정
-   - 결과 있거나 차단(blocked) → fallback URL을 `first_author_scholar_url`로 사용
-- frontmatter 키: `first_author_scholar_url`
+   - "없는 페이지(not found)" → `google_scholar_url` 빈 값으로 설정
+   - 결과 있거나 차단(blocked) → fallback URL을 `google_scholar_url`로 사용
+- frontmatter 키: `google_scholar_url`
 
 ### Figure/Table 전수 추출
 - **소스 우선순위**: arXiv HTML > PDF fallback

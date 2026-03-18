@@ -74,6 +74,13 @@ URL: `https://arxiv.org/pdf/<id>`
 - `--featured` 시 `featured: true`
 - `display_tags`: `--tags=` 값, `terrys_memo`: `--memo=` 값
 - **Graph Analysis 결과 포함**: `taxonomy_primary`, `taxonomy_secondary`, `relations`
+- **필수 메타데이터 필드**:
+  - `source_title`: arXiv 원문 제목
+  - `source_author`: "1저자 et al." 형식
+  - `source_authors_full`: 전체 저자 목록 (이름 + 소속)
+  - `source_url`, `source_type`, `source_date`
+  - `google_scholar_url`: 논문 제목 기반 Scholar 검색 URL
+  - `source_project_url`: 프로젝트 페이지 URL (있으면)
 
 ### Step R9) 빌드 스크립트 실행
 ```bash

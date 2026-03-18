@@ -25,10 +25,10 @@ arXiv API (`https://export.arxiv.org/abs/<id>`) 또는 HTML에서 추출:
 **`source_date` 추출**: API 응답의 `<published>` 값 (UTC) → ISO date 형식 (`YYYY-MM-DD`)
 - 예: `<published>2025-05-28T17:59:20Z</published>` → `"2025-05-28"`
 
-## Step 1-1) 1저자 Scholar URL 추출
+## Step 1-1) Google Scholar URL 추출
 
-- Google Scholar에서 논문 제목 검색 → 1저자 프로필 링크 추출
-- 못 찾으면 `first_author_scholar_url` 생략
+- Google Scholar에서 논문 제목 검색 → 검색 결과 URL 생성
+- 못 찾으면 `google_scholar_url` 생략
 
 ## Step 2) PDF 다운로드
 
@@ -56,4 +56,7 @@ arXiv API (`https://export.arxiv.org/abs/<id>`) 또는 HTML에서 추출:
 | `source_type` | `"arXiv"` |
 | `source_url` | `https://arxiv.org/abs/<id>` |
 | `source_date` | arXiv v1 제출일 (ISO 날짜) |
+| `source_title` | arXiv 원문 제목 |
+| `source_authors_full` | 전체 저자 목록 (이름 + 소속) |
 | `google_scholar_url` | 자동 생성 (sanitizeTitle 사용) 또는 수동 지정 |
+| `source_project_url` | 프로젝트 페이지 URL (있으면) |

@@ -19,8 +19,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Index page redirects
-      { source: '/:locale/research', destination: '/:locale/posts?tab=research', permanent: true },
-      { source: '/:locale/ideas', destination: '/:locale/posts?tab=ideas', permanent: true },
+      { source: '/:locale/research', destination: '/:locale/posts?tab=papers', permanent: true },
+      { source: '/:locale/ideas', destination: '/:locale/posts?tab=tech', permanent: true },
       { source: '/:locale/essays', destination: '/:locale/posts?tab=essays', permanent: true },
       // Detail page redirects
       { source: '/:locale/research/:slug', destination: '/:locale/posts/:slug', permanent: true },
