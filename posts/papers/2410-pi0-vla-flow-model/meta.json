@@ -171,6 +171,6 @@
   "newsletter_eligible": false,
   "featured": false,
   "starred": true,
-  "taxonomy_primary": "robotics/brain",
+  "taxonomy_primary": "robotics/brain/vla",
   "cover_figure_number": 3
 }

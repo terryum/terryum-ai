@@ -19,7 +19,7 @@ import sharp from 'sharp';
 const POSTS_DIR = join(process.cwd(), 'posts');
 const PUBLIC_POSTS_DIR = join(process.cwd(), 'public', 'posts');
 const SIZE = 288; // 2x retina for 144px display
-const CONTENT_DIRS = ['research', 'idea', 'essay'];
+const CONTENT_DIRS = ['papers', 'essays', 'tech'];
 
 /** Read thumbnail config from meta.json */
 async function getThumbConfig(postDir) {

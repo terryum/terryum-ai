@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "nodes": {
     "robotics": {
       "label": { "ko": "로보틱스", "en": "Robotics" },
@@ -7,10 +7,26 @@
     },
     "robotics/arm": {
       "label": { "ko": "팔·조작", "en": "Arm / Manipulation" },
+      "children": ["robotics/arm/exoskeleton", "robotics/arm/force-control"]
+    },
+    "robotics/arm/exoskeleton": {
+      "label": { "ko": "엑소스켈레톤", "en": "Exoskeleton / Teleoperation" },
+      "children": []
+    },
+    "robotics/arm/force-control": {
+      "label": { "ko": "힘 제어", "en": "Force Control" },
       "children": []
     },
     "robotics/hand": {
       "label": { "ko": "손·파지", "en": "Hand / Grasping" },
+      "children": ["robotics/hand/tactile", "robotics/hand/dexterous"]
+    },
+    "robotics/hand/tactile": {
+      "label": { "ko": "촉각 센싱", "en": "Tactile Sensing" },
+      "children": []
+    },
+    "robotics/hand/dexterous": {
+      "label": { "ko": "손재주 조작", "en": "Dexterous Manipulation" },
       "children": []
     },
     "robotics/leg": {
@@ -19,6 +35,14 @@
     },
     "robotics/brain": {
       "label": { "ko": "로봇 두뇌", "en": "Robot Brain (VLA/Policy)" },
+      "children": ["robotics/brain/vla", "robotics/brain/rl-policy"]
+    },
+    "robotics/brain/vla": {
+      "label": { "ko": "VLA", "en": "VLA (Vision-Language-Action)" },
+      "children": []
+    },
+    "robotics/brain/rl-policy": {
+      "label": { "ko": "강화학습 정책", "en": "RL Policy" },
       "children": []
     },
     "ai": {

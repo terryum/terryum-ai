@@ -191,7 +191,7 @@
   "thumb_position": "centre",
   "citation_status": "failed",
   "citation_updated_at": "2026-03-11T15:54:25.426Z",
-  "taxonomy_primary": "robotics/hand",
+  "taxonomy_primary": "robotics/hand/dexterous",
   "taxonomy_secondary": [
     "robotics/arm"
   ],

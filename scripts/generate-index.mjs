@@ -94,7 +94,7 @@ async function collectPosts() {
   return posts;
 }
 
-function buildKnowledgeGraph(posts) {
+async function buildKnowledgeGraph(posts) {
   const edges = [];
   for (const post of posts) {
     for (const rel of post.relations || []) {
@@ -103,6 +103,34 @@ function buildKnowledgeGraph(posts) {
         to: rel.target,
         type: rel.type,
       });
+    }
+  }
+
+  // Merge confirmed edges from Supabase (if configured)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && serviceKey) {
+    try {
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(supabaseUrl, serviceKey);
+      const { data: dbEdges } = await supabase
+        .from('graph_edges')
+        .select('source_slug, target_slug, edge_type')
+        .eq('status', 'confirmed');
+
+      if (dbEdges) {
+        const existingSet = new Set(edges.map(e => `${e.from}__${e.to}__${e.type}`));
+        for (const de of dbEdges) {
+          const key = `${de.source_slug}__${de.target_slug}__${de.edge_type}`;
+          if (!existingSet.has(key)) {
+            edges.push({ from: de.source_slug, to: de.target_slug, type: de.edge_type });
+            existingSet.add(key);
+          }
+        }
+        console.log(`  ✓ Merged ${dbEdges.length} confirmed edges from Supabase`);
+      }
+    } catch (err) {
+      console.warn('  ⚠ Supabase query failed, using meta.json edges only:', err.message);
     }
   }
 
@@ -241,18 +269,70 @@ function buildDomainStats(posts) {
   return stats;
 }
 
-function buildTaxonomyStats(posts) {
+async function buildTaxonomyStats(posts) {
+  // Load taxonomy.json for parent rollup
+  let taxonomyNodes = {};
+  try {
+    const raw = await fs.readFile(path.join(POSTS_DIR, 'taxonomy.json'), 'utf-8');
+    taxonomyNodes = JSON.parse(raw).nodes || {};
+  } catch { /* ignore */ }
+
   const stats = {};
   for (const post of posts) {
     if (post.taxonomy_primary) {
       stats[post.taxonomy_primary] = (stats[post.taxonomy_primary] || 0) + 1;
     }
     for (const sec of post.taxonomy_secondary || []) {
-      // Count secondary with 0.5 weight (just for reference, stored separately)
       const key = `${sec}:secondary`;
       stats[key] = (stats[key] || 0) + 1;
     }
   }
+
+  // Identify taxonomy_primary values not in taxonomy.json (Gap 4)
+  const unregistered = [];
+  for (const post of posts) {
+    if (post.taxonomy_primary && !taxonomyNodes[post.taxonomy_primary]) {
+      unregistered.push(post.taxonomy_primary);
+    }
+  }
+  if (unregistered.length > 0) {
+    const unique = [...new Set(unregistered)];
+    console.warn(`  ⚠ ${unique.length} taxonomy node(s) not in taxonomy.json (counted as leaf): ${unique.join(', ')}`);
+  }
+
+  // Roll up child counts to parent nodes
+  function sumDescendants(nodeId) {
+    const node = taxonomyNodes[nodeId];
+    if (!node || !node.children || node.children.length === 0) {
+      return stats[nodeId] || 0;
+    }
+    let total = stats[nodeId] || 0;
+    for (const child of node.children) {
+      total += sumDescendants(child);
+    }
+    stats[nodeId] = total;
+    return total;
+  }
+
+  // Process root nodes to cascade
+  for (const nodeId of Object.keys(taxonomyNodes)) {
+    const isRoot = !nodeId.includes('/') ||
+      !Object.values(taxonomyNodes).some(n => (n.children || []).includes(nodeId));
+    if (isRoot) sumDescendants(nodeId);
+  }
+
+  // Roll up unregistered taxonomy nodes to their closest registered ancestor
+  for (const taxId of [...new Set(unregistered)]) {
+    const parts = taxId.split('/');
+    for (let i = parts.length - 1; i >= 1; i--) {
+      const ancestorId = parts.slice(0, i).join('/');
+      if (taxonomyNodes[ancestorId]) {
+        stats[ancestorId] = (stats[ancestorId] || 0) + (stats[taxId] || 0);
+        break;
+      }
+    }
+  }
+
   return stats;
 }
 
@@ -263,10 +343,10 @@ async function main() {
     generated_at: new Date().toISOString(),
     total_posts: posts.length,
     posts,
-    knowledge_graph: buildKnowledgeGraph(posts),
+    knowledge_graph: await buildKnowledgeGraph(posts),
     concept_index: buildConceptIndex(posts),
     domain_stats: buildDomainStats(posts),
-    taxonomy_stats: buildTaxonomyStats(posts),
+    taxonomy_stats: await buildTaxonomyStats(posts),
   };
 
   const outPath = path.join(POSTS_DIR, 'index.json');

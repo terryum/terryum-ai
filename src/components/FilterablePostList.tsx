@@ -136,14 +136,14 @@ function FilterablePostListInner({
   // 3rd pass: filter by taxonomy (AND with tag filter)
   const taxonomyFilteredPosts = useMemo(() => {
     if (!selectedTaxonomy) return filteredPosts;
-    // Get all taxonomy nodes that are descendants of (or equal to) selectedTaxonomy
+    // Recursively collect all descendant taxonomy nodes
     const matchNodes = new Set<string>();
-    matchNodes.add(selectedTaxonomy);
-    // Add child nodes
-    const node = taxonomyNodes[selectedTaxonomy];
-    if (node?.children) {
-      for (const child of node.children) matchNodes.add(child);
+    function collectDescendants(nodeId: string) {
+      matchNodes.add(nodeId);
+      const n = taxonomyNodes[nodeId];
+      for (const child of n?.children ?? []) collectDescendants(child);
     }
+    collectDescendants(selectedTaxonomy);
     return filteredPosts.filter(p =>
       (p.taxonomy_primary && matchNodes.has(p.taxonomy_primary)) ||
       (p.taxonomy_secondary || []).some(s => matchNodes.has(s))

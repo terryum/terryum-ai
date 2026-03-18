@@ -1,6 +1,9 @@
 # --- Dependencies ---
 node_modules/
 
+# --- direnv ---
+.envrc
+
 # --- Build outputs ---
 .next/
 out/
@@ -59,3 +62,4 @@ __pycache__/
 .venv/
 
 .vercel
+supabase/.temp/

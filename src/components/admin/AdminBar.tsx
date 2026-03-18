@@ -6,6 +6,7 @@ import { Container } from '@/components/ui/Container';
 
 const TABS = (locale: string) => [
   { label: 'Stats', href: `/${locale}/admin/stats` },
+  { label: 'Graph', href: `/${locale}/admin/graph` },
 ];
 
 export default function AdminBar({ locale }: { locale: string }) {

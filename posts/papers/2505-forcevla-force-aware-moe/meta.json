@@ -196,7 +196,7 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "taxonomy_primary": "robotics/brain",
+  "taxonomy_primary": "robotics/brain/vla",
   "taxonomy_secondary": [
     "robotics/arm"
   ],

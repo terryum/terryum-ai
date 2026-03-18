@@ -44,7 +44,7 @@ function TaxonomyNodeItem({
   const isSelected = selectedTaxonomy === nodeId;
 
   return (
-    <div className={depth > 0 ? 'ml-3 border-l border-line-default pl-2' : ''}>
+    <div className={depth > 0 ? `${depth >= 2 ? 'ml-2' : 'ml-3'} border-l border-line-default pl-2` : ''}>
       <div className="flex items-center gap-1 py-0.5">
         {hasChildren && (
           <button

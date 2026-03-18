@@ -10,11 +10,15 @@
     "type-check": "tsc --noEmit",
     "update-citations": "node scripts/update-citations.mjs",
     "generate-logos": "node scripts/generate-logos.mjs",
-    "generate-og": "node scripts/generate-og-image.mjs"
+    "generate-og": "node scripts/generate-og-image.mjs",
+    "sync-papers": "node scripts/sync-papers.mjs",
+    "test-graph": "node scripts/test-graph.mjs"
   },
   "dependencies": {
     "@google-analytics/data": "^5.2.1",
+    "@supabase/supabase-js": "^2.99.2",
     "@vercel/speed-insights": "^2.0.0",
+    "@xyflow/react": "^12.10.1",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.33",
     "next": "^15.2.0",

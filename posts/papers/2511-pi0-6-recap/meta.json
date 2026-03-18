@@ -153,6 +153,6 @@
   "tables": [],
   "newsletter_eligible": false,
   "featured": false,
-  "taxonomy_primary": "robotics/brain",
+  "taxonomy_primary": "robotics/brain/vla",
   "cover_figure_number": 3
 }
