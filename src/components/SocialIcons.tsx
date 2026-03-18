@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { SITE_CONFIG } from '@/lib/site-config';
 
 // Email is split to prevent bot harvesting from static HTML
@@ -82,40 +83,62 @@ const socialLinks = [
 ];
 
 export default function SocialIcons({ className = '' }: { className?: string }) {
+  const [copied, setCopied] = useState(false);
+
   function handleEmailClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
     const addr = `${EMAIL_PARTS[0]}@${EMAIL_PARTS[1]}`;
 
-    // Try native mailto: first
-    window.location.href = `mailto:${addr}`;
+    const isTouchDevice = window.matchMedia(
+      '(hover: none) and (pointer: coarse)',
+    ).matches;
 
-    // Fallback: if page is still visible after 1.5s (= no mail app opened),
-    // open Gmail compose in a new tab.
-    setTimeout(() => {
-      if (!document.hidden) {
-        window.open(
-          `https://mail.google.com/mail/?view=cm&fs=1&to=${addr}`,
-          '_blank',
-        );
-      }
-    }, 1500);
+    if (isTouchDevice) {
+      // Mobile: open native mail app
+      window.location.href = `mailto:${addr}`;
+    } else {
+      // Desktop: copy to clipboard + show feedback
+      navigator.clipboard.writeText(addr);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
   }
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      {socialLinks.map((link) => (
-        <a
-          key={link.name}
-          href={link.href}
-          target={link.name === 'Email' ? undefined : '_blank'}
-          rel={link.name === 'Email' ? undefined : 'noopener noreferrer'}
-          onClick={link.name === 'Email' ? handleEmailClick : undefined}
-          className="text-text-muted hover:text-accent transition-colors"
-          aria-label={link.name}
-        >
-          {link.icon}
-        </a>
-      ))}
+      {socialLinks.map((link) => {
+        if (link.name === 'Email') {
+          return (
+            <span key={link.name} className="relative">
+              <a
+                href="#"
+                onClick={handleEmailClick}
+                className="text-text-muted hover:text-accent transition-colors"
+                aria-label={link.name}
+              >
+                {link.icon}
+              </a>
+              {copied && (
+                <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-accent px-2 py-0.5 text-xs text-white animate-fade-in">
+                  Copied!
+                </span>
+              )}
+            </span>
+          );
+        }
+        return (
+          <a
+            key={link.name}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-text-muted hover:text-accent transition-colors"
+            aria-label={link.name}
+          >
+            {link.icon}
+          </a>
+        );
+      })}
     </div>
   );
 }
