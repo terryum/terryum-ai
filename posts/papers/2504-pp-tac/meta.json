@@ -10,6 +10,9 @@
   "source_url": "https://arxiv.org/abs/2504.16649",
   "source_date": "2025-04-23",
   "source_author": "Pei Lin et al.",
+  "source_title": "PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands",
+  "source_authors_full": "Pei Lin, Yuzhe Huang, Wanlin Li, Jianpeng Ma, Chenxi Xiao, Ziyuan Jiao",
+  "source_project_url": "https://peilin-666.github.io/projects/PP-Tac/",
   "tags": [
     "Papers",
     "Robotics",
@@ -75,7 +78,7 @@
       "Trajectory synthesis assumes specific contact geometry (buckling model) that may not generalize to 3D deformable objects"
     ]
   },
-  "first_author_scholar_url": "https://scholar.google.com/scholar?&q=pp-tac-paper-picking",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=pp-tac-paper-picking",
   "figures": [
     {
       "number": 1,
