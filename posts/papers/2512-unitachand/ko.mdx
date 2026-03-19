@@ -1,0 +1,107 @@
+---
+locale: "ko"
+title: "UniTacHand: 인간-로봇 손 촉각 통합 표현으로 제로샷 기술 이전"
+subtitle: "MANO UV 맵 + 대조 학습으로 촉각 도메인 갭 해소"
+summary: "인간 햅틱 글러브(137 센서)와 로봇 손(1062 센서)의 이질적 촉각 신호를 MANO 손 모델 UV 맵에 투영해 공통 표현 공간을 만든 연구. InfoNCE 대조 학습과 도메인 적대적 학습으로 단 10분의 페어 데이터만으로 인간-로봇 도메인을 정렬하고, 제로샷 조작 85~100%, 원샷 73.3% 성공률을 달성한다."
+card_summary: "인간·로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬 — 10분 페어 데이터로 제로샷 정책 이전 달성"
+cover_caption: "An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map."
+published_at: "2026-03-19T11:00:00+09:00"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2512.21233"
+source_date: "2025-12-24"
+terrys_memo: ""
+---
+
+## TL;DR
+
+인간 손과 로봇 손은 촉각 센서 개수·배치가 완전히 다르다. UniTacHand는 둘 다 **MANO 손 모델의 UV 맵**이라는 공통 2D 표면으로 투영해 이 이질성을 해소하고, InfoNCE 대조 학습으로 두 도메인의 잠재 표현을 정렬한다. 단 10분의 페어 데이터로 제로샷 조작 성공률 85~100%를 달성한다.
+
+## 문제
+
+인간 조작 스킬을 로봇에 이전하는 가장 큰 장벽 중 하나는 **촉각의 이질성**이다. 인간 햅틱 글러브는 137개 압력 센서를 가지고, 실험에 사용된 로봇 손은 1062개 센서를 가진다. 센서 개수·위치·물리적 원리가 모두 달라 인간의 "집었다 느낌"을 로봇 촉각으로 직접 매핑하기 어렵다. 기존 방법들은 단순 패치 매칭(PatchMatch)이나 손끝 기하학에 의존해, 물체 분류나 유연 제어 같은 복잡한 태스크에서 성능이 낮다.
+
+## 핵심 아이디어
+
+키 인사이트는 **모든 손을 MANO 손 모델로 통합**한다는 것이다. MANO는 778개 정점, 1538개 면으로 이루어진 매개변수적 손 표면 모델로, UV 맵을 통해 손 표면 어느 위치도 2D 좌표로 표현 가능하다. 인간 글러브 센서 → MANO UV, 로봇 촉각 센서 → MANO UV로 각각 투영하면 두 도메인이 같은 2D 공간에 표현된다.
+
+**핵심 구성 요소:**
+- **MANO UV 투영**: 인간 137 센서는 쌍선형 보간으로 메쉬 패치에 분배, 로봇 손은 Chamfer Distance + 키포인트 손실로 MANO 형상 최적화 후 UV 래스터화 (1024×1024)
+- **도메인별 인코더**: CNN 백본(촉각 UV 맵) + MLP(포즈 정보)의 이중 스트림 → 32차원 통합 잠재 공간
+- **3가지 학습 헤드**:
+  - InfoNCE 대조 정렬 ($\tau=0.1$): 페어 샘플의 잠재 표현 정렬
+  - 재구성 MSE: 도메인별 디코더로 원본 UV 맵 복원
+  - 도메인 적대적 BCE: 그래디언트 역전(gradient reversal)으로 도메인 불변 표현 강제
+- **물리 기반 증강**: 촉각 맵과 포즈를 독립적으로 선형 보간($\lambda_1, \lambda_2 \in [0,1]$)해 합성 페어 샘플 생성
+
+<Figure src="./fig-1.png" caption="An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map." />
+
+<Collapsible title="구체적 방법">
+
+### MANO UV 투영 세부
+
+**인간 글러브**: 각 압력 센서를 손 표면의 메쉬 삼각형에 매핑. 쌍선형 보간으로 137개 읽기값을 UV 공간에 분배. 1024×1024 해상도로 래스터화 후 가우시안 커널(σ=5)로 스무딩.
+
+**로봇 손**: 1단계에서 Chamfer Distance + 키포인트 손실로 MANO 형상 파라미터 $\beta$ 최적화:
+$$\mathcal{L}_{shape} = \mathcal{L}_{CD}(V_{MANO}, V_{robot}) + \lambda_{kp}\mathcal{L}_{kp}$$
+
+실시간 추론 시 포즈 리타겟팅으로 로봇 관절 상태 → MANO 포즈 변환. 각 촉각 센서를 가장 가까운 MANO 면에 투영 후 래스터화.
+
+### 통합 손실 함수
+
+$$\mathcal{L}_{Total} = \mathcal{L}_{CON} + \lambda_{REC}\mathcal{L}_{REC} + \lambda_{ADV}\mathcal{L}_{ADV}$$
+
+여기서 $\lambda_{REC}=1.0$, $\lambda_{ADV}=0.5$.
+
+**InfoNCE 대조 정렬**: 온도 $\tau=0.1$로 페어 샘플을 양성 쌍, 동일 배치 내 나머지를 음성 쌍으로 처리:
+$$\mathcal{L}_{CON} = -\log\frac{\exp(\text{sim}(z_h, z_r)/\tau)}{\sum_{j}\exp(\text{sim}(z_h, z_j)/\tau)}$$
+
+**도메인 적대적 학습**: 그래디언트 역전 레이어(GRL)로 도메인 분류기를 속여 도메인 불변 잠재 표현 학습.
+
+</Collapsible>
+
+## 주요 결과
+
+### 제로샷 단순 조작 태스크
+
+| 태스크 | PatchMatch | UV-Direct |
+|--------|-----------|-----------|
+| SoftHardPickPlace | 25.0% | **85.0%** |
+| ObjectLocating | 55.0% | **100.0%** |
+
+### 제로샷 복잡 태스크
+
+| 방법 | CompliantControl | 물체분류 (로봇 테스트) |
+|------|-----------------|----------------------|
+| PatchMatch | 10.0% | 15.7% |
+| UV-Direct | 36.0% | 18.9% |
+| **UniTacHand** | **40.0%** | **38.6%** |
+
+→ 로봇 테스트셋에서 PatchMatch 대비 **+22.9%p**, UV-Direct 대비 **+19.7%p**
+
+### 원샷 조작 태스크
+
+| 방법 | 성공률 |
+|------|--------|
+| R-Visual-Only | 43.3% |
+| R-Visual-Tactile (robot only) | 50.0% |
+| PatchMatch | 56.7% |
+| UV-Direct | 63.3% |
+| **UniTacHand** (human + 1-shot robot) | **73.3%** |
+
+<Figure src="./fig-12.png" caption="An example of the one-shot manipulation task." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점:**
+- MANO UV 맵으로 137↔1062 센서 이질성을 공통 2D 공간에서 처음 해결
+- 단 10분의 페어 데이터(인간+로봇 동일 물체 조작)만으로 도메인 정렬 완료
+- 제로샷 조작부터 원샷 학습까지 단일 표현으로 통합
+
+**한계점:**
+- 현재 페어 데이터셋 규모에서 듀얼 디코더가 ~25 에포크 후 과적합 경향
+- 단일 로봇 플랫폼(RealMan 6-DoF + 촉각 손)에서만 검증됨
+- 🤖 MANO UV 정렬은 인간형 손(5손가락)과 형태가 유사한 로봇 손에만 적용 가능 — 2~3손가락 그리퍼처럼 형태가 크게 다른 말단장치로의 확장성은 근본적으로 제약됨
+
+## Terry's Memo
+
+- *(None)*

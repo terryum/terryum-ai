@@ -1,0 +1,107 @@
+---
+locale: "en"
+translation_of: "2512-unitachand:ko"
+title: "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer"
+subtitle: "MANO UV map bridges human-robot tactile gap"
+summary: "UniTacHand addresses the cross-embodiment tactile gap between heterogeneous human (137-sensor) and robot (1062-sensor) hands by projecting both onto a shared MANO hand model UV map, then aligning latent representations with InfoNCE contrastive learning, domain-adversarial training, and physics-informed augmentation. With only 10 minutes of paired training data, the approach achieves 85–100% zero-shot manipulation success and 73.3% one-shot success (+10%p over the next-best baseline)."
+card_summary: "Heterogeneous human/robot tactile signals unified on a MANO UV map and aligned via contrastive learning — zero-shot skill transfer with only 10 minutes of paired data"
+cover_caption: "An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map."
+published_at: "2026-03-19T11:00:00+09:00"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2512.21233"
+source_date: "2025-12-24"
+terrys_memo: ""
+---
+
+## TL;DR
+
+Human and robot hands have fundamentally different tactile sensor layouts (137 vs. 1062 sensors). UniTacHand resolves this by projecting both onto a shared **MANO hand model UV map**, then aligning the latent representations with InfoNCE contrastive learning. Using only 10 minutes of paired human-robot demonstrations, the method achieves zero-shot manipulation success of 85–100%.
+
+## Problem
+
+Transferring human manipulation skills to robots is hindered by **tactile heterogeneity**: a human haptic glove has 137 pressure-sensitive fiber sensors, while the robot hand used here has 1062 sensors. Sensor counts, positions, and physical principles all differ, making direct mapping of human "feel" to robot tactile signals intractable. Prior methods rely on simple patch correspondence (PatchMatch) or fingertip geometry, achieving low performance on complex tasks like object classification or compliant control. The lack of a canonical shared space for heterogeneous tactile signals is the fundamental bottleneck.
+
+## Key Idea
+
+The key insight is to **unify all hands on the MANO model**. MANO is a parametric hand surface model (778 vertices, 1538 faces) that provides a UV map — a 2D coordinate system for any point on the hand surface. Both human glove sensors and robot tactile sensors are projected onto this shared UV map, placing them in the same 2D space regardless of their original topology.
+
+**Core components:**
+- **MANO UV projection**: human 137 sensors distributed across mesh patches via bilinear interpolation; robot hand fit to MANO shape parameters via Chamfer Distance + keypoint loss, then real-time pose retargeting → rasterized at 1024×1024 with Gaussian smoothing
+- **Domain-specific encoders**: dual-stream CNN (tactile UV map) + MLP (pose info) → 32-dimensional unified latent space
+- **Three training heads**:
+  - InfoNCE contrastive alignment ($\tau=0.1$): aligns paired sample embeddings
+  - Reconstruction MSE: domain-specific decoders reconstruct original UV maps
+  - Domain-adversarial BCE: gradient reversal layer forces domain-invariant representations
+- **Physics-informed augmentation**: independently interpolate tactile maps and pose data with random coefficients $\lambda_1, \lambda_2 \in [0,1]$ to generate synthetic paired samples
+
+<Figure src="./fig-1.png" caption="An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map." />
+
+<Collapsible title="Method Details">
+
+### MANO UV Projection
+
+**Human glove**: each pressure sensor mapped to surface mesh triangles; 137 readings distributed via bilinear interpolation; rasterized to 1024×1024 and Gaussian-smoothed (σ=5) to fill sensor gaps.
+
+**Robot hand**: MANO shape parameters $\beta$ optimized via:
+$$\mathcal{L}_{shape} = \mathcal{L}_{CD}(V_{MANO}, V_{robot}) + \lambda_{kp}\mathcal{L}_{kp}$$
+At inference, real-time pose retargeting maps robot joint states to MANO pose, then each tactile sensor is projected to the nearest MANO face and rasterized.
+
+### Unified Loss Function
+
+$$\mathcal{L}_{Total} = \mathcal{L}_{CON} + \lambda_{REC}\mathcal{L}_{REC} + \lambda_{ADV}\mathcal{L}_{ADV}$$
+
+with $\lambda_{REC}=1.0$, $\lambda_{ADV}=0.5$.
+
+**InfoNCE contrastive alignment** (temperature $\tau=0.1$): paired samples as positive pairs, all others in batch as negatives:
+$$\mathcal{L}_{CON} = -\log\frac{\exp(\text{sim}(z_h, z_r)/\tau)}{\sum_{j}\exp(\text{sim}(z_h, z_j)/\tau)}$$
+
+**Domain-adversarial training**: gradient reversal layer (GRL) attached to domain classifier; encoder learns to fool the classifier, producing domain-invariant representations.
+
+</Collapsible>
+
+## Key Results
+
+### Zero-Shot Simple Manipulation Tasks
+
+| Task | PatchMatch | UV-Direct |
+|------|-----------|-----------|
+| SoftHardPickPlace | 25.0% | **85.0%** |
+| ObjectLocating | 55.0% | **100.0%** |
+
+### Zero-Shot Complex Tasks
+
+| Method | CompliantControl | ObjectClassification (Robot Test) |
+|--------|-----------------|----------------------------------|
+| PatchMatch | 10.0% | 15.7% |
+| UV-Direct | 36.0% | 18.9% |
+| **UniTacHand** | **40.0%** | **38.6%** |
+
+→ Robot test set: **+22.9%p** over PatchMatch, **+19.7%p** over UV-Direct
+
+### One-Shot Manipulation Task
+
+| Method | Success Rate |
+|--------|-------------|
+| R-Visual-Only | 43.3% |
+| R-Visual-Tactile (robot only) | 50.0% |
+| PatchMatch | 56.7% |
+| UV-Direct | 63.3% |
+| **UniTacHand** (human + 1-shot robot) | **73.3%** |
+
+<Figure src="./fig-12.png" caption="An example of the one-shot manipulation task." />
+
+## Achievements and Limitations
+
+**New achievements:**
+- First use of MANO UV map to resolve 137↔1062 sensor heterogeneity in a shared 2D canonical space
+- Full domain alignment with only 10 minutes of paired data (human + robot manipulate identical objects)
+- Single unified representation spanning zero-shot, one-shot, and complex classification tasks
+
+**Limitations:**
+- Dual decoder begins overfitting after ~25 epochs with current paired dataset scale
+- Validated on a single robot platform (RealMan 6-DoF + tactile dexterous hand)
+- 🤖 MANO UV alignment fundamentally requires a hand morphology similar to the 5-finger human hand — extending to 2–3 finger grippers or morphologically distinct end-effectors is not straightforward and may require redesigning the entire projection framework
+
+## Terry's Memo
+
+- *(None)*

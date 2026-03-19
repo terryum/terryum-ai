@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-19T04:59:33.528Z",
-  "total_posts": 15,
+  "generated_at": "2026-03-19T06:09:52.428Z",
+  "total_posts": 16,
   "posts": [
     {
       "post_number": 1,
@@ -974,6 +974,84 @@
       "taxonomy_secondary": [
         "robotics/hand/dexterous"
       ]
+    },
+    {
+      "post_number": 16,
+      "slug": "2512-unitachand",
+      "content_type": "papers",
+      "title_en": "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer",
+      "title_ko": "UniTacHand: 인간-로봇 손 촉각 통합 표현으로 제로샷 기술 이전",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "tactile-sensing",
+        "human-robot-transfer"
+      ],
+      "key_concepts": [
+        "MANO-UV-mapping",
+        "unified-tactile-representation",
+        "contrastive-learning",
+        "human-to-robot-transfer",
+        "zero-shot-transfer",
+        "tactile-sensing",
+        "domain-adaptation",
+        "dexterous-manipulation"
+      ],
+      "methodology": [
+        "MANO-UV-projection",
+        "contrastive-learning",
+        "domain-adversarial-training",
+        "physics-informed-augmentation",
+        "imitation-learning"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Dexterous Manipulation",
+        "Human-Robot Transfer",
+        "Contrastive Learning"
+      ],
+      "source_author": "Chi Zhang et al.",
+      "source_date": "2025-12-24",
+      "published_at": "2026-03-19T11:00:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로 제로샷 정책 이전 달성",
+        "problem": "인간 손(137 센서)과 로봇 손(1062 센서)의 이질적 촉각 데이터를 같은 공간에 표현하는 방법 부재",
+        "solution": "MANO 손 모델 UV 맵으로 인간·로봇 촉각 모두 투영 후, InfoNCE 대조 학습 + 도메인 적대적 학습 + 물리 기반 증강으로 정렬",
+        "key_result": "제로샷 조작 85~100%, 원샷 73.3% (UV-Direct 63.3% 대비 +10%p), 10분 페어 데이터만으로 달성",
+        "limitations": [
+          "현재 페어 데이터셋 규모에서 듀얼 디코더가 ~25 에포크 후 과적합",
+          "단일 로봇 플랫폼 (RealMan 6-DoF + 촉각 손) 검증만",
+          "🤖 MANO UV 맵 정렬은 손가락 형태·관절 개수가 유사한 손에만 적용 가능 — 형태가 크게 다른 비인간형 말단장치(gripper 등)로 확장 어려움"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2409-3dtactile-dex",
+          "type": "related"
+        },
+        {
+          "target": "2407-tactile-skin-inhand-translation",
+          "type": "related"
+        },
+        {
+          "target": "2504-pp-tac",
+          "type": "related"
+        },
+        {
+          "target": "2505-dexumi",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -1117,6 +1195,26 @@
         "from": "2602-robopaint",
         "to": "2410-pi0-vla-flow-model",
         "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2409-3dtactile-dex",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2505-dexumi",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -1143,10 +1241,12 @@
           6,
           12,
           13,
-          14
+          14,
+          16
         ],
         "core_concepts": [
-          "diffusion-policy"
+          "diffusion-policy",
+          "dexterous-manipulation"
         ],
         "taxonomy_nodes": [
           "robotics/hand/tactile"
@@ -1178,6 +1278,19 @@
         ],
         "core_concepts": [
           "VLA"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
+        "id": "concept-dexterous-manipulation",
+        "label": "dexterous-manipulation",
+        "post_numbers": [
+          14,
+          15,
+          16
+        ],
+        "core_concepts": [
+          "dexterous-manipulation"
         ],
         "taxonomy_nodes": []
       }
@@ -1292,7 +1405,8 @@
       8
     ],
     "tactile-sensing": [
-      8
+      8,
+      16
     ],
     "universal-manipulation-interface": [
       8
@@ -1310,7 +1424,8 @@
       9
     ],
     "zero-shot-transfer": [
-      9
+      9,
+      16
     ],
     "trajectory-optimization": [
       9
@@ -1418,7 +1533,8 @@
     ],
     "dexterous-manipulation": [
       14,
-      15
+      15,
+      16
     ],
     "GraphMAE": [
       14
@@ -1440,26 +1556,41 @@
     ],
     "cross-embodiment": [
       15
+    ],
+    "MANO-UV-mapping": [
+      16
+    ],
+    "unified-tactile-representation": [
+      16
+    ],
+    "contrastive-learning": [
+      16
+    ],
+    "human-to-robot-transfer": [
+      16
+    ],
+    "domain-adaptation": [
+      16
     ]
   },
   "domain_stats": {
-    "robotics": 13,
+    "robotics": 14,
     "ml": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 3,
     "robotics/arm:secondary": 3,
     "robotics/arm/force-control": 1,
-    "robotics/hand/tactile": 4,
+    "robotics/hand/tactile": 5,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 1,
     "ai/agent": 1,
-    "robotics/hand/dexterous:secondary": 3,
+    "robotics/hand/dexterous:secondary": 4,
     "robotics/arm": 4,
-    "robotics/hand": 5,
+    "robotics/hand": 6,
     "robotics/brain": 3,
-    "robotics": 12,
+    "robotics": 13,
     "ai": 1
   }
 }

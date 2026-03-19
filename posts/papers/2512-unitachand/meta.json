@@ -1,0 +1,181 @@
+{
+  "post_id": "2512-unitachand",
+  "slug": "2512-unitachand",
+  "post_number": 16,
+  "published_at": "2026-03-19T11:00:00+09:00",
+  "updated_at": "2026-03-19T11:00:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Tactile Sensing", "Dexterous Manipulation", "Human-Robot Transfer", "Contrastive Learning"],
+  "display_tags": ["Tactile Sensing", "Dexterous Manipulation", "Human-Robot Transfer", "Contrastive Learning"],
+  "cover_image": "./cover.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-5.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "tactile-sensing", "human-robot-transfer"],
+  "key_concepts": [
+    "MANO-UV-mapping",
+    "unified-tactile-representation",
+    "contrastive-learning",
+    "human-to-robot-transfer",
+    "zero-shot-transfer",
+    "tactile-sensing",
+    "domain-adaptation",
+    "dexterous-manipulation"
+  ],
+  "methodology": [
+    "MANO-UV-projection",
+    "contrastive-learning",
+    "domain-adversarial-training",
+    "physics-informed-augmentation",
+    "imitation-learning"
+  ],
+  "contribution_type": "method",
+  "idea_status": null,
+  "related_posts": null,
+  "taxonomy_primary": "robotics/hand/tactile",
+  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "relations": [
+    { "target": "2409-3dtactile-dex", "type": "related" },
+    { "target": "2407-tactile-skin-inhand-translation", "type": "related" },
+    { "target": "2504-pp-tac", "type": "related" },
+    { "target": "2505-dexumi", "type": "related" }
+  ],
+  "source_title": "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer",
+  "source_author": "Chi Zhang et al.",
+  "source_authors_full": [
+    { "name": "Chi Zhang", "affiliation": "Peking University / BeingBeyond" },
+    { "name": "Penglin Cai", "affiliation": "Peking University / BeingBeyond" },
+    { "name": "Haoqi Yuan", "affiliation": "Peking University / BeingBeyond" },
+    { "name": "Chaoyi Xu", "affiliation": "BeingBeyond" },
+    { "name": "Zongqing Lu", "affiliation": "Peking University / BeingBeyond" }
+  ],
+  "source_url": "https://arxiv.org/abs/2512.21233",
+  "source_type": "arxiv",
+  "source_date": "2025-12-24",
+  "source_project_url": "https://beingbeyond.github.io/UniTacHand/",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=unitachand-unified-spatio-tactile-representation",
+  "ai_summary": {
+    "one_liner": "인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로 제로샷 정책 이전 달성",
+    "problem": "인간 손(137 센서)과 로봇 손(1062 센서)의 이질적 촉각 데이터를 같은 공간에 표현하는 방법 부재",
+    "solution": "MANO 손 모델 UV 맵으로 인간·로봇 촉각 모두 투영 후, InfoNCE 대조 학습 + 도메인 적대적 학습 + 물리 기반 증강으로 정렬",
+    "key_result": "제로샷 조작 85~100%, 원샷 73.3% (UV-Direct 63.3% 대비 +10%p), 10분 페어 데이터만으로 달성",
+    "limitations": [
+      "현재 페어 데이터셋 규모에서 듀얼 디코더가 ~25 에포크 후 과적합",
+      "단일 로봇 플랫폼 (RealMan 6-DoF + 촉각 손) 검증만",
+      "🤖 MANO UV 맵 정렬은 손가락 형태·관절 개수가 유사한 손에만 적용 가능 — 형태가 크게 다른 비인간형 말단장치(gripper 등)로 확장 어려움"
+    ]
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map.",
+      "caption_ko": "UniTacHand 개요. (왼쪽) 1단계: 인간 햅틱 글러브와 로봇 손 양쪽의 촉각 데이터를 통합 MANO UV 맵에 투영한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "UV mapping results. When a human hand (or robotic dexterous hand) grasps an object, the activated tactile lattices on a MANO hand are highlighted in red.",
+      "caption_ko": "UV 매핑 결과. 인간 손(또는 로봇 손재주 있는 손)이 물체를 파지할 때, MANO 손 위에서 활성화된 촉각 격자가 빨간색으로 표시된다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "t-SNE visualization of latent space on unseen validation data. Each color represents an object category and shape indicates the data source.",
+      "caption_ko": "미관찰 검증 데이터에 대한 잠재 공간의 t-SNE 시각화. 색상은 물체 카테고리, 모양은 데이터 출처(인간/로봇)를 나타낸다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Ablation study on representation learning. The validation loss comparison demonstrates that our full UniTacHand framework outperforms baselines.",
+      "caption_ko": "표현 학습에 대한 어블레이션 연구. 검증 손실 비교에서 전체 UniTacHand 프레임워크가 기준선들을 능가함을 보인다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Hardware settings. (a) The human contact hardware includes a 137-dim tactile glove with pressure-sensitive fiber sensors. (b) The robotic platform features a 6-DoF RealMan arm.",
+      "caption_ko": "하드웨어 설정. (a) 인간 쪽 하드웨어는 압력 감응 섬유 센서가 달린 137차원 촉각 글러브. (b) 로봇 플랫폼은 6-DoF RealMan 암과 촉각 손."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Examples of the paired dataset. A subset of our paired object dataset, enabling unified representation alignment by paired manipulation.",
+      "caption_ko": "페어 데이터셋 예시. 인간-로봇 페어 조작으로 통합 표현 정렬을 가능하게 하는 페어 물체 데이터셋의 일부."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Illustration of the tasks CompliantControl and ObjectClassification.",
+      "caption_ko": "CompliantControl 및 ObjectClassification 태스크 설명."
+    },
+    {
+      "number": 8,
+      "src": "./fig-8.png",
+      "caption": "Ablation on augmentation strategy. Comparison of validation loss curves.",
+      "caption_ko": "증강 전략에 대한 어블레이션. 검증 손실 곡선 비교."
+    },
+    {
+      "number": 9,
+      "src": "./fig-9.png",
+      "caption": "Comparison of decoder architectures. The Dual Decoder achieves the fastest initial convergence.",
+      "caption_ko": "디코더 아키텍처 비교. 듀얼 디코더가 가장 빠른 초기 수렴을 달성한다."
+    },
+    {
+      "number": 10,
+      "src": "./fig-10.png",
+      "caption": "Latent similarity heatmaps. Comparison of feature alignment quality on a paired validation trajectory.",
+      "caption_ko": "잠재 유사도 히트맵. 페어 검증 궤적에서 특징 정렬 품질 비교."
+    },
+    {
+      "number": 11,
+      "src": "./fig-11.png",
+      "caption": "An example of the task SoftHardPickPlace.",
+      "caption_ko": "SoftHardPickPlace 태스크 예시."
+    },
+    {
+      "number": 12,
+      "src": "./fig-12.png",
+      "caption": "An example of the one-shot manipulation task.",
+      "caption_ko": "원샷 조작 태스크 예시."
+    },
+    {
+      "number": 13,
+      "src": "./fig-13.png",
+      "caption": "An example of the task CompliantControl.",
+      "caption_ko": "CompliantControl 태스크 예시."
+    }
+  ],
+  "tables": [],
+  "cover_caption": "An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map.",
+  "newsletter_eligible": false,
+  "featured": false,
+  "references": [
+    {
+      "title": "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning",
+      "author": "Tianhao Wu et al.",
+      "description": "3D 촉각 데이터의 정규 좌표계 표현을 제안한 선행 연구. UniTacHand가 cross-embodiment 문제를 MANO UV 맵으로 해결하는 반면, 이 연구는 단일 로봇 내 센서 간 이질성을 canonical space로 해결한다.",
+      "arxiv_url": "https://arxiv.org/abs/2409.17549",
+      "scholar_url": "https://scholar.google.com/scholar?q=canonical+representation+force-based+pretraining+3d+tactile",
+      "category": "recent"
+    },
+    {
+      "title": "MANO: Embodied Hands",
+      "author": "Romero et al.",
+      "description": "778개 정점의 손 표면 모델(MANO)로, UniTacHand가 인간·로봇 촉각 데이터를 투영하는 공통 UV 맵의 기반.",
+      "arxiv_url": "https://arxiv.org/abs/2201.02610",
+      "scholar_url": "https://scholar.google.com/scholar?q=MANO+embodied+hands+model",
+      "category": "foundational"
+    },
+    {
+      "title": "Dexterity from Touch: Self-Supervised Pre-Training of Tactile Representations with Robotic Play",
+      "author": "Guzey et al.",
+      "description": "촉각 표현의 자기지도 사전학습 연구(T-DEX). UniTacHand와 같이 소량의 데이터로 촉각 표현을 학습하는 접근으로, 인간-로봇 도메인 갭은 고려하지 않는 비교 기준선 역할.",
+      "arxiv_url": "https://arxiv.org/abs/2303.12076",
+      "scholar_url": "https://scholar.google.com/scholar?q=dexterity+from+touch+self-supervised+tactile",
+      "category": "foundational"
+    }
+  ]
+}
