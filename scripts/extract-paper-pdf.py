@@ -53,6 +53,25 @@ def extract_captions(pdf_path: str, max_pages: int) -> dict[int, str]:
     return captions
 
 
+def flatten_transparent(filepath: Path) -> bool:
+    """RGBA/LA 이미지의 투명 배경을 흰색으로 변환. 변환 시 True 반환."""
+    try:
+        from PIL import Image
+        img = Image.open(filepath)
+        if img.mode not in ("RGBA", "LA"):
+            return False
+        alpha = img.split()[-1]
+        if alpha.getextrema()[0] >= 255:
+            return False  # 완전 불투명, 스킵
+        white = Image.new("RGB", img.size, (255, 255, 255))
+        white.paste(img, mask=img.convert("RGBA").split()[3])
+        white.save(filepath, optimize=True)
+        return True
+    except Exception as e:
+        print(f"[WARN] flatten_transparent({filepath.name}): {e}", file=sys.stderr)
+        return False
+
+
 def extract_images(pdf_path: str, output_dir: Path, max_pages: int) -> list[dict]:
     """pymupdf(fitz)로 이미지 추출. 200×200 이하는 아이콘으로 간주 스킵."""
     try:
@@ -108,6 +127,11 @@ def extract_images(pdf_path: str, output_dir: Path, max_pages: int) -> list[dict
         filename = f"raw_p{img['page']}_{idx}.{img['ext']}"
         filepath = output_dir / filename
         filepath.write_bytes(img["bytes"])
+
+        # 투명 배경(RGBA) → 흰색 배경으로 변환
+        if img["ext"] == "png" and flatten_transparent(filepath):
+            print(f"      [flatten] {filename}: RGBA → RGB (흰배경)")
+
         result.append({
             "file": filename,
             "page": img["page"],

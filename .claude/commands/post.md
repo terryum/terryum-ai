@@ -60,8 +60,10 @@ URL: `https://arxiv.org/pdf/<id>`
 
 ### Step R6) Figure 추출
 - `GET https://arxiv.org/html/<id>v1/` → 200이면 img src 전수 추출 + 다운로드
+  - 다운로드 완료 후 투명배경 변환: `python scripts/flatten-transparent-figures.py posts/papers/<slug>/`
 - **404이면 즉시 PDF fallback** (Semantic Scholar 등 외부 사이트 탐색 금지):
   a. `python scripts/extract-paper-pdf.py posts/papers/<slug>/paper/<slug>.pdf posts/papers/<slug>/`
+     (PDF fallback은 extract-paper-pdf.py 내부에서 자동으로 flatten 처리됨)
   b. `extraction_report.json` 읽기 → figures/captions 자동 적용
   c. `suggested_cover`를 `cover.webp`로 PIL 변환
 

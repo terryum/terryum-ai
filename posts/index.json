@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-18T07:03:34.259Z",
+  "generated_at": "2026-03-19T01:54:20.130Z",
   "total_posts": 13,
   "posts": [
     {
       "post_number": 1,
       "slug": "2505-forcevla-force-aware-moe",
       "content_type": "papers",
-      "title_en": "ForceVLA: Force-aware MoE for Contact-rich Robot Manipulation",
-      "title_ko": "ForceVLA: 접촉이 많은 로봇 조작을 위한 힘 인식 MoE",
+      "title_en": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
+      "title_ko": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -70,7 +70,7 @@
       "slug": "2410-pi0-vla-flow-model",
       "content_type": "papers",
       "title_en": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
-      "title_ko": "π₀: 범용 로봇 제어를 위한 비전-언어-행동 플로우 모델",
+      "title_ko": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -128,8 +128,8 @@
       "post_number": 3,
       "slug": "2501-dexforce-force-informed-actions",
       "content_type": "papers",
-      "title_en": "DexForce: Learning Contact Forces from Human Demonstrations for Dexterous Manipulation",
-      "title_ko": "DexForce: 인간 시연에서 접촉력을 학습하는 다지 조작",
+      "title_en": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
+      "title_ko": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -186,7 +186,7 @@
       "slug": "2511-pi0-6-recap",
       "content_type": "papers",
       "title_en": "π₀.₆: a VLA That Learns From Experience",
-      "title_ko": "π₀.₆: 경험에서 스스로 학습하는 VLA",
+      "title_ko": "π₀.₆: a VLA That Learns From Experience",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -244,8 +244,8 @@
       "post_number": 5,
       "slug": "260310-on-the-manifold-first-post",
       "content_type": "essays",
-      "title_en": "On the Manifold",
-      "title_ko": "On the Manifold",
+      "title_en": "260310-on-the-manifold-first-post",
+      "title_ko": "260310-on-the-manifold-first-post",
       "domain": "robotics",
       "subfields": [
         "research-philosophy"
@@ -290,8 +290,8 @@
       "post_number": 6,
       "slug": "2407-stretchable-glove-hand-pose",
       "content_type": "papers",
-      "title_en": "Stretchable Glove: Liquid-metal Sensor Glove for Accurate Hand Pose Tracking",
-      "title_ko": "Stretchable Glove: 액체금속 센서로 손 자세를 정밀 추적하는 장갑",
+      "title_en": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
+      "title_ko": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
       "domain": "robotics",
       "subfields": [
         "wearable-sensing",
@@ -346,8 +346,8 @@
       "post_number": 7,
       "slug": "260310-brain-augmentation",
       "content_type": "tech",
-      "title_en": "Brain Augmentation",
-      "title_ko": "Brain Augmentation",
+      "title_en": "260310-brain-augmentation",
+      "title_ko": "260310-brain-augmentation",
       "domain": "ml",
       "subfields": [
         "ai-research-methodology",
@@ -393,8 +393,8 @@
       "post_number": 8,
       "slug": "2505-dexumi",
       "content_type": "papers",
-      "title_en": "DexUMI: Human Hand as Universal Interface for Dexterous Robot Manipulation",
-      "title_ko": "DexUMI: 인간 손을 다지 로봇 조작의 범용 인터페이스로",
+      "title_en": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
+      "title_ko": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -469,8 +469,8 @@
       "post_number": 9,
       "slug": "2506-exostart",
       "content_type": "papers",
-      "title_en": "ExoStart: From 10 Exoskeleton Demos to Dexterous Robot Manipulation",
-      "title_ko": "ExoStart: 10회 엑소스켈레톤 시연으로 다지 로봇 조작 학습",
+      "title_en": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
+      "title_ko": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -540,8 +540,8 @@
       "post_number": 10,
       "slug": "2509-dexop",
       "content_type": "papers",
-      "title_en": "DEXOP: Passive Exoskeleton for Direct-contact Dexterous Demonstration",
-      "title_ko": "DEXOP: 직접 접촉 기반 다지 조작 시연을 위한 패시브 엑소스켈레톤",
+      "title_en": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
+      "title_ko": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -613,8 +613,8 @@
       "post_number": 11,
       "slug": "2502-ai-co-scientist",
       "content_type": "papers",
-      "title_en": "AI Co-scientist: Multi-agent System for Autonomous Scientific Discovery",
-      "title_ko": "AI Co-scientist: 자율 과학 발견을 위한 멀티에이전트 시스템",
+      "title_en": "Towards an AI co-scientist",
+      "title_ko": "Towards an AI co-scientist",
       "domain": "ml",
       "subfields": [
         "scientific-discovery",
@@ -677,8 +677,8 @@
       "post_number": 12,
       "slug": "2504-pp-tac",
       "content_type": "papers",
-      "title_en": "PP-Tac: Picking Up Paper with Tactile Feedback in a Dexterous Robotic Hand",
-      "title_ko": "PP-Tac: 촉각 피드백으로 종이를 집는 다지 로봇 손",
+      "title_en": "PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands",
+      "title_ko": "PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -748,8 +748,8 @@
       "post_number": 13,
       "slug": "2407-tactile-skin-inhand-translation",
       "content_type": "papers",
-      "title_en": "Tactile Skin: Learning In-Hand Translation with Shear and Normal Forces",
-      "title_ko": "Tactile Skin: 촉각 피부로 배우는 인핸드 이동",
+      "title_en": "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing",
+      "title_ko": "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
