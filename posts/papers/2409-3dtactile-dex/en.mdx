@@ -1,0 +1,95 @@
+---
+locale: "en"
+translation_of: "2409-3dtactile-dex:ko"
+title: "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning"
+subtitle: "Canonical coords + force prediction for 3D tactile learning"
+summary: "This work addresses the challenge of learning from high-dimensional 3D tactile data distributed across a dexterous hand. A canonical representation normalizes taxel coordinates across sensors, and a GraphMAE-based force prediction pretraining captures both local and net force features. Integrated with Diffusion Policy, the method achieves 78% average success across four fine-grained contact-rich dexterous tasks, outperforming the best baseline T-DEX (63%) by +15%p."
+card_summary: "3D tactile feature learning for dexterous manipulation via canonical representation + force-based self-supervised pretraining, achieving 78% average success rate across 4 contact-rich tasks"
+cover_caption: "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks."
+published_at: "2026-03-19T09:00:00+09:00"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2409.17549"
+source_date: "2024-09-26"
+terrys_memo: ""
+---
+
+## TL;DR
+
+The challenge of 3D tactile feature learning — without large-scale datasets or pretrained backbones — is resolved by two components: a **canonical representation** that normalizes sensor coordinates, and two self-supervised force prediction tasks (local and net force). Integrated into Diffusion Policy, the method achieves **78%** average success across four fine-grained contact-rich tasks, surpassing the best baseline T-DEX (63%).
+
+## Problem
+
+Tactile sensing is critical for fine-grained, contact-rich manipulation, but the high dimensionality of 3D tactile data distributed across a dexterous hand poses serious challenges for feature learning. Unlike vision — where ImageNet-pretrained backbones like ResNet or ViT are ubiquitous — no large-scale datasets or strong pretrained encoders exist for 3D tactile data. Prior methods either learn tactile representations from scratch or simplify to 2D. Tactile sensors distributed across multiple finger positions have heterogeneous taxel layouts, making it difficult to learn unified cross-sensor features or to integrate information globally.
+
+## Key Idea
+
+The approach distinguishes itself from prior tactile learning methods (T-DEX, HATO) in two ways: (1) **canonical representation** reduces cross-sensor learning complexity, and (2) **force-based pretraining** explicitly targets the force information most critical for dexterous manipulation.
+
+**Core components:**
+- **Canonical Representation (CR)**: Normalize each sensor's taxel coordinates to $[-1, 1]^3$ unit space. Representation per taxel = $[\mathbf{P}^s, \mathbf{T}, \mathbf{F}]$ (sensor pose 6D + normalized position 3D + force 3D = 12D). Amplifies relative inter-taxel distances, improving feature separability across sensors
+- **Force-Based Pretraining**: GraphMAE encoder trained on two self-supervised tasks simultaneously:
+  - *Local Force Prediction*: randomly mask tactile forces → encode → reconstruct masked forces (MSE loss)
+  - *Net Force Prediction*: substitute predicted local forces back → re-encode → predict net force (MSE loss)
+- **Diffusion Policy Integration**: pretrained GNN encoder combined with DinoV2 visual features to condition the diffusion policy
+
+<Figure src="./fig-2.png" caption="Pipeline. a) Pretraining on play data with canonical representation and force-based task. Local force prediction: masked tactile force randomly masked, encoded into latent representation, then decoded to predict masked forces. Net force prediction: predicted masked forces substituted back into original data and encoded again to predict the net force. b) Incorporating the pretrained encoder within the imitation learning framework for downstream dexterous manipulation." />
+
+<Collapsible title="Method Details">
+
+### Canonical Representation
+
+Each taxel's raw coordinate $\mathbf{T}_i \in \mathbb{R}^3$ is normalized by the sensor's diagonal length $d$:
+
+$$\mathbf{T}_i^s = \frac{\mathbf{T}_i}{d}$$
+
+The full per-taxel representation is then:
+
+$$\mathbf{R}_i = [\mathbf{P}^s \; \| \; \mathbf{T}_i^s \; \| \; \mathbf{F}_i] \in \mathbb{R}^{12}$$
+
+where $\mathbf{P}^s$ is the 6D sensor pose in the hand base frame, $\mathbf{F}_i$ is the 3D force vector.
+
+### Force-Based Pretraining Tasks
+
+**Local Force Prediction (LF)**: Randomly mask a portion of taxels → GraphMAE encoder extracts latent representation → MLP decoder reconstructs masked forces. MSE loss over masked taxels only:
+
+$$\mathcal{L}_{LF} = \frac{1}{|\mathcal{M}|} \sum_{i \in \mathcal{M}} \|\hat{\mathbf{F}}_i - \mathbf{F}_i\|^2$$
+
+**Net Force Prediction (NF)**: Predicted local forces $\hat{\mathbf{F}}_i$ are substituted back into the original data → re-encoded → MLP predicts net force against ground truth $\mathbf{F}_G^n = \sum_i \mathbf{F}_i \cdot \mathbf{R}_{pose,i}$:
+
+$$\mathcal{L}_{NF} = \|\hat{\mathbf{F}}_G^n - \mathbf{F}_G^n\|^2$$
+
+Both tasks share the same GraphMAE encoder and are trained jointly.
+
+### Play Data and Policy Learning
+
+Pretraining uses task-agnostic play data (free-form hand movements). For downstream tasks, the pretrained encoder and DinoV2 visual encoder are combined and both fine-tuned together within the Diffusion Policy framework. Proprioception includes arm 3D position + 4D quaternion and hand 16D joint angles.
+
+</Collapsible>
+
+## Key Results
+
+Across four fine-grained contact-rich tasks (Open Box, Reorientation, Flip, Assembly), the method outperforms all baselines:
+
+- **78% average success** vs T-DEX 63% (+15%p), DP 53% (+25%p), HATO 48% (+30%p)
+- **Canonical representation only (no pretraining)**: 48% — learning difficulty limits performance
+- **No CR, no pretraining (raw GNN)**: 0% — GNN completely fails to learn without canonical coords
+- **Without Net Force prediction**: 28% — net force is critical for holistic force understanding
+- **Without Local Force prediction**: 48% — local prediction alone insufficient
+
+<Figure src="./fig-4.png" caption="Visualization of Our Policy's Rollout on Four Fine-Grained, Contact-Rich Tasks. Note this view is the view of the robot's observation." />
+
+## Achievements and Limitations
+
+**New achievements:**
+- First systematic resolution of distributed 3D tactile sensor learning complexity via canonical representation
+- Successful tactile pretraining using only task-agnostic play data (no large-scale labeled dataset)
+- Hierarchical self-supervised learning combining local and net force prediction
+
+**Limitations:**
+- Limited generalization to objects with significantly different shapes and dynamics (author-acknowledged)
+- Validated on a single robot platform (LEAP Hand + FR3 arm) only
+- 🤖 Canonicalization is tied to the physical taxel topology of each sensor — applying to different tactile hardware requires redesigning the canonical space, limiting generalizability
+
+## Terry's Memo
+
+- *(None)*

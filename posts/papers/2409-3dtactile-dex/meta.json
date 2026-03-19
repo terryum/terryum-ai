@@ -1,0 +1,133 @@
+{
+  "post_id": "2409-3dtactile-dex",
+  "slug": "2409-3dtactile-dex",
+  "post_number": 14,
+  "published_at": "2026-03-19T09:00:00+09:00",
+  "updated_at": "2026-03-19T09:00:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Tactile Sensing", "Dexterous Manipulation", "Self-Supervised Learning", "ICRA 2025"],
+  "display_tags": ["Tactile Sensing", "Dexterous Manipulation", "Self-Supervised Learning", "ICRA 2025"],
+  "cover_image": "./cover.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "tactile-sensing", "self-supervised-learning"],
+  "key_concepts": [
+    "3D-tactile",
+    "canonical-representation",
+    "force-based-pretraining",
+    "self-supervised-pretraining",
+    "visuo-tactile-policy",
+    "dexterous-manipulation",
+    "diffusion-policy",
+    "GraphMAE"
+  ],
+  "methodology": [
+    "self-supervised-pretraining",
+    "graph-neural-network",
+    "masked-autoencoder",
+    "diffusion-policy",
+    "imitation-learning"
+  ],
+  "contribution_type": "method",
+  "idea_status": null,
+  "related_posts": null,
+  "taxonomy_primary": "robotics/hand/tactile",
+  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "relations": [
+    { "target": "2504-pp-tac", "type": "related" },
+    { "target": "2407-tactile-skin-inhand-translation", "type": "related" },
+    { "target": "2501-dexforce-force-informed-actions", "type": "related" },
+    { "target": "2505-dexumi", "type": "related" }
+  ],
+  "source_title": "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning",
+  "source_author": "Tianhao Wu et al.",
+  "source_authors_full": [
+    { "name": "Tianhao Wu", "affiliation": "Peking University" },
+    { "name": "Jinzhou Li", "affiliation": "Peking University" },
+    { "name": "Jiyao Zhang", "affiliation": "Peking University" },
+    { "name": "Mingdong Wu", "affiliation": "Peking University" },
+    { "name": "Hao Dong", "affiliation": "Peking University" }
+  ],
+  "source_url": "https://arxiv.org/abs/2409.17549",
+  "source_type": "arxiv",
+  "source_date": "2024-09-26",
+  "source_project_url": "https://3dtacdex.github.io",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=canonical-representation-and-force-based",
+  "ai_summary": {
+    "one_liner": "3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로 해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성",
+    "problem": "대규모 데이터셋이나 사전학습 백본이 없는 3D 촉각 데이터 학습의 고차원성·복잡성",
+    "solution": "정규 좌표계 표현 + GraphMAE 기반 로컬/넷 힘 예측 사전학습 → Diffusion Policy에 통합",
+    "key_result": "4개 정밀 접촉 태스크 평균 78% 성공률 (best baseline T-DEX 63% 대비 +15%p)",
+    "limitations": [
+      "형태/동역학이 크게 다른 미관찰 물체에 대한 일반화 제한",
+      "단일 로봇 플랫폼(LEAP Hand + FR3 arm) 검증만",
+      "🤖 force-based pretraining이 촉각 배치 방식에 의존적 — 다른 센서 토폴로지로 재현 시 canonicalization 재설계 필요"
+    ]
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks.",
+      "caption_ko": "실제 로봇 시스템. 단일 카메라와 분산 촉각 센서를 사용해 섬세한 접촉 집약적 태스크를 수행한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Pipeline. a) Pretraining on play data with canonical representation and force-based task. Local force prediction: masked tactile force randomly masked, encoded into latent representation, then decoded to predict masked forces. Net force prediction: predicted masked forces substituted back into original data and encoded again to predict the net force. b) Incorporating the pretrained encoder within the imitation learning framework for downstream dexterous manipulation.",
+      "caption_ko": "파이프라인. a) 정규 좌표계 표현과 힘 기반 태스크로 플레이 데이터를 사전학습. 로컬 힘 예측: 무작위로 마스킹된 촉각 힘을 잠재 표현으로 인코딩 후 복원. 넷 힘 예측: 예측된 로컬 힘을 원본 데이터에 대입하고 재인코딩해 합력을 예측. b) 사전학습된 인코더를 하류 손 조작 모방 학습 프레임워크에 통합."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Comparison of Canonical Representation and Original Representation. Visualization of taxel coordinates in the fingertip sensor before and after canonicalization. Blue dots represent original taxel coordinates; red dots represent canonicalized coordinates.",
+      "caption_ko": "정규 좌표계 표현과 원본 표현 비교. 정규화 전후 손끝 센서의 택셀 좌표 시각화. 파란 점은 원본 택셀 좌표, 빨간 점은 정규화된 좌표."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Visualization of Our Policy's Rollout on Four Fine-Grained, Contact-Rich Tasks. Note this view is the view of the robot's observation.",
+      "caption_ko": "4가지 정밀 접촉 집약적 태스크에서 정책 롤아웃 시각화. 로봇의 관찰 시점에서 본 화면."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Visualization of Our Policy on Unseen Objects.",
+      "caption_ko": "미관찰 물체에 대한 정책 시각화."
+    }
+  ],
+  "tables": [],
+  "cover_caption": "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks.",
+  "newsletter_eligible": false,
+  "featured": false,
+  "references": [
+    {
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "author": "Chi et al.",
+      "description": "Diffusion 모델을 로봇 정책 학습에 적용한 기초 연구. 본 논문에서 기준선(DP)으로 사용되며, 촉각 입력 없이 시각 정보만으로 정책을 학습하는 비교 대상.",
+      "arxiv_url": "https://arxiv.org/abs/2303.04137",
+      "scholar_url": "https://scholar.google.com/scholar?q=diffusion+policy+visuomotor+policy+learning",
+      "category": "foundational"
+    },
+    {
+      "title": "Dexterity from Touch: Self-Supervised Pre-Training of Tactile Representations with Robotic Play",
+      "author": "Guzey et al.",
+      "description": "촉각 표현의 자기지도 사전학습 선행 연구(T-DEX). 2D 촉각 데이터를 활용하는 반면, 본 논문은 3D 촉각과 힘 기반 사전학습으로 이를 확장·개선.",
+      "arxiv_url": "https://arxiv.org/abs/2303.12076",
+      "scholar_url": "https://scholar.google.com/scholar?q=dexterity+from+touch+self-supervised+tactile",
+      "category": "recent"
+    },
+    {
+      "title": "Learning Visuotactile Skills with Two Multifingered Hands",
+      "author": "Lin et al.",
+      "description": "양손 시각촉각 스킬 학습(HATO). 다관절 손과 촉각 센서를 결합한 선행 연구로, 본 논문의 비교 기준선 중 하나.",
+      "arxiv_url": "https://arxiv.org/abs/2404.16823",
+      "scholar_url": "https://scholar.google.com/scholar?q=learning+visuotactile+skills+two+multifingered+hands",
+      "category": "recent"
+    }
+  ]
+}

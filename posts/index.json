@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-19T01:54:20.130Z",
-  "total_posts": 13,
+  "generated_at": "2026-03-19T04:49:26.351Z",
+  "total_posts": 14,
   "posts": [
     {
       "post_number": 1,
@@ -817,6 +817,84 @@
       "taxonomy_secondary": [
         "robotics/hand/dexterous"
       ]
+    },
+    {
+      "post_number": 14,
+      "slug": "2409-3dtactile-dex",
+      "content_type": "papers",
+      "title_en": "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning",
+      "title_ko": "3D 촉각의 정규 표현과 힘 기반 사전학습으로 손재주 있는 시각촉각 정책 학습",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "tactile-sensing",
+        "self-supervised-learning"
+      ],
+      "key_concepts": [
+        "3D-tactile",
+        "canonical-representation",
+        "force-based-pretraining",
+        "self-supervised-pretraining",
+        "visuo-tactile-policy",
+        "dexterous-manipulation",
+        "diffusion-policy",
+        "GraphMAE"
+      ],
+      "methodology": [
+        "self-supervised-pretraining",
+        "graph-neural-network",
+        "masked-autoencoder",
+        "diffusion-policy",
+        "imitation-learning"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Dexterous Manipulation",
+        "Self-Supervised Learning",
+        "ICRA 2025"
+      ],
+      "source_author": "Tianhao Wu et al.",
+      "source_date": "2024-09-26",
+      "published_at": "2026-03-19T09:00:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로 해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성",
+        "problem": "대규모 데이터셋이나 사전학습 백본이 없는 3D 촉각 데이터 학습의 고차원성·복잡성",
+        "solution": "정규 좌표계 표현 + GraphMAE 기반 로컬/넷 힘 예측 사전학습 → Diffusion Policy에 통합",
+        "key_result": "4개 정밀 접촉 태스크 평균 78% 성공률 (best baseline T-DEX 63% 대비 +15%p)",
+        "limitations": [
+          "형태/동역학이 크게 다른 미관찰 물체에 대한 일반화 제한",
+          "단일 로봇 플랫폼(LEAP Hand + FR3 arm) 검증만",
+          "🤖 force-based pretraining이 촉각 배치 방식에 의존적 — 다른 센서 토폴로지로 재현 시 canonicalization 재설계 필요"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2504-pp-tac",
+          "type": "related"
+        },
+        {
+          "target": "2407-tactile-skin-inhand-translation",
+          "type": "related"
+        },
+        {
+          "target": "2501-dexforce-force-informed-actions",
+          "type": "related"
+        },
+        {
+          "target": "2505-dexumi",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -920,6 +998,26 @@
         "from": "2407-tactile-skin-inhand-translation",
         "to": "2501-dexforce-force-informed-actions",
         "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2505-dexumi",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -945,9 +1043,12 @@
         "post_numbers": [
           6,
           12,
-          13
+          13,
+          14
         ],
-        "core_concepts": [],
+        "core_concepts": [
+          "diffusion-policy"
+        ],
         "taxonomy_nodes": [
           "robotics/hand/tactile"
         ]
@@ -1155,7 +1256,8 @@
       12
     ],
     "diffusion-policy": [
-      12
+      12,
+      14
     ],
     "force-control": [
       12
@@ -1183,26 +1285,47 @@
     ],
     "finger-gaiting": [
       13
+    ],
+    "3D-tactile": [
+      14
+    ],
+    "canonical-representation": [
+      14
+    ],
+    "force-based-pretraining": [
+      14
+    ],
+    "self-supervised-pretraining": [
+      14
+    ],
+    "visuo-tactile-policy": [
+      14
+    ],
+    "dexterous-manipulation": [
+      14
+    ],
+    "GraphMAE": [
+      14
     ]
   },
   "domain_stats": {
-    "robotics": 11,
+    "robotics": 12,
     "ml": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 3,
     "robotics/arm:secondary": 3,
     "robotics/arm/force-control": 1,
-    "robotics/hand/tactile": 3,
+    "robotics/hand/tactile": 4,
     "robotics/arm/exoskeleton": 2,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 1,
     "ai/agent": 1,
-    "robotics/hand/dexterous:secondary": 1,
+    "robotics/hand/dexterous:secondary": 2,
     "robotics/arm": 3,
-    "robotics/hand": 4,
+    "robotics/hand": 5,
     "robotics/brain": 3,
-    "robotics": 10,
+    "robotics": 11,
     "ai": 1
   }
 }

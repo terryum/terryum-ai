@@ -1,0 +1,94 @@
+---
+locale: "ko"
+title: "3D 촉각의 정규 표현과 힘 기반 사전학습으로 손재주 있는 시각촉각 정책 학습"
+subtitle: "정규 좌표계 + 힘 예측 사전학습으로 촉각 특징 학습"
+summary: "로봇 손에 분산된 3D 촉각 센서의 고차원 데이터 학습 문제를 정규 좌표계(canonical representation)와 GraphMAE 기반 힘 예측 사전학습으로 해결한 연구. 4가지 정밀 접촉 집약적 손 조작 태스크에서 평균 78% 성공률을 달성해 최고 기준선(T-DEX 63%)을 15%p 상회한다."
+card_summary: "3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현과 힘 기반 자기지도 사전학습으로 해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성"
+cover_caption: "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks."
+published_at: "2026-03-19T09:00:00+09:00"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2409.17549"
+source_date: "2024-09-26"
+terrys_memo: ""
+---
+
+## TL;DR
+
+대규모 데이터셋도, 강력한 사전학습 백본도 없는 3D 촉각 특징 학습의 어려움을, 센서 좌표를 정규화하는 **canonical representation**과 로컬·넷 힘 예측이라는 두 가지 자기지도 태스크로 해결했다. Diffusion Policy에 통합 시 4가지 정밀 접촉 태스크 평균 **78%** 성공률로 기존 최고 기준선(T-DEX 63%)을 뛰어넘었다.
+
+## 문제
+
+촉각 감지는 세밀한 접촉 집약적 조작 태스크에 필수적이지만, 다관절 손에 분산된 3D 촉각 데이터의 고차원성은 특징 학습을 매우 어렵게 만든다. ImageNet 같은 대규모 벤치마크 데이터셋도, ResNet·ViT 같은 강력한 사전학습 백본도 없어, 기존 방법들은 촉각 표현을 처음부터 학습하거나 2D 단순화에 의존했다. 서로 다른 손가락 위치에 분산된 센서들은 각 센서마다 택셀(taxel) 배치가 달라 특징을 직접 학습하기 어렵고, 센서 간 정보 통합도 복잡하다.
+
+## 핵심 아이디어
+
+기존 촉각 표현 학습(T-DEX, HATO)과의 차별점은 두 가지다. 첫째, **센서 좌표를 정규화**해 분산된 센서들의 학습 복잡성을 줄이고, 둘째, 손 조작에서 실제로 중요한 **힘 정보**를 자기지도 방식으로 학습한다.
+
+**핵심 구성 요소:**
+- **Canonical Representation (CR)**: 각 센서 내 택셀 좌표를 $[-1, 1]^3$ 단위 공간으로 정규화. 표현 = $[\mathbf{P}^s, \mathbf{T}, \mathbf{F}]$ (센서 포즈 6D + 정규화 위치 3D + 힘 3D = 12차원/택셀). 센서 간 택셀 상대 거리를 증폭시켜 특징 구분을 쉽게 함
+- **Force-Based Pretraining**: GraphMAE 인코더로 두 가지 자기지도 태스크 동시 학습
+  - *로컬 힘 예측*: 촉각 힘 일부를 무작위 마스킹 → 잠재 표현에서 복원 (MSE loss)
+  - *넷 힘 예측*: 예측된 로컬 힘을 원본 데이터에 대입 → 재인코딩 → 합력 예측 (MSE loss)
+- **Diffusion Policy 통합**: 사전학습된 GNN 인코더를 DinoV2 시각 특징과 결합해 조건부 확산 정책 학습
+
+<Figure src="./fig-2.png" caption="Pipeline. a) Pretraining on play data with canonical representation and force-based task. Local force prediction: masked tactile force randomly masked, encoded into latent representation, then decoded to predict masked forces. Net force prediction: predicted masked forces substituted back into original data and encoded again to predict the net force. b) Incorporating the pretrained encoder within the imitation learning framework for downstream dexterous manipulation." />
+
+<Collapsible title="구체적 방법">
+
+### Canonical Representation 세부
+
+각 택셀의 원본 좌표 $\mathbf{T}_i \in \mathbb{R}^3$을 센서 대각선 길이 $d$로 나누어 정규화:
+
+$$\mathbf{T}_i^s = \frac{\mathbf{T}_i}{d}$$
+
+정규화 후 각 택셀의 전체 표현은:
+
+$$\mathbf{R}_i = [\mathbf{P}^s \; \| \; \mathbf{T}_i^s \; \| \; \mathbf{F}_i] \in \mathbb{R}^{12}$$
+
+여기서 $\mathbf{P}^s$는 손 베이스 좌표계에서의 센서 포즈(위치 3D + 쿼터니언 4D에서 6D SE(3) 표현 변환), $\mathbf{F}_i$는 3D 힘 값.
+
+### 힘 기반 사전학습 태스크
+
+**Local Force Prediction (LF)**: 전체 택셀 집합 중 무작위 비율 마스킹 → GraphMAE 인코더로 잠재 표현 추출 → MLP 디코더로 마스킹된 힘 복원. 마스킹된 택셀에만 MSE 손실 적용:
+
+$$\mathcal{L}_{LF} = \frac{1}{|\mathcal{M}|} \sum_{i \in \mathcal{M}} \|\hat{\mathbf{F}}_i - \mathbf{F}_i\|^2$$
+
+**Net Force Prediction (NF)**: 예측된 로컬 힘 $\hat{\mathbf{F}}_i$를 원본 데이터에 대입 후 재인코딩 → MLP로 합력 예측. 실제 합력 $\mathbf{F}_G^n = \sum_i \mathbf{F}_i \cdot \mathbf{R}_{pose,i}$와 비교:
+
+$$\mathcal{L}_{NF} = \|\hat{\mathbf{F}}_G^n - \mathbf{F}_G^n\|^2$$
+
+두 태스크는 같은 GraphMAE 인코더를 공유하며 동시에 학습된다.
+
+### 플레이 데이터 수집 및 정책 학습
+
+사전학습에는 특정 태스크 없이 자유로운 손 움직임(play data)을 사용한다. 하류 정책 학습 시 사전학습된 인코더와 DinoV2 시각 인코더를 결합해 Diffusion Policy를 학습하며, 두 인코더 모두 파인튜닝된다. 고유감각(프로프리오셉션)으로 팔 3D 위치+4D 쿼터니언 + 손 16D 관절 각도를 사용한다.
+
+</Collapsible>
+
+## 주요 결과
+
+4가지 정밀 접촉 태스크(Open Box, Reorientation, Flip, Assembly)에서 모든 기준선을 상회:
+
+- **78% 평균 성공률** vs T-DEX 63% (+15%p), HATO 48% (+30%p), DP 53% (+25%p)
+- **CR 없이 사전학습만**: 48% (학습 어려움으로 절반 이하)
+- **CR + 사전학습 없음**: 0% (canonical representation 없으면 GNN 학습 자체가 실패)
+- **NF 제거 시**: 28% (넷 힘 예측이 힘의 전체적 이해에 핵심)
+- **LF 제거 시**: 48% (로컬 힘 예측 단독으로는 넷 힘 이해 부족)
+
+<Figure src="./fig-4.png" caption="Visualization of Our Policy's Rollout on Four Fine-Grained, Contact-Rich Tasks. Note this view is the view of the robot's observation." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점:**
+- 대규모 데이터셋 없이 플레이 데이터만으로 3D 촉각 사전학습 성공
+- Canonical representation으로 분산 센서의 학습 복잡성을 처음 체계적으로 해결
+- 로컬·넷 힘 예측을 결합한 계층적 자기지도 학습 설계
+
+**한계점:**
+- 형태/동역학이 크게 다른 미관찰 물체로의 일반화가 제한됨 (저자 언급)
+- 단일 로봇 플랫폼(LEAP Hand + FR3)에서만 검증
+- 🤖 Canonicalization이 촉각 센서의 물리적 배치(taxel topology)에 의존적 — 다른 형태의 센서에 적용 시 canonical 공간 재정의가 필요해 범용성 제약
+
+## Terry's Memo
+
+- *(None)*
