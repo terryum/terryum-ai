@@ -1,0 +1,113 @@
+{
+  "post_id": "2201-mano-hand-model",
+  "slug": "2201-mano-hand-model",
+  "post_number": 17,
+  "published_at": "2026-03-26T09:00:00Z",
+  "updated_at": "2026-03-26T09:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "source_type": "arxiv",
+  "source_url": "https://arxiv.org/abs/2201.02610",
+  "source_date": "2017-11-01",
+  "source_author": "Javier Romero et al.",
+  "source_title": "Embodied Hands: Modeling and Capturing Hands and Bodies Together",
+  "source_authors_full": "Javier Romero (Max Planck Institute for Intelligent Systems), Dimitrios Tzionas (Max Planck Institute for Intelligent Systems), Michael J. Black (Max Planck Institute for Intelligent Systems)",
+  "source_project_url": "https://mano.is.tue.mpg.de/",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=embodied-hands-modeling-capturing",
+  "tags": ["Papers", "Robotics", "Hand Modeling", "3D Reconstruction", "SMPL+H", "SIGGRAPH Asia 2017"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements.",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 9,
+  "domain": "robotics",
+  "subfields": [
+    "hand-pose-estimation",
+    "3D-modeling",
+    "computer-vision"
+  ],
+  "key_concepts": [
+    "statistical-hand-model",
+    "MANO",
+    "SMPL+H",
+    "blend-skinning",
+    "PCA",
+    "non-rigid-deformation",
+    "hand-mesh",
+    "pose-blendshapes",
+    "4D-scan",
+    "body-hand-model"
+  ],
+  "methodology": [
+    "PCA",
+    "blend-skinning",
+    "3D-scan-registration",
+    "energy-minimization"
+  ],
+  "contribution_type": "method",
+  "taxonomy_primary": "robotics/hand/dexterous",
+  "taxonomy_secondary": [],
+  "relations": [
+    {
+      "target": "2407-stretchable-glove-hand-pose",
+      "type": "related"
+    },
+    {
+      "target": "2512-unitachand",
+      "type": "related"
+    },
+    {
+      "target": "2602-robopaint",
+      "type": "related"
+    }
+  ],
+  "idea_status": null,
+  "related_posts": null,
+  "ai_summary": {
+    "one_liner": "손 형태·포즈의 통계적 모델 MANO를 3D 스캔 1,000개에서 학습, SMPL 신체와 통합해 전신 4D 캡처 실현",
+    "problem": "손의 3D 형태·포즈 표현에 통계적 모델이 없어 개인 간 형태 다양성과 포즈 의존 비선형 변형 포착이 불가",
+    "solution": "PCA 형상 공간 + 포즈 블렌드셰이프 + 포즈 시너지로 구성된 778-vertex 손 메시 모델 MANO, SMPL 신체와 결합한 SMPL+H",
+    "key_result": "scan-to-mesh 오차 0.93mm (full space), 6개 PC → 81% / 15개 PC → 95% 포즈 분산 설명",
+    "limitations": [
+      "손-물체 상호작용 미모델링 (잘못된 대응 발생)",
+      "비일반적 포즈는 저차원 포즈 공간 밖",
+      "🤖 31명 제한 피험자에서 학습된 형상 공간이 인종·연령 다양성을 충분히 반영하지 못할 수 있음"
+    ]
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements.",
+      "caption_ko": "그림 1. 손과 신체를 함께 캡처. 베이지: 원본 4D 스캔. 분홍: SMPL+H로 복원한 형태와 포즈. 노이즈·데이터 누락에 대응하기 위해 MANO(관절형 비선형 변형 손 모델)를 개발하고 SMPL 신체 모델과 결합했다. 이 조합은 심각한 노이즈 환경에서도 자연스러운 퍼포먼스 캡처를 가능하게 한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-6.png",
+      "caption": "Fig. 3. Data collection with the 3dMDhand System. The system captures a hand with the wrist resting on a hand stand, and performing different articulated motions. The active stereo system is composed by 5 scanning units, each collecting one color image (top row) with flash-based illumination and two grayscale images (bottom row) using speckle illumination. The result is a high quality, textured scan of the hand (right most image).",
+      "caption_ko": "그림 3. 3dMDhand 시스템을 이용한 데이터 수집. 손목을 핸드 스탠드에 올리고 다양한 관절 동작을 수행하는 손을 캡처한다. 능동 스테레오 시스템은 5개의 스캔 유닛으로 구성되며, 각 유닛은 플래시 조명으로 컬러 이미지(위쪽 행)와 스펙클 조명으로 그레이스케일 이미지(아래쪽 행)를 수집한다. 결과는 고품질 텍스처 손 스캔(맨 오른쪽 이미지)이다."
+    },
+    {
+      "number": 9,
+      "src": "./fig-33.png",
+      "caption": "Fig. 9. The effect of pose blendshapes. From left to right, model without pose-dependent blendshapes in red, model with pose-dependent blendshapes in green, registration in pink, two overlays, personalized template in cyan, personalized template plus pose-dependent blendshapes in yellow. Pose blend shapes prepare the hand template for the subsequent articulation, to correct for artifacts of the latter. Therefore the deformations of the template in yellow correct the artifacts in red (best viewed on screen) and result in a good model after posing, shown with green color. Each row shows two different poses; the first one shows a large correction on the bending of the pinky finger, while the second one shows the correction of the articulation in the middle finger.",
+      "caption_ko": "그림 9. 포즈 블렌드셰이프의 효과. 왼쪽부터: 포즈 의존 블렌드셰이프 없는 모델(빨강), 포즈 의존 블렌드셰이프 있는 모델(초록), 등록 결과(분홍), 두 가지 오버레이, 개인화 템플릿(청록), 개인화 템플릿 + 포즈 블렌드셰이프(노랑). 포즈 블렌드셰이프는 이후 관절 변형에서 발생하는 아티팩트를 사전에 보정한다. 노랑의 변형이 빨강의 아티팩트를 보정해 포즈 후 좋은 모델(초록)이 된다. 첫 번째 행은 새끼손가락 굽힘 보정, 두 번째 행은 중지 관절 보정을 보여준다."
+    },
+    {
+      "number": 15,
+      "src": "./fig-60.png",
+      "caption": "Fig. 15. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions. We compare SMPL+H (pink) with SMPL [Loper et al. 2015] (green). The latter is representative of existing state-of-the-art methods without joint modeling of body and hands, and always results in open flat hands. On the contrary, SMPL+H performs significantly more realistically, capturing accurate and expressive hand poses.",
+      "caption_ko": "그림 15. 4D 시퀀스에서 추출한 3D 스캔(흰색)과 SMPL+H 등록 결과(분홍). 스캔과 등록 결과 간의 작은 불일치는 표현력 있는 모델과 정확한 등록 방법을 시사한다. 전체론적 접근은 어려운 조건에서도 자연스러운 모션 캡처를 가능하게 한다. SMPL+H(분홍)와 SMPL(초록) 비교: SMPL은 항상 평평하게 펼친 손 모양이지만, SMPL+H는 정확하고 표현력 있는 손 포즈를 캡처한다."
+    },
+    {
+      "number": 17,
+      "src": "./fig-62.png",
+      "caption": "Fig. 17. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions, like the illustrated cases of severe missing data due to fast motion, occlusion, finger-webbing or measurement noise. Please note that it is not uncommon that the whole hand or even the arm completely disappear for several frames, posing increased challenges.",
+      "caption_ko": "그림 17. 4D 시퀀스에서 추출한 3D 스캔(흰색)과 SMPL+H 등록 결과(분홍). 빠른 동작·가림·손가락 붙음·측정 노이즈 등으로 인한 심각한 데이터 누락 상황에서도 전체론적 접근이 자연스러운 모션 캡처를 가능하게 함을 보여준다. 손 전체나 팔이 여러 프레임 동안 완전히 사라지는 경우도 흔해 모델의 강건성을 요구한다."
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

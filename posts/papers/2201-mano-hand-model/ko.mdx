@@ -1,0 +1,104 @@
+---
+locale: "ko"
+title: "MANO: 관절형 비선형 변형 손 모델"
+subtitle: "손 스캔 1,000개로 배운 손의 언어"
+summary: "MANO는 31명의 고해상도 3D 손 스캔 ~1,000개에서 학습한 통계적 손 모델로, PCA 형상 공간과 포즈 의존 블렌드셰이프를 결합해 778개의 버텍스로 현실적인 손 형태와 포즈를 표현한다. SMPL 신체 모델과 통합한 SMPL+H는 scan-to-mesh 오차 0.93mm 수준으로 4D 전신 시퀀스를 자동 피팅하며, 이후 수백 편의 손 포즈 추정·로봇 조작 연구의 표준 모델이 되었다."
+card_summary: "손 스캔 1,000개로 배운 통계적 손 모델 MANO — PCA 형상 공간 + 포즈 블렌드셰이프로 778개 버텍스의 손 형태를 소수의 파라미터만으로 표현하고, SMPL 신체와 통합해 전신 4D 캡처를 실현한 foundational 논문이다."
+cover_caption: "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements."
+published_at: "2026-03-26T09:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2201.02610"
+source_date: "2017-11-01"
+display_tags: ["Papers", "Robotics", "Hand Modeling", "3D Reconstruction", "SMPL+H", "SIGGRAPH Asia 2017"]
+tables: []
+references:
+  - title: "SMPL: A Skinned Multi-Person Linear Model"
+    author: "Loper et al."
+    description: "MANO가 통합하는 신체 모델 SMPL. SMPL은 PCA 형상 공간 + 포즈 블렌드셰이프 + 스킨드 메시 구조를 신체에 처음 적용했으며, MANO는 동일 프레임워크를 손에 적용하고 손목 관절을 공유해 SMPL+H를 완성한다."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=SMPL+Skinned+Multi-Person+Linear+Model"
+    category: "foundational"
+  - title: "Sphere-Meshes for Real-Time Hand Modeling and Tracking"
+    author: "Tkach et al."
+    description: "MANO가 극복하는 손 형태 표현의 대표적 선행 연구. 구형 메시 기반 근사법으로 피험자 간 형태 다양성과 포즈 의존 비선형 변형을 포착하지 못하는 한계가 있었다."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=Sphere+Meshes+Real-Time+Hand+Modeling+Tracking"
+    category: "recent"
+  - title: "Capturing Hands in Action Using Discriminative Salient Points and Physics Simulation"
+    author: "Tzionas et al."
+    description: "같은 연구 그룹의 손-물체 추적 선행 연구. MANO는 이 연구의 고정 메시 피팅 접근에서 학습 기반 통계적 모델로 진화한 연장선상에 있다."
+    arxiv_url: "https://arxiv.org/abs/1506.05956"
+    scholar_url: ""
+    category: "foundational"
+---
+
+## TL;DR
+
+손은 작고 자주 가려져 3D 복원이 어렵다. MANO는 31명의 손 3D 스캔 ~1,000개에서 학습한 통계적 손 모델로, PCA 형상 공간과 포즈 의존 블렌드셰이프를 결합해 소수의 파라미터만으로 현실적인 손 형태를 표현하며, SMPL 신체 모델과 통합한 SMPL+H로 전신 4D 캡처를 가능하게 했다.
+
+## 문제
+
+로봇이나 컴퓨터가 손의 3D 형태와 포즈를 다루려면 손을 표현하는 "공통 언어"가 필요하다. 기존 손 모델들은 대부분 프리미티브(구, 원통) 조합이나 단일 고정 메시로 만들어졌다. 이 방식은 피험자마다 다른 손의 형태(손가락 길이·굵기·손바닥 크기)를 표현하지 못하고, 손가락이 구부러질 때 발생하는 피부 변형 같은 비선형 효과도 포착하지 못한다. 4D 스캔 시퀀스(3D + 시간)를 자동으로 피팅하려면 통계적으로 학습된 콤팩트한 표현이 필수다. 이 논문은 대규모 3D 스캔 데이터에서 학습한 통계적 손 모델 MANO를 제안하고, 이를 신체 모델 SMPL에 통합해 전신 4D 캡처를 실현한다.
+
+## 핵심 아이디어
+
+MANO는 손을 세 개의 계층적 파라미터 집합으로 표현한다:
+
+- **형상 공간** $\beta \in \mathbb{R}^{10}$: 피험자 간 손 형태 차이를 PCA로 압축. 단 10개의 숫자로 누구의 손이든 근사할 수 있다.
+- **포즈 블렌드셰이프** $\theta \in \mathbb{R}^{45}$: 각 관절 각도에 따라 메시를 비선형 변형. 단순 스킨드 메시에서 발생하는 관절 구김 아티팩트를 보정한다.
+- **포즈 시너지**: 손 동작 데이터에서 학습한 저차원 포즈 공간. 6개 PC가 전체 포즈 분산의 81%를 설명 — 엄지와 검지가 함께 움직이는 등 자연스러운 손 동작의 공분산을 포착한다.
+
+이 세 파라미터로 **778개 버텍스, 16개 관절**의 손 메시가 완성된다. 여기에 SMPL 신체의 손목 관절을 공유해 결합하면 SMPL+H — 전신 + 손을 동시에 다루는 통합 모델이 된다.
+
+<Figure src="./fig-60.png" caption="Fig. 15. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions. We compare SMPL+H (pink) with SMPL [Loper et al. 2015] (green). The latter is representative of existing state-of-the-art methods without joint modeling of body and hands, and always results in open flat hands. On the contrary, SMPL+H performs significantly more realistically, capturing accurate and expressive hand poses." />
+
+## 구체적 방법
+
+<Collapsible title="구체적 방법">
+
+**3D 스캔 데이터 수집**
+
+5개의 능동 스테레오 카메라 유닛으로 구성된 3dMDhand 시스템으로 31명의 손을 스캔했다. 각 피험자는 51가지 포즈를 수행하여 총 ~1,000개의 고해상도 텍스처 스캔을 생성했다.
+
+<Figure src="./fig-33.png" caption="Fig. 9. The effect of pose blendshapes. From left to right, model without pose-dependent blendshapes in red, model with pose-dependent blendshapes in green, registration in pink, two overlays, personalized template in cyan, personalized template plus pose-dependent blendshapes in yellow. Pose blend shapes prepare the hand template for the subsequent articulation, to correct for artifacts of the latter. Therefore the deformations of the template in yellow correct the artifacts in red (best viewed on screen) and result in a good model after posing, shown with green color. Each row shows two different poses; the first one shows a large correction on the bending of the pinky finger, while the second one shows the correction of the articulation in the middle finger." />
+
+**모델 학습 파이프라인**
+
+1. **템플릿 등록(registration)**: 각 스캔을 공통 토폴로지의 메시에 피팅. 손목을 고정한 채 손가락 관절 각도를 최적화한다.
+2. **포즈–형태 분리**: 최적화를 통해 개인 형상 파라미터 $\beta$와 포즈 파라미터 $\theta$를 분리 학습.
+3. **블렌드셰이프 학습**: 관절 각도의 함수로 메시 변형을 꼭지점별 독립 최적화로 회귀 학습.
+4. **포즈 시너지 추출**: 자연 손 동작 데이터에서 PCA로 저차원 포즈 공간 추출.
+
+**SMPL+H 피팅**
+
+SMPL 신체와 MANO 손을 결합한 SMPL+H를 4D 시퀀스에 자동 피팅하는 에너지 최소화 문제를 정의한다:
+
+$$E = E_\text{data} + E_\text{pose} + E_\text{shape} + E_\text{smooth} + E_\text{self}$$
+
+여기서 $E_\text{data}$는 스캔-모델 간 ICP 기반 데이터 항, $E_\text{pose}$와 $E_\text{shape}$는 정규화 항, $E_\text{smooth}$는 시간적 연속성 항, $E_\text{self}$는 자기 교차 방지 항이다.
+
+</Collapsible>
+
+## 주요 결과
+
+- **scan-to-mesh 오차**: 전체 포즈 공간에서 **0.93 mm** — 학습 파라미터 모델이 고정 템플릿 대비 60% 이상 개선
+- **포즈 공간 압축**: 6개 PC → 81%, 15개 PC → 95% 포즈 분산 설명 — 자연 손 동작은 소수의 시너지로 표현 가능
+- **SMPL+H vs SMPL**: SMPL은 항상 평평하게 펼쳐진 손을 예측하지만, SMPL+H는 정확한 손 포즈를 캡처
+
+<Figure src="./fig-62.png" caption="Fig. 17. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions, like the illustrated cases of severe missing data due to fast motion, occlusion, finger-webbing or measurement noise. Please note that it is not uncommon that the whole hand or even the arm completely disappear for several frames, posing increased challenges." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**:
+- 최초로 대규모 3D 스캔에서 학습한 통계적 손 모델 — 피험자 간 형태 다양성을 컴팩트하게 표현
+- PCA + 포즈 블렌드셰이프 조합으로 비선형 손 변형 포착, 순수 LBS 한계 극복
+- SMPL 신체 모델과의 통합(SMPL+H)으로 전신 4D 자동 캡처 실현
+
+**한계점**:
+- 손-물체 상호작용이 모델링되지 않아 접촉 시 잘못된 스캔-모델 대응 발생 (저자 언급)
+- 비일반적 포즈는 저차원 포즈 공간 밖에 위치해 표현 불가 (저자 언급)
+- 🤖 31명의 제한적 피험자에서 학습된 형상 공간이 다양한 인종·연령·체형을 충분히 커버하지 못할 가능성이 있다.
+
+## Terry's memo
+
+- *(None)*

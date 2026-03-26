@@ -1,0 +1,105 @@
+---
+locale: "en"
+translation_of: "2201-mano-hand-model:ko"
+title: "MANO: A Hand Model with Articulated and Non-rigid Deformations"
+subtitle: "Learning the language of hands from 1,000 scans"
+summary: "MANO is a statistical hand model trained on ~1,000 high-resolution 3D hand scans from 31 subjects, combining a PCA shape space with pose-dependent blend shapes to represent realistic hand geometry with just a few parameters. Integrated with the SMPL body model as SMPL+H, it achieves 0.93 mm scan-to-mesh error on 4D sequence fitting and has become the de facto standard hand model used in hundreds of hand pose estimation and robotic manipulation papers."
+card_summary: "A foundational statistical hand model (MANO) trained from 1,000 3D scans — PCA shape space + pose blend shapes compress 778-vertex hand geometry into a handful of parameters, and SMPL+H integrates it with the body model for full-body 4D capture."
+cover_caption: "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements."
+published_at: "2026-03-26T09:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2201.02610"
+source_date: "2017-11-01"
+display_tags: ["Papers", "Robotics", "Hand Modeling", "3D Reconstruction", "SMPL+H", "SIGGRAPH Asia 2017"]
+tables: []
+references:
+  - title: "SMPL: A Skinned Multi-Person Linear Model"
+    author: "Loper et al."
+    description: "The body model MANO integrates with to form SMPL+H. SMPL pioneered the PCA shape space + pose blend shapes + skinned mesh paradigm for bodies; MANO applies the same framework to hands and shares the wrist joint to produce a unified body-and-hand model."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=SMPL+Skinned+Multi-Person+Linear+Model"
+    category: "foundational"
+  - title: "Sphere-Meshes for Real-Time Hand Modeling and Tracking"
+    author: "Tkach et al."
+    description: "The leading hand shape representation prior to MANO. The sphere-mesh approximation could not capture inter-subject shape variation or pose-dependent non-rigid deformations, directly motivating a shift to a learned statistical model."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=Sphere+Meshes+Real-Time+Hand+Modeling+Tracking"
+    category: "recent"
+  - title: "Capturing Hands in Action Using Discriminative Salient Points and Physics Simulation"
+    author: "Tzionas et al."
+    description: "Earlier work from the same group on hand-object tracking with a fixed mesh. MANO extends this line by replacing the fixed mesh with a learned statistical model, enabling generalization across subjects and poses."
+    arxiv_url: "https://arxiv.org/abs/1506.05956"
+    scholar_url: ""
+    category: "foundational"
+---
+
+## TL;DR
+
+Hands are small and frequently occluded, making 3D reconstruction hard. MANO trains a statistical hand model from ~1,000 high-resolution 3D scans of 31 subjects, combining a PCA shape space with pose-dependent blend shapes so that a handful of parameters can describe any realistic hand. Combined with the SMPL body model into SMPL+H, it enables automatic full-body 4D capture.
+
+## Problem
+
+Any system that needs to reason about hands — whether for motion capture, robotics, or AR/VR — requires a compact, generalizable representation. Prior hand models were either geometric approximations (spheres, cylinders, sum-of-Gaussians) or fixed single meshes that cannot represent natural variation in hand shape across people, nor the non-linear skin deformations that occur when fingers bend. For automatic 4D sequence fitting, a statistically learned, differentiable model is essential. This paper introduces MANO, the first statistical hand model trained from large-scale 3D scan data, and integrates it with SMPL to enable holistic full-body capture with expressive hands.
+
+## Key Idea
+
+MANO represents a hand with three hierarchical parameter sets:
+
+- **Shape space** $\beta \in \mathbb{R}^{10}$: inter-subject variation compressed by PCA — just 10 numbers can approximate nearly any person's hand shape.
+- **Pose blend shapes** $\theta \in \mathbb{R}^{45}$: non-linear mesh deformations conditioned on joint angles, correcting the skinning artifacts that arise in standard linear blend skinning (LBS).
+- **Pose synergies**: a low-dimensional pose space learned from natural hand motion data. Just 6 principal components explain 81% of pose variation, encoding co-variations like the coordinated motion of thumb and index finger.
+
+Together these parameters drive a mesh of **778 vertices and 16 joints**. Attaching to the wrist joint of SMPL produces SMPL+H — a unified body-and-hand model.
+
+<Figure src="./fig-60.png" caption="Fig. 15. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions. We compare SMPL+H (pink) with SMPL [Loper et al. 2015] (green). The latter is representative of existing state-of-the-art methods without joint modeling of body and hands, and always results in open flat hands. On the contrary, SMPL+H performs significantly more realistically, capturing accurate and expressive hand poses." />
+
+## Method Detail
+
+<Collapsible title="Method Detail">
+
+**Data Collection**
+
+Five active-stereo camera units (3dMDhand system) captured 31 subjects performing 51 hand poses, yielding ~1,000 high-resolution textured 3D scans with the wrist in a fixed position.
+
+<Figure src="./fig-33.png" caption="Fig. 9. The effect of pose blendshapes. From left to right, model without pose-dependent blendshapes in red, model with pose-dependent blendshapes in green, registration in pink, two overlays, personalized template in cyan, personalized template plus pose-dependent blendshapes in yellow. Pose blend shapes prepare the hand template for the subsequent articulation, to correct for artifacts of the latter. Therefore the deformations of the template in yellow correct the artifacts in red (best viewed on screen) and result in a good model after posing, shown with green color. Each row shows two different poses; the first one shows a large correction on the bending of the pinky finger, while the second one shows the correction of the articulation in the middle finger." />
+
+**Training Pipeline**
+
+1. **Template registration**: fit a common-topology mesh to each scan by optimizing joint angles with a fixed wrist.
+2. **Pose–identity separation**: jointly optimize per-subject shape parameters $\beta$ and pose parameters $\theta$ across all scans.
+3. **Blend shape regression**: independently fit per-vertex deformations as a function of joint angles.
+4. **Pose synergy extraction**: PCA on natural hand motion data to obtain a compact, physically meaningful pose manifold.
+
+**SMPL+H Fitting**
+
+Fitting SMPL+H to a 4D sequence minimizes:
+
+$$E = E_\text{data} + E_\text{pose} + E_\text{shape} + E_\text{smooth} + E_\text{self}$$
+
+where $E_\text{data}$ is an ICP-based scan-to-model term, $E_\text{pose}$ and $E_\text{shape}$ are regularizers, $E_\text{smooth}$ enforces temporal continuity, and $E_\text{self}$ penalizes self-intersection.
+
+</Collapsible>
+
+## Key Results
+
+- **Scan-to-mesh error**: **0.93 mm** (full pose space) — learned parameters improve over a generic template by more than 60%
+- **Pose compression**: 6 PCs → 81%, 15 PCs → 95% of pose variance — natural hand motion lies on a low-dimensional manifold
+- **SMPL+H vs. SMPL**: SMPL always produces flat, open hands; SMPL+H captures accurate and expressive finger poses
+
+<Figure src="./fig-62.png" caption="Fig. 17. Example 3D scans (white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions, like the illustrated cases of severe missing data due to fast motion, occlusion, finger-webbing or measurement noise. Please note that it is not uncommon that the whole hand or even the arm completely disappear for several frames, posing increased challenges." />
+
+## Achievements & Limitations
+
+**What this paper achieves**:
+- First large-scale learned statistical hand model — compact representation of inter-subject shape diversity
+- PCA + pose blend shapes capture non-linear skin deformations, overcoming the limits of pure LBS
+- Integration with SMPL body model (SMPL+H) enables automatic full-body 4D capture with expressive hands
+
+**Limitations**:
+- Hand-object interaction is not modeled: incorrect correspondences arise when a hand contacts an object (author-stated)
+- Unusual hand poses fall outside the low-dimensional pose space and cannot be represented (author-stated)
+- 🤖 The shape space is learned from only 31 subjects, which may not adequately cover the diversity of human hand shapes across different ethnicities, ages, and body types.
+
+## Terry's memo
+
+- *(None)*

@@ -1,0 +1,657 @@
+{
+  "figures": [
+    {
+      "seq_num": 1,
+      "file": "fig-1.png",
+      "page": 1,
+      "width": 1516,
+      "height": 720,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 2,
+      "file": "fig-2.png",
+      "page": 3,
+      "width": 342,
+      "height": 426,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 3,
+      "file": "fig-3.png",
+      "page": 3,
+      "width": 282,
+      "height": 551,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 4,
+      "file": "fig-4.png",
+      "page": 3,
+      "width": 312,
+      "height": 331,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 5,
+      "file": "fig-5.png",
+      "page": 3,
+      "width": 564,
+      "height": 686,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 6,
+      "file": "fig-6.png",
+      "page": 5,
+      "width": 1378,
+      "height": 283,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 7,
+      "file": "fig-7.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 8,
+      "file": "fig-8.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 9,
+      "file": "fig-9.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 10,
+      "file": "fig-10.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 11,
+      "file": "fig-11.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 12,
+      "file": "fig-12.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 13,
+      "file": "fig-13.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 14,
+      "file": "fig-14.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 15,
+      "file": "fig-15.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 16,
+      "file": "fig-16.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "scans of people inter- acting with objects, and hand poses which are not well covered by the low-dimension pose space. Extensive results can be seen in the supplementary video. 6 CONCLUSIONS We propose MANO, a new model of the human hand that is learned from examples, is low-dimensional, is easy to pose and fit to data, and is compatible with graphic engines because it is built on linear blend skinning with blend shapes. The realism of the shape model and its simple formulation makes it appealing for many applications. We combineMANO with a model of the body to produceSMPL+H, the first model of human body shape that is learned from exam- ples and includes full hand articulation. The expressiveness and robustness of this model is demonstrated by fitting it to 4D scan Fig. 16. Typical failure cases for hands. Each pair shows the scan (white) and the corresponding registration of SMPL+H (pink). Left: At the moment hand- object interaction is not explicitly modeled, thus wrong correspondences are established between the hands of the model and the object scan data. Right: Unusual hand poses may fall outside the low-dimensional pose space. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.245:14 • Romero et. al. Fig. 17. Example 3D scans ( white) from our 4D sequences and corresponding registrations of SMPL+H (pink). A small discrepancy between (white) scans and corresponding (pink) registrations suggests an expressive model and accurate registration method. Our holistic approach results in natural motion capture even under challenging conditions, like the illustrated cases of severe missing data due to fast motion, occlusion, finger-webbing or measurement noise. Please note that it is not uncommon that the whole hand or even the arm completely disappear for several frames, posing increased challenges. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.Embodied Hands: Modeling and Capturing Hands and Bodies Together • 245:15 data of people performing natural movements. We show that the op- timization is stable even when the raw data is noisy, low resolution, and partially missing. By capturing the hand and body together we extract avatars that appear natural in their movements. 6.1 Discussion Model: While here we build on top of SMPL [Loper et al. 2015], our dataset, design choices, and insights can be applied in train- ing related models of the hand using representations like SCAPE [Anguelov et al. 2005]. Training dataset: The quantitative evaluation of MANO in Sec- tion 5.1 shows that our model benefits from augmenting the dataset through mirroring. This points to the need for richer training datasets in the future, potentially using dynamic 4D scan sequences instead of static 3D scans. Real-time applications: Blend shapes encode vertex offsets (per- vertex displacement), as described in Section 3, thus their memory footprint is comparable to the footprint of the mesh. Furthermore, they are linear as described with Equations (3) and (4), thus their runtime is comparable to LBS. As a result our model with linear blend shapes is both memory and runtime efficient, therefore it is suitable also for real-time applications. Low-dimensional pose space efficiency: Computational efficiency is further aided by the faster optimization in the low-dimensional pose space. However a low-dimensional space can not model the full space by definition. When subjects use their hands in a natural manner, it explains their poses well, while complex unnatural poses may fall outside this space. In the latter case the low-dimensional pose space can be used as an computationally efficient initialization for a subsequent optimization in the full pose space. Alternatively, we plan to train non-linear latent space models using deep learning but this will require more training data. Failure cases: Our SPML+H sequences (Sec. 4.2) include failure cases with unusual hand poses that fall outside the low-dimensional pose space, as described above. Example cases are included in our supplementary video. Furthermore, we capture a sequence that includes hand-object interaction (a person picks up a heavy ball, see Figure 16), a typical failure case since at the moment we do not explicitly model hand-object interaction. However such cases can be tackled in future work inspired by works like [Ballan et al. 2012; Bambach et al. 2015; Oikonomidis et al. 2011b; Rogez et al. 2015; Sridhar et al. 2016; Tzionas et al. 2016; Tzionas and Gall 2015]. Please note that all failure cases are included in our dataset [MANO web] to spur future work. Industrial applications: Our approach is relevant for industrial applications in several different ways. First, while our capture en- vironment is complex, the ability to capture fully body and hand performance without markers may make this appropriate for high- end applications. Second, the body model with hand articulation is directly usable by animators as it is designed to be compatible with existing animation systems. We believe this is the first learned model of bodies and hands for which this is true. Third, this pro- vides a practical step towards the simultaneous capture of hands and bodies, which will enable animators to learn how body pose and hand pose are correlated; this is useful both as reference material and for training machine learning models relating the two. 6.2 Limitations and Future Work There are several avenues for future work. We showed tracking results withSMPL+H that involved small amounts of self contact but we currently do not explicitly reason about this. A major limitation of previous 3D body shape tracking systems is that they do not allow self contact, while many natural motions and poses require it. We argue that a good hand model is valuable towards this direction, as we should be better able to fit it to scans where it is in contact with other body parts. Contact with other objects is also important. Our hand training set includes such cases but we remove the objects and do not ex- plicitly reason about hand-object contact during fitting. Of course, reasoning about such interaction with objects requires one to also reason about the object’s surface. This is beyond our scope here but the MANO model should help facilitate research in this direction. The extension with interaction-specific blend shapes could be useful to model non-rigid skin deformation during manipulation. We believe that high-quality data such as our dataset [MANO web] is crucial to build a strong model like MANO. However, after creating a strong model with such costly data, MANO is valuable for fitting lower quality data of other modalities like RGB-D or RGB, or for training methods to deal with such data. The same applies for the combination of body and hands. Here we fit SMPL+H to 4D capture data. It would be interesting to fit the model to lower-quality RGB-D sequences. Since body models like SMPL have been fit to such data [Bogo et al. 2015] with high- quality results, doing so for the body and hands together may be possible. Again the challenge will be estimating the fingers from low-resolution data. To address that challenge, we plan to use MANO and SMPL+H for a very different purpose – to generate realistic training data for deep learning, a topic gaining increasing research focus [Simon et al. 2017; Varol et al. 2017]. The MANO training set includes high- quality texture maps so we can generate hands with realistic textures, pose them, light them, and then put them in scenes with varying backgrounds. We then plan to train deep networks to estimate the shape and pose of the hand from images. Finally we plan to use SMPL+H registrations to train models capturing how hand motion is correlated with body motion. Exist- ing approaches [Jörg et al. 2012] are based on synthetic data from animations. Inspired by them, we would like to capture hand and body correlations based on real markerless mocap data, while using realistic pose and shape spaces. Existing mocap datasets [CMU 2000; Ionescu et al. 2014] do not contain hand information and SMPL+H could fill this gap. Given sufficient SMPL+H registrations, learning a mapping from body motions to hand poses would be possible. This would help towards more realistic and robust motion capture, and towards enriching existing animations or mocap sequences by adding correlated and plausible hand poses. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.245:16 • Romero et. al. ACKNOWLEDGMENTS We thank T. Alexiadis, A. Keller, J. Marquez, S. Polikovsky, E. Hold- erness and J. Purmort for help with trial coordination, scanner setup and data acquisition. We thank Lilla LoCurto and Bill Outcault for the artistic sequences, captured as part of the “art in residence” pro- gram. We thank T. Zaman for the video voice-over, as well as T. Ntouni and A. Quiros Ramirez for help with the project website. Finally, we thank the co-authors of [Loper et al. 2015] M. Loper, N. Mahmood and G. Pons-Moll. REFERENCES 2000. CMU Graphics Lab Motion Capture Database. http://mocap.cs.cmu.edu. 3dMDbody 2017. 3dMDbody. http://www.3dmd.com/3dmd-systems/4d/ 3dmddynamic-body. Accessed: 01/09/2017. 3dMDhand 2017. 3dMDhand. http://www.3dmd.com/3dmdhandfoot-system. Accessed: 01/09/2017. Brett Allen, Brian Curless, and Zoran Popović. 2003. The space of human body shapes: Reconstruction and parameterization from range scans. ACM Transactions on Graphics, (Proc. SIGGRAPH) 22, 3 (2003), 587–594. Brett Allen, Brian Curless, Zoran Popović, and Aaron Hertzmann. 2006. Learning a Correlated Model of Identity and Pose-dependent Body Shape Variation for Real- time Synthesis. In ACM SIGGRAPH/Eurographics Symposium on Computer Animation (SCA ’06). Eurographics Association, 147–156. Dragomir Anguelov, Praveen Srinivasan, Daphne Koller, Sebastian Thrun, Jim Rodgers, and James Davis. 2005. SCAPE: Shape completion and animation of people. ACM Transactions on Graphics (TOG) 24, 3 (2005), 408–416. Vassilis Athitsos and Stan Sclaroff. 2003. Estimating 3D Hand Pose from a Cluttered Image. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 432– 439. Luca Ballan, Aparna Taneja, Juergen Gall, Luc Van Gool, and Marc Pollefeys. 2012. Motion Capture of Hands in Action using Discriminative Salient Points. InEuropean Conference on Computer Vision (ECCV) . 640–653. Sven Bambach, Stefan Lee, David Crandall, and Chen Yu. 2015. Lending A Hand: Detecting Hands and Recognizing Activities in Complex Egocentric Interactions. In International Conference on Computer Vision (ICCV) . 1949–1957. Federica Bogo, Michael J. Black, Matthew Loper, and Javier Romero. 2015. Detailed Full-Body Reconstructions of Moving People from Monocular RGB-D Sequences. In International Conference on Computer Vision (ICCV) . 2300–2308. Federica Bogo, Angjoo Kanazawa, Christoph Lassner, Peter Gehler, Javier Romero, and Michael J. Black. 2016. Keep it SMPL: Automatic Estimation of 3D Human Pose and Shape from a Single Image. In European Conference on Computer Vision – ECCV 2016. Matthieu Bray, Esther Koller-Meier, and Luc Van Gool. 2007. Smart Particle Filtering for High-Dimensional Tracking. Computer Vision and Image Understanding (CVIU) 106, 1 (2007), 116–129. Richard G. Brereton. 2015. The Mahalanobis distance and its relationship to principal component scores. Journal of Chemometrics 29, 3 (2015), 143–145. Yinpeng Chen, Zicheng Liu, and Zhengyou Zhang. 2013. Tensor-Based Human Body Modeling. In IEEE Conf. on Computer Vision and Pattern Recognition (CVPR). 105–112. Martin De La Gorce, David J. Fleet, and Nikos Paragios. 2011. Model-Based 3D Hand Pose Estimation from Monocular Video. IEEE Transactions on Pattern Analysis and Machine Intelligence (PAMI) 33, 9 (2011), 1793–1805. Laura Dipietro, Angelo M Sabatini, and Paolo Dario. 2008. A survey of glove-based systems and their applications. Transactions on Systems, Man, and Cybernetics 38, 4 (2008), 461–482. Alexey Dosovitskiy, Jost Tobias Springenberg, and Thomas Brox. 2015. Learning to generate chairs with convolutional neural networks. InIEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 1538–1546. George ElKoura and Karan Singh. 2003. Handrix: animating the human hand. InProceed- ings of the 2003 ACM SIGGRAPH/Eurographics symposium on Computer animation . Eurographics Association, 110–119. Ali Erol, George Bebis, Mircea Nicolescu, Richard D. Boyle, and Xander Twombly. 2007. Vision-based hand pose estimation: A review. Computer Vision and Image Understanding (CVIU) 108, 1-2 (2007), 52–73. Thomas Feix, Javier Romero, Heinz-Bodo Schmiedmayer, Aaron M. Dollar, and Danica Kragic. 2016. The GRASP Taxonomy of Human Grasp Types. IEEE Transactions on Human-Machine Systems 46, 1 (2016), 66–77. Oren Freifeld and Michael J. Black. 2012. Lie Bodies: A Manifold Representation of 3D Human Shape. In European Conf. on Computer Vision (ECCV) (Part I, LNCS 7572) , A. Fitzgibbon et al. (Eds.) (Ed.). Springer-Verlag, 1–14. Stuart Geman and Donald E. McClure. 1987. Statistical methods for tomographic image reconstruction. In Proceedings of the 46th Session of the International Statistical Institute, Bulletin of the ISI , Vol. 52. Henning Hamer, Juergen Gall, Thibaut Weise, and Luc Van Gool. 2010. An Object- Dependent Hand Pose Prior from Sparse Training Data. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 671–678. Henning Hamer, Konrad Schindler, Esther Koller-Meier, and Luc Van Gool. 2009. Track- ing a hand manipulating an object. In International Conference on Computer Vision (ICCV). 1475–1482. Nils Hasler, Carsten Stoll, Martin Sunkel, Bodo Rosenhahn, and Hans-Peter Seidel. 2009. A statistical model of human pose and body shape. Computer Graphics Forum 28, 2 (2009), 337–346. Nils Hasler, Thorsten Thormählen, Bodo Rosenhahn, and Hans-Peter Seidel. 2010. Learning Skeletons for Shape and Pose. In Proceedings of the 2010 ACM SIGGRAPH Symposium on Interactive 3D Graphics and Games (I3D ’10) . ACM, New York, NY, USA, 23–30. Tony Heap and David Hogg. 1996. Towards 3D hand tracking using a deformable model. In IEEE International Conference on Automatic Face and Gesture Recognition (FG). 140–145. David A. Hirshberg, Matthew Loper, Eric Rachlin, and Michael J. Black. 2012. Coregis- tration: Simultaneous alignment and modeling of articulated 3D shape. In European Conf. on Computer Vision (ECCV) . 242–255. Catalin Ionescu, Dragos Papava, Vlad Olaru, and Cristian Sminchisescu. 2014. Hu- man3.6M: Large Scale Datasets and Predictive Methods for 3D Human Sensing in Natural Environments. IEEE Transactions on Pattern Analysis and Machine Intelli- gence 36, 7 (jul 2014), 1325–1339. Sophie Jörg, Jessica Hodgins, and Alla Safonova. 2012. Data-driven finger motion synthesis for gesturing characters. ACM Transactions on Graphics (TOG) 31, 6 (2012), 189. Sameh Khamis, Jonathan Taylor, Jamie Shotton, Cem Keskin, Shahram Izadi, and Andrew Fitzgibbon. 2015. Learning an Efficient Model of Hand Shape Variation From Depth Images. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 2540–2548. David Kim, Otmar Hilliges, Shahram Izadi, Alex D. Butler, Jiawen Chen, Iason Oikono- midis, and Patrick Olivier. 2012. Digits: Freehand 3D interactions anywhere using a wrist-worn gloveless sensor. In ACM Symposium on User Interface Software and Technology (UIST). 167–176. Leap 2017. Leap Motion. https://www.leapmotion.com. Accessed: 01/09/2017. John P. Lewis, Matt Cordner, and Nickson Fong. 2000. Pose Space Deformation: A Unified Approach to Shape Interpolation and Skeleton-driven Deformation. In ACM Transactions on Graphics (SIGGRAPH) . 165–172. Charles Loop. 1987. Smooth Subdivision Surfaces Based on Triangles . Department of Mathematics, University of Utah. Matthew Loper, Naureen Mahmood, Javier Romero, Gerard Pons-Moll, and Michael J. Black. 2015. SMPL: A Skinned Multi-Person Linear Model. ACM Transactions on Graphics, (Proc. SIGGRAPH Asia) 34, 6 (Oct. 2015), 248:1–248:16. Matthew M. Loper and Michael J. Black. 2014. OpenDR: An Approximate Differen- tiable Renderer. In Computer Vision - ECCV 2014 (Lecture Notes in Computer Science, Vol. 8695). Springer, 154–169. John MacCormick and Michael Isard. 2000. Partitioned sampling, articulated objects, and interface-quality hand tracking. In European Conference on Computer Vision (ECCV). 3–19. MANO. web. http://mano.is.tue.mpg.de. Accessed: 2017-09-01. Stan Melax, Leonid Keselman, and Sterling Orsten. 2013. Dynamics Based 3D Skeletal Hand Tracking. In Graphics Interface. 63–70. Alex Mohr and Michael Gleicher. 2003. Building efficient, accurate character skins from examples. ACM Transactions on Graphics (TOG) 22, 3 (2003), 562–568. Jorge Nocedal and Stephen Wright. 2006. Numerical optimization. Springer Science. Markus Oberweger, Paul Wohlhart, and Vincent Lepetit. 2015. Training a Feedback Loop for Hand Pose Estimation. In International Conference on Computer Vision (ICCV). 3316–3324. Iason Oikonomidis, Nikolaos Kyriazis, and Antonis A. Argyros. 2011a. Efficient model- based 3D tracking of hand articulations using Kinect. In British Machine Vision Conference (BMVC). 101.1–101.11. Iason Oikonomidis, Nikolaos Kyriazis, and Antonis A. Argyros. 2011b. Full DOF tracking of a hand interacting with an object by modeling occlusions and physical constraints. In International Conference on Computer Vision (ICCV) . 2088–2095. Iasonas Oikonomidis, Nikolaos Kyriazis, and Antonis A. Argyros. 2012. Tracking the articulated motion of two strongly interacting hands.. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 1862–1869. Iason Oikonomidis, Manolis I.A. Lourakis, and Antonis A. Argyros. 2014. Evolution- ary Quasi-random Search for Hand Articulations Tracking. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 3422–3429. Edwin Olson and Pratik Agarwal. 2013. Inference on Networks of Mixtures for Robust Robot Mapping. International Journal of Robotics Research (IJRR) 32, 7 (2013), 826– 840. Wilder Penfield and Edwin Boldrey. 1937. Somatic motor and sensory representation in the cerebral cortex of man as studied by electrical stimulation. Brain 60, 4 (1937), 389. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.Embodied Hands: Modeling and Capturing Hands and Bodies Together • 245:17 Gerard Pons-Moll, Javier Romero, Naureen Mahmood, and Michael J. Black. 2015. Dyna: A Model of Dynamic Human Shape in Motion. ACM Transactions on Graphics, (Proc. SIGGRAPH) 34, 4 (July 2015), 120:1–120:14. Chen Qian, Xiao Sun, Yichen Wei, Xiaoou Tang, and Jian Sun. 2014. Realtime and Robust Hand Tracking from Depth. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 1106–1113. James M. Rehg and Takeo Kanade. 1994. Visual tracking of high dof articulated struc- tures: an application to human hand tracking. In European Conference on Computer Vision (ECCV). 35–46. Kathleen M. Robinette, Sherri Blackwell, Hein Daanen, Mark Boehmer, Scott Fleming, Tina Brill, David Hoeferlin, and Dennis Burnsides. 2002. Civilian American and European Surface Anthropometry Resource (CAESAR) Final Report . Technical Report AFRL-HE-WP-TR-2002-0169. US Air Force Research Laboratory. Gregory Rogez, James S. Supančič III, and Deva Ramanan. 2015. First-Person Pose Recognition Using Egocentric Workspaces. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 4325–4333. Javier Romero, Hedvig Kjellström, Carl H. Ek, and Danica Kragic. 2013. Non-parametric hand pose estimation with object context. Image and Vision Computing 31, 8 (2013), 555 – 564. Marco Santello, Martha Flanders, and John F. Soechting. 1998. Postural Hand Synergies for Tool Use. Journal of Neuroscience 18, 23 (1998), 10105–10115. Tanner Schmidt, Richard Newcombe, and Dieter Fox. 2014. DART: Dense Articulated Real-Time Tracking. In Robotics: Science and Systems (RSS) . Matthias Schröder, Jonathan Maycock, Helge Ritter, and Mario Botsch. 2014. Real-time hand tracking using synergistic inverse kinematics. In Robotics and Automation (ICRA), 2014 IEEE International Conference on . 5447–5454. Hyewon Seo, Frederic Cordier, and Nadia Magnenat-Thalmann. 2003. Synthesizing Animatable Body Models with Parameterized Shape Modifications. In ACM SIG- GRAPH/Eurographics Symposium on Computer Animation (SCA ’03). 120–125. Toby Sharp, Cem Keskin, Duncan Robertson, Jonathan Taylor, Jamie Shotton, David Kim, Christoph Rhemann, Ido Leichter, Alon Vinnikov, Yichen Wei, Daniel Freed- man, Pushmeet Kohli, Eyal Krupka, Andrew Fitzgibbon, and Shahram Izadi. 2015. Accurate, Robust, and Flexible Real-time Hand Tracking. In ACM Conference on Human Factors in Computing Systems (CHI) . 3633–3642. Tomas Simon, Hanbyul Joo, Iain Matthews, and Yaser Sheikh. 2017. Hand Keypoint Detection in Single Images using Multiview Bootstrapping. CVPR (2017). Srinath Sridhar, Franziska Mueller, Antti Oulasvirta, and Christian Theobalt. 2015. Fast and Robust Hand Tracking Using Detection-Guided Optimization. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 3213–3221. Srinath Sridhar, Franziska Mueller, Michael Zollhoefer, Dan Casas, Antti Oulasvirta, and Christian Theobalt. 2016. Real-time Joint Tracking of a Hand Manipulating an Object from RGB-D Input. In European Conference on Computer Vision (ECCV) . 294–310. Srinath Sridhar, Antti Oulasvirta, and Christian Theobalt. 2013. Interactive Markerless Articulated Hand Motion Tracking using RGB and Depth Data. In International Conference on Computer Vision (ICCV) . 2456–2463. Björn Stenger, Paulo R.S. Mendonça, and Roberto Cipolla. 2001. Model-based 3D tracking of an articulated hand. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR). 310–315. Erik B. Sudderth, Michael I. Mandel, William T. Freeman, and Alan S. Willsky. 2004. Visual Hand Tracking Using Nonparametric Belief Propagation. In Workshop on Generative Model Based Vision . 189–189. James S. Supančič III, Grégory Rogez, Yi Yang, Jamie Shotton, and Deva Ramanan. 2015. Depth-based hand pose estimation: data, methods, and challenges. In International Conference on Computer Vision (ICCV) . 1868–1876. Andrea Tagliasacchi, Sofien Bouaziz, Mark Pauly, and Hao Li. 2016. Modern tech- niques and applications for real-time non-rigid registration. In SIGGRAPH ASIA 2016 Courses. Andrea Tagliasacchi, Matthias Schröder, Anastasia Tkach, Sofien Bouaziz, Mario Botsch, and Mark Pauly. 2015. Robust Articulated-ICP for Real-Time Hand Tracking. Euro- graphics Symposium on Geometry Processing (SGP) 34, 5 (2015), 101–114. David Joseph Tan, Thomas Cashman, Jonathan Taylor, Andrew Fitzgibbon, Daniel Tarlow, Sameh Khamis, Shahram Izadi, and Jamie Shotton. 2016. Fits Like a Glove: Rapid and Reliable Hand Shape Personalization. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 5610–5619. Danhang Tang, Hyung Jin Chang, Alykhan Tejani, and Tae-Kyun Kim. 2017. Latent Regression Forest: Structured Estimation of 3D Hand Poses. IEEE Transactions on Pattern Analysis and Machine Intelligence 39, 7 (July 2017), 1374–1387. Jonathan Taylor, Lucas Bordeaux, Thomas Cashman, Bob Corish, Cem Keskin, Eduardo Soto, David Sweeney, Julien Valentin, Benjamin Luff, Arran Topalian, Erroll Wood, Sameh Khamis, Pushmeet Kohli, Toby Sharp, Shahram Izadi, Richard Banks, An- drew Fitzgibbon, and Jamie Shotton. 2016. Efficient and Precise Interactive Hand Tracking through Joint, Continuous Optimization of Pose and Correspondences. ACM Transactions on Graphics (SIGGRAPH) 35, 4 (2016), 143:1–143:12. Jonathan Taylor, Richard Stebbing, Varun Ramakrishna, Cem Keskin, Jamie Shotton, Shahram Izadi, Aaron Hertzmann, and Andrew Fitzgibbon. 2014. User-Specific Hand Modeling from Monocular Depth Sequences. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 644–651. Arasanathan Thayananthan, Björn Stenger, Philip H.S. Torr, and Roberto Cipolla. 2003. Shape context and chamfer matching in cluttered scenes. In IEEE Conference on Computer Vision and Pattern Recognition (CVPR) . 127–133. Anastasia Tkach, Mark Pauly, and Andrea Tagliasacchi. 2016. Sphere-meshes for real-time hand modeling and tracking. ACM Transactions on Graphics (TOG) 35, 6 (2016). Emo Todorov and Zoubin Ghahramani. 2004. Analysis of the synergies underlying complex hand manipulation. In The 26th Annual International Conference of the IEEE Engineering in Medicine and Biology Society , Vol. 2. 4637–4640. Jonathan Tompson, Murphy Stein, Yann Lecun, and Ken Perlin. 2014. Real-Time Continuous Pose Recovery of Human Hands Using Convolutional Networks. ACM Transactions on Graphics (TOG) 33, 5 (2014), 169:1–169:10. Dimitrios Tzionas, Luca Ballan, Abhilash Srikantha, Pablo Aponte, Marc Pollefeys, and Juergen Gall. 2016. Capturing Hands in Action using Discriminative Salient Points and Physics Simulation. International Journal of Computer Vision (IJCV) 118, 2 (2016), 172–193. Dimitrios Tzionas and Juergen Gall. 2015. 3D Object Reconstruction from Hand-Object Interactions. In International Conference on Computer Vision (ICCV) . 729–737. Gül Varol, Javier Romero, Xavier Martin, Naureen Mahmood, Michael J. Black, Ivan Laptev, and Cordelia Schmid. 2017. Learning from Synthetic Humans. In CVPR. Robert Y. Wang and Jovan Popović. 2009. Real-time Hand-tracking with a Color Glove. ACM Transactions on Graphics (TOG) 28, 3 (2009), 63:1–63:8. Yangang Wang, Jianyuan Min, Jianjie Zhang, Yebin Liu, Feng Xu, Qionghai Dai, and Jinxiang Chai. 2013. Video-based hand manipulation capture through composite motion control. ACM Transactions on Graphics (TOG) 32, 4 (2013), 43:1–43:14. Ying Wu, John Y. Lin, and Thomas S. Huang. 2001. Capturing natural hand articulation. In International Conference on Computer Vision (ICCV) . 426–432. Chi Xu, Ashwin Nanjappa, Xiaowei Zhang, and Li Cheng. 2016. Estimate Hand Poses Efficiently from Single Depth Images. International Journal of Computer Vision (IJCV) 116, 1 (2016), 21–45. Mao Ye, Qing Zhang, Liang Wang, Jiejie Zhu, Ruigang Yang, and Juergen Gall. 2013. A Survey on Human Motion Analysis from Depth Data. In Time-of-Flight and Depth Imaging. Sensors, Algorithms, and Applications . 149–187. Wenping Zhao, Jinxiang Chai, and Ying-Qing Xu. 2012. Combining marker-based mocap and RGB-D camera for acquiring high-fidelity hand motion data. In ACM SIGGRAPH/Eurographics Symposium on Computer Animation . 33–42. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.245:18 • Romero et. al. Appendices MODEL/SCAN MIRRORING For the creation of the MANO hand model, we first collect a large number of scans of hands in isolation. These scans are obtained with a scanner configured specifically to capture hands with a fixed wrist position. This allows us to capture the nuances of hand deformation. After capturing this data for both right and left hands, we create a single augmented dataset by mirroring the left hand scans to appear as right ones. This approach increases the size of the training data and removes the bias introduced by the handedness of the subjects. In practical terms, it results in a performance improvement as shown in the experiments section. The augmented dataset enables us to train a single consistent hand model for both hands, i.e. we train the right hand model and generate the left one by mirroring. Model components which depend on the global coordinate frame, like the mesh template ¯T, the shape blend shapes 𝐵𝑆 and the pose blend shapes 𝐵𝑃 , require mirroring. The rest of the components (e.g. the blend weights W and joint regressor J) remain untouched. We define the sagittal plane in SMPL,𝑥, as our mirroring plane. This entails the following mirroring transformation 𝑀 = \" −1 0 0 0 1 0 0 0 1 # (A.1) Mirroring the scan points and the mesh template is trivial, i.e. each scan point 𝑝 and each vertex 𝑣 of the template ¯T are mirrored as 𝑝 ′ = 𝑝𝑀 and 𝑣 ′ = 𝑣𝑀 . Each of the shape blendshapes S𝑛 (Eq. (8) in [Loper et al. 2015]) follow a similar procedure 𝐵′ 𝑆 = 𝑀𝐵𝑆 = | ®𝛽 |∑︁ 𝑛=1 𝛽𝑛𝑀S𝑛 (A.2) S′ 𝑛 = 𝑀S𝑛 (A.3) since they map a (coordinate frame independent) shape coefficients 𝛽𝑛 to vertex displacements. The pose blend shapes are slightly different, since they are multi- plied by hand pose rotations, which depend on the global coordi- nate frame. Therefore, the output-mirrored pose blend shapes 𝑀P𝑛 should be modified to account for the mirror input transformation required to transform right poses into left ones. To understand how to achieve this, consider first that a pose is mirrored by applying its rotation in a mirrored coordinate frame. This corresponds to pre- and post- multiplying its corresponding rotation matrix 𝑅 by the commutative transformation𝑀, 𝑅′ = 𝑀𝑅𝑀 . Considering Eq. (9) [Loper et al . 2015], we want to obtain the mirrored pose blendshapes P′𝑛 such that 𝐵′ 𝑃 ≡ | ®𝛽 |∑︁ 𝑛=1 (𝑅′ 𝑛 ( ®𝜃 ) − 𝑅′ 𝑛 ( ®𝜃 ∗))P′ 𝑛 (A.4) = 𝑀𝐵 𝑃 = | ®𝛽 |∑︁ 𝑛=1 (𝑅𝑛 ( ®𝜃 ) − 𝑅𝑛 ( ®𝜃 ∗))𝑀P𝑛 (A.5) where 𝑅′𝑛 are the scalar elements of the mirrored rotations𝑅′. There- fore, one can obtain the mirrored pose blendshapes P′𝑛 by applying the rotation un-mirroring transformation (pre- and post-multiplying by 𝑀) to each of the 3 × 3 input blocks in 𝑀P𝑛. EVALUATION - MANO HAND MODEL In the next figures we present variations of the generalization plot for several comparisons. Figure A.3 shows the performance of our model trained on differ- ent datasets. The red curve shows theMANO model trained only on the right hand poses (i.e. no mirroring augmentation). This approach requires to train two separate left and right MANO models, mak- ing the models biased by the handedness of the subjects. The blue curve shows the MANO model trained on an augmented dataset, for which left hand poses are mirrored and combined with the right hand ones. This approach leads to a single hand model from a single training procedure (the left model is generated by mirroring the resulting right hand model) with a larger training dataset and no handedness bias. It is our chosen approach for MANO. The plot shows that the latter approach performs favorably, pointing to the need for richer training datasets in the future, potentially using dynamic 4D scans instead of static 3D scans. For the full pose space the former approach has an error of 1.05 mm and the latter 0.93 mm. Figure A.2 shows a comparison of the error before and after training. For the full-space the initial model has an error of2.90 mm, while the trained model has an error of 1.01 mm. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.Embodied Hands: Modeling and Capturing Hands and Bodies Together • 245:19 Fig. A.1. Sample frames (non-sequential) from a jumping action. Fast motions result in missing hand data in the 3D scans, posing challenges to existing motion capture methods. The 3D scans are shown with beige color, while the resulting registration of SMPL+H is shown with pink. The proposed model and registration method result in natural motion capture even under fast motions and missing visual data for several frames, e.g. in the hand region. Fig. A.3. Generalization plot for the model trained on different datasets. The baseline dataset is comprised of only right-hand scans, while the augmented dataset is comprised of right- and mirrored left-hand scans. We report the mean scan-to-mesh (s2m) error for a varying number of pose-space components. For 𝑥 = 0 we show the error for the full space. The plot shows that an augmented dataset leads to a lower fitting error of the model, pointing to the need for bigger future training datasets. Fig. A.2. Generalization plot for the model before and after training. We report the mean scan-to-mesh (s2m) error for a varying number of pose- space components. For 𝑥 = 0 we show the error for the full space. ACM Transactions on Graphics, Vol. 36, No. 6, Article 245. Publication date: November 2017.",
+      "is_cover_candidate": true
+    },
+    {
+      "seq_num": 17,
+      "file": "fig-17.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 18,
+      "file": "fig-18.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 19,
+      "file": "fig-19.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 20,
+      "file": "fig-20.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 21,
+      "file": "fig-21.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 22,
+      "file": "fig-22.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 23,
+      "file": "fig-23.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 24,
+      "file": "fig-24.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 25,
+      "file": "fig-25.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 26,
+      "file": "fig-26.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 27,
+      "file": "fig-27.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 28,
+      "file": "fig-28.png",
+      "page": 5,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 29,
+      "file": "fig-29.jpeg",
+      "page": 6,
+      "width": 1280,
+      "height": 480,
+      "ext": "jpeg",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 30,
+      "file": "fig-30.png",
+      "page": 8,
+      "width": 2118,
+      "height": 213,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 31,
+      "file": "fig-31.png",
+      "page": 8,
+      "width": 1654,
+      "height": 424,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 32,
+      "file": "fig-32.png",
+      "page": 8,
+      "width": 1102,
+      "height": 391,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 33,
+      "file": "fig-33.png",
+      "page": 9,
+      "width": 1102,
+      "height": 265,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 34,
+      "file": "fig-34.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 35,
+      "file": "fig-35.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 36,
+      "file": "fig-36.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 37,
+      "file": "fig-37.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 38,
+      "file": "fig-38.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 39,
+      "file": "fig-39.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 40,
+      "file": "fig-40.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 41,
+      "file": "fig-41.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 42,
+      "file": "fig-42.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 43,
+      "file": "fig-43.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 44,
+      "file": "fig-44.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 45,
+      "file": "fig-45.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 46,
+      "file": "fig-46.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 47,
+      "file": "fig-47.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 48,
+      "file": "fig-48.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 49,
+      "file": "fig-49.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 50,
+      "file": "fig-50.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 51,
+      "file": "fig-51.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 52,
+      "file": "fig-52.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 53,
+      "file": "fig-53.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 54,
+      "file": "fig-54.png",
+      "page": 9,
+      "width": 1280,
+      "height": 960,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 55,
+      "file": "fig-55.png",
+      "page": 11,
+      "width": 1720,
+      "height": 370,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 56,
+      "file": "fig-56.png",
+      "page": 12,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 57,
+      "file": "fig-57.png",
+      "page": 12,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 58,
+      "file": "fig-58.png",
+      "page": 12,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 59,
+      "file": "fig-59.png",
+      "page": 12,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 60,
+      "file": "fig-60.png",
+      "page": 13,
+      "width": 1516,
+      "height": 899,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 61,
+      "file": "fig-61.png",
+      "page": 13,
+      "width": 827,
+      "height": 412,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 62,
+      "file": "fig-62.png",
+      "page": 14,
+      "width": 1378,
+      "height": 1684,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 63,
+      "file": "fig-63.png",
+      "page": 19,
+      "width": 1516,
+      "height": 653,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 64,
+      "file": "fig-64.png",
+      "page": 19,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    },
+    {
+      "seq_num": 65,
+      "file": "fig-65.png",
+      "page": 19,
+      "width": 1200,
+      "height": 900,
+      "ext": "png",
+      "caption": "",
+      "is_cover_candidate": false
+    }
+  ],
+  "suggested_cover": "fig-16.png",
+  "total_extracted": 65,
+  "captions_found": 1
+}

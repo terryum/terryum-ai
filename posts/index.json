@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-03-19T06:09:52.428Z",
-  "total_posts": 16,
+  "generated_at": "2026-03-26T00:09:08.418Z",
+  "total_posts": 17,
   "posts": [
     {
       "post_number": 1,
@@ -1052,6 +1052,79 @@
       "taxonomy_secondary": [
         "robotics/hand/dexterous"
       ]
+    },
+    {
+      "post_number": 17,
+      "slug": "2201-mano-hand-model",
+      "content_type": "papers",
+      "title_en": "MANO: A Hand Model with Articulated and Non-rigid Deformations",
+      "title_ko": "MANO: 관절형 비선형 변형 손 모델",
+      "domain": "robotics",
+      "subfields": [
+        "hand-pose-estimation",
+        "3D-modeling",
+        "computer-vision"
+      ],
+      "key_concepts": [
+        "statistical-hand-model",
+        "MANO",
+        "SMPL+H",
+        "blend-skinning",
+        "PCA",
+        "non-rigid-deformation",
+        "hand-mesh",
+        "pose-blendshapes",
+        "4D-scan",
+        "body-hand-model"
+      ],
+      "methodology": [
+        "PCA",
+        "blend-skinning",
+        "3D-scan-registration",
+        "energy-minimization"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Hand Modeling",
+        "3D Reconstruction",
+        "SMPL+H",
+        "SIGGRAPH Asia 2017"
+      ],
+      "source_author": "Javier Romero et al.",
+      "source_date": "2017-11-01",
+      "published_at": "2026-03-26T09:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "손 형태·포즈의 통계적 모델 MANO를 3D 스캔 1,000개에서 학습, SMPL 신체와 통합해 전신 4D 캡처 실현",
+        "problem": "손의 3D 형태·포즈 표현에 통계적 모델이 없어 개인 간 형태 다양성과 포즈 의존 비선형 변형 포착이 불가",
+        "solution": "PCA 형상 공간 + 포즈 블렌드셰이프 + 포즈 시너지로 구성된 778-vertex 손 메시 모델 MANO, SMPL 신체와 결합한 SMPL+H",
+        "key_result": "scan-to-mesh 오차 0.93mm (full space), 6개 PC → 81% / 15개 PC → 95% 포즈 분산 설명",
+        "limitations": [
+          "손-물체 상호작용 미모델링 (잘못된 대응 발생)",
+          "비일반적 포즈는 저차원 포즈 공간 밖",
+          "🤖 31명 제한 피험자에서 학습된 형상 공간이 인종·연령 다양성을 충분히 반영하지 못할 수 있음"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2407-stretchable-glove-hand-pose",
+          "type": "related"
+        },
+        {
+          "target": "2512-unitachand",
+          "type": "related"
+        },
+        {
+          "target": "2602-robopaint",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/dexterous",
+      "taxonomy_secondary": []
     }
   ],
   "knowledge_graph": {
@@ -1215,6 +1288,21 @@
         "from": "2512-unitachand",
         "to": "2505-dexumi",
         "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2512-unitachand",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2602-robopaint",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -1268,6 +1356,18 @@
         ]
       },
       {
+        "id": "robotics-hand/dexterous",
+        "label": "robotics/hand/dexterous",
+        "post_numbers": [
+          10,
+          17
+        ],
+        "core_concepts": [],
+        "taxonomy_nodes": [
+          "robotics/hand/dexterous"
+        ]
+      },
+      {
         "id": "concept-VLA",
         "label": "VLA",
         "post_numbers": [
@@ -1295,10 +1395,14 @@
         "taxonomy_nodes": []
       }
     ],
-    "bridge_papers": [],
+    "bridge_papers": [
+      13,
+      14,
+      15,
+      16
+    ],
     "outlier_papers": [
       3,
-      10,
       11
     ]
   },
@@ -1571,10 +1675,40 @@
     ],
     "domain-adaptation": [
       16
+    ],
+    "statistical-hand-model": [
+      17
+    ],
+    "MANO": [
+      17
+    ],
+    "SMPL+H": [
+      17
+    ],
+    "blend-skinning": [
+      17
+    ],
+    "PCA": [
+      17
+    ],
+    "non-rigid-deformation": [
+      17
+    ],
+    "hand-mesh": [
+      17
+    ],
+    "pose-blendshapes": [
+      17
+    ],
+    "4D-scan": [
+      17
+    ],
+    "body-hand-model": [
+      17
     ]
   },
   "domain_stats": {
-    "robotics": 14,
+    "robotics": 15,
     "ml": 2
   },
   "taxonomy_stats": {
@@ -1584,13 +1718,13 @@
     "robotics/hand/tactile": 5,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
-    "robotics/hand/dexterous": 1,
+    "robotics/hand/dexterous": 2,
     "ai/agent": 1,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm": 4,
-    "robotics/hand": 6,
+    "robotics/hand": 7,
     "robotics/brain": 3,
-    "robotics": 13,
+    "robotics": 14,
     "ai": 1
   }
 }
