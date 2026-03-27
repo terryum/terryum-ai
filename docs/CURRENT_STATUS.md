@@ -4,7 +4,7 @@
 
 ## 1) 세션 스냅샷
 - 마지막 업데이트: 2026-03-27 (KST)
-- 현재 단계: Papers 분야별 탐색 사이드바 + 태그 연동 완료 + 푸시 완료
+- 현재 단계: Papers 사이드바 outside-container 배치 + 모바일 collapsible 완료
 - 전체 진행도(대략): 100%
 
 ## 2) 지금 기준 핵심 결정 (최대 5개)
@@ -12,20 +12,18 @@
 - 스택: Next.js 15.5 (App Router) + TypeScript + Tailwind CSS v4 + next-mdx-remote v6
 - AI Memory: `posts/index.json` + Supabase Graph DB (papers, graph_edges, node_layouts)
 - Paper Graph: Supabase + React Flow, sync-papers.mjs로 동기화
-- content_type 완전 정렬: `papers`/`notes`/`tech`/`essays` = 탭 슬러그 = 디렉토리명
+- content_type: `papers`/`notes`/`tech`/`essays` = 탭 슬러그 = 디렉토리명
 
 ## 3) 완료됨
 - [x] v1 전체 기능 + AI Memory 시스템 + Research 포스팅 자동화
-- [x] Paper Graph DB + Figure 투명배경 변환
-- [x] **이전 글/다음 글 네비게이션** (3afbc42): TAB_CONFIG.author 기반 저자 그룹별 이동
-- [x] **Papers 분야별 탐색 사이드바** (최신):
-  - PC(lg+): 왼쪽 sticky 사이드바 (w-52, top-24)
-  - 모바일: 기존 inline card 유지
-  - 필터 파이프라인 재정렬: tab → taxonomy → tag → starred
-  - taxonomy 선택 시 태그·카운트가 해당 범위 내 포스팅 기준으로 갱신
-  - taxonomy 재클릭 시 필터 해제 (onSelect null)
-  - taxonomy 변경 시 선택된 태그 자동 초기화
-  - TaxonomyFilter에 variant='sidebar'|'inline' prop 추가
+- [x] 이전 글/다음 글 네비게이션 (3afbc42)
+- [x] **Papers 사이드바 outside-container** (최신):
+  - xl+(≥1280px): absolute top-0 bottom-0, right:calc(100%+1rem), w-44 — Container 왼쪽 바깥에 sticky 배치
+  - 모바일/좁은 화면(<xl): 글 상단에 collapsible 패널 (기본 접힘)
+  - 선택된 taxonomy 표시 칩 + ✕ 해제 버튼
+  - "Seminal" 버튼 숨김 처리 (나중에 재활성화)
+  - 필터 파이프라인: tab → taxonomy → tag → starred
+  - taxonomy 변경 시 태그 선택 초기화
 
 ## 4) 진행 중 / 막힘
 - 없음
@@ -36,12 +34,12 @@
 3. **GA4 설정**: `NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX` 환경변수 추가
 
 ## 6) 검증 상태 (요약)
-- 빌드: `npm run build` 성공 (2026-03-26, 18 posts)
 - tsc --noEmit: 오류 없음 ✅
-- 필터 파이프라인 로직 시뮬레이션 통과 ✅
+- 번들 내 xl:block absolute, sticky top-24, xl:hidden, calc(100%+1rem) 확인 ✅
+- Seminal 버튼 제거 확인 ✅
 
 ## 7) 컨텍스트 메모 (다음 세션용)
-- arXiv HTML figures: x1-xN 다운로드 후 fig-1~N으로 리네임 (기존 모든 포스트 동일 규칙)
+- Papers 사이드바: xl(1280px)+ 에서만 outside sidebar 표시. sticky top-24(96px) — 헤더 높이 조정 필요 시 변경
+- Seminal 버튼: FilterablePostList.tsx에서 주석처리됨 (나중에 재활성화)
 - Supabase: fyrgooabpegysrcawtdm.supabase.co (terry-paper-graph-db)
-- dev 서버: Turbopack 사용 중 (`npm run dev`, 포트 3040)
-- Papers 사이드바 sticky top: 24 (= 96px) — 헤더 높이 맞게 조정 필요 시 변경
+- dev 서버: Turbopack (`npm run dev`, 포트 3040)

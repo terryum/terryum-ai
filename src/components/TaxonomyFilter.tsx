@@ -152,23 +152,6 @@ export default function TaxonomyFilter({
     );
   }
 
-  // inline (default): bordered card
-  return (
-    <div className="mb-6 p-3 rounded-lg border border-line-default bg-surface-subtle">
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-semibold text-text-muted uppercase tracking-wide">
-          {heading}
-        </span>
-        {selectedTaxonomy && (
-          <button
-            onClick={() => onSelect(null)}
-            className="text-xs text-text-muted hover:text-accent transition-colors"
-          >
-            {clearLabel}
-          </button>
-        )}
-      </div>
-      {treeNodes}
-    </div>
-  );
+  // inline (default): tree only, no card wrapper (heading is handled by collapsible parent)
+  return <div>{treeNodes}</div>;
 }

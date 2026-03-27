@@ -71,6 +71,9 @@ function FilterablePostListInner({
 
   const [selectedTaxonomy, setSelectedTaxonomy] = useState<string | null>(null);
 
+  // Mobile/narrow: taxonomy panel collapsed by default
+  const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
+
   // Reset tags, starred, and taxonomy when tab changes
   const prevTabRef = useRef(selectedTab);
   useEffect(() => {
@@ -79,6 +82,7 @@ function FilterablePostListInner({
       setSelectedTags([]);
       setStarredOnly(false);
       setSelectedTaxonomy(null);
+      setMobileTaxonomyOpen(false);
     }
   }, [selectedTab]);
 
@@ -97,14 +101,10 @@ function FilterablePostListInner({
     const currentTab = params.get('tab');
     const newParams = new URLSearchParams();
     if (currentTab) newParams.set('tab', currentTab);
-    if (selectedTags.length > 0) {
-      newParams.set('tags', selectedTags.join(','));
-    }
+    if (selectedTags.length > 0) newParams.set('tags', selectedTags.join(','));
     if (starredOnly) newParams.set('starred', 'true');
     const qs = newParams.toString();
-    const newUrl = qs
-      ? `${window.location.pathname}?${qs}`
-      : window.location.pathname;
+    const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
     window.history.replaceState(null, '', newUrl);
   }, [selectedTags, starredOnly]);
 
@@ -163,7 +163,7 @@ function FilterablePostListInner({
     return tagFilteredPosts.filter(p => p.starred);
   }, [tagFilteredPosts, starredOnly]);
 
-  // Available tags: computed from taxonomy-filtered posts (so counts reflect taxonomy scope)
+  // Available tags: computed from taxonomy-filtered posts (counts reflect taxonomy scope)
   const availableTags = useMemo(() => {
     const tagCounts = new Map<string, number>();
     for (const post of taxonomyFilteredPosts) {
@@ -174,7 +174,6 @@ function FilterablePostListInner({
         }
       }
     }
-
     return Array.from(tagCounts.entries())
       .map(([slug, count]) => {
         const existing = allTags.find((t) => t.slug === slug);
@@ -187,17 +186,22 @@ function FilterablePostListInner({
   const currentDescription = (selectedTab && tabTitles?.[selectedTab]?.description) || defaultDescription;
 
   const hasTaxonomy = selectedTab === 'papers' && Object.keys(taxonomyNodes).length > 0;
+  const taxonomyHeading = locale === 'ko' ? '분야별 탐색' : 'Browse by Field';
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
       <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
 
-      <div className="lg:flex lg:gap-8 lg:items-start">
+      {/* relative wrapper: xl+ outside sidebar uses absolute positioning */}
+      <div className="relative">
 
-        {/* 왼쪽 사이드바: PC(lg+)에서만, Papers + taxonomy 있을 때 */}
+        {/* xl+: sticky sidebar outside the content area (to the left) */}
         {hasTaxonomy && (
-          <aside className="hidden lg:block w-52 shrink-0">
+          <aside
+            className="hidden xl:block absolute top-0 bottom-0 w-44 pr-4"
+            style={{ right: 'calc(100% + 1rem)' }}
+          >
             <div className="sticky top-24">
               <TaxonomyFilter
                 variant="sidebar"
@@ -211,35 +215,53 @@ function FilterablePostListInner({
           </aside>
         )}
 
-        {/* 오른쪽 메인 (또는 전체 너비) */}
-        <div className="flex-1 min-w-0">
+        {/* Main content: always full Container width */}
+        <div>
 
-          {/* 모바일 taxonomy: inline card */}
+          {/* Mobile / narrow (< xl): collapsible taxonomy at top */}
           {hasTaxonomy && (
-            <div className="lg:hidden">
-              <TaxonomyFilter
-                variant="inline"
-                locale={locale}
-                nodes={taxonomyNodes}
-                stats={taxonomyStats}
-                selectedTaxonomy={selectedTaxonomy}
-                onSelect={setSelectedTaxonomy}
-              />
+            <div className="xl:hidden mb-6">
+              <div className="border border-line-default rounded-lg overflow-hidden">
+                <button
+                  onClick={() => setMobileTaxonomyOpen(v => !v)}
+                  className="w-full flex items-center justify-between px-3 py-2.5 text-xs font-semibold text-text-muted uppercase tracking-wide hover:bg-surface-muted transition-colors"
+                >
+                  <span>{taxonomyHeading}</span>
+                  <span className="text-[10px]">{mobileTaxonomyOpen ? '▾' : '▸'}</span>
+                </button>
+                {mobileTaxonomyOpen && (
+                  <div className="px-3 pb-3 pt-1">
+                    <TaxonomyFilter
+                      variant="inline"
+                      locale={locale}
+                      nodes={taxonomyNodes}
+                      stats={taxonomyStats}
+                      selectedTaxonomy={selectedTaxonomy}
+                      onSelect={(id) => {
+                        setSelectedTaxonomy(id);
+                        if (id !== null) setMobileTaxonomyOpen(false);
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              {/* Show selected taxonomy label when collapsed */}
+              {!mobileTaxonomyOpen && selectedTaxonomy && (
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="text-xs text-accent font-medium">
+                    {locale === 'ko'
+                      ? taxonomyNodes[selectedTaxonomy]?.label.ko
+                      : taxonomyNodes[selectedTaxonomy]?.label.en}
+                  </span>
+                  <button
+                    onClick={() => setSelectedTaxonomy(null)}
+                    className="text-xs text-text-muted hover:text-accent transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
             </div>
-          )}
-
-          {selectedTab === 'papers' && (
-            <button
-              onClick={() => setStarredOnly(v => !v)}
-              className={`mb-3 inline-flex items-center gap-1.5 text-sm px-3 py-1 rounded-full border transition-colors ${
-                starredOnly
-                  ? 'bg-amber-50 border-amber-300 text-amber-700 dark:bg-amber-900/30 dark:border-amber-600 dark:text-amber-400'
-                  : 'border-line-default text-text-muted hover:border-amber-300 hover:text-amber-600'
-              }`}
-            >
-              <span>★</span>
-              <span>Seminal</span>
-            </button>
           )}
 
           <TagFilterBar
