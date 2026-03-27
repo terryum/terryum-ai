@@ -12,7 +12,7 @@ import { FigureGroupProvider } from '@/contexts/FigureGroupContext';
 import { formatPostDate } from '@/lib/display';
 import type { PostMeta } from '@/types/post';
 import type { Locale } from '@/lib/i18n';
-import type { RelatedPostData } from '@/lib/content-page-helpers';
+import type { RelatedPostData, AdjacentPosts } from '@/lib/content-page-helpers';
 
 interface ContentDetailPageProps {
   locale: Locale;
@@ -31,9 +31,12 @@ interface ContentDetailPageProps {
     tables_gallery?: string;
     appendix_label?: string;
     terrys_memo_label?: string;
+    prev?: string;
+    next?: string;
   };
   relatedPosts?: RelatedPostData[];
   taxonomyBreadcrumb?: { id: string; label: { ko: string; en: string } }[];
+  adjacentPosts?: AdjacentPosts;
 }
 
 export default function ContentDetailPage({
@@ -44,6 +47,7 @@ export default function ContentDetailPage({
   labels,
   relatedPosts = [],
   taxonomyBreadcrumb = [],
+  adjacentPosts,
 }: ContentDetailPageProps) {
   const tabSlug = meta.content_type;
   const section = `posts?tab=${tabSlug}`;
@@ -172,17 +176,66 @@ export default function ContentDetailPage({
         <SubstackSubscribe locale={locale} variant="article" />
       )}
 
-      {/* Bottom back to list */}
+      {/* Bottom navigation: prev / back-to-list / next */}
       <div className="mt-12 pt-6 border-t border-line-default">
-        <Link
-          href={`/${locale}/${section}`}
-          className="text-sm text-text-muted hover:text-accent transition-colors inline-flex items-center gap-1"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-          {labels.back_to_list}
-        </Link>
+        <div className="flex items-start justify-between gap-4">
+          {/* 이전 글 (older post) */}
+          <div className="flex-1 min-w-0">
+            {adjacentPosts?.prev ? (
+              <Link
+                href={`/${locale}/posts/${adjacentPosts.prev.slug}`}
+                className="group flex flex-col gap-0.5"
+              >
+                <span className="text-xs text-text-muted inline-flex items-center gap-1">
+                  <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  {labels.prev ?? '이전 글'}
+                </span>
+                <span className="text-sm text-text-secondary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
+                  {adjacentPosts.prev.title}
+                </span>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </div>
+
+          {/* 목록으로 */}
+          <div className="shrink-0 pt-0.5">
+            <Link
+              href={`/${locale}/${section}`}
+              className="text-sm text-text-muted hover:text-accent transition-colors inline-flex items-center gap-1 whitespace-nowrap"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              {labels.back_to_list}
+            </Link>
+          </div>
+
+          {/* 다음 글 (newer post) */}
+          <div className="flex-1 min-w-0 text-right">
+            {adjacentPosts?.next ? (
+              <Link
+                href={`/${locale}/posts/${adjacentPosts.next.slug}`}
+                className="group flex flex-col gap-0.5 items-end"
+              >
+                <span className="text-xs text-text-muted inline-flex items-center gap-1">
+                  {labels.next ?? '다음 글'}
+                  <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span className="text-sm text-text-secondary group-hover:text-accent transition-colors line-clamp-2 leading-snug">
+                  {adjacentPosts.next.title}
+                </span>
+              </Link>
+            ) : (
+              <div />
+            )}
+          </div>
+        </div>
       </div>
     </article>
   );

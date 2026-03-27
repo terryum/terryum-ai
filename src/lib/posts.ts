@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import type { Post, PostMeta, FigureItem, Reference, PostRelation, AISummary } from '@/types/post';
 import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath } from '@/lib/paths';
+import { TAB_CONFIG } from '@/lib/site-config';
 
 const INDEX_PATH = path.join(process.cwd(), 'posts', 'index.json');
 const TAXONOMY_PATH = path.join(process.cwd(), 'posts', 'taxonomy.json');
@@ -289,6 +290,53 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
     if (dateDiff !== 0) return dateDiff;
     return (b.post_number ?? 0) - (a.post_number ?? 0);
   });
+}
+
+export interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
+export interface AdjacentPosts {
+  prev: AdjacentPost | null; // 이전 글: older post (published before current)
+  next: AdjacentPost | null; // 다음 글: newer post (published after current)
+}
+
+/**
+ * Returns adjacent posts within the same author group (AI or Terry).
+ * Grouping is driven by TAB_CONFIG.author — adding a new tab with the correct
+ * author field automatically includes it in the right prev/next navigation group.
+ */
+export async function getAdjacentPosts(
+  slug: string,
+  locale: string
+): Promise<AdjacentPosts> {
+  const currentMeta = await getPostMeta(slug, locale);
+  if (!currentMeta) return { prev: null, next: null };
+
+  const currentTab = TAB_CONFIG.find(t => t.slug === currentMeta.content_type);
+  if (!currentTab) return { prev: null, next: null };
+
+  const authorGroup = currentTab.author;
+  const authorContentTypes = new Set(
+    TAB_CONFIG.filter(t => t.author === authorGroup).map(t => t.slug)
+  );
+
+  // getAllPosts returns published posts sorted by date desc (newest first)
+  const allPosts = await getAllPosts(locale);
+  const groupPosts = allPosts.filter(p => authorContentTypes.has(p.content_type));
+
+  const idx = groupPosts.findIndex(p => p.slug === slug);
+  if (idx === -1) return { prev: null, next: null };
+
+  // Desc-sorted: idx+1 = older post (이전 글), idx-1 = newer post (다음 글)
+  const prevPost = idx + 1 < groupPosts.length ? groupPosts[idx + 1] : null;
+  const nextPost = idx > 0 ? groupPosts[idx - 1] : null;
+
+  return {
+    prev: prevPost ? { slug: prevPost.slug, title: prevPost.title } : null,
+    next: nextPost ? { slug: nextPost.slug, title: nextPost.title } : null,
+  };
 }
 
 export async function getPostParamsByType(

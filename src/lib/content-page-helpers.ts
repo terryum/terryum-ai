@@ -1,7 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary, type Dictionary } from '@/lib/dictionaries';
-import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale, loadIndexJson, loadTaxonomyJson } from '@/lib/posts';
+import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale, loadIndexJson, loadTaxonomyJson, getAdjacentPosts, type AdjacentPosts } from '@/lib/posts';
 import { computeTagCounts, sortTagsByCount, getTagLabel } from '@/lib/tags';
 import { renderMDX } from '@/lib/mdx';
 import { TAB_CONFIG, TAB_TAG_SLUGS } from '@/lib/site-config';
@@ -113,6 +113,8 @@ export interface RelatedPostData {
   postNumber?: number | null;
 }
 
+export type { AdjacentPosts };
+
 export interface ContentDetailProps {
   locale: Locale;
   post: Awaited<ReturnType<typeof getPost>> & {};
@@ -121,6 +123,7 @@ export interface ContentDetailProps {
   labels: Dictionary['detail'];
   relatedPosts: RelatedPostData[];
   taxonomyBreadcrumb: { id: string; label: { ko: string; en: string } }[];
+  adjacentPosts: AdjacentPosts;
 }
 
 export async function buildContentDetailProps(
@@ -194,6 +197,8 @@ export async function buildContentDetailProps(
     }
   }
 
+  const adjacentPosts = await getAdjacentPosts(slug, lang);
+
   return {
     locale: lang,
     post,
@@ -202,5 +207,6 @@ export async function buildContentDetailProps(
     labels: dict.detail,
     relatedPosts,
     taxonomyBreadcrumb,
+    adjacentPosts,
   };
 }
