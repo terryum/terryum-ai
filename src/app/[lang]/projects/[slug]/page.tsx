@@ -26,7 +26,26 @@ export async function generateMetadata({
   if (!project) return {};
   const title = project.title[lang as 'ko' | 'en'] || project.title.en;
   const description = project.description[lang as 'ko' | 'en'] || project.description.en;
-  return { title, description };
+  const ogImage = project.cover_image;
+  const pageUrl = `/${lang}/projects/${slug}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: pageUrl,
+      type: 'website',
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ogImage ? [ogImage] : [],
+    },
+  };
 }
 
 export default async function ProjectDetailPage({

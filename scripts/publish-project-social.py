@@ -75,20 +75,14 @@ def build_hashtags(tech_stack):
 def build_ko_message(project, url):
     title = project["title"]["ko"]
     desc = project["description"]["ko"]
-    tags = build_hashtags(project.get("tech_stack", []))
     lines = [title, "", desc, "", f"자세히 보기 \U0001F449 {url}"]
-    if tags:
-        lines.append(tags)
     return "\n".join(lines)
 
 
 def build_en_message(project, url):
     title = project["title"]["en"]
     desc = project["description"]["en"]
-    tags = build_hashtags(project.get("tech_stack", []))
     lines = [title, "", desc, "", f"Check it out \u2192 {url}"]
-    if tags:
-        lines.append(tags)
     return "\n".join(lines)
 
 

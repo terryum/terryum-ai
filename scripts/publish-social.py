@@ -257,7 +257,7 @@ def build_bluesky_text(post: dict, fm: dict) -> tuple[str, str]:
 
 # ─── Facebook API ────────────────────────────────────────────────────────────
 
-def publish_facebook(text: str, url: str, dry_run: bool) -> bool:
+def publish_facebook(text: str, url: str, dry_run: bool, image_url: str = "") -> bool:
     page_id = os.environ.get("FACEBOOK_PAGE_ID", "")
     token = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN", "")
 
@@ -265,17 +265,27 @@ def publish_facebook(text: str, url: str, dry_run: bool) -> bool:
         print(f"\n[DRY RUN] Facebook Page")
         print(f"  PAGE_ID : {page_id or '(미설정)'}")
         print(f"  Text    :\n{text}\n")
+        if image_url:
+            print(f"  Image   : {image_url}")
         return True
 
     if not page_id or not token:
         print("  [SKIP] FACEBOOK_PAGE_ID 또는 FACEBOOK_PAGE_ACCESS_TOKEN 미설정")
         return False
 
-    resp = requests.post(
-        f"https://graph.facebook.com/v20.0/{page_id}/feed",
-        data={"message": text, "link": url, "access_token": token},
-        timeout=20,
-    )
+    if image_url:
+        # 이미지가 있으면 /photos 엔드포인트 사용 (이미지 + 텍스트)
+        resp = requests.post(
+            f"https://graph.facebook.com/v20.0/{page_id}/photos",
+            data={"message": text, "url": image_url, "access_token": token},
+            timeout=30,
+        )
+    else:
+        resp = requests.post(
+            f"https://graph.facebook.com/v20.0/{page_id}/feed",
+            data={"message": text, "link": url, "access_token": token},
+            timeout=20,
+        )
     if resp.status_code == 200:
         post_id = resp.json().get("id", "?")
         # permalink_url을 API로 직접 조회
@@ -296,7 +306,7 @@ def publish_facebook(text: str, url: str, dry_run: bool) -> bool:
 
 # ─── Threads API ─────────────────────────────────────────────────────────────
 
-def publish_threads(text: str, url: str, dry_run: bool) -> bool:
+def publish_threads(text: str, url: str, dry_run: bool, image_url: str = "") -> bool:
     token = os.environ.get("THREADS_ACCESS_TOKEN", "")
     user_id = os.environ.get("THREADS_USER_ID", "")
 
@@ -305,6 +315,8 @@ def publish_threads(text: str, url: str, dry_run: bool) -> bool:
         print(f"  USER_ID : {user_id or '(미설정)'}")
         print(f"  Text    :\n{text}\n")
         print(f"  Link    : {url}")
+        if image_url:
+            print(f"  Image   : {image_url}")
         return True
 
     if not check_token_expiry("Threads", "THREADS_TOKEN_CREATED"):
@@ -318,9 +330,13 @@ def publish_threads(text: str, url: str, dry_run: bool) -> bool:
     headers = {"Authorization": f"Bearer {token}"}
 
     # Step 1: 미디어 컨테이너 생성
+    if image_url:
+        container_data = {"media_type": "IMAGE", "text": text, "image_url": image_url}
+    else:
+        container_data = {"media_type": "TEXT", "text": text, "link_attachment": url}
     resp1 = requests.post(
         f"{base}/threads",
-        json={"media_type": "TEXT", "text": text, "link_attachment": url},
+        json=container_data,
         headers=headers,
         timeout=20,
     )
@@ -360,7 +376,66 @@ def publish_threads(text: str, url: str, dry_run: bool) -> bool:
 
 # ─── LinkedIn API ────────────────────────────────────────────────────────────
 
-def publish_linkedin(text: str, url: str, dry_run: bool) -> bool:
+def _upload_linkedin_image(token: str, person_urn: str, image_url: str) -> "str | None":
+    """이미지 URL → LinkedIn 이미지 업로드 → asset URN 반환."""
+    # Step 1: 업로드 등록
+    register_payload = {
+        "registerUploadRequest": {
+            "recipes": ["urn:li:digitalmediaRecipe:feedshare-image"],
+            "owner": person_urn,
+            "serviceRelationships": [
+                {"relationshipType": "OWNER", "identifier": "urn:li:userGeneratedContent"}
+            ],
+        }
+    }
+    reg_resp = requests.post(
+        "https://api.linkedin.com/v2/assets?action=registerUpload",
+        json=register_payload,
+        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+        timeout=20,
+    )
+    if reg_resp.status_code not in (200, 201):
+        print(f"  [WARNING] LinkedIn 이미지 등록 실패 ({reg_resp.status_code}): {reg_resp.text[:200]}")
+        return None
+
+    reg_data = reg_resp.json().get("value", {})
+    upload_url = reg_data.get("uploadMechanism", {}).get(
+        "com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest", {}
+    ).get("uploadUrl", "")
+    asset = reg_data.get("asset", "")
+
+    if not upload_url or not asset:
+        print(f"  [WARNING] LinkedIn 업로드 URL/asset 없음")
+        return None
+
+    # Step 2: 이미지 다운로드
+    try:
+        img_resp = requests.get(image_url, timeout=20)
+        if img_resp.status_code != 200:
+            print(f"  [WARNING] 이미지 다운로드 실패 ({img_resp.status_code})")
+            return None
+    except Exception as e:
+        print(f"  [WARNING] 이미지 다운로드 실패: {e}")
+        return None
+
+    # Step 3: 이미지 업로드
+    up_resp = requests.put(
+        upload_url,
+        data=img_resp.content,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": img_resp.headers.get("Content-Type", "image/png"),
+        },
+        timeout=30,
+    )
+    if up_resp.status_code not in (200, 201):
+        print(f"  [WARNING] LinkedIn 이미지 업로드 실패 ({up_resp.status_code}): {up_resp.text[:200]}")
+        return None
+
+    return asset
+
+
+def publish_linkedin(text: str, url: str, dry_run: bool, image_url: str = "") -> bool:
     token = os.environ.get("LINKEDIN_ACCESS_TOKEN", "")
     person_urn = os.environ.get("LINKEDIN_PERSON_URN", "")
 
@@ -369,6 +444,8 @@ def publish_linkedin(text: str, url: str, dry_run: bool) -> bool:
         print(f"  URN     : {person_urn or '(미설정)'}")
         print(f"  Text    :\n{text}\n")
         print(f"  Link    : {url}")
+        if image_url:
+            print(f"  Image   : {image_url}")
         return True
 
     if not check_token_expiry("LinkedIn", "LINKEDIN_TOKEN_CREATED"):
@@ -378,14 +455,29 @@ def publish_linkedin(text: str, url: str, dry_run: bool) -> bool:
         print("  [SKIP] LINKEDIN_ACCESS_TOKEN 또는 LINKEDIN_PERSON_URN 미설정")
         return False
 
+    # 이미지가 있으면 IMAGE 카테고리로 포스팅
+    media_category = "ARTICLE"
+    media_entry = {"status": "READY", "originalUrl": url}
+
+    if image_url:
+        print(f"  LinkedIn 이미지 업로드 중...")
+        asset = _upload_linkedin_image(token, person_urn, image_url)
+        if asset:
+            media_category = "IMAGE"
+            media_entry = {
+                "status": "READY",
+                "media": asset,
+                "description": {"text": url},
+            }
+
     payload = {
         "author": person_urn,
         "lifecycleState": "PUBLISHED",
         "specificContent": {
             "com.linkedin.ugc.ShareContent": {
                 "shareCommentary": {"text": text},
-                "shareMediaCategory": "ARTICLE",
-                "media": [{"status": "READY", "originalUrl": url}],
+                "shareMediaCategory": media_category,
+                "media": [media_entry],
             }
         },
         "visibility": {"com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"},
@@ -411,7 +503,36 @@ def publish_linkedin(text: str, url: str, dry_run: bool) -> bool:
 
 # ─── X (Twitter) API ────────────────────────────────────────────────────────
 
-def publish_x(text: str, dry_run: bool) -> bool:
+def _upload_x_media(auth, image_url: str) -> "str | None":
+    """이미지 URL → X 미디어 업로드 → media_id 반환."""
+    try:
+        img_resp = requests.get(image_url, timeout=20)
+        if img_resp.status_code != 200:
+            print(f"  [WARNING] 이미지 다운로드 실패 ({img_resp.status_code})")
+            return None
+    except Exception as e:
+        print(f"  [WARNING] 이미지 다운로드 실패: {e}")
+        return None
+
+    import base64
+    media_data = base64.b64encode(img_resp.content).decode("utf-8")
+    content_type = img_resp.headers.get("Content-Type", "image/png")
+
+    resp = requests.post(
+        "https://upload.twitter.com/1.1/media/upload.json",
+        data={"media_data": media_data},
+        auth=auth,
+        timeout=30,
+    )
+    if resp.status_code in (200, 201, 202):
+        media_id = resp.json().get("media_id_string")
+        return media_id
+    else:
+        print(f"  [WARNING] X 미디어 업로드 실패 ({resp.status_code}): {resp.text[:200]}")
+        return None
+
+
+def publish_x(text: str, dry_run: bool, image_url: str = "") -> bool:
     api_key = os.environ.get("X_API_KEY", "")
     api_secret = os.environ.get("X_API_SECRET", "")
     access_token = os.environ.get("X_ACCESS_TOKEN", "")
@@ -421,6 +542,8 @@ def publish_x(text: str, dry_run: bool) -> bool:
         print(f"\n[DRY RUN] X (Twitter)")
         print(f"  API_KEY : {api_key[:8] + '...' if api_key else '(미설정)'}")
         print(f"  Text    :\n{text}\n")
+        if image_url:
+            print(f"  Image   : {image_url}")
         return True
 
     if not all([api_key, api_secret, access_token, access_secret]):
@@ -434,9 +557,17 @@ def publish_x(text: str, dry_run: bool) -> bool:
         return False
 
     auth = OAuth1(api_key, api_secret, access_token, access_secret)
+
+    tweet_payload = {"text": text}
+    if image_url:
+        print(f"  X 이미지 업로드 중...")
+        media_id = _upload_x_media(auth, image_url)
+        if media_id:
+            tweet_payload["media"] = {"media_ids": [media_id]}
+
     resp = requests.post(
         "https://api.twitter.com/2/tweets",
-        json={"text": text},
+        json=tweet_payload,
         auth=auth,
         headers={"Content-Type": "application/json"},
         timeout=20,
@@ -514,7 +645,7 @@ def _upload_bluesky_blob(image_url: str, access_token: str) -> "dict | None":
         return None
 
 
-def publish_bluesky(text: str, url: str, dry_run: bool) -> bool:
+def publish_bluesky(text: str, url: str, dry_run: bool, image_url: str = "") -> bool:
     identifier = os.environ.get("BLUESKY_IDENTIFIER", "")
     app_password = os.environ.get("BLUESKY_APP_PASSWORD", "")
 
@@ -523,6 +654,8 @@ def publish_bluesky(text: str, url: str, dry_run: bool) -> bool:
         print(f"  HANDLE  : {identifier or '(미설정)'}")
         print(f"  Text    :\n{text}\n")
         print(f"  Link    : {url}")
+        if image_url:
+            print(f"  Image   : {image_url}")
         return True
 
     if not identifier or not app_password:
@@ -543,16 +676,22 @@ def publish_bluesky(text: str, url: str, dry_run: bool) -> bool:
     access_token = session["accessJwt"]
     did = session["did"]
 
-    # Step 2: OG 태그 fetch + 이미지 blob 업로드
-    og = _fetch_og_tags(url)
+    # Step 2: 이미지 blob 업로드
+    # 직접 image_url이 주어진 경우 우선 사용, 없으면 OG 태그에서 가져옴
+    target_image = image_url
+    if not target_image:
+        og = _fetch_og_tags(url)
+        target_image = og.get("image", "")
+    else:
+        og = {}
+
     og_title = og.get("title", "")
     og_desc = og.get("description", "")
-    og_image = og.get("image", "")
 
     thumb_blob = None
-    if og_image:
-        print(f"  OG 이미지 업로드 중: {og_image}")
-        thumb_blob = _upload_bluesky_blob(og_image, access_token)
+    if target_image:
+        print(f"  이미지 업로드 중: {target_image}")
+        thumb_blob = _upload_bluesky_blob(target_image, access_token)
 
     # Step 3: facets + record 구성
     facets = _build_bluesky_facets(text)
@@ -566,18 +705,24 @@ def publish_bluesky(text: str, url: str, dry_run: bool) -> bool:
     if facets:
         record["facets"] = facets
 
-    # External embed (링크 카드 + 썸네일)
-    external = {
-        "uri": url,
-        "title": og_title,
-        "description": og_desc,
-    }
-    if thumb_blob:
-        external["thumb"] = thumb_blob
-    record["embed"] = {
-        "$type": "app.bsky.embed.external",
-        "external": external,
-    }
+    # 이미지가 있으면 이미지 embed, 없으면 external link embed
+    if thumb_blob and image_url:
+        record["embed"] = {
+            "$type": "app.bsky.embed.images",
+            "images": [{"alt": og_title or text[:100], "image": thumb_blob}],
+        }
+    else:
+        external = {
+            "uri": url,
+            "title": og_title,
+            "description": og_desc,
+        }
+        if thumb_blob:
+            external["thumb"] = thumb_blob
+        record["embed"] = {
+            "$type": "app.bsky.embed.external",
+            "external": external,
+        }
 
     # Step 4: 포스트 생성
     resp = requests.post(
