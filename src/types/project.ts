@@ -11,6 +11,7 @@ export interface ProjectMeta {
   cover_image: string;
   tech_stack: string[];
   links: ProjectLink[];
+  embed_url?: string;
   status: 'active' | 'archived' | 'wip';
   featured: boolean;
   order: number;

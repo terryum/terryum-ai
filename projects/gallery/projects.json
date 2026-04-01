@@ -1,6 +1,28 @@
 {
   "projects": [
     {
+      "slug": "book-robot-hand-tactile-sensor",
+      "title": {
+        "ko": "Tactile Sensing for Dexterous Robot Hands",
+        "en": "Tactile Sensing for Dexterous Robot Hands"
+      },
+      "description": {
+        "ko": "로봇 손 촉각 센싱에 대한 종합 서베이. 책(한/영), IEEE 논문, 웹 제공.",
+        "en": "A comprehensive survey on tactile sensing for dexterous robot hand manipulation. Book (KO/EN), IEEE paper, and web."
+      },
+      "cover_image": "/images/projects/book-robot-hand-tactile-sensor-cover.webp",
+      "tech_stack": ["Robotics", "Tactile Sensing", "Survey", "Book"],
+      "links": [
+        { "type": "demo", "url": "https://book-robot-hand-tactile-sensor.vercel.app/", "label": "Web" },
+        { "type": "github", "url": "https://github.com/terryum/book-robot-hand-tactile-sensor" }
+      ],
+      "embed_url": "https://book-robot-hand-tactile-sensor.vercel.app/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-04-01"
+    },
+    {
       "slug": "grad-school-story",
       "title": {
         "ko": "대학원생 때 알았더라면 좋았을 것들",

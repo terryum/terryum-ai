@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { trackEvent } from '@/lib/analytics';
 import type { ProjectMeta } from '@/types/project';
 
@@ -64,11 +65,6 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
   const badge = STATUS_BADGE[project.status] ?? STATUS_BADGE.active;
   const primaryLink = project.links[0]?.url;
 
-  const CardWrapper = primaryLink ? 'a' : 'div';
-  const wrapperProps = primaryLink
-    ? { href: primaryLink, target: '_blank' as const, rel: 'noopener noreferrer' }
-    : {};
-
   function handleCardClick() {
     trackEvent('project_card_click', {
       project_slug: project.slug,
@@ -77,12 +73,10 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
     });
   }
 
-  return (
-    <CardWrapper
-      {...wrapperProps}
-      onClick={handleCardClick}
-      className="group block rounded-xl border border-line-default overflow-hidden transition-all hover:border-accent/40 hover:shadow-md"
-    >
+  const cardClassName = "group block rounded-xl border border-line-default overflow-hidden transition-all hover:border-accent/40 hover:shadow-md";
+
+  const cardInner = (
+    <>
       {/* Cover image */}
       <div className="relative aspect-[16/9] bg-bg-surface overflow-hidden">
         <Image
@@ -156,6 +150,29 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
           </div>
         )}
       </div>
-    </CardWrapper>
+    </>
+  );
+
+  // embed_url이 있으면 내부 상세 페이지로, 없으면 외부 링크로
+  if (project.embed_url) {
+    return (
+      <Link href={`/${locale}/projects/${project.slug}`} onClick={handleCardClick} className={cardClassName}>
+        {cardInner}
+      </Link>
+    );
+  }
+
+  if (primaryLink) {
+    return (
+      <a href={primaryLink} target="_blank" rel="noopener noreferrer" onClick={handleCardClick} className={cardClassName}>
+        {cardInner}
+      </a>
+    );
+  }
+
+  return (
+    <div className={cardClassName}>
+      {cardInner}
+    </div>
   );
 }
