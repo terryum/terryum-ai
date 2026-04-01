@@ -31,6 +31,14 @@
     "notes": {
       "title": "Notes",
       "description": "AI가 논문들을 분석해 새로운 인사이트를 제안합니다."
+    },
+    "terry": {
+      "title": "Terry's Posts",
+      "description": "Terry가 쓴 글 모음입니다."
+    },
+    "ai": {
+      "title": "AI Posts",
+      "description": "AI가 작성한 글 모음입니다."
     }
   },
   "home": {

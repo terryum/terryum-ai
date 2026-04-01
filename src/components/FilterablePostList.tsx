@@ -9,7 +9,7 @@ import ContentCard from './ContentCard';
 const TaxonomyFilter = dynamic(() => import('./TaxonomyFilter'), { ssr: false });
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
-import { getPostsForTab } from '@/lib/tabs';
+import { getPostsForTab, getPostsForAuthor } from '@/lib/tabs';
 import { getDisplayTags } from '@/lib/display';
 import type { PostMeta } from '@/types/post';
 import type { TagItem } from '@/types/tag';
@@ -52,6 +52,7 @@ function FilterablePostListInner({
 }: FilterablePostListProps) {
   const searchParams = useSearchParams();
   const selectedTab = searchParams.get('tab');
+  const selectedAuthor = searchParams.get('author') as 'terry' | 'ai' | null;
 
   const [selectedTags, setSelectedTags] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
@@ -76,17 +77,18 @@ function FilterablePostListInner({
   // Mobile/narrow: taxonomy panel collapsed by default
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
 
-  // Reset tags, starred, and taxonomy when tab changes
-  const prevTabRef = useRef(selectedTab);
+  // Reset tags, starred, and taxonomy when tab or author changes
+  const currentScope = selectedTab || selectedAuthor;
+  const prevScopeRef = useRef(currentScope);
   useEffect(() => {
-    if (prevTabRef.current !== selectedTab) {
-      prevTabRef.current = selectedTab;
+    if (prevScopeRef.current !== currentScope) {
+      prevScopeRef.current = currentScope;
       setSelectedTags([]);
       setStarredOnly(false);
       setSelectedTaxonomy(null);
       setMobileTaxonomyOpen(false);
     }
-  }, [selectedTab]);
+  }, [currentScope]);
 
   // Reset tags when taxonomy changes (selected tags may not exist in new scope)
   const prevTaxonomyRef = useRef(selectedTaxonomy);
@@ -101,8 +103,10 @@ function FilterablePostListInner({
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const currentTab = params.get('tab');
+    const currentAuthor = params.get('author');
     const newParams = new URLSearchParams();
     if (currentTab) newParams.set('tab', currentTab);
+    else if (currentAuthor) newParams.set('author', currentAuthor);
     if (selectedTags.length > 0) newParams.set('tags', selectedTags.join(','));
     if (starredOnly) newParams.set('starred', 'true');
     const qs = newParams.toString();
@@ -128,11 +132,12 @@ function FilterablePostListInner({
     );
   }, []);
 
-  // 1st pass: filter by tab
+  // 1st pass: filter by tab or author
   const tabFilteredPosts = useMemo(() => {
-    if (!selectedTab) return posts;
-    return getPostsForTab(posts, selectedTab);
-  }, [posts, selectedTab]);
+    if (selectedTab) return getPostsForTab(posts, selectedTab);
+    if (selectedAuthor) return getPostsForAuthor(posts, selectedAuthor);
+    return posts;
+  }, [posts, selectedTab, selectedAuthor]);
 
   // 2nd pass: filter by taxonomy (before tags, so tags reflect taxonomy scope)
   const taxonomyFilteredPosts = useMemo(() => {
@@ -184,8 +189,8 @@ function FilterablePostListInner({
       .sort((a, b) => b.count - a.count);
   }, [allTags, taxonomyFilteredPosts]);
 
-  const currentTitle = (selectedTab && tabTitles?.[selectedTab]?.title) || defaultTitle;
-  const currentDescription = (selectedTab && tabTitles?.[selectedTab]?.description) || defaultDescription;
+  const currentTitle = (selectedTab && tabTitles?.[selectedTab]?.title) || (selectedAuthor && tabTitles?.[selectedAuthor]?.title) || defaultTitle;
+  const currentDescription = (selectedTab && tabTitles?.[selectedTab]?.description) || (selectedAuthor && tabTitles?.[selectedAuthor]?.description) || defaultDescription;
 
   const hasTaxonomy = selectedTab === 'papers' && Object.keys(taxonomyNodes).length > 0;
   const taxonomyHeading = locale === 'ko' ? '분야별 탐색' : 'Browse by Field';

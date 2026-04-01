@@ -63,6 +63,16 @@ export interface NavTabItem {
   author?: 'terry' | 'ai';
 }
 
+/** Get posts belonging to a specific author group (terry or ai) */
+export function getPostsForAuthor(posts: PostMeta[], author: 'terry' | 'ai'): PostMeta[] {
+  const matchSet = new Set(
+    TAB_CONFIG.filter(t => t.author === author).flatMap(t => t.matchTags)
+  );
+  return posts.filter(post =>
+    post.tags.some(tag => matchSet.has(normalizeTagSlug(tag)))
+  );
+}
+
 /** Generate nav menu items for tabs */
 export function getNavTabs(posts: PostMeta[], locale: string): NavTabItem[] {
   return getActiveTabs(posts, locale).map(tab => ({
