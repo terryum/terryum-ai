@@ -13,6 +13,9 @@ argument-hint: "<post-identifier> [platform-filter]"
   /post-share brain-augmentation X에만 올려줘
   /post-share 260310-on-the-manifold-first-post --platform=facebook,threads
 
+## 필수 참조
+실행 전 반드시 `docs/SOCIAL_SHARE_GUIDE.md`를 읽고 플랫폼별 메시지 포맷, 커버이미지 규칙, URL 규칙을 준수할 것.
+
 ## 실행 순서 (모든 단계를 권한 요청 없이 완료할 것)
 
 ### Step 1. 포스트 식별

@@ -14,6 +14,9 @@ argument-hint: "<project-URL | slug | title> [platform-filter]"
   /project-share book-robot-hand-tactile-sensor X에만 올려줘
   /project-share book-robot-hand-tactile-sensor --platform=facebook,threads
 
+## 필수 참조
+실행 전 반드시 `docs/SOCIAL_SHARE_GUIDE.md`를 읽고 플랫폼별 메시지 포맷, 커버이미지 규칙, URL 규칙을 준수할 것.
+
 ## 실행 순서 (모든 단계를 권한 요청 없이 완료할 것)
 
 ### Step 1. 프로젝트 식별
@@ -34,38 +37,20 @@ argument-hint: "<project-URL | slug | title> [platform-filter]"
 식별 완료 후 출력:
 ```
 대상 프로젝트: slug (title_en)
-대상 플랫폼: facebook, threads, linkedin, x, bluesky
+대상 플랫폼: facebook, threads, linkedin, x, bluesky, substack
 ```
 
 ### Step 2. 메시지 구성
 
-프로젝트 정보로 소셜미디어 메시지를 구성한다.
+`docs/SOCIAL_SHARE_GUIDE.md`의 규칙에 따라 메시지를 구성한다. 스크립트(`publish-project-social.py`)가 자동 처리하며, 핵심 규칙:
 
-**URL 결정**:
-- `embed_url`이 있으면: `https://terry.artlab.ai/en/projects/{slug}` (내부 임베딩 페이지)
-- `embed_url`이 없으면: 첫 번째 링크 URL
+- **Facebook** (KO): `{description.ko}` — 컴팩트, CTA 없음, link 파라미터로 URL 전달
+- **Threads** (KO): `{description.ko}\n\nRead more ↓` — link_attachment로 URL 전달
+- **LinkedIn** (EN): `{description.en}` — 컴팩트, CTA 없음, ARTICLE 카드로 URL 전달
+- **X** (EN): `{description.en}\n\nRead more ↓\n{url}` — URL 인라인 (캐시버스팅 타임스탬프 포함)
+- **Bluesky** (EN): `{description.en}\n\nRead more ↓` — external embed로 URL 전달
 
-**한국어 메시지** (Facebook, Threads):
-```
-{title.ko}
-
-{description.ko}
-
-자세히 보기 👉 {url}
-#{tech1} #{tech2} #{tech3}
-```
-
-**영어 메시지** (LinkedIn, X, Bluesky):
-```
-{title.en}
-
-{description.en}
-
-Check it out → {url}
-#{tech1} #{tech2} #{tech3}
-```
-
-해시태그는 `tech_stack`에서 생성 (공백→언더스코어, 특수문자 제거).
+**금지**: 제목 반복, 해시태그, 이모지(👉 등), `→` 화살표 (↓만 허용)
 
 ### Step 3. 토큰 만료 확인
 

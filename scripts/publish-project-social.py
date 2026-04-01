@@ -131,7 +131,8 @@ def main():
         fb_url = f"{FACEBOOK_BASE_URL}/ko/projects/{slug}"
         threads_url = f"{FACEBOOK_BASE_URL}/ko/projects/{slug}?utm_source=threads&utm_medium=social"
         linkedin_url = f"{SITE_BASE_URL}/en/projects/{slug}"
-        cache_bust = date.today().strftime("%Y%m%d")
+        import time
+        cache_bust = str(int(time.time()))
         x_url = f"{SITE_BASE_URL}/en/projects/{slug}?v={cache_bust}"
         bluesky_url = f"{SITE_BASE_URL}/en/projects/{slug}"
         substack_en_url = f"{SITE_BASE_URL}/en/projects/{slug}"
