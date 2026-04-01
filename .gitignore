@@ -35,6 +35,9 @@ pnpm-debug.log*
 # --- Vercel / local deployment state ---
 .vercel/
 
+# --- Personal writing style (private) ---
+posts/terry_writing_style_guide.md
+
 # --- Claude / MCP local-only configs (if created locally) ---
 .mcp.json
 .mcp.local.json

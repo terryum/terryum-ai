@@ -5,6 +5,22 @@ import crypto from 'crypto';
 const COOKIE_NAME = 'admin-session';
 const MAX_AGE = 60 * 60 * 24; // 24 hours
 
+/* ─── Rate limiting (in-memory, per-instance) ─── */
+const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_ATTEMPTS = 5;
+const attempts = new Map<string, { count: number; resetAt: number }>();
+
+export function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = attempts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    attempts.set(ip, { count: 1, resetAt: now + LOGIN_WINDOW_MS });
+    return true;
+  }
+  entry.count++;
+  return entry.count <= MAX_ATTEMPTS;
+}
+
 function getSecret(): string {
   const secret = process.env.ADMIN_SESSION_SECRET;
   if (!secret) throw new Error('ADMIN_SESSION_SECRET is not set');
@@ -36,7 +52,15 @@ export function verifySessionToken(token: string): boolean {
   const expected = crypto.createHmac('sha256', getSecret()).update(payload).digest('hex');
 
   if (signature.length !== expected.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return false;
+
+  // Server-side expiry check
+  const tsMatch = payload.match(/^admin:(\d+)$/);
+  if (!tsMatch) return false;
+  const issued = Number(tsMatch[1]);
+  if (Date.now() - issued > MAX_AGE * 1000) return false;
+
+  return true;
 }
 
 /** Check admin session from request cookies (for API routes) */

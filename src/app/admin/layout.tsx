@@ -15,9 +15,9 @@ export default async function AdminLayout({
 }) {
   const authenticated = await isAdminAuthenticated();
 
-  if (authenticated) {
-    redirect('/');
+  if (!authenticated) {
+    return <AdminLoginForm />;
   }
 
-  return <AdminLoginForm />;
+  return <>{children}</>;
 }

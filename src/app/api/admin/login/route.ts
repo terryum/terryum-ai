@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyPassword, signSessionToken, sessionCookieOptions } from '@/lib/admin-auth';
+import { verifyPassword, signSessionToken, sessionCookieOptions, checkRateLimit } from '@/lib/admin-auth';
 
 export async function POST(request: NextRequest) {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json({ error: 'Too many attempts. Try again later.' }, { status: 429 });
+  }
+
   const body = await request.json();
   const { password } = body;
 
