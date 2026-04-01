@@ -76,25 +76,22 @@ Check it out → {url}
 
 ### Step 4. 소셜미디어 발행
 
-구성된 메시지를 `scripts/publish-social.py`의 개별 함수로 발행한다.
-스크립트를 직접 호출하되 `--raw` 모드를 사용:
+전용 스크립트 `scripts/publish-project-social.py`를 사용한다:
 
 ```bash
-python scripts/publish-social.py --raw --slug={slug} --platform={platforms} \
-  --raw-text-ko="{ko_message}" --raw-text-en="{en_message}" --raw-url="{url}"
+python scripts/publish-project-social.py --slug={slug} --platform={platforms_comma_separated}
 ```
 
-`--raw` 모드가 지원되지 않으면, 각 플랫폼별로 Python one-liner로 직접 함수 호출:
-
+dry-run으로 먼저 확인:
 ```bash
-python -c "
-import sys; sys.path.insert(0, 'scripts')
-from publish_social import publish_facebook, publish_threads, publish_linkedin, publish_x, publish_bluesky
-publish_facebook('''TEXT''', 'URL', False)
-"
+python scripts/publish-project-social.py --slug={slug} --dry-run
 ```
 
-또는 `curl`로 각 플랫폼 API를 직접 호출해도 된다.
+스크립트가 자동으로:
+- `projects/gallery/projects.json`에서 프로젝트 조회
+- 한국어/영어 메시지 구성 (Facebook/Threads는 한국어, LinkedIn/X/Bluesky는 영어)
+- `embed_url` 있으면 `terry.artlab.ai/[lang]/projects/[slug]` URL 사용
+- 각 플랫폼 API로 발행
 
 ### Step 5. 결과 요약 출력
 
