@@ -53,11 +53,23 @@
 - **글의 톤과 일치** — 사색적이고 연구 지향적인 블로그 목소리 유지
 - **1~2문장, 40~80단어** — Facebook/LinkedIn에서 "더 보기" 없이 전문 노출
 
+### Project 소개글의 추가 원칙
+프로젝트는 Post와 달리 **내가 만든 결과물**이므로, 1인칭 시점으로 작성:
+- **주체성** — "I analyzed / 저의 AI scientist들과 분석하였습니다" (남의 자료를 공유하는 것이 아님)
+- **규모감** — 구체적 숫자 포함 (논문 수, 챕터 수 등)
+- **범위** — 무엇을 다루는지 간결하게 나열
+
+예시:
+> "촉각 센서 기반 로봇핸드에 대한 131편 이상의 논문을 저의 AI scientist들과 분석하였습니다. 이를 바탕으로 센서 기술부터 로봇핸드 설계와 제어, 산업 전망까지 총 13개 챕터의 책을 만들어 공유합니다."
+
+> "I analyzed 131+ papers on tactile sensing for robot hands with my AI scientists. Based on this, I wrote and am sharing a 13-chapter book covering sensor technology, robot hand design and control, and industry outlook."
+
 ### 쓰지 말아야 할 것
 - 글 내용의 요약이나 목차 나열 ("이 글에서는 A, B, C를 다룹니다")
 - 기술 용어 나열
 - 제목 반복
 - 홍보성 문구 ("꼭 읽어보세요!", "놓치지 마세요!")
+- **남이 만든 것을 공유하는 톤** ("A report created by... Available as...") — 주체성이 빠짐
 
 ---
 

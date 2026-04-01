@@ -10,6 +10,7 @@ export const SITE_CONFIG = {
     youtube: 'https://www.youtube.com/@TerryTaeWoongUm',
     x: 'https://x.com/TerryUm_ML',
     bluesky: 'https://bsky.app/profile/terryum.bsky.social',
+    substack: 'https://terryum.substack.com',
     email: '#', // obfuscated in SocialIcons component
     googleScholar: 'https://scholar.google.com/citations?user=9Zgeg14AAAAJ',
   },
