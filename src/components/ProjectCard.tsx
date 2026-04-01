@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { trackEvent } from '@/lib/analytics';
 import type { ProjectMeta } from '@/types/project';
 
 const STATUS_BADGE: Record<string, { label: string; className: string }> = {
@@ -68,9 +69,18 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
     ? { href: primaryLink, target: '_blank' as const, rel: 'noopener noreferrer' }
     : {};
 
+  function handleCardClick() {
+    trackEvent('project_card_click', {
+      project_slug: project.slug,
+      project_title: title,
+      link_url: primaryLink || '',
+    });
+  }
+
   return (
     <CardWrapper
       {...wrapperProps}
+      onClick={handleCardClick}
       className="group block rounded-xl border border-line-default overflow-hidden transition-all hover:border-accent/40 hover:shadow-md"
     >
       {/* Cover image */}
@@ -129,7 +139,14 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-xs text-text-muted hover:text-accent transition-colors"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    trackEvent('project_link_click', {
+                      project_slug: project.slug,
+                      link_type: link.type,
+                      link_url: link.url,
+                    });
+                  }}
                 >
                   {iconDef.icon}
                   <span>{link.label || iconDef.label}</span>
