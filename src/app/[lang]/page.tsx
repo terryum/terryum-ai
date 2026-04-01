@@ -1,11 +1,14 @@
+import Link from 'next/link';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getAllPosts } from '@/lib/posts';
+import { getAllProjects } from '@/lib/projects';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { TAB_CONFIG } from '@/lib/site-config';
 import { normalizeTagSlug } from '@/lib/tags';
 import HeroSection from '@/components/HeroSection';
 import LatestSection from '@/components/LatestSection';
+import ProjectCard from '@/components/ProjectCard';
 import type { Metadata } from 'next';
 
 export function generateStaticParams() {
@@ -39,7 +42,7 @@ export default async function HomePage({
 
   const dict = await getDictionary(lang);
   const bioContent = await getBioContent(lang);
-  const allPosts = await getAllPosts(lang);
+  const [allPosts, projects] = await Promise.all([getAllPosts(lang), getAllProjects()]);
 
   const aiPosts = allPosts.filter(p => p.tags.some(tag => aiMatchTags.has(normalizeTagSlug(tag))));
   const terryPosts = allPosts.filter(p => p.tags.some(tag => terryMatchTags.has(normalizeTagSlug(tag))));
@@ -69,6 +72,28 @@ export default async function HomePage({
           hidePubDate={true}
         />
       ))}
+
+      {/* Latest Projects */}
+      {projects.length > 0 && (
+        <section className="py-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-[540] text-text-primary tracking-tight">
+              {dict.home.latest_projects}
+            </h2>
+            <Link
+              href={`/${lang}/projects`}
+              className="text-sm text-text-muted hover:text-accent transition-colors"
+            >
+              {dict.home.view_all} &rarr;
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} locale={lang} />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

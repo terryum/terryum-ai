@@ -51,7 +51,8 @@
     "latest_from_terry": "Latest from Terry",
     "view_all": "전체 보기",
     "show_more": "더 보기",
-    "no_posts_yet": "아직 글이 없습니다."
+    "no_posts_yet": "아직 글이 없습니다.",
+    "latest_projects": "Latest Projects"
   },
   "detail": {
     "back_to_list": "목록으로",

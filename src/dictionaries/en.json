@@ -51,7 +51,8 @@
     "latest_from_terry": "Latest from Terry",
     "view_all": "View all",
     "show_more": "Show more",
-    "no_posts_yet": "No posts yet."
+    "no_posts_yet": "No posts yet.",
+    "latest_projects": "Latest Projects"
   },
   "detail": {
     "back_to_list": "Back to list",
