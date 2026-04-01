@@ -9,9 +9,7 @@ export async function getAllProjects(): Promise<ProjectMeta[]> {
   const data = JSON.parse(raw) as { projects: ProjectMeta[] };
   return data.projects
     .sort((a, b) => {
-      // featured first, then by order, then by date
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
-      if (a.order !== b.order) return a.order - b.order;
+      // newest first by date
       return new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
     });
 }
