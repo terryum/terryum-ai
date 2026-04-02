@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-03-26T01:17:49.521Z",
-  "total_posts": 18,
+  "generated_at": "2026-04-02T22:09:32.885Z",
+  "total_posts": 19,
   "posts": [
     {
       "post_number": 1,
       "slug": "2505-forcevla-force-aware-moe",
       "content_type": "papers",
-      "title_en": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
-      "title_ko": "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation",
+      "title_en": "ForceVLA: Force-aware MoE for Contact-rich Robot Manipulation",
+      "title_ko": "ForceVLA: 접촉이 많은 로봇 조작을 위한 힘 인식 MoE",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -70,7 +70,7 @@
       "slug": "2410-pi0-vla-flow-model",
       "content_type": "papers",
       "title_en": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
-      "title_ko": "π₀: A Vision-Language-Action Flow Model for General Robot Control",
+      "title_ko": "π₀: 범용 로봇 제어를 위한 비전-언어-행동 플로우 모델",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -128,8 +128,8 @@
       "post_number": 3,
       "slug": "2501-dexforce-force-informed-actions",
       "content_type": "papers",
-      "title_en": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
-      "title_ko": "DexForce: Extracting Force-informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation",
+      "title_en": "DexForce: Learning Contact Forces from Human Demonstrations for Dexterous Manipulation",
+      "title_ko": "DexForce: 인간 시연에서 접촉력을 학습하는 다지 조작",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -186,7 +186,7 @@
       "slug": "2511-pi0-6-recap",
       "content_type": "papers",
       "title_en": "π₀.₆: a VLA That Learns From Experience",
-      "title_ko": "π₀.₆: a VLA That Learns From Experience",
+      "title_ko": "π₀.₆: 경험에서 스스로 학습하는 VLA",
       "domain": "robotics",
       "subfields": [
         "manipulation",
@@ -244,8 +244,8 @@
       "post_number": 5,
       "slug": "260310-on-the-manifold-first-post",
       "content_type": "essays",
-      "title_en": "260310-on-the-manifold-first-post",
-      "title_ko": "260310-on-the-manifold-first-post",
+      "title_en": "On the Manifold",
+      "title_ko": "On the Manifold",
       "domain": "robotics",
       "subfields": [
         "research-philosophy"
@@ -290,8 +290,8 @@
       "post_number": 6,
       "slug": "2407-stretchable-glove-hand-pose",
       "content_type": "papers",
-      "title_en": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
-      "title_ko": "Stretchable glove for accurate and robust hand pose reconstruction based on comprehensive motion data",
+      "title_en": "Stretchable Glove: Liquid-metal Sensor Glove for Accurate Hand Pose Tracking",
+      "title_ko": "Stretchable Glove: 액체금속 센서로 손 자세를 정밀 추적하는 장갑",
       "domain": "robotics",
       "subfields": [
         "wearable-sensing",
@@ -346,8 +346,8 @@
       "post_number": 7,
       "slug": "260310-brain-augmentation",
       "content_type": "tech",
-      "title_en": "260310-brain-augmentation",
-      "title_ko": "260310-brain-augmentation",
+      "title_en": "Brain Augmentation",
+      "title_ko": "Brain Augmentation",
       "domain": "ml",
       "subfields": [
         "ai-research-methodology",
@@ -393,8 +393,8 @@
       "post_number": 8,
       "slug": "2505-dexumi",
       "content_type": "papers",
-      "title_en": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
-      "title_ko": "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation",
+      "title_en": "DexUMI: Human Hand as Universal Interface for Dexterous Robot Manipulation",
+      "title_ko": "DexUMI: 인간 손을 다지 로봇 조작의 범용 인터페이스로",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -469,8 +469,8 @@
       "post_number": 9,
       "slug": "2506-exostart",
       "content_type": "papers",
-      "title_en": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
-      "title_ko": "ExoStart: Efficient learning for dexterous manipulation with sensorized exoskeleton demonstrations",
+      "title_en": "ExoStart: From 10 Exoskeleton Demos to Dexterous Robot Manipulation",
+      "title_ko": "ExoStart: 10회 엑소스켈레톤 시연으로 다지 로봇 조작 학습",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -540,8 +540,8 @@
       "post_number": 10,
       "slug": "2509-dexop",
       "content_type": "papers",
-      "title_en": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
-      "title_ko": "DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation",
+      "title_en": "DEXOP: Passive Exoskeleton for Direct-contact Dexterous Demonstration",
+      "title_ko": "DEXOP: 직접 접촉 기반 다지 조작 시연을 위한 패시브 엑소스켈레톤",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -613,8 +613,8 @@
       "post_number": 11,
       "slug": "2502-ai-co-scientist",
       "content_type": "papers",
-      "title_en": "Towards an AI co-scientist",
-      "title_ko": "Towards an AI co-scientist",
+      "title_en": "AI Co-scientist: Multi-agent System for Autonomous Scientific Discovery",
+      "title_ko": "AI Co-scientist: 자율 과학 발견을 위한 멀티에이전트 시스템",
       "domain": "ml",
       "subfields": [
         "scientific-discovery",
@@ -677,8 +677,8 @@
       "post_number": 12,
       "slug": "2504-pp-tac",
       "content_type": "papers",
-      "title_en": "PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands",
-      "title_ko": "PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands",
+      "title_en": "PP-Tac: Picking Up Paper with Tactile Feedback in a Dexterous Robotic Hand",
+      "title_ko": "PP-Tac: 촉각 피드백으로 종이를 집는 다지 로봇 손",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -748,8 +748,8 @@
       "post_number": 13,
       "slug": "2407-tactile-skin-inhand-translation",
       "content_type": "papers",
-      "title_en": "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing",
-      "title_ko": "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing",
+      "title_en": "Tactile Skin: Learning In-Hand Translation with Shear and Normal Forces",
+      "title_ko": "Tactile Skin: 촉각 피부로 배우는 인핸드 이동",
       "domain": "robotics",
       "subfields": [
         "dexterous-manipulation",
@@ -1208,6 +1208,68 @@
       "taxonomy_secondary": [
         "robotics/arm/exoskeleton"
       ]
+    },
+    {
+      "post_number": 19,
+      "slug": "2603-capx-coding-agents-manipulation",
+      "content_type": "papers",
+      "title_en": "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation",
+      "title_ko": "CaP-X: Code-as-Policy 로봇 조작 에이전트 벤치마크 및 개선 프레임워크",
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "code-generation",
+        "benchmark",
+        "llm-agent"
+      ],
+      "key_concepts": [
+        "Code-as-Policy",
+        "agentic-test-time-computation",
+        "visual-differencing",
+        "ensemble-reasoning",
+        "verifiable-reward-RL"
+      ],
+      "methodology": [
+        "benchmark",
+        "agentic-inference",
+        "reinforcement-learning"
+      ],
+      "contribution_type": "framework",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Code-as-Policy",
+        "LLM Agent",
+        "Benchmark",
+        "Manipulation"
+      ],
+      "source_author": "Max Fu et al.",
+      "source_date": "2026-03-23T00:00:00Z",
+      "published_at": "2026-04-03T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Open-access framework for systematically benchmarking and improving Code-as-Policy agents in robot manipulation",
+        "problem": "Code-as-Policy effectiveness as autonomous controllers for manipulation is underexplored; performance degrades when human-crafted abstractions are removed",
+        "solution": "CaP-Gym environment + CaP-Bench benchmark across abstraction/interaction axes + CaP-Agent0 (training-free agentic framework) + CaP-RL (RL with verifiable rewards)",
+        "key_result": "CaP-Agent0 matches human expert on 4/7 tasks training-free; CaP-RL improves Cube Stack from 4% to 44% in sim and 12% to 76% in real",
+        "limitations": [
+          "Single-arm manipulation only",
+          "RL uses privileged state observation",
+          "Multi-model ensemble has high inference cost"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "compares_with"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -1411,6 +1473,11 @@
         "from": "2512-osmo-tactile-glove",
         "to": "2505-dexumi",
         "type": "compares_with"
+      },
+      {
+        "from": "2603-capx-coding-agents-manipulation",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "compares_with"
       }
     ],
     "clusters": [
@@ -1514,7 +1581,8 @@
     ],
     "outlier_papers": [
       3,
-      11
+      11,
+      19
     ]
   },
   "concept_index": {
@@ -1844,15 +1912,30 @@
     ],
     "IK-retargeting": [
       18
+    ],
+    "Code-as-Policy": [
+      19
+    ],
+    "agentic-test-time-computation": [
+      19
+    ],
+    "visual-differencing": [
+      19
+    ],
+    "ensemble-reasoning": [
+      19
+    ],
+    "verifiable-reward-RL": [
+      19
     ]
   },
   "domain_stats": {
-    "robotics": 16,
+    "robotics": 17,
     "ml": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 3,
-    "robotics/arm:secondary": 3,
+    "robotics/arm:secondary": 4,
     "robotics/arm/force-control": 1,
     "robotics/hand/tactile": 6,
     "robotics/arm/exoskeleton": 3,
@@ -1861,10 +1944,10 @@
     "ai/agent": 1,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm/exoskeleton:secondary": 1,
+    "robotics/brain": 4,
     "robotics/arm": 4,
     "robotics/hand": 8,
-    "robotics/brain": 3,
-    "robotics": 15,
+    "robotics": 16,
     "ai": 1
   }
 }

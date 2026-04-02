@@ -1,0 +1,119 @@
+---
+locale: "ko"
+title: "CaP-X: Code-as-Policy 로봇 조작 에이전트 벤치마크 및 개선 프레임워크"
+subtitle: "코드 생성으로 VLA 없이 로봇 조작을 달성하는 체계적 연구"
+summary: "Code-as-Policy 에이전트가 로봇 조작에서 얼마나 효과적인지를 체계적으로 연구하기 위한 CaP-X 프레임워크를 제안한다. CaP-Bench로 12개 모델을 평가하고, 학습 없이 human-level 성능을 회복하는 CaP-Agent0와 강화학습 기반 CaP-RL을 통해 sim-to-real 전이까지 달성한다."
+card_summary: "VLA 대신 코드 생성으로 로봇을 조작하는 Code-as-Policy 접근법을 체계적으로 벤치마킹하고, multi-turn 상호작용과 앙상블 추론으로 학습 없이 human-level 성능을 회복하는 CaP-Agent0를 제안했다."
+cover_caption: "Figure 1: (Top) CaP-Bench Task Success Rate over Model Release Date: We primarily compare 7 tasks over 12 models' task success rates resulting from model-generated code against those from human experts. (Bottom): CaP-Gym integrates RoboSuite, LIBERO-PRO, and BEHAVIOR."
+published_at: "2026-04-03T00:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2603.22435"
+source_date: "2026-03-23T00:00:00Z"
+display_tags: ["Robotics", "Code-as-Policy", "LLM Agent", "Benchmark", "Manipulation"]
+references:
+  - title: "Code as Policies: Language Model Programs for Embodied Control"
+    author: "Jacky Liang et al."
+    description: "LLM이 생성한 코드로 로봇을 제어하는 Code-as-Policies 개념의 원조 논문. CaP-X는 이 접근법을 체계적으로 벤치마킹하고 개선하는 프레임워크를 구축한다."
+    arxiv_url: "https://arxiv.org/abs/2209.07753"
+    scholar_url: "https://scholar.google.com/scholar?q=code-as-policies-language-model"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "대규모 로봇 데이터로 학습한 VLA 모델. CaP-X에서 Code-as-Policy와 직접 비교되는 데이터 기반 접근법의 대표격으로, LIBERO-PRO 벤치마크에서 CaP-Agent0에 의해 성능이 비교된다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
+    category: "recent"
+  - title: "SayCan: Grounding Language in Robotic Affordances"
+    author: "Michael Ahn et al."
+    description: "언어 모델의 지식을 로봇의 물리적 능력과 결합한 선구적 연구. CaP-X는 이러한 grounding 문제를 코드 생성과 agentic 추론으로 해결하는 방향을 탐구한다."
+    arxiv_url: "https://arxiv.org/abs/2204.01691"
+    scholar_url: "https://scholar.google.com/scholar?q=saycan-grounding-language-robotic"
+    category: "foundational"
+  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
+    author: "Moo Jin Kim et al."
+    description: "오픈소스 VLA 모델로, LIBERO-PRO 벤치마크에서 CaP-Agent0와 직접 성능 비교되는 대상. CaP-Agent0가 학습 없이도 더 높은 성능과 robustness를 보인다."
+    arxiv_url: "https://arxiv.org/abs/2406.09246"
+    scholar_url: "https://scholar.google.com/scholar?q=openvla-open-source-vision-language"
+    category: "recent"
+---
+
+## TL;DR
+
+Code-as-Policy 에이전트가 로봇 조작에서 어디까지 가능한지를 체계적으로 연구한 첫 번째 프레임워크로, 학습 데이터 없이 multi-turn 상호작용과 앙상블 추론만으로 human-level 성능을 회복하고, 강화학습으로 sim-to-real 전이까지 달성했다.
+
+## 문제
+
+VLA(Vision-Language-Action) 모델들이 대규모 로봇 데이터로 학습하여 조작 능력을 갖추는 반면, Code-as-Policy 접근법은 LLM이 생성한 코드로 로봇을 직접 제어하는 대안적 방법이다. 그러나 이 방법이 실제 조작에서 얼마나 효과적인지에 대한 체계적 연구가 부재했다. 기존 연구들은 높은 수준의 추상화된 API에 의존하는데, 이러한 API가 제거되면 성능이 급격히 하락한다. 이 논문은 "코드 에이전트가 low-level 제어까지 도달할 수 있는가?"라는 질문에 체계적으로 답한다.
+
+## 핵심 아이디어
+
+CaP-X는 세 가지 핵심 구성 요소로 이루어진 통합 프레임워크다:
+
+- **CaP-Gym**: RoboSuite, LIBERO-PRO, BEHAVIOR를 통합한 인터랙티브 환경으로, 에이전트가 코드를 합성·실행하여 로봇을 제어
+- **CaP-Bench**: 12개 모델을 추상화 수준(high-level → low-level API), 상호작용 방식(single-turn → multi-turn), 지각 기반(텍스트 → 비전)의 다양한 축에서 평가하는 벤치마크
+- **CaP-Agent0**: 학습 없이 visual differencing, auto-synthesized skill library, 다중 모델 앙상블 추론을 결합한 에이전트
+- **CaP-RL**: verifiable reward 기반 강화학습으로 코드 생성 모델을 후학습
+
+핵심 발견은 **agentic test-time computation의 scaling**이다: multi-turn 상호작용, 구조화된 실행 피드백, visual differencing, 자동 스킬 합성, 앙상블 추론을 통해 추상화 없이도 성능을 회복할 수 있다.
+
+<Figure src="./fig-7.png" caption="Figure 7: CaP-Agent0. CaP-Agent0는 자동 합성된 스킬 라이브러리, 장면 변화를 텍스트로 설명하는 Visual Differencing Model(VDM), 그리고 다수의 코딩 에이전트가 동일 프롬프트로 후보 코드를 생성하고 앙상블 에이전트가 이를 합성하는 병렬 추론 시스템을 통합한다." />
+
+<Collapsible title="구체적 방법">
+
+### CaP-Bench 평가 체계
+
+CaP-Bench는 두 축으로 구성된다:
+
+**Single-turn 평가 (S1-S4)**: 추상화 수준에 따른 성능 변화를 측정
+- S1: high-level primitive + full state observation
+- S2: high-level primitive + vision observation
+- S3: low-level primitive + vision observation
+- S4: low-level primitive + vision observation + no in-context API usage examples
+
+**Multi-turn 평가 (M1-M4)**: 상호작용 방식에 따른 성능 변화
+- M1: 텍스트 피드백
+- M2: 직접 멀티모달 시각 입력
+- M3: visual differencing (시각 차이를 텍스트로 변환)
+- M4: M3 + low-level API
+
+### CaP-Agent0 아키텍처
+
+CaP-Agent0는 세 가지 핵심 메커니즘을 결합한다:
+
+1. **Visual Differencing Model (VDM)**: 초기 장면 설명과 각 턴에서의 변화를 텍스트로 변환
+2. **Auto-synthesized Skill Library**: CaP-Bench 실행 중 생성된 유틸리티 코드를 자동 축적
+3. **Parallel Query + Ensemble**: 여러 LLM(Gemini-3-Pro, GPT-5.2, Claude Opus)이 독립적으로 코드 후보를 생성하고, 앙상블 에이전트가 최종 코드를 합성
+
+### CaP-RL
+
+Qwen-2.5-Coder-7B-Instruct 모델에 verifiable reward 기반 강화학습(Group Relative Policy Optimization)을 적용:
+- State-based API(S1 tier)로 학습하여 noisy reward 회피
+- 태스크당 60 iteration으로 compilation rate과 성공률 개선
+- 학습된 정책이 추상화 의존 없이 sim-to-real 전이
+
+<Figure src="./fig-3.png" caption="Figure 3: Average task success rate across open-source and closed-source models as primitive abstraction increases. As primitive abstraction increases S4 (per model performance illustrated in Figure 1) to S1 (high level primitives with full state observation), the success rate increases. This can only in part be attributed to reduced code correctness at S3-S4, see Figure 4." />
+
+</Collapsible>
+
+## 주요 결과
+
+- **CaP-Agent0**: 7개 CaP-Bench 태스크 중 **4개에서 human expert 코드와 동등하거나 상회**하는 성공률 달성 (학습 데이터 없이)
+- **VLA 비교**: LIBERO-PRO에서 CaP-Agent0가 OpenVLA, $\pi_0$, $\pi_{0.5}$와 비교 가능한 성능을 보이며, 특히 instruction perturbation에서 더 강건한 모습
+- **CaP-RL**: 시뮬레이션에서 Cube Lift 28% → 88%, Cube Stack 4% → 44%로 대폭 개선. 실제 로봇(Franka Emika)에서도 Cube Stack Pre-RL 3/25 → Post-RL 19/25로 **sim-to-real gap 최소화**
+
+<Figure src="./fig-8.png" caption="Figure 8: Ablation for CaP-Agent0. (Left): Combining VDM (M4), skill library (+SL), and parallel queries (+1M: only Gemini-3-Pro, +3M: Gemini-3-Pro, GPT-5.2, and Claude Opus) significantly improves over single-turn setup with low-level API. (Right): On 4 out of 7 CaP-Bench tasks, CaP-Agent0 achieves comparable or better success rates than human expert code in a single-turn setting." />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+- **Code-as-Policy의 체계적 벤치마킹**: 12개 모델 × 다양한 추상화/상호작용 축에서의 최초 대규모 평가
+- **학습 없는 human-level 조작**: agentic test-time computation scaling으로 VLA 수준 성능을 학습 데이터 없이 달성
+- **코드 에이전트의 sim-to-real 전이**: RL 후학습으로 시뮬레이션에서 학습한 코드 생성 정책이 최소 gap으로 실제 로봇에 전이
+
+### 한계점
+- **저자 언급**: single-arm 조작 위주 평가로 bimanual이나 mobile manipulation은 미검증. RL 학습이 privileged state(S1) 기반으로 vision observation 하에서의 RL은 미해결
+- 🤖 CaP-Agent0의 multi-model 앙상블(Gemini-3-Pro + GPT-5.2 + Claude Opus)은 추론 비용이 매우 높아 실시간 제어가 필요한 실제 응용에서의 경제성은 불확실하다
+
+## Terry's memo
+
+- *(None)*
