@@ -23,11 +23,15 @@
 - **Facebook/LinkedIn은 짧게** — 글줄임표(...)가 나오지 않도록 빈 줄 없이 1~2문장
 
 ### 글자 수 제한
-- X: 280자 (URL은 t.co로 23자 고정)
-- Threads: 500자
-- Bluesky: 300 grapheme
-- LinkedIn: 3000자 (but 첫 3줄만 노출되므로 실질적으로 짧게)
-- Facebook: 제한 없음 (but 첫 3줄만 노출)
+| 플랫폼 | 최대 글자수 | 비고 |
+|--------|-----------|------|
+| Facebook | 63,206자 | 첫 3줄만 노출, 나머지 "더 보기" |
+| Threads | 500자 | |
+| LinkedIn | 3,000자 | 첫 3줄만 노출, 나머지 "...see more" |
+| X (Basic) | 280자 | URL은 t.co로 23자 고정 |
+| X (Premium) | 25,000자 | |
+| Bluesky | 300 grapheme | |
+| Substack | 제한 없음 | |
 
 ---
 
