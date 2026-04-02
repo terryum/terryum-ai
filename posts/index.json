@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-02T22:09:32.885Z",
-  "total_posts": 19,
+  "generated_at": "2026-04-02T22:31:19.183Z",
+  "total_posts": 20,
   "posts": [
     {
       "post_number": 1,
@@ -1270,6 +1270,73 @@
       "taxonomy_secondary": [
         "robotics/arm"
       ]
+    },
+    {
+      "post_number": 20,
+      "slug": "2603-roboclaw-agentic-long-horizon",
+      "content_type": "papers",
+      "title_en": "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks",
+      "title_ko": "RoboClaw: 확장 가능한 장기 로봇 조작을 위한 에이전틱 프레임워크",
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "long-horizon-planning",
+        "agentic-framework",
+        "data-collection"
+      ],
+      "key_concepts": [
+        "VLA",
+        "Entangled-Action-Pairs",
+        "self-resetting",
+        "MCP-tools",
+        "VLM-agent",
+        "policy-orchestration"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "LoRA-fine-tuning",
+        "agentic-inference"
+      ],
+      "contribution_type": "framework",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Agentic Framework",
+        "Long-Horizon",
+        "Manipulation"
+      ],
+      "source_author": "Ruiying Li et al.",
+      "source_date": "2026-03-12T00:00:00Z",
+      "published_at": "2026-04-03T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Agentic framework unifying VLA data collection, policy learning, and long-horizon deployment under a single VLM controller with self-resetting EAP loops",
+        "problem": "VLA pipelines separate data collection, learning, and deployment, requiring heavy manual resets and causing semantic mismatch that degrades multi-policy robustness",
+        "solution": "Single VLM agent with Entangled Action Pairs (forward+inverse policies) for autonomous self-resetting data collection, structured memory, and MCP tool interface for unified lifecycle management",
+        "key_result": "25% success rate improvement on long-horizon tasks and 53.7% reduction in human time investment compared to baselines",
+        "limitations": [
+          "Single platform (Agibot G1) evaluation only",
+          "EAP requires reversible tasks",
+          "Falls back to human when inverse policy fails"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "builds_on"
+        },
+        {
+          "target": "2603-capx-coding-agents-manipulation",
+          "type": "compares_with"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -1478,6 +1545,16 @@
         "from": "2603-capx-coding-agents-manipulation",
         "to": "2410-pi0-vla-flow-model",
         "type": "compares_with"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2603-capx-coding-agents-manipulation",
+        "type": "compares_with"
       }
     ],
     "clusters": [
@@ -1487,7 +1564,8 @@
         "post_numbers": [
           1,
           2,
-          4
+          4,
+          20
         ],
         "core_concepts": [
           "VLA",
@@ -1551,7 +1629,8 @@
           1,
           2,
           4,
-          15
+          15,
+          20
         ],
         "core_concepts": [
           "VLA"
@@ -1590,7 +1669,8 @@
       1,
       2,
       4,
-      15
+      15,
+      20
     ],
     "flow-matching": [
       1,
@@ -1927,15 +2007,30 @@
     ],
     "verifiable-reward-RL": [
       19
+    ],
+    "Entangled-Action-Pairs": [
+      20
+    ],
+    "self-resetting": [
+      20
+    ],
+    "MCP-tools": [
+      20
+    ],
+    "VLM-agent": [
+      20
+    ],
+    "policy-orchestration": [
+      20
     ]
   },
   "domain_stats": {
-    "robotics": 17,
+    "robotics": 18,
     "ml": 2
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 3,
-    "robotics/arm:secondary": 4,
+    "robotics/brain/vla": 4,
+    "robotics/arm:secondary": 5,
     "robotics/arm/force-control": 1,
     "robotics/hand/tactile": 6,
     "robotics/arm/exoskeleton": 3,
@@ -1944,10 +2039,10 @@
     "ai/agent": 1,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 4,
+    "robotics/brain": 5,
     "robotics/arm": 4,
     "robotics/hand": 8,
-    "robotics": 16,
+    "robotics": 17,
     "ai": 1
   }
 }

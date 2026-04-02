@@ -1,0 +1,109 @@
+---
+locale: "en"
+translation_of: "2603-roboclaw-agentic-long-horizon:ko"
+title: "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks"
+subtitle: "Unifying data collection, policy learning, and deployment under a single VLM agent"
+summary: "RoboClaw addresses the challenge of scaling VLA systems to long-horizon tasks by unifying data collection, policy learning, and task execution under a single VLM-driven controller. Through Entangled Action Pairs (EAP) for autonomous data collection and agent-orchestrated deployment, it achieves a 25% success rate improvement on long-horizon tasks while reducing human time investment by 53.7%."
+card_summary: "A VLM-driven agentic framework that unifies robot data collection, policy learning, and deployment. Entangled Action Pairs enable self-resetting autonomous data collection, achieving 25% better success on long-horizon tasks with 53.7% less human effort."
+cover_caption: "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management."
+published_at: "2026-04-03T00:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2603.11558"
+source_date: "2026-03-12T00:00:00Z"
+display_tags: ["Robotics", "VLA", "Agentic Framework", "Long-Horizon", "Manipulation"]
+references:
+  - title: "π₀.₅: a Vision-Language-Action Flow Model for General Robot Control"
+    author: "Physical Intelligence et al."
+    description: "The VLA policy model that RoboClaw fine-tunes via LoRA for task-specific policies. RoboClaw autonomously collects training data through EAP self-resetting loops to iteratively improve these policies."
+    arxiv_url: "https://arxiv.org/abs/2502.16989"
+    scholar_url: "https://scholar.google.com/scholar?q=pi-0.5-vision-language-action"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "The foundational VLA model pre-trained on large-scale robot data. RoboClaw uses this family of VLA as the policy backbone and addresses the pipeline separation problem with a unified agent."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
+    category: "foundational"
+  - title: "Model Context Protocol (MCP)"
+    author: "Anthropic"
+    description: "A standard protocol for AI agents to invoke external tools. RoboClaw exposes robot policy start/stop, environment observation, robot stats, and human call tools through MCP."
+    arxiv_url: ""
+    scholar_url: ""
+    category: "foundational"
+  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
+    author: "Max Fu et al."
+    description: "A Code-as-Policy benchmark for robotic manipulation agents. Unlike RoboClaw's VLA-based approach, CaP-X uses code generation, but both explore scaling robot manipulation through LLM/VLM agents."
+    arxiv_url: "https://arxiv.org/abs/2603.22435"
+    scholar_url: "https://scholar.google.com/scholar?q=cap-x-framework-benchmarking"
+    category: "recent"
+---
+
+## TL;DR
+
+A framework that unifies VLA data collection, policy learning, and deployment under a single VLM agent, using forward-inverse action pairs (EAP) for autonomous self-resetting data collection that minimizes human intervention while significantly improving long-horizon manipulation performance.
+
+## Problem
+
+VLA systems show strong potential for language-driven robotic manipulation, but scaling to long-horizon tasks remains challenging. Existing pipelines separate data collection, policy learning, and deployment, requiring manual environment resets after each trial and resulting in brittle multi-policy execution. The semantic mismatch between collection and deployment environments further degrades multi-policy robustness.
+
+## Key Idea
+
+RoboClaw uses a VLM as a meta-controller to unify data collection, policy learning, and task execution under a **single agent**:
+
+- **Entangled Action Pairs (EAP)**: Couples forward manipulation behaviors (e.g., placing object in drawer) with inverse recovery actions (e.g., removing from drawer) to form **self-resetting loops** for autonomous data collection without human resets
+- **MCP Tool Interface**: Exposes policy start/stop, environment observation, robot stats, and human-call tools through the Model Context Protocol for standardized agent-robot interaction
+- **Structured Memory**: Three-layer memory ($r_t$ role identity, $d_t$ task-level memory, $w_t$ working memory) maintains decision context across the robot lifecycle
+- **Unified Deployment**: The same agent performs high-level reasoning and dynamic policy orchestration during both collection and deployment, eliminating semantic mismatch
+
+<Figure src="./fig-2.png" caption="Figure 2: RoboClaw system architecture. A Vision-Language-Model (VLM) acts as a meta-controller operating under an in-context learning paradigm. Multimodal observations are integrated with structured memory (role identity, task-level memory, and working memory) to form the decision context. Through chain-of-thought (CoT) reasoning, the agent generates high-level decisions and invokes tools through the MCP interface." />
+
+<Collapsible title="Detailed Method">
+
+### Entangled Action Pairs (EAP)
+
+The core of EAP is simultaneously learning a **forward policy** and an **inverse policy** for each manipulation task:
+
+1. **Initial human demonstrations**: Collect a small set of forward + inverse demonstrations (warmup)
+2. **Autonomous rollout**: Agent executes forward policy → evaluates success/failure → executes inverse policy to reset environment → repeat
+3. **Streaming updates**: Newly collected data streams into the VLA Policy Pool for progressive policy refinement
+4. **Recovery failure**: When autonomous recovery is unsuccessful, the agent invokes the `Call Human` MCP tool for human intervention
+
+### VLM Agent Decision Making
+
+At each step, the agent performs 5-step CoT reasoning:
+1. What have I observed in the scene?
+2. What is my current objective or subtask?
+3. What are the success criteria for this subtask?
+4. Does the current state satisfy the success criteria, or am I stuck/failing?
+5. Based on this evaluation, what should I do?
+
+### Policy Learning
+
+Fine-tunes π₀.₅ via LoRA (rank=16, alpha=16, 108 training steps, warmup 100 steps, lr=$2.5 \times 10^{-4}$) to create task-specific policies. Each policy is independently trained and checkpointed; during deployment, the agent dynamically activates and switches between policies.
+
+<Figure src="./fig-3.png" caption="Figure 3: RoboClaw Autonomous Data Collection Workflow. This diagram illustrates the process of the agent interacting with a user to initiate a data collection task for the robot. The agent autonomously processes visual observations using MCP tools, evaluates the initial state of the environment, and formulates a task plan. Subsequently, it continuously executes the EAP loop of forward-inverse policies for autonomous data collection." />
+
+</Collapsible>
+
+## Key Results
+
+- **Data collection efficiency**: **53.7% reduction in human time investment** compared to manual collection for the same data volume. Human intervention during rollout reduced by **~8x**
+- **Policy improvement**: Over 5 iterations, forward policy success rates consistently improve (Body Lotion 21/50 → 43/50, Primer 21/50 → 40/50)
+- **Long-horizon tasks**: On vanity table organization (4 sequential subtasks), **25% success rate improvement** over baselines, outperforming both end-to-end VLA and open-loop multi-policy pipelines
+
+<Figure src="./fig-4.png" caption="Figure 4: Human effort comparison for data collection. (a) Relative human time required to collect the same amount of data. (b) Relative human intervention during rollout execution. All values are normalized with respect to our method (Ours = 1). (c) Success rate across iterations on the vanity table organization task. RoboClaw significantly outperforms both end-to-end VLA baselines and the open-loop multi-policy pipeline." />
+
+## Achievements and Limitations
+
+### What's New
+- **Unified robot lifecycle**: Integrates data collection, learning, and deployment under a single VLM agent, eliminating semantic mismatch from pipeline separation
+- **Autonomous data collection**: EAP-based self-resetting enables continuous on-policy data collection with minimal human intervention
+- **Real-world long-horizon validation**: Successfully demonstrated sequential execution of 4 subtasks on an Agibot G1 dual-arm mobile robot
+
+### Limitations
+- **Author-noted**: When inverse policies fail, the system falls back to human intervention. EAP applicability to complex irreversible tasks (e.g., pouring liquid) remains untested
+- 🤖 Experiments are limited to a single platform (Agibot G1) performing tabletop organization tasks; generalization to diverse robot morphologies or manipulation domains (e.g., deformable objects, tool use) is unvalidated
+
+## Terry's memo
+
+- *(None)*

@@ -1,0 +1,108 @@
+---
+locale: "ko"
+title: "RoboClaw: 확장 가능한 장기 로봇 조작을 위한 에이전틱 프레임워크"
+subtitle: "데이터 수집부터 배포까지 VLM 에이전트가 통합 관리하는 로봇 라이프사이클"
+summary: "VLA 시스템의 long-horizon 태스크 확장 문제를 해결하기 위해, 데이터 수집·정책 학습·태스크 실행을 VLM 기반 단일 에이전트로 통합하는 RoboClaw 프레임워크를 제안한다. Entangled Action Pairs(EAP)로 자율 데이터 수집을 가능하게 하고, long-horizon 태스크에서 성공률 25% 향상 및 인간 시간 투자 53.7% 감소를 달성한다."
+card_summary: "VLA의 데이터 수집·학습·배포를 VLM 에이전트 하나로 통합하고, 순방향-역방향 액션 쌍(EAP)으로 자율 데이터 수집을 가능하게 하여 long-horizon 조작 태스크에서 성공률 25% 향상과 인간 개입 53.7% 감소를 달성했다."
+cover_caption: "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management."
+published_at: "2026-04-03T00:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2603.11558"
+source_date: "2026-03-12T00:00:00Z"
+display_tags: ["Robotics", "VLA", "Agentic Framework", "Long-Horizon", "Manipulation"]
+references:
+  - title: "π₀.₅: a Vision-Language-Action Flow Model for General Robot Control"
+    author: "Physical Intelligence et al."
+    description: "RoboClaw가 기반으로 사용하는 VLA 정책 모델. RoboClaw는 π₀.₅를 LoRA fine-tuning하여 태스크별 정책을 학습하며, EAP를 통해 자율적으로 학습 데이터를 수집한다."
+    arxiv_url: "https://arxiv.org/abs/2502.16989"
+    scholar_url: "https://scholar.google.com/scholar?q=pi-0.5-vision-language-action"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "대규모 로봇 데이터로 사전학습한 VLA 모델의 원조. RoboClaw는 이 계열의 VLA를 정책 백본으로 사용하며, 학습-배포 파이프라인의 분리 문제를 통합 에이전트로 해결한다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
+    category: "foundational"
+  - title: "Model Context Protocol (MCP)"
+    author: "Anthropic"
+    description: "AI 에이전트가 외부 도구를 호출하는 표준 프로토콜. RoboClaw는 MCP를 통해 로봇 정책 시작/종료, 환경 관찰, 인간 호출 등의 도구를 에이전트에 제공한다."
+    arxiv_url: ""
+    scholar_url: ""
+    category: "foundational"
+  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
+    author: "Max Fu et al."
+    description: "Code-as-Policy 기반 로봇 조작 에이전트 벤치마크. RoboClaw와 달리 코드 생성 방식의 에이전틱 접근이며, 두 연구 모두 VLM/LLM 에이전트로 로봇 조작을 확장하는 방향을 탐구한다."
+    arxiv_url: "https://arxiv.org/abs/2603.22435"
+    scholar_url: "https://scholar.google.com/scholar?q=cap-x-framework-benchmarking"
+    category: "recent"
+---
+
+## TL;DR
+
+VLA의 데이터 수집, 정책 학습, 배포를 분리하지 않고 VLM 에이전트 하나로 통합하는 프레임워크로, 순방향-역방향 액션 쌍(EAP)을 통한 자율 데이터 수집으로 인간 개입을 최소화하면서 long-horizon 조작 태스크 성능을 크게 개선했다.
+
+## 문제
+
+VLA(Vision-Language-Action) 시스템이 언어 기반 로봇 조작에서 강력한 잠재력을 보이지만, long-horizon 태스크로 확장하는 것은 여전히 어렵다. 기존 파이프라인은 데이터 수집, 정책 학습, 배포를 분리하여 운영하는데, 이로 인해 매 시행마다 수동 환경 리셋이 필요하고, 여러 정책을 순차적으로 실행할 때 오류가 누적되는 문제가 있다. 또한 수집 환경과 배포 환경 사이의 의미적 불일치가 multi-policy의 robustness를 저하시킨다.
+
+## 핵심 아이디어
+
+RoboClaw는 VLM(Vision-Language Model)을 메타 컨트롤러로 사용하여 데이터 수집·정책 학습·태스크 실행을 **단일 에이전트** 아래 통합한다:
+
+- **Entangled Action Pairs (EAP)**: 순방향 조작 행동(예: 물건을 서랍에 넣기)과 역방향 복원 행동(예: 서랍에서 꺼내기)을 쌍으로 학습하여 **자가 리셋 루프**를 형성. 환경을 자동으로 초기 상태로 되돌려 사람 없이 연속 데이터 수집 가능
+- **MCP 도구 인터페이스**: 정책 시작/종료, 환경 관찰, 로봇 상태 조회, 인간 호출 등을 MCP 도구로 제공하여 에이전트가 표준 프로토콜로 로봇을 제어
+- **구조화된 메모리**: 역할 정체성($r_t$), 태스크 레벨 메모리($d_t$), 작업 메모리($w_t$)로 구성된 3층 메모리로 의사결정 맥락을 유지
+- **통합 배포**: 수집과 동일한 에이전트가 배포 시에도 고수준 추론과 정책 오케스트레이션을 수행하여 수집-배포 간 의미적 불일치 제거
+
+<Figure src="./fig-2.png" caption="Figure 2: RoboClaw 시스템 아키텍처. VLM이 메타 컨트롤러로서 in-context learning 패러다임 하에 동작한다. 멀티모달 관찰이 구조화된 메모리(역할 정체성, 태스크 레벨 메모리, 작업 메모리)와 통합되어 의사결정 맥락을 형성한다. Chain-of-thought(CoT) 추론을 통해 에이전트는 고수준 결정을 생성하고 MCP 인터페이스를 통해 도구를 호출한다." />
+
+<Collapsible title="구체적 방법">
+
+### Entangled Action Pairs (EAP)
+
+EAP의 핵심은 각 조작 태스크에 대해 **순방향 정책**(forward policy)과 **역방향 정책**(inverse/reverse policy)을 동시에 학습하는 것이다:
+
+1. **초기 인간 시연**: 소량의 순방향 + 역방향 시연 데이터 수집 (warmup)
+2. **자율 롤아웃**: 에이전트가 순방향 정책 실행 → 성공/실패 판단 → 역방향 정책으로 환경 리셋 → 반복
+3. **스트리밍 업데이트**: 새로 수집된 데이터가 VLA Policy Pool에 스트리밍되어 정책을 점진적으로 개선
+4. **자율 복구 실패 시**: 에이전트가 MCP의 `Call Human` 도구를 호출하여 인간 개입 요청
+
+### VLM 에이전트 의사결정
+
+각 스텝에서 에이전트는 5단계 CoT 추론을 수행:
+1. 현재 장면에서 무엇을 관찰했는가?
+2. 현재 목표/서브태스크는 무엇인가?
+3. 이 서브태스크의 성공 기준은?
+4. 현재 상태가 성공 기준을 만족하는가, 막혀있는가?
+5. 이 평가에 기반하여 무엇을 해야 하는가?
+
+### 정책 학습
+
+π₀.₅를 LoRA fine-tuning (rank=16, alpha=16, 108 training steps, warmup 100 steps, lr=$2.5 \times 10^{-4}$)하여 태스크별 정책 생성. 각 정책은 독립적으로 학습·체크포인트 관리되며, 배포 시 에이전트가 동적으로 활성화/전환.
+
+<Figure src="./fig-3.png" caption="Figure 3: RoboClaw 자율 데이터 수집 워크플로. 에이전트가 사용자와 상호작용하여 데이터 수집 태스크를 시작하고, MCP 도구를 사용하여 시각 관찰을 처리하고, 환경 초기 상태를 평가하며, 태스크 계획을 수립한다. 이후 순방향-역방향 정책의 EAP 루프를 연속적으로 실행하여 자율 데이터 수집을 수행한다." />
+
+</Collapsible>
+
+## 주요 결과
+
+- **데이터 수집 효율**: 동일 데이터량 수집 시 기존 수동 방식 대비 **인간 시간 투자 53.7% 감소**. 롤아웃 중 인간 개입은 기존 대비 **약 8배 감소**
+- **정책 성능 향상**: 5 iteration 반복 학습 후 vanity table 정리 태스크에서 순방향 정책 성공률이 지속적으로 향상 (Body Lotion 21/50 → 43/50, Primer 21/50 → 40/50)
+- **Long-horizon 태스크**: 4개 서브태스크를 순차 실행하는 vanity table 정리에서 baseline 대비 **성공률 25% 향상**. end-to-end VLA baseline과 open-loop multi-policy baseline 모두 상회
+
+<Figure src="./fig-4.png" caption="Figure 4: 데이터 수집의 인간 노력 비교. (a) 동일 데이터량 수집에 필요한 상대적 인간 시간. (b) 롤아웃 실행 중 상대적 인간 개입 비율. 모든 값은 RoboClaw 기준 정규화. (c) vanity table 정리 태스크에서 iteration별 성공률. RoboClaw가 end-to-end VLA baseline과 open-loop multi-policy pipeline을 크게 상회한다." />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+- **로봇 라이프사이클 통합**: 데이터 수집·학습·배포를 단일 VLM 에이전트로 통합하여 파이프라인 분리로 인한 의미적 불일치 제거
+- **자율 데이터 수집**: EAP 기반 자가 리셋으로 최소 인간 개입의 연속 on-policy 데이터 수집 실현
+- **실세계 long-horizon 검증**: Agibot G1 듀얼암 모바일 로봇에서 4개 서브태스크 순차 실행을 성공적으로 시연
+
+### 한계점
+- **저자 언급**: 역방향 정책이 실패할 경우 인간 호출에 의존하며, 복잡한 비가역적 태스크(예: 물 붓기)에 대한 EAP 적용은 미검증
+- 🤖 실험이 단일 플랫폼(Agibot G1)의 tabletop 정리 태스크에 한정되어 있어, 다양한 로봇 형태나 조작 도메인(예: deformable objects, 공구 사용)으로의 일반화 가능성은 검증되지 않았다
+
+## Terry's memo
+
+- *(None)*
