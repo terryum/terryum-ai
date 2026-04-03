@@ -292,6 +292,48 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
   });
 }
 
+/**
+ * Lightweight post loader using pre-built index.json.
+ * Reads a single JSON file instead of 50+ MDX files.
+ * Use for homepage, feeds, and anywhere full MDX content is not needed.
+ */
+export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> {
+  const index = await loadIndexJson();
+  const posts = (index as { posts: Array<Record<string, unknown>> }).posts;
+  if (!posts) return getAllPosts(locale);
+
+  return posts.map((p) => ({
+    post_id: p.slug as string,
+    locale,
+    title: (locale === 'ko' ? p.title_ko : p.title_en) as string,
+    summary: (p.ai_summary as Record<string, string>)?.one_liner ?? '',
+    slug: p.slug as string,
+    published_at: p.published_at as string,
+    updated_at: p.published_at as string,
+    status: 'published' as const,
+    content_type: p.content_type as PostMeta['content_type'],
+    tags: (p.tags as string[]) ?? [],
+    cover_image: `./cover.webp`,
+    post_number: p.post_number as number,
+    domain: p.domain as string,
+    subfields: (p.subfields as string[]) ?? [],
+    key_concepts: (p.key_concepts as string[]) ?? [],
+    methodology: (p.methodology as string[]) ?? [],
+    contribution_type: p.contribution_type as PostMeta['contribution_type'],
+    relations: (p.relations as PostMeta['relations']) ?? [],
+    ai_summary: p.ai_summary as PostMeta['ai_summary'],
+    taxonomy_primary: p.taxonomy_primary as string,
+    taxonomy_secondary: (p.taxonomy_secondary as string[]) ?? [],
+    source_author: p.source_author as string,
+    source_date: p.source_date as string,
+    source_type: p.source_type as string,
+  })).sort((a, b) => {
+    const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return (b.post_number ?? 0) - (a.post_number ?? 0);
+  });
+}
+
 export interface AdjacentPost {
   slug: string;
   title: string;

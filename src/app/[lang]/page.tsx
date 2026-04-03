@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
-import { getAllPosts } from '@/lib/posts';
+import { getAllPostsFromIndex } from '@/lib/posts';
 import { getAllProjects } from '@/lib/projects';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { TAB_CONFIG } from '@/lib/site-config';
@@ -21,9 +21,7 @@ export async function generateMetadata({
   params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
   const { lang } = await params;
-  const locale = lang as Locale;
-  const dict = await getDictionary(locale);
-  const bioText = await getBioPlainText(locale);
+  const bioText = await getBioPlainText(lang as Locale);
   return {
     description: bioText,
   };
@@ -40,9 +38,12 @@ export default async function HomePage({
   const { lang } = await params;
   if (!isValidLocale(lang)) return null;
 
-  const dict = await getDictionary(lang);
-  const bioContent = await getBioContent(lang);
-  const [allPosts, projects] = await Promise.all([getAllPosts(lang), getAllProjects()]);
+  const [dict, bioContent, allPosts, projects] = await Promise.all([
+    getDictionary(lang),
+    getBioContent(lang),
+    getAllPostsFromIndex(lang),
+    getAllProjects(),
+  ]);
 
   const aiPosts = allPosts.filter(p => p.tags.some(tag => aiMatchTags.has(normalizeTagSlug(tag))));
   const terryPosts = allPosts.filter(p => p.tags.some(tag => terryMatchTags.has(normalizeTagSlug(tag))));

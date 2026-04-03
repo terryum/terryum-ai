@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, LOCALES, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getNavTabsFromIndex } from '@/lib/tabs-server';
-import { isAdminAuthenticated } from '@/lib/admin-auth';
 import Header from '@/components/Header';
 import AdminBar from '@/components/admin/AdminBar';
 import Footer from '@/components/Footer';
@@ -24,9 +23,10 @@ export default async function LangLayout({
     notFound();
   }
 
-  const dict = await getDictionary(lang as Locale);
-  const navTabs = await getNavTabsFromIndex(lang);
-  const isAdmin = await isAdminAuthenticated();
+  const [dict, navTabs] = await Promise.all([
+    getDictionary(lang as Locale),
+    getNavTabsFromIndex(lang),
+  ]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,7 +34,7 @@ export default async function LangLayout({
         Skip to content
       </a>
       <Header locale={lang as Locale} dict={dict} navTabs={navTabs} />
-      {isAdmin && <AdminBar locale={lang} />}
+      <AdminBar locale={lang} />
       <main id="main-content" className="flex-1">
         {children}
       </main>

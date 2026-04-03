@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
@@ -12,6 +13,15 @@ const TABS = (locale: string) => [
 export default function AdminBar({ locale }: { locale: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/admin/stats', { method: 'HEAD' })
+      .then((res) => setIsAdmin(res.ok))
+      .catch(() => setIsAdmin(false));
+  }, []);
+
+  if (!isAdmin) return null;
 
   async function handleLogout() {
     await fetch('/api/admin/logout', { method: 'POST' });

@@ -1,9 +1,8 @@
 import { redirect } from 'next/navigation';
-import { headers } from 'next/headers';
+import { DEFAULT_LOCALE } from '@/lib/i18n';
 
-export default async function RootPage() {
-  const headersList = await headers();
-  const acceptLang = headersList.get('accept-language') || '';
-  const locale = acceptLang.startsWith('ko') ? 'ko' : 'en';
-  redirect(`/${locale}`);
+// Middleware handles locale detection and redirect for `/`.
+// This page is a static fallback in case middleware is bypassed.
+export default function RootPage() {
+  redirect(`/${DEFAULT_LOCALE}`);
 }
