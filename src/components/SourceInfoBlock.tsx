@@ -68,7 +68,11 @@ export default function SourceInfoBlock({
           </InternalLinkBadge>
         )}
         {sourceUrl && <LinkBadge href={sourceUrl}>{sourceType || 'arXiv'}</LinkBadge>}
-        {scholarUrl && <LinkBadge href={scholarUrl}>Google Scholar</LinkBadge>}
+        {scholarUrl && <LinkBadge href={scholarUrl}>{
+          scholarUrl.includes('scholar.google') ? 'Google Scholar'
+          : scholarUrl.includes('anthropic.com') ? 'Anthropic Docs'
+          : 'Reference'
+        }</LinkBadge>}
         {showProject && <LinkBadge href={sourceProjectUrl!}>Project</LinkBadge>}
       </div>
 
