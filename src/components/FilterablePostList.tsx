@@ -7,6 +7,7 @@ import TagFilterBar from './TagFilterBar';
 import ContentCard from './ContentCard';
 
 const TaxonomyFilter = dynamic(() => import('./TaxonomyFilter'), { ssr: false });
+const GraphPopup = dynamic(() => import('./GraphPopup'), { ssr: false });
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
 import { getPostsForTab, getPostsForAuthor } from '@/lib/tabs';
@@ -199,13 +200,31 @@ function FilterablePostListInner({
   const currentTitle = (selectedTab && tabTitles?.[selectedTab]?.title) || (selectedAuthor && tabTitles?.[selectedAuthor]?.title) || defaultTitle;
   const currentDescription = (selectedTab && tabTitles?.[selectedTab]?.description) || (selectedAuthor && tabTitles?.[selectedAuthor]?.description) || defaultDescription;
 
+  const [graphOpen, setGraphOpen] = useState(false);
+
   const hasTaxonomy = selectedTab === 'papers' && Object.keys(taxonomyNodes).length > 0;
   const taxonomyHeading = locale === 'ko' ? '분야별 탐색' : 'Browse by Field';
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-text-primary tracking-tight">{currentTitle}</h1>
+        <button
+          onClick={() => setGraphOpen(true)}
+          className="p-1.5 rounded-md text-text-muted hover:text-accent hover:bg-surface-muted transition-colors"
+          title={locale === 'ko' ? '지식 그래프 보기' : 'View Knowledge Graph'}
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+            <circle cx="5" cy="6" r="2.5" />
+            <circle cx="19" cy="6" r="2.5" />
+            <circle cx="12" cy="18" r="2.5" />
+            <path d="M7.5 7L10.5 16M16.5 7L13.5 16M7.5 6H16.5" />
+          </svg>
+        </button>
+      </div>
       <p className="text-sm text-text-muted mt-2 mb-8">{currentDescription}</p>
+
+      <GraphPopup open={graphOpen} onClose={() => setGraphOpen(false)} locale={locale} />
 
       {/* relative wrapper: xl+ outside sidebar uses absolute positioning */}
       <div className="relative">
