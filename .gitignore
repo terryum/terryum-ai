@@ -66,3 +66,7 @@ __pycache__/
 
 .vercel
 supabase/.temp/
+
+# Obsidian integration (private paths)
+posts/global-index.json
+_workspace/
