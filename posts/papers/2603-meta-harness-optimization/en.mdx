@@ -1,0 +1,103 @@
+---
+locale: "en"
+translation_of: "2603-meta-harness-optimization:ko"
+title: "Meta-Harness: End-to-End Optimization of Model Harnesses"
+subtitle: "Automatically searching over harness code for LLM applications"
+summary: "LLM system performance depends not only on model weights but also on the harness—the code that determines what information to store, retrieve, and present. Meta-Harness is an outer-loop system that automatically searches over harness code, achieving +7.7 points on text classification with 4x fewer tokens, +4.7 points on IMO-level math across 5 held-out models, and surpassing best hand-engineered baselines on TerminalBench-2."
+card_summary: "An outer-loop system that automatically optimizes LLM harness code by giving proposer agents full access to prior candidates' source code, execution traces, and scores. Achieves +7.7 on text classification, +4.7 on IMO math, and top performance on TerminalBench-2."
+cover_caption: "Figure 2: Meta-Harness search loop. (1) An agent reads a filesystem containing all prior candidates' source code, execution traces, and scores, and proposes a new harness. (2) We evaluate the proposed harness on evaluation tasks. (3) All logs are stored in the filesystem, and the loop repeats."
+published_at: "2026-04-03T00:00:00Z"
+source_type: "arxiv"
+source_url: "https://arxiv.org/abs/2603.28052"
+source_date: "2026-03-30T00:00:00Z"
+display_tags: ["AI", "LLM", "Harness Optimization", "Meta-Learning", "Agent"]
+references:
+  - title: "DSPy: Compiling Declarative Language Model Calls into State-of-the-Art Pipelines"
+    author: "Omar Khattab et al."
+    description: "A framework for declaratively defining and auto-optimizing LLM pipelines. Meta-Harness extends DSPy's pipeline optimization concept to entire harness code, optimizing not just prompts but storage, retrieval, and presentation logic."
+    arxiv_url: "https://arxiv.org/abs/2310.03714"
+    scholar_url: "https://scholar.google.com/scholar?q=dspy-compiling-declarative-language"
+    category: "foundational"
+  - title: "OpenEvolve: Open-Source Code Evolution with LLMs"
+    author: "Google DeepMind"
+    description: "An evolutionary code improvement system. Directly compared with Meta-Harness, which outperforms it by 10+ points on text classification. OpenEvolve compresses feedback to a single score, while Meta-Harness provides full source code and traces."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=openevolve-open-source-code"
+    category: "recent"
+  - title: "ACE: Adaptive Context Engineering"
+    author: ""
+    description: "State-of-the-art context management for online text classification. Meta-Harness surpasses ACE by 7.7 points while using 4x fewer context tokens."
+    arxiv_url: ""
+    scholar_url: "https://scholar.google.com/scholar?q=ace-adaptive-context-engineering"
+    category: "recent"
+---
+
+## TL;DR
+
+LLM system performance is determined not just by model weights but by the harness—the code that stores, retrieves, and presents information to the model. Meta-Harness automatically searches over harness code by giving proposer agents full filesystem access to prior candidates' code, traces, and scores, outperforming hand-engineered baselines across three domains.
+
+## Problem
+
+LLM system performance depends critically on the **harness**—the code that determines what information to store, retrieve, and present to the model. Yet harnesses are still designed largely by hand, and existing text optimizers (OpenEvolve, etc.) compress feedback too aggressively, losing the rich context of "why a strategy failed." This makes them poorly matched to the harness optimization setting.
+
+## Key Idea
+
+Meta-Harness is an **outer-loop system** that searches over harness code. The key differentiator from existing text optimizers is giving the proposer agent **full access to all prior candidates' source code, execution traces, and scores** through a filesystem:
+
+- **Filesystem-based experience accumulation**: Each iteration's harness code, reasoning traces, and evaluation scores are stored in a directory structure
+- **Agentic proposer**: Reads the entire filesystem, analyzes success/failure patterns, and proposes new harness code
+- **Harness = LLM + Code**: The harness encompasses all information storage, retrieval, and presentation logic—a much broader search space than prompt optimization alone
+
+The core insight: **preserving feedback without compression** allows the agent to reason about "why this strategy failed" and make structural changes.
+
+<Figure src="./fig-2.png" caption="Figure 2: Meta-Harness search loop. (1) An agent reads a filesystem containing all prior candidates' source code, execution traces, and scores, and proposes a new harness. (2) We evaluate the proposed harness on evaluation tasks. (3) All logs (proposed code, reasoning traces, evaluation scores) are stored in the filesystem in a new directory, and the loop repeats." />
+
+<Collapsible title="Detailed Method">
+
+### Search Loop Structure
+
+Each iteration:
+1. **Proposer agent** explores the filesystem — reading prior candidates' code, traces, scores
+2. Writes new harness code in Python
+3. Evaluates the harness on evaluation tasks
+4. Stores results (code + traces + scores) in the filesystem
+
+### Proposer's Information Access
+
+The critical difference from existing text optimizers:
+- **OpenEvolve**: Provides only scores and short feedback strings
+- **TTT-Discover**: Provides only recent K candidates' code
+- **Meta-Harness**: Provides all prior candidates' **full source code + execution traces + scores** via filesystem
+
+Table 3's ablation shows that source code + scores alone outperform baselines, but adding **execution traces** further improves performance.
+
+### Application Domains
+
+1. **Online text classification**: Harness stores/retrieves prior examples for few-shot context construction
+2. **Retrieval-augmented math reasoning**: Harness retrieves relevant problems from a 535K corpus
+3. **Agentic coding**: Harness determines agent tool usage, execution strategy, and error handling
+
+</Collapsible>
+
+## Key Results
+
+- **Text classification**: **+7.7 points** over SOTA context management (ACE) with **4x fewer context tokens**. Catches up to OpenEvolve and TTT-Discover in just 4 evaluations, ending **10+ points above** all baselines
+- **IMO-level math**: A single discovered harness improves accuracy by **+4.7 points** on average across 5 held-out models over no-retrieval baseline, outperforming strongest fixed baseline (BM25 Retrieval)
+- **TerminalBench-2**: **47.7% pass rate** on Claude Opus 4.6, surpassing hand-engineered Terminus-KIRA (44.7%). **37.6%** on Haiku 4.5, ranking #1 among all Haiku agents
+
+<Figure src="./fig-1.png" caption="Figure 1: (Left) On text classification, Meta-Harness outperforms the best prior hand-designed harnesses (ACE) and existing text optimizers (TTT-Discover, OpenEvolve), matching the next-best method's final accuracy after just 4 evaluations. (Right) On TerminalBench-2, Meta-Harness outperforms all reported Claude Haiku 4.5 harnesses." />
+
+## Achievements and Limitations
+
+### What's New
+- **Harness auto-optimization paradigm**: Goes beyond prompt optimization to automatically search over the full information storage, retrieval, and presentation logic
+- **Value of rich feedback**: Demonstrates that preserving uncompressed feedback (source code + traces) enables structural improvements
+- **Cross-model transfer**: A single discovered math harness consistently improves 5 different held-out models
+
+### Limitations
+- **Author-noted**: High search cost (multiple LLM calls + evaluation per iteration) may make manual design more efficient for small-scale tasks. Currently validated on only 3 domains
+- 🤖 Filesystem-based experience accumulation causes the proposer's context to grow with iterations, potentially hitting context window limits, and no scaling strategy is provided for this
+
+## Terry's memo
+
+- *(None)*

@@ -1,0 +1,63 @@
+{
+  "post_id": "2603-meta-harness-optimization",
+  "slug": "2603-meta-harness-optimization",
+  "post_number": 22,
+  "published_at": "2026-04-03T00:00:00Z",
+  "updated_at": "2026-04-03T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "AI", "LLM", "Harness Optimization", "Meta-Learning", "Agent"],
+  "cover_image": "./cover.webp",
+  "cover_figure_number": 2,
+  "thumb_source": "./fig-1.png",
+  "reading_time_min": 7,
+  "domain": "ai",
+  "subfields": ["harness-engineering", "meta-optimization", "llm-agent", "code-search"],
+  "key_concepts": ["harness-optimization", "outer-loop-search", "filesystem-experience", "agentic-proposer", "context-management"],
+  "methodology": ["automated-search", "agentic-code-generation", "ablation-study"],
+  "contribution_type": "method",
+  "source_title": "Meta-Harness: End-to-End Optimization of Model Harnesses",
+  "source_author": "Yoonho Lee et al.",
+  "source_authors_full": [
+    "Yoonho Lee",
+    "Roshen Nair",
+    "Qizheng Zhang",
+    "Kangwook Lee",
+    "Omar Khattab",
+    "Chelsea Finn"
+  ],
+  "source_url": "https://arxiv.org/abs/2603.28052",
+  "source_type": "arxiv",
+  "source_date": "2026-03-30T00:00:00Z",
+  "source_project_url": "",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=meta-harness-end-to-end-optimization",
+  "idea_status": null,
+  "related_posts": null,
+  "taxonomy_primary": "ai/agent",
+  "taxonomy_secondary": ["ai/llm"],
+  "relations": [],
+  "ai_summary": {
+    "one_liner": "Outer-loop system that searches over LLM harness code by giving proposer agents full filesystem access to prior candidates' source, traces, and scores",
+    "problem": "LLM harnesses (code for information storage/retrieval/presentation) are hand-designed; existing text optimizers compress feedback too aggressively to optimize them",
+    "solution": "Agentic proposer with filesystem-based full access to all prior candidates' source code, execution traces, and evaluation scores for iterative harness improvement",
+    "key_result": "+7.7 on text classification (4x fewer tokens), +4.7 on IMO math across 5 models, #1 Haiku agent on TerminalBench-2",
+    "limitations": [
+      "High search cost per iteration",
+      "Only 3 domains tested",
+      "No scaling strategy for growing proposer context"
+    ]
+  },
+  "figures": [
+    {"number": 1, "src": "./fig-1.png", "caption": "Figure 1: (Left) On text classification, Meta-Harness outperforms the best prior hand-designed harnesses (ACE) and existing text optimizers (TTT-Discover, OpenEvolve), matching the next-best method's final accuracy after just 4 evaluations. (Right) On TerminalBench-2, Meta-Harness outperforms all reported Claude Haiku 4.5 harnesses.", "caption_ko": "Figure 1: (왼쪽) 텍스트 분류에서 Meta-Harness가 기존 최고 수작업 하네스(ACE)와 텍스트 최적화 도구(TTT-Discover, OpenEvolve)를 상회하며, 4회 평가만으로 차순위 방법의 최종 정확도에 도달한다. (오른쪽) TerminalBench-2에서 모든 Claude Haiku 4.5 하네스를 상회한다."},
+    {"number": 2, "src": "./fig-2.png", "caption": "Figure 2: Meta-Harness search loop. (1) An agent reads a filesystem containing all prior candidates' source code, execution traces, and scores, and proposes a new harness. (2) We evaluate the proposed harness on evaluation tasks. (3) All logs (proposed code, reasoning traces, evaluation scores) are stored in the filesystem in a new directory, and the loop repeats.", "caption_ko": "Figure 2: Meta-Harness 탐색 루프. (1) 에이전트가 모든 이전 후보의 소스코드, 실행 트레이스, 점수가 담긴 파일시스템을 읽고 새 하네스를 제안한다. (2) 제안된 하네스를 평가 태스크에서 실행한다. (3) 모든 로그를 파일시스템에 저장하고 루프를 반복한다."},
+    {"number": 3, "src": "./fig-3.png", "caption": "Figure 3: Pareto frontier of accuracy vs. context tokens on online text classification. Meta-Harness achieves a stronger accuracy-context Pareto frontier than all comparison methods.", "caption_ko": "Figure 3: 온라인 텍스트 분류에서 정확도 vs 컨텍스트 토큰의 파레토 프론티어. Meta-Harness가 모든 비교 방법보다 강한 파레토 프론티어를 달성한다."},
+    {"number": 4, "src": "./fig-4.png", "caption": "Figure 4: Search-set accuracy over evaluations for all compared text optimizers on online text classification. Each point is one candidate harness; lines track the best-so-far. Meta-Harness reaches the final accuracy of OpenEvolve and TTT-Discover within the first 4 evaluations and continues improving, ending more than 10 points above all baselines.", "caption_ko": "Figure 4: 온라인 텍스트 분류에서 모든 텍스트 최적화 도구의 평가별 탐색 세트 정확도. Meta-Harness가 4회 평가 내에 OpenEvolve, TTT-Discover의 최종 정확도에 도달하고 계속 개선되어 모든 baseline 대비 10점 이상 상회한다."},
+    {"number": 7, "src": "./fig-7.png", "caption": "Figure 7: Search-set vs. test accuracy per dataset for discovered text-classification strategies. Each pink dot is a discovered strategy; baselines are labeled. The dashed diagonal is y=x.", "caption_ko": "Figure 7: 발견된 텍스트 분류 전략의 탐색 세트 vs 테스트 정확도. 분홍색 점이 발견된 전략, baseline이 표시됨. 점선 대각선은 y=x."}
+  ],
+  "tables": [
+    {"number": 1, "src": "./tab-1.png", "caption": "Table 5: OOD text classification dataset evaluation. Table 6: Retrieval-augmented math problem solving on 200 IMO-level math problems with pass@1 averaged over three samples per problem.", "caption_ko": "Table 5: OOD 텍스트 분류 데이터셋 평가. Table 6: 200개 IMO 수준 수학 문제에서 검색 증강 수학 추론 결과 (3개 샘플 평균 pass@1)."},
+    {"number": 2, "src": "./tab-2.png", "caption": "Table 7: Pass rate on TerminalBench-2. Meta-Harness ranks #2 among all Opus-4.6 agents and #1 among all Haiku-4.5 agents on this competitive task.", "caption_ko": "Table 7: TerminalBench-2 pass rate. Meta-Harness가 Opus-4.6 에이전트 중 2위, Haiku-4.5 에이전트 중 1위."}
+  ],
+  "newsletter_eligible": false,
+  "featured": false
+}

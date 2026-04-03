@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-02T23:09:23.261Z",
-  "total_posts": 21,
+  "generated_at": "2026-04-03T02:09:09.609Z",
+  "total_posts": 22,
   "posts": [
     {
       "post_number": 1,
@@ -1399,6 +1399,63 @@
       "taxonomy_secondary": [
         "ai/llm"
       ]
+    },
+    {
+      "post_number": 22,
+      "slug": "2603-meta-harness-optimization",
+      "content_type": "papers",
+      "title_en": "Meta-Harness: End-to-End Optimization of Model Harnesses",
+      "title_ko": "Meta-Harness: LLM 하네스의 자동 최적화",
+      "domain": "ai",
+      "subfields": [
+        "harness-engineering",
+        "meta-optimization",
+        "llm-agent",
+        "code-search"
+      ],
+      "key_concepts": [
+        "harness-optimization",
+        "outer-loop-search",
+        "filesystem-experience",
+        "agentic-proposer",
+        "context-management"
+      ],
+      "methodology": [
+        "automated-search",
+        "agentic-code-generation",
+        "ablation-study"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "AI",
+        "LLM",
+        "Harness Optimization",
+        "Meta-Learning",
+        "Agent"
+      ],
+      "source_author": "Yoonho Lee et al.",
+      "source_date": "2026-03-30T00:00:00Z",
+      "published_at": "2026-04-03T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Outer-loop system that searches over LLM harness code by giving proposer agents full filesystem access to prior candidates' source, traces, and scores",
+        "problem": "LLM harnesses (code for information storage/retrieval/presentation) are hand-designed; existing text optimizers compress feedback too aggressively to optimize them",
+        "solution": "Agentic proposer with filesystem-based full access to all prior candidates' source code, execution traces, and evaluation scores for iterative harness improvement",
+        "key_result": "+7.7 on text classification (4x fewer tokens), +4.7 on IMO math across 5 models, #1 Haiku agent on TerminalBench-2",
+        "limitations": [
+          "High search cost per iteration",
+          "Only 3 domains tested",
+          "No scaling strategy for growing proposer context"
+        ]
+      },
+      "relations": [],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "ai/agent",
+      "taxonomy_secondary": [
+        "ai/llm"
+      ]
     }
   ],
   "knowledge_graph": {
@@ -1694,7 +1751,8 @@
         "label": "ai/agent",
         "post_numbers": [
           11,
-          21
+          21,
+          22
         ],
         "core_concepts": [],
         "taxonomy_nodes": [
@@ -2115,12 +2173,27 @@
     ],
     "medical-evidence": [
       21
+    ],
+    "harness-optimization": [
+      22
+    ],
+    "outer-loop-search": [
+      22
+    ],
+    "filesystem-experience": [
+      22
+    ],
+    "agentic-proposer": [
+      22
+    ],
+    "context-management": [
+      22
     ]
   },
   "domain_stats": {
     "robotics": 18,
     "ml": 2,
-    "ai": 1
+    "ai": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 4,
@@ -2130,14 +2203,14 @@
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 2,
-    "ai/agent": 2,
+    "ai/agent": 3,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 5,
-    "ai/llm:secondary": 1,
+    "ai/llm:secondary": 2,
     "robotics/arm": 4,
     "robotics/hand": 8,
     "robotics": 17,
-    "ai": 2
+    "ai": 3
   }
 }
