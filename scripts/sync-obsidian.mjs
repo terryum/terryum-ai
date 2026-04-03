@@ -578,7 +578,73 @@ async function main() {
     console.log(`  ✅ posts/global-index.json (${globalIndex.entries.length} entries, next_id=${globalIndex.next_id})`);
   }
 
-  console.log(`\n🏁 Done. Synced: ${synced}, Skipped (unchanged): ${skipped}`);
+  // ── Reverse scan: index unregistered Obsidian memos/drafts ──
+  const scanDirs = ['From Terry/Memos', 'From Terry/Drafts', 'From AI/QA'];
+  let newlyIndexed = 0;
+
+  for (const dir of scanDirs) {
+    const dirPath = path.join(VAULT_ROOT, dir);
+    let files;
+    try { files = await fs.readdir(dirPath); } catch { continue; }
+
+    for (const file of files) {
+      if (!file.endsWith('.md')) continue;
+      const filePath = path.join(dirPath, file);
+      const content = await fs.readFile(filePath, 'utf-8');
+
+      // Check if already has a doc_id
+      const idMatch = content.match(/^doc_id:\s*(\d+)/m);
+      if (idMatch && idMatch[1]) {
+        // Already indexed — verify it's in global-index
+        const id = parseInt(idMatch[1], 10);
+        if (!globalIndex.entries.find(e => e.id === id)) {
+          const titleMatch = content.match(/^`#\d+`\s*·\s*(.+)$/m);
+          const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
+          const typeMatch = content.match(/^type:\s*(.+)$/m);
+          const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
+          globalIndex.entries.push({
+            id, slug: file.replace('.md', ''), type, visibility: 'private',
+            title, path: filePath.replace(os.homedir(), '~'),
+          });
+        }
+        continue;
+      }
+
+      // No doc_id → assign one
+      const newId = globalIndex.next_id++;
+      const titleMatch = content.match(/^`#`\s*·\s*(.+)$/m) || content.match(/^#\s+(.+)$/m);
+      const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
+      const typeMatch = content.match(/^type:\s*(.+)$/m);
+      const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
+
+      // Update frontmatter doc_id
+      const updated = content.replace(/^doc_id:\s*$/m, `doc_id: ${newId}`);
+      // Update title line with index
+      const titled = updated.replace(/^`#`\s*·\s*/m, `\`#${newId}\` · `);
+
+      if (!dryRun) {
+        await fs.writeFile(filePath, titled, 'utf-8');
+      }
+
+      globalIndex.entries.push({
+        id: newId, slug: file.replace('.md', ''), type, visibility: 'private',
+        title, path: filePath.replace(os.homedir(), '~'),
+      });
+
+      console.log(`  📋 Indexed: ${file} → #${newId}`);
+      newlyIndexed++;
+    }
+  }
+
+  // Re-write global index if new entries were found
+  if (newlyIndexed > 0) {
+    if (!dryRun) {
+      await fs.writeFile(globalIndexPath, JSON.stringify(globalIndex, null, 2) + '\n', 'utf-8');
+    }
+    console.log(`  📋 ${newlyIndexed} new file(s) indexed`);
+  }
+
+  console.log(`\n🏁 Done. Synced: ${synced}, Skipped (unchanged): ${skipped}, Newly indexed: ${newlyIndexed}`);
 }
 
 main().catch(err => {
