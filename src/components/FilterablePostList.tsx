@@ -36,6 +36,8 @@ interface FilterablePostListProps {
   taxonomyStats?: Record<string, number>;
 }
 
+const PAGE_SIZE = 10;
+
 function FilterablePostListInner({
   locale,
   posts,
@@ -73,6 +75,8 @@ function FilterablePostListInner({
   });
 
   const [selectedTaxonomy, setSelectedTaxonomy] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Mobile/narrow: taxonomy panel collapsed by default
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
@@ -87,6 +91,7 @@ function FilterablePostListInner({
       setStarredOnly(false);
       setSelectedTaxonomy(null);
       setMobileTaxonomyOpen(false);
+      setCurrentPage(1);
     }
   }, [currentScope]);
 
@@ -96,6 +101,7 @@ function FilterablePostListInner({
     if (prevTaxonomyRef.current !== selectedTaxonomy) {
       prevTaxonomyRef.current = selectedTaxonomy;
       setSelectedTags([]);
+      setCurrentPage(1);
     }
   }, [selectedTaxonomy]);
 
@@ -130,6 +136,7 @@ function FilterablePostListInner({
     setSelectedTags((prev) =>
       prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]
     );
+    setCurrentPage(1);
   }, []);
 
   // 1st pass: filter by tab or author
@@ -282,10 +289,52 @@ function FilterablePostListInner({
           {finalPosts.length === 0 ? (
             <p className="text-text-muted py-8 text-center">{noResultsLabel}</p>
           ) : (
-            <div>
-              {finalPosts.map((post) => (
-                <ContentCard key={post.post_id} post={post} locale={locale} />
-              ))}
+            <div ref={listRef}>
+              {finalPosts
+                .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+                .map((post) => (
+                  <ContentCard key={post.post_id} post={post} locale={locale} />
+                ))}
+
+              {/* Pagination */}
+              {finalPosts.length > PAGE_SIZE && (() => {
+                const totalPages = Math.ceil(finalPosts.length / PAGE_SIZE);
+                const goTo = (page: number) => {
+                  setCurrentPage(page);
+                  listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                };
+                return (
+                  <nav className="flex items-center justify-center gap-1 mt-8 mb-4">
+                    <button
+                      onClick={() => goTo(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="px-2 py-1 text-sm text-text-muted hover:text-accent disabled:opacity-30 disabled:cursor-default transition-colors"
+                    >
+                      ←
+                    </button>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <button
+                        key={page}
+                        onClick={() => goTo(page)}
+                        className={`min-w-[2rem] px-2 py-1 text-sm rounded transition-colors ${
+                          page === currentPage
+                            ? 'bg-accent text-white font-bold'
+                            : 'text-text-muted hover:text-accent hover:bg-surface-muted'
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => goTo(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="px-2 py-1 text-sm text-text-muted hover:text-accent disabled:opacity-30 disabled:cursor-default transition-colors"
+                    >
+                      →
+                    </button>
+                  </nav>
+                );
+              })()}
             </div>
           )}
         </div>
