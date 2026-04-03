@@ -59,23 +59,36 @@ description: "Obsidian 지식베이스 글쓰기 도구. 3가지 모드: (1) 메
 5. 개인 서사는 점화 장치로만 사용
 6. 마지막 문장은 여운 있는 방향성으로 마무리
 
-### Step 5) Obsidian Drafts/ 에 저장
+### Step 5) 인덱싱 (`docs/INDEXING.md` 참조)
+- `posts/global-index.json` 읽기
+- `next_private_id` 값을 doc_id로 사용 (음수, 예: -1)
+- `next_private_id`를 1 감소 (예: -1 → -2)
+
+### Step 6) Obsidian Drafts/ 에 저장
 - 경로: `~/Documents/Obsidian Vault/From Terry/Drafts/<slug>.md`
-- frontmatter 포함:
+- frontmatter: /post와 동일한 필드 구조 (빈칸 허용, 나중에 /post에서 채움)
   ```yaml
-  doc_id: (global-index에서 새 번호 할당)
+  doc_id: -1
   type: "draft"
   visibility: "private"
   content_type: "tech" 또는 "essays"
   slug: "<slug>"
   created_at: "<오늘 날짜>"
-  source_memos: ["#23", "#25"]
+  source_memos: ["#-3", "#-5"]
+  # /post와 동일한 필드 (빈칸 허용)
+  domain: ""
+  subfields: []
+  key_concepts: []
+  tags: []
+  taxonomy_primary: ""
+  taxonomy_secondary: []
+  relations: []
   ```
-- 본문 첫 줄: `` `#N` · 제목 ``
+- 본문 첫 줄: `` `#-1` · 제목 ``
 - 관련 포스트에 `[[wikilinks]]` 포함
 
-### Step 6) global-index.json 업데이트
-- 새 초안에 doc_id 할당
+### Step 7) global-index.json 업데이트
+- 새 초안에 음수 doc_id 할당
 - entries에 추가
 
 ### Step 7) 결과 출력

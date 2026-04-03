@@ -382,9 +382,19 @@ function generateConceptIndex(slugToPostMap) {
   return lines.join('\n');
 }
 
-// ── Build global-index.json ──
+// ── Build global-index.json (preserves existing private entries) ──
 async function buildGlobalIndex(posts) {
-  const entries = posts.map(p => ({
+  // Load existing index to preserve private entries
+  let existingPrivate = [];
+  let existingNextPrivate = -1;
+  try {
+    const raw = await fs.readFile(path.join(POSTS_DIR, 'global-index.json'), 'utf-8');
+    const existing = JSON.parse(raw);
+    existingPrivate = (existing.entries || []).filter(e => e.id < 0);
+    existingNextPrivate = existing.next_private_id ?? -1;
+  } catch { /* first run */ }
+
+  const publicEntries = posts.map(p => ({
     id: p.post_number,
     slug: p.slug,
     type: p.content_type === 'papers' ? 'papers'
@@ -397,11 +407,15 @@ async function buildGlobalIndex(posts) {
     path: `posts/${p.content_type}/${p.slug}/`,
   }));
 
-  const maxId = Math.max(...entries.map(e => e.id ?? 0), 0);
+  const maxPublicId = Math.max(...publicEntries.map(e => e.id ?? 0), 0);
+
+  const allEntries = [...publicEntries, ...existingPrivate]
+    .sort((a, b) => (b.id ?? 0) - (a.id ?? 0)); // positive first desc, then negative
 
   return {
-    next_id: maxId + 1,
-    entries: entries.sort((a, b) => (a.id ?? 9999) - (b.id ?? 9999)),
+    next_public_id: maxPublicId + 1,
+    next_private_id: existingNextPrivate,
+    entries: allEntries,
   };
 }
 
@@ -575,7 +589,7 @@ async function main() {
     console.log(`  [dry-run] Would write: ${globalIndexPath}`);
   } else {
     await fs.writeFile(globalIndexPath, JSON.stringify(globalIndex, null, 2) + '\n', 'utf-8');
-    console.log(`  ✅ posts/global-index.json (${globalIndex.entries.length} entries, next_id=${globalIndex.next_id})`);
+    console.log(`  ✅ posts/global-index.json (${globalIndex.entries.length} entries, pub=${globalIndex.next_public_id}, priv=${globalIndex.next_private_id})`);
   }
 
   // ── Reverse scan: index unregistered Obsidian memos/drafts ──
@@ -592,13 +606,12 @@ async function main() {
       const filePath = path.join(dirPath, file);
       const content = await fs.readFile(filePath, 'utf-8');
 
-      // Check if already has a doc_id
-      const idMatch = content.match(/^doc_id:\s*(\d+)/m);
+      // Check if already has a doc_id (positive or negative)
+      const idMatch = content.match(/^doc_id:\s*(-?\d+)/m);
       if (idMatch && idMatch[1]) {
-        // Already indexed — verify it's in global-index
         const id = parseInt(idMatch[1], 10);
         if (!globalIndex.entries.find(e => e.id === id)) {
-          const titleMatch = content.match(/^`#\d+`\s*·\s*(.+)$/m);
+          const titleMatch = content.match(/^`#-?\d+`\s*·\s*(.+)$/m);
           const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
           const typeMatch = content.match(/^type:\s*(.+)$/m);
           const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
@@ -610,16 +623,15 @@ async function main() {
         continue;
       }
 
-      // No doc_id → assign one
-      const newId = globalIndex.next_id++;
+      // No doc_id → assign negative (private) id
+      const newId = globalIndex.next_private_id--;
       const titleMatch = content.match(/^`#`\s*·\s*(.+)$/m) || content.match(/^#\s+(.+)$/m);
       const title = titleMatch ? titleMatch[1].trim() : file.replace('.md', '');
       const typeMatch = content.match(/^type:\s*(.+)$/m);
       const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
 
-      // Update frontmatter doc_id
+      // Update frontmatter doc_id with negative number
       const updated = content.replace(/^doc_id:\s*$/m, `doc_id: ${newId}`);
-      // Update title line with index
       const titled = updated.replace(/^`#`\s*·\s*/m, `\`#${newId}\` · `);
 
       if (!dryRun) {

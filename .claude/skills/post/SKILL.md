@@ -14,15 +14,24 @@ argument-hint: "<URL | --type=blog slug> [--tags=TAG1,TAG2] [--memo=메모] [--f
 - `nature.com`, `ieee.org`, `acm.org` 등 학술 저널 URL → **Research 경로 (학술)** (`docs/POST_LOADING_ETC.md` 참조)
 - 그 외 `http(s)://` URL (블로그 등) → **Research 경로 (블로그)** (아래 Research 섹션, 블로그 분기로 실행)
 - `--type=blog` 명시 또는 URL 없음 → **Blog 경로** (아래 Blog 섹션 실행)
-- `--from=<path>` 명시 → **Blog 경로** (Obsidian 초안에서 발행, `--type` 필수)
+- `--from=<path>` 또는 `--from=#-N` 명시 → **Blog 경로** (Obsidian 초안에서 발행, `--type` 필수)
 
 ```
 /post https://arxiv.org/abs/2505.22159          → Research (arXiv)
 /post https://generalistai.com/blog/...         → Research (블로그)
 /post https://claude.com/blog/...               → Research (블로그)
 /post --type=blog 260315-rebalancing            → Blog (essays/tech)
-/post --type=blog --from=#24                    → Blog (Obsidian 초안 발행)
+/post --type=blog --from=#-3                    → Blog (Obsidian 초안 발행)
 ```
+
+### 인덱싱 규칙 (`docs/INDEXING.md` 참조)
+- 공개 포스트: 양수 ID (global-index.json의 `next_public_id` 사용)
+- `--from`으로 Draft에서 발행 시:
+  1. Draft 파일 읽기 (Obsidian `From Terry/Drafts/`)
+  2. 공개 양수 ID 부여 (next_public_id)
+  3. 발행 완료 후 원본 Draft 파일 삭제
+  4. global-index에서 음수 entry 제거 + 양수 entry 추가
+  5. next_private_id: 삭제된 것이 마지막 번호였으면 되돌림
 
 ---
 
