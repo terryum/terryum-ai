@@ -175,7 +175,7 @@ terrys_memo: ""
 
 #### Substack 구독 블럭 (자동 삽입)
 - MDX에 직접 추가할 필요 없음
-- `ContentDetailPage.tsx`가 `content_type === 'essays' || 'tech'` 조건으로 포스트 하단에 자동 삽입
+- `ContentDetailPage.tsx`가 `content_type === 'essays' || 'memos'` 조건으로 포스트 하단에 자동 삽입
 - Ideas 포스트(`content_type: "ideas"`)에도 구독 블럭을 표시하려면 `ContentDetailPage.tsx`의 조건에 `'ideas'` 추가 필요
 
 ### Step 5) 빌드 스크립트 실행
