@@ -17,19 +17,19 @@ The site hosts 25+ research paper summaries, tech essays, memos, and an interact
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                  Claude Code (AI Agent)              │
-│         /post  /write  /memo  /paper-search          │
-└───────┬──────────────┬──────────────┬───────────────┘
-        ▼              ▼              ▼
-   posts/ (MDX)   Supabase       Obsidian Vault
-   index.json     (graph DB)     (local knowledge)
-        │              │              │
-        ▼              ▼              ▼
-   ┌─────────┐   ┌──────────┐   ┌──────────────┐
-   │ Vercel  │   │ Paper    │   │ Wikilinks +  │
-   │ Deploy  │   │ Map UI   │   │ Dataview     │
-   └─────────┘   └──────────┘   └──────────────┘
+┌───────────────────────────────────────────┐
+│          Claude Code (AI Agent)           │
+│    /post  /write  /memo  /paper-search    │
+└──────┬──────────────┬──────────────┬──────┘
+       v              v              v
+  posts/ (MDX)    Supabase     Obsidian Vault
+  index.json      (Graph DB)   (Local Knowledge)
+       |              |              |
+       v              v              v
+  ┌─────────┐   ┌──────────┐   ┌────────────┐
+  │ Vercel  │   │  Paper   │   │ Wikilinks  │
+  │ Deploy  │   │  Map UI  │   │ + Dataview │
+  └─────────┘   └──────────┘   └────────────┘
 ```
 
 | Layer | Stack |
