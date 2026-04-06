@@ -172,7 +172,7 @@ export default function ContentDetailPage({
       )}
 
       {/* Substack subscribe (essays/tech only) */}
-      {(meta.content_type === 'essays' || meta.content_type === 'tech') && (
+      {(meta.content_type === 'essays' || meta.content_type === 'memos') && (
         <SubstackSubscribe locale={locale} variant="article" />
       )}
 

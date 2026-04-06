@@ -32,21 +32,20 @@ const VAULT_ROOT = vaultArg || path.join(os.homedir(), 'Documents', 'Obsidian Va
 // ── Vault folder structure ──
 const VAULT_FOLDERS = [
   'From AI/Papers',
-  'From AI/QA',
-  'From AI/Insights',
-  'From Terry/Posts',
+  'From AI/Notes',
   'From Terry/Memos',
+  'From Terry/Essays',
   'From Terry/Drafts',
-  'Meta',
-  'Templates',
+  'Ops/Meta',
+  'Ops/Templates',
 ];
 
 // ── content_type → vault subfolder mapping ──
 const TYPE_TO_FOLDER = {
   papers: 'From AI/Papers',
-  essays: 'From Terry/Posts',
-  tech: 'From Terry/Posts',
-  notes: 'From Terry/Posts',
+  notes: 'From AI/Notes',
+  memos: 'From Terry/Memos',
+  essays: 'From Terry/Essays',
 };
 
 // ── Relation type → Korean label ──
@@ -499,7 +498,7 @@ async function main() {
     const terryMemos = parseTerryMemo(koMdx);
 
     // Determine vault subfolder
-    const vaultSubfolder = TYPE_TO_FOLDER[contentType] || 'From Terry/Posts';
+    const vaultSubfolder = TYPE_TO_FOLDER[contentType] || 'From Terry/Memos';
     const notePath = path.join(VAULT_ROOT, vaultSubfolder, `${slug}.md`);
 
     // Check sync_hash
@@ -562,7 +561,7 @@ async function main() {
     const conceptMd = generateConceptIndex(slugToPostMap);
 
     if (taxonomyMd) {
-      const taxPath = path.join(VAULT_ROOT, 'Meta', 'Taxonomy.md');
+      const taxPath = path.join(VAULT_ROOT, 'Ops', 'Meta', 'Taxonomy.md');
       if (dryRun) {
         console.log(`  [dry-run] Would write: ${taxPath}`);
       } else {
@@ -572,7 +571,7 @@ async function main() {
       }
     }
 
-    const conceptPath = path.join(VAULT_ROOT, 'Meta', 'Concept Index.md');
+    const conceptPath = path.join(VAULT_ROOT, 'Ops', 'Meta', 'Concept Index.md');
     if (dryRun) {
       console.log(`  [dry-run] Would write: ${conceptPath}`);
     } else {
@@ -593,7 +592,7 @@ async function main() {
   }
 
   // ── Reverse scan: index unregistered Obsidian memos/drafts ──
-  const scanDirs = ['From Terry/Memos', 'From Terry/Drafts', 'From AI/QA'];
+  const scanDirs = ['From Terry/Memos', 'From Terry/Essays', 'From Terry/Drafts'];
   let newlyIndexed = 0;
 
   for (const dir of scanDirs) {

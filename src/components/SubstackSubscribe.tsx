@@ -11,12 +11,12 @@ const SUBSTACK_URLS = {
 const LABELS = {
   en: {
     headline: 'Subscribe to On the Manifold',
-    description: 'New essays and tech posts — delivered to your inbox.',
+    description: 'New essays and memos — delivered to your inbox.',
     button: 'Subscribe',
   },
   ko: {
     headline: 'On the Manifold 구독하기',
-    description: '새 에세이와 테크 포스트를 뉴스레터로 받아보세요.',
+    description: '새 에세이와 메모를 뉴스레터로 받아보세요.',
     button: '구독하기',
   },
 };

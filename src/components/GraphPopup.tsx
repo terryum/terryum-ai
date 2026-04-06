@@ -82,7 +82,7 @@ export default function GraphPopup({ open, onClose, locale }: GraphPopupProps) {
             {/* Legend */}
             <div className="hidden sm:flex items-center gap-2 text-[10px] text-text-muted">
               <span className="inline-block w-3 h-3 rounded border-2 border-blue-500 bg-blue-500/10" /> Papers
-              <span className="inline-block w-3 h-3 rounded-full border-2 border-dashed border-violet-500 bg-violet-500/10" /> Essays/Tech
+              <span className="inline-block w-3 h-3 rounded-full border-2 border-dashed border-violet-500 bg-violet-500/10" /> Essays/Memos
             </div>
             <button
               onClick={onClose}

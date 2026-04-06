@@ -17,9 +17,9 @@
     "description": "Writings on AI, robotics, startups, and manufacturing innovation."
   },
   "tabs_index": {
-    "tech": {
-      "title": "Tech",
-      "description": "Terry writes about tech and how the future is changing."
+    "memos": {
+      "title": "Memos",
+      "description": "Terry shares quick thoughts on AI, life, and the changing world."
     },
     "essays": {
       "title": "Essays",
@@ -43,7 +43,7 @@
     }
   },
   "home": {
-    "latest_ideas": "Latest Tech",
+    "latest_ideas": "Latest Memos",
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Papers",
     "latest_notes": "Latest Notes",
