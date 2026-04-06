@@ -37,7 +37,8 @@
 | **프론트엔드** | Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 |
 | **콘텐츠** | 이중 언어 MDX (ko.mdx / en.mdx) + 프론트매터 메타데이터 |
 | **배포** | Cloudflare (DNS/CDN) + Vercel |
-| **데이터베이스** | Supabase (논문 관계, 지식 그래프) |
+| **데이터베이스** | Supabase (논문 관계, 지식 그래프, 비공개 콘텐츠) |
+| **접근 제어** | 그룹별 비밀번호 인증 (`/co/[group]`) + Admin |
 | **지식 베이스** | Obsidian (로컬) + 동기화 스크립트 + Claude Code |
 
 ## 스킬 (Claude Code 명령어)
@@ -65,6 +66,7 @@
 - 콘텐츠 파이프라인: `posts/{papers,essays,memos,notes}/` 폴더 구조
 - 논문 관계 그래프 UI (React Flow + Supabase)
 - 어드민 대시보드 (통계, 그래프 편집기 — 비밀번호 보호)
+- 그룹별 접근 제어 시스템 (`/co/[group]`)
 - Claude Code 하네스 (`.claude/agents/`, `.claude/skills/`)
 - Obsidian 동기화 스크립트 (`scripts/sync-obsidian.mjs`)
 - 소셜 미디어 발행 스크립트 (`scripts/publish-social.py`)
@@ -134,6 +136,10 @@ supabase db push
 
 이 단계를 건너뛰어도 사이트 자체는 동작합니다. Paper Map 페이지만 폴백 메시지를 표시합니다.
 
+추가로 `002_acl_schema.sql`이 그룹별 접근 제어 테이블을 생성합니다:
+- `access_groups` — 공동연구 그룹 정의 (예: `snu`, `kaist`)
+- `private_content` — 비공개 포스트/프로젝트 (Git이 아닌 Supabase에 저장)
+
 #### 4. 로컬 실행
 
 ```bash
@@ -148,6 +154,40 @@ vercel          # 연결 및 배포
 ```
 
 Vercel 프로젝트 설정에서 동일한 환경 변수를 설정하세요.
+
+---
+
+### 접근 제어 (비공개 콘텐츠)
+
+비공개 콘텐츠(미발행 논문, 책 초안 등)를 특정 공동연구자와만 공유할 수 있는 그룹별 접근 제어를 지원합니다.
+
+```
+공개 콘텐츠                 비공개 콘텐츠
+posts/ (파일시스템)          Supabase (private_content 테이블)
+빌드 타임 SSG              런타임 SSR
+/ko/posts/papers/slug      /co/[group]/posts/slug
+누구나 접근                 그룹 비밀번호 필요
+```
+
+**작동 방식:**
+
+1. 각 그룹(예: `snu`, `kaist`)에 환경변수로 비밀번호를 설정합니다:
+   ```env
+   CO_SNU_PASSWORD=your-password
+   CO_KAIST_PASSWORD=another-password
+   ```
+
+2. 비공개 콘텐츠는 Supabase에 저장되므로 Git에는 없습니다 — 공개 레포에서 발견 불가
+
+3. 공동연구자가 `terry.artlab.ai/co/snu`에 접속하여 비밀번호를 입력하면 비공개 포스트를 열람할 수 있습니다
+
+4. Admin 세션은 모든 그룹에 접근 가능
+
+**주요 기능:**
+- HMAC-SHA256 서명 세션 토큰 (admin 인증과 동일 패턴)
+- Rate limiting (15분 5회)
+- RLS 정책 — 익명 Supabase 접근 완전 차단
+- 그룹 간 격리 — co-snu 세션으로 co-kaist 콘텐츠 접근 불가
 
 ---
 

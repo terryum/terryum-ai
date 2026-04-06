@@ -37,7 +37,8 @@ The site hosts 25+ research paper summaries, tech essays, memos, and an interact
 | **Frontend** | Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 |
 | **Content** | Bilingual MDX (ko.mdx / en.mdx) + frontmatter metadata |
 | **Deployment** | Cloudflare (DNS/CDN) + Vercel |
-| **Database** | Supabase (paper relationships, knowledge graph) |
+| **Database** | Supabase (paper relationships, knowledge graph, private content) |
+| **Access Control** | Group-based password auth (`/co/[group]`) + Admin |
 | **Knowledge Base** | Obsidian (local) + sync script + Claude Code |
 
 ## Skills (Claude Code Commands)
@@ -65,6 +66,7 @@ This is a personal project, not a plug-and-play template. However, since the rep
 - Content pipeline: `posts/{papers,essays,memos,notes}/` folder structure
 - Paper relationship graph UI (React Flow + Supabase)
 - Admin dashboard (stats, graph editor — behind password)
+- Group-based access control for private content (`/co/[group]`)
 - Claude Code harness (`.claude/agents/`, `.claude/skills/`)
 - Obsidian sync script (`scripts/sync-obsidian.mjs`)
 - Social media publishing script (`scripts/publish-social.py`)
@@ -134,6 +136,10 @@ Tables created:
 
 If you skip this step, the site still works — the Paper Map page will show a fallback message.
 
+Additionally, `002_acl_schema.sql` creates tables for group-based access control:
+- `access_groups` — collaboration group definitions (e.g., `snu`, `kaist`)
+- `private_content` — private posts/projects stored in Supabase (not in Git)
+
 #### 4. Run Locally
 
 ```bash
@@ -148,6 +154,40 @@ vercel          # Link and deploy
 ```
 
 Set the same environment variables in Vercel project settings.
+
+---
+
+### Access Control (Private Content)
+
+The site supports group-based access control for sharing private content (unpublished papers, book drafts, etc.) with specific collaborators without making it public.
+
+```
+Public content            Private content
+posts/ (filesystem)       Supabase (private_content table)
+SSG at build time         SSR at runtime
+/ko/posts/papers/slug     /co/[group]/posts/slug
+Anyone can access         Group password required
+```
+
+**How it works:**
+
+1. Each group (e.g., `snu`, `kaist`) has its own password set via environment variable:
+   ```env
+   CO_SNU_PASSWORD=your-password
+   CO_KAIST_PASSWORD=another-password
+   ```
+
+2. Private content is stored in Supabase, never in Git — so it's invisible in the public repository
+
+3. Collaborators access `terry.artlab.ai/co/snu`, enter the password, and can view private posts
+
+4. Admin session grants access to all groups
+
+**Key features:**
+- HMAC-SHA256 signed session tokens (same pattern as admin auth)
+- Rate limiting (5 attempts per 15 minutes)
+- RLS policies — anonymous Supabase access is fully blocked
+- Groups are isolated — `co-snu` session cannot access `co-kaist` content
 
 ---
 
