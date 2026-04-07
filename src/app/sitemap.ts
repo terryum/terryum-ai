@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const slug of slugs) {
     for (const lang of ['ko', 'en']) {
       const meta = await getPostMeta(slug, lang);
-      if (meta && meta.status === 'published') {
+      if (meta && meta.status === 'published' && (!meta.visibility || meta.visibility === 'public')) {
         entries.push({
           url: `${BASE_URL}/${lang}/posts/${meta.slug}`,
           lastModified: new Date(meta.updated_at),

@@ -4,7 +4,7 @@ import { buildContentDetailProps } from '@/lib/content-page-helpers';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
-export const dynamicParams = false;
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   return getAllPostParams();
@@ -28,6 +28,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    ...(post.meta.visibility === 'group' ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       title,
       description,

@@ -191,6 +191,8 @@ function normalizeMeta(
     related_posts: data.related_posts as string[] | undefined,
     taxonomy_primary: data.taxonomy_primary as string | undefined,
     taxonomy_secondary: data.taxonomy_secondary as string[] | undefined,
+    visibility: (data.visibility as PostMeta['visibility']) || 'public',
+    allowed_groups: data.allowed_groups as string[] | undefined,
   };
 }
 
@@ -328,6 +330,8 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
     source_author: p.source_author as string,
     source_date: p.source_date as string,
     source_type: p.source_type as string,
+    visibility: (p.visibility as PostMeta['visibility']) || 'public',
+    allowed_groups: (p.allowed_groups as string[]) || undefined,
   })).sort((a, b) => {
     const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
     if (dateDiff !== 0) return dateDiff;
@@ -394,4 +398,24 @@ export async function getPostParamsByType(
   );
   const results = await Promise.all(checks);
   return results.filter((r): r is { lang: string; slug: string } => r !== null);
+}
+
+/**
+ * Filter posts by visibility based on the user's authenticated group and admin status.
+ * - public (or undefined): always visible
+ * - group: visible only if user's group is in allowed_groups, or user is admin
+ */
+export function filterByVisibility(
+  posts: PostMeta[],
+  authenticatedGroup: string | null,
+  isAdmin: boolean,
+): PostMeta[] {
+  if (isAdmin) return posts;
+  return posts.filter((p) => {
+    if (!p.visibility || p.visibility === 'public') return true;
+    if (p.visibility === 'group' && authenticatedGroup) {
+      return p.allowed_groups?.includes(authenticatedGroup) ?? false;
+    }
+    return false;
+  });
 }

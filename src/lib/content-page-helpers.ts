@@ -1,7 +1,8 @@
 import { notFound, redirect } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary, type Dictionary } from '@/lib/dictionaries';
-import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale, loadIndexJson, loadTaxonomyJson, getAdjacentPosts, type AdjacentPosts } from '@/lib/posts';
+import { getAllPosts, getPost, getPostAlternateLocale, postExistsForLocale, loadIndexJson, loadTaxonomyJson, getAdjacentPosts, filterByVisibility, type AdjacentPosts } from '@/lib/posts';
+import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
 import { computeTagCounts, sortTagsByCount, getTagLabel } from '@/lib/tags';
 import { renderMDX } from '@/lib/mdx';
 import { TAB_CONFIG, TAB_TAG_SLUGS } from '@/lib/site-config';
@@ -39,7 +40,12 @@ export async function buildContentIndexProps(
   if (!isValidLocale(lang)) return null;
 
   const dict = await getDictionary(lang);
-  const posts = await getAllPosts(lang);
+  const [allPosts, authenticatedGroup, isAdmin] = await Promise.all([
+    getAllPosts(lang),
+    getAuthenticatedGroup(),
+    isAdminSession(),
+  ]);
+  const posts = filterByVisibility(allPosts, authenticatedGroup, isAdmin);
 
   const tagCounts = computeTagCounts(posts);
   const sorted = sortTagsByCount(tagCounts);
@@ -147,6 +153,19 @@ export async function buildContentDetailProps(
       redirect(`/${altLocale}/posts/${slug}`);
     }
     notFound();
+  }
+
+  // Visibility check: group-scoped posts require authentication
+  if (post.meta.visibility === 'group') {
+    const isAdmin = await isAdminSession();
+    if (!isAdmin) {
+      const group = await getAuthenticatedGroup();
+      const allowed = post.meta.allowed_groups || [];
+      if (!group || !allowed.includes(group)) {
+        const targetGroup = allowed[0] || 'snu';
+        redirect(`/co/${targetGroup}?redirect=${encodeURIComponent(`/${lang}/posts/${slug}`)}`);
+      }
+    }
   }
 
   const dict = await getDictionary(lang);

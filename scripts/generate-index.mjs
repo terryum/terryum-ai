@@ -85,6 +85,8 @@ async function collectPosts() {
         related_posts: meta.related_posts || null,
         taxonomy_primary: meta.taxonomy_primary || null,
         taxonomy_secondary: meta.taxonomy_secondary || [],
+        visibility: meta.visibility || 'public',
+        allowed_groups: meta.allowed_groups || [],
       });
     }
   }

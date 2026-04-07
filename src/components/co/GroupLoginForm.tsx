@@ -5,13 +5,17 @@ import { useRouter } from 'next/navigation';
 
 interface GroupLoginFormProps {
   group: string;
+  redirectTo?: string;
 }
 
-export default function GroupLoginForm({ group }: GroupLoginFormProps) {
+export default function GroupLoginForm({ group, redirectTo }: GroupLoginFormProps) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  // Validate redirectTo: must start with / to prevent open redirect
+  const safeRedirect = redirectTo && redirectTo.startsWith('/') ? redirectTo : '/posts';
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -31,7 +35,7 @@ export default function GroupLoginForm({ group }: GroupLoginFormProps) {
         return;
       }
 
-      router.refresh();
+      router.push(safeRedirect);
     } catch {
       setError('Something went wrong');
     } finally {

@@ -33,6 +33,24 @@ argument-hint: "<URL | --type=blog slug> [--tags=TAG1,TAG2] [--memo=메모] [--f
   4. global-index에서 음수 entry 제거 + 양수 entry 추가
   5. next_private_id: 삭제된 것이 마지막 번호였으면 되돌림
 
+### 공개 범위 (visibility) 옵션
+- `--visibility=group --group=snu` → 그룹 전용 포스트
+  - meta.json에 `"visibility": "group"`, `"allowed_groups": ["snu"]` 추가
+  - global-index.json에도 `"visibility": "group"`, `"allowed_groups": ["snu"]` 기록
+  - 메인 사이트에서 해당 그룹 로그인 세션이 있어야만 노출됨
+- 기본값: `visibility: "public"` (생략 가능)
+
+### 가상 논문 (Virtual Paper) 경로
+원본 논문이 없는 Research Proposal이나 공동연구 시나리오 포스팅 시:
+- URL 없이 직접 콘텐츠를 작성하거나 대화에서 내용을 제공
+- **PDF 다운로드 스킵** (Step R5)
+- **Figure 추출 스킵** (Step R6) — 원본 논문이 없으므로
+- **커버 이미지**: `/gemini-3-image-generation` 스킬로 생성 (논문 주제에 맞는 개념적 이미지)
+- `source_type`: `"Virtual Paper (Research Proposal)"` 설정
+- `source_url`: 발행 후 자체 URL (예: `https://terry.artlab.ai/posts/<slug>`)
+- 나머지 단계(Graph Analysis, MDX 생성, meta.json, 빌드 등)는 동일하게 수행
+- 주로 `--visibility=group --group=<group>` 와 함께 사용
+
 ---
 
 ## Research 경로
