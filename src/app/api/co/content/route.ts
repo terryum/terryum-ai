@@ -19,15 +19,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (!isSupabaseAdminConfigured()) {
-    return NextResponse.json({
-      error: 'Database not configured',
-      _d: {
-        url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-        urlLen: process.env.NEXT_PUBLIC_SUPABASE_URL?.length,
-        srk: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
-        srkLen: process.env.SUPABASE_SERVICE_ROLE_KEY?.length,
-      }
-    }, { status: 503 });
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
 
   const supabase = getSupabaseAdmin();

@@ -31,7 +31,7 @@ export default function PrivatePostList({ group, posts }: PrivatePostListProps) 
       {posts.map((post) => (
         <Link
           key={post.slug}
-          href={`/co/${group}/posts/${post.slug}`}
+          href={`/co/${group}/${post.content_type === 'projects' ? 'projects' : 'posts'}/${post.slug}`}
           className="block p-4 border border-line-default rounded-lg hover:border-accent transition-colors"
         >
           <div className="flex items-center gap-2 mb-1">

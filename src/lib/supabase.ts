@@ -1,8 +1,28 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-function getUrl() { return process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''; }
-function getAnonKey() { return process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? ''; }
-function getServiceRoleKey() { return process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''; }
+function getEnvValue(...keys: string[]) {
+  for (const key of keys) {
+    const value = process.env[key]?.trim();
+    if (value) return value;
+  }
+  return '';
+}
+
+function getUrl() {
+  return getEnvValue(
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'SUPABASE_URL',
+    'SUPABASE_PROJECT_URL'
+  );
+}
+
+function getAnonKey() {
+  return getEnvValue('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'SUPABASE_ANON_KEY');
+}
+
+function getServiceRoleKey() {
+  return getEnvValue('SUPABASE_SERVICE_ROLE_KEY');
+}
 
 /** Browser client (anon key, RLS 적용) */
 export function getSupabaseBrowser(): SupabaseClient {
