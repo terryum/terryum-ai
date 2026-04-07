@@ -1,9 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 import { getGroupFromRequest } from '@/lib/group-auth';
 import { isAdminRequest } from '@/lib/admin-auth';
-import { getSupabaseAdmin, isSupabaseAdminConfigured } from '@/lib/supabase';
 
 export const runtime = 'nodejs';
+
+function getSupabaseRuntime() {
+  const url =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.SUPABASE_URL ||
+    '';
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    '';
+  return { url, key };
+}
 
 /** GET /api/co/content?group=snu — List published private content for a group */
 export async function GET(request: NextRequest) {
@@ -12,7 +23,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'group parameter is required' }, { status: 400 });
   }
 
-  // Auth check: must be admin or have matching group session
   const isAdmin = isAdminRequest(request);
   const sessionGroup = getGroupFromRequest(request);
 
@@ -20,11 +30,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  if (!isSupabaseAdminConfigured()) {
+  const { url, key } = getSupabaseRuntime();
+  if (!url || !key) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
 
-  const supabase = getSupabaseAdmin();
+  const supabase = createClient(url, key);
   const { data, error } = await supabase
     .from('private_content')
     .select('slug, content_type, title_ko, title_en, cover_image_url, status, created_at, updated_at')

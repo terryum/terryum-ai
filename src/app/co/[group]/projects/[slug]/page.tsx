@@ -1,10 +1,21 @@
+import { createClient } from '@supabase/supabase-js';
 import { canAccessGroup, isGroupConfigured } from '@/lib/group-auth';
-import { getSupabaseAdmin, isSupabaseAdminConfigured } from '@/lib/supabase';
 import { notFound, redirect } from 'next/navigation';
 import { renderMDX } from '@/lib/mdx';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
+
+function getSupabaseRuntime() {
+  const url =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.SUPABASE_URL ||
+    '';
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    '';
+  return { url, key };
+}
 
 interface Props {
   params: Promise<{ group: string; slug: string }>;
@@ -22,11 +33,12 @@ export default async function PrivateProjectPage({ params }: Props) {
     redirect(`/co/${group}`);
   }
 
-  if (!isSupabaseAdminConfigured()) {
+  const { url, key } = getSupabaseRuntime();
+  if (!url || !key) {
     return <p className="p-8 text-text-secondary">Database not configured.</p>;
   }
 
-  const supabase = getSupabaseAdmin();
+  const supabase = createClient(url, key);
   const { data, error } = await supabase
     .from('private_content')
     .select('*')

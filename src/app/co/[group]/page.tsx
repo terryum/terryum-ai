@@ -1,10 +1,21 @@
+import { createClient } from '@supabase/supabase-js';
 import { canAccessGroup, isGroupConfigured } from '@/lib/group-auth';
-import { getSupabaseAdmin, isSupabaseAdminConfigured } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import GroupLoginForm from '@/components/co/GroupLoginForm';
 import PrivatePostList from '@/components/co/PrivatePostList';
 
 export const dynamic = 'force-dynamic';
+
+function getSupabaseRuntime() {
+  const url =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.SUPABASE_URL ||
+    '';
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    '';
+  return { url, key };
+}
 
 interface Props {
   params: Promise<{ group: string }>;
@@ -23,8 +34,8 @@ export default async function GroupPortalPage({ params }: Props) {
     return <GroupLoginForm group={group} />;
   }
 
-  // Authenticated — fetch private content
-  if (!isSupabaseAdminConfigured()) {
+  const { url, key } = getSupabaseRuntime();
+  if (!url || !key) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
         <h1 className="text-xl font-medium text-text-primary mb-4">
@@ -35,7 +46,7 @@ export default async function GroupPortalPage({ params }: Props) {
     );
   }
 
-  const supabase = getSupabaseAdmin();
+  const supabase = createClient(url, key);
   const { data: posts } = await supabase
     .from('private_content')
     .select('slug, content_type, title_ko, title_en, cover_image_url, status, updated_at')
