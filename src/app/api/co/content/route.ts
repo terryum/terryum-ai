@@ -6,16 +6,8 @@ import { isAdminRequest } from '@/lib/admin-auth';
 export const runtime = 'nodejs';
 
 function getSupabaseRuntime() {
-  const url =
-    process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    process.env.SUPABASE_URL ||
-    process.env.SUPABASE_DB_URL ||
-    process.env.SUPABASE_PROJECT_URL ||
-    '';
-  const key =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.SUPABASE_SRK ||
-    '';
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || '';
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
   return { url, key };
 }
 
@@ -35,16 +27,7 @@ export async function GET(request: NextRequest) {
 
   const { url, key } = getSupabaseRuntime();
   if (!url || !key) {
-    // Debug: which env vars exist in this function's runtime?
-    const envNames = Object.keys(process.env)
-      .filter(k => k.includes('SUPABASE') || k.includes('CO_') || k.includes('ADMIN'))
-      .sort();
-    return NextResponse.json({
-      error: 'Database not configured',
-      _envKeys: envNames,
-      _urlLen: url.length,
-      _keyLen: key.length,
-    }, { status: 503 });
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
 
   const supabase = createClient(url, key);

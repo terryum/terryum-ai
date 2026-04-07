@@ -9,11 +9,7 @@ function getEnvValue(...keys: string[]) {
 }
 
 function getUrl() {
-  return getEnvValue(
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'SUPABASE_URL',
-    'SUPABASE_PROJECT_URL'
-  );
+  return getEnvValue('NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_URL');
 }
 
 function getAnonKey() {
