@@ -32,7 +32,16 @@ export async function GET(request: NextRequest) {
 
   const { url, key } = getSupabaseRuntime();
   if (!url || !key) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    // Debug: which env vars exist in this function's runtime?
+    const envNames = Object.keys(process.env)
+      .filter(k => k.includes('SUPABASE') || k.includes('CO_') || k.includes('ADMIN'))
+      .sort();
+    return NextResponse.json({
+      error: 'Database not configured',
+      _envKeys: envNames,
+      _urlLen: url.length,
+      _keyLen: key.length,
+    }, { status: 503 });
   }
 
   const supabase = createClient(url, key);
