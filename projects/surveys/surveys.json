@@ -2,7 +2,7 @@
   "next_survey_number": 3,
   "surveys": [
     {
-      "slug": "book-robot-hand-tactile-sensor",
+      "slug": "survey-robot-hand-tactile-sensor",
       "survey_number": 1,
       "title": {
         "ko": "Tactile Sensing for Dexterous Robot Hands",
@@ -12,7 +12,7 @@
         "ko": "131편 이상의 논문을 AI scientist들과 분석한 촉각 로봇핸드 서베이. 다양한 촉각 센서 기술을 체계적으로 분류하고, 파지 제어부터 인간-로봇 기술 전이까지 핵심 연구 흐름을 13개 챕터로 정리합니다.",
         "en": "A survey of 131+ papers on tactile sensing for robot hands, written with AI scientists. Covers sensor technologies, grasp control, in-hand manipulation, sim-to-real transfer, and human-robot skill transfer across 13 chapters."
       },
-      "cover_image": "/images/projects/book-robot-hand-tactile-sensor-cover.webp",
+      "cover_image": "/images/projects/survey-robot-hand-tactile-sensor-cover.webp",
       "tech_stack": ["Robotics", "Tactile Sensing", "Survey"],
       "toc": [
         { "ko": "소개", "en": "Introduction" },
@@ -30,10 +30,10 @@
         { "ko": "미래 방향", "en": "Future Directions" }
       ],
       "links": [
-        { "type": "demo", "url": "https://book-robot-hand-tactile-sensor.vercel.app/", "label": "Read" },
-        { "type": "github", "url": "https://github.com/terryum/book-robot-hand-tactile-sensor" }
+        { "type": "demo", "url": "https://survey-robot-hand-tactile-sensor.vercel.app/", "label": "Read" },
+        { "type": "github", "url": "https://github.com/terryum/survey-robot-hand-tactile-sensor" }
       ],
-      "embed_url": "https://book-robot-hand-tactile-sensor.vercel.app/",
+      "embed_url": "https://survey-robot-hand-tactile-sensor.vercel.app/",
       "status": "active",
       "featured": true,
       "order": 0,

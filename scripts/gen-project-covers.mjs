@@ -132,5 +132,5 @@ const tactileSvg = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/200
 </svg>`;
 
 await sharp(Buffer.from(tactileSvg)).webp({ quality: 85 })
-  .toFile('public/images/projects/book-robot-hand-tactile-sensor-cover.webp');
-console.log('✅ book-robot-hand-tactile-sensor-cover.webp');
+  .toFile('public/images/projects/survey-robot-hand-tactile-sensor-cover.webp');
+console.log('✅ survey-robot-hand-tactile-sensor-cover.webp');

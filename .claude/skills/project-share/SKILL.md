@@ -8,11 +8,11 @@ argument-hint: "<project-URL | slug | title> [platform-filter]"
 
 입력: $ARGUMENTS
 예시:
-  /project-share https://terry.artlab.ai/projects/book-robot-hand-tactile-sensor
-  /project-share book-robot-hand-tactile-sensor
+  /project-share https://terry.artlab.ai/projects/survey-robot-hand-tactile-sensor
+  /project-share survey-robot-hand-tactile-sensor
   /project-share Tactile Sensing
-  /project-share book-robot-hand-tactile-sensor X에만 올려줘
-  /project-share book-robot-hand-tactile-sensor --platform=facebook,threads
+  /project-share survey-robot-hand-tactile-sensor X에만 올려줘
+  /project-share survey-robot-hand-tactile-sensor --platform=facebook,threads
 
 ## 필수 참조
 실행 전 반드시 `docs/SOCIAL_SHARE_GUIDE.md`를 읽고 플랫폼별 메시지 포맷, 커버이미지 규칙, URL 규칙을 준수할 것.
@@ -83,7 +83,7 @@ python scripts/publish-project-social.py --slug={slug} --dry-run
 
 ```
 ─── /project-share 결과 ─────────────────────────────
-프로젝트: book-robot-hand-tactile-sensor
+프로젝트: survey-robot-hand-tactile-sensor
 
 ✓ facebook   — https://www.facebook.com/permalink/...
 ✓ threads    — https://www.threads.net/@terry.artlab/post/...
