@@ -331,7 +331,7 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
     post_id: p.slug as string,
     locale,
     title: (locale === 'ko' ? p.title_ko : p.title_en) as string,
-    summary: (p.ai_summary as Record<string, string>)?.one_liner ?? '',
+    summary: (locale === 'ko' ? p.summary_ko as string : p.summary_en as string) || (p.ai_summary as Record<string, string>)?.one_liner || '',
     slug: p.slug as string,
     published_at: p.published_at as string,
     updated_at: p.published_at as string,

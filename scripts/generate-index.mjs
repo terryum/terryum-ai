@@ -69,6 +69,8 @@ async function collectPosts() {
         content_type: meta.content_type || cat,
         title_en: enFm.title || meta.source_title || slug,
         title_ko: koFm.title || meta.source_title || slug,
+        summary_ko: koFm.card_summary || koFm.summary || null,
+        summary_en: enFm.card_summary || enFm.summary || null,
         domain: meta.domain || null,
         subfields: meta.subfields || [],
         key_concepts: meta.key_concepts || [],
