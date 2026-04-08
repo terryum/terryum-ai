@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { Container } from './ui/Container';
@@ -26,21 +26,17 @@ interface HeaderProps {
   sessionLabel?: string | null;
 }
 
-function SettingsDropdown({ sessionLabel }: { sessionLabel?: string | null }) {
+function SettingsDropdown({ sessionLabel, locale }: { sessionLabel?: string | null; locale: Locale }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const ref = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (!open) return;
     function handleClickOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-        setError('');
-      }
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -52,6 +48,15 @@ function SettingsDropdown({ sessionLabel }: { sessionLabel?: string | null }) {
     document.documentElement.setAttribute('data-theme', next);
     localStorage.setItem('theme', next);
     document.cookie = `theme=${next};path=/;max-age=${60 * 60 * 24 * 365}`;
+    setOpen(false);
+  }
+
+  function switchLanguage() {
+    const altLocale = locale === 'ko' ? 'en' : 'ko';
+    localStorage.setItem('preferred-lang', altLocale);
+    document.cookie = `preferred-lang=${altLocale};path=/;max-age=${60 * 60 * 24 * 365}`;
+    router.push(pathname.replace(`/${locale}`, `/${altLocale}`));
+    setOpen(false);
   }
 
   async function handleLogout() {
@@ -63,38 +68,10 @@ function SettingsDropdown({ sessionLabel }: { sessionLabel?: string | null }) {
     window.location.reload();
   }
 
-  async function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    if (!id.trim() || !password.trim()) return;
-    setError('');
-    setLoading(true);
-    try {
-      const isAdmin = id.trim().toLowerCase() === 'admin';
-      const url = isAdmin ? '/api/admin/login' : '/api/co/login';
-      const body = isAdmin
-        ? { password: password.trim() }
-        : { group: id.trim().toLowerCase(), password: password.trim() };
-      const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        setError(data.error || 'Login failed');
-        setLoading(false);
-        return;
-      }
-      window.location.reload();
-    } catch {
-      setError('Something went wrong');
-      setLoading(false);
-    }
-  }
+  const menuItemClass = 'w-full px-3 py-2.5 text-xs text-text-secondary hover:bg-bg-surface flex items-center gap-2.5 transition-colors text-left';
 
   return (
     <div className="relative" ref={ref}>
-      {/* Gear icon button */}
       <button
         onClick={() => setOpen(!open)}
         className="w-8 h-8 rounded-full border border-line-default flex items-center justify-center text-text-muted hover:text-accent transition-colors"
@@ -107,12 +84,9 @@ function SettingsDropdown({ sessionLabel }: { sessionLabel?: string | null }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-52 rounded-lg border border-line-default bg-bg-primary shadow-lg z-50 overflow-hidden">
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="w-full px-3 py-2 text-xs text-text-secondary hover:bg-bg-surface flex items-center gap-2 transition-colors"
-          >
+        <div className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-line-default bg-bg-primary shadow-lg z-50 py-1">
+          {/* Theme */}
+          <button onClick={toggleTheme} className={menuItemClass}>
             <svg className="w-3.5 h-3.5 theme-icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0112.478 3.68a9.75 9.75 0 109.274 11.322z" />
             </svg>
@@ -124,46 +98,38 @@ function SettingsDropdown({ sessionLabel }: { sessionLabel?: string | null }) {
             <span className="theme-icon-sun">Light mode</span>
           </button>
 
-          <div className="h-px bg-line-default" />
+          {/* Language */}
+          <button onClick={switchLanguage} className={menuItemClass}>
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3a15 15 0 014 9 15 15 0 01-4 9 15 15 0 01-4-9 15 15 0 014-9z" />
+            </svg>
+            {locale === 'ko' ? 'English' : '한국어'}
+          </button>
+
+          <div className="h-px bg-line-default my-1" />
 
           {/* Login / Logout */}
           {sessionLabel ? (
-            <div className="px-3 py-2 flex items-center justify-between">
-              <span className="text-xs px-1.5 py-0.5 rounded bg-accent/10 text-accent font-medium">{sessionLabel}</span>
-              <button
-                onClick={handleLogout}
-                disabled={loading}
-                className="text-xs text-text-tertiary hover:text-text-primary transition-colors disabled:opacity-50"
-              >
-                {loading ? '...' : 'Logout'}
-              </button>
-            </div>
+            <button onClick={handleLogout} disabled={loading} className={menuItemClass}>
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1" />
+              </svg>
+              <span className="flex-1">{loading ? 'Logging out...' : 'Logout'}</span>
+              <span className="px-1.5 py-0.5 rounded bg-accent/10 text-accent font-medium text-[10px]">{sessionLabel}</span>
+            </button>
           ) : (
-            <form onSubmit={handleLogin} className="p-3 flex flex-col gap-2">
-              <input
-                type="text"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-                placeholder="ID (e.g. snu, admin)"
-                autoFocus
-                className="w-full px-2 py-1.5 text-xs border border-line-default rounded bg-bg-primary text-text-primary focus:outline-none focus:ring-1 focus:ring-accent"
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                className="w-full px-2 py-1.5 text-xs border border-line-default rounded bg-bg-primary text-text-primary focus:outline-none focus:ring-1 focus:ring-accent"
-              />
-              {error && <p className="text-red-500 text-[11px]">{error}</p>}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full px-2 py-1.5 text-xs bg-accent text-white rounded hover:opacity-90 disabled:opacity-50 transition-opacity"
-              >
-                {loading ? '...' : 'Login'}
-              </button>
-            </form>
+            <Link
+              href={`/co/snu?redirect=${encodeURIComponent(pathname)}`}
+              onClick={() => setOpen(false)}
+              className={menuItemClass}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h5a2 2 0 012 2v1" />
+              </svg>
+              Login
+            </Link>
           )}
         </div>
       )}
@@ -268,14 +234,14 @@ function HeaderInner({ locale, dict, navTabs, sessionLabel }: HeaderProps) {
 
             <div className="flex items-center gap-2 ml-4">
               <LanguageSwitcher locale={locale} />
-              <SettingsDropdown sessionLabel={sessionLabel} />
+              <SettingsDropdown sessionLabel={sessionLabel} locale={locale} />
             </div>
           </nav>
 
           {/* Mobile: icon buttons + hamburger */}
           <div className="flex items-center gap-2 md:hidden">
             <LanguageSwitcher locale={locale} />
-            <SettingsDropdown sessionLabel={sessionLabel} />
+            <SettingsDropdown sessionLabel={sessionLabel} locale={locale} />
             <button
               className="p-2 text-text-secondary"
               onClick={() => setMobileOpen(!mobileOpen)}
