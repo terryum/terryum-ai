@@ -1,12 +1,18 @@
 ---
 name: project
 description: "Project 갤러리 추가. GitHub URL 또는 수동 입력(책, 제품 등)으로 프로젝트 카드를 생성. 다중 링크, 커버 이미지 자동 생성(/gemini-3-image-generation) 지원."
-argument-hint: "<GitHub-URL | --type=book --title=... --url=...> [--featured] [--status=active|archived|wip]"
+argument-hint: "<GitHub-URL | --type=book --title=... --url=...> [--featured] [--status=active|archived|wip] [--visibility=group --group=snu]"
 ---
 
 # Project 갤러리 추가 파이프라인
 
 입력: $ARGUMENTS
+
+## 공개 범위 (visibility) 옵션
+- `--visibility=group --group=snu` → 그룹 전용 프로젝트
+  - projects.json에 `"visibility": "group"`, `"allowed_groups": ["snu"]` 추가
+  - 메인 사이트에서 해당 그룹 로그인 세션이 있어야만 노출됨
+- 기본값: `visibility: "public"` (생략 가능)
 
 ---
 

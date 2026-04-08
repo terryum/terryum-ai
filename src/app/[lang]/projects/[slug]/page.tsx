@@ -4,6 +4,8 @@ import { getProject, getAllProjects } from '@/lib/projects';
 import ProjectEmbed from '@/components/ProjectEmbed';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateStaticParams() {
   const projects = await getAllProjects();
   const params: { lang: string; slug: string }[] = [];

@@ -1,6 +1,30 @@
 {
   "projects": [
     {
+      "slug": "book-snu-largescale-tactile-hand",
+      "title": {
+        "ko": "대규모 촉각 데이터 수집 기반 로봇핸드 조작",
+        "en": "Large-Scale Tactile Data Collection for Dexterous Robot Hand Manipulation"
+      },
+      "description": {
+        "ko": "SNU-KAIST 공동연구 서베이. 신축성 글러브 촉각 센서를 활용한 대규모 데이터 수집과 로봇 손재주 조작 학습을 다룬다.",
+        "en": "SNU-KAIST collaborative research survey on large-scale tactile data collection using stretchable glove sensors for dexterous robot hand manipulation."
+      },
+      "cover_image": "/images/projects/book-snu-largescale-tactile-hand-cover.webp",
+      "tech_stack": ["Robotics", "Tactile Sensing", "Survey", "Book"],
+      "links": [
+        { "type": "demo", "url": "https://book-snu-largescale-tactile-hand.vercel.app/", "label": "Web" },
+        { "type": "github", "url": "https://github.com/terryum/book-snu-largescale-tactile-hand" }
+      ],
+      "embed_url": "https://book-snu-largescale-tactile-hand.vercel.app/",
+      "status": "wip",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-04-07",
+      "visibility": "group",
+      "allowed_groups": ["snu"]
+    },
+    {
       "slug": "book-robot-hand-tactile-sensor",
       "title": {
         "ko": "Tactile Sensing for Dexterous Robot Hands",
