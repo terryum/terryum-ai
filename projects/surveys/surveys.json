@@ -9,8 +9,8 @@
         "en": "Tactile Sensing for Dexterous Robot Hands"
       },
       "description": {
-        "ko": "촉각 센서 기반 로봇핸드에 대한 131편 이상의 논문을 AI scientist들과 함께 분석하여 정리한 서베이입니다. 저항형·압전형·광학식·자기식 센서부터 MEMS 기반 고밀도 어레이까지 촉각 센서 기술을 체계적으로 분류하고, 이를 활용한 로봇핸드 파지 제어, 인핸드 조작, 시뮬레이션-실제 전이, 인간-로봇 기술 전이 등 핵심 연구 흐름을 13개 챕터로 구성하였습니다.",
-        "en": "A comprehensive survey analyzing 131+ papers on tactile sensing for dexterous robot hands, written with AI scientists. Systematically categorizes tactile sensor technologies — resistive, piezoelectric, optical, magnetic, and MEMS-based high-density arrays — and covers key research threads including grasp control, in-hand manipulation, sim-to-real transfer, and human-to-robot skill transfer across 13 chapters."
+        "ko": "131편 이상의 논문을 AI scientist들과 분석한 촉각 로봇핸드 서베이. 다양한 촉각 센서 기술을 체계적으로 분류하고, 파지 제어부터 인간-로봇 기술 전이까지 핵심 연구 흐름을 13개 챕터로 정리합니다.",
+        "en": "A survey of 131+ papers on tactile sensing for robot hands, written with AI scientists. Covers sensor technologies, grasp control, in-hand manipulation, sim-to-real transfer, and human-robot skill transfer across 13 chapters."
       },
       "cover_image": "/images/projects/book-robot-hand-tactile-sensor-cover.webp",
       "tech_stack": ["Robotics", "Tactile Sensing", "Survey"],
