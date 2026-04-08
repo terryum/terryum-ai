@@ -5,8 +5,8 @@
       "slug": "survey-korea-vla-agentic-robotics",
       "survey_number": 3,
       "title": {
-        "ko": "LLM 플래너에서 에이전틱 로보틱스로: Physical AI의 미래",
-        "en": "From LLM Planners to Agentic Robotics: The Future of Physical AI"
+        "ko": "Toward Agentic Robotics: Physical AI의 미래",
+        "en": "Toward Agentic Robotics: The Future of Physical AI"
       },
       "description": {
         "ko": "LLM 기반 로봇 계획부터 VLA, Code as Policy, 에이전틱 로보틱스까지의 진화를 추적하는 서베이. 에이전틱 코딩과 에이전틱 로보틱스를 7가지 차원에서 비교하여 물리 세계의 근본적 차이를 조명합니다.",
@@ -15,16 +15,17 @@
       "cover_image": "/images/projects/survey-korea-vla-agentic-robotics-cover.webp",
       "tech_stack": ["Robotics", "VLA", "LLM", "Agentic AI", "Survey"],
       "toc": [
-        { "ko": "소개: 코딩→로보틱스", "en": "Intro: Coding→Robotics" },
-        { "ko": "LLM 플래너: 제로샷", "en": "LLM Planner: Zero-Shot" },
-        { "ko": "Code as Policy", "en": "Code as Policies" },
+        { "ko": "서론: 코딩→로보틱스", "en": "Intro: Coding→Robotics" },
+        { "ko": "LLM as Planner", "en": "LLM as Planner" },
+        { "ko": "Code as Policies", "en": "Code as Policies" },
         { "ko": "VLA 모델의 부상", "en": "Rise of VLA Models" },
         { "ko": "계층적 계획 수립", "en": "Hierarchical Planning" },
         { "ko": "저수준 제어: 확산정책", "en": "Low-Level: Diffusion" },
-        { "ko": "메모리와 세계표현", "en": "Memory & World Model" },
+        { "ko": "메모리와 세계 표현", "en": "Memory & World Model" },
         { "ko": "폐루프 에이전트", "en": "Closed-Loop Agents" },
         { "ko": "Sim-to-Real 전이", "en": "Sim-to-Real Transfer" },
-        { "ko": "코딩 vs 로보틱스", "en": "Coding vs Robotics" }
+        { "ko": "코딩 vs 로보틱스", "en": "Coding vs Robotics" },
+        { "ko": "부록: 코딩 에이전트", "en": "Appendix: Code Agents" }
       ],
       "links": [
         { "type": "demo", "url": "https://survey-korea-vla-agentic-robotics.vercel.app/", "label": "Read" },
@@ -41,7 +42,7 @@
       "slug": "survey-robot-hand-tactile-sensor",
       "survey_number": 1,
       "title": {
-        "ko": "Tactile Sensing for Dexterous Robot Hands",
+        "ko": "로봇 손을 위한 촉각 센싱",
         "en": "Tactile Sensing for Dexterous Robot Hands"
       },
       "description": {
