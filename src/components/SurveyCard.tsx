@@ -33,7 +33,7 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
       className="group block border border-line-default rounded-lg overflow-hidden hover:border-accent/40 transition-colors"
     >
       {/* ── Desktop: 3-column (cover | description | toc) ── */}
-      <div className="hidden sm:flex">
+      <div className="hidden sm:flex h-72">
         {/* Col 1: Cover */}
         {survey.cover_image && (
           <div className="w-56 flex-shrink-0 bg-bg-surface relative">
@@ -49,7 +49,7 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
         )}
 
         {/* Col 2: Description */}
-        <div className="flex-1 min-w-0 p-4 flex flex-col gap-1.5">
+        <div className="flex-1 min-w-0 p-4 flex flex-col gap-1.5 overflow-hidden">
           <div>
             <span className="text-xs text-text-muted">S{survey.survey_number}</span>
             <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
