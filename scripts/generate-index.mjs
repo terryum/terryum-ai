@@ -338,8 +338,67 @@ async function buildTaxonomyStats(posts) {
   return stats;
 }
 
+async function collectPrivatePosts() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !serviceKey) return [];
+
+  try {
+    const { createClient } = await import('@supabase/supabase-js');
+    const sb = createClient(supabaseUrl, serviceKey);
+    const { data, error } = await sb
+      .from('private_content')
+      .select('slug, title_ko, title_en, meta_json')
+      .neq('content_type', 'projects')
+      .eq('status', 'published');
+    if (error || !data) return [];
+
+    return data.map(row => {
+      const m = row.meta_json || {};
+      return {
+        post_number: m.post_number ?? null,
+        slug: row.slug,
+        content_type: m.content_type || 'papers',
+        title_en: row.title_en || m.source_title || row.slug,
+        title_ko: row.title_ko || m.source_title || row.slug,
+        domain: m.domain || null,
+        subfields: m.subfields || [],
+        key_concepts: m.key_concepts || [],
+        methodology: m.methodology || [],
+        contribution_type: m.contribution_type || null,
+        tags: m.tags || [],
+        source_author: m.source_author || null,
+        source_date: m.source_date || null,
+        published_at: m.published_at || null,
+        citation_count: m.citation_count ?? null,
+        ai_summary: m.ai_summary || null,
+        relations: m.relations || [],
+        idea_status: m.idea_status || null,
+        related_posts: m.related_posts || null,
+        taxonomy_primary: m.taxonomy_primary || null,
+        taxonomy_secondary: m.taxonomy_secondary || [],
+        visibility: 'group',
+        allowed_groups: m.allowed_groups || [],
+      };
+    });
+  } catch (err) {
+    console.warn('  ⚠ Failed to fetch private posts:', err.message);
+    return [];
+  }
+}
+
 async function main() {
+  const includePrivate = process.argv.includes('--include-private');
   const posts = await collectPosts();
+
+  if (includePrivate) {
+    const privatePosts = await collectPrivatePosts();
+    const existingSlugs = new Set(posts.map(p => p.slug));
+    for (const pp of privatePosts) {
+      if (!existingSlugs.has(pp.slug)) posts.push(pp);
+    }
+    console.log(`  ✓ Merged ${privatePosts.length} private posts from Supabase`);
+  }
 
   const index = {
     generated_at: new Date().toISOString(),
@@ -351,7 +410,9 @@ async function main() {
     taxonomy_stats: await buildTaxonomyStats(posts),
   };
 
-  const outPath = path.join(POSTS_DIR, 'index.json');
+  const outPath = includePrivate
+    ? path.join(POSTS_DIR, 'index-private.json')
+    : path.join(POSTS_DIR, 'index.json');
   await fs.writeFile(outPath, JSON.stringify(index, null, 2) + '\n', 'utf-8');
   console.log(`✓ Generated ${outPath} (${posts.length} posts)`);
 

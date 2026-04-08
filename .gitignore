@@ -71,3 +71,4 @@ supabase/.temp/
 posts/global-index.json
 _workspace/
 scripts/upload-private-content.mjs
+posts/index-private.json

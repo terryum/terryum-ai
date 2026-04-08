@@ -19,7 +19,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const POSTS_DIR = path.join(ROOT, 'posts');
-const CATEGORIES = ['papers', 'notes', 'tech', 'essays'];
+const CATEGORIES = ['papers', 'notes', 'tech', 'essays', 'memos'];
 
 // ── CLI args ──
 const args = process.argv.slice(2);
@@ -448,14 +448,33 @@ async function main() {
     for (const f of VAULT_FOLDERS) console.log(`    📁 ${f}`);
   }
 
-  // Load posts index
+  // Load posts index (prefer index-private.json if available)
   let indexData;
+  const privateIndexPath = path.join(POSTS_DIR, 'index-private.json');
+  const publicIndexPath = path.join(POSTS_DIR, 'index.json');
   try {
-    const raw = await fs.readFile(path.join(POSTS_DIR, 'index.json'), 'utf-8');
+    const raw = await fs.readFile(privateIndexPath, 'utf-8');
     indexData = JSON.parse(raw);
-  } catch (err) {
-    console.error('❌ Cannot read posts/index.json:', err.message);
-    process.exit(1);
+    console.log('  Using index-private.json (includes group posts)');
+  } catch {
+    try {
+      const raw = await fs.readFile(publicIndexPath, 'utf-8');
+      indexData = JSON.parse(raw);
+    } catch (err) {
+      console.error('❌ Cannot read posts/index.json:', err.message);
+      process.exit(1);
+    }
+  }
+
+  // Load Supabase client for private post content
+  let supabase = null;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (supabaseUrl && serviceKey) {
+    try {
+      const { createClient } = await import('@supabase/supabase-js');
+      supabase = createClient(supabaseUrl, serviceKey);
+    } catch { /* Supabase not available */ }
   }
 
   const allPosts = indexData.posts || [];
@@ -475,24 +494,44 @@ async function main() {
   for (const post of targetPosts) {
     const slug = post.slug;
     const contentType = post.content_type;
-    const catDir = contentType || 'papers'; // content_type maps directly to folder name
+    const catDir = contentType || 'papers';
     const postDir = path.join(POSTS_DIR, catDir, slug);
+    const isPrivate = post.visibility === 'group';
 
-    // Read meta.json
+    // Read meta.json (filesystem or Supabase)
     let meta;
-    try {
-      const raw = await fs.readFile(path.join(postDir, 'meta.json'), 'utf-8');
-      meta = JSON.parse(raw);
-    } catch (err) {
-      console.warn(`  ⚠ Skipping ${slug}: meta.json read failed (${err.message})`);
-      continue;
-    }
-
-    // Read ko.mdx
     let koMdx = '';
-    try {
-      koMdx = await fs.readFile(path.join(postDir, 'ko.mdx'), 'utf-8');
-    } catch { /* no ko.mdx is OK */ }
+
+    if (isPrivate && supabase) {
+      // Private post: fetch from Supabase
+      try {
+        const { data } = await supabase
+          .from('private_content')
+          .select('meta_json, content_ko')
+          .eq('slug', slug)
+          .single();
+        if (data) {
+          meta = data.meta_json;
+          koMdx = data.content_ko || '';
+        }
+      } catch { /* fall through */ }
+      if (!meta) {
+        console.warn(`  ⚠ Skipping ${slug}: Supabase fetch failed`);
+        continue;
+      }
+    } else {
+      // Public post: read from filesystem
+      try {
+        const raw = await fs.readFile(path.join(postDir, 'meta.json'), 'utf-8');
+        meta = JSON.parse(raw);
+      } catch (err) {
+        console.warn(`  ⚠ Skipping ${slug}: meta.json read failed (${err.message})`);
+        continue;
+      }
+      try {
+        koMdx = await fs.readFile(path.join(postDir, 'ko.mdx'), 'utf-8');
+      } catch { /* no ko.mdx is OK */ }
+    }
 
     const koFm = parseFrontmatter(koMdx);
     const terryMemos = parseTerryMemo(koMdx);
