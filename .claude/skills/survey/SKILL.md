@@ -48,10 +48,17 @@ argument-hint: "<URL | --title=... --embed=...> [--featured] [--status=active|ar
 - `survey_number`: `surveys.json`의 `next_survey_number` 사용 후 증가
 - `toc`: 사이트/README에서 추출한 목차 배열
 
-## Step 3) 커버 이미지
+## Step 3) 이미지 생성
 
-`/gemini-3-image-generation` 스킬로 서베이 주제 관련 커버 생성.
-`public/images/projects/{slug}-cover.webp`로 저장 (public) 또는 Supabase Storage (group).
+`/gemini-3-image-generation` 스킬로 두 가지 이미지를 생성한다:
+
+1. **커버 이미지** (정사각형, 1:1): 카드 썸네일용
+   - `public/images/projects/{slug}-cover.webp` (public) 또는 Supabase Storage (group)
+2. **OG 이미지** (1200x630, 16:9): 소셜 공유용 대표 이미지
+   - `public/images/projects/{slug}-og.jpg` (public) 또는 Supabase Storage (group)
+   - JPEG 형식 (X/Twitter 호환)
+
+공유 URL: `/surveys/{slug}` (lang 없는 경로) → 자동 리다이렉트 + OG 메타태그 제공.
 
 ## Step 4) surveys.json 업데이트
 

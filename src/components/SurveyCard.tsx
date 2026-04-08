@@ -73,7 +73,7 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
             <span className="text-xs font-medium text-text-secondary">
               {locale === 'ko' ? '목차' : 'Contents'} ({survey.toc.length})
             </span>
-            <ol className="mt-1 list-decimal list-inside leading-tight">
+            <ol className="mt-1.5 space-y-0.5 list-decimal list-inside">
               {survey.toc.map((ch, i) => (
                 <li key={i} className="text-xs text-text-muted truncate">{ch[lang] || ch.en}</li>
               ))}
@@ -112,7 +112,7 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
               <span className="text-xs font-medium text-text-secondary">
                 {locale === 'ko' ? '목차' : 'Contents'} ({survey.toc.length})
               </span>
-              <ol className="mt-1 list-decimal list-inside leading-tight">
+              <ol className="mt-1.5 space-y-0.5 list-decimal list-inside">
                 {survey.toc.slice(0, 5).map((ch, i) => (
                   <li key={i} className="text-xs text-text-muted truncate">{ch[lang] || ch.en}</li>
                 ))}
