@@ -1,17 +1,18 @@
-export interface ProjectLink {
-  type: 'github' | 'demo' | 'paper' | 'book' | 'other';
+export interface SurveyLink {
+  type: 'demo' | 'github' | 'paper' | 'book' | 'other';
   url: string;
   label?: string;
 }
 
-export interface ProjectMeta {
+export interface SurveyMeta {
   slug: string;
-  project_number?: number;
+  survey_number: number;
   title: { ko: string; en: string };
   description: { ko: string; en: string };
   cover_image: string;
   tech_stack: string[];
-  links: ProjectLink[];
+  toc: string[]; // table of contents (chapter titles)
+  links: SurveyLink[];
   embed_url?: string;
   status: 'active' | 'archived' | 'wip';
   featured: boolean;

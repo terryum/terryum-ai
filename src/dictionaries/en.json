@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "projects": "Projects"
+    "projects": "Projects",
+    "surveys": "Surveys"
   },
   "hero": {
     "name": "Terry Taewoong Um",
@@ -52,7 +53,8 @@
     "view_all": "View all",
     "show_more": "Show more",
     "no_posts_yet": "No posts yet.",
-    "latest_projects": "Latest Projects"
+    "latest_projects": "Latest Projects",
+    "latest_surveys": "Latest Surveys"
   },
   "detail": {
     "back_to_list": "Back to list",
@@ -84,6 +86,11 @@
     "title": "Projects",
     "description": "A collection of open-source and side projects.",
     "empty": "No projects yet."
+  },
+  "surveys": {
+    "title": "Surveys",
+    "description": "Research surveys written with AI scientists.",
+    "empty": "No surveys yet."
   },
   "footer": {
     "copyright": "Terry Um"

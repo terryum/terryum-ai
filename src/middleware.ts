@@ -31,6 +31,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/co') ||
     pathname.startsWith('/login') ||
     pathname.startsWith('/posts') ||
+    pathname.startsWith('/surveys') ||
     pathname.startsWith('/images') ||
     pathname.includes('.')
   ) {
@@ -57,5 +58,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next|api|admin|co|login|posts|images|favicon|sitemap|robots).*)'],
+  matcher: ['/((?!_next|api|admin|co|login|posts|surveys|images|favicon|sitemap|robots).*)'],
 };

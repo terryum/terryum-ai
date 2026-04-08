@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "projects": "Projects"
+    "projects": "Projects",
+    "surveys": "Surveys"
   },
   "hero": {
     "name": "Terry Taewoong Um",
@@ -52,7 +53,8 @@
     "view_all": "전체 보기",
     "show_more": "더 보기",
     "no_posts_yet": "아직 글이 없습니다.",
-    "latest_projects": "Latest Projects"
+    "latest_projects": "Latest Projects",
+    "latest_surveys": "Latest Surveys"
   },
   "detail": {
     "back_to_list": "목록으로",
@@ -84,6 +86,11 @@
     "title": "Projects",
     "description": "오픈소스 프로젝트와 사이드 프로젝트 모음입니다.",
     "empty": "아직 프로젝트가 없습니다."
+  },
+  "surveys": {
+    "title": "Surveys",
+    "description": "AI 과학자들과 함께 쓴 연구 서베이입니다.",
+    "empty": "아직 서베이가 없습니다."
   },
   "footer": {
     "copyright": "Terry Um"

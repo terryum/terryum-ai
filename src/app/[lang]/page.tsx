@@ -3,11 +3,13 @@ import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getAllPostsFromIndex } from '@/lib/posts';
 import { getAllProjects } from '@/lib/projects';
+import { getAllSurveys } from '@/lib/surveys';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { TAB_CONFIG } from '@/lib/site-config';
 import { normalizeTagSlug } from '@/lib/tags';
 import HeroSection from '@/components/HeroSection';
 import LatestSection from '@/components/LatestSection';
+import SurveyCard from '@/components/SurveyCard';
 import ProjectCard from '@/components/ProjectCard';
 import type { Metadata } from 'next';
 
@@ -40,11 +42,12 @@ export default async function HomePage({
   const { lang } = await params;
   if (!isValidLocale(lang)) return null;
 
-  const [dict, bioContent, allPosts, projects] = await Promise.all([
+  const [dict, bioContent, allPosts, projects, surveys] = await Promise.all([
     getDictionary(lang),
     getBioContent(lang),
     getAllPostsFromIndex(lang),
     getAllProjects(),
+    getAllSurveys(),
   ]);
 
   const aiPosts = allPosts.filter(p => p.tags.some(tag => aiMatchTags.has(normalizeTagSlug(tag))));
@@ -75,6 +78,28 @@ export default async function HomePage({
           hidePubDate={true}
         />
       ))}
+
+      {/* Latest Surveys */}
+      {surveys.length > 0 && (
+        <section className="py-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-[540] text-text-primary tracking-tight">
+              {dict.home.latest_surveys}
+            </h2>
+            <Link
+              href={`/${lang}/surveys`}
+              className="text-sm text-text-muted hover:text-accent transition-colors"
+            >
+              {dict.home.view_all} &rarr;
+            </Link>
+          </div>
+          <div className="flex flex-col gap-6">
+            {surveys.map((survey) => (
+              <SurveyCard key={survey.slug} survey={survey} locale={lang} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Latest Projects */}
       {projects.length > 0 && (

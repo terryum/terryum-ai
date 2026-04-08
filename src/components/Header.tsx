@@ -20,7 +20,7 @@ interface NavItem {
 interface HeaderProps {
   locale: Locale;
   dict: {
-    nav: { home: string; about: string; projects: string };
+    nav: { home: string; about: string; projects: string; surveys: string };
   };
   navTabs: NavTabItem[];
   sessionLabel?: string | null;
@@ -151,6 +151,7 @@ function HeaderInner({ locale, dict, navTabs, sessionLabel }: HeaderProps) {
     .filter(tab => tab.author === 'terry')
     .map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author }));
 
+  const surveysItem: NavItem = { href: `/${locale}/surveys`, label: dict.nav.surveys };
   const projectsItem: NavItem = { href: `/${locale}/projects`, label: dict.nav.projects };
   const aboutItem: NavItem = { href: `/${locale}/about`, label: dict.nav.about };
 
@@ -219,6 +220,7 @@ function HeaderInner({ locale, dict, navTabs, sessionLabel }: HeaderProps) {
             <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
             <div className="flex items-center gap-4 ml-1">
               {aiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
+              <TabLink item={surveysItem} />
               <TabLink item={projectsItem} />
             </div>
 
@@ -266,6 +268,7 @@ function HeaderInner({ locale, dict, navTabs, sessionLabel }: HeaderProps) {
             {/* AI group */}
             <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
             {aiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
+            <MobileTabLink item={surveysItem} />
             <MobileTabLink item={projectsItem} />
 
             {/* Separator */}
