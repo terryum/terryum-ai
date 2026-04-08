@@ -36,13 +36,13 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
       <div className="hidden sm:flex">
         {/* Col 1: Cover */}
         {survey.cover_image && (
-          <div className="w-36 flex-shrink-0 bg-bg-surface relative">
+          <div className="w-48 flex-shrink-0 bg-bg-surface relative">
             <Image
               src={survey.cover_image}
               alt={title}
               fill
               className="object-cover"
-              sizes="144px"
+              sizes="192px"
               unoptimized={survey.cover_image.startsWith('/api/')}
             />
           </div>
@@ -69,7 +69,7 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
 
         {/* Col 3: TOC — full height */}
         {survey.toc.length > 0 && (
-          <div className="w-64 flex-shrink-0 border-l border-line-default p-4">
+          <div className="w-52 flex-shrink-0 border-l border-line-default p-4">
             <span className="text-xs font-medium text-text-secondary">
               {locale === 'ko' ? '목차' : 'Contents'} ({survey.toc.length})
             </span>
