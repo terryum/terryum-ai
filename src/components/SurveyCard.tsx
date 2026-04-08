@@ -50,14 +50,16 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
 
         {/* Col 2: Description */}
         <div className="flex-1 min-w-0 p-4 flex flex-col gap-1.5 overflow-hidden">
-          <div>
-            <span className="text-xs text-text-muted">S{survey.survey_number}</span>
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-              {title}
-            </h3>
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <span className="text-xs text-text-muted">S{survey.survey_number}</span>
+              <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+                {title}
+              </h3>
+            </div>
+            <span className="text-xs text-text-muted whitespace-nowrap flex-shrink-0 mt-0.5">{updated}</span>
           </div>
           <p className="text-sm text-text-muted leading-relaxed">{description}</p>
-          <span className="text-xs text-text-muted text-right">{dateLabel}</span>
           <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1">
             {survey.tech_stack.map(tag => (
               <span key={tag} className="text-[11px] px-2 py-0.5 rounded-full bg-bg-surface text-text-muted">
@@ -98,14 +100,16 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
         )}
 
         <div className="p-4 flex flex-col gap-2">
-          <div>
-            <span className="text-xs text-text-muted">S{survey.survey_number}</span>
-            <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-              {title}
-            </h3>
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <span className="text-xs text-text-muted">S{survey.survey_number}</span>
+              <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+                {title}
+              </h3>
+            </div>
+            <span className="text-xs text-text-muted whitespace-nowrap flex-shrink-0 mt-0.5">{updated}</span>
           </div>
           <p className="text-sm text-text-muted leading-relaxed">{description}</p>
-          <span className="text-xs text-text-muted text-right">{dateLabel}</span>
 
           {survey.toc.length > 0 && (
             <div className="border-t border-line-default pt-2 mt-1">
