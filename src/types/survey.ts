@@ -11,7 +11,7 @@ export interface SurveyMeta {
   description: { ko: string; en: string };
   cover_image: string;
   tech_stack: string[];
-  toc: string[]; // table of contents (chapter titles)
+  toc: { ko: string; en: string }[]; // table of contents (chapter titles, bilingual)
   links: SurveyLink[];
   embed_url?: string;
   status: 'active' | 'archived' | 'wip';

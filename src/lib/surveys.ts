@@ -103,7 +103,7 @@ function mapRowToSurveyMeta(row: {
     description: (m.description as { ko: string; en: string }) || { ko: '', en: '' },
     cover_image: `/api/co/image/${row.slug}`,
     tech_stack: (m.tech_stack as string[]) || [],
-    toc: (m.toc as string[]) || [],
+    toc: (m.toc as { ko: string; en: string }[]) || [],
     links: (m.links as SurveyMeta['links']) || [],
     embed_url: m.embed_url as string | undefined,
     status: (m.status as SurveyMeta['status']) || 'active',
