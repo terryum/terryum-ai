@@ -54,6 +54,7 @@
 | `/share` | 소셜 미디어 발행 (Facebook, X, LinkedIn, Bluesky) | `/share #5 facebook,x` |
 | `/project` | 프로젝트 갤러리에 추가 | `/project https://github.com/user/repo` |
 | `/survey` | 배포된 서베이 책 사이트 등록 | `/survey https://survey.example.com` |
+| `/del` | 포스트를 안전하게 삭제하고 모든 참조 정리 | `/del #26` 또는 `/del 2505-forcevla --force` |
 | `/paper-search` | 지식 그래프 + 외부 검색으로 논문 추천 | `/paper-search #16 리타게팅 한계` |
 
 **`terry-obsidian`** — Obsidian 볼트 관리 + 콘텐츠 발행:

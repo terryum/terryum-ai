@@ -54,6 +54,7 @@ Skills are split across two workspaces:
 | `/share` | Share content to social media (Facebook, X, LinkedIn, Bluesky) | `/share #5 facebook,x` |
 | `/project` | Add a project to the gallery | `/project https://github.com/user/repo` |
 | `/survey` | Register a deployed survey book site | `/survey https://survey.example.com` |
+| `/del` | Safely delete a post and clean all references | `/del #26` or `/del 2505-forcevla --force` |
 | `/paper-search` | Recommend papers via knowledge graph + external search | `/paper-search #16 retargeting limitations` |
 
 **`terry-obsidian`** — Obsidian vault management + content publishing:
