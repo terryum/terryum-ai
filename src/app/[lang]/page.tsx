@@ -1,8 +1,8 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getAllPostsFromIndex } from '@/lib/posts';
-import { getAllProjects } from '@/lib/projects';
-import { getAllSurveys } from '@/lib/surveys';
+import { loadPublicProjects } from '@/lib/projects';
+import { loadPublicSurveys } from '@/lib/surveys';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { TAB_CONFIG } from '@/lib/site-config';
 import { normalizeTagSlug } from '@/lib/tags';
@@ -44,8 +44,8 @@ export default async function HomePage({
     getDictionary(lang),
     getBioContent(lang),
     getAllPostsFromIndex(lang),
-    getAllProjects(),
-    getAllSurveys(),
+    loadPublicProjects(),
+    loadPublicSurveys(),
   ]);
 
   const l = lang as 'ko' | 'en';

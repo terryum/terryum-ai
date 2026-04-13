@@ -1,7 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
-import { getPrivateProjects, getPrivateProject, getAllPrivateProjects } from '@/lib/private-content';
+// Dynamic imports for auth/private — avoids pulling cookies() into static render path
+// import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
+// import { getPrivateProjects, getPrivateProject, getAllPrivateProjects } from '@/lib/private-content';
 import type { ProjectMeta } from '@/types/project';
 
 const PROJECTS_PATH = path.join(process.cwd(), 'projects', 'gallery', 'projects.json');
@@ -12,16 +13,14 @@ export async function loadPublicProjects(): Promise<ProjectMeta[]> {
 }
 
 export async function getAllProjects(): Promise<ProjectMeta[]> {
-  const [publicProjects, group, admin] = await Promise.all([
-    loadPublicProjects(),
-    getAuthenticatedGroup(),
-    isAdminSession(),
-  ]);
-
+  const publicProjects = await loadPublicProjects();
   const projects = [...publicProjects];
 
-  // Merge private projects from Supabase if authenticated
+  // Merge private projects (dynamic import to avoid cookies() in static path)
+  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
+  const [group, admin] = await Promise.all([getAuthenticatedGroup(), isAdminSession()]);
   if (group || admin) {
+    const { getAllPrivateProjects, getPrivateProjects } = await import('@/lib/private-content');
     const privateProjects = admin
       ? await getAllPrivateProjects()
       : group ? await getPrivateProjects(group) : [];
@@ -37,22 +36,19 @@ export async function getAllProjects(): Promise<ProjectMeta[]> {
 }
 
 export async function getProject(slug: string): Promise<ProjectMeta | null> {
-  // Try public projects first
   const publicProjects = await loadPublicProjects();
   const project = publicProjects.find(p => p.slug === slug) ?? null;
   if (project) return project;
 
-  // Fallback: try Supabase private projects (with auth check)
-  const [group, admin] = await Promise.all([
-    getAuthenticatedGroup(),
-    isAdminSession(),
-  ]);
+  // Fallback: try Supabase private projects (dynamic import)
+  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
+  const [group, admin] = await Promise.all([getAuthenticatedGroup(), isAdminSession()]);
   if (!group && !admin) return null;
 
+  const { getPrivateProject } = await import('@/lib/private-content');
   const privateProject = await getPrivateProject(slug);
   if (!privateProject) return null;
 
-  // Verify access
   if (privateProject.visibility === 'group' && !admin) {
     if (!group || !(privateProject.allowed_groups?.includes(group))) return null;
   }

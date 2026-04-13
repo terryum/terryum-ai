@@ -5,8 +5,9 @@ import type { Post, PostMeta, FigureItem, Reference, PostRelation, AISummary } f
 import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath } from '@/lib/paths';
 import { TAB_CONFIG } from '@/lib/site-config';
-import { getPrivatePosts, getPrivatePost, getAllPrivatePosts } from '@/lib/private-content';
-import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
+// Dynamic imports for auth/private — avoids pulling cookies() into static render path
+// import { getPrivatePosts, getPrivatePost, getAllPrivatePosts } from '@/lib/private-content';
+// import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
 
 const INDEX_PATH = path.join(process.cwd(), 'posts', 'index.json');
 const TAXONOMY_PATH = path.join(process.cwd(), 'posts', 'taxonomy.json');
@@ -218,7 +219,8 @@ export async function getPost(slug: string, locale: string): Promise<Post | null
     }
   }
 
-  // Fallback: try Supabase private_content
+  // Fallback: try Supabase private_content (dynamic import to avoid cookies() in static path)
+  const { getPrivatePost } = await import('@/lib/private-content');
   return getPrivatePost(slug, locale);
 }
 
@@ -294,12 +296,14 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
     (meta): meta is PostMeta => meta !== null && meta.status === 'published'
   );
 
-  // Merge private posts from Supabase if authenticated
+  // Merge private posts from Supabase if authenticated (dynamic import to avoid cookies() in static path)
+  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
   const [group, admin] = await Promise.all([
     getAuthenticatedGroup(),
     isAdminSession(),
   ]);
   if (group || admin) {
+    const { getAllPrivatePosts, getPrivatePosts } = await import('@/lib/private-content');
     const privatePosts = admin
       ? await getAllPrivatePosts(locale)
       : group ? await getPrivatePosts(group, locale) : [];
@@ -317,64 +321,62 @@ export async function getAllPosts(locale: string): Promise<PostMeta[]> {
 }
 
 /**
- * Lightweight post loader using pre-built index.json.
+ * Lightweight post loader using pre-built index.json (public posts only).
  * Reads a single JSON file instead of 50+ MDX files.
+ * Does NOT call cookies() — safe for ISR/static pages.
  * Use for homepage, feeds, and anywhere full MDX content is not needed.
  */
 export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> {
   const index = await loadIndexJson();
   const posts = (index as { posts: Array<Record<string, unknown>> }).posts;
-  if (!posts) return getAllPosts(locale);
+  if (!posts) return getAllPublicPosts(locale);
 
-  const result: PostMeta[] = posts.map((p) => ({
-    post_id: p.slug as string,
-    locale,
-    title: (locale === 'ko' ? p.title_ko : p.title_en) as string,
-    summary: (locale === 'ko' ? p.summary_ko as string : p.summary_en as string) || (p.ai_summary as Record<string, string>)?.one_liner || '',
-    slug: p.slug as string,
-    published_at: p.published_at as string,
-    updated_at: p.published_at as string,
-    status: 'published' as const,
-    content_type: p.content_type as PostMeta['content_type'],
-    tags: (p.tags as string[]) ?? [],
-    cover_image: `/posts/${p.slug}/cover.webp`,
-    cover_thumb: `/posts/${p.slug}/cover-thumb.webp`,
-    post_number: p.post_number as number,
-    domain: p.domain as string,
-    subfields: (p.subfields as string[]) ?? [],
-    key_concepts: (p.key_concepts as string[]) ?? [],
-    methodology: (p.methodology as string[]) ?? [],
-    contribution_type: p.contribution_type as PostMeta['contribution_type'],
-    relations: (p.relations as PostMeta['relations']) ?? [],
-    ai_summary: p.ai_summary as PostMeta['ai_summary'],
-    taxonomy_primary: p.taxonomy_primary as string,
-    taxonomy_secondary: (p.taxonomy_secondary as string[]) ?? [],
-    source_author: p.source_author as string,
-    source_date: p.source_date as string,
-    source_type: p.source_type as string,
-    visibility: (p.visibility as PostMeta['visibility']) || 'public',
-    allowed_groups: (p.allowed_groups as string[]) || undefined,
-  }));
-
-  // Merge private posts from Supabase if authenticated
-  const [group, admin] = await Promise.all([
-    getAuthenticatedGroup(),
-    isAdminSession(),
-  ]);
-  if (group || admin) {
-    const privatePosts = admin
-      ? await getAllPrivatePosts(locale)
-      : group ? await getPrivatePosts(group, locale) : [];
-    const existingSlugs = new Set(result.map(p => p.slug));
-    for (const pp of privatePosts) {
-      if (!existingSlugs.has(pp.slug)) result.push(pp);
-    }
-  }
+  const result: PostMeta[] = posts
+    .filter((p) => (p.visibility as string || 'public') === 'public')
+    .map((p) => ({
+      post_id: p.slug as string,
+      locale,
+      title: (locale === 'ko' ? p.title_ko : p.title_en) as string,
+      summary: (locale === 'ko' ? p.summary_ko as string : p.summary_en as string) || (p.ai_summary as Record<string, string>)?.one_liner || '',
+      slug: p.slug as string,
+      published_at: p.published_at as string,
+      updated_at: p.published_at as string,
+      status: 'published' as const,
+      content_type: p.content_type as PostMeta['content_type'],
+      tags: (p.tags as string[]) ?? [],
+      cover_image: `/posts/${p.slug}/cover.webp`,
+      cover_thumb: `/posts/${p.slug}/cover-thumb.webp`,
+      post_number: p.post_number as number,
+      domain: p.domain as string,
+      subfields: (p.subfields as string[]) ?? [],
+      key_concepts: (p.key_concepts as string[]) ?? [],
+      methodology: (p.methodology as string[]) ?? [],
+      contribution_type: p.contribution_type as PostMeta['contribution_type'],
+      relations: (p.relations as PostMeta['relations']) ?? [],
+      ai_summary: p.ai_summary as PostMeta['ai_summary'],
+      taxonomy_primary: p.taxonomy_primary as string,
+      taxonomy_secondary: (p.taxonomy_secondary as string[]) ?? [],
+      source_author: p.source_author as string,
+      source_date: p.source_date as string,
+      source_type: p.source_type as string,
+      visibility: (p.visibility as PostMeta['visibility']) || 'public',
+      allowed_groups: (p.allowed_groups as string[]) || undefined,
+    }));
 
   return result.sort((a, b) => {
     const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
     if (dateDiff !== 0) return dateDiff;
     return (b.post_number ?? 0) - (a.post_number ?? 0);
+  });
+}
+
+/** Public posts only — no cookies() call, safe for ISR/static rendering */
+function getAllPublicPosts(locale: string): Promise<PostMeta[]> {
+  return getAllSlugs().then(async (slugs) => {
+    const allMeta = await Promise.all(slugs.map((slug) => getPostMeta(slug, locale)));
+    return allMeta
+      .filter((meta): meta is PostMeta => meta !== null && meta.status === 'published')
+      .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
   });
 }
 

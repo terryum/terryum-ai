@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
+// Dynamic imports for auth — avoids pulling cookies() into static render path
 import { isSupabaseAdminConfigured, getSupabaseAdmin } from '@/lib/supabase';
 import type { SurveyMeta } from '@/types/survey';
 
@@ -37,13 +37,12 @@ async function getAllPrivateSurveys(): Promise<SurveyMeta[]> {
 }
 
 export async function getAllSurveys(): Promise<SurveyMeta[]> {
-  const [publicSurveys, group, admin] = await Promise.all([
-    loadPublicSurveys(),
-    getAuthenticatedGroup(),
-    isAdminSession(),
-  ]);
+  const publicSurveys = await loadPublicSurveys();
   const surveys = [...publicSurveys];
 
+  // Dynamic import to avoid cookies() in static path
+  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
+  const [group, admin] = await Promise.all([getAuthenticatedGroup(), isAdminSession()]);
   if (group || admin) {
     const privateSurveys = admin
       ? await getAllPrivateSurveys()
@@ -64,11 +63,9 @@ export async function getSurvey(slug: string): Promise<SurveyMeta | null> {
   const survey = publicSurveys.find(s => s.slug === slug) ?? null;
   if (survey) return survey;
 
-  // Fallback: Supabase
-  const [group, admin] = await Promise.all([
-    getAuthenticatedGroup(),
-    isAdminSession(),
-  ]);
+  // Fallback: Supabase (dynamic import)
+  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
+  const [group, admin] = await Promise.all([getAuthenticatedGroup(), isAdminSession()]);
   if (!group && !admin) return null;
 
   if (!isSupabaseAdminConfigured()) return null;
