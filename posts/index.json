@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-12T05:45:50.925Z",
-  "total_posts": 26,
+  "generated_at": "2026-04-13T00:05:17.206Z",
+  "total_posts": 27,
   "posts": [
     {
       "post_number": 1,
@@ -1811,6 +1811,60 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 27,
+      "slug": "260413-new-leverage",
+      "content_type": "essays",
+      "title_en": "The Formula of Leverage Has Changed",
+      "title_ko": "레버리지의 공식이 바뀌었다",
+      "summary_ko": "레버리지의 원천이 바뀌었다. 조직이 아니라 나 자신을 복제하는 시대, 병목은 곧 나의 수준이다.",
+      "summary_en": "Leverage no longer comes from organizations. In an era of self-replication through AI agents, the bottleneck is you.",
+      "domain": "philosophy",
+      "subfields": [
+        "ai-era-reflection",
+        "leadership"
+      ],
+      "key_concepts": [
+        "leverage",
+        "ai-agent",
+        "self-replication",
+        "player-vs-manager",
+        "bottleneck-is-self"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Leadership",
+        "Personal Growth"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-04-13T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI agent 시대에 레버리지의 공식이 '조직의 크기'에서 '복제 원본의 수준'으로 바뀌었다는 에세이",
+        "problem": "전통적 레버리지는 조직을 키워 사람을 움직이는 것이었으나, AI agent로 자기 복제가 가능해지며 공식이 변함",
+        "solution": "매니저에서 플레이어로 돌아가, 복제의 원본인 자기 자신의 역량을 극한까지 끌어올리는 전략",
+        "key_result": "시간, 체력, 집중력, 노이즈 차단 능력이 새로운 시대의 가장 귀한 자원이라는 선언",
+        "limitations": [
+          "개인적 에세이로 실증적 근거 없음",
+          "AI agent의 자율적 초월 가능성에 대한 깊은 논의 부재"
+        ]
+      },
+      "relations": [],
+      "idea_status": "exploring",
+      "related_posts": [
+        "260406-writing-daily-by-hand",
+        "260310-brain-augmentation",
+        "2604-harnessing-claude-intelligence"
+      ],
+      "taxonomy_primary": null,
+      "taxonomy_secondary": [],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -2646,13 +2700,28 @@
     ],
     "ai-authorship": [
       26
+    ],
+    "leverage": [
+      27
+    ],
+    "ai-agent": [
+      27
+    ],
+    "self-replication": [
+      27
+    ],
+    "player-vs-manager": [
+      27
+    ],
+    "bottleneck-is-self": [
+      27
     ]
   },
   "domain_stats": {
     "robotics": 20,
     "ml": 2,
     "ai": 3,
-    "philosophy": 1
+    "philosophy": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 6,
