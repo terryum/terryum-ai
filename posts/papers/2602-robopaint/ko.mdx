@@ -1,15 +1,80 @@
 ---
-locale: "ko"
-title: "RoboPaint: 인간 시연에서 어떤 로봇·어떤 뷰로도"
-subtitle: "텔레오퍼 없이 인간 글러브 → 3DGS 시뮬로 로봇 데이터 생성"
-summary: "텔레오퍼레이션 없이 인간 시연을 어떤 로봇·카메라 뷰의 훈련 데이터로도 변환하는 Real-Sim-Real 파이프라인. 기구학·촉각 제약을 결합한 Dex-Tactile 리타겟팅으로 리타겟팅 성공률 84% 달성, 생성된 데이터로 학습한 π0.5 VLA가 3개 태스크에서 평균 80% 성공률을 기록한다."
-card_summary: "텔레오퍼레이션 없이 인간 글러브 시연 → Dex-Tactile 리타겟팅 + 3DGS 렌더링으로 어떤 로봇·카메라 뷰로도 VLA 훈련 데이터를 생성하는 Real-Sim-Real 파이프라인"
-cover_caption: "System Overview of the Real-Sim-Real Pipeline. Our framework begins with high-precision human data collection using instrumented gloves under our multiview Data-Acquisition-Room. The raw data is then processed through object pose estimation and Dex-Tactile joint retargeting to obtain the movement of target robot embodiment and object. The deployment scene is then reconstructed via 3D Gaussian Splatting and imported into simulation environment. Finally, we drive robot and objects accordingly and record robot demonstration from arbitrary view."
-published_at: "2026-03-19T10:00:00+09:00"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2602.05325"
-source_date: "2026-02-05"
-terrys_memo: ""
+locale: ko
+title: 'RoboPaint: 인간 시연에서 어떤 로봇·어떤 뷰로도'
+subtitle: 텔레오퍼 없이 인간 글러브 → 3DGS 시뮬로 로봇 데이터 생성
+summary: >-
+  텔레오퍼레이션 없이 인간 시연을 어떤 로봇·카메라 뷰의 훈련 데이터로도 변환하는 Real-Sim-Real 파이프라인. 기구학·촉각 제약을
+  결합한 Dex-Tactile 리타겟팅으로 리타겟팅 성공률 84% 달성, 생성된 데이터로 학습한 π0.5 VLA가 3개 태스크에서 평균 80%
+  성공률을 기록한다.
+card_summary: >-
+  텔레오퍼레이션 없이 인간 글러브 시연 → Dex-Tactile 리타겟팅 + 3DGS 렌더링으로 어떤 로봇·카메라 뷰로도 VLA 훈련 데이터를
+  생성하는 Real-Sim-Real 파이프라인
+cover_caption: >-
+  System Overview of the Real-Sim-Real Pipeline. Our framework begins with
+  high-precision human data collection using instrumented gloves under our
+  multiview Data-Acquisition-Room. The raw data is then processed through object
+  pose estimation and Dex-Tactile joint retargeting to obtain the movement of
+  target robot embodiment and object. The deployment scene is then reconstructed
+  via 3D Gaussian Splatting and imported into simulation environment. Finally,
+  we drive robot and objects accordingly and record robot demonstration from
+  arbitrary view.
+published_at: '2026-03-19T10:00:00+09:00'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2602.05325'
+source_date: '2026-02-05'
+terrys_memo: ''
+references:
+  - title: 'Embodied Hands: Modeling and Capturing Hands and Bodies Together'
+    author: Javier Romero et al.
+    description: '손 형태·포즈의 통계적 모델 MANO를 3D 스캔 1,000개에서 학습, SMPL 신체와 통합해 전신 4D 캡처 실현'
+    post_slug: 2201-mano-hand-model
+    category: recent
+    project_url: 'https://arxiv.org/abs/2201.02610'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
+  - title: 'DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation'
+    author: Hao-Shu Fang et al.
+    description: >-
+      DEXOP is a passive exoskeleton that mechanically links human and robot
+      fingers, enabling direct-contact dexterous demonstration collection at up
+      to 8× the speed of teleoperation.
+    post_slug: 2509-dexop
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2509.04441'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexop-device-robotic-transfer'
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      Generalist VLA policy using pre-trained VLM + flow matching action expert
+      for multi-robot control
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=A+Vision-Language-Action+Flow+Model+for+General+Robot+Control&btnG=
 ---
 
 ## TL;DR

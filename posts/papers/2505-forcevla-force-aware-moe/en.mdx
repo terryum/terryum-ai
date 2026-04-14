@@ -1,34 +1,87 @@
 ---
-locale: "en"
-title: "ForceVLA: Force-aware MoE for Contact-rich Robot Manipulation"
-summary: "Existing VLA models rely on vision and language alone, struggling with contact-rich tasks. ForceVLA integrates 6-axis force-torque feedback via a Mixture-of-Experts fusion module, achieving a 23.2%p average improvement over baselines across five contact-rich manipulation tasks."
-card_summary: "VLA models lack force sensing, limiting contact-rich manipulation. ForceVLA solves this with an MoE-based force-vision-language fusion that dynamically routes force information importance across task phases."
-terrys_memo: ""
-translation_of: "2505-forcevla-force-aware-moe:ko"
+locale: en
+title: 'ForceVLA: Force-aware MoE for Contact-rich Robot Manipulation'
+summary: >-
+  Existing VLA models rely on vision and language alone, struggling with
+  contact-rich tasks. ForceVLA integrates 6-axis force-torque feedback via a
+  Mixture-of-Experts fusion module, achieving a 23.2%p average improvement over
+  baselines across five contact-rich manipulation tasks.
+card_summary: >-
+  VLA models lack force sensing, limiting contact-rich manipulation. ForceVLA
+  solves this with an MoE-based force-vision-language fusion that dynamically
+  routes force information importance across task phases.
+terrys_memo: ''
+translation_of: '2505-forcevla-force-aware-moe:ko'
 translated_to: []
 references:
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Black et al. (2024)"
-    description: "The base framework for ForceVLA. A VLA flow model on top of which ForceVLA adds force-aware MoE. Used as the primary baseline in this paper."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control"
-    project_url: "https://physicalintelligence.company/blog/pi0"
-    post_slug: "2410-pi0-vla-flow-model"
-    category: "foundational"
-  - title: "RT-1: Robotics Transformer for Real-World Control at Scale"
-    author: "Brohan et al. (2022)"
-    description: "Large-scale real-world robot data Transformer. A foundational prior work for the VLA research line that ForceVLA builds upon."
-    arxiv_url: "https://arxiv.org/abs/2212.06817"
-    scholar_url: "https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale"
-    project_url: "https://robotics-transformer1.github.io"
-    category: "foundational"
-  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
-    author: "Kim et al. (2024)"
-    description: "Open-source VLA model used as a key comparison point, demonstrating that ForceVLA's force-aware fusion outperforms existing VLA approaches."
-    arxiv_url: "https://arxiv.org/abs/2406.09246"
-    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
-    project_url: "https://openvla.github.io/"
-    category: "recent"
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      The base framework for ForceVLA. A VLA flow model on top of which ForceVLA
+      adds force-aware MoE. Used as the primary baseline in this paper.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control
+    project_url: 'https://physicalintelligence.company/blog/pi0'
+    post_slug: 2410-pi0-vla-flow-model
+    category: foundational
+  - title: 'RT-1: Robotics Transformer for Real-World Control at Scale'
+    author: Brohan et al. (2022)
+    description: >-
+      Large-scale real-world robot data Transformer. A foundational prior work
+      for the VLA research line that ForceVLA builds upon.
+    arxiv_url: 'https://arxiv.org/abs/2212.06817'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale
+    project_url: 'https://robotics-transformer1.github.io'
+    category: foundational
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Kim et al. (2024)
+    description: >-
+      Open-source VLA model used as a key comparison point, demonstrating that
+      ForceVLA's force-aware fusion outperforms existing VLA approaches.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model
+    project_url: 'https://openvla.github.io/'
+    category: recent
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
 ---
 
 ## TL;DR

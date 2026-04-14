@@ -1,40 +1,84 @@
 ---
-locale: "ko"
-title: "RoboClaw: 확장 가능한 장기 로봇 조작을 위한 에이전틱 프레임워크"
-subtitle: "데이터 수집부터 배포까지 VLM 에이전트가 통합 관리하는 로봇 라이프사이클"
-summary: "VLA 시스템의 long-horizon 태스크 확장 문제를 해결하기 위해, 데이터 수집·정책 학습·태스크 실행을 VLM 기반 단일 에이전트로 통합하는 RoboClaw 프레임워크를 제안한다. Entangled Action Pairs(EAP)로 자율 데이터 수집을 가능하게 하고, long-horizon 태스크에서 성공률 25% 향상 및 인간 시간 투자 53.7% 감소를 달성한다."
-card_summary: "VLA의 데이터 수집·학습·배포를 VLM 에이전트 하나로 통합하고, 순방향-역방향 액션 쌍(EAP)으로 자율 데이터 수집을 가능하게 하여 long-horizon 조작 태스크에서 성공률 25% 향상과 인간 개입 53.7% 감소를 달성했다."
-cover_caption: "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management."
-published_at: "2026-04-03T00:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2603.11558"
-source_date: "2026-03-12T00:00:00Z"
-display_tags: ["Robotics", "VLA", "Agentic Framework", "Long-Horizon", "Manipulation"]
+locale: ko
+title: 'RoboClaw: 확장 가능한 장기 로봇 조작을 위한 에이전틱 프레임워크'
+subtitle: 데이터 수집부터 배포까지 VLM 에이전트가 통합 관리하는 로봇 라이프사이클
+summary: >-
+  VLA 시스템의 long-horizon 태스크 확장 문제를 해결하기 위해, 데이터 수집·정책 학습·태스크 실행을 VLM 기반 단일 에이전트로
+  통합하는 RoboClaw 프레임워크를 제안한다. Entangled Action Pairs(EAP)로 자율 데이터 수집을 가능하게 하고,
+  long-horizon 태스크에서 성공률 25% 향상 및 인간 시간 투자 53.7% 감소를 달성한다.
+card_summary: >-
+  VLA의 데이터 수집·학습·배포를 VLM 에이전트 하나로 통합하고, 순방향-역방향 액션 쌍(EAP)으로 자율 데이터 수집을 가능하게 하여
+  long-horizon 조작 태스크에서 성공률 25% 향상과 인간 개입 53.7% 감소를 달성했다.
+cover_caption: >-
+  Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot
+  developer specifies system configuration, MCP tools, and skills, while
+  RoboClaw provides file-based memory, memory embeddings, search, and
+  management.
+published_at: '2026-04-03T00:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2603.11558'
+source_date: '2026-03-12T00:00:00Z'
+display_tags:
+  - Robotics
+  - VLA
+  - Agentic Framework
+  - Long-Horizon
+  - Manipulation
 references:
-  - title: "π₀.₅: a Vision-Language-Action Flow Model for General Robot Control"
-    author: "Physical Intelligence et al."
-    description: "RoboClaw가 기반으로 사용하는 VLA 정책 모델. RoboClaw는 π₀.₅를 LoRA fine-tuning하여 태스크별 정책을 학습하며, EAP를 통해 자율적으로 학습 데이터를 수집한다."
-    arxiv_url: "https://arxiv.org/abs/2502.16989"
-    scholar_url: "https://scholar.google.com/scholar?q=pi-0.5-vision-language-action"
-    category: "foundational"
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Kevin Black et al."
-    description: "대규모 로봇 데이터로 사전학습한 VLA 모델의 원조. RoboClaw는 이 계열의 VLA를 정책 백본으로 사용하며, 학습-배포 파이프라인의 분리 문제를 통합 에이전트로 해결한다."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
-    category: "foundational"
-  - title: "Model Context Protocol (MCP)"
-    author: "Anthropic"
-    description: "AI 에이전트가 외부 도구를 호출하는 표준 프로토콜. RoboClaw는 MCP를 통해 로봇 정책 시작/종료, 환경 관찰, 인간 호출 등의 도구를 에이전트에 제공한다."
-    arxiv_url: ""
-    project_url: "https://modelcontextprotocol.io"
-    category: "foundational"
-  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
-    author: "Max Fu et al."
-    description: "Code-as-Policy 기반 로봇 조작 에이전트 벤치마크. RoboClaw와 달리 코드 생성 방식의 에이전틱 접근이며, 두 연구 모두 VLM/LLM 에이전트로 로봇 조작을 확장하는 방향을 탐구한다."
-    arxiv_url: "https://arxiv.org/abs/2603.22435"
-    scholar_url: "https://scholar.google.com/scholar?q=cap-x-framework-benchmarking"
-    category: "recent"
+  - title: 'π₀.₅: a Vision-Language-Action Flow Model for General Robot Control'
+    author: Physical Intelligence et al.
+    description: >-
+      RoboClaw가 기반으로 사용하는 VLA 정책 모델. RoboClaw는 π₀.₅를 LoRA fine-tuning하여 태스크별 정책을
+      학습하며, EAP를 통해 자율적으로 학습 데이터를 수집한다.
+    arxiv_url: 'https://arxiv.org/abs/2502.16989'
+    scholar_url: 'https://scholar.google.com/scholar?q=pi-0.5-vision-language-action'
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      대규모 로봇 데이터로 사전학습한 VLA 모델의 원조. RoboClaw는 이 계열의 VLA를 정책 백본으로 사용하며, 학습-배포
+      파이프라인의 분리 문제를 통합 에이전트로 해결한다.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: 'https://scholar.google.com/scholar?q=pi0-vision-language-action-flow'
+    category: foundational
+  - title: Model Context Protocol (MCP)
+    author: Anthropic
+    description: >-
+      AI 에이전트가 외부 도구를 호출하는 표준 프로토콜. RoboClaw는 MCP를 통해 로봇 정책 시작/종료, 환경 관찰, 인간 호출
+      등의 도구를 에이전트에 제공한다.
+    arxiv_url: ''
+    project_url: 'https://modelcontextprotocol.io'
+    category: foundational
+  - title: >-
+      CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+      Manipulation
+    author: Max Fu et al.
+    description: >-
+      Code-as-Policy 기반 로봇 조작 에이전트 벤치마크. RoboClaw와 달리 코드 생성 방식의 에이전틱 접근이며, 두 연구
+      모두 VLM/LLM 에이전트로 로봇 조작을 확장하는 방향을 탐구한다.
+    arxiv_url: 'https://arxiv.org/abs/2603.22435'
+    scholar_url: 'https://scholar.google.com/scholar?q=cap-x-framework-benchmarking'
+    category: recent
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      Generalist VLA policy using pre-trained VLM + flow matching action expert
+      for multi-robot control
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=A+Vision-Language-Action+Flow+Model+for+General+Robot+Control&btnG=
+  - title: >-
+      CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+      Manipulation
+    author: Max Fu et al.
+    description: >-
+      Open-access framework for systematically benchmarking and improving
+      Code-as-Policy agents in robot manipulation
+    post_slug: 2603-capx-coding-agents-manipulation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.22435'
 ---
 
 ## TL;DR

@@ -1,40 +1,89 @@
 ---
-locale: "en"
-title: "AI Co-scientist: Multi-agent System for Autonomous Scientific Discovery"
-summary: "Google's AI co-scientist, built on Gemini 2.0, is a multi-agent system inspired by the scientific method that uses Elo-based tournaments and simulated scientific debates to self-improve research hypothesis generation. The system achieved wet-lab validation across three biomedical areas: AML drug repurposing, novel liver fibrosis epigenetic targets, and parallel in silico recapitulation of an unpublished antimicrobial resistance breakthrough."
-card_summary: "Can LLMs go beyond literature summarization to generate truly novel hypotheses? Google's AI co-scientist runs Gemini 2.0 multi-agents in a generate-debate-evolve loop with Elo tournaments for self-improvement, validated by wet-lab experiments across AML, liver fibrosis, and antimicrobial resistance."
-translation_of: "2502-ai-co-scientist:ko"
-terrys_memo: ""
+locale: en
+title: 'AI Co-scientist: Multi-agent System for Autonomous Scientific Discovery'
+summary: >-
+  Google's AI co-scientist, built on Gemini 2.0, is a multi-agent system
+  inspired by the scientific method that uses Elo-based tournaments and
+  simulated scientific debates to self-improve research hypothesis generation.
+  The system achieved wet-lab validation across three biomedical areas: AML drug
+  repurposing, novel liver fibrosis epigenetic targets, and parallel in silico
+  recapitulation of an unpublished antimicrobial resistance breakthrough.
+card_summary: >-
+  Can LLMs go beyond literature summarization to generate truly novel
+  hypotheses? Google's AI co-scientist runs Gemini 2.0 multi-agents in a
+  generate-debate-evolve loop with Elo tournaments for self-improvement,
+  validated by wet-lab experiments across AML, liver fibrosis, and antimicrobial
+  resistance.
+translation_of: '2502-ai-co-scientist:ko'
+terrys_memo: ''
 references:
-  - title: "Highly accurate protein structure prediction with AlphaFold"
-    author: "Jumper et al. (2021)"
-    description: "The deep learning breakthrough that solved protein structure prediction at scale. Directly cited as a motivating success story showing that specialized AI can accelerate scientific discovery, setting the stage for AI co-scientist's more general approach to hypothesis generation."
-    arxiv_url: "https://arxiv.org/abs/2106.14799"
-    scholar_url: "https://scholar.google.com/scholar?q=Highly+accurate+protein+structure+prediction+with+AlphaFold"
-    category: "foundational"
-  - title: "Mastering the game of Go with deep neural networks and tree search"
-    author: "Silver et al. (2016)"
-    description: "AlphaGo's use of Monte Carlo Tree Search for test-time compute scaling to achieve superhuman Go performance. Explicitly cited as a core inspiration for the co-scientist's Elo tournament design and test-time compute scaling paradigm."
-    scholar_url: "https://scholar.google.com/scholar?q=Mastering+game+of+go+deep+neural+networks+tree+search+Silver+2016"
-    category: "foundational"
-  - title: "GPQA: A Graduate-Level Google-Proof Q&A Benchmark"
-    author: "Rein et al. (2023)"
-    description: "Graduate-level Q&A benchmark created by PhD experts in biology, physics, and chemistry. Used to validate that the co-scientist's Elo auto-evaluation metric correlates with actual accuracy. The co-scientist achieves 78.4% top-1 accuracy on the GPQA diamond set by selecting highest-Elo responses."
-    arxiv_url: "https://arxiv.org/abs/2311.12022"
-    scholar_url: "https://scholar.google.com/scholar?q=GPQA+Graduate-Level+Google-Proof+QA+Benchmark"
-    category: "foundational"
-  - title: "The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery"
-    author: "Lu et al. (2024)"
-    description: "A fully automated system where multiple LLM agents handle all stages of research from problem definition through experiment execution to paper writing. AI co-scientist contrasts by adopting a scientist-in-the-loop collaborative paradigm rather than full automation, with stronger automated and wet-lab evaluations."
-    arxiv_url: "https://arxiv.org/abs/2408.06292"
-    scholar_url: "https://scholar.google.com/scholar?q=The+AI+Scientist+Towards+Fully+Automated+Open-Ended+Scientific+Discovery"
-    category: "recent"
-  - title: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning"
-    author: "Guo et al. (2025)"
-    description: "Reinforcement learning approach to refine chain-of-thought for improved complex reasoning. AI co-scientist scales test-time compute without any additional learning, instead relying purely on inductive biases derived from the scientific method."
-    arxiv_url: "https://arxiv.org/abs/2501.12948"
-    scholar_url: "https://scholar.google.com/scholar?q=DeepSeek-R1+Incentivizing+Reasoning+Capability+LLMs+Reinforcement+Learning"
-    category: "recent"
+  - title: Highly accurate protein structure prediction with AlphaFold
+    author: Jumper et al. (2021)
+    description: >-
+      The deep learning breakthrough that solved protein structure prediction at
+      scale. Directly cited as a motivating success story showing that
+      specialized AI can accelerate scientific discovery, setting the stage for
+      AI co-scientist's more general approach to hypothesis generation.
+    arxiv_url: 'https://arxiv.org/abs/2106.14799'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Highly+accurate+protein+structure+prediction+with+AlphaFold
+    category: foundational
+  - title: Mastering the game of Go with deep neural networks and tree search
+    author: Silver et al. (2016)
+    description: >-
+      AlphaGo's use of Monte Carlo Tree Search for test-time compute scaling to
+      achieve superhuman Go performance. Explicitly cited as a core inspiration
+      for the co-scientist's Elo tournament design and test-time compute scaling
+      paradigm.
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Mastering+game+of+go+deep+neural+networks+tree+search+Silver+2016
+    category: foundational
+  - title: 'GPQA: A Graduate-Level Google-Proof Q&A Benchmark'
+    author: Rein et al. (2023)
+    description: >-
+      Graduate-level Q&A benchmark created by PhD experts in biology, physics,
+      and chemistry. Used to validate that the co-scientist's Elo
+      auto-evaluation metric correlates with actual accuracy. The co-scientist
+      achieves 78.4% top-1 accuracy on the GPQA diamond set by selecting
+      highest-Elo responses.
+    arxiv_url: 'https://arxiv.org/abs/2311.12022'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=GPQA+Graduate-Level+Google-Proof+QA+Benchmark
+    category: foundational
+  - title: 'The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery'
+    author: Lu et al. (2024)
+    description: >-
+      A fully automated system where multiple LLM agents handle all stages of
+      research from problem definition through experiment execution to paper
+      writing. AI co-scientist contrasts by adopting a scientist-in-the-loop
+      collaborative paradigm rather than full automation, with stronger
+      automated and wet-lab evaluations.
+    arxiv_url: 'https://arxiv.org/abs/2408.06292'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=The+AI+Scientist+Towards+Fully+Automated+Open-Ended+Scientific+Discovery
+    category: recent
+  - title: >-
+      DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement
+      Learning
+    author: Guo et al. (2025)
+    description: >-
+      Reinforcement learning approach to refine chain-of-thought for improved
+      complex reasoning. AI co-scientist scales test-time compute without any
+      additional learning, instead relying purely on inductive biases derived
+      from the scientific method.
+    arxiv_url: 'https://arxiv.org/abs/2501.12948'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=DeepSeek-R1+Incentivizing+Reasoning+Capability+LLMs+Reinforcement+Learning
+    category: recent
+  - title: Towards a Medical AI Scientist
+    author: Hongtao Wu et al.
+    description: >-
+      First autonomous research framework specialized for clinical medicine with
+      clinician-engineer co-reasoning for evidence-grounded ideation and
+      MICCAI-level manuscript generation
+    post_slug: 2603-medical-ai-scientist
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.28589'
 ---
 
 ## TL;DR

@@ -1,39 +1,124 @@
 ---
-locale: "en"
-title: "ExoStart: From 10 Exoskeleton Demos to Dexterous Robot Manipulation"
-summary: "ExoStart collects ~10 demonstrations with a sensorized exoskeleton kinematically equivalent to the robot hand, converts them into physically feasible simulation trajectories via MuJoCo dynamics filtering, then trains an auto-curriculum RL teacher policy and distills it into a vision-based student for zero-shot real-world transfer. It achieves >50% success on 6 of 7 complex dexterous tasks."
-card_summary: "Starting from as few as 10 exoskeleton demonstrations, ExoStart uses dynamics filtering to amplify them into physically valid sim trajectories, then trains via auto-curriculum RL and distills into a vision-based student policy for zero-shot real-world transfer — achieving >50% success on 6 of 7 complex dexterous tasks."
-seo_title: "ExoStart: Efficient Dexterous Manipulation Learning with Sensorized Exoskeleton Demonstrations"
-seo_description: "ExoStart combines ~10 exoskeleton demonstrations, MuJoCo dynamics filtering, auto-curriculum RL, and vision-based policy distillation to achieve >50% real-world success on 6 of 7 complex dexterous manipulation tasks."
-translation_of: "2506-exostart:ko"
-terrys_memo: ""
+locale: en
+title: 'ExoStart: From 10 Exoskeleton Demos to Dexterous Robot Manipulation'
+summary: >-
+  ExoStart collects ~10 demonstrations with a sensorized exoskeleton
+  kinematically equivalent to the robot hand, converts them into physically
+  feasible simulation trajectories via MuJoCo dynamics filtering, then trains an
+  auto-curriculum RL teacher policy and distills it into a vision-based student
+  for zero-shot real-world transfer. It achieves >50% success on 6 of 7 complex
+  dexterous tasks.
+card_summary: >-
+  Starting from as few as 10 exoskeleton demonstrations, ExoStart uses dynamics
+  filtering to amplify them into physically valid sim trajectories, then trains
+  via auto-curriculum RL and distills into a vision-based student policy for
+  zero-shot real-world transfer — achieving >50% success on 6 of 7 complex
+  dexterous tasks.
+seo_title: >-
+  ExoStart: Efficient Dexterous Manipulation Learning with Sensorized
+  Exoskeleton Demonstrations
+seo_description: >-
+  ExoStart combines ~10 exoskeleton demonstrations, MuJoCo dynamics filtering,
+  auto-curriculum RL, and vision-based policy distillation to achieve >50%
+  real-world success on 6 of 7 complex dexterous manipulation tasks.
+translation_of: '2506-exostart:ko'
+terrys_memo: ''
 references:
-  - title: "DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with Multi-Fingered Robots"
-    author: "Bauza et al. (2024)"
-    description: "The direct RL framework that ExoStart extends, from the same Maria Bauza group at Google DeepMind. Provides the auto-curriculum RL structure and teacher-student distillation pipeline. ExoStart adds exoskeleton demonstrations and dynamics filtering on top."
-    arxiv_url: "https://arxiv.org/abs/2409.06613"
-    category: "foundational"
-  - title: "Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo"
-    author: "Howell et al. (2022)"
-    description: "The MuJoCo Predictive Control (MJPC) engine at the core of ExoStart's dynamics filtering stage. Enables real-time trajectory optimization that converts raw exoskeleton demonstrations into physically feasible robot trajectories in simulation."
-    arxiv_url: "https://arxiv.org/abs/2212.00541"
-    category: "foundational"
-  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
-    author: "Zhao et al. (2023)"
-    description: "The Action Chunking with Transformers (ACT) architecture used for ExoStart's vision-based student policy distillation. High-frequency action chunking with a transformer backbone enables precise manipulation policy learning from behavioral cloning."
-    arxiv_url: "https://arxiv.org/abs/2304.13705"
-    category: "foundational"
-  - title: "DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation"
-    author: "Wang et al. (2024)"
-    description: "A motion-capture-based dexterous data collection system for direct comparison. DexCap offers high-fidelity hand tracking but requires separate retargeting to robot joints, whereas ExoStart's exoskeleton directly captures robot-equivalent joint values."
-    arxiv_url: "https://arxiv.org/abs/2403.07788"
-    category: "recent"
-  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
-    author: "Xu et al. (2025)"
-    description: "A closely related exoskeleton-based approach that bridges kinematic and visual gaps via hardware design and AI inpainting for direct imitation learning. In contrast to ExoStart's RL + sim-to-real path, DexUMI builds robot training data directly from demonstrations without a simulation stage."
-    arxiv_url: "https://arxiv.org/abs/2505.21864"
-    post_slug: "2505-dexumi"
-    category: "recent"
+  - title: >-
+      DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with
+      Multi-Fingered Robots
+    author: Bauza et al. (2024)
+    description: >-
+      The direct RL framework that ExoStart extends, from the same Maria Bauza
+      group at Google DeepMind. Provides the auto-curriculum RL structure and
+      teacher-student distillation pipeline. ExoStart adds exoskeleton
+      demonstrations and dynamics filtering on top.
+    arxiv_url: 'https://arxiv.org/abs/2409.06613'
+    category: foundational
+  - title: 'Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo'
+    author: Howell et al. (2022)
+    description: >-
+      The MuJoCo Predictive Control (MJPC) engine at the core of ExoStart's
+      dynamics filtering stage. Enables real-time trajectory optimization that
+      converts raw exoskeleton demonstrations into physically feasible robot
+      trajectories in simulation.
+    arxiv_url: 'https://arxiv.org/abs/2212.00541'
+    category: foundational
+  - title: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware
+    author: Zhao et al. (2023)
+    description: >-
+      The Action Chunking with Transformers (ACT) architecture used for
+      ExoStart's vision-based student policy distillation. High-frequency action
+      chunking with a transformer backbone enables precise manipulation policy
+      learning from behavioral cloning.
+    arxiv_url: 'https://arxiv.org/abs/2304.13705'
+    category: foundational
+  - title: >-
+      DexCap: Scalable and Portable Mocap Data Collection System for Dexterous
+      Manipulation
+    author: Wang et al. (2024)
+    description: >-
+      A motion-capture-based dexterous data collection system for direct
+      comparison. DexCap offers high-fidelity hand tracking but requires
+      separate retargeting to robot joints, whereas ExoStart's exoskeleton
+      directly captures robot-equivalent joint values.
+    arxiv_url: 'https://arxiv.org/abs/2403.07788'
+    category: recent
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Xu et al. (2025)
+    description: >-
+      A closely related exoskeleton-based approach that bridges kinematic and
+      visual gaps via hardware design and AI inpainting for direct imitation
+      learning. In contrast to ExoStart's RL + sim-to-real path, DexUMI builds
+      robot training data directly from demonstrations without a simulation
+      stage.
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    post_slug: 2505-dexumi
+    category: recent
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Jiawen Yu et al.
+    description: >-
+      Force-aware MoE module for VLA that dynamically routes F/T info across
+      task phases
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=ForceVLA%3A+Enhancing+VLA+Models+with+a+Force-aware+MoE+for+Contact-rich+Manipulation&btnG=
+  - title: 'DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation'
+    author: Hao-Shu Fang et al.
+    description: >-
+      DEXOP is a passive exoskeleton that mechanically links human and robot
+      fingers, enabling direct-contact dexterous demonstration collection at up
+      to 8× the speed of teleoperation.
+    post_slug: 2509-dexop
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2509.04441'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexop-device-robotic-transfer'
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
 ---
 
 ## TL;DR

@@ -108,6 +108,8 @@
 - `description`: 논문 요약 + **현재 논문에서 어떤 맥락으로 언급했는지** (데스크톱 약 2줄)
 - **참조는 반드시 구체적 논문/블로그여야 한다**: 추상적 개념이나 연구 방향(예: "Scalable Oversight", "RLHF")을 참조로 넣지 말 것. 해당 개념을 대표하는 실제 논문을 찾아서 정확한 제목·저자·URL을 기입할 것
 - **`arxiv_url`이 빈 문자열인 참조는 금지**: 링크가 없으면 제목이 클릭 불가능해진다. 원문에서 인용된 URL을 반드시 추적하거나, arXiv/Scholar에서 검색하여 URL을 확보할 것
+- **양방향 참조 자동 동기화**: `sync-references.mjs`가 Supabase `graph_edges` (confirmed)를 기준으로 역방향 참조를 자동 추가한다. 수동으로 역참조를 추가할 필요 없음 — 빌드 스크립트 단계에서 자동 처리됨
+- **비학술 소스에는 `scholar_url` 금지**: 트윗, GitHub, 블로그 참조에는 scholar_url을 넣지 말 것. 학술 논문(arXiv, Nature 등)만 scholar_url 사용
 
 ### 본문 이미지 선택 (MDX 본문에 삽입할 것)
 - 핵심 아이디어 섹션: overview/framework 이미지 1장

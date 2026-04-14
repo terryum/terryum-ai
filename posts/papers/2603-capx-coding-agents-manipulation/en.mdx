@@ -1,41 +1,91 @@
 ---
-locale: "en"
-translation_of: "2603-capx-coding-agents-manipulation:ko"
-title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
-subtitle: "Systematically studying Code-as-Policy agents for robot control"
-summary: "CaP-X provides a principled framework for studying Code-as-Policy agents in robot manipulation. CaP-Bench evaluates 12 models across abstraction and interaction axes, CaP-Agent0 recovers human-level performance training-free via agentic test-time computation, and CaP-RL achieves sim-to-real transfer with reinforcement learning."
-card_summary: "A systematic benchmark showing that Code-as-Policy agents can match human-level robot manipulation through multi-turn interaction and ensemble reasoning, without any task-specific training data."
-cover_caption: "Figure 1: (Top) CaP-Bench Task Success Rate over Model Release Date: We primarily compare 7 tasks over 12 models' task success rates resulting from model-generated code against those from human experts. (Bottom): CaP-Gym integrates RoboSuite, LIBERO-PRO, and BEHAVIOR."
-published_at: "2026-04-03T00:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2603.22435"
-source_date: "2026-03-23T00:00:00Z"
-display_tags: ["Robotics", "Code-as-Policy", "LLM Agent", "Benchmark", "Manipulation"]
+locale: en
+translation_of: '2603-capx-coding-agents-manipulation:ko'
+title: >-
+  CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+  Manipulation
+subtitle: Systematically studying Code-as-Policy agents for robot control
+summary: >-
+  CaP-X provides a principled framework for studying Code-as-Policy agents in
+  robot manipulation. CaP-Bench evaluates 12 models across abstraction and
+  interaction axes, CaP-Agent0 recovers human-level performance training-free
+  via agentic test-time computation, and CaP-RL achieves sim-to-real transfer
+  with reinforcement learning.
+card_summary: >-
+  A systematic benchmark showing that Code-as-Policy agents can match
+  human-level robot manipulation through multi-turn interaction and ensemble
+  reasoning, without any task-specific training data.
+cover_caption: >-
+  Figure 1: (Top) CaP-Bench Task Success Rate over Model Release Date: We
+  primarily compare 7 tasks over 12 models' task success rates resulting from
+  model-generated code against those from human experts. (Bottom): CaP-Gym
+  integrates RoboSuite, LIBERO-PRO, and BEHAVIOR.
+published_at: '2026-04-03T00:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2603.22435'
+source_date: '2026-03-23T00:00:00Z'
+display_tags:
+  - Robotics
+  - Code-as-Policy
+  - LLM Agent
+  - Benchmark
+  - Manipulation
 references:
-  - title: "Code as Policies: Language Model Programs for Embodied Control"
-    author: "Jacky Liang et al."
-    description: "The seminal work proposing Code-as-Policies, where LLM-generated code directly controls robots. CaP-X builds a systematic benchmarking and improvement framework for this approach."
-    arxiv_url: "https://arxiv.org/abs/2209.07753"
-    scholar_url: "https://scholar.google.com/scholar?q=code-as-policies-language-model"
-    category: "foundational"
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Kevin Black et al."
-    description: "A VLA model trained on large-scale robot data, representing the data-intensive approach that CaP-X directly compares against. CaP-Agent0 achieves comparable performance on LIBERO-PRO without any training data."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
-    category: "recent"
-  - title: "SayCan: Grounding Language in Robotic Affordances"
-    author: "Michael Ahn et al."
-    description: "A pioneering study combining language model knowledge with robotic affordances. CaP-X explores solving this grounding problem through code generation and agentic reasoning."
-    arxiv_url: "https://arxiv.org/abs/2204.01691"
-    scholar_url: "https://scholar.google.com/scholar?q=saycan-grounding-language-robotic"
-    category: "foundational"
-  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
-    author: "Moo Jin Kim et al."
-    description: "An open-source VLA model directly compared against CaP-Agent0 on LIBERO-PRO. CaP-Agent0 demonstrates higher performance and robustness without any training."
-    arxiv_url: "https://arxiv.org/abs/2406.09246"
-    scholar_url: "https://scholar.google.com/scholar?q=openvla-open-source-vision-language"
-    category: "recent"
+  - title: 'Code as Policies: Language Model Programs for Embodied Control'
+    author: Jacky Liang et al.
+    description: >-
+      The seminal work proposing Code-as-Policies, where LLM-generated code
+      directly controls robots. CaP-X builds a systematic benchmarking and
+      improvement framework for this approach.
+    arxiv_url: 'https://arxiv.org/abs/2209.07753'
+    scholar_url: 'https://scholar.google.com/scholar?q=code-as-policies-language-model'
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      A VLA model trained on large-scale robot data, representing the
+      data-intensive approach that CaP-X directly compares against. CaP-Agent0
+      achieves comparable performance on LIBERO-PRO without any training data.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: 'https://scholar.google.com/scholar?q=pi0-vision-language-action-flow'
+    category: recent
+  - title: 'SayCan: Grounding Language in Robotic Affordances'
+    author: Michael Ahn et al.
+    description: >-
+      A pioneering study combining language model knowledge with robotic
+      affordances. CaP-X explores solving this grounding problem through code
+      generation and agentic reasoning.
+    arxiv_url: 'https://arxiv.org/abs/2204.01691'
+    scholar_url: 'https://scholar.google.com/scholar?q=saycan-grounding-language-robotic'
+    category: foundational
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Moo Jin Kim et al.
+    description: >-
+      An open-source VLA model directly compared against CaP-Agent0 on
+      LIBERO-PRO. CaP-Agent0 demonstrates higher performance and robustness
+      without any training.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: 'https://scholar.google.com/scholar?q=openvla-open-source-vision-language'
+    category: recent
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      Generalist VLA policy using pre-trained VLM + flow matching action expert
+      for multi-robot control
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=A+Vision-Language-Action+Flow+Model+for+General+Robot+Control&btnG=
+  - title: 'RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks'
+    author: Ruiying Li et al.
+    description: >-
+      Agentic framework unifying VLA data collection, policy learning, and
+      long-horizon deployment under a single VLM controller with self-resetting
+      EAP loops
+    post_slug: 2603-roboclaw-agentic-long-horizon
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.11558'
 ---
 
 <Video src="https://capgym.github.io/assets/agibot_demos/AgiBot Stack Everything.mp4" caption="CaP-X Real Robot Demo: AgiBot performing long-horizon object stacking task" type="direct" />

@@ -1,38 +1,113 @@
 ---
-locale: "en"
-title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-summary: "A VLM-based foundation model combining pre-trained vision-language understanding with flow matching action generation, pre-trained on 10,000+ hours across 7 robot configurations and 68 tasks. Achieves up to 3-4x performance improvement over training from scratch on complex dexterous tasks like laundry folding and box assembly."
-card_summary: "A robot foundation model combining a pre-trained VLM with flow matching-based action generation, trained on 10,000+ hours across 7 robots and 68 tasks to perform complex dexterous manipulation from laundry folding to box assembly with a single model."
-terrys_memo: ""
-translation_of: "2410-pi0-vla-flow-model:ko"
+locale: en
+title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+summary: >-
+  A VLM-based foundation model combining pre-trained vision-language
+  understanding with flow matching action generation, pre-trained on 10,000+
+  hours across 7 robot configurations and 68 tasks. Achieves up to 3-4x
+  performance improvement over training from scratch on complex dexterous tasks
+  like laundry folding and box assembly.
+card_summary: >-
+  A robot foundation model combining a pre-trained VLM with flow matching-based
+  action generation, trained on 10,000+ hours across 7 robots and 68 tasks to
+  perform complex dexterous manipulation from laundry folding to box assembly
+  with a single model.
+terrys_memo: ''
+translation_of: '2410-pi0-vla-flow-model:ko'
 translated_to: []
 references:
-  - title: "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control"
-    author: "Brohan et al. (2023)"
-    description: "Early VLA work leveraging vision-language models for robot action generation. π₀ extends this lineage with flow matching and large-scale pre-training."
-    arxiv_url: "https://arxiv.org/abs/2307.15818"
-    scholar_url: "https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge"
-    category: "foundational"
-  - title: "Octo: An Open-Source Generalist Robot Policy"
-    author: "Ghosh et al. (2024)"
-    description: "Open-source generalist robot policy based on the OXE dataset. A key baseline for π₀, showing significantly lower performance in out-of-box evaluation."
-    arxiv_url: "https://arxiv.org/abs/2405.12213"
-    scholar_url: "https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy"
-    project_url: "https://octo-models.github.io/"
-    category: "recent"
-  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
-    author: "Kim et al. (2024)"
-    description: "Open-source VLA model used as a direct comparison target. π₀ significantly outperformed it in both out-of-box and fine-tuning evaluations."
-    arxiv_url: "https://arxiv.org/abs/2406.09246"
-    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
-    project_url: "https://openvla.github.io/"
-    category: "recent"
-  - title: "Flow Matching for Generative Modeling"
-    author: "Lipman et al. (2023)"
-    description: "Theoretical foundation for flow matching, the core action generation technique in π₀. A generative modeling framework that learns continuous transformations from noise to action sequences."
-    arxiv_url: "https://arxiv.org/abs/2210.02747"
-    scholar_url: "https://scholar.google.com/scholar?q=flow+matching+generative+modeling+Lipman"
-    category: "foundational"
+  - title: >-
+      RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic
+      Control
+    author: Brohan et al. (2023)
+    description: >-
+      Early VLA work leveraging vision-language models for robot action
+      generation. π₀ extends this lineage with flow matching and large-scale
+      pre-training.
+    arxiv_url: 'https://arxiv.org/abs/2307.15818'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge
+    category: foundational
+  - title: 'Octo: An Open-Source Generalist Robot Policy'
+    author: Ghosh et al. (2024)
+    description: >-
+      Open-source generalist robot policy based on the OXE dataset. A key
+      baseline for π₀, showing significantly lower performance in out-of-box
+      evaluation.
+    arxiv_url: 'https://arxiv.org/abs/2405.12213'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy
+    project_url: 'https://octo-models.github.io/'
+    category: recent
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Kim et al. (2024)
+    description: >-
+      Open-source VLA model used as a direct comparison target. π₀ significantly
+      outperformed it in both out-of-box and fine-tuning evaluations.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model
+    project_url: 'https://openvla.github.io/'
+    category: recent
+  - title: Flow Matching for Generative Modeling
+    author: Lipman et al. (2023)
+    description: >-
+      Theoretical foundation for flow matching, the core action generation
+      technique in π₀. A generative modeling framework that learns continuous
+      transformations from noise to action sequences.
+    arxiv_url: 'https://arxiv.org/abs/2210.02747'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=flow+matching+generative+modeling+Lipman
+    category: foundational
+  - title: 'π₀.₆: a VLA That Learns From Experience'
+    author: Ali Amin et al.
+    description: >-
+      RL-based iterative improvement method (Recap) for VLA policies using
+      advantage-weighted regression with a learned value function
+    post_slug: 2511-pi0-6-recap
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2511.14759'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=a+VLA+That+Learns+From+Experience&btnG=
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Jiawen Yu et al.
+    description: >-
+      Force-aware MoE module for VLA that dynamically routes F/T info across
+      task phases
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=ForceVLA%3A+Enhancing+VLA+Models+with+a+Force-aware+MoE+for+Contact-rich+Manipulation&btnG=
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
+  - title: >-
+      CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+      Manipulation
+    author: Max Fu et al.
+    description: >-
+      Open-access framework for systematically benchmarking and improving
+      Code-as-Policy agents in robot manipulation
+    post_slug: 2603-capx-coding-agents-manipulation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.22435'
+  - title: 'RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks'
+    author: Ruiying Li et al.
+    description: >-
+      Agentic framework unifying VLA data collection, policy learning, and
+      long-horizon deployment under a single VLM controller with self-resetting
+      EAP loops
+    post_slug: 2603-roboclaw-agentic-long-horizon
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.11558'
 ---
 
 <Video src="https://website.pi-asset.com/v2/upload/PhysicalIntelligence_2min_v2_out.mp4" caption="π₀ Demo: Performing diverse dexterous manipulation tasks including laundry folding, table bussing, and box assembly" type="direct" />

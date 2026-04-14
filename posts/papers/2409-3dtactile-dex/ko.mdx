@@ -1,15 +1,85 @@
 ---
-locale: "ko"
-title: "3D 촉각의 정규 표현과 힘 기반 사전학습으로 손재주 있는 시각촉각 정책 학습"
-subtitle: "정규 좌표계 + 힘 예측 사전학습으로 촉각 특징 학습"
-summary: "로봇 손에 분산된 3D 촉각 센서의 고차원 데이터 학습 문제를 정규 좌표계(canonical representation)와 GraphMAE 기반 힘 예측 사전학습으로 해결한 연구. 4가지 정밀 접촉 집약적 손 조작 태스크에서 평균 78% 성공률을 달성해 최고 기준선(T-DEX 63%)을 15%p 상회한다."
-card_summary: "3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현과 힘 기반 자기지도 사전학습으로 해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성"
-cover_caption: "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks."
-published_at: "2026-03-19T09:00:00+09:00"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2409.17549"
-source_date: "2024-09-26"
-terrys_memo: ""
+locale: ko
+title: 3D 촉각의 정규 표현과 힘 기반 사전학습으로 손재주 있는 시각촉각 정책 학습
+subtitle: 정규 좌표계 + 힘 예측 사전학습으로 촉각 특징 학습
+summary: >-
+  로봇 손에 분산된 3D 촉각 센서의 고차원 데이터 학습 문제를 정규 좌표계(canonical representation)와 GraphMAE
+  기반 힘 예측 사전학습으로 해결한 연구. 4가지 정밀 접촉 집약적 손 조작 태스크에서 평균 78% 성공률을 달성해 최고 기준선(T-DEX
+  63%)을 15%p 상회한다.
+card_summary: >-
+  3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현과 힘 기반 자기지도 사전학습으로 해결해, 4가지 정밀 손 조작 태스크에서 78% 평균
+  성공률 달성
+cover_caption: >-
+  Real Robot System. Our system uses a single camera and distributed tactile
+  sensors to achieve dexterous, fine-grained, contact-rich tasks.
+published_at: '2026-03-19T09:00:00+09:00'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2409.17549'
+source_date: '2024-09-26'
+terrys_memo: ''
+references:
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: 'OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer'
+    author: Jessica Yin et al.
+    description: >-
+      동일 오픈소스 촉각 글러브를 인간·로봇에 장착해 visual·tactile 구현 간극을 동시 해소, 로봇 데이터 없이 72% 성공률
+      달성
+    post_slug: 2512-osmo-tactile-glove
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.08920'
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
 ---
 
 ## TL;DR

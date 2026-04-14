@@ -1,40 +1,105 @@
 ---
-locale: "en"
-title: "DEXOP: Passive Exoskeleton for Direct-contact Dexterous Demonstration"
-summary: "DEXOP is a passive exoskeleton using 4-bar linkages to directly couple human and robot finger joints — no actuators, no calibration. Humans manipulate objects naturally while the robot hand mirrors their movements, providing direct contact feedback. It achieves up to 8× higher data collection throughput than teleoperation, and policies trained on DEXOP data achieve 51.3% success vs 42.5% for teleoperation-only data, collected in half the time."
-card_summary: "A passive exoskeleton with 4-bar linkages that mechanically couples human and robot fingers, with no actuators or calibration required. Direct contact feedback enables natural manipulation at up to 8× teleoperation speed, producing higher-quality demonstration data for dexterous robot learning."
-seo_title: "DEXOP: Passive Mechanical Exoskeleton for 8× Faster Dexterous Robot Demonstration Collection"
-seo_description: "DEXOP's 4-bar linkage mechanism directly couples human and robot fingers for natural dexterous demonstration collection. Achieves up to 8× faster throughput than teleoperation and higher policy success rates on complex manipulation tasks."
-translation_of: "2509-dexop:ko"
-terrys_memo: ""
+locale: en
+title: 'DEXOP: Passive Exoskeleton for Direct-contact Dexterous Demonstration'
+summary: >-
+  DEXOP is a passive exoskeleton using 4-bar linkages to directly couple human
+  and robot finger joints — no actuators, no calibration. Humans manipulate
+  objects naturally while the robot hand mirrors their movements, providing
+  direct contact feedback. It achieves up to 8× higher data collection
+  throughput than teleoperation, and policies trained on DEXOP data achieve
+  51.3% success vs 42.5% for teleoperation-only data, collected in half the
+  time.
+card_summary: >-
+  A passive exoskeleton with 4-bar linkages that mechanically couples human and
+  robot fingers, with no actuators or calibration required. Direct contact
+  feedback enables natural manipulation at up to 8× teleoperation speed,
+  producing higher-quality demonstration data for dexterous robot learning.
+seo_title: >-
+  DEXOP: Passive Mechanical Exoskeleton for 8× Faster Dexterous Robot
+  Demonstration Collection
+seo_description: >-
+  DEXOP's 4-bar linkage mechanism directly couples human and robot fingers for
+  natural dexterous demonstration collection. Achieves up to 8× faster
+  throughput than teleoperation and higher policy success rates on complex
+  manipulation tasks.
+translation_of: '2509-dexop:ko'
+terrys_memo: ''
 references:
-  - title: "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots"
-    author: "Chi et al. (2024)"
-    description: "The original UMI paper for grippers that established the paradigm of using human demonstrations for robot learning. DEXOP extends this to dexterous hands using mechanical linkage as the key innovation over visual/software-based bridging approaches."
-    arxiv_url: "https://arxiv.org/abs/2402.10329"
-    category: "foundational"
-  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
-    author: "Chi et al. (2023)"
-    description: "The diffusion-based imitation learning backbone used in DEXOP for policy training. Its multi-modal action distribution learning suits complex dexterous manipulation where many valid action sequences exist."
-    arxiv_url: "https://arxiv.org/abs/2303.04137"
-    category: "foundational"
-  - title: "LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot Learning"
-    author: "Shaw et al. (2023)"
-    description: "An anthropomorphic robot hand platform representing the class of dexterous hands DEXOP targets. DEXOP-12 is designed to kinematically replicate such multi-finger robot hand structures via exoskeleton linkages."
-    arxiv_url: "https://arxiv.org/abs/2309.06440"
-    category: "foundational"
-  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
-    author: "Xu et al. (2025)"
-    description: "A concurrent exoskeleton-based dexterous data collection approach. DexUMI resolves the visual gap via AI inpainting after collecting demonstrations, while DEXOP uses mechanical linkage for direct kinematic transfer — eliminating visual gap by design but requiring per-robot hardware fabrication."
-    arxiv_url: "https://arxiv.org/abs/2505.21864"
-    post_slug: "2505-dexumi"
-    category: "recent"
-  - title: "ExoStart: Efficient Learning for Dexterous Manipulation with Sensorized Exoskeleton Demonstrations"
-    author: "Si et al. (2025)"
-    description: "Another concurrent exoskeleton-based approach that routes demonstrations through dynamics filtering and RL for sim-to-real transfer. DEXOP's passive linkage approach avoids simulation entirely, trading RL's generalization benefits for a simpler, faster data-to-policy pipeline."
-    arxiv_url: "https://arxiv.org/abs/2506.11775"
-    post_slug: "2506-exostart"
-    category: "recent"
+  - title: >-
+      Universal Manipulation Interface: In-The-Wild Robot Teaching Without
+      In-The-Wild Robots
+    author: Chi et al. (2024)
+    description: >-
+      The original UMI paper for grippers that established the paradigm of using
+      human demonstrations for robot learning. DEXOP extends this to dexterous
+      hands using mechanical linkage as the key innovation over
+      visual/software-based bridging approaches.
+    arxiv_url: 'https://arxiv.org/abs/2402.10329'
+    category: foundational
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al. (2023)
+    description: >-
+      The diffusion-based imitation learning backbone used in DEXOP for policy
+      training. Its multi-modal action distribution learning suits complex
+      dexterous manipulation where many valid action sequences exist.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    category: foundational
+  - title: >-
+      LEAP Hand: Low-Cost, Efficient, and Anthropomorphic Hand for Robot
+      Learning
+    author: Shaw et al. (2023)
+    description: >-
+      An anthropomorphic robot hand platform representing the class of dexterous
+      hands DEXOP targets. DEXOP-12 is designed to kinematically replicate such
+      multi-finger robot hand structures via exoskeleton linkages.
+    arxiv_url: 'https://arxiv.org/abs/2309.06440'
+    category: foundational
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Xu et al. (2025)
+    description: >-
+      A concurrent exoskeleton-based dexterous data collection approach. DexUMI
+      resolves the visual gap via AI inpainting after collecting demonstrations,
+      while DEXOP uses mechanical linkage for direct kinematic transfer —
+      eliminating visual gap by design but requiring per-robot hardware
+      fabrication.
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    post_slug: 2505-dexumi
+    category: recent
+  - title: >-
+      ExoStart: Efficient Learning for Dexterous Manipulation with Sensorized
+      Exoskeleton Demonstrations
+    author: Si et al. (2025)
+    description: >-
+      Another concurrent exoskeleton-based approach that routes demonstrations
+      through dynamics filtering and RL for sim-to-real transfer. DEXOP's
+      passive linkage approach avoids simulation entirely, trading RL's
+      generalization benefits for a simpler, faster data-to-policy pipeline.
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    post_slug: 2506-exostart
+    category: recent
+  - title: >-
+      Stretchable glove for accurate and robust hand pose reconstruction based
+      on comprehensive motion data
+    author: Myungsun Park et al.
+    description: >-
+      Stretchable liquid-metal glove that estimates both finger bone lengths and
+      joint angles from a single sensing mechanism for accurate hand pose
+      reconstruction
+    post_slug: 2407-stretchable-glove-hand-pose
+    category: recent
+    project_url: 'https://www.nature.com/articles/s41467-024-50101-w'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Stretchable+glove+for+accurate+and+robust+hand+pose+reconstruction+based+on+comprehensive+motion+data
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
 ---
 
 ## TL;DR

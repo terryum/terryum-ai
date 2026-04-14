@@ -1,36 +1,128 @@
 ---
-locale: "en"
-translation_of: "2512-osmo-tactile-glove:ko"
-title: "OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer"
-subtitle: "Close the gap with the same glove"
-summary: "OSMO is an open-source wearable tactile glove with 12 three-axis magnetic sensors that minimizes both visual and tactile embodiment gaps by equipping human demonstrators and robots with the identical glove. A policy trained exclusively on human demonstrations — without any real robot data — achieves 72% success on a contact-rich wiping task (vs. 56% vision-only), and all hardware designs, firmware, and assembly instructions are released open-source."
-card_summary: "Same glove on human and robot eliminates visual + tactile gaps at once — 72% wiping success with zero robot training data, fully open-source tactile glove hardware OSMO."
-cover_caption: "(A) The OSMO tactile glove for collecting in-the-wild human demonstrations provides full-hand coverage with 3-axis tactile sensors, integrates seamlessly with hand-tracking systems, and can be directly deployed on robots. (B) We demonstrate that a contact-rich wiping policy trained solely on OSMO tactile-glove human demonstrations can be directly deployed on a robot, outperforming vision-only policies. More videos, code, and design files are available at the project website."
-published_at: "2026-03-26T10:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2512.08920"
-source_date: "2025-12-09"
-display_tags: ["Papers", "Robotics", "Tactile Sensing", "Human-Robot Transfer", "Wearable", "Open Source"]
+locale: en
+translation_of: '2512-osmo-tactile-glove:ko'
+title: 'OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer'
+subtitle: Close the gap with the same glove
+summary: >-
+  OSMO is an open-source wearable tactile glove with 12 three-axis magnetic
+  sensors that minimizes both visual and tactile embodiment gaps by equipping
+  human demonstrators and robots with the identical glove. A policy trained
+  exclusively on human demonstrations — without any real robot data — achieves
+  72% success on a contact-rich wiping task (vs. 56% vision-only), and all
+  hardware designs, firmware, and assembly instructions are released
+  open-source.
+card_summary: >-
+  Same glove on human and robot eliminates visual + tactile gaps at once — 72%
+  wiping success with zero robot training data, fully open-source tactile glove
+  hardware OSMO.
+cover_caption: >-
+  (A) The OSMO tactile glove for collecting in-the-wild human demonstrations
+  provides full-hand coverage with 3-axis tactile sensors, integrates seamlessly
+  with hand-tracking systems, and can be directly deployed on robots. (B) We
+  demonstrate that a contact-rich wiping policy trained solely on OSMO
+  tactile-glove human demonstrations can be directly deployed on a robot,
+  outperforming vision-only policies. More videos, code, and design files are
+  available at the project website.
+published_at: '2026-03-26T10:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2512.08920'
+source_date: '2025-12-09'
+display_tags:
+  - Papers
+  - Robotics
+  - Tactile Sensing
+  - Human-Robot Transfer
+  - Wearable
+  - Open Source
 tables: []
 references:
-  - title: "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing"
-    author: "Yin et al."
-    description: "Direct predecessor from the same first author (Jessica Yin). Used binary ReSkin-based tactile signals for in-hand translation. OSMO extends this to continuous 3-axis shear and normal forces with full-hand coverage."
-    arxiv_url: "https://arxiv.org/abs/2407.05167"
-    scholar_url: ""
-    category: "foundational"
-  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
-    author: "Xu et al."
-    description: "Representative prior work on human-to-robot skill transfer via exoskeleton + AI inpainting to close the visual gap. OSMO addresses the same transfer problem but eliminates both visual and tactile gaps through shared hardware rather than post-processing."
-    arxiv_url: "https://arxiv.org/abs/2505.21654"
-    scholar_url: ""
-    category: "recent"
-  - title: "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer"
-    author: "Zhang et al."
-    description: "Contemporary work aligning heterogeneous tactile signals via MANO UV projection and contrastive learning. Contrasts with OSMO's hardware-sharing approach: UniTacHand handles domain mismatch in software while OSMO eliminates it at the hardware level."
-    arxiv_url: "https://arxiv.org/abs/2512.07254"
-    scholar_url: ""
-    category: "recent"
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Yin et al.
+    description: >-
+      Direct predecessor from the same first author (Jessica Yin). Used binary
+      ReSkin-based tactile signals for in-hand translation. OSMO extends this to
+      continuous 3-axis shear and normal forces with full-hand coverage.
+    arxiv_url: 'https://arxiv.org/abs/2407.05167'
+    scholar_url: ''
+    category: foundational
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Xu et al.
+    description: >-
+      Representative prior work on human-to-robot skill transfer via exoskeleton
+      + AI inpainting to close the visual gap. OSMO addresses the same transfer
+      problem but eliminates both visual and tactile gaps through shared
+      hardware rather than post-processing.
+    arxiv_url: 'https://arxiv.org/abs/2505.21654'
+    scholar_url: ''
+    category: recent
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Zhang et al.
+    description: >-
+      Contemporary work aligning heterogeneous tactile signals via MANO UV
+      projection and contrastive learning. Contrasts with OSMO's
+      hardware-sharing approach: UniTacHand handles domain mismatch in software
+      while OSMO eliminates it at the hardware level.
+    arxiv_url: 'https://arxiv.org/abs/2512.07254'
+    scholar_url: ''
+    category: recent
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
 ---
 
 ## TL;DR

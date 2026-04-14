@@ -142,6 +142,7 @@ node scripts/copy-post-images.mjs
 node scripts/generate-thumbnails.mjs
 node scripts/generate-index.mjs
 node scripts/generate-og-image.mjs
+node scripts/sync-references.mjs --slug=<slug>
 ```
 
 ### Step R10) 포스트 검증

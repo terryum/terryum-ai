@@ -1,37 +1,114 @@
 ---
-locale: "en"
-title: "DexForce: Learning Contact Forces from Human Demonstrations for Dexterous Manipulation"
-summary: "DexForce leverages contact forces from kinesthetic demonstrations to compute force-informed action targets for dexterous manipulation. Across six tasks, policies trained with force-informed actions achieve 76% average success rate, while policies ignoring contact forces achieve near-zero success."
-card_summary: "DexForce computes force-informed action targets from contact forces measured during kinesthetic demonstrations. A single spring model parameter achieves 76% average success across six dexterous manipulation tasks, while policies ignoring forces achieve near-zero success."
-translation_of: "2501-dexforce-force-informed-actions:ko"
-terrys_memo: ""
+locale: en
+title: >-
+  DexForce: Learning Contact Forces from Human Demonstrations for Dexterous
+  Manipulation
+summary: >-
+  DexForce leverages contact forces from kinesthetic demonstrations to compute
+  force-informed action targets for dexterous manipulation. Across six tasks,
+  policies trained with force-informed actions achieve 76% average success rate,
+  while policies ignoring contact forces achieve near-zero success.
+card_summary: >-
+  DexForce computes force-informed action targets from contact forces measured
+  during kinesthetic demonstrations. A single spring model parameter achieves
+  76% average success across six dexterous manipulation tasks, while policies
+  ignoring forces achieve near-zero success.
+translation_of: '2501-dexforce-force-informed-actions:ko'
+terrys_memo: ''
 references:
-  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
-    author: "Chi et al."
-    description: "The policy learning backbone of DexForce. A visuomotor policy framework that generates actions via a diffusion process from observation-action pairs, which DexForce builds upon to learn force-informed actions."
-    arxiv_url: "https://arxiv.org/abs/2303.04137"
-    category: "foundational"
-  - title: "Impedance Control: An Approach to Manipulation"
-    author: "Hogan"
-    description: "The foundational control theory behind DexForce. Defines position-force relationships via spring-damper models, providing the theoretical basis for DexForce's force-informed target computation."
-    scholar_url: "https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan"
-    category: "foundational"
-  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
-    author: "Zhao et al."
-    description: "The ACT framework for learning fine-grained bimanual manipulation with low-cost hardware. A representative teleoperation-based demonstration approach that DexForce compares against to show kinesthetic teaching advantages."
-    arxiv_url: "https://arxiv.org/abs/2304.13705"
-    category: "foundational"
-  - title: "ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture System"
-    author: "Liu et al."
-    description: "Force-centric imitation learning using external motion capture. Similarly uses force information for policy learning, but relies on external capture systems rather than DexForce's direct kinesthetic teaching approach."
-    arxiv_url: "https://arxiv.org/abs/2404.04298"
-    category: "recent"
-  - title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
-    author: "Yu et al."
-    description: "Combines force-aware MoE with VLA models for contact-rich manipulation. While DexForce focuses on contact forces at the dexterous hand level, ForceVLA fuses external forces with VLMs at the robot arm level."
-    arxiv_url: "https://arxiv.org/abs/2505.22159"
-    post_slug: "2505-forcevla-force-aware-moe"
-    category: "recent"
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al.
+    description: >-
+      The policy learning backbone of DexForce. A visuomotor policy framework
+      that generates actions via a diffusion process from observation-action
+      pairs, which DexForce builds upon to learn force-informed actions.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    category: foundational
+  - title: 'Impedance Control: An Approach to Manipulation'
+    author: Hogan
+    description: >-
+      The foundational control theory behind DexForce. Defines position-force
+      relationships via spring-damper models, providing the theoretical basis
+      for DexForce's force-informed target computation.
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan
+    category: foundational
+  - title: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware
+    author: Zhao et al.
+    description: >-
+      The ACT framework for learning fine-grained bimanual manipulation with
+      low-cost hardware. A representative teleoperation-based demonstration
+      approach that DexForce compares against to show kinesthetic teaching
+      advantages.
+    arxiv_url: 'https://arxiv.org/abs/2304.13705'
+    category: foundational
+  - title: >-
+      ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture
+      System
+    author: Liu et al.
+    description: >-
+      Force-centric imitation learning using external motion capture. Similarly
+      uses force information for policy learning, but relies on external capture
+      systems rather than DexForce's direct kinesthetic teaching approach.
+    arxiv_url: 'https://arxiv.org/abs/2404.04298'
+    category: recent
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Yu et al.
+    description: >-
+      Combines force-aware MoE with VLA models for contact-rich manipulation.
+      While DexForce focuses on contact forces at the dexterous hand level,
+      ForceVLA fuses external forces with VLMs at the robot arm level.
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
 ---
 
 ## TL;DR

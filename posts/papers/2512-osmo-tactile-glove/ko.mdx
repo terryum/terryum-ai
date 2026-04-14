@@ -1,35 +1,117 @@
 ---
-locale: "ko"
-title: "OSMO: 인간-로봇 기술 이전을 위한 오픈소스 촉각 글러브"
-subtitle: "같은 글러브로 간극을 닫다"
-summary: "OSMO는 12개의 3축 자성 촉각 센서를 갖춘 오픈소스 웨어러블 촉각 글러브로, 인간과 로봇이 동일한 글러브를 착용함으로써 시각·촉각 구현 간극을 동시에 해소한다. 로봇 데이터 없이 인간 시연만으로 학습한 정책이 닦기 태스크에서 72% 성공률을 달성했으며(비전 전용 56% 대비), 하드웨어·펌웨어·조립 설명서를 완전 오픈소스로 공개했다."
-card_summary: "인간과 로봇에 같은 글러브를 장착해 visual·tactile gap을 한 번에 해소 — 로봇 데이터 없이 인간 시연만으로 72% 닦기 성공률, 완전 오픈소스 촉각 글러브 OSMO."
-cover_caption: "(A) The OSMO tactile glove for collecting in-the-wild human demonstrations provides full-hand coverage with 3-axis tactile sensors, integrates seamlessly with hand-tracking systems, and can be directly deployed on robots. (B) We demonstrate that a contact-rich wiping policy trained solely on OSMO tactile-glove human demonstrations can be directly deployed on a robot, outperforming vision-only policies. More videos, code, and design files are available at the project website."
-published_at: "2026-03-26T10:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2512.08920"
-source_date: "2025-12-09"
-display_tags: ["Papers", "Robotics", "Tactile Sensing", "Human-Robot Transfer", "Wearable", "Open Source"]
+locale: ko
+title: 'OSMO: 인간-로봇 기술 이전을 위한 오픈소스 촉각 글러브'
+subtitle: 같은 글러브로 간극을 닫다
+summary: >-
+  OSMO는 12개의 3축 자성 촉각 센서를 갖춘 오픈소스 웨어러블 촉각 글러브로, 인간과 로봇이 동일한 글러브를 착용함으로써 시각·촉각 구현
+  간극을 동시에 해소한다. 로봇 데이터 없이 인간 시연만으로 학습한 정책이 닦기 태스크에서 72% 성공률을 달성했으며(비전 전용 56%
+  대비), 하드웨어·펌웨어·조립 설명서를 완전 오픈소스로 공개했다.
+card_summary: >-
+  인간과 로봇에 같은 글러브를 장착해 visual·tactile gap을 한 번에 해소 — 로봇 데이터 없이 인간 시연만으로 72% 닦기
+  성공률, 완전 오픈소스 촉각 글러브 OSMO.
+cover_caption: >-
+  (A) The OSMO tactile glove for collecting in-the-wild human demonstrations
+  provides full-hand coverage with 3-axis tactile sensors, integrates seamlessly
+  with hand-tracking systems, and can be directly deployed on robots. (B) We
+  demonstrate that a contact-rich wiping policy trained solely on OSMO
+  tactile-glove human demonstrations can be directly deployed on a robot,
+  outperforming vision-only policies. More videos, code, and design files are
+  available at the project website.
+published_at: '2026-03-26T10:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2512.08920'
+source_date: '2025-12-09'
+display_tags:
+  - Papers
+  - Robotics
+  - Tactile Sensing
+  - Human-Robot Transfer
+  - Wearable
+  - Open Source
 tables: []
 references:
-  - title: "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing"
-    author: "Yin et al."
-    description: "OSMO의 직접적인 선행 연구 (동일 1저자 Jessica Yin). ReSkin 기반 2진 촉각 신호로 in-hand translation을 달성했으나, 이산 신호의 한계가 있었다. OSMO는 연속적인 3축 전단·법선력으로 이를 확장한다."
-    arxiv_url: "https://arxiv.org/abs/2407.05167"
-    scholar_url: ""
-    category: "foundational"
-  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
-    author: "Xu et al."
-    description: "인간-로봇 기술 이전의 대표적 선행 연구. 엑소스켈레톤 + AI inpainting으로 visual gap을 해소하지만 촉각 신호는 고려하지 않는다. OSMO는 공유 글러브 전략으로 visual·tactile gap을 동시에 해소한다."
-    arxiv_url: "https://arxiv.org/abs/2505.21654"
-    scholar_url: ""
-    category: "recent"
-  - title: "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer"
-    author: "Zhang et al."
-    description: "이질적 촉각 데이터를 MANO UV 맵으로 정렬해 human-to-robot 이전을 달성한 동시대 연구. OSMO와 달리 소프트웨어 도메인 정렬 방식이며, OSMO는 하드웨어 공유로 gap 자체를 제거한다."
-    arxiv_url: "https://arxiv.org/abs/2512.07254"
-    scholar_url: ""
-    category: "recent"
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Yin et al.
+    description: >-
+      OSMO의 직접적인 선행 연구 (동일 1저자 Jessica Yin). ReSkin 기반 2진 촉각 신호로 in-hand
+      translation을 달성했으나, 이산 신호의 한계가 있었다. OSMO는 연속적인 3축 전단·법선력으로 이를 확장한다.
+    arxiv_url: 'https://arxiv.org/abs/2407.05167'
+    scholar_url: ''
+    category: foundational
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Xu et al.
+    description: >-
+      인간-로봇 기술 이전의 대표적 선행 연구. 엑소스켈레톤 + AI inpainting으로 visual gap을 해소하지만 촉각 신호는
+      고려하지 않는다. OSMO는 공유 글러브 전략으로 visual·tactile gap을 동시에 해소한다.
+    arxiv_url: 'https://arxiv.org/abs/2505.21654'
+    scholar_url: ''
+    category: recent
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Zhang et al.
+    description: >-
+      이질적 촉각 데이터를 MANO UV 맵으로 정렬해 human-to-robot 이전을 달성한 동시대 연구. OSMO와 달리 소프트웨어
+      도메인 정렬 방식이며, OSMO는 하드웨어 공유로 gap 자체를 제거한다.
+    arxiv_url: 'https://arxiv.org/abs/2512.07254'
+    scholar_url: ''
+    category: recent
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
 ---
 
 ## TL;DR

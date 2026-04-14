@@ -1,38 +1,107 @@
 ---
-locale: "ko"
-title: "ExoStart: 10회 엑소스켈레톤 시연으로 다지 로봇 조작 학습"
-summary: "ExoStart는 로봇 손과 kinematic 구조가 동일한 sensorized exoskeleton으로 ~10개의 시연을 수집하고, MuJoCo dynamics filtering으로 물리적으로 타당한 시뮬레이션 궤적을 증폭한 뒤, auto-curriculum RL → vision 기반 student 정책 증류를 거쳐 실세계 zero-shot transfer를 달성한다. 7가지 복잡 태스크 중 6가지에서 50% 이상 실세계 성공률을 기록했다."
-card_summary: "소수의 exoskeleton 시연에서 출발해 dynamics filtering으로 시뮬레이션 궤적을 증폭하고, auto-curriculum RL과 vision 기반 student 증류를 거쳐 복잡한 dexterous 조작의 zero-shot 실세계 전이를 달성했다. 7가지 태스크 중 6가지에서 50% 이상 성공률."
-seo_title: "ExoStart: Sensorized Exoskeleton 시연과 RL로 효율적 Dexterous Manipulation 학습"
-seo_description: "10개 내외의 exoskeleton 시연, MuJoCo dynamics filtering, auto-curriculum RL, vision student 증류를 결합해 7가지 복잡 dexterous 태스크에서 50%+ 실세계 성공률을 달성한 ExoStart."
-terrys_memo: ""
+locale: ko
+title: 'ExoStart: 10회 엑소스켈레톤 시연으로 다지 로봇 조작 학습'
+summary: >-
+  ExoStart는 로봇 손과 kinematic 구조가 동일한 sensorized exoskeleton으로 ~10개의 시연을 수집하고,
+  MuJoCo dynamics filtering으로 물리적으로 타당한 시뮬레이션 궤적을 증폭한 뒤, auto-curriculum RL →
+  vision 기반 student 정책 증류를 거쳐 실세계 zero-shot transfer를 달성한다. 7가지 복잡 태스크 중 6가지에서
+  50% 이상 실세계 성공률을 기록했다.
+card_summary: >-
+  소수의 exoskeleton 시연에서 출발해 dynamics filtering으로 시뮬레이션 궤적을 증폭하고, auto-curriculum
+  RL과 vision 기반 student 증류를 거쳐 복잡한 dexterous 조작의 zero-shot 실세계 전이를 달성했다. 7가지 태스크
+  중 6가지에서 50% 이상 성공률.
+seo_title: 'ExoStart: Sensorized Exoskeleton 시연과 RL로 효율적 Dexterous Manipulation 학습'
+seo_description: >-
+  10개 내외의 exoskeleton 시연, MuJoCo dynamics filtering, auto-curriculum RL, vision
+  student 증류를 결합해 7가지 복잡 dexterous 태스크에서 50%+ 실세계 성공률을 달성한 ExoStart.
+terrys_memo: ''
 references:
-  - title: "DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with Multi-Fingered Robots"
-    author: "Bauza et al. (2024)"
-    description: "ExoStart가 직접 확장하는 RL 프레임워크. 동일한 Maria Bauza 그룹의 선행 연구로, auto-curriculum RL 구조와 teacher-student 증류 파이프라인의 기반을 제공한다. ExoStart는 여기에 exoskeleton demonstration과 dynamics filtering을 결합한다."
-    arxiv_url: "https://arxiv.org/abs/2409.06613"
-    category: "foundational"
-  - title: "Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo"
-    author: "Howell et al. (2022)"
-    description: "ExoStart의 dynamics filtering 핵심 엔진인 MuJoCo Predictive Control(MJPC). 실시간 trajectory optimization을 통해 exoskeleton 시연을 물리적으로 실현 가능한 시뮬레이션 궤적으로 변환한다."
-    arxiv_url: "https://arxiv.org/abs/2212.00541"
-    category: "foundational"
-  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
-    author: "Zhao et al. (2023)"
-    description: "ExoStart의 vision 기반 student 정책 증류에 사용되는 Action Chunking with Transformers(ACT) 아키텍처. 고주파 동작 청킹과 transformer 구조로 정밀한 조작 정책 학습을 가능하게 한다."
-    arxiv_url: "https://arxiv.org/abs/2304.13705"
-    category: "foundational"
-  - title: "DexCap: Scalable and Portable Mocap Data Collection System for Dexterous Manipulation"
-    author: "Wang et al. (2024)"
-    description: "모션 캡처 기반 dexterous 데이터 수집 시스템으로, ExoStart와 직접 비교 대상. DexCap은 고정밀 손 추적에 강점이 있지만 ExoStart는 이미 exoskeleton 시연을 통해 로봇 joint 값을 직접 획득하는 방식으로 차별화된다."
-    arxiv_url: "https://arxiv.org/abs/2403.07788"
-    category: "recent"
-  - title: "DexUMI: Using Human Hand as the Universal Manipulation Interface for Dexterous Manipulation"
-    author: "Xu et al. (2025)"
-    description: "exoskeleton을 이용해 인간 손과 로봇 손의 kinematic/visual gap을 동시에 해소하는 관련 연구. ExoStart가 RL + sim-to-real 경로를 택하는 반면, DexUMI는 AI inpainting으로 직접 imitation learning 데이터를 구성하는 대조적인 접근이다."
-    arxiv_url: "https://arxiv.org/abs/2505.21864"
-    post_slug: "2505-dexumi"
-    category: "recent"
+  - title: >-
+      DemoStart: Demonstration-led Auto-curriculum Applied to Sim-to-Real with
+      Multi-Fingered Robots
+    author: Bauza et al. (2024)
+    description: >-
+      ExoStart가 직접 확장하는 RL 프레임워크. 동일한 Maria Bauza 그룹의 선행 연구로, auto-curriculum RL
+      구조와 teacher-student 증류 파이프라인의 기반을 제공한다. ExoStart는 여기에 exoskeleton
+      demonstration과 dynamics filtering을 결합한다.
+    arxiv_url: 'https://arxiv.org/abs/2409.06613'
+    category: foundational
+  - title: 'Predictive Sampling: Real-Time Behaviour Synthesis with MuJoCo'
+    author: Howell et al. (2022)
+    description: >-
+      ExoStart의 dynamics filtering 핵심 엔진인 MuJoCo Predictive Control(MJPC). 실시간
+      trajectory optimization을 통해 exoskeleton 시연을 물리적으로 실현 가능한 시뮬레이션 궤적으로 변환한다.
+    arxiv_url: 'https://arxiv.org/abs/2212.00541'
+    category: foundational
+  - title: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware
+    author: Zhao et al. (2023)
+    description: >-
+      ExoStart의 vision 기반 student 정책 증류에 사용되는 Action Chunking with
+      Transformers(ACT) 아키텍처. 고주파 동작 청킹과 transformer 구조로 정밀한 조작 정책 학습을 가능하게 한다.
+    arxiv_url: 'https://arxiv.org/abs/2304.13705'
+    category: foundational
+  - title: >-
+      DexCap: Scalable and Portable Mocap Data Collection System for Dexterous
+      Manipulation
+    author: Wang et al. (2024)
+    description: >-
+      모션 캡처 기반 dexterous 데이터 수집 시스템으로, ExoStart와 직접 비교 대상. DexCap은 고정밀 손 추적에 강점이
+      있지만 ExoStart는 이미 exoskeleton 시연을 통해 로봇 joint 값을 직접 획득하는 방식으로 차별화된다.
+    arxiv_url: 'https://arxiv.org/abs/2403.07788'
+    category: recent
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Xu et al. (2025)
+    description: >-
+      exoskeleton을 이용해 인간 손과 로봇 손의 kinematic/visual gap을 동시에 해소하는 관련 연구.
+      ExoStart가 RL + sim-to-real 경로를 택하는 반면, DexUMI는 AI inpainting으로 직접
+      imitation learning 데이터를 구성하는 대조적인 접근이다.
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    post_slug: 2505-dexumi
+    category: recent
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Jiawen Yu et al.
+    description: >-
+      Force-aware MoE module for VLA that dynamically routes F/T info across
+      task phases
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=ForceVLA%3A+Enhancing+VLA+Models+with+a+Force-aware+MoE+for+Contact-rich+Manipulation&btnG=
+  - title: 'DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation'
+    author: Hao-Shu Fang et al.
+    description: >-
+      DEXOP is a passive exoskeleton that mechanically links human and robot
+      fingers, enabling direct-contact dexterous demonstration collection at up
+      to 8× the speed of teleoperation.
+    post_slug: 2509-dexop
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2509.04441'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexop-device-robotic-transfer'
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
 ---
 
 ## TL;DR

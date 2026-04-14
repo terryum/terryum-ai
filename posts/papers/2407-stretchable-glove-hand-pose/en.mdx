@@ -1,33 +1,114 @@
 ---
-locale: "en"
-title: "Stretchable Glove: Liquid-metal Sensor Glove for Accurate Hand Pose Tracking"
-summary: "Existing hand tracking gloves only recognize limited poses or require complex multi-sensor setups. This work proposes a one-size-fits-all stretchable glove with 9 liquid-metal sensors that simultaneously estimates bone lengths and joint angles. It achieves bone length error of 2.1mm, joint angle error of 4.16°, and fingertip 3D error of 4.02mm — less than half the smallest reported error among commercial systems."
-card_summary: "Existing hand tracking gloves are limited in pose recognition and require complex multi-sensor setups. This work solves both with a one-size-fits-all stretchable glove that simultaneously estimates bone lengths and joint angles from a single sensing mechanism."
-terrys_memo: ""
-translation_of: "2407-stretchable-glove-hand-pose:ko"
+locale: en
+title: 'Stretchable Glove: Liquid-metal Sensor Glove for Accurate Hand Pose Tracking'
+summary: >-
+  Existing hand tracking gloves only recognize limited poses or require complex
+  multi-sensor setups. This work proposes a one-size-fits-all stretchable glove
+  with 9 liquid-metal sensors that simultaneously estimates bone lengths and
+  joint angles. It achieves bone length error of 2.1mm, joint angle error of
+  4.16°, and fingertip 3D error of 4.02mm — less than half the smallest reported
+  error among commercial systems.
+card_summary: >-
+  Existing hand tracking gloves are limited in pose recognition and require
+  complex multi-sensor setups. This work solves both with a one-size-fits-all
+  stretchable glove that simultaneously estimates bone lengths and joint angles
+  from a single sensing mechanism.
+terrys_memo: ''
+translation_of: '2407-stretchable-glove-hand-pose:ko'
 translated_to: []
 references:
-  - title: "Dexpilot: Vision-Based Teleoperation of Dexterous Robotic Hand-Arm System"
-    author: "Handa et al. (2020)"
-    description: "Vision-based robotic hand teleoperation system. Cited as an alternative approach to glove-based teleoperation, highlighting the advantages of tactile/wearable sensing."
-    arxiv_url: "https://arxiv.org/abs/1910.03135"
-    scholar_url: "https://scholar.google.com/scholar?q=Dexpilot+vision+based+teleoperation+dexterous+robotic+hand"
-    category: "foundational"
-  - title: "Evaluation of hand-tracking systems in teleoperation and virtual dexterous manipulation"
-    author: "Mizera et al. (2019)"
-    description: "Systematic evaluation of commercial hand tracking systems for teleoperation. Used as the primary benchmark for comparing joint angle estimation accuracy of the proposed glove."
-    scholar_url: "https://scholar.google.com/scholar?q=Evaluation+hand+tracking+systems+teleoperation+virtual+dexterous+manipulation+Mizera"
-    category: "foundational"
-  - title: "Consistent and reproducible direct ink writing of eutectic gallium–indium for high-quality soft sensors"
-    author: "Kim et al. (2018)"
-    description: "eGaIn liquid metal direct ink printing technology. Core prior work underlying the sensor fabrication of this paper, directly used for creating the eGaIn traces on the sensing layer."
-    scholar_url: "https://scholar.google.com/scholar?q=Consistent+reproducible+direct+ink+writing+eutectic+gallium+indium+soft+sensors"
-    category: "foundational"
-  - title: "IMU sensor-based electronic goniometric glove for clinical finger movement analysis"
-    author: "Connolly et al. (2017)"
-    description: "IMU-based finger joint measurement glove reporting the smallest error among commercial hand tracking systems. Directly compared to show the proposed glove achieves less than half the fingertip position error (4.02mm)."
-    scholar_url: "https://scholar.google.com/scholar?q=IMU+sensor+electronic+goniometric+glove+clinical+finger+movement"
-    category: "recent"
+  - title: 'Dexpilot: Vision-Based Teleoperation of Dexterous Robotic Hand-Arm System'
+    author: Handa et al. (2020)
+    description: >-
+      Vision-based robotic hand teleoperation system. Cited as an alternative
+      approach to glove-based teleoperation, highlighting the advantages of
+      tactile/wearable sensing.
+    arxiv_url: 'https://arxiv.org/abs/1910.03135'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Dexpilot+vision+based+teleoperation+dexterous+robotic+hand
+    category: foundational
+  - title: >-
+      Evaluation of hand-tracking systems in teleoperation and virtual dexterous
+      manipulation
+    author: Mizera et al. (2019)
+    description: >-
+      Systematic evaluation of commercial hand tracking systems for
+      teleoperation. Used as the primary benchmark for comparing joint angle
+      estimation accuracy of the proposed glove.
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Evaluation+hand+tracking+systems+teleoperation+virtual+dexterous+manipulation+Mizera
+    category: foundational
+  - title: >-
+      Consistent and reproducible direct ink writing of eutectic gallium–indium
+      for high-quality soft sensors
+    author: Kim et al. (2018)
+    description: >-
+      eGaIn liquid metal direct ink printing technology. Core prior work
+      underlying the sensor fabrication of this paper, directly used for
+      creating the eGaIn traces on the sensing layer.
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Consistent+reproducible+direct+ink+writing+eutectic+gallium+indium+soft+sensors
+    category: foundational
+  - title: >-
+      IMU sensor-based electronic goniometric glove for clinical finger movement
+      analysis
+    author: Connolly et al. (2017)
+    description: >-
+      IMU-based finger joint measurement glove reporting the smallest error
+      among commercial hand tracking systems. Directly compared to show the
+      proposed glove achieves less than half the fingertip position error
+      (4.02mm).
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=IMU+sensor+electronic+goniometric+glove+clinical+finger+movement
+    category: recent
+  - title: 'Embodied Hands: Modeling and Capturing Hands and Bodies Together'
+    author: Javier Romero et al.
+    description: '손 형태·포즈의 통계적 모델 MANO를 3D 스캔 1,000개에서 학습, SMPL 신체와 통합해 전신 4D 캡처 실현'
+    post_slug: 2201-mano-hand-model
+    category: recent
+    project_url: 'https://arxiv.org/abs/2201.02610'
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: 'DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation'
+    author: Hao-Shu Fang et al.
+    description: >-
+      DEXOP is a passive exoskeleton that mechanically links human and robot
+      fingers, enabling direct-contact dexterous demonstration collection at up
+      to 8× the speed of teleoperation.
+    post_slug: 2509-dexop
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2509.04441'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexop-device-robotic-transfer'
 ---
 
 ## TL;DR

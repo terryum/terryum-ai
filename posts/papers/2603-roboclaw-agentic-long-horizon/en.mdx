@@ -1,41 +1,96 @@
 ---
-locale: "en"
-translation_of: "2603-roboclaw-agentic-long-horizon:ko"
-title: "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks"
-subtitle: "Unifying data collection, policy learning, and deployment under a single VLM agent"
-summary: "RoboClaw addresses the challenge of scaling VLA systems to long-horizon tasks by unifying data collection, policy learning, and task execution under a single VLM-driven controller. Through Entangled Action Pairs (EAP) for autonomous data collection and agent-orchestrated deployment, it achieves a 25% success rate improvement on long-horizon tasks while reducing human time investment by 53.7%."
-card_summary: "A VLM-driven agentic framework that unifies robot data collection, policy learning, and deployment. Entangled Action Pairs enable self-resetting autonomous data collection, achieving 25% better success on long-horizon tasks with 53.7% less human effort."
-cover_caption: "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management."
-published_at: "2026-04-03T00:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2603.11558"
-source_date: "2026-03-12T00:00:00Z"
-display_tags: ["Robotics", "VLA", "Agentic Framework", "Long-Horizon", "Manipulation"]
+locale: en
+translation_of: '2603-roboclaw-agentic-long-horizon:ko'
+title: 'RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks'
+subtitle: >-
+  Unifying data collection, policy learning, and deployment under a single VLM
+  agent
+summary: >-
+  RoboClaw addresses the challenge of scaling VLA systems to long-horizon tasks
+  by unifying data collection, policy learning, and task execution under a
+  single VLM-driven controller. Through Entangled Action Pairs (EAP) for
+  autonomous data collection and agent-orchestrated deployment, it achieves a
+  25% success rate improvement on long-horizon tasks while reducing human time
+  investment by 53.7%.
+card_summary: >-
+  A VLM-driven agentic framework that unifies robot data collection, policy
+  learning, and deployment. Entangled Action Pairs enable self-resetting
+  autonomous data collection, achieving 25% better success on long-horizon tasks
+  with 53.7% less human effort.
+cover_caption: >-
+  Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot
+  developer specifies system configuration, MCP tools, and skills, while
+  RoboClaw provides file-based memory, memory embeddings, search, and
+  management.
+published_at: '2026-04-03T00:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2603.11558'
+source_date: '2026-03-12T00:00:00Z'
+display_tags:
+  - Robotics
+  - VLA
+  - Agentic Framework
+  - Long-Horizon
+  - Manipulation
 references:
-  - title: "π₀.₅: a Vision-Language-Action Flow Model for General Robot Control"
-    author: "Physical Intelligence et al."
-    description: "The VLA policy model that RoboClaw fine-tunes via LoRA for task-specific policies. RoboClaw autonomously collects training data through EAP self-resetting loops to iteratively improve these policies."
-    arxiv_url: "https://arxiv.org/abs/2502.16989"
-    scholar_url: "https://scholar.google.com/scholar?q=pi-0.5-vision-language-action"
-    category: "foundational"
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Kevin Black et al."
-    description: "The foundational VLA model pre-trained on large-scale robot data. RoboClaw uses this family of VLA as the policy backbone and addresses the pipeline separation problem with a unified agent."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0-vision-language-action-flow"
-    category: "foundational"
-  - title: "Model Context Protocol (MCP)"
-    author: "Anthropic"
-    description: "A standard protocol for AI agents to invoke external tools. RoboClaw exposes robot policy start/stop, environment observation, robot stats, and human call tools through MCP."
-    arxiv_url: ""
-    project_url: "https://modelcontextprotocol.io"
-    category: "foundational"
-  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
-    author: "Max Fu et al."
-    description: "A Code-as-Policy benchmark for robotic manipulation agents. Unlike RoboClaw's VLA-based approach, CaP-X uses code generation, but both explore scaling robot manipulation through LLM/VLM agents."
-    arxiv_url: "https://arxiv.org/abs/2603.22435"
-    scholar_url: "https://scholar.google.com/scholar?q=cap-x-framework-benchmarking"
-    category: "recent"
+  - title: 'π₀.₅: a Vision-Language-Action Flow Model for General Robot Control'
+    author: Physical Intelligence et al.
+    description: >-
+      The VLA policy model that RoboClaw fine-tunes via LoRA for task-specific
+      policies. RoboClaw autonomously collects training data through EAP
+      self-resetting loops to iteratively improve these policies.
+    arxiv_url: 'https://arxiv.org/abs/2502.16989'
+    scholar_url: 'https://scholar.google.com/scholar?q=pi-0.5-vision-language-action'
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      The foundational VLA model pre-trained on large-scale robot data. RoboClaw
+      uses this family of VLA as the policy backbone and addresses the pipeline
+      separation problem with a unified agent.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: 'https://scholar.google.com/scholar?q=pi0-vision-language-action-flow'
+    category: foundational
+  - title: Model Context Protocol (MCP)
+    author: Anthropic
+    description: >-
+      A standard protocol for AI agents to invoke external tools. RoboClaw
+      exposes robot policy start/stop, environment observation, robot stats, and
+      human call tools through MCP.
+    arxiv_url: ''
+    project_url: 'https://modelcontextprotocol.io'
+    category: foundational
+  - title: >-
+      CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+      Manipulation
+    author: Max Fu et al.
+    description: >-
+      A Code-as-Policy benchmark for robotic manipulation agents. Unlike
+      RoboClaw's VLA-based approach, CaP-X uses code generation, but both
+      explore scaling robot manipulation through LLM/VLM agents.
+    arxiv_url: 'https://arxiv.org/abs/2603.22435'
+    scholar_url: 'https://scholar.google.com/scholar?q=cap-x-framework-benchmarking'
+    category: recent
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Kevin Black et al.
+    description: >-
+      Generalist VLA policy using pre-trained VLM + flow matching action expert
+      for multi-robot control
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=A+Vision-Language-Action+Flow+Model+for+General+Robot+Control&btnG=
+  - title: >-
+      CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot
+      Manipulation
+    author: Max Fu et al.
+    description: >-
+      Open-access framework for systematically benchmarking and improving
+      Code-as-Policy agents in robot manipulation
+    post_slug: 2603-capx-coding-agents-manipulation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2603.22435'
 ---
 
 ## TL;DR

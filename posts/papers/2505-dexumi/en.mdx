@@ -1,40 +1,161 @@
 ---
-locale: "en"
-title: "DexUMI: Human Hand as Universal Interface for Dexterous Robot Manipulation"
-summary: "DexUMI combines a wearable exoskeleton (to bridge the kinematic gap) with SAM2-based AI inpainting (to bridge the visual gap), converting human dexterous manipulation demonstrations into robot training data. It achieves an average 86% task success rate across two robot hand platforms (Inspire, XHand) and 3.2× more efficient data collection than teleoperation."
-card_summary: "Teaching dexterous manipulation to robot hands faces two fundamental barriers: kinematic gap and visual gap. DexUMI resolves both simultaneously — via wearable exoskeleton and SAM2 + AI inpainting — achieving 86% average task success rate across two different robot hand platforms."
-seo_title: "DexUMI: Using Human Hand as Universal Manipulation Interface for Dexterous Robots"
-seo_description: "DexUMI resolves kinematic and visual gaps between human and robot hands using a wearable exoskeleton and AI inpainting pipeline, achieving 86% task success rate on Inspire and XHand robot platforms."
-translation_of: "2505-dexumi:ko"
-terrys_memo: ""
+locale: en
+title: 'DexUMI: Human Hand as Universal Interface for Dexterous Robot Manipulation'
+summary: >-
+  DexUMI combines a wearable exoskeleton (to bridge the kinematic gap) with
+  SAM2-based AI inpainting (to bridge the visual gap), converting human
+  dexterous manipulation demonstrations into robot training data. It achieves an
+  average 86% task success rate across two robot hand platforms (Inspire, XHand)
+  and 3.2× more efficient data collection than teleoperation.
+card_summary: >-
+  Teaching dexterous manipulation to robot hands faces two fundamental barriers:
+  kinematic gap and visual gap. DexUMI resolves both simultaneously — via
+  wearable exoskeleton and SAM2 + AI inpainting — achieving 86% average task
+  success rate across two different robot hand platforms.
+seo_title: >-
+  DexUMI: Using Human Hand as Universal Manipulation Interface for Dexterous
+  Robots
+seo_description: >-
+  DexUMI resolves kinematic and visual gaps between human and robot hands using
+  a wearable exoskeleton and AI inpainting pipeline, achieving 86% task success
+  rate on Inspire and XHand robot platforms.
+translation_of: '2505-dexumi:ko'
+terrys_memo: ''
 references:
-  - title: "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots"
-    author: "Chi et al. (2024)"
-    description: "The original UMI paper for grippers, which established the paradigm of using in-the-wild human demonstrations for robot learning. DexUMI directly extends this concept to 5-finger dexterous hands, tackling the additional kinematic and visual gap challenges."
-    arxiv_url: "https://arxiv.org/abs/2402.10329"
-    category: "foundational"
-  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
-    author: "Chi et al. (2023)"
-    description: "The diffusion-based imitation learning backbone used in DexUMI for policy training. Its ability to learn multi-modal action distributions in continuous high-dimensional spaces makes it well-suited for dexterous manipulation tasks."
-    arxiv_url: "https://arxiv.org/abs/2303.04137"
-    category: "foundational"
-  - title: "DexTreme: Transfer of Agile In-hand Manipulation from Simulation to Reality"
-    author: "Handa et al. (2023)"
-    description: "Achieves dexterous in-hand manipulation via sim-to-real transfer with large-scale RL training. DexUMI takes a complementary approach — leveraging real human demonstrations — avoiding extensive simulation infrastructure while directly capturing contact-rich behaviors."
-    arxiv_url: "https://arxiv.org/abs/2210.13702"
-    category: "foundational"
-  - title: "Stretchable Tactile Glove for Hand Pose Estimation and Data Collection in Dexterous Manipulation"
-    author: "Hou et al. (2024)"
-    description: "A tactile glove-based approach to dexterous data collection from the same Stanford group. Compared to DexUMI's exoskeleton approach, it offers different trade-offs between wearability and kinematic accuracy."
-    arxiv_url: "https://arxiv.org/abs/2407.11874"
-    post_slug: "2407-stretchable-glove-hand-pose"
-    category: "recent"
-  - title: "DexForce: Extracting Force-Informed Actions from Kinesthetic Demonstrations for Dexterous Manipulation"
-    author: "Hou et al. (2025)"
-    description: "Extracts force information from kinesthetic demonstrations to learn dexterous manipulation. Complementary to DexUMI's tactile integration — both works highlight the importance of force/contact signals in contact-rich dexterous tasks."
-    arxiv_url: "https://arxiv.org/abs/2501.07640"
-    post_slug: "2501-dexforce-force-informed-actions"
-    category: "recent"
+  - title: >-
+      Universal Manipulation Interface: In-The-Wild Robot Teaching Without
+      In-The-Wild Robots
+    author: Chi et al. (2024)
+    description: >-
+      The original UMI paper for grippers, which established the paradigm of
+      using in-the-wild human demonstrations for robot learning. DexUMI directly
+      extends this concept to 5-finger dexterous hands, tackling the additional
+      kinematic and visual gap challenges.
+    arxiv_url: 'https://arxiv.org/abs/2402.10329'
+    category: foundational
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al. (2023)
+    description: >-
+      The diffusion-based imitation learning backbone used in DexUMI for policy
+      training. Its ability to learn multi-modal action distributions in
+      continuous high-dimensional spaces makes it well-suited for dexterous
+      manipulation tasks.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    category: foundational
+  - title: >-
+      DexTreme: Transfer of Agile In-hand Manipulation from Simulation to
+      Reality
+    author: Handa et al. (2023)
+    description: >-
+      Achieves dexterous in-hand manipulation via sim-to-real transfer with
+      large-scale RL training. DexUMI takes a complementary approach —
+      leveraging real human demonstrations — avoiding extensive simulation
+      infrastructure while directly capturing contact-rich behaviors.
+    arxiv_url: 'https://arxiv.org/abs/2210.13702'
+    category: foundational
+  - title: >-
+      Stretchable Tactile Glove for Hand Pose Estimation and Data Collection in
+      Dexterous Manipulation
+    author: Hou et al. (2024)
+    description: >-
+      A tactile glove-based approach to dexterous data collection from the same
+      Stanford group. Compared to DexUMI's exoskeleton approach, it offers
+      different trade-offs between wearability and kinematic accuracy.
+    arxiv_url: 'https://arxiv.org/abs/2407.11874'
+    post_slug: 2407-stretchable-glove-hand-pose
+    category: recent
+  - title: >-
+      DexForce: Extracting Force-Informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Hou et al. (2025)
+    description: >-
+      Extracts force information from kinesthetic demonstrations to learn
+      dexterous manipulation. Complementary to DexUMI's tactile integration —
+      both works highlight the importance of force/contact signals in
+      contact-rich dexterous tasks.
+    arxiv_url: 'https://arxiv.org/abs/2501.07640'
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Jiawen Yu et al.
+    description: >-
+      Force-aware MoE module for VLA that dynamically routes F/T info across
+      task phases
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=ForceVLA%3A+Enhancing+VLA+Models+with+a+Force-aware+MoE+for+Contact-rich+Manipulation&btnG=
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
+  - title: 'DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation'
+    author: Hao-Shu Fang et al.
+    description: >-
+      DEXOP is a passive exoskeleton that mechanically links human and robot
+      fingers, enabling direct-contact dexterous demonstration collection at up
+      to 8× the speed of teleoperation.
+    post_slug: 2509-dexop
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2509.04441'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexop-device-robotic-transfer'
+  - title: 'OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer'
+    author: Jessica Yin et al.
+    description: >-
+      동일 오픈소스 촉각 글러브를 인간·로봇에 장착해 visual·tactile 구현 간극을 동시 해소, 로봇 데이터 없이 72% 성공률
+      달성
+    post_slug: 2512-osmo-tactile-glove
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.08920'
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
 ---
 
 ## TL;DR

@@ -1,16 +1,93 @@
 ---
-locale: "en"
-translation_of: "2409-3dtactile-dex:ko"
-title: "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning"
-subtitle: "Canonical coords + force prediction for 3D tactile learning"
-summary: "This work addresses the challenge of learning from high-dimensional 3D tactile data distributed across a dexterous hand. A canonical representation normalizes taxel coordinates across sensors, and a GraphMAE-based force prediction pretraining captures both local and net force features. Integrated with Diffusion Policy, the method achieves 78% average success across four fine-grained contact-rich dexterous tasks, outperforming the best baseline T-DEX (63%) by +15%p."
-card_summary: "3D tactile feature learning for dexterous manipulation via canonical representation + force-based self-supervised pretraining, achieving 78% average success rate across 4 contact-rich tasks"
-cover_caption: "Real Robot System. Our system uses a single camera and distributed tactile sensors to achieve dexterous, fine-grained, contact-rich tasks."
-published_at: "2026-03-19T09:00:00+09:00"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2409.17549"
-source_date: "2024-09-26"
-terrys_memo: ""
+locale: en
+translation_of: '2409-3dtactile-dex:ko'
+title: >-
+  Canonical Representation and Force-Based Pretraining of 3D Tactile for
+  Dexterous Visuo-Tactile Policy Learning
+subtitle: Canonical coords + force prediction for 3D tactile learning
+summary: >-
+  This work addresses the challenge of learning from high-dimensional 3D tactile
+  data distributed across a dexterous hand. A canonical representation
+  normalizes taxel coordinates across sensors, and a GraphMAE-based force
+  prediction pretraining captures both local and net force features. Integrated
+  with Diffusion Policy, the method achieves 78% average success across four
+  fine-grained contact-rich dexterous tasks, outperforming the best baseline
+  T-DEX (63%) by +15%p.
+card_summary: >-
+  3D tactile feature learning for dexterous manipulation via canonical
+  representation + force-based self-supervised pretraining, achieving 78%
+  average success rate across 4 contact-rich tasks
+cover_caption: >-
+  Real Robot System. Our system uses a single camera and distributed tactile
+  sensors to achieve dexterous, fine-grained, contact-rich tasks.
+published_at: '2026-03-19T09:00:00+09:00'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2409.17549'
+source_date: '2024-09-26'
+terrys_memo: ''
+references:
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: 'OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer'
+    author: Jessica Yin et al.
+    description: >-
+      동일 오픈소스 촉각 글러브를 인간·로봇에 장착해 visual·tactile 구현 간극을 동시 해소, 로봇 데이터 없이 72% 성공률
+      달성
+    post_slug: 2512-osmo-tactile-glove
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.08920'
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
 ---
 
 ## TL;DR

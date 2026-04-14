@@ -1,35 +1,86 @@
 ---
-locale: "ko"
-title: "ForceVLA: 접촉이 많은 로봇 조작을 위한 힘 인식 MoE"
-summary: "기존 VLA 모델이 시각·언어에만 의존해 접촉이 많은 조작에서 한계를 보이는 문제를, 6축 힘-토크 피드백을 Mixture-of-Experts로 융합하는 ForceVLA 프레임워크로 해결한 연구. 5가지 접촉 태스크에서 기존 대비 평균 23.2%p 성능 향상을 달성했다."
-card_summary: "VLA 모델에 힘 감지가 빠져있어 접촉이 많은 조작에서 한계를 보이는 문제를, 태스크 단계별로 힘 정보의 중요도를 동적 라우팅하는 MoE 기반 힘-비전-언어 융합(ForceVLA)으로 해결했다."
-terrys_memo: ""
+locale: ko
+title: 'ForceVLA: 접촉이 많은 로봇 조작을 위한 힘 인식 MoE'
+summary: >-
+  기존 VLA 모델이 시각·언어에만 의존해 접촉이 많은 조작에서 한계를 보이는 문제를, 6축 힘-토크 피드백을
+  Mixture-of-Experts로 융합하는 ForceVLA 프레임워크로 해결한 연구. 5가지 접촉 태스크에서 기존 대비 평균 23.2%p
+  성능 향상을 달성했다.
+card_summary: >-
+  VLA 모델에 힘 감지가 빠져있어 접촉이 많은 조작에서 한계를 보이는 문제를, 태스크 단계별로 힘 정보의 중요도를 동적 라우팅하는 MoE
+  기반 힘-비전-언어 융합(ForceVLA)으로 해결했다.
+terrys_memo: ''
 translation_of: null
 translated_to:
-  - "en"
+  - en
 references:
-  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
-    author: "Black et al. (2024)"
-    description: "ForceVLA의 베이스 프레임워크. 비전-언어-행동 flow 모델로, ForceVLA는 이 위에 힘 인식 MoE를 추가한 구조. 본 논문에서 π₀를 baseline으로 직접 비교."
-    arxiv_url: "https://arxiv.org/abs/2410.24164"
-    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control"
-    project_url: "https://physicalintelligence.company/blog/pi0"
-    post_slug: "2410-pi0-vla-flow-model"
-    category: "foundational"
-  - title: "RT-1: Robotics Transformer for Real-World Control at Scale"
-    author: "Brohan et al. (2022)"
-    description: "대규모 실세계 로봇 데이터 기반 Transformer. VLA 연구의 기반이 된 핵심 선행 연구로, ForceVLA가 이 계보를 잇는다."
-    arxiv_url: "https://arxiv.org/abs/2212.06817"
-    scholar_url: "https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale"
-    project_url: "https://robotics-transformer1.github.io"
-    category: "foundational"
-  - title: "OpenVLA: An Open-Source Vision-Language-Action Model"
-    author: "Kim et al. (2024)"
-    description: "오픈소스 VLA 모델. 본 논문에서 주요 비교 대상으로 사용되어 ForceVLA의 힘 인식 융합이 기존 VLA 대비 우위를 보이는 근거."
-    arxiv_url: "https://arxiv.org/abs/2406.09246"
-    scholar_url: "https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model"
-    project_url: "https://openvla.github.io/"
-    category: "recent"
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      ForceVLA의 베이스 프레임워크. 비전-언어-행동 flow 모델로, ForceVLA는 이 위에 힘 인식 MoE를 추가한 구조. 본
+      논문에서 π₀를 baseline으로 직접 비교.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model+general+robot+control
+    project_url: 'https://physicalintelligence.company/blog/pi0'
+    post_slug: 2410-pi0-vla-flow-model
+    category: foundational
+  - title: 'RT-1: Robotics Transformer for Real-World Control at Scale'
+    author: Brohan et al. (2022)
+    description: >-
+      대규모 실세계 로봇 데이터 기반 Transformer. VLA 연구의 기반이 된 핵심 선행 연구로, ForceVLA가 이 계보를
+      잇는다.
+    arxiv_url: 'https://arxiv.org/abs/2212.06817'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real+world+control+at+scale
+    project_url: 'https://robotics-transformer1.github.io'
+    category: foundational
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Kim et al. (2024)
+    description: >-
+      오픈소스 VLA 모델. 본 논문에서 주요 비교 대상으로 사용되어 ForceVLA의 힘 인식 융합이 기존 VLA 대비 우위를 보이는
+      근거.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model
+    project_url: 'https://openvla.github.io/'
+    category: recent
+  - title: >-
+      DexForce: Extracting Force-informed Actions from Kinesthetic
+      Demonstrations for Dexterous Manipulation
+    author: Claire Chen et al.
+    description: >-
+      Extract force-informed action targets from kinesthetic demos to reproduce
+      contact forces in policy execution
+    post_slug: 2501-dexforce-force-informed-actions
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2501.10356'
+    scholar_url: >-
+      https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=DexForce%3A+Extracting+Force-Informed+Actions+from+Kinesthetic+Demonstrations+for+Dexterous+Manipulation&btnG=
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
 ---
 
 ## TL;DR

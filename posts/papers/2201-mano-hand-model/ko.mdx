@@ -1,35 +1,93 @@
 ---
-locale: "ko"
-title: "MANO: 관절형 비선형 변형 손 모델"
-subtitle: "손 스캔 1,000개로 배운 손의 언어"
-summary: "MANO는 31명의 고해상도 3D 손 스캔 ~1,000개에서 학습한 통계적 손 모델로, PCA 형상 공간과 포즈 의존 블렌드셰이프를 결합해 778개의 버텍스로 현실적인 손 형태와 포즈를 표현한다. SMPL 신체 모델과 통합한 SMPL+H는 scan-to-mesh 오차 0.93mm 수준으로 4D 전신 시퀀스를 자동 피팅하며, 이후 수백 편의 손 포즈 추정·로봇 조작 연구의 표준 모델이 되었다."
-card_summary: "손 스캔 1,000개로 배운 통계적 손 모델 MANO — PCA 형상 공간 + 포즈 블렌드셰이프로 778개 버텍스의 손 형태를 소수의 파라미터만으로 표현하고, SMPL 신체와 통합해 전신 4D 캡처를 실현한 foundational 논문이다."
-cover_caption: "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements."
-published_at: "2026-03-26T09:00:00Z"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2201.02610"
-source_date: "2017-11-01"
-display_tags: ["Papers", "Robotics", "Hand Modeling", "3D Reconstruction", "SMPL+H", "SIGGRAPH Asia 2017"]
+locale: ko
+title: 'MANO: 관절형 비선형 변형 손 모델'
+subtitle: '손 스캔 1,000개로 배운 손의 언어'
+summary: >-
+  MANO는 31명의 고해상도 3D 손 스캔 ~1,000개에서 학습한 통계적 손 모델로, PCA 형상 공간과 포즈 의존 블렌드셰이프를 결합해
+  778개의 버텍스로 현실적인 손 형태와 포즈를 표현한다. SMPL 신체 모델과 통합한 SMPL+H는 scan-to-mesh 오차 0.93mm
+  수준으로 4D 전신 시퀀스를 자동 피팅하며, 이후 수백 편의 손 포즈 추정·로봇 조작 연구의 표준 모델이 되었다.
+card_summary: >-
+  손 스캔 1,000개로 배운 통계적 손 모델 MANO — PCA 형상 공간 + 포즈 블렌드셰이프로 778개 버텍스의 손 형태를 소수의
+  파라미터만으로 표현하고, SMPL 신체와 통합해 전신 4D 캡처를 실현한 foundational 논문이다.
+cover_caption: >-
+  Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink:
+  recovered shape and pose using our model of hands and bodies interacting
+  together (SMPL+H). To deal with noise and missing data, we develop a new model
+  of hands called MANO (hand Model with Articulated and Non-rigid defOrmations)
+  and combine it with a parameterized 3D body model (SMPL). This combination
+  enables natural performance capture even under severely noisy measurements.
+published_at: '2026-03-26T09:00:00Z'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2201.02610'
+source_date: '2017-11-01'
+display_tags:
+  - Papers
+  - Robotics
+  - Hand Modeling
+  - 3D Reconstruction
+  - SMPL+H
+  - SIGGRAPH Asia 2017
 tables: []
 references:
-  - title: "SMPL: A Skinned Multi-Person Linear Model"
-    author: "Loper et al."
-    description: "MANO가 통합하는 신체 모델 SMPL. SMPL은 PCA 형상 공간 + 포즈 블렌드셰이프 + 스킨드 메시 구조를 신체에 처음 적용했으며, MANO는 동일 프레임워크를 손에 적용하고 손목 관절을 공유해 SMPL+H를 완성한다."
-    arxiv_url: ""
-    scholar_url: "https://scholar.google.com/scholar?q=SMPL+Skinned+Multi-Person+Linear+Model"
-    category: "foundational"
-  - title: "Sphere-Meshes for Real-Time Hand Modeling and Tracking"
-    author: "Tkach et al."
-    description: "MANO가 극복하는 손 형태 표현의 대표적 선행 연구. 구형 메시 기반 근사법으로 피험자 간 형태 다양성과 포즈 의존 비선형 변형을 포착하지 못하는 한계가 있었다."
-    arxiv_url: ""
-    scholar_url: "https://scholar.google.com/scholar?q=Sphere+Meshes+Real-Time+Hand+Modeling+Tracking"
-    category: "recent"
-  - title: "Capturing Hands in Action Using Discriminative Salient Points and Physics Simulation"
-    author: "Tzionas et al."
-    description: "같은 연구 그룹의 손-물체 추적 선행 연구. MANO는 이 연구의 고정 메시 피팅 접근에서 학습 기반 통계적 모델로 진화한 연장선상에 있다."
-    arxiv_url: "https://arxiv.org/abs/1506.05956"
-    scholar_url: ""
-    category: "foundational"
+  - title: 'SMPL: A Skinned Multi-Person Linear Model'
+    author: Loper et al.
+    description: >-
+      MANO가 통합하는 신체 모델 SMPL. SMPL은 PCA 형상 공간 + 포즈 블렌드셰이프 + 스킨드 메시 구조를 신체에 처음
+      적용했으며, MANO는 동일 프레임워크를 손에 적용하고 손목 관절을 공유해 SMPL+H를 완성한다.
+    arxiv_url: ''
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=SMPL+Skinned+Multi-Person+Linear+Model
+    category: foundational
+  - title: Sphere-Meshes for Real-Time Hand Modeling and Tracking
+    author: Tkach et al.
+    description: >-
+      MANO가 극복하는 손 형태 표현의 대표적 선행 연구. 구형 메시 기반 근사법으로 피험자 간 형태 다양성과 포즈 의존 비선형 변형을
+      포착하지 못하는 한계가 있었다.
+    arxiv_url: ''
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Sphere+Meshes+Real-Time+Hand+Modeling+Tracking
+    category: recent
+  - title: >-
+      Capturing Hands in Action Using Discriminative Salient Points and Physics
+      Simulation
+    author: Tzionas et al.
+    description: >-
+      같은 연구 그룹의 손-물체 추적 선행 연구. MANO는 이 연구의 고정 메시 피팅 접근에서 학습 기반 통계적 모델로 진화한 연장선상에
+      있다.
+    arxiv_url: 'https://arxiv.org/abs/1506.05956'
+    scholar_url: ''
+    category: foundational
+  - title: >-
+      Stretchable glove for accurate and robust hand pose reconstruction based
+      on comprehensive motion data
+    author: Myungsun Park et al.
+    description: >-
+      Stretchable liquid-metal glove that estimates both finger bone lengths and
+      joint angles from a single sensing mechanism for accurate hand pose
+      reconstruction
+    post_slug: 2407-stretchable-glove-hand-pose
+    category: recent
+    project_url: 'https://www.nature.com/articles/s41467-024-50101-w'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Stretchable+glove+for+accurate+and+robust+hand+pose+reconstruction+based+on+comprehensive+motion+data
+  - title: >-
+      UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic
+      Hand Skill Transfer
+    author: Chi Zhang et al.
+    description: >-
+      인간 햅틱 글러브와 로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬해, 단 10분 페어 데이터로
+      제로샷 정책 이전 달성
+    post_slug: 2512-unitachand
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.21233'
+  - title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
+    author: Jiacheng Fan et al.
+    description: >-
+      텔레오퍼레이션 없이 인간 시연을 기구학·촉각 리타겟팅 + 3DGS 시뮬 렌더링으로 어떤 로봇·카메라 뷰로도 변환하는
+      Real-Sim-Real 데이터 파이프라인
+    post_slug: 2602-robopaint
+    category: recent
+    project_url: 'https://arxiv.org/abs/2602.05325'
 ---
 
 ## TL;DR

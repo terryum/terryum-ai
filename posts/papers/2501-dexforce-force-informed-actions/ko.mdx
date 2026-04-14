@@ -1,36 +1,103 @@
 ---
-locale: "ko"
-title: "DexForce: 인간 시연에서 접촉력을 학습하는 다지 조작"
-summary: "접촉 밀집 dexterous manipulation에서 kinesthetic 시연의 힘 정보를 활용해 force-informed action을 계산하는 DexForce를 제안한다. 6개 태스크에서 평균 76% 성공률을 달성했으며, 힘을 고려하지 않은 정책은 거의 0% 성공률을 보였다."
-card_summary: "Kinesthetic 시연에서 측정한 접촉 힘으로 force-informed action target을 계산하는 DexForce를 제안한다. 간단한 스프링 모델 하나로 6개 dexterous manipulation 태스크에서 평균 76% 성공률을 달성하며, 힘을 무시한 정책 대비 압도적 차이를 보인다."
-terrys_memo: ""
+locale: ko
+title: 'DexForce: 인간 시연에서 접촉력을 학습하는 다지 조작'
+summary: >-
+  접촉 밀집 dexterous manipulation에서 kinesthetic 시연의 힘 정보를 활용해 force-informed
+  action을 계산하는 DexForce를 제안한다. 6개 태스크에서 평균 76% 성공률을 달성했으며, 힘을 고려하지 않은 정책은 거의 0%
+  성공률을 보였다.
+card_summary: >-
+  Kinesthetic 시연에서 측정한 접촉 힘으로 force-informed action target을 계산하는 DexForce를 제안한다.
+  간단한 스프링 모델 하나로 6개 dexterous manipulation 태스크에서 평균 76% 성공률을 달성하며, 힘을 무시한 정책 대비
+  압도적 차이를 보인다.
+terrys_memo: ''
 references:
-  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
-    author: "Chi et al."
-    description: "DexForce의 정책 학습 backbone. 관측-행동 쌍에서 diffusion 과정으로 행동을 생성하는 visuomotor 정책 프레임워크로, DexForce는 이를 기반으로 force-informed action을 학습한다."
-    arxiv_url: "https://arxiv.org/abs/2303.04137"
-    category: "foundational"
-  - title: "Impedance Control: An Approach to Manipulation"
-    author: "Hogan"
-    description: "DexForce의 제어 기반이 되는 impedance control의 고전 이론. 위치-힘 관계를 스프링-댐퍼 모델로 정의하며, DexForce의 force-informed target 계산의 이론적 토대를 제공한다."
-    scholar_url: "https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan"
-    category: "foundational"
-  - title: "Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware"
-    author: "Zhao et al."
-    description: "저비용 하드웨어로 양팔 섬세한 조작을 학습하는 ACT 프레임워크. 텔레오퍼레이션 기반 시연 수집의 대표적 접근으로, DexForce가 kinesthetic 시연의 우위를 비교하는 맥락에서 참조한다."
-    arxiv_url: "https://arxiv.org/abs/2304.13705"
-    category: "foundational"
-  - title: "ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture System"
-    author: "Liu et al."
-    description: "힘-모션 캡처 시스템을 이용한 force-centric imitation learning. DexForce와 유사하게 힘 정보를 학습에 활용하지만, 외부 모션 캡처에 의존하는 반면 DexForce는 직접 kinesthetic teaching으로 힘을 측정한다."
-    arxiv_url: "https://arxiv.org/abs/2404.04298"
-    category: "recent"
-  - title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
-    author: "Yu et al."
-    description: "VLA 모델에 힘 인식 MoE를 결합한 최근 연구. DexForce가 dexterous hand의 접촉 힘에 집중하는 반면, ForceVLA는 로봇 팔 단위에서 외부 힘을 VLM과 융합하는 접근을 취한다."
-    arxiv_url: "https://arxiv.org/abs/2505.22159"
-    post_slug: "2505-forcevla-force-aware-moe"
-    category: "recent"
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al.
+    description: >-
+      DexForce의 정책 학습 backbone. 관측-행동 쌍에서 diffusion 과정으로 행동을 생성하는 visuomotor 정책
+      프레임워크로, DexForce는 이를 기반으로 force-informed action을 학습한다.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    category: foundational
+  - title: 'Impedance Control: An Approach to Manipulation'
+    author: Hogan
+    description: >-
+      DexForce의 제어 기반이 되는 impedance control의 고전 이론. 위치-힘 관계를 스프링-댐퍼 모델로 정의하며,
+      DexForce의 force-informed target 계산의 이론적 토대를 제공한다.
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Impedance+Control+An+Approach+to+Manipulation+Hogan
+    category: foundational
+  - title: Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware
+    author: Zhao et al.
+    description: >-
+      저비용 하드웨어로 양팔 섬세한 조작을 학습하는 ACT 프레임워크. 텔레오퍼레이션 기반 시연 수집의 대표적 접근으로, DexForce가
+      kinesthetic 시연의 우위를 비교하는 맥락에서 참조한다.
+    arxiv_url: 'https://arxiv.org/abs/2304.13705'
+    category: foundational
+  - title: >-
+      ForceMimic: Force-Centric Imitation Learning with Force-Motion Capture
+      System
+    author: Liu et al.
+    description: >-
+      힘-모션 캡처 시스템을 이용한 force-centric imitation learning. DexForce와 유사하게 힘 정보를
+      학습에 활용하지만, 외부 모션 캡처에 의존하는 반면 DexForce는 직접 kinesthetic teaching으로 힘을 측정한다.
+    arxiv_url: 'https://arxiv.org/abs/2404.04298'
+    category: recent
+  - title: >-
+      ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich
+      Manipulation
+    author: Yu et al.
+    description: >-
+      VLA 모델에 힘 인식 MoE를 결합한 최근 연구. DexForce가 dexterous hand의 접촉 힘에 집중하는 반면,
+      ForceVLA는 로봇 팔 단위에서 외부 힘을 VLM과 융합하는 접근을 취한다.
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    post_slug: 2505-forcevla-force-aware-moe
+    category: recent
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
+  - title: >-
+      ExoStart: Efficient learning for dexterous manipulation with sensorized
+      exoskeleton demonstrations
+    author: Zilin Si et al.
+    description: >-
+      ExoStart converts ~10 exoskeleton demonstrations into dexterous robot
+      manipulation policies via dynamics filtering, auto-curriculum RL, and
+      vision-based distillation for zero-shot real-world transfer.
+    post_slug: 2506-exostart
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2506.11775'
+    scholar_url: >-
+      https://scholar.google.com/scholar?&q=exostart-efficient-learning-dexterous
 ---
 
 ## TL;DR

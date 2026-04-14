@@ -1,15 +1,77 @@
 ---
-locale: "ko"
-title: "UniTacHand: 인간-로봇 손 촉각 통합 표현으로 제로샷 기술 이전"
-subtitle: "MANO UV 맵 + 대조 학습으로 촉각 도메인 갭 해소"
-summary: "인간 햅틱 글러브(137 센서)와 로봇 손(1062 센서)의 이질적 촉각 신호를 MANO 손 모델 UV 맵에 투영해 공통 표현 공간을 만든 연구. InfoNCE 대조 학습과 도메인 적대적 학습으로 단 10분의 페어 데이터만으로 인간-로봇 도메인을 정렬하고, 제로샷 조작 85~100%, 원샷 73.3% 성공률을 달성한다."
-card_summary: "인간·로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬 — 10분 페어 데이터로 제로샷 정책 이전 달성"
-cover_caption: "An overview of UniTacHand. (Left) Stage 1: We project tactile data from both human haptic gloves and robotic hands onto a unified MANO UV map."
-published_at: "2026-03-19T11:00:00+09:00"
-source_type: "arxiv"
-source_url: "https://arxiv.org/abs/2512.21233"
-source_date: "2025-12-24"
-terrys_memo: ""
+locale: ko
+title: 'UniTacHand: 인간-로봇 손 촉각 통합 표현으로 제로샷 기술 이전'
+subtitle: MANO UV 맵 + 대조 학습으로 촉각 도메인 갭 해소
+summary: >-
+  인간 햅틱 글러브(137 센서)와 로봇 손(1062 센서)의 이질적 촉각 신호를 MANO 손 모델 UV 맵에 투영해 공통 표현 공간을 만든
+  연구. InfoNCE 대조 학습과 도메인 적대적 학습으로 단 10분의 페어 데이터만으로 인간-로봇 도메인을 정렬하고, 제로샷 조작
+  85~100%, 원샷 73.3% 성공률을 달성한다.
+card_summary: 인간·로봇 손의 이질적 촉각 신호를 MANO UV 맵으로 통합하고 대조 학습으로 정렬 — 10분 페어 데이터로 제로샷 정책 이전 달성
+cover_caption: >-
+  An overview of UniTacHand. (Left) Stage 1: We project tactile data from both
+  human haptic gloves and robotic hands onto a unified MANO UV map.
+published_at: '2026-03-19T11:00:00+09:00'
+source_type: arxiv
+source_url: 'https://arxiv.org/abs/2512.21233'
+source_date: '2025-12-24'
+terrys_memo: ''
+references:
+  - title: 'Embodied Hands: Modeling and Capturing Hands and Bodies Together'
+    author: Javier Romero et al.
+    description: '손 형태·포즈의 통계적 모델 MANO를 3D 스캔 1,000개에서 학습, SMPL 신체와 통합해 전신 4D 캡처 실현'
+    post_slug: 2201-mano-hand-model
+    category: recent
+    project_url: 'https://arxiv.org/abs/2201.02610'
+  - title: 'OSMO: Open-Source Tactile Glove for Human-to-Robot Skill Transfer'
+    author: Jessica Yin et al.
+    description: >-
+      동일 오픈소스 촉각 글러브를 인간·로봇에 장착해 visual·tactile 구현 간극을 동시 해소, 로봇 데이터 없이 72% 성공률
+      달성
+    post_slug: 2512-osmo-tactile-glove
+    category: recent
+    project_url: 'https://arxiv.org/abs/2512.08920'
+  - title: >-
+      Canonical Representation and Force-Based Pretraining of 3D Tactile for
+      Dexterous Visuo-Tactile Policy Learning
+    author: Tianhao Wu et al.
+    description: >-
+      3D 촉각 데이터 학습의 어려움을 정규 좌표계 표현(canonical representation)과 힘 기반 자기지도 사전학습으로
+      해결해, 4가지 정밀 손 조작 태스크에서 78% 평균 성공률 달성
+    post_slug: 2409-3dtactile-dex
+    category: recent
+    project_url: 'https://arxiv.org/abs/2409.17549'
+  - title: >-
+      Learning In-Hand Translation Using Tactile Skin With Shear and Normal
+      Force Sensing
+    author: Jessica Yin et al.
+    description: >-
+      Tactile skin sensor model for zero-shot sim-to-real transfer of ternary
+      shear and binary normal forces, enabling RL-based dexterous in-hand
+      translation
+    post_slug: 2407-tactile-skin-inhand-translation
+    category: recent
+    project_url: 'https://arxiv.org/abs/2407.07885'
+  - title: 'PP-Tac: Paper Picking Using Tactile Feedback in Dexterous Robotic Hands'
+    author: Pei Lin et al.
+    description: >-
+      Tactile-feedback dexterous hand system that picks paper-like thin
+      deformable objects via R-Tac slip detection + online force control +
+      diffusion policy, achieving 87.5% success rate
+    post_slug: 2504-pp-tac
+    category: recent
+    project_url: 'https://arxiv.org/abs/2504.16649'
+  - title: >-
+      DexUMI: Using Human Hand as the Universal Manipulation Interface for
+      Dexterous Manipulation
+    author: Mengda Xu et al.
+    description: >-
+      DexUMI bridges kinematic and visual gaps between human and robot hands via
+      exoskeleton hardware and AI inpainting to enable efficient dexterous
+      manipulation skill transfer.
+    post_slug: 2505-dexumi
+    category: recent
+    arxiv_url: 'https://arxiv.org/abs/2505.21864'
+    scholar_url: 'https://scholar.google.com/scholar?&q=dexumi-using-human-hand'
 ---
 
 ## TL;DR
