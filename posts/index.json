@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-14T21:37:50.296Z",
-  "total_posts": 28,
+  "generated_at": "2026-04-14T22:47:01.108Z",
+  "total_posts": 29,
   "posts": [
     {
       "post_number": 1,
@@ -1933,6 +1933,80 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 29,
+      "slug": "2511-act1-robot-foundation-model",
+      "content_type": "papers",
+      "title_en": "ACT-1: A Robot Foundation Model Trained on Zero Robot Data",
+      "title_ko": "ACT-1: 로봇 데이터 없이 학습한 가정용 로봇 파운데이션 모델",
+      "summary_ko": "로봇 조작 데이터 부족이 가정용 로봇의 핵심 병목이다. Sunday Robotics는 인간 손 형태에 맞춘 로봇 하드웨어(Embodiment Alignment)와 Skill Capture Glove를 통해 로봇 데이터 없이 파운데이션 모델 ACT-1을 학습시켰다. Table-to-Dishwasher 과제에서 33종의 고유 조작을 포함하는 초장기 자율 수행, 그리고 처음 방문한 Airbnb 환경에서의 제로샷 일반화를 시연했다.",
+      "summary_en": "Lack of robot manipulation data is the key bottleneck for home robots. Sunday Robotics trained foundation model ACT-1 without any robot data by aligning robot hardware to human hand form (Embodiment Alignment) and using Skill Capture Gloves. They demonstrated ultra-long-horizon autonomous execution with 33 unique dexterous interactions in a Table-to-Dishwasher task, plus zero-shot generalization in unseen Airbnb homes.",
+      "domain": "robotics",
+      "subfields": [
+        "mobile-manipulation",
+        "foundation-model",
+        "embodiment-alignment",
+        "dexterous-manipulation"
+      ],
+      "key_concepts": [
+        "embodiment-alignment",
+        "skill-capture-glove",
+        "skill-transform",
+        "zero-shot-generalization",
+        "long-horizon-manipulation",
+        "foundation-model"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "human-to-robot-transfer",
+        "end-to-end-learning"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Foundation Model",
+        "Mobile Manipulation",
+        "Embodiment Alignment"
+      ],
+      "source_author": "Sunday Robotics",
+      "source_date": "2025-11-19T00:00:00Z",
+      "published_at": "2026-04-15T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Home robot foundation model trained on zero robot data via Embodiment Alignment — human hand data directly transferred to robot",
+        "problem": "No internet-scale robot manipulation data exists; teleoperation creates a scaling deadlock",
+        "solution": "Embodiment Alignment: match robot hardware to human form + Skill Capture Glove + Skill Transform (90% conversion rate)",
+        "key_result": "Table-to-Dishwasher: 33 unique dexterous interactions, 21 objects, 130ft+ navigation; zero-shot generalization in unseen Airbnb homes",
+        "limitations": [
+          "No systematic benchmarks or quantitative success rates",
+          "Proprietary hardware prevents external reproduction",
+          "Skill Transform 10% failure impact unclear"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "2511-gen0-embodied-foundation-model",
+          "type": "compares_with"
+        },
+        {
+          "slug": "2604-gen1-scaling-mastery",
+          "type": "compares_with"
+        },
+        {
+          "slug": "2410-pi0-vla-flow-model",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -2199,6 +2273,18 @@
       {
         "from": "2604-automated-alignment-researchers",
         "type": "related"
+      },
+      {
+        "from": "2511-act1-robot-foundation-model",
+        "type": "compares_with"
+      },
+      {
+        "from": "2511-act1-robot-foundation-model",
+        "type": "compares_with"
+      },
+      {
+        "from": "2511-act1-robot-foundation-model",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -2289,6 +2375,18 @@
         ]
       },
       {
+        "id": "robotics-brain",
+        "label": "robotics/brain",
+        "post_numbers": [
+          19,
+          29
+        ],
+        "core_concepts": [],
+        "taxonomy_nodes": [
+          "robotics/brain"
+        ]
+      },
+      {
         "id": "concept-VLA",
         "label": "VLA",
         "post_numbers": [
@@ -2327,8 +2425,7 @@
       18
     ],
     "outlier_papers": [
-      3,
-      19
+      3
     ]
   },
   "concept_index": {
@@ -2807,17 +2904,35 @@
     ],
     "reward-hacking": [
       28
+    ],
+    "embodiment-alignment": [
+      29
+    ],
+    "skill-capture-glove": [
+      29
+    ],
+    "skill-transform": [
+      29
+    ],
+    "zero-shot-generalization": [
+      29
+    ],
+    "long-horizon-manipulation": [
+      29
+    ],
+    "foundation-model": [
+      29
     ]
   },
   "domain_stats": {
-    "robotics": 20,
+    "robotics": 21,
     "ml": 2,
     "ai": 4,
     "philosophy": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 6,
-    "robotics/arm:secondary": 7,
+    "robotics/arm:secondary": 8,
     "robotics/arm/force-control": 1,
     "robotics/hand/tactile": 6,
     "robotics/arm/exoskeleton": 3,
@@ -2826,11 +2941,11 @@
     "ai/agent": 5,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 7,
+    "robotics/brain": 8,
     "ai/llm:secondary": 4,
     "robotics/arm": 4,
     "robotics/hand": 8,
-    "robotics": 19,
+    "robotics": 20,
     "ai": 5
   }
 }

@@ -1,0 +1,52 @@
+{
+  "post_id": "2511-act1-robot-foundation-model",
+  "slug": "2511-act1-robot-foundation-model",
+  "post_number": 29,
+  "published_at": "2026-04-15T00:00:00Z",
+  "updated_at": "2026-04-15T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Foundation Model", "Mobile Manipulation", "Embodiment Alignment"],
+  "display_tags": ["Robotics", "Foundation Model", "Mobile Manipulation", "Embodiment Alignment"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Sunday Robotics' ACT-1 robot performing table-clearing tasks in a home environment",
+  "cover_figure_number": 1,
+  "reading_time_min": 5,
+  "source_type": "Sunday Robotics Blog",
+  "source_title": "ACT-1: A Robot Foundation Model Trained on Zero Robot Data",
+  "source_author": "Sunday Robotics",
+  "source_authors_full": ["Sunday Robotics Team"],
+  "source_url": "https://www.sunday.ai/journal/no-robot-data",
+  "source_date": "2025-11-19T00:00:00Z",
+  "source_project_url": null,
+  "google_scholar_url": null,
+  "domain": "robotics",
+  "subfields": ["mobile-manipulation", "foundation-model", "embodiment-alignment", "dexterous-manipulation"],
+  "key_concepts": ["embodiment-alignment", "skill-capture-glove", "skill-transform", "zero-shot-generalization", "long-horizon-manipulation", "foundation-model"],
+  "methodology": ["imitation-learning", "human-to-robot-transfer", "end-to-end-learning"],
+  "contribution_type": "system",
+  "taxonomy_primary": "robotics/brain",
+  "taxonomy_secondary": ["robotics/arm"],
+  "relations": [
+    { "slug": "2511-gen0-embodied-foundation-model", "type": "compares_with" },
+    { "slug": "2604-gen1-scaling-mastery", "type": "compares_with" },
+    { "slug": "2410-pi0-vla-flow-model", "type": "related" }
+  ],
+  "ai_summary": {
+    "one_liner": "Home robot foundation model trained on zero robot data via Embodiment Alignment — human hand data directly transferred to robot",
+    "problem": "No internet-scale robot manipulation data exists; teleoperation creates a scaling deadlock",
+    "solution": "Embodiment Alignment: match robot hardware to human form + Skill Capture Glove + Skill Transform (90% conversion rate)",
+    "key_result": "Table-to-Dishwasher: 33 unique dexterous interactions, 21 objects, 130ft+ navigation; zero-shot generalization in unseen Airbnb homes",
+    "limitations": ["No systematic benchmarks or quantitative success rates", "Proprietary hardware prevents external reproduction", "Skill Transform 10% failure impact unclear"]
+  },
+  "figures": [
+    { "number": 1, "src": "./fig-1.jpg", "caption": "Sunday Robotics' ACT-1 robot performing table-clearing tasks in a home environment with the development team observing.", "caption_ko": "Sunday Robotics의 ACT-1 로봇이 가정 환경에서 테이블 정리 작업을 수행하는 모습. 개발팀이 관찰하고 있다." },
+    { "number": 2, "src": "./fig-2.png", "caption": "Close-up of Sunday Robotics' robot hands. Designed to achieve functional parity with human hands, the morphological alignment with the Skill Capture Glove is central to the Embodiment Alignment approach.", "caption_ko": "Sunday Robotics의 로봇 손 클로즈업. 인간 손의 기능적 동등성(functional parity)을 목표로 설계된 하드웨어로, Skill Capture Glove와의 형태적 정렬(Embodiment Alignment)이 핵심이다." },
+    { "number": 3, "src": "./fig-3.jpg", "caption": "Various Airbnb home environments where ACT-1 achieved zero-shot generalization. The robot performs tasks in unfamiliar environments using 3D map-conditioned navigation without any environment-specific training.", "caption_ko": "ACT-1이 제로샷으로 일반화한 다양한 Airbnb 가정 환경들. 학습에 사용되지 않은 낯선 환경에서 3D 맵 기반 내비게이션으로 작업을 수행한다." }
+  ],
+  "tables": [],
+  "thumb_source": "./fig-1.jpg",
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false
+}

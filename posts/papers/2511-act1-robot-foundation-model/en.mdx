@@ -1,0 +1,89 @@
+---
+locale: "en"
+translation_of: "2511-act1-robot-foundation-model:ko"
+title: "ACT-1: A Robot Foundation Model Trained on Zero Robot Data"
+subtitle: "Embodiment Alignment turns human hand data into robot skills"
+summary: "Lack of robot manipulation data is the key bottleneck for home robots. Sunday Robotics trained foundation model ACT-1 without any robot data by aligning robot hardware to human hand form (Embodiment Alignment) and using Skill Capture Gloves. They demonstrated ultra-long-horizon autonomous execution with 33 unique dexterous interactions in a Table-to-Dishwasher task, plus zero-shot generalization in unseen Airbnb homes."
+card_summary: "Lack of robot manipulation data is the key bottleneck for home robots. Sunday Robotics trained foundation model ACT-1 without any robot data by aligning robot hardware to human hand form (Embodiment Alignment) and using Skill Capture Gloves. They demonstrated ultra-long-horizon autonomous execution with 33 unique dexterous interactions in a Table-to-Dishwasher task, plus zero-shot generalization in unseen Airbnb homes."
+cover_caption: "Sunday Robotics' ACT-1 robot performing table-clearing tasks in a home environment"
+published_at: "2026-04-15T00:00:00Z"
+source_type: "Sunday Robotics Blog"
+source_url: "https://www.sunday.ai/journal/no-robot-data"
+source_date: "2025-11-19T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Foundation Model"
+  - "Mobile Manipulation"
+  - "Embodiment Alignment"
+terrys_memo: ""
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "VLA flow model for general robot control. Similar to ACT-1 in addressing diverse manipulation tasks with a single model, but relies on existing robot demonstration data rather than human-to-robot transfer."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: ""
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "GEN-0: Embodied Generative Foundation Model"
+    author: "Generalist AI"
+    description: "Embodied foundation model that scales through physical interaction data. Like ACT-1, it tackles the data acquisition problem, but takes a simulation-based approach."
+    arxiv_url: ""
+    scholar_url: ""
+    post_slug: "2511-gen0-embodied-foundation-model"
+    category: "recent"
+  - title: "GEN-1: Scaling Mastery Through Embodied Foundation Models"
+    author: "Generalist AI"
+    description: "Follow-up to GEN-0 on commercializing general-purpose Physical AI. Like ACT-1, targets long-horizon manipulation tasks in real home environments."
+    arxiv_url: ""
+    scholar_url: ""
+    post_slug: "2604-gen1-scaling-mastery"
+    category: "recent"
+translated_to: []
+---
+
+## TL;DR
+
+How can you build a home robot foundation model with zero robot data? Sunday Robotics developed Embodiment Alignment—robot hardware matched to human hand form plus Skill Capture Gloves—to directly leverage human data for robot training, achieving ultra-long-horizon autonomous execution with 33 unique dexterous interactions and zero-shot generalization in unseen homes.
+
+## Problem
+
+Unlike LLMs that can train on internet-scale text data, robotics has no equivalent large-scale corpus of real-world manipulation data. Standard teleoperation-based data collection creates a **scaling deadlock**—you cannot build intelligence without data from large-scale deployment, and you cannot deploy at scale without intelligence. Solving this through traditional methods would take decades.
+
+## Key Idea
+
+Sunday Robotics' core insight is **Embodiment Alignment**: by matching robot hardware to human body form, the 8 billion humans on Earth become potential data sources. Two key technologies enable this:
+
+- **Skill Capture Glove**: Mechanically optimized for human grasp range, tool use, and everyday item manipulation to capture hand motions
+- **Skill Transform**: Strips human-specific visual and kinematic details from captured data, converting it to robot-trainable format (90% conversion success rate)
+
+<Figure src="./fig-2.png" caption="Close-up of Sunday Robotics' robot hands. Designed to achieve functional parity with human hands, the morphological alignment with the Skill Capture Glove is central to the Embodiment Alignment approach." />
+
+## Key Results
+
+- **Table-to-Dishwasher task**: Described as "the most complex task ever done by a robot autonomously"
+  - 33 unique dexterous interactions, 68 total interactions
+  - 21 different objects handled
+  - Navigation exceeding 130 feet (~40m)
+  - Spanning millimeter-level precision to meter-level navigation
+- **Zero-shot generalization**: Successful task execution in unseen Airbnb environments without environment-specific training
+  - 3D map-conditioned navigation — learns to interpret maps rather than memorize specific houses
+- **Dexterity Frontier**: Demonstrations of sock pairing/balling, espresso shot pulling (millimeter-precision tamping, bimanual coordination, high-torque insertion)
+
+<Figure src="./fig-3.jpg" caption="Various Airbnb home environments where ACT-1 achieved zero-shot generalization. The robot performs tasks in unfamiliar environments using 3D map-conditioned navigation without any environment-specific training." />
+
+## Achievements and Limitations
+
+**Key achievements**
+- Paradigm of foundation model training **without any robot data** — direct human data utilization via Embodiment Alignment
+- Claims to be the first foundation model combining long-horizon manipulation with map-conditioned navigation in a **single end-to-end model**
+- Zero-shot generalization demonstrated in previously unseen homes
+
+**Limitations**
+- No systematic benchmark results, quantitative success rates, or baseline comparisons — demonstration-focused presentation
+- Unclear impact of the remaining 10% failure rate in Skill Transform's 90% conversion success
+- No information on the actual range of home environment diversity or sustained operational reliability
+- 🤖 Non-reproducible: entirely dependent on proprietary hardware (robot + Skill Capture Glove), making external verification or extension impossible
+
+## Terry's Memo
+
+- *(None)*

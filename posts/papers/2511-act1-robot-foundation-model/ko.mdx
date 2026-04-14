@@ -1,0 +1,89 @@
+---
+locale: "ko"
+title: "ACT-1: 로봇 데이터 없이 학습한 가정용 로봇 파운데이션 모델"
+subtitle: "인간의 손 데이터를 로봇에게 전이하는 Embodiment Alignment 접근"
+summary: "로봇 조작 데이터 부족이 가정용 로봇의 핵심 병목이다. Sunday Robotics는 인간 손 형태에 맞춘 로봇 하드웨어(Embodiment Alignment)와 Skill Capture Glove를 통해 로봇 데이터 없이 파운데이션 모델 ACT-1을 학습시켰다. Table-to-Dishwasher 과제에서 33종의 고유 조작을 포함하는 초장기 자율 수행, 그리고 처음 방문한 Airbnb 환경에서의 제로샷 일반화를 시연했다."
+card_summary: "로봇 조작 데이터 부족이 가정용 로봇의 핵심 병목이다. Sunday Robotics는 인간 손 형태에 맞춘 로봇 하드웨어(Embodiment Alignment)와 Skill Capture Glove를 통해 로봇 데이터 없이 파운데이션 모델 ACT-1을 학습시켰다. Table-to-Dishwasher 과제에서 33종의 고유 조작을 포함하는 초장기 자율 수행, 그리고 처음 방문한 Airbnb 환경에서의 제로샷 일반화를 시연했다."
+cover_caption: "Sunday Robotics의 ACT-1 로봇이 가정 환경에서 테이블 정리 작업을 수행하는 모습"
+published_at: "2026-04-15T00:00:00Z"
+source_type: "Sunday Robotics Blog"
+source_url: "https://www.sunday.ai/journal/no-robot-data"
+source_date: "2025-11-19T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Foundation Model"
+  - "Mobile Manipulation"
+  - "Embodiment Alignment"
+terrys_memo: ""
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "범용 로봇 제어를 위한 VLA 플로우 모델. ACT-1과 유사하게 다양한 로봇 조작 과제를 단일 모델로 해결하려는 접근이지만, 기존 로봇 시연 데이터에 의존한다는 점에서 차이가 있다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: ""
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "GEN-0: Embodied Generative Foundation Model"
+    author: "Generalist AI"
+    description: "물리적 상호작용 데이터로 스케일링하는 Embodied Foundation Model. ACT-1과 마찬가지로 데이터 확보 문제를 다루지만, 시뮬레이션 기반 접근을 취한다는 점에서 대비된다."
+    arxiv_url: ""
+    scholar_url: ""
+    post_slug: "2511-gen0-embodied-foundation-model"
+    category: "recent"
+  - title: "GEN-1: Scaling Mastery Through Embodied Foundation Models"
+    author: "Generalist AI"
+    description: "GEN-0의 후속으로 범용 Physical AI의 상용화를 다룬 블로그. ACT-1처럼 실세계 가정 환경에서의 장기 조작 과제를 목표로 한다."
+    arxiv_url: ""
+    scholar_url: ""
+    post_slug: "2604-gen1-scaling-mastery"
+    category: "recent"
+translated_to:
+  - "en"
+---
+
+## TL;DR
+
+로봇 조작 데이터가 없는 상태에서 가정용 로봇 파운데이션 모델을 어떻게 만들 수 있을까? Sunday Robotics는 인간 손 형태에 정렬된 로봇 하드웨어와 Skill Capture Glove로 인간 데이터를 로봇 학습에 직접 활용하는 Embodiment Alignment 접근으로, 33종 고유 조작의 초장기 자율 수행과 처음 방문한 환경에서의 제로샷 일반화를 달성했다.
+
+## 문제
+
+LLM이 인터넷 규모의 텍스트 데이터로 학습할 수 있는 것과 달리, 로보틱스에는 동등한 규모의 실세계 조작 데이터 코퍼스가 존재하지 않는다. 표준적인 텔레오퍼레이션 기반 데이터 수집은 **스케일링 교착 상태**를 만든다—대규모 배포 없이는 지능을 구축할 데이터가 없고, 지능 없이는 대규모 배포가 불가능하다. 이 문제를 기존 방식으로 풀려면 수십 년이 걸린다.
+
+## 핵심 아이디어
+
+Sunday Robotics의 핵심 통찰은 **Embodiment Alignment**이다: 로봇의 하드웨어를 인간의 신체 형태에 맞추면, 지구상 80억 인간을 데이터 소스로 활용할 수 있다. 이를 위해 두 가지 핵심 기술을 개발했다:
+
+- **Skill Capture Glove**: 인간의 파지 범위, 도구 사용, 일상 물체 조작에 최적화된 기계적 설계로 인간 손 동작을 캡처
+- **Skill Transform**: 캡처된 인간 데이터에서 인간 특유의 시각적·운동학적 디테일을 제거하고 로봇 학습에 적합한 형태로 변환 (변환 성공률 90%)
+
+<Figure src="./fig-2.png" caption="Sunday Robotics의 로봇 손 클로즈업. 인간 손의 기능적 동등성(functional parity)을 목표로 설계된 하드웨어로, Skill Capture Glove와의 형태적 정렬(Embodiment Alignment)이 핵심이다." />
+
+## 주요 결과
+
+- **Table-to-Dishwasher 과제**: "로봇이 자율적으로 수행한 가장 복잡한 작업"으로 묘사
+  - 33종의 고유 정교 조작, 총 68회 상호작용
+  - 21개 서로 다른 물체 처리
+  - 130피트(약 40m) 이상 내비게이션
+  - 밀리미터 단위 정밀 조작부터 미터 단위 이동까지 포괄
+- **제로샷 일반화**: 학습에 사용되지 않은 Airbnb 환경에서 환경별 추가 학습 없이 작업 수행 성공
+  - 3D 맵 기반 내비게이션 컨디셔닝 — 특정 집을 암기하지 않고 맵 해석 능력을 학습
+- **Dexterity Frontier**: 양말 짝짓기+말기, 에스프레소 추출(밀리미터 정밀 탬핑, 양손 협응, 고토크 삽입) 등 고난도 과제 시연
+
+<Figure src="./fig-3.jpg" caption="ACT-1이 제로샷으로 일반화한 다양한 Airbnb 가정 환경들. 학습에 사용되지 않은 낯선 환경에서 3D 맵 기반 내비게이션으로 작업을 수행한다." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+- **로봇 데이터 없이** 파운데이션 모델 학습이라는 패러다임 제시 — Embodiment Alignment로 인간 데이터 직접 활용
+- 장기 조작 + 맵 기반 내비게이션을 **단일 end-to-end 모델**로 통합한 최초의 파운데이션 모델 주장
+- 처음 방문한 가정에서의 제로샷 일반화 시연
+
+**한계점**
+- 정량적 성공률, baseline 비교 등 체계적 벤치마크 결과가 제시되지 않음 — 시연 위주의 발표
+- Skill Transform의 90% 변환 성공률이 나머지 10% 실패 시 어떤 영향을 미치는지 불명확
+- 가정 환경 다양성의 실제 범위와 지속적 운영 안정성에 대한 정보 부재
+- 🤖 재현 불가: 독자적 하드웨어(로봇 + Skill Capture Glove)에 전적으로 의존하여 외부 연구자의 검증이나 확장이 불가능
+
+## Terry's Memo
+
+- *(None)*
