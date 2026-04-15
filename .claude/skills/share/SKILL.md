@@ -116,8 +116,11 @@ argument-hint: "<번호 | slug | 제목 | URL> [플랫폼 필터]"
 콘텐츠 타입에 따라 적절한 스크립트 사용:
 
 ```bash
-# Posts
+# Posts (소셜미디어: facebook, threads, linkedin, x, bluesky)
 python scripts/publish-social.py --slug={slug} --platform={platforms}
+
+# Posts (Substack: 별도 스크립트 — EN/KO 동시 발행)
+python scripts/publish-substack.py --slug={slug}
 
 # Surveys / Projects (기본 메시지)
 python scripts/publish-project-social.py --slug={slug} --platform={platforms}
@@ -126,7 +129,7 @@ python scripts/publish-project-social.py --slug={slug} --platform={platforms}
 python scripts/publish-project-social.py --slug={slug} --message-ko-file=/tmp/share-ko.txt --message-en-file=/tmp/share-en.txt --platform={platforms}
 ```
 
-Substack은 스크립트 내에서 자동 처리됨 (별도 호출 불필요).
+**중요: Substack은 `publish-social.py`에 포함되어 있지 않다.** 반드시 `publish-substack.py`를 별도로 실행해야 한다. `--platform=substack`은 `publish-social.py`에서 무시된다.
 
 **글자수 초과 시 재발행**: 특정 플랫폼이 실패하면 해당 플랫폼만 기본 메시지로 재시도:
 ```bash
