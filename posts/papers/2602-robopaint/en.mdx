@@ -1,30 +1,11 @@
 ---
 locale: en
 translation_of: '2602-robopaint:ko'
-title: 'RoboPaint: From Human Demonstration to Any Robot and Any View'
-subtitle: 'Real-Sim-Real: glove demos → 3DGS → any robot data'
-summary: >-
-  RoboPaint introduces a Real-Sim-Real pipeline that converts natural human
-  glove demonstrations into robot training data for any embodiment and camera
-  view, without teleoperation. Dex-Tactile retargeting jointly optimizes
-  kinematic and tactile constraints (3.86 mm contact error), and 3DGS-based
-  scene reconstruction renders photorealistic training images from arbitrary
-  viewpoints. VLA policies (π0.5) trained on generated data achieve 80% average
-  success across three manipulation tasks, with data collection 2.6–5.3× faster
-  than teleoperation.
-card_summary: >-
-  Real-Sim-Real pipeline: human glove demos → Dex-Tactile retargeting + 3DGS
-  rendering → VLA training data for any robot or camera view, without
-  teleoperation
-cover_caption: >-
-  System Overview of the Real-Sim-Real Pipeline. Our framework begins with
-  high-precision human data collection using instrumented gloves under our
-  multiview Data-Acquisition-Room. The raw data is then processed through object
-  pose estimation and Dex-Tactile joint retargeting to obtain the movement of
-  target robot embodiment and object. The deployment scene is then reconstructed
-  via 3D Gaussian Splatting and imported into simulation environment. Finally,
-  we drive robot and objects accordingly and record robot demonstration from
-  arbitrary view.
+title: "RoboPaint: From Human Demonstration to Any Robot and Any View"
+subtitle: "Real-Sim-Real: glove demos → 3DGS → any robot data"
+summary: "RoboPaint introduces a Real-Sim-Real pipeline that converts natural human glove demonstrations into robot training data for any embodiment and camera view, without teleoperation. Dex-Tactile retargeting jointly optimizes kinematic and tactile constraints (3.86 mm contact error), and 3DGS-based scene reconstruction renders photorealistic training images from arbitrary viewpoints. VLA policies (π0.5) trained on generated data achieve 80% average success across three manipulation tasks, with data collection 2.6–5.3× faster than teleoperation."
+card_summary: "Real-Sim-Real pipeline: human glove demos → Dex-Tactile retargeting + 3DGS rendering → VLA training data for any robot or camera view, without teleoperation"
+cover_caption: "System Overview of the Real-Sim-Real Pipeline. Our framework begins with high-precision human data collection using instrumented gloves under our multiview Data-Acquisition-Room. The raw data is then processed through object pose estimation and Dex-Tactile joint retargeting to obtain the movement of target robot embodiment and object. The deployment scene is then reconstructed via 3D Gaussian Splatting and imported into simulation environment. Finally, we drive robot and objects accordingly and record robot demonstration from arbitrary view."
 published_at: '2026-03-19T10:00:00+09:00'
 source_type: arxiv
 source_url: 'https://arxiv.org/abs/2602.05325'

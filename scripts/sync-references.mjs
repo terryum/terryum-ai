@@ -74,10 +74,46 @@ async function parseMdx(filePath) {
   }
 }
 
-// ── Write updated frontmatter back to MDX ──
+// ── Write updated references back to MDX (preserving original formatting) ──
 async function writeMdx(filePath, parsed) {
-  const output = matter.stringify(parsed.content, parsed.data);
-  await fs.writeFile(filePath, output, 'utf8');
+  // Instead of matter.stringify() which reformats YAML,
+  // surgically replace only the references section in the original file
+  const raw = await fs.readFile(filePath, 'utf8');
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---/);
+  if (!fmMatch) {
+    // Fallback to gray-matter stringify if no frontmatter found
+    const output = matter.stringify(parsed.content, parsed.data);
+    await fs.writeFile(filePath, output, 'utf8');
+    return;
+  }
+
+  const yamlStr = fmMatch[1];
+  const refs = parsed.data.references || [];
+
+  // Build YAML references block manually to preserve formatting
+  const refsYaml = refs.map(ref => {
+    let block = `  - title: "${ref.title.replace(/"/g, '\\"')}"`;
+    if (ref.author) block += `\n    author: "${ref.author.replace(/"/g, '\\"')}"`;
+    if (ref.description) block += `\n    description: "${ref.description.replace(/"/g, '\\"')}"`;
+    if (ref.arxiv_url) block += `\n    arxiv_url: "${ref.arxiv_url}"`;
+    if (ref.scholar_url) block += `\n    scholar_url: "${ref.scholar_url}"`;
+    if (ref.project_url) block += `\n    project_url: "${ref.project_url}"`;
+    if (ref.post_slug) block += `\n    post_slug: "${ref.post_slug}"`;
+    if (ref.category) block += `\n    category: "${ref.category}"`;
+    return block;
+  }).join('\n');
+
+  let newYaml;
+  if (yamlStr.includes('references:')) {
+    // Replace existing references section
+    newYaml = yamlStr.replace(/references:[\s\S]*?(?=\n\w|\n---|\n$|$)/, `references:\n${refsYaml}\n`);
+  } else {
+    // Append references before end of frontmatter
+    newYaml = yamlStr.trimEnd() + `\nreferences:\n${refsYaml}\n`;
+  }
+
+  const newFile = raw.replace(fmMatch[0], `---\n${newYaml}---`);
+  await fs.writeFile(filePath, newFile, 'utf8');
 }
 
 // ── Check if a reference with given post_slug already exists ──
