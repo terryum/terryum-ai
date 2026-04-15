@@ -1,0 +1,50 @@
+{
+  "post_id": "2511-equitac-tactile-equivariance",
+  "slug": "2511-equitac-tactile-equivariance",
+  "post_number": 37,
+  "published_at": "2026-04-15T00:00:00Z",
+  "updated_at": "2026-04-15T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Tactile Sensing", "Equivariance", "In-Hand Manipulation"],
+  "display_tags": ["Robotics", "Tactile Sensing", "Equivariance", "In-Hand Manipulation"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Equivariance in EquiTac — when tactile observation is rotated, predicted action rotates consistently",
+  "cover_figure_number": 1,
+  "reading_time_min": 6,
+  "source_type": "arXiv",
+  "source_title": "Residual Rotation Correction using Tactile Equivariance",
+  "source_author": "Yizhe Zhu et al.",
+  "source_authors_full": ["Yizhe Zhu", "Zhang Ye", "Boce Hu", "Haibo Zhao", "Yu Qi", "Dian Wang", "Robert Platt"],
+  "source_url": "https://arxiv.org/abs/2511.07381",
+  "source_date": "2025-11-10T00:00:00Z",
+  "source_project_url": null,
+  "google_scholar_url": "https://scholar.google.com/scholar?q=residual-rotation-correction-tactile-equivariance",
+  "domain": "robotics",
+  "subfields": ["tactile-sensing", "in-hand-manipulation", "equivariant-learning"],
+  "key_concepts": ["tactile-equivariance", "SO2-symmetry", "surface-normal-map", "residual-rotation", "flow-matching", "sample-efficiency"],
+  "methodology": ["equivariant-network", "flow-matching", "imitation-learning", "tactile-sensing"],
+  "contribution_type": "method",
+  "taxonomy_primary": "robotics/hand/tactile",
+  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "relations": [
+    { "slug": "2407-tactile-skin-inhand-translation", "type": "related" },
+    { "slug": "2409-3dtactile-dex", "type": "related" },
+    { "slug": "2504-pp-tac", "type": "related" }
+  ],
+  "ai_summary": {
+    "one_liner": "SO(2)-equivariant tactile network for sample-efficient in-hand rotation correction — 90% success from 10 demos",
+    "problem": "Tactile data collection is expensive; existing visuotactile policies need large datasets to generalize across orientations",
+    "solution": "Exploit SO(2) equivariance in tactile normal maps via C8-equivariant CNN for residual yaw correction on top of flow matching base policy",
+    "key_result": "Mean 2.9° angular error (vs 13.5° w/o equivariance); 90% success with 10 demos (baseline: 75% with 60 demos); zero-shot to unseen screw geometries",
+    "limitations": ["SO(2) only, not SE(3)", "Real-world multimodal data still expensive", "2-DOF gripper yaw correction only"]
+  },
+  "figures": [
+    { "number": 1, "src": "./fig-1.png", "caption": "Equivariance in EquiTac. When the tactile observation is rotated, the predicted action rotates consistently.", "caption_ko": "EquiTac의 등변성. 촉각 관측이 회전하면 예측된 행동도 일관되게 회전한다." },
+    { "number": 7, "src": "./fig-7.png", "caption": "Overview of real-world object manipulation experiments with four daily-life tasks: drawing on paper, straw classification, flower arrangement, and pouring tea.", "caption_ko": "실환경 물체 조작 실험 개요. 4가지 일상 과제: 종이 위 그리기, 빨대 분류, 꽃꽂이, 차 따르기." }
+  ],
+  "tables": [],
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false
+}

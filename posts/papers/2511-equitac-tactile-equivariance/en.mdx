@@ -1,0 +1,99 @@
+---
+locale: "en"
+translation_of: "2511-equitac-tactile-equivariance:ko"
+title: "EquiTac: Residual Rotation Correction using Tactile Equivariance"
+subtitle: "SO(2) symmetry enables 90% success from just 10 demonstrations"
+summary: "High tactile data collection cost makes sample efficiency critical for visuotactile policy learning. EquiTac exploits the inherent SO(2) symmetry of in-hand object rotation by predicting corrective rotations from tactile surface normal maps via an equivariant network. Achieves 90% success on flower arrangement with only 10 demonstrations and zero-shot generalization to unseen orientations."
+card_summary: "High tactile data collection cost makes sample efficiency critical for visuotactile policy learning. EquiTac exploits the inherent SO(2) symmetry of in-hand object rotation by predicting corrective rotations from tactile surface normal maps via an equivariant network. Achieves 90% success on flower arrangement with only 10 demonstrations and zero-shot generalization to unseen orientations."
+cover_caption: "Equivariance in EquiTac. When the tactile observation is rotated, the predicted action rotates consistently."
+published_at: "2026-04-15T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2511.07381"
+source_date: "2025-11-10T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Tactile Sensing"
+  - "Equivariance"
+  - "In-Hand Manipulation"
+terrys_memo: ""
+references:
+  - title: "Tactile Skin: Learning In-Hand Translation via Tactile Skin"
+    author: "Martín Abadi et al."
+    description: "Tactile sensor-based in-hand translation learning. Like EquiTac, uses tactile feedback for in-hand manipulation, but relies on direct policy learning without equivariant structure."
+    arxiv_url: "https://arxiv.org/abs/2407.07363"
+    scholar_url: "https://scholar.google.com/scholar?q=tactile+skin+in-hand+translation"
+    post_slug: "2407-tactile-skin-inhand-translation"
+    category: "foundational"
+  - title: "3D Tactile Representations for Dexterous Visuotactile Policy Learning"
+    author: "Snehal Dikhale et al."
+    description: "3D tactile representation with force-based pre-training for visuotactile policy learning. Contrasts with EquiTac's surface normal map approach in tactile representation methodology."
+    arxiv_url: "https://arxiv.org/abs/2409.16195"
+    scholar_url: "https://scholar.google.com/scholar?q=3D+tactile+representations+dexterous+visuotactile"
+    post_slug: "2409-3dtactile-dex"
+    category: "recent"
+translated_to: []
+---
+
+## TL;DR
+
+How can sample-efficient visuotactile policies be learned given the high cost of tactile data collection? EquiTac exploits the SO(2) symmetry inherent in in-hand object rotation, using an equivariant network to predict corrective rotations from tactile surface normal maps. It achieves 90% success on flower arrangement with only 10 demonstrations and zero-shot generalization to unseen orientations.
+
+## Problem
+
+Visuotactile policy learning supplements vision-only policies with information that vision alone cannot provide — contact forces, slip, surface geometry. However, real-world tactile data collection is **extremely expensive** — sensor mounting, calibration, and demonstration are all manual. Therefore, **sample efficiency** is the key requirement. Existing approaches require large demonstration datasets to generalize across orientation variations.
+
+## Key Idea
+
+EquiTac's core insight is that **when an object rotates in-hand, the tactile normal map co-rotates**. This SO(2) equivariance is exploited through three components:
+
+- **Surface Normal Map Reconstruction**: Converts raw tactile RGB images to normal maps $N \in \mathbb{R}^{3 \times H \times W}$. In-plane components $(n_x, n_y)$ rotate as 2-vectors while $n_z$ remains invariant
+- **SO(2)-Equivariant Network**: $C_8$-equivariant CNN predicts target yaw from normal maps. Satisfies $\phi(g \cdot N) = g \cdot \phi(N)$ for zero-shot generalization to unlearned orientations
+- **Residual Rotation Correction**: Lightweight equivariant module provides high-frequency yaw corrections on top of a Flow Matching base policy, with proportional gain $K_p$ for gradual adjustment
+
+<Figure src="./fig-1.png" caption="Equivariance in EquiTac. When the tactile observation is rotated, the predicted action rotates consistently." />
+
+<Collapsible title="Detailed Methods">
+
+### Surface Normal Map Reconstruction
+
+MLP predicts surface gradients from color and spatial location $(R,G,B,U,V)$ using GelSight calibration with a metal sphere. Key property: when object rotates in-plane by angle $\alpha$, normal map $(n_x, n_y)$ components rotate identically.
+
+### Double-Angle Representation
+
+Predicts $(cos\, 2\alpha_t, sin\, 2\alpha_t)$ to prevent $\pi$-rotation ambiguity (identical object appearance at 180°). Restricts corrections to the forward semicircle.
+
+### Hierarchical Policy Composition
+
+Base policy $\pi_b$ generates full trajectories from visual observations at low frequency. EquiTac module provides real-time yaw corrections from tactile at high frequency. Complementary operation without modifying the base policy.
+
+</Collapsible>
+
+## Key Results
+
+- **Angular estimation error**: EquiTac mean **2.9°** (w/o equivariance: 13.5°, w/o normal map: 27.4°)
+- **Real-world tasks (with orientation variation)**:
+  - Drawing on paper: EquiTac **90-95%** (FM+RGB: 0-5%)
+  - Flower arrangement: EquiTac **85-90%** (FM+RGB: 0-5%)
+  - Straw classification: EquiTac **85-90%** (FM+RGB: 25-40%)
+  - Pouring tea: EquiTac **95%** (FM+RGB: 40-45%)
+- **Sample efficiency**: **90%** success on flower arrangement with only 10 demonstrations — baseline reaches max 75% with 60 demos
+- **Generalization**: Maintains 4.1-5.6° error on unseen screw geometries
+
+<Figure src="./fig-7.png" caption="Overview of real-world object manipulation experiments with four daily-life tasks: drawing on paper, straw classification, flower arrangement, and pouring tea." />
+
+## Achievements and Limitations
+
+**Key achievements**
+- **First systematic exploitation of SO(2) equivariance** in tactile normal maps — zero-shot generalization to unseen orientations
+- **90% success from just 10 demonstrations** — structurally addresses tactile data collection cost
+- **Hierarchical residual correction** enables non-invasive addition of tactile capability to existing policies
+
+**Limitations**
+- Only exploits SO(2) in-plane rotation — extension to full SE(3) motions remains unaddressed
+- Real-world multimodal data collection cost still high
+- Tactile simulation not explored
+- 🤖 Limited to 2-DOF gripper yaw correction; scalability to dexterous hand manipulation (e.g., finger repositioning) unverified
+
+## Terry's Memo
+
+- *(None)*

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T03:37:32.151Z",
-  "total_posts": 36,
+  "generated_at": "2026-04-15T03:51:29.714Z",
+  "total_posts": 37,
   "posts": [
     {
       "post_number": 1,
@@ -2531,6 +2531,80 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 37,
+      "slug": "2511-equitac-tactile-equivariance",
+      "content_type": "papers",
+      "title_en": "EquiTac: Residual Rotation Correction using Tactile Equivariance",
+      "title_ko": "EquiTac: 촉각 등변성을 활용한 잔차 회전 보정",
+      "summary_ko": "시각-촉각 정책 학습에서 촉각 데이터 수집 비용이 높아 샘플 효율이 핵심 과제다. EquiTac은 인핸드 물체 회전의 고유한 SO(2) 대칭을 활용하여 촉각 표면 법선맵에서 등변 네트워크로 보정 회전을 예측한다. 10개 시연만으로 꽃꽂이 85~90% 성공률을 달성하며, 처음 본 방향에 대한 제로샷 일반화를 실현한다.",
+      "summary_en": "High tactile data collection cost makes sample efficiency critical for visuotactile policy learning. EquiTac exploits the inherent SO(2) symmetry of in-hand object rotation by predicting corrective rotations from tactile surface normal maps via an equivariant network. Achieves 90% success on flower arrangement with only 10 demonstrations and zero-shot generalization to unseen orientations.",
+      "domain": "robotics",
+      "subfields": [
+        "tactile-sensing",
+        "in-hand-manipulation",
+        "equivariant-learning"
+      ],
+      "key_concepts": [
+        "tactile-equivariance",
+        "SO2-symmetry",
+        "surface-normal-map",
+        "residual-rotation",
+        "flow-matching",
+        "sample-efficiency"
+      ],
+      "methodology": [
+        "equivariant-network",
+        "flow-matching",
+        "imitation-learning",
+        "tactile-sensing"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Equivariance",
+        "In-Hand Manipulation"
+      ],
+      "source_author": "Yizhe Zhu et al.",
+      "source_date": "2025-11-10T00:00:00Z",
+      "published_at": "2026-04-15T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "SO(2)-equivariant tactile network for sample-efficient in-hand rotation correction — 90% success from 10 demos",
+        "problem": "Tactile data collection is expensive; existing visuotactile policies need large datasets to generalize across orientations",
+        "solution": "Exploit SO(2) equivariance in tactile normal maps via C8-equivariant CNN for residual yaw correction on top of flow matching base policy",
+        "key_result": "Mean 2.9° angular error (vs 13.5° w/o equivariance); 90% success with 10 demos (baseline: 75% with 60 demos); zero-shot to unseen screw geometries",
+        "limitations": [
+          "SO(2) only, not SE(3)",
+          "Real-world multimodal data still expensive",
+          "2-DOF gripper yaw correction only"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "2407-tactile-skin-inhand-translation",
+          "type": "related"
+        },
+        {
+          "slug": "2409-3dtactile-dex",
+          "type": "related"
+        },
+        {
+          "slug": "2504-pp-tac",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -2906,6 +2980,18 @@
       {
         "from": "2601-umi-ft-compliant-manipulation",
         "type": "related"
+      },
+      {
+        "from": "2511-equitac-tactile-equivariance",
+        "type": "related"
+      },
+      {
+        "from": "2511-equitac-tactile-equivariance",
+        "type": "related"
+      },
+      {
+        "from": "2511-equitac-tactile-equivariance",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -2953,7 +3039,8 @@
           13,
           14,
           16,
-          18
+          18,
+          37
         ],
         "core_concepts": [
           "diffusion-policy",
@@ -3047,6 +3134,19 @@
         "taxonomy_nodes": []
       },
       {
+        "id": "concept-flow-matching",
+        "label": "flow-matching",
+        "post_numbers": [
+          1,
+          2,
+          37
+        ],
+        "core_concepts": [
+          "flow-matching"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
         "id": "concept-diffusion-policy",
         "label": "diffusion-policy",
         "post_numbers": [
@@ -3081,7 +3181,8 @@
       16,
       18,
       32,
-      36
+      36,
+      37
     ],
     "outlier_papers": []
   },
@@ -3098,7 +3199,8 @@
     ],
     "flow-matching": [
       1,
-      2
+      2,
+      37
     ],
     "MoE": [
       1
@@ -3694,10 +3796,25 @@
     ],
     "UMI": [
       36
+    ],
+    "tactile-equivariance": [
+      37
+    ],
+    "SO2-symmetry": [
+      37
+    ],
+    "surface-normal-map": [
+      37
+    ],
+    "residual-rotation": [
+      37
+    ],
+    "sample-efficiency": [
+      37
     ]
   },
   "domain_stats": {
-    "robotics": 25,
+    "robotics": 26,
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
@@ -3707,12 +3824,12 @@
     "robotics/brain/vla": 7,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
-    "robotics/hand/tactile": 6,
+    "robotics/hand/tactile": 7,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 2,
     "ai/agent": 7,
-    "robotics/hand/dexterous:secondary": 4,
+    "robotics/hand/dexterous:secondary": 5,
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 11,
     "ai/llm:secondary": 5,
@@ -3720,8 +3837,8 @@
     "ai/agents:secondary": 1,
     "robotics/brain:secondary": 2,
     "robotics/arm": 5,
-    "robotics/hand": 8,
-    "robotics": 24,
+    "robotics/hand": 9,
+    "robotics": 25,
     "ai": 8
   }
 }
