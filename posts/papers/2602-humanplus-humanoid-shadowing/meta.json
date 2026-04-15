@@ -1,0 +1,52 @@
+{
+  "post_id": "2602-humanplus-humanoid-shadowing",
+  "slug": "2602-humanplus-humanoid-shadowing",
+  "post_number": 38,
+  "published_at": "2026-04-15T00:00:00Z",
+  "updated_at": "2026-04-15T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Dexterous Manipulation", "VLA", "Scaling Law"],
+  "display_tags": ["Robotics", "Dexterous Manipulation", "VLA", "Scaling Law"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "EgoScale: two-stage framework — 20,854 hours egocentric human video pretraining + lightweight aligned mid-training",
+  "cover_figure_number": 1,
+  "reading_time_min": 7,
+  "source_type": "arXiv",
+  "source_title": "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+  "source_author": "Ruijie Zheng et al.",
+  "source_authors_full": ["Ruijie Zheng", "Dantong Niu", "Yuqi Xie", "Jing Wang", "Mengda Xu", "Yunfan Jiang", "Fernando Castañeda", "Fengyuan Hu", "You Liang Tan", "Letian Fu", "Trevor Darrell", "Furong Huang", "Yuke Zhu", "Danfei Xu", "Linxi Fan"],
+  "source_url": "https://arxiv.org/abs/2602.16710",
+  "source_date": "2026-02-18T00:00:00Z",
+  "source_project_url": null,
+  "google_scholar_url": "https://scholar.google.com/scholar?q=egoscale-scaling-dexterous-manipulation-egocentric-human-data",
+  "domain": "robotics",
+  "subfields": ["dexterous-manipulation", "vla", "scaling-law", "human-to-robot-transfer"],
+  "key_concepts": ["egocentric-video", "scaling-law", "dexterous-manipulation", "VLA", "human-to-robot-transfer", "flow-matching", "cross-embodiment"],
+  "methodology": ["flow-matching", "imitation-learning", "transfer-learning", "scaling-analysis"],
+  "contribution_type": "method",
+  "taxonomy_primary": "robotics/hand/dexterous",
+  "taxonomy_secondary": ["robotics/brain/vla"],
+  "relations": [
+    { "slug": "2303-diffusion-policy", "type": "uses_method" },
+    { "slug": "2410-pi0-vla-flow-model", "type": "builds_on" },
+    { "slug": "2505-dexumi", "type": "related" },
+    { "slug": "2511-act1-robot-foundation-model", "type": "compares_with" }
+  ],
+  "ai_summary": {
+    "one_liner": "20,854 hours egocentric human video pretraining discovers scaling law (R²=0.9983) for robot dexterous manipulation",
+    "problem": "Robot dexterity data is scarce; can massive egocentric human video scale robot manipulation performance?",
+    "solution": "Two-stage framework: large-scale human pretraining (20K hours) + lightweight aligned human-robot mid-training with flow-based VLA",
+    "key_result": "54% avg success rate improvement; scaling law R²=0.9983; one-shot shirt folding 88%; cross-embodiment 30%p improvement",
+    "limitations": ["No saturation observed — more data needed", "5 lab tasks only", "Self-supervised unlabeled video unexplored"]
+  },
+  "figures": [
+    { "number": 1, "src": "./fig-1.png", "caption": "EgoScale's two-stage human-to-robot learning framework. VLA pretrained on 20,854 hours of egocentric human video, then lightweight aligned mid-training with human-robot play data.", "caption_ko": "EgoScale의 2단계 인간-로봇 학습 프레임워크. 20,854시간 자기중심 인간 비디오로 VLA를 사전학습한 후, 정렬된 인간-로봇 play 데이터로 경량 중간학습을 수행한다." },
+    { "number": 5, "src": "./fig-5.png", "caption": "Scaling behavior analysis. (Left) Training curves for 1K-20K hour datasets. (Center) Optimal convergence loss showing log-linear relationship (R²=0.9983). (Right) Downstream robot performance improving with data scale.", "caption_ko": "스케일링 행동 분석. (왼쪽) 1K~20K 시간 데이터셋의 학습 곡선. (중앙) 최적 수렴 loss의 로그-선형 관계 (R²=0.9983). (오른쪽) 데이터 규모 증가에 따른 로봇 성능 향상." }
+  ],
+  "tables": [],
+  "thumb_source": "./fig-9.png",
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false
+}

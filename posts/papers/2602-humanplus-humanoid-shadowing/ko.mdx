@@ -1,0 +1,106 @@
+---
+locale: "ko"
+title: "EgoScale: 자기중심 인간 데이터로 손재주 조작을 스케일링하다"
+subtitle: "20,854시간 인간 비디오로 로봇 손재주의 스케일링 법칙을 발견"
+summary: "로봇 손재주 조작에서 인간 행동 데이터를 어떻게 대규모로 활용할 수 있을까? EgoScale은 20,854시간의 행동 레이블 자기중심 비디오로 VLA 모델을 사전학습하고, 경량 정렬 인간-로봇 중간학습으로 전이하여 22-DoF 로봇 손에서 baseline 대비 평균 성공률 54% 향상을 달성했다. 데이터 규모와 성능 사이의 로그-선형 스케일링 법칙(R²=0.9983)을 발견했다."
+card_summary: "로봇 손재주 조작에서 인간 행동 데이터를 어떻게 대규모로 활용할 수 있을까? EgoScale은 20,854시간의 행동 레이블 자기중심 비디오로 VLA 모델을 사전학습하고, 경량 정렬 인간-로봇 중간학습으로 전이하여 22-DoF 로봇 손에서 baseline 대비 평균 성공률 54% 향상을 달성했다. 데이터 규모와 성능 사이의 로그-선형 스케일링 법칙(R²=0.9983)을 발견했다."
+cover_caption: "EgoScale의 2단계 인간-로봇 학습 프레임워크. 20,854시간 자기중심 인간 비디오로 VLA를 사전학습한 후 경량 정렬 인간-로봇 play 데이터로 중간학습."
+published_at: "2026-04-15T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2602.16710"
+source_date: "2026-02-18T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Dexterous Manipulation"
+  - "VLA"
+  - "Scaling Law"
+terrys_memo: ""
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Cheng Chi et al."
+    description: "확산 기반 행동 생성의 기반 논문. EgoScale의 DiT action expert가 이 프레임워크의 확산 과정을 활용한다."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?q=diffusion-policy-visuomotor-policy-learning"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "Flow 기반 VLA의 기반 연구. EgoScale이 flow matching 기반 action generation과 VLM backbone 구조를 참고한다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision-language-action+flow+model"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "ACT-1: A Robot Foundation Model Trained on Zero Robot Data"
+    author: "Sunday Robotics"
+    description: "로봇 데이터 없이 인간 손 데이터로 로봇 파운데이션 모델을 학습한 연구. EgoScale과 유사하게 인간 데이터를 로봇에 전이하지만, EgoScale은 대규모 자기중심 비디오와 스케일링 법칙에 초점을 둔다."
+    project_url: "https://www.sunday.ai/journal/no-robot-data"
+    post_slug: "2511-act1-robot-foundation-model"
+    category: "recent"
+translated_to:
+  - "en"
+---
+
+## TL;DR
+
+20,854시간의 자기중심 인간 비디오로 VLA를 사전학습하면 로봇 손재주 조작이 극적으로 개선될까? EgoScale은 데이터 규모와 성능 사이의 로그-선형 스케일링 법칙(R²=0.9983)을 발견하고, 22-DoF 로봇 손에서 baseline 대비 54% 성공률 향상과 원샷 전이(셔츠 접기 88%)를 달성했다.
+
+## 문제
+
+로봇 손재주 조작 학습에서 **인간 행동 데이터의 대규모 활용**이 핵심 과제다. 로봇 텔레오퍼레이션 데이터는 수집 비용이 높아 스케일링이 어렵지만, 인터넷에는 인간의 자기중심 비디오가 풍부하다. 문제는 (1) 인간 비디오에서 행동 레이블(손 동작)을 어떻게 추출하고, (2) 인간-로봇 embodiment gap을 어떻게 극복하며, (3) 데이터 규모가 실제로 성능 향상으로 이어지는지다.
+
+## 핵심 아이디어
+
+EgoScale은 **2단계 인간-로봇 학습 프레임워크**를 제안한다:
+
+- **Stage I — 대규모 인간 사전학습**: 20,854시간의 자기중심 비디오에서 손목 운동(SE(3)) + 22-DoF 손 관절 행동을 추출하여 Flow 기반 VLA를 사전학습. 100K steps, batch 8,192
+- **Stage II — 경량 정렬 중간학습**: Vive tracker + Manus 장갑 + 카메라로 인간-로봇 정렬 play 데이터를 수집. VLM backbone을 동결하고 action expert만 50K steps 학습. 344 과제, ~50시간 인간 + ~4시간 로봇
+- **Stage III — 과제별 미세조정**: 10K steps, batch 512로 특정 과제에 적응
+
+<Figure src="./fig-1.png" caption="EgoScale의 2단계 인간-로봇 학습 프레임워크. 20,854시간 자기중심 인간 비디오로 VLA를 사전학습한 후, 정렬된 인간-로봇 play 데이터로 경량 중간학습을 수행한다." />
+
+<Collapsible title="구체적 방법">
+
+### 행동 표현
+
+- **손목 운동**: 상대적 SE(3) 변환 $\Delta\mathbf{W}^t = (\mathbf{W}_0^w)^{-1}\mathbf{W}_t^w$
+- **손 동작**: 최적화 기반 리타겟팅으로 22-DoF 관절 공간 표현 (손목만, 손끝만 대비 최고 성능)
+
+### 모델 아키텍처
+
+- Vision-Language backbone (VLM) + DiT action expert
+- Embodiment-conditioned MLP adapter로 다양한 로봇 핸드 지원
+- 자기중심 RGB + 양 손목 카메라 3채널 입력
+
+### 스케일링 법칙
+
+$$L = 0.024 - 0.003 \cdot \ln(D)$$
+
+$L$: validation loss, $D$: 사전학습 데이터 시간(hours). 1K~20K 시간 범위에서 로그-선형 관계 (R²=0.9983). 탐색 범위 내에서 포화 없음.
+
+</Collapsible>
+
+## 주요 결과
+
+- **사전학습 효과**: baseline(사전학습 없음) 대비 평균 성공률 **54% 향상** (22-DoF Sharpa 손, 5개 과제)
+- **스케일링 법칙**: 데이터 규모와 성능 사이 로그-선형 관계 (**R²=0.9983**) — 더 많은 데이터가 더 나은 성능을 보장
+- **원샷 전이**: 단일 로봇 시연 + 정렬 인간 데이터로 셔츠 접기 **88%**, 물병 뚜껑 열기 **55%**
+- **교차 embodiment**: Unitree G1 3-finger 손으로 전이 시 **30%p 절대 향상** (G1 play 데이터 포함)
+
+<Figure src="./fig-5.png" caption="스케일링 행동 분석. (왼쪽) 1K~20K 시간 데이터셋의 학습 곡선. (중앙) 최적 수렴 loss의 로그-선형 관계 (R²=0.9983). (오른쪽) 데이터 규모 증가에 따른 로봇 성능 향상." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+- **20,854시간** 자기중심 인간 비디오로 로봇 손재주 사전학습 — 기존 대비 **20배 이상** 규모
+- 인간 데이터 → 로봇 성능 간 **스케일링 법칙** 최초 발견 (R²=0.9983)
+- 정렬 중간학습으로 **원샷 전이** 실현 — 단일 시연으로 새 과제 학습
+
+**한계점**
+- 탐색 범위 내에서 포화 미관찰 — 더 많은 데이터가 필요하지만 수집 비용은 여전히 높음
+- 장기 계획(long-horizon planning)에는 모델 크기 공동 스케일링이 필요할 수 있음
+- 레이블 없는 비디오의 자기지도 활용은 미탐구
+- 🤖 5개 실험실 과제에서만 검증되었으며, 비구조적 실환경에서의 일반화와 연속 운영 안정성은 미검증
+
+## Terry's Memo
+
+- *(None)*

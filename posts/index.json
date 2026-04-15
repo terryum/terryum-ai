@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T06:03:58.044Z",
-  "total_posts": 37,
+  "generated_at": "2026-04-15T06:09:40.656Z",
+  "total_posts": 38,
   "posts": [
     {
       "post_number": 1,
@@ -2605,6 +2605,86 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 38,
+      "slug": "2602-humanplus-humanoid-shadowing",
+      "content_type": "papers",
+      "title_en": "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data",
+      "title_ko": "EgoScale: 자기중심 인간 데이터로 손재주 조작을 스케일링하다",
+      "summary_ko": "로봇 손재주 조작에서 인간 행동 데이터를 어떻게 대규모로 활용할 수 있을까? EgoScale은 20,854시간의 행동 레이블 자기중심 비디오로 VLA 모델을 사전학습하고, 경량 정렬 인간-로봇 중간학습으로 전이하여 22-DoF 로봇 손에서 baseline 대비 평균 성공률 54% 향상을 달성했다. 데이터 규모와 성능 사이의 로그-선형 스케일링 법칙(R²=0.9983)을 발견했다.",
+      "summary_en": "How can large-scale human behavioral data improve robotic dexterous manipulation? EgoScale pretrains a VLA model on 20,854 hours of action-labeled egocentric video and transfers via lightweight aligned human-robot mid-training, achieving 54% average success rate improvement on a 22-DoF robotic hand. Discovers a log-linear scaling law (R²=0.9983) between data volume and performance.",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "vla",
+        "scaling-law",
+        "human-to-robot-transfer"
+      ],
+      "key_concepts": [
+        "egocentric-video",
+        "scaling-law",
+        "dexterous-manipulation",
+        "VLA",
+        "human-to-robot-transfer",
+        "flow-matching",
+        "cross-embodiment"
+      ],
+      "methodology": [
+        "flow-matching",
+        "imitation-learning",
+        "transfer-learning",
+        "scaling-analysis"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Dexterous Manipulation",
+        "VLA",
+        "Scaling Law"
+      ],
+      "source_author": "Ruijie Zheng et al.",
+      "source_date": "2026-02-18T00:00:00Z",
+      "published_at": "2026-04-15T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "20,854 hours egocentric human video pretraining discovers scaling law (R²=0.9983) for robot dexterous manipulation",
+        "problem": "Robot dexterity data is scarce; can massive egocentric human video scale robot manipulation performance?",
+        "solution": "Two-stage framework: large-scale human pretraining (20K hours) + lightweight aligned human-robot mid-training with flow-based VLA",
+        "key_result": "54% avg success rate improvement; scaling law R²=0.9983; one-shot shirt folding 88%; cross-embodiment 30%p improvement",
+        "limitations": [
+          "No saturation observed — more data needed",
+          "5 lab tasks only",
+          "Self-supervised unlabeled video unexplored"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "2303-diffusion-policy",
+          "type": "uses_method"
+        },
+        {
+          "slug": "2410-pi0-vla-flow-model",
+          "type": "builds_on"
+        },
+        {
+          "slug": "2505-dexumi",
+          "type": "related"
+        },
+        {
+          "slug": "2511-act1-robot-foundation-model",
+          "type": "compares_with"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/dexterous",
+      "taxonomy_secondary": [
+        "robotics/brain/vla"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -2992,6 +3072,22 @@
       {
         "from": "2511-equitac-tactile-equivariance",
         "type": "related"
+      },
+      {
+        "from": "2602-humanplus-humanoid-shadowing",
+        "type": "uses_method"
+      },
+      {
+        "from": "2602-humanplus-humanoid-shadowing",
+        "type": "builds_on"
+      },
+      {
+        "from": "2602-humanplus-humanoid-shadowing",
+        "type": "related"
+      },
+      {
+        "from": "2602-humanplus-humanoid-shadowing",
+        "type": "compares_with"
       }
     ],
     "clusters": [
@@ -3071,7 +3167,8 @@
         "label": "robotics/hand/dexterous",
         "post_numbers": [
           10,
-          17
+          17,
+          38
         ],
         "core_concepts": [],
         "taxonomy_nodes": [
@@ -3126,7 +3223,8 @@
           20,
           23,
           24,
-          33
+          33,
+          38
         ],
         "core_concepts": [
           "VLA"
@@ -3139,7 +3237,8 @@
         "post_numbers": [
           1,
           2,
-          37
+          37,
+          38
         ],
         "core_concepts": [
           "flow-matching"
@@ -3166,10 +3265,24 @@
         "post_numbers": [
           14,
           15,
-          16
+          16,
+          38
         ],
         "core_concepts": [
           "dexterous-manipulation"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
+        "id": "concept-human-to-robot-transfer",
+        "label": "human-to-robot-transfer",
+        "post_numbers": [
+          16,
+          18,
+          38
+        ],
+        "core_concepts": [
+          "human-to-robot-transfer"
         ],
         "taxonomy_nodes": []
       }
@@ -3182,7 +3295,8 @@
       18,
       32,
       36,
-      37
+      37,
+      38
     ],
     "outlier_papers": []
   },
@@ -3195,12 +3309,14 @@
       20,
       23,
       24,
-      33
+      33,
+      38
     ],
     "flow-matching": [
       1,
       2,
-      37
+      37,
+      38
     ],
     "MoE": [
       1
@@ -3426,7 +3542,8 @@
     "dexterous-manipulation": [
       14,
       15,
-      16
+      16,
+      38
     ],
     "GraphMAE": [
       14
@@ -3448,7 +3565,8 @@
     ],
     "cross-embodiment": [
       15,
-      23
+      23,
+      38
     ],
     "MANO-UV-mapping": [
       16
@@ -3461,7 +3579,8 @@
     ],
     "human-to-robot-transfer": [
       16,
-      18
+      18,
+      38
     ],
     "domain-adaptation": [
       16
@@ -3811,10 +3930,16 @@
     ],
     "sample-efficiency": [
       37
+    ],
+    "egocentric-video": [
+      38
+    ],
+    "scaling-law": [
+      38
     ]
   },
   "domain_stats": {
-    "robotics": 26,
+    "robotics": 27,
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
@@ -3827,7 +3952,7 @@
     "robotics/hand/tactile": 7,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
-    "robotics/hand/dexterous": 2,
+    "robotics/hand/dexterous": 3,
     "ai/agent": 7,
     "robotics/hand/dexterous:secondary": 5,
     "robotics/arm/exoskeleton:secondary": 1,
@@ -3836,9 +3961,10 @@
     "ai/society": 1,
     "ai/agents:secondary": 1,
     "robotics/brain:secondary": 2,
+    "robotics/brain/vla:secondary": 1,
     "robotics/arm": 5,
-    "robotics/hand": 9,
-    "robotics": 25,
+    "robotics/hand": 10,
+    "robotics": 26,
     "ai": 8
   }
 }

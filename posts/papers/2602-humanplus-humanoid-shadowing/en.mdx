@@ -1,0 +1,106 @@
+---
+locale: "en"
+translation_of: "2602-humanplus-humanoid-shadowing:ko"
+title: "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data"
+subtitle: "Discovering scaling laws for robot dexterity with 20,854 hours of human video"
+summary: "How can large-scale human behavioral data improve robotic dexterous manipulation? EgoScale pretrains a VLA model on 20,854 hours of action-labeled egocentric video and transfers via lightweight aligned human-robot mid-training, achieving 54% average success rate improvement on a 22-DoF robotic hand. Discovers a log-linear scaling law (R²=0.9983) between data volume and performance."
+card_summary: "How can large-scale human behavioral data improve robotic dexterous manipulation? EgoScale pretrains a VLA model on 20,854 hours of action-labeled egocentric video and transfers via lightweight aligned human-robot mid-training, achieving 54% average success rate improvement on a 22-DoF robotic hand. Discovers a log-linear scaling law (R²=0.9983) between data volume and performance."
+cover_caption: "EgoScale's two-stage human-to-robot learning framework: VLA pretrained on 20,854 hours of egocentric human video, then lightweight aligned mid-training with human-robot play data."
+published_at: "2026-04-15T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2602.16710"
+source_date: "2026-02-18T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Dexterous Manipulation"
+  - "VLA"
+  - "Scaling Law"
+terrys_memo: ""
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Cheng Chi et al."
+    description: "Foundation for diffusion-based action generation. EgoScale's DiT action expert builds upon this framework's diffusion process."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?q=diffusion-policy-visuomotor-policy-learning"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "Foundation for flow-based VLA. EgoScale references flow matching action generation and VLM backbone architecture from this work."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision-language-action+flow+model"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "ACT-1: A Robot Foundation Model Trained on Zero Robot Data"
+    author: "Sunday Robotics"
+    description: "Robot foundation model trained via human hand data transfer without robot data. Similar to EgoScale in human-to-robot transfer but EgoScale focuses on large-scale egocentric video and scaling laws."
+    project_url: "https://www.sunday.ai/journal/no-robot-data"
+    post_slug: "2511-act1-robot-foundation-model"
+    category: "recent"
+translated_to: []
+---
+
+## TL;DR
+
+Does pretraining a VLA on 20,854 hours of egocentric human video dramatically improve robotic dexterity? EgoScale discovers a log-linear scaling law (R²=0.9983) between data volume and performance, achieving 54% success rate improvement on a 22-DoF robotic hand and one-shot transfer (88% on shirt folding).
+
+## Problem
+
+**Large-scale utilization of human behavioral data** is the key challenge in robotic dexterous manipulation learning. Robot teleoperation data is expensive to collect and hard to scale, while egocentric human video is abundant online. The questions are: (1) how to extract action labels (hand motions) from human video, (2) how to bridge the human-robot embodiment gap, and (3) whether data scale actually translates to performance gains.
+
+## Key Idea
+
+EgoScale proposes a **two-stage human-to-robot learning framework**:
+
+- **Stage I — Large-scale human pretraining**: Extract wrist motion (SE(3)) + 22-DoF hand joint actions from 20,854 hours of egocentric video to pretrain a flow-based VLA. 100K steps, batch 8,192
+- **Stage II — Lightweight aligned mid-training**: Collect aligned human-robot play data using Vive trackers + Manus gloves + cameras. Freeze VLM backbone, train action expert only. 344 tasks, ~50h human + ~4h robot
+- **Stage III — Task-specific fine-tuning**: 10K steps, batch 512
+
+<Figure src="./fig-1.png" caption="EgoScale's two-stage human-to-robot learning framework. VLA pretrained on 20,854 hours of egocentric human video, then lightweight aligned mid-training with human-robot play data." />
+
+<Collapsible title="Detailed Methods">
+
+### Action Representation
+
+- **Wrist motion**: Relative SE(3) transform $\Delta\mathbf{W}^t = (\mathbf{W}_0^w)^{-1}\mathbf{W}_t^w$
+- **Hand actions**: Optimization-based retargeting to 22-DoF joint space (outperforms wrist-only and fingertip representations)
+
+### Model Architecture
+
+- Vision-Language backbone (VLM) + DiT action expert
+- Embodiment-conditioned MLP adapter for diverse robot hands
+- Egocentric RGB + dual wrist cameras as 3-channel input
+
+### Scaling Law
+
+$$L = 0.024 - 0.003 \cdot \ln(D)$$
+
+$L$: validation loss, $D$: pretraining data hours. Log-linear relationship across 1K-20K hour range (R²=0.9983). No saturation observed within explored regime.
+
+</Collapsible>
+
+## Key Results
+
+- **Pretraining effect**: **54% average success rate improvement** over no-pretraining baseline (22-DoF Sharpa hand, 5 tasks)
+- **Scaling law**: Log-linear relationship between data scale and performance (**R²=0.9983**) — more data guarantees better performance
+- **One-shot transfer**: Single robot demo + aligned human data achieves shirt folding **88%**, bottle unscrewing **55%**
+- **Cross-embodiment**: Transfer to Unitree G1 tri-finger hand shows **30%p absolute improvement** (with G1 play data)
+
+<Figure src="./fig-5.png" caption="Scaling behavior analysis. (Left) Training curves for 1K-20K hour datasets. (Center) Optimal convergence loss showing log-linear relationship (R²=0.9983). (Right) Downstream robot performance improving with data scale." />
+
+## Achievements and Limitations
+
+**Key achievements**
+- **20,854 hours** of egocentric human video for robot dexterity pretraining — **20× larger** than prior efforts
+- First discovery of **scaling law** for human data → robot performance (R²=0.9983)
+- Aligned mid-training enables **one-shot transfer** — learning new tasks from a single demonstration
+
+**Limitations**
+- No saturation observed — more data needed but collection cost remains high
+- Long-horizon planning may require joint scaling of data and model capacity
+- Self-supervised objectives on unlabeled video unexplored
+- 🤖 Validated on only 5 lab tasks; generalization to unstructured real environments and sustained operation untested
+
+## Terry's Memo
+
+- *(None)*
