@@ -419,6 +419,51 @@ async function main() {
   await fs.writeFile(outPath, JSON.stringify(index, null, 2) + '\n', 'utf-8');
   console.log(`✓ Generated ${outPath} (${posts.length} posts)`);
 
+  // ── Update global-index.json (additive merge, never lose entries) ──
+  const globalIndexPath = path.join(POSTS_DIR, 'global-index.json');
+  let globalIndex = { next_public_id: 1, next_private_id: -1, entries: [] };
+  try {
+    const raw = await fs.readFile(globalIndexPath, 'utf-8');
+    globalIndex = JSON.parse(raw);
+  } catch { /* first run */ }
+
+  // Build set of existing entry IDs for fast lookup
+  const existingIds = new Set(globalIndex.entries.map(e => e.id));
+
+  // Add/update public entries from posts array
+  for (const p of posts) {
+    const entry = {
+      id: p.post_number,
+      slug: p.slug,
+      type: p.content_type === 'papers' ? 'papers'
+        : p.content_type === 'essays' ? 'essays'
+        : p.content_type === 'tech' ? 'tech'
+        : p.content_type,
+      visibility: p.visibility || 'public',
+      title: p.title_ko || p.slug,
+      path: `posts/${p.content_type}/${p.slug}/`,
+    };
+    if (existingIds.has(p.post_number)) {
+      // Update existing entry
+      const idx = globalIndex.entries.findIndex(e => e.id === p.post_number);
+      if (idx !== -1) globalIndex.entries[idx] = entry;
+    } else {
+      // Add new entry
+      globalIndex.entries.push(entry);
+      existingIds.add(p.post_number);
+    }
+  }
+
+  // Recalculate next_public_id (max of all positive IDs + 1)
+  const maxPublicId = Math.max(...globalIndex.entries.filter(e => e.id > 0).map(e => e.id), 0);
+  globalIndex.next_public_id = maxPublicId + 1;
+
+  // Sort: positive desc, then negative desc
+  globalIndex.entries.sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+
+  await fs.writeFile(globalIndexPath, JSON.stringify(globalIndex, null, 2) + '\n', 'utf-8');
+  console.log(`✓ Updated ${globalIndexPath} (${globalIndex.entries.length} entries, pub=${globalIndex.next_public_id}, priv=${globalIndex.next_private_id})`);
+
   // Print summary
   const kg = index.knowledge_graph;
   console.log(`  edges: ${kg.edges.length}, clusters: ${kg.clusters.length}, bridge: ${kg.bridge_papers.length}, outliers: ${kg.outlier_papers.length}`);

@@ -382,42 +382,9 @@ function generateConceptIndex(slugToPostMap) {
   return lines.join('\n');
 }
 
-// ── Build global-index.json (preserves existing private entries) ──
-async function buildGlobalIndex(posts) {
-  // Load existing index to preserve private entries
-  let existingPrivate = [];
-  let existingNextPrivate = -1;
-  try {
-    const raw = await fs.readFile(path.join(POSTS_DIR, 'global-index.json'), 'utf-8');
-    const existing = JSON.parse(raw);
-    existingPrivate = (existing.entries || []).filter(e => e.id < 0);
-    existingNextPrivate = existing.next_private_id ?? -1;
-  } catch { /* first run */ }
-
-  const publicEntries = posts.map(p => ({
-    id: p.post_number,
-    slug: p.slug,
-    type: p.content_type === 'papers' ? 'papers'
-      : p.content_type === 'essays' ? 'essays'
-      : p.content_type === 'tech' ? 'tech'
-      : p.content_type === 'notes' ? 'essays'
-      : p.content_type,
-    visibility: 'public',
-    title: p.title_ko || p.slug,
-    path: `posts/${p.content_type}/${p.slug}/`,
-  }));
-
-  const maxPublicId = Math.max(...publicEntries.map(e => e.id ?? 0), 0);
-
-  const allEntries = [...publicEntries, ...existingPrivate]
-    .sort((a, b) => (b.id ?? 0) - (a.id ?? 0)); // positive first desc, then negative
-
-  return {
-    next_public_id: maxPublicId + 1,
-    next_private_id: existingNextPrivate,
-    entries: allEntries,
-  };
-}
+// ── buildGlobalIndex removed ──
+// global-index.json is now maintained by generate-index.mjs (additive merge).
+// sync-obsidian.mjs only reads it and appends unregistered vault files.
 
 // ── Main ──
 async function main() {
@@ -621,14 +588,15 @@ async function main() {
     }
   }
 
-  // Generate global-index.json (always, from all posts)
-  const globalIndex = await buildGlobalIndex(allPosts);
+  // Load global-index.json (maintained by generate-index.mjs, NOT regenerated here)
   const globalIndexPath = path.join(POSTS_DIR, 'global-index.json');
-  if (dryRun) {
-    console.log(`  [dry-run] Would write: ${globalIndexPath}`);
-  } else {
-    await fs.writeFile(globalIndexPath, JSON.stringify(globalIndex, null, 2) + '\n', 'utf-8');
+  let globalIndex = { next_public_id: 1, next_private_id: -1, entries: [] };
+  try {
+    const raw = await fs.readFile(globalIndexPath, 'utf-8');
+    globalIndex = JSON.parse(raw);
     console.log(`  ✅ posts/global-index.json (${globalIndex.entries.length} entries, pub=${globalIndex.next_public_id}, priv=${globalIndex.next_private_id})`);
+  } catch {
+    console.log('  ⚠ posts/global-index.json not found — run generate-index.mjs first');
   }
 
   // ── Reverse scan: index unregistered Obsidian memos/drafts ──
