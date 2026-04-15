@@ -41,6 +41,12 @@ const VAULT_FOLDERS = [
   'Ops/Templates',
 ];
 
+// ── R2 public URL for images ──
+const R2_PUBLIC_URL = 'https://pub-b74efb4aaf3d47cfbbad2283798604f7.r2.dev';
+function r2ImageUrl(slug, filename) {
+  return `${R2_PUBLIC_URL}/posts/${slug}/${filename}`;
+}
+
 // ── content_type → vault subfolder mapping ──
 const TYPE_TO_FOLDER = {
   papers: 'From AI/Papers',
@@ -169,6 +175,9 @@ function buildPaperNote(meta, koFm, terryMemos, existingContent) {
   // Title line
   const titleLine = `\`#${meta.post_number}\` · ${titleKo}`;
 
+  // Cover image
+  const coverImg = `\n![cover](${r2ImageUrl(meta.slug, 'cover.webp')})\n`;
+
   // One-liner quote
   const quoteBlock = oneLiner ? `\n> ${oneLiner}\n` : '';
 
@@ -215,7 +224,7 @@ function buildPaperNote(meta, koFm, terryMemos, existingContent) {
   }
   const tagsLine = '\n' + tagParts.map(t => `#${t}`).join(' ');
 
-  return [fm, '', titleLine, quoteBlock, aiSection, relSection, memoSection, tagsLine, ''].join('\n');
+  return [fm, '', titleLine, coverImg, quoteBlock, aiSection, relSection, memoSection, tagsLine, ''].join('\n');
 }
 
 // ── Build note content for Essays/Tech ──
@@ -247,6 +256,7 @@ function buildEssayNote(meta, koFm, terryMemos, existingContent) {
   ].filter(Boolean).join('\n');
 
   const titleLine = `\`#${meta.post_number}\` · ${titleKo}`;
+  const coverImg = `\n![cover](${r2ImageUrl(meta.slug, 'cover.webp')})\n`;
   const summaryBlock = summaryKo ? `\n> ${summaryKo}\n` : '';
 
   // Relations
@@ -286,7 +296,7 @@ function buildEssayNote(meta, koFm, terryMemos, existingContent) {
   }
   const tagsLine = '\n' + tagParts.map(t => `#${t}`).join(' ');
 
-  return [fm, '', titleLine, summaryBlock, relSection, memoSection, tagsLine, ''].join('\n');
+  return [fm, '', titleLine, coverImg, summaryBlock, relSection, memoSection, tagsLine, ''].join('\n');
 }
 
 // ── Generate Meta/Taxonomy.md ──

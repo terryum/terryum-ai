@@ -9,7 +9,6 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "update-citations": "node scripts/update-citations.mjs",
     "generate-logos": "node scripts/generate-logos.mjs",
     "generate-og": "node scripts/generate-og-image.mjs",
     "sync-papers": "node scripts/sync-papers.mjs",
