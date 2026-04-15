@@ -426,14 +426,29 @@ async function main() {
     for (const f of VAULT_FOLDERS) console.log(`    📁 ${f}`);
   }
 
-  // Load posts index (prefer index-private.json if available)
+  // Load posts index (prefer index-private.json only if fresher than index.json)
   let indexData;
   const privateIndexPath = path.join(POSTS_DIR, 'index-private.json');
   const publicIndexPath = path.join(POSTS_DIR, 'index.json');
+  let usePrivate = false;
   try {
-    const raw = await fs.readFile(privateIndexPath, 'utf-8');
+    const [privStat, pubStat] = await Promise.all([
+      fs.stat(privateIndexPath).catch(() => null),
+      fs.stat(publicIndexPath).catch(() => null),
+    ]);
+    // Use index-private only if it exists AND is newer than index.json
+    if (privStat && pubStat && privStat.mtimeMs >= pubStat.mtimeMs) {
+      usePrivate = true;
+    } else if (privStat && !pubStat) {
+      usePrivate = true;
+    }
+  } catch { /* fall through */ }
+
+  try {
+    const chosenPath = usePrivate ? privateIndexPath : publicIndexPath;
+    const raw = await fs.readFile(chosenPath, 'utf-8');
     indexData = JSON.parse(raw);
-    console.log('  Using index-private.json (includes group posts)');
+    console.log(`  Using ${usePrivate ? 'index-private.json (includes group posts)' : 'index.json'}`);
   } catch {
     try {
       const raw = await fs.readFile(publicIndexPath, 'utf-8');
