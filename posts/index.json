@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-15T03:06:18.644Z",
-  "total_posts": 33,
+  "generated_at": "2026-04-15T03:14:04.354Z",
+  "total_posts": 34,
   "posts": [
     {
       "post_number": 1,
@@ -2300,6 +2300,81 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 34,
+      "slug": "2303-diffusion-policy",
+      "content_type": "papers",
+      "title_en": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "title_ko": "Diffusion Policy: 행동 확산으로 배우는 시각-운동 정책",
+      "summary_ko": "로봇 행동 클로닝에서 멀티모달 행동 분포, 고차원 행동 공간, 학습 안정성이 핵심 과제다. Diffusion Policy는 로봇의 시각-운동 정책을 조건부 노이즈 제거 확산 과정으로 표현하여, 4개 벤치마크 15개 과제에서 기존 SOTA 대비 평균 46.9% 성능 향상을 달성했다.",
+      "summary_en": "Multimodal action distributions, high-dimensional action spaces, and training stability are key challenges in robot behavior cloning. Diffusion Policy represents visuomotor policies as conditional denoising diffusion processes, achieving an average 46.9% improvement over existing SOTA across 15 tasks from 4 benchmarks.",
+      "domain": "robotics",
+      "subfields": [
+        "visuomotor-policy",
+        "imitation-learning",
+        "diffusion-model",
+        "manipulation"
+      ],
+      "key_concepts": [
+        "diffusion-policy",
+        "DDPM",
+        "score-function",
+        "receding-horizon-control",
+        "visual-conditioning",
+        "multimodal-action-distribution"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "diffusion-model",
+        "behavior-cloning",
+        "denoising-diffusion"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Diffusion Model",
+        "Imitation Learning",
+        "Visuomotor Policy"
+      ],
+      "source_author": "Cheng Chi et al.",
+      "source_date": "2023-03-07T00:00:00Z",
+      "published_at": "2026-04-15T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Diffusion models applied to robot visuomotor policies — 46.9% average improvement over SOTA across 15 tasks from 4 benchmarks",
+        "problem": "Behavior cloning struggles with multimodal action distributions, high-dimensional action spaces, and training instability",
+        "solution": "Represent visuomotor policy as conditional DDPM with receding horizon control, visual conditioning, and time-series diffusion transformer",
+        "key_result": "Average 46.9% improvement across 15 tasks; ToolHang 87% (BET: 20%), Kitchen 4-stage 99% (BET: 44%)",
+        "limitations": [
+          "CNN over-smooths fast actions; Transformer is hyperparameter-sensitive",
+          "Iterative denoising limits inference speed",
+          "Single-arm manipulation tasks only"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "2410-pi0-vla-flow-model",
+          "type": "related"
+        },
+        {
+          "slug": "2505-forcevla-force-aware-moe",
+          "type": "related"
+        },
+        {
+          "slug": "2602-habilis-vla-on-device",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -2635,6 +2710,18 @@
       {
         "from": "2602-habilis-vla-on-device",
         "type": "related"
+      },
+      {
+        "from": "2303-diffusion-policy",
+        "type": "related"
+      },
+      {
+        "from": "2303-diffusion-policy",
+        "type": "related"
+      },
+      {
+        "from": "2303-diffusion-policy",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -2733,7 +2820,8 @@
         "label": "robotics/brain",
         "post_numbers": [
           19,
-          29
+          29,
+          34
         ],
         "core_concepts": [],
         "taxonomy_nodes": [
@@ -2755,6 +2843,19 @@
         ],
         "core_concepts": [
           "VLA"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
+        "id": "concept-diffusion-policy",
+        "label": "diffusion-policy",
+        "post_numbers": [
+          12,
+          14,
+          34
+        ],
+        "core_concepts": [
+          "diffusion-policy"
         ],
         "taxonomy_nodes": []
       },
@@ -2973,7 +3074,8 @@
     ],
     "diffusion-policy": [
       12,
-      14
+      14,
+      34
     ],
     "force-control": [
       12
@@ -3343,10 +3445,25 @@
     ],
     "play-data-pretraining": [
       33
+    ],
+    "DDPM": [
+      34
+    ],
+    "score-function": [
+      34
+    ],
+    "receding-horizon-control": [
+      34
+    ],
+    "visual-conditioning": [
+      34
+    ],
+    "multimodal-action-distribution": [
+      34
     ]
   },
   "domain_stats": {
-    "robotics": 22,
+    "robotics": 23,
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
@@ -3354,7 +3471,7 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 7,
-    "robotics/arm:secondary": 9,
+    "robotics/arm:secondary": 10,
     "robotics/arm/force-control": 1,
     "robotics/hand/tactile": 6,
     "robotics/arm/exoskeleton": 3,
@@ -3363,14 +3480,14 @@
     "ai/agent": 7,
     "robotics/hand/dexterous:secondary": 4,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 9,
+    "robotics/brain": 10,
     "ai/llm:secondary": 5,
     "ai/society": 1,
     "ai/agents:secondary": 1,
     "robotics/brain:secondary": 1,
     "robotics/arm": 4,
     "robotics/hand": 8,
-    "robotics": 21,
+    "robotics": 22,
     "ai": 8
   }
 }

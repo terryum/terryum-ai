@@ -1,0 +1,111 @@
+---
+locale: "en"
+translation_of: "2303-diffusion-policy:ko"
+title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+subtitle: "Applying diffusion models to robot policies for 46.9% average improvement"
+summary: "Multimodal action distributions, high-dimensional action spaces, and training stability are key challenges in robot behavior cloning. Diffusion Policy represents visuomotor policies as conditional denoising diffusion processes, achieving an average 46.9% improvement over existing SOTA across 15 tasks from 4 benchmarks."
+card_summary: "Multimodal action distributions, high-dimensional action spaces, and training stability are key challenges in robot behavior cloning. Diffusion Policy represents visuomotor policies as conditional denoising diffusion processes, achieving an average 46.9% improvement over existing SOTA across 15 tasks from 4 benchmarks."
+cover_caption: "Diffusion Policy's energy landscape. Visualizing the learned energy function where the black curve represents demonstration trajectories and bright regions indicate low energy (high probability)."
+published_at: "2026-04-15T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2303.04137"
+source_date: "2023-03-07T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Diffusion Model"
+  - "Imitation Learning"
+  - "Visuomotor Policy"
+terrys_memo: ""
+references:
+  - title: "Denoising Diffusion Probabilistic Models"
+    author: "Jonathan Ho et al."
+    description: "The original DDPM paper providing the theoretical foundation for Diffusion Policy's action generation approach. Establishes the noise prediction network and iterative denoising framework."
+    arxiv_url: "https://arxiv.org/abs/2006.11239"
+    scholar_url: "https://scholar.google.com/scholar?q=denoising+diffusion+probabilistic+models"
+    category: "foundational"
+  - title: "Implicit Behavioral Cloning"
+    author: "Pete Florence et al."
+    description: "Energy-based model approach to implicit policy learning. A primary baseline that Diffusion Policy directly compares against, whose training instability issues Diffusion Policy resolves."
+    arxiv_url: "https://arxiv.org/abs/2109.00137"
+    scholar_url: "https://scholar.google.com/scholar?q=implicit+behavioral+cloning"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "Extends Diffusion Policy's diffusion-based action generation into a VLA framework, using flow matching for more efficient diffusion and adding language conditioning."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+vision-language-action+flow+model"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "recent"
+translated_to: []
+---
+
+## TL;DR
+
+What advantages does applying diffusion models to robot behavior cloning yield? Diffusion Policy represents visuomotor policies as conditional denoising diffusion processes, gaining three key benefits — graceful handling of multimodal action distributions, scalability to high-dimensional action spaces, and stable training — achieving an average 46.9% improvement across 15 tasks from 4 benchmarks.
+
+## Problem
+
+Behavior cloning from demonstrations faces three fundamental challenges. First, **multimodal action distributions** — demonstrators may take different actions from the same state — where explicit policies (Gaussian, GMM) suffer from mode averaging and implicit policies (EBMs) from training instability. Second, the need to predict **action sequences** rather than single actions creates high-dimensional output spaces. Third, **training instability** arising from negative sampling in energy-based models.
+
+## Key Idea
+
+Diffusion Policy's core insight is representing robot policies as **DDPMs (Denoising Diffusion Probabilistic Models)**. It learns the score function (gradient) of the action distribution and iteratively refines noise into actions via stochastic Langevin dynamics during inference.
+
+- **Receding Horizon Control**: Predicts action sequences but replans at each step, achieving both closed-loop execution and temporal action consistency
+- **Visual Conditioning**: Treats visual observations as conditioning rather than part of the joint distribution, extracting visual representations once regardless of denoising iterations → enables real-time inference
+- **Time-series Diffusion Transformer**: Transformer-based diffusion network that reduces over-smoothing effects of CNN models, suited for tasks requiring rapid action changes and velocity control
+
+<Figure src="./fig-1.jpeg" caption="Diffusion Policy's gradient field. Visualizing the learned score function ∇log p(a|o), showing the direction toward high-probability regions from each point in action space." />
+
+<Collapsible title="Detailed Methods">
+
+### DDPM Training
+
+Training loss:
+
+$$\mathcal{L} = \text{MSE}(\epsilon_k, \epsilon_\theta(x_0 + \epsilon_k, k))$$
+
+Noise prediction network $\epsilon_\theta$ predicts the noise added at denoising iteration k.
+
+### Score Function and EBM Connection
+
+Diffusion Policy learns the score function of the action distribution:
+
+$$\nabla_a \log p(a|o) = -\nabla_a E_\theta(a, o) - \underbrace{\nabla_a \log Z(o, \theta)}_{=0} \approx -\epsilon_\theta(a, o)$$
+
+Independent of the normalization constant $Z(o, \theta)$, fundamentally resolving EBM training instability.
+
+### CNN vs Transformer Backbone
+
+- **CNN-based (DiffusionPolicy-C)**: FiLM conditioning applies observations to every convolution layer. Works well on most tasks without hyperparameter tuning
+- **Transformer-based (DiffusionPolicy-T)**: Cross-attention integrates observations. Superior when task complexity and action change rates are high, but more sensitive to hyperparameters
+
+</Collapsible>
+
+## Key Results
+
+- **Average 46.9% improvement across 15 tasks from 4 benchmarks** vs existing SOTA
+- **RoboMimic (State)**: Square task DiffusionPolicy-C 93% (LSTM-GMM: 73%), ToolHang 87% (BET: 20%)
+- **RoboMimic (Visual)**: Transport-mh DiffusionPolicy-C 69% (LSTM-GMM: 24%)
+- **BlockPush**: DiffusionPolicy-T achieves 94% on 2-block simultaneous push (BET: 71%, IBC: 0%)
+- **Kitchen**: DiffusionPolicy-C achieves 99% on 4-stage task (BET: 44%, LSTM-GMM: 34%)
+- **Training stability**: IBC's inference accuracy doesn't improve despite decreasing training loss and success rate oscillates, while Diffusion Policy converges stably
+
+<Figure src="./fig-2.jpeg" caption="Diffusion Policy's energy landscape. Visualizing contours of the learned energy function where the black curve represents demonstration trajectories and bright regions indicate low energy (high probability)." />
+
+## Achievements and Limitations
+
+**Key achievements**
+- **First systematic application of diffusion models to robot policies** — consistent SOTA across 4 benchmarks
+- **Gracefully handles multimodal action distributions** without mode averaging — commits to a single mode within each rollout
+- Receding horizon + visual conditioning enables **real-time closed-loop control**
+
+**Limitations**
+- CNN backbone over-smooths rapid action changes; Transformer backbone is hyperparameter-sensitive — backbone selection required per task
+- DDPM's iterative denoising limits inference speed — potential bottleneck for high-frequency control requirements
+- Highly dependent on demonstration quality — performance bounds with suboptimal demonstrations unexplored
+- 🤖 All evaluations focus on relatively simple single-arm manipulation tasks; scalability to bipedal locomotion or complex multi-joint tasks remains unverified
+
+## Terry's Memo
+
+- *(None)*
