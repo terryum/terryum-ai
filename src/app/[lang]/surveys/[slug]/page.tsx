@@ -4,7 +4,7 @@ import { getSurvey, loadPublicSurveys } from '@/lib/surveys';
 import ProjectEmbed from '@/components/ProjectEmbed';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const surveys = await loadPublicSurveys();
