@@ -1,17 +1,16 @@
-export interface ProjectLink {
-  type: 'github' | 'demo' | 'paper' | 'book' | 'other';
-  url: string;
-  label?: string;
-}
+import type { ResourceLink, BilingualText } from './common';
+
+/** @deprecated Use ResourceLink from common.ts instead */
+export type ProjectLink = ResourceLink;
 
 export interface ProjectMeta {
   slug: string;
   project_number?: number;
-  title: { ko: string; en: string };
-  description: { ko: string; en: string };
+  title: BilingualText;
+  description: BilingualText;
   cover_image: string;
   tech_stack: string[];
-  links: ProjectLink[];
+  links: ResourceLink[];
   embed_url?: string;
   status: 'active' | 'archived' | 'wip';
   featured: boolean;
