@@ -10,8 +10,8 @@ interface SearchResult {
   title_en: string;
   domain: string | null;
   taxonomy_primary: string | null;
-  similarity: number;
-  source: 'semantic' | 'graph';
+  rank: number;
+  source: 'fts' | 'graph';
 }
 
 interface SearchBarProps {
@@ -111,7 +111,7 @@ export default function SearchBar({
     setSelectedIndex(-1);
 
     try {
-      const res = await fetch(`/api/public/search?q=${encodeURIComponent(q)}&limit=10`);
+      const res = await fetch(`/api/public/search?q=${encodeURIComponent(q)}&lang=${locale}&limit=10`);
       if (!res.ok) throw new Error('API error');
       const data = await res.json();
       if (data.fallback) throw new Error('fallback');

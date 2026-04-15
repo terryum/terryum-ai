@@ -3,14 +3,12 @@ import { createClient } from '@supabase/supabase-js';
 
 export const runtime = 'nodejs';
 
-const OPENAI_MODEL = 'text-embedding-3-small';
-const GRAPH_DECAY = 0.5; // graph neighbor score multiplier
+const GRAPH_DECAY = 0.5;
 
 function getConfig() {
   return {
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
     supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
-    openaiKey: process.env.OPENAI_API_KEY || '',
   };
 }
 
@@ -20,32 +18,14 @@ interface SearchResult {
   title_en: string;
   domain: string | null;
   taxonomy_primary: string | null;
-  similarity: number;
-  source: 'semantic' | 'graph';
-}
-
-/** Call OpenAI to embed the query string. */
-async function embedQuery(text: string, apiKey: string): Promise<number[]> {
-  const res = await fetch('https://api.openai.com/v1/embeddings', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ model: OPENAI_MODEL, input: text }),
-  });
-
-  if (!res.ok) {
-    throw new Error(`OpenAI API error: ${res.status}`);
-  }
-
-  const data = await res.json();
-  return data.data[0].embedding;
+  rank: number;
+  source: 'fts' | 'graph';
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const query = searchParams.get('q')?.trim();
+  const lang = searchParams.get('lang') || 'ko';
   const limit = Math.min(parseInt(searchParams.get('limit') || '10', 10), 30);
 
   if (!query) {
@@ -53,7 +33,7 @@ export async function GET(request: NextRequest) {
   }
 
   const config = getConfig();
-  if (!config.supabaseUrl || !config.supabaseKey || !config.openaiKey) {
+  if (!config.supabaseUrl || !config.supabaseKey) {
     return NextResponse.json(
       { error: 'Search not configured', fallback: true },
       { status: 503 }
@@ -61,14 +41,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // 1. Embed the query
-    const queryEmbedding = await embedQuery(query, config.openaiKey);
-
-    // 2. Semantic search via Supabase RPC
     const supabase = createClient(config.supabaseUrl, config.supabaseKey);
-    const { data: semanticResults, error: rpcError } = await supabase.rpc('search_posts', {
-      query_embedding: JSON.stringify(queryEmbedding),
-      match_threshold: 0.0,
+
+    // 1. Full-text search via Supabase RPC
+    const { data: ftsResults, error: rpcError } = await supabase.rpc('search_posts_fts', {
+      search_query: query,
+      search_lang: lang === 'en' ? 'en' : 'ko',
       match_count: 20,
     });
 
@@ -77,43 +55,42 @@ export async function GET(request: NextRequest) {
     }
 
     const results = new Map<string, SearchResult>();
-    for (const r of semanticResults || []) {
+    for (const r of ftsResults || []) {
       results.set(r.slug, {
         slug: r.slug,
         title_ko: r.title_ko,
         title_en: r.title_en,
         domain: r.domain,
         taxonomy_primary: r.taxonomy_primary,
-        similarity: r.similarity,
-        source: 'semantic',
+        rank: r.rank,
+        source: 'fts',
       });
     }
 
-    // 3. Graph expansion: 1-hop neighbors of semantic results
-    const semanticSlugs = Array.from(results.keys());
-    if (semanticSlugs.length > 0) {
+    // 2. Graph expansion: 1-hop neighbors of FTS results
+    const ftsSlugs = Array.from(results.keys());
+    if (ftsSlugs.length > 0) {
       const { data: edges } = await supabase
         .from('graph_edges')
         .select('source_slug, target_slug, weight, edge_type')
         .or(
-          `source_slug.in.(${semanticSlugs.map(s => `"${s}"`).join(',')}),` +
-          `target_slug.in.(${semanticSlugs.map(s => `"${s}"`).join(',')})`
+          `source_slug.in.(${ftsSlugs.map(s => `"${s}"`).join(',')}),` +
+          `target_slug.in.(${ftsSlugs.map(s => `"${s}"`).join(',')})`
         )
         .eq('status', 'confirmed');
 
       if (edges) {
-        // Collect neighbor slugs that need metadata
         const neighborSlugs = new Set<string>();
 
         for (const edge of edges) {
-          const parentSlug = semanticSlugs.includes(edge.source_slug)
+          const parentSlug = ftsSlugs.includes(edge.source_slug)
             ? edge.source_slug
             : edge.target_slug;
           const neighborSlug = edge.source_slug === parentSlug
             ? edge.target_slug
             : edge.source_slug;
 
-          const parentScore = results.get(parentSlug)?.similarity || 0;
+          const parentScore = results.get(parentSlug)?.rank || 0;
           const neighborScore = parentScore * (edge.weight || 0.5) * GRAPH_DECAY;
 
           if (!results.has(neighborSlug)) {
@@ -124,14 +101,13 @@ export async function GET(request: NextRequest) {
               title_en: '',
               domain: null,
               taxonomy_primary: null,
-              similarity: neighborScore,
+              rank: neighborScore,
               source: 'graph',
             });
           } else {
-            // Already in results — boost if graph score is higher
             const existing = results.get(neighborSlug)!;
-            if (neighborScore > existing.similarity) {
-              existing.similarity = neighborScore;
+            if (neighborScore > existing.rank) {
+              existing.rank = neighborScore;
             }
           }
         }
@@ -158,18 +134,14 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // 4. Sort by similarity and return top `limit`
+    // 3. Sort by rank and return
     const sorted = Array.from(results.values())
-      .sort((a, b) => b.similarity - a.similarity)
+      .sort((a, b) => b.rank - a.rank)
       .slice(0, limit);
 
     return NextResponse.json(
       { results: sorted },
-      {
-        headers: {
-          'Cache-Control': 'private, max-age=60',
-        },
-      }
+      { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' } }
     );
   } catch (err) {
     console.error('Search error:', err);
