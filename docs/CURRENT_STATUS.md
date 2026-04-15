@@ -3,42 +3,46 @@
 > 목적: `/clear` 이후에도 이전 작업을 빠르게 재개하기 위한 **짧은 스냅샷** (append 금지, 매번 덮어쓰기)
 
 ## 1) 세션 스냅샷
-- 마지막 업데이트: 2026-04-09 (KST)
-- 현재 단계: remark-gfm 추가 (GFM 테이블 렌더링 수정), `/post virtual` 스킬 추가
-- 전체 진행도(대략): 100%
+- 마지막 업데이트: 2026-04-15 (KST)
+- 현재 단계: R2 마이그레이션 완료, 코드 리팩토링 1차 완료, 포스트 #28~#37 발행
+- 전체 진행도(대략): v1 100% + 인프라 최적화 완료
 
 ## 2) 지금 기준 핵심 결정 (최대 5개)
-- 인프라: Cloudflare(도메인/DNS/CDN) + Vercel(배포+SSL) + GitHub
-- 스택: Next.js 15.5 (App Router) + TypeScript + Tailwind CSS v4 + next-mdx-remote v6
-- ACL: 비공개 콘텐츠는 Supabase `private_content` 테이블 + Storage 버킷. Git에 흔적 없음.
-- 워크스페이스: terry-obsidian (Obsidian+포스팅), terry-artlab-homepage (홈페이지 개발)
-- content_type: `papers`/`notes`/`memos`/`essays` = 탭 슬러그 = 디렉토리명
+- 인프라: Cloudflare(DNS/CDN/R2) + Vercel(배포) + GitHub + Supabase(DB)
+- 이미지 서빙: **Cloudflare R2 CDN** (posts/ 이미지, public/posts는 OG만 유지)
+- Git repo: 72MB (이전 824MB에서 91% 감소, filter-repo 완료)
+- 참고문헌: Supabase graph_edges → sync-references.mjs → MDX 양방향 자동 동기화
+- 워크스페이스: terry-artlab-homepage (코드), terry-obsidian (콘텐츠), terry-surveys (개발 중)
 
 ## 3) 완료됨
-- [x] v1 전체 기능 + AI Memory 시스템 + Research 포스팅 자동화
-- [x] Inline visibility ACL: 로그인 시 group 포스트/프로젝트 메인 사이트에 표시
-- [x] 비공개 콘텐츠 Supabase 이전 (Git에서 완전 제거)
-- [x] Header Login/Logout 버튼 상시 표시
-- [x] remark-gfm 플러그인 추가 (GFM 마크다운 테이블 렌더링 지원)
-- [x] `/post virtual` 스킬 추가 (가상 논문 포스팅 파이프라인)
-- [x] Vercel MCP 자동 연결 (Bearer token 기반, OAuth 수동 인증 불필요)
+- [x] 포스트 37개 발행 (papers 32, essays 4, memos 1)
+- [x] Cloudflare R2 마이그레이션 (439개 이미지)
+- [x] Git 히스토리 정리 (filter-repo, 289MB → 53MB)
+- [x] PDF/이미지 Git에서 제거 (posts/ 302MB → 1.5MB)
+- [x] public/posts/ 이중 저장 제거 (245MB → 17MB OG만)
+- [x] 참고문헌 시스템 전면 수정 (ReferenceCard, sync-references)
+- [x] /post 스킬 확장 (Synthesis, PDF fallback, R2 통합)
+- [x] 코드 리팩토링 (auth-common 추출, scripts/lib/, 데드 코드 삭제)
+- [x] S2 Survey 500 에러 수정
 
 ## 4) 진행 중 / 막힘
-- Git history rewrite: 과거 커밋에 비공개 콘텐츠 흔적 남아있음 (BFG/filter-branch 필요)
+- 없음
 
 ## 5) 다음 3개 작업 (우선순위)
-1. **Git history 정리**: BFG Repo Cleaner로 과거 커밋에서 비공개 콘텐츠 제거
-2. **지식 그래프 스크립트 업데이트**: generate-index --include-private, sync-obsidian.mjs
-3. **`/post virtual` 테스트**: 실제 가상 논문 포스팅으로 스킬 검증
+1. **terry-papers 워크스페이스 분리**: 콘텐츠(MDX)를 별도 repo로 분리하여 코드 개발과 병렬화
+2. **추가 리팩토링**: Card 컴포넌트 공통화, FilterablePostList 분할, scripts lib 전환
+3. **Obsidian 연동 업데이트**: sync-obsidian.mjs R2 URL 호환
 
 ## 6) 검증 상태 (요약)
-- 로컬 dev: 비인증→숨김, SNU→보임, 로그아웃→숨김 ✅
-- 커버 이미지 API: 인증 필요, Supabase Storage에서 서빙 ✅
-- Build 성공 (remark-gfm 포함) ✅
-- Git 추적 파일에 비공개 콘텐츠 참조 없음 ✅
+- R2 CDN 이미지 서빙: 모든 포스트 정상 ✅
+- OG 이미지: Vercel에서 정상 서빙 ✅
+- S2 Survey: 200 OK (snu/admin 그룹) ✅
+- Build 성공 ✅
+- Git repo 72MB ✅
 
 ## 7) 컨텍스트 메모 (다음 세션용)
-- Supabase: private_content + private-covers 버킷
-- 비공개 이미지: /api/co/image/[slug] API 라우트로 서빙
-- dev 서버: NODE_TLS_REJECT_UNAUTHORIZED=0 필요 (회사 네트워크)
+- R2: bucket=terry-artlab-homepage-assets, URL=pub-b74efb4aaf3d47cfbbad2283798604f7.r2.dev
+- Vercel env: NEXT_PUBLIC_R2_URL 설정됨
+- build 명령: `npm run build` (copy-post-images 제거됨, build:full로 이동)
+- 새 포스트 시: upload-to-r2.mjs --slug=<slug> 실행 필요
 - 포트: 3040
