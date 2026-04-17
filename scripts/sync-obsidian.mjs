@@ -7,7 +7,11 @@
  * Usage:
  *   node scripts/sync-obsidian.mjs [--slug=<slug>] [--dry-run] [--vault=<path>] [--init]
  *
- * Default vault path: ~/Documents/Obsidian Vault/
+ * Vault path resolution order:
+ *   1. --vault=<path> CLI flag
+ *   2. OBSIDIAN_VAULT_PATH env var
+ *   3. ~/Codes/personal/terry-obsidian/vault (current canonical location)
+ *   4. ~/Documents/Obsidian Vault (legacy fallback)
  */
 
 import fs from 'fs/promises';
@@ -25,7 +29,21 @@ const slugFilter = args.find(a => a.startsWith('--slug='))?.split('=')[1] || nul
 const dryRun = args.includes('--dry-run');
 const initMode = args.includes('--init');
 const vaultArg = args.find(a => a.startsWith('--vault='))?.split('=')[1] || null;
-const VAULT_ROOT = vaultArg || path.join(os.homedir(), 'Documents', 'Obsidian Vault');
+
+async function resolveVaultRoot() {
+  if (vaultArg) return vaultArg;
+  if (process.env.OBSIDIAN_VAULT_PATH) return process.env.OBSIDIAN_VAULT_PATH;
+  const candidates = [
+    path.join(os.homedir(), 'Codes', 'personal', 'terry-obsidian', 'vault'),
+    path.join(os.homedir(), 'Documents', 'Obsidian Vault'),
+  ];
+  for (const c of candidates) {
+    try { await fs.access(c); return c; } catch {}
+  }
+  return candidates[0];
+}
+
+const VAULT_ROOT = await resolveVaultRoot();
 
 // ── Vault folder structure ──
 const VAULT_FOLDERS = [
