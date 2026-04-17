@@ -5,31 +5,20 @@ import type { Post, PostMeta, FigureItem, Reference, PostRelation, AISummary } f
 import { normalizeTagSlug } from '@/lib/tags';
 import { resolvePostAssetPath, resolvePostCdnPath } from '@/lib/paths';
 import { TAB_CONFIG } from '@/lib/site-config';
+import indexJson from '../../posts/index.json';
+import taxonomyJson from '../../posts/taxonomy.json';
+import contentConfig from '../../content.config.json';
 // Dynamic imports for auth/private — avoids pulling cookies() into static render path
 // import { getPrivatePosts, getPrivatePost, getAllPrivatePosts } from '@/lib/private-content';
 // import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
 
-const INDEX_PATH = path.join(process.cwd(), 'posts', 'index.json');
-const TAXONOMY_PATH = path.join(process.cwd(), 'posts', 'taxonomy.json');
-
-let _indexCache: Record<string, unknown> | null = null;
-let _taxonomyCache: Record<string, unknown> | null = null;
-
 export async function loadIndexJson(): Promise<Record<string, unknown>> {
-  if (_indexCache) return _indexCache;
-  const raw = await fs.readFile(INDEX_PATH, 'utf-8');
-  _indexCache = JSON.parse(raw) as Record<string, unknown>;
-  return _indexCache;
+  return indexJson as unknown as Record<string, unknown>;
 }
 
 export async function loadTaxonomyJson(): Promise<Record<string, unknown>> {
-  if (_taxonomyCache) return _taxonomyCache;
-  const raw = await fs.readFile(TAXONOMY_PATH, 'utf-8');
-  _taxonomyCache = JSON.parse(raw) as Record<string, unknown>;
-  return _taxonomyCache;
+  return taxonomyJson as unknown as Record<string, unknown>;
 }
-
-import contentConfig from '../../content.config.json';
 
 const POSTS_DIR = path.join(process.cwd(), 'posts');
 const CATEGORIES = contentConfig.activeTabs;

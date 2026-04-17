@@ -1,15 +1,11 @@
-import fs from 'fs/promises';
-import path from 'path';
 // Dynamic imports for auth/private — avoids pulling cookies() into static render path
 // import { getAuthenticatedGroup, isAdminSession } from '@/lib/group-auth';
 // import { getPrivateProjects, getPrivateProject, getAllPrivateProjects } from '@/lib/private-content';
 import type { ProjectMeta } from '@/types/project';
-
-const PROJECTS_PATH = path.join(process.cwd(), 'projects', 'gallery', 'projects.json');
+import projectsBundle from '../../projects/gallery/projects.json';
 
 export async function loadPublicProjects(): Promise<ProjectMeta[]> {
-  const raw = await fs.readFile(PROJECTS_PATH, 'utf-8');
-  return (JSON.parse(raw) as { projects: ProjectMeta[] }).projects;
+  return (projectsBundle as unknown as { projects: ProjectMeta[] }).projects;
 }
 
 export async function getAllProjects(): Promise<ProjectMeta[]> {

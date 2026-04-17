@@ -1,13 +1,22 @@
-import fs from 'fs/promises';
-import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import type { Locale } from '@/lib/i18n';
 
-const CONTENT_DIR = path.join(process.cwd(), 'content');
+// @ts-expect-error — webpack raw loader returns string
+import aboutKoRaw from '../../content/about/ko.mdx?raw';
+// @ts-expect-error — webpack raw loader returns string
+import aboutEnRaw from '../../content/about/en.mdx?raw';
+// @ts-expect-error — webpack raw loader returns string
+import bioKoRaw from '../../content/bio/ko.mdx?raw';
+// @ts-expect-error — webpack raw loader returns string
+import bioEnRaw from '../../content/bio/en.mdx?raw';
 
-async function renderMDXContent(dir: string, locale: Locale) {
-  const filePath = path.join(CONTENT_DIR, dir, `${locale}.mdx`);
-  const source = await fs.readFile(filePath, 'utf-8');
+const SOURCES: Record<'about' | 'bio', Record<Locale, string>> = {
+  about: { ko: aboutKoRaw as string, en: aboutEnRaw as string },
+  bio: { ko: bioKoRaw as string, en: bioEnRaw as string },
+};
+
+async function renderMDXContent(dir: 'about' | 'bio', locale: Locale) {
+  const source = SOURCES[dir][locale];
   const { content } = await compileMDX({
     source,
     options: { parseFrontmatter: false },
@@ -15,11 +24,8 @@ async function renderMDXContent(dir: string, locale: Locale) {
   return content;
 }
 
-/** Read plain text from MDX (no rendering, for meta description etc.) */
-async function readPlainText(dir: string, locale: Locale) {
-  const filePath = path.join(CONTENT_DIR, dir, `${locale}.mdx`);
-  const source = await fs.readFile(filePath, 'utf-8');
-  return source.trim();
+function readPlainText(dir: 'about' | 'bio', locale: Locale) {
+  return SOURCES[dir][locale].trim();
 }
 
 export async function getAboutContent(locale: Locale) {

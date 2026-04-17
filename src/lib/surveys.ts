@@ -1,14 +1,10 @@
-import fs from 'fs/promises';
-import path from 'path';
 // Dynamic imports for auth — avoids pulling cookies() into static render path
 import { isSupabaseAdminConfigured, getSupabaseAdmin } from '@/lib/supabase';
 import type { SurveyMeta } from '@/types/survey';
-
-const SURVEYS_PATH = path.join(process.cwd(), 'projects', 'surveys', 'surveys.json');
+import surveysBundle from '../../projects/surveys/surveys.json';
 
 export async function loadPublicSurveys(): Promise<SurveyMeta[]> {
-  const raw = await fs.readFile(SURVEYS_PATH, 'utf-8');
-  return (JSON.parse(raw) as { surveys: SurveyMeta[] }).surveys;
+  return (surveysBundle as unknown as { surveys: SurveyMeta[] }).surveys;
 }
 
 async function getPrivateSurveys(groupSlug: string): Promise<SurveyMeta[]> {

@@ -32,6 +32,13 @@ const nextConfig: NextConfig = {
     if (dev) {
       config.cache = { type: 'memory' };
     }
+    // Allow `import foo from '...mdx?raw'` to return file contents as string.
+    // Needed for Cloudflare Workers where fs.readFile on arbitrary paths is unreliable.
+    config.module.rules.push({
+      test: /\.(mdx|md)$/,
+      resourceQuery: /raw/,
+      type: 'asset/source',
+    });
     return config;
   },
   async redirects() {
