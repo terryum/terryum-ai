@@ -4,7 +4,8 @@ import { buildContentDetailProps } from '@/lib/content-page-helpers';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+// Fully static: rebuild on git push triggers new deployment with updated content
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return getAllPostParams();

@@ -11,7 +11,7 @@ import LatestSection from '@/components/LatestSection';
 import CompactCard from '@/components/CompactCard';
 import type { Metadata } from 'next';
 
-export const revalidate = 60;
+// Fully static
 
 export function generateStaticParams() {
   return [{ lang: 'ko' }, { lang: 'en' }];
