@@ -16,5 +16,8 @@
     "logs": {
       "invocation_logs": true
     }
-  }
+  },
+  "rules": [
+    { "type": "Data", "globs": ["**/*.json", "**/*.mdx", "**/*.md"], "fallthrough": true }
+  ]
 }

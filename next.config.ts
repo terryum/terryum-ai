@@ -3,6 +3,17 @@ import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['katex'],
+  outputFileTracingIncludes: {
+    '*': [
+      './posts/**/*.json',
+      './posts/**/*.mdx',
+      './posts/**/*.md',
+      './projects/**/*.json',
+      './content/**/*.mdx',
+      './content/**/*.md',
+      './content.config.json',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
