@@ -28,10 +28,10 @@
         { "ko": "부록: 코딩 에이전트", "en": "Appendix: Code Agents" }
       ],
       "links": [
-        { "type": "demo", "url": "https://survey-korea-vla-agentic-robotics.vercel.app/", "label": "Read" },
+        { "type": "demo", "url": "https://survey-korea-vla-agentic-robotics.pages.dev/", "label": "Read" },
         { "type": "github", "url": "https://github.com/terryum/survey-korea-vla-agentic-robotics" }
       ],
-      "embed_url": "https://survey-korea-vla-agentic-robotics.vercel.app/",
+      "embed_url": "https://survey-korea-vla-agentic-robotics.pages.dev/",
       "status": "active",
       "featured": true,
       "order": 0,
@@ -67,10 +67,10 @@
         { "ko": "미래 방향", "en": "Future Directions" }
       ],
       "links": [
-        { "type": "demo", "url": "https://survey-robot-hand-tactile-sensor.vercel.app/", "label": "Read" },
+        { "type": "demo", "url": "https://survey-robot-hand-tactile-sensor.pages.dev/", "label": "Read" },
         { "type": "github", "url": "https://github.com/terryum/survey-robot-hand-tactile-sensor" }
       ],
-      "embed_url": "https://survey-robot-hand-tactile-sensor.vercel.app/",
+      "embed_url": "https://survey-robot-hand-tactile-sensor.pages.dev/",
       "status": "active",
       "featured": true,
       "order": 0,
