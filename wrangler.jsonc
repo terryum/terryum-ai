@@ -11,6 +11,19 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // NEXT_PUBLIC_* values are baked into the client JS bundle at build time.
+  // They are public by design (RLS-protected anon keys, public GA IDs, public CDN URLs).
+  // Declaring them here ensures `wrangler deploy` preserves them across deployments
+  // (Dashboard-only Text variables get wiped on each deploy).
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://terry.artlab.ai",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://fyrgooabpegysrcawtdm.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5cmdvb2FicGVneXNyY2F3dGRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MDA2OTksImV4cCI6MjA4OTM3NjY5OX0.CaPWT-E9yUfwKwaz3QKtzgoBcFsOb10AYuP5x__M6jA",
+    "NEXT_PUBLIC_GA_MEASUREMENT_ID": "G-3KR4M92C3G",
+    "NEXT_PUBLIC_R2_URL": "https://pub-b74efb4aaf3d47cfbbad2283798604f7.r2.dev",
+    "NEXT_PUBLIC_SUBSTACK_EN_URL": "https://terryum.substack.com",
+    "NEXT_PUBLIC_SUBSTACK_KO_URL": "https://taewoongum.substack.com"
+  },
   "r2_buckets": [
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
