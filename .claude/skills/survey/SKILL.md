@@ -1,6 +1,6 @@
 ---
 name: survey
-description: "Survey 추가. Vercel 배포된 서베이 책 사이트를 Surveys 갤러리에 등록. 소개글, 목차 요약, 커버 이미지 자동 생성 지원."
+description: "Survey 추가. Cloudflare Pages(또는 Vercel) 배포된 서베이 책 사이트를 Surveys 갤러리에 등록. 소개글, 목차 요약, 커버 이미지 자동 생성 지원."
 argument-hint: "<URL | --title=... --embed=...> [--featured] [--status=active|archived|wip] [--visibility=group --group=snu]"
 ---
 
@@ -16,9 +16,18 @@ argument-hint: "<URL | --title=... --embed=...> [--featured] [--status=active|ar
   - **Git 커밋/푸시 불필요**
 - 기본값: `visibility: "public"` (surveys.json에 저장)
 
+## Step 0) 배포 플랫폼 (2026-04 이후 Cloudflare Pages 기준)
+
+**공개 서베이**: 해당 survey repo를 Cloudflare Pages에 연결
+- Dashboard → Pages → Connect to Git → survey repo 선택 → Production branch: main → Build output: `docs/`
+- 배포 URL: `<project-name>.pages.dev` → 이 URL을 `embed_url`로 사용
+- Vercel 레거시 survey는 `.vercel.app` URL 허용 (이전 중인 상태)
+
+**비공개(그룹) 서베이**: private repo → Cloudflare Pages Direct Upload (`wrangler pages deploy`) 또는 Vercel 유지
+
 ## Step 1) URL/정보 수집
 
-- Vercel URL 또는 embed URL 제공 시 → WebFetch로 사이트 접속하여 목차, 소개글 추출
+- Cloudflare Pages URL / Vercel URL 또는 embed URL 제공 시 → WebFetch로 사이트 접속하여 목차, 소개글 추출
 - GitHub URL 제공 시 → README에서 목차, 설명 추출
 - `--title`, `--embed`, `--toc` 등 수동 옵션도 가능
 
