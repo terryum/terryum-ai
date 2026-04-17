@@ -320,9 +320,24 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
   const posts = (index as { posts: Array<Record<string, unknown>> }).posts;
   if (!posts) return getAllPublicPosts(locale);
 
+  const CONTENT_TYPE_TAG: Record<string, string> = {
+    papers: 'Papers',
+    notes: 'Notes',
+    memos: 'Memos',
+    essays: 'Essays',
+  };
   const result: PostMeta[] = posts
     .filter((p) => (p.visibility as string || 'public') === 'public')
-    .map((p) => ({
+    .map((p) => {
+      // Inject content-type tag if missing (parity with normalizeTags for filesystem posts)
+      const contentType = p.content_type as string;
+      const rawTags = (p.tags as string[]) ?? [];
+      const ctTag = CONTENT_TYPE_TAG[contentType];
+      const tagSlugs = new Set(rawTags.map(normalizeTagSlug));
+      const tags = ctTag && !tagSlugs.has(normalizeTagSlug(ctTag))
+        ? [ctTag, ...rawTags]
+        : rawTags;
+      return {
       post_id: p.slug as string,
       locale,
       title: (locale === 'ko' ? p.title_ko : p.title_en) as string,
@@ -332,7 +347,7 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
       updated_at: p.published_at as string,
       status: 'published' as const,
       content_type: p.content_type as PostMeta['content_type'],
-      tags: (p.tags as string[]) ?? [],
+      tags,
       cover_image: resolvePostCdnPath(p.slug as string, 'cover.webp'),
       cover_thumb: resolvePostCdnPath(p.slug as string, 'cover-thumb.webp'),
       post_number: p.post_number as number,
@@ -350,7 +365,8 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
       source_type: p.source_type as string,
       visibility: (p.visibility as PostMeta['visibility']) || 'public',
       allowed_groups: (p.allowed_groups as string[]) || undefined,
-    }));
+      };
+    });
 
   return result.sort((a, b) => {
     const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
