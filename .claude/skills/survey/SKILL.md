@@ -77,6 +77,41 @@ npx tsc --noEmit
 npm run build
 ```
 
+## Step 5.5) 기존 포스트 역참조 (terry-surveys 책에 [#NN] 링크 자동 추가) — 자동 호출 필수
+
+등록되는 서베이가 terry-surveys 모노레포의 서베이 책을 가리키는 경우 (`github_repo` 또는 `embed_url`이 terry-surveys/surveys/<name>/ 또는 관련 private repo를 가리키면), **해당 서베이 책의 참고문헌과 terry.artlab.ai 기존 포스트를 매칭하여 본문 인용과 ref에 `[#NN]` 링크를 자동 삽입한다**.
+
+```bash
+# 1) 대상 서베이 디렉토리 확인
+SURVEY_DIR=/Users/terrytaewoongum/Codes/personal/terry-surveys/surveys/<survey-slug-or-name>
+[ -d "$SURVEY_DIR" ] || { echo "not a terry-surveys book — skip"; exit 0; }
+
+# 2) terry-surveys로 이동 후 cite-post 스킬 호출
+cd /Users/terrytaewoongum/Codes/personal/terry-surveys
+```
+
+그 다음 **`/cite-post <survey-name>`** 스킬을 호출한다. cite-post는:
+- `terry-artlab-homepage/posts/papers/` 전수 스캔 → `meta.json`에서 slug·postNumber·제목·저자 수집
+- `surveys/<name>/book/{ko,en}/ch*.md`의 `## 참고문헌` / `## References` 파싱
+- 제목·저자 매칭된 각 ref에 `[#NN](https://terry.artlab.ai/{ko|en}/posts/{slug})` 삽입
+- (선택) 인라인 인용에도 동일 링크 삽입
+
+완료 후 리빌드 및 private push:
+
+```bash
+# 3) 리빌드
+python3 build.py <survey-name>
+
+# 4) snu-tactile-hand 계열이면 private repo로 push (Vercel 재배포)
+if [ "<survey-name>" = "snu-tactile-hand" ]; then
+  bash surveys/snu-tactile-hand/scripts/push-private.sh "link existing posts to snu-tactile-hand refs"
+fi
+```
+
+- terry-surveys 모노레포의 **공개 변경분**(CLAUDE.md, bibtex/, shared/ 등)만 별도 커밋 + push
+- `surveys/snu-tactile-hand/book/` 및 `docs/`는 `.gitignore`로 공개 repo에서 제외되므로 private 스크립트로만 반영
+- 서베이 디렉토리가 없거나 cite-post가 실패하면 경고만 출력하고 이 단계 스킵 (비차단)
+
 ## Step 6) Git 커밋 + 푸시 (public만)
 
 ```bash
