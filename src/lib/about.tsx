@@ -1,4 +1,5 @@
-import { compileMDX } from 'next-mdx-remote/rsc';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import type { Locale } from '@/lib/i18n';
 
 // @ts-expect-error — webpack raw loader returns string
@@ -15,13 +16,19 @@ const SOURCES: Record<'about' | 'bio', Record<Locale, string>> = {
   bio: { ko: bioKoRaw as string, en: bioEnRaw as string },
 };
 
-async function renderMDXContent(dir: 'about' | 'bio', locale: Locale) {
-  const source = SOURCES[dir][locale];
-  const { content } = await compileMDX({
-    source,
-    options: { parseFrontmatter: false },
-  });
-  return content;
+// Convert JSX-style attributes (className="...") to HTML (class="...") so rehype-raw
+// can parse them. These MDX files use <br className="..."/> for responsive line breaks.
+function normalizeMdxForHtml(src: string): string {
+  return src.replace(/className=/g, 'class=');
+}
+
+function renderMarkdown(dir: 'about' | 'bio', locale: Locale) {
+  const source = normalizeMdxForHtml(SOURCES[dir][locale]);
+  return (
+    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+      {source}
+    </ReactMarkdown>
+  );
 }
 
 function readPlainText(dir: 'about' | 'bio', locale: Locale) {
@@ -29,11 +36,11 @@ function readPlainText(dir: 'about' | 'bio', locale: Locale) {
 }
 
 export async function getAboutContent(locale: Locale) {
-  return renderMDXContent('about', locale);
+  return renderMarkdown('about', locale);
 }
 
 export async function getBioContent(locale: Locale) {
-  return renderMDXContent('bio', locale);
+  return renderMarkdown('bio', locale);
 }
 
 export async function getBioPlainText(locale: Locale) {
