@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
+    // Next.js 15 defaults to allowing only quality=75; survey/project cards use
+    // quality=90 for hero thumbnails so we must opt-in explicitly.
+    qualities: [75, 90],
     remotePatterns: [
       {
         protocol: 'https',
