@@ -54,7 +54,12 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
         <div className="flex-1 min-w-0 p-4 flex flex-col gap-1.5 overflow-hidden">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <span className="text-xs text-text-muted">S{survey.survey_number}</span>
+              <span className="text-xs text-text-muted">
+                S{survey.survey_number}
+                {survey.visibility === 'group' && (
+                  <span className="ml-1.5 text-accent/70" title={locale === 'ko' ? '그룹 회원 전용' : 'Group members only'}>· 🔒</span>
+                )}
+              </span>
               <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
                 {title}
               </h3>
@@ -104,7 +109,12 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
         <div className="p-4 flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
             <div>
-              <span className="text-xs text-text-muted">S{survey.survey_number}</span>
+              <span className="text-xs text-text-muted">
+                S{survey.survey_number}
+                {survey.visibility === 'group' && (
+                  <span className="ml-1.5 text-accent/70" title={locale === 'ko' ? '그룹 회원 전용' : 'Group members only'}>· 🔒</span>
+                )}
+              </span>
               <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
                 {title}
               </h3>

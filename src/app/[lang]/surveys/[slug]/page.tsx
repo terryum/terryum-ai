@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getSurvey, loadPublicSurveys } from '@/lib/surveys';
 import ProjectEmbed from '@/components/ProjectEmbed';
@@ -53,6 +53,20 @@ export default async function SurveyDetailPage({
 
   const survey = await getSurvey(slug);
   if (!survey || !survey.embed_url) notFound();
+
+  // Visibility check: group-scoped surveys require matching group or admin session.
+  // List/metadata can be public (per user policy); only the iframe content is gated.
+  if (survey.visibility === 'group') {
+    const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
+    const isAdmin = await isAdminSession();
+    if (!isAdmin) {
+      const group = await getAuthenticatedGroup();
+      const allowed = survey.allowed_groups || [];
+      if (!group || !allowed.includes(group)) {
+        redirect(`/login?redirect=${encodeURIComponent(`/${lang}/surveys/${slug}`)}`);
+      }
+    }
+  }
 
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
 

@@ -2,6 +2,44 @@
   "next_survey_number": 4,
   "surveys": [
     {
+      "slug": "survey-snu-largescale-tactile-hand",
+      "survey_number": 2,
+      "title": {
+        "ko": "사람 손에서 로봇 손으로 — 대규모 촉각 데이터 전이",
+        "en": "From Human Hands to Robot Hands"
+      },
+      "description": {
+        "ko": "텔레오퍼레이션의 한계를 넘어, 사람 손 데이터와 촉각 센싱으로 로봇 조작 정책을 학습하는 연구 전략 서베이. TacGlove·TacTeleOp·TacPlay 공동연구 근거를 4 Parts · 11 Chapters로 정리합니다.",
+        "en": "A research strategy survey on leveraging human hand data and tactile sensing beyond teleoperation bottlenecks. Provides the rationale for TacGlove, TacTeleOp, and TacPlay joint research across 4 Parts and 11 Chapters."
+      },
+      "cover_image": "/images/projects/survey-snu-largescale-tactile-hand-cover.webp",
+      "tech_stack": ["Robotics", "Tactile Sensing", "Human Data", "Survey"],
+      "toc": [
+        { "ko": "왜 사람 손 데이터", "en": "Why Human Hand Data" },
+        { "ko": "사람 손 데이터 수집", "en": "Human Hand Datasets" },
+        { "ko": "촉각의 가치", "en": "Value of Touch" },
+        { "ko": "Teleop-Free 접근", "en": "Teleop-Free" },
+        { "ko": "Co-training", "en": "Co-training" },
+        { "ko": "Embodiment 해소", "en": "Embodiment Gap" },
+        { "ko": "TacGlove", "en": "TacGlove" },
+        { "ko": "TacTeleOp", "en": "TacTeleOp" },
+        { "ko": "TacPlay", "en": "TacPlay" },
+        { "ko": "실험 설계", "en": "Experimental Design" },
+        { "ko": "산업 적용", "en": "Industrial Apps" }
+      ],
+      "links": [
+        { "type": "demo", "url": "https://survey-snu-largescale-tactile-hand.pages.dev/", "label": "Read" }
+      ],
+      "embed_url": "https://survey-snu-largescale-tactile-hand.pages.dev/",
+      "status": "active",
+      "featured": false,
+      "order": 1,
+      "published_at": "2026-04-07",
+      "updated_at": "2026-04-07",
+      "visibility": "group",
+      "allowed_groups": ["snu"]
+    },
+    {
       "slug": "survey-korea-vla-agentic-robotics",
       "survey_number": 3,
       "title": {
