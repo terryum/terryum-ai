@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import './globals.css';
 
@@ -54,8 +52,6 @@ export default function RootLayout({
       </head>
       <body className="font-sans leading-relaxed">
         {children}
-        <Analytics />
-        <SpeedInsights />
         <GoogleAnalytics />
       </body>
     </html>

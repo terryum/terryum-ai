@@ -2,19 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/i18n';
 
 export function middleware(request: NextRequest) {
-  // vercel.app 도메인 → terry.artlab.ai redirect (Facebook OG 우회)
-  const host = request.headers.get('host') || '';
-  if (host === 'terry-artlab.vercel.app') {
-    const url = request.nextUrl.clone();
-    url.host = 'terry.artlab.ai';
-    url.protocol = 'https:';
-    if (!url.searchParams.has('utm_source')) {
-      url.searchParams.set('utm_source', 'facebook');
-      url.searchParams.set('utm_medium', 'social');
-    }
-    return NextResponse.redirect(url, { status: 302 });
-  }
-
   const { pathname } = request.nextUrl;
 
   // Skip if path already has locale prefix

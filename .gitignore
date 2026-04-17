@@ -10,6 +10,9 @@ out/
 dist/
 build/
 coverage/
+.open-next/
+.wrangler/
+.dev.vars
 
 
 # --- Paper PDFs (large files) ---
