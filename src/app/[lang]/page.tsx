@@ -88,7 +88,10 @@ export default async function HomePage({
           emptyText={dict.home.no_posts_yet}
         >
           {surveys.map((survey) => {
-            const href = survey.embed_url
+            // Group-restricted surveys have embed_url stripped for privacy,
+            // but route internally so the auth gate can redirect.
+            const isInternal = Boolean(survey.embed_url) || survey.visibility === 'group';
+            const href = isInternal
               ? `/${lang}/surveys/${survey.slug}`
               : survey.links[0]?.url || '#';
             const thumb = survey.cover_image?.replace('-cover.webp', '-thumb.webp');
@@ -102,7 +105,7 @@ export default async function HomePage({
                 number={`S${survey.survey_number}`}
                 date={new Date(survey.updated_at || survey.published_at).toISOString().slice(0, 10)}
                 tags={survey.tech_stack.slice(0, 3)}
-                external={!survey.embed_url}
+                external={!isInternal}
               />
             );
           })}

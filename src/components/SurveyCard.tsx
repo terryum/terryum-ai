@@ -14,10 +14,13 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
   const lang = locale as 'ko' | 'en';
   const title = survey.title[lang] || survey.title.en;
   const description = survey.description[lang] || survey.description.en;
-  const href = survey.embed_url
+  // Group-restricted surveys have embed_url stripped server-side for
+  // security, but still route internally so the auth gate can redirect.
+  const isInternal = Boolean(survey.embed_url) || survey.visibility === 'group';
+  const href = isInternal
     ? `/${locale}/surveys/${survey.slug}`
     : survey.links[0]?.url || '#';
-  const isExternal = !survey.embed_url;
+  const isExternal = !isInternal;
   const published = new Date(survey.published_at).toISOString().slice(0, 10);
   const updated = survey.updated_at
     ? new Date(survey.updated_at).toISOString().slice(0, 10)
