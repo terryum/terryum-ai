@@ -202,14 +202,16 @@ cd /tmp/terry-research-kb && git add -A && git commit -m "update: <slug>" && git
 cd /Users/terrytaewoongum/Codes/personal/terry-surveys
 
 # 1) 인덱스 최신화 (서베이 쪽에서 ref 변경이 있었을 수 있음)
-python3 shared/refs_index.py build
+python3 bibtex/refs_index.py build
 
 # 2) 새 포스트 slug로 매칭 검색
-python3 shared/refs_index.py match <new-slug>
+python3 bibtex/refs_index.py match <new-slug>
 ```
 
-판정 규칙:
-- **score ≥ 3인 매칭이 하나라도 있으면** → `/link-post-to-surveys <new-slug>` 스킬을 즉시 호출
+판정 규칙 (Tier 1 우선):
+- **Tier 1 (arXiv/DOI/Nature ID exact match) 매칭이 하나라도 있으면** → 해당 서베이의 ref에 즉시 `[#NN]` 링크를 삽입 (false positive 위험 없음)
+- **Tier 3 (slug-token fuzzy, `⚠️  REQUIRES HUMAN REVIEW`) 매칭만 있으면** → **자동 링크 금지**. 사용자에게 매칭 후보를 보고하고 확인을 받은 뒤에만 삽입
+- 어느 Tier든 매칭이 있으면 → `/link-post-to-surveys <new-slug>` 스킬을 즉시 호출
   - link-post-to-surveys가 매칭된 모든 서베이 챕터의 `## 참고문헌` / `## References` 항목에 `[post]` 링크를 삽입하고 각 서베이를 `python3 build.py <survey-name>`으로 리빌드한다
   - **snu-tactile-hand가 매칭에 포함되면** 추가로 `bash /Users/terrytaewoongum/Codes/personal/terry-surveys/surveys/snu-tactile-hand/scripts/push-private.sh "link post <new-slug> to snu-tactile-hand"` 를 실행해 private repo에 즉시 반영 (Vercel 재배포 트리거)
 - 매칭 score가 모두 < 3이면 → 서베이에 이 논문이 인용되지 않은 것으로 간주하고 조용히 종료
