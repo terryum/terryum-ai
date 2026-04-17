@@ -388,7 +388,12 @@ export async function getAdjacentPosts(
   slug: string,
   locale: string
 ): Promise<AdjacentPosts> {
-  const currentMeta = await getPostMeta(slug, locale);
+  // IMPORTANT: Use getAllPostsFromIndex (public-only, reads index.json via static import)
+  // instead of getAllPosts (which calls cookies() → forces route to be dynamic on Workers).
+  // Public post detail pages must stay fully SSG so Cloudflare serves pre-rendered HTML.
+  const allPosts = await getAllPostsFromIndex(locale);
+
+  const currentMeta = allPosts.find(p => p.slug === slug);
   if (!currentMeta) return { prev: null, next: null };
 
   const currentTab = TAB_CONFIG.find(t => t.slug === currentMeta.content_type);
@@ -399,8 +404,6 @@ export async function getAdjacentPosts(
     TAB_CONFIG.filter(t => t.author === authorGroup).map(t => t.slug)
   );
 
-  // getAllPosts returns published posts sorted by date desc (newest first)
-  const allPosts = await getAllPosts(locale);
   const groupPosts = allPosts.filter(p => authorContentTypes.has(p.content_type));
 
   const idx = groupPosts.findIndex(p => p.slug === slug);
