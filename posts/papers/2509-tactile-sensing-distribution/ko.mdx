@@ -1,0 +1,133 @@
+---
+locale: "ko"
+title: "촉각 분포의 역할: 인간형 손의 인핸드 조작 최적 센서 배치"
+subtitle: "손바닥은 손끝만큼 중요한가?"
+summary: "로봇 손은 관습적으로 손끝에 촉각 센서를 집중하지만, 손바닥과 근위 지절의 기여는 거의 평가되지 않았다. 이 연구는 Shadow Hand의 19개 영역에 힘-토크 센서를 배치하고 PPO+LSTM 정책을 몬테카를로식으로 학습해 각 영역의 기여도를 정량화한다. 촉각 추가만으로 연속 성공 26% 개선·수렴 3배 가속, 그리고 상부 손바닥이 원위 지절과 거의 동등한 중요도를 보이며 물체 크기에 따라 최적 배치가 달라진다는 것을 보였다."
+card_summary: "Shadow Hand의 19개 촉각 영역에 대한 PPO 정책 ablation. 상부 손바닥(27.87 성공/3.1× 수렴)이 원위 지절(28.21 성공/3.2× 수렴)에 거의 필적하며, 물체 크기에 따라 최적 배치가 달라진다."
+cover_caption: "인체 손의 19개 촉각 영역 분할과 평가용 구형 물체. 어느 부위에 센서를 두는 것이 인핸드 조작에 가장 효과적인가를 정량적으로 분석한다."
+published_at: "2026-04-17T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2509.14984"
+source_date: "2025-09-18T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Tactile Sensing"
+  - "In-Hand Manipulation"
+  - "Palm"
+terrys_memo: ""
+references:
+  - title: "F-TAC Hand: Embedding High-Resolution Touch Across Robotic Hands for Adaptive Human-like Grasping"
+    author: "Zihang Zhao et al."
+    description: "강체 인간형 손에 17개 시각-촉각 센서를 손바닥·손가락 전면에 임베딩한 하드웨어 연구. 본 논문은 그러한 분포의 '최적 배치는 무엇인가'에 대한 RL 기반 정량 분석을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2412.14482"
+    scholar_url: "https://scholar.google.com/scholar?q=F-TAC+Hand+robotic+tactile"
+    post_slug: "2412-f-tac-hand"
+    category: "related"
+  - title: "TacPalm SoftHand: Soft robotic hand with tactile palm-finger coordination"
+    author: "Ningbin Zhang et al."
+    description: "고밀도 시각-촉각 손바닥과 소프트 손가락의 협조 시스템. 본 논문은 Shadow Hand에서 손바닥 영역이 손끝과 동등하게 중요함을 RL 정책 분석으로 입증해 그 설계 직관을 뒷받침한다."
+    arxiv_url: "https://www.nature.com/articles/s41467-025-57741-6"
+    scholar_url: "https://scholar.google.com/scholar?q=TacPalm+SoftHand+soft+robotic+hand+palm-finger"
+    post_slug: "2503-tacpalm-softhand"
+    category: "related"
+  - title: "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing"
+    author: "Jessica Yin et al."
+    description: "촉각 피부로 인핸드 이동을 RL로 학습한 연구. 본 논문은 동일한 RL 패러다임에서 '어느 영역에 센서를 둘 것인가'라는 한 단계 위의 설계 질문을 다룬다."
+    arxiv_url: "https://arxiv.org/abs/2407.07885"
+    scholar_url: "https://scholar.google.com/scholar?q=tactile+skin+in-hand+translation"
+    post_slug: "2407-tactile-skin-inhand-translation"
+    category: "related"
+  - title: "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning"
+    author: "Tianhao Wu et al."
+    description: "정규 좌표계 3D 촉각 표현과 힘 기반 사전학습으로 시각-촉각 정책을 학습. 본 논문의 결과(손바닥 사용이 도움)는 이러한 학습 표현 설계의 입력 공간 결정에도 시사점을 준다."
+    arxiv_url: "https://arxiv.org/abs/2409.17549"
+    scholar_url: "https://scholar.google.com/scholar?q=canonical+3D+tactile+visuo-tactile+policy"
+    post_slug: "2409-3dtactile-dex"
+    category: "related"
+  - title: "Residual Rotation Correction using Tactile Equivariance"
+    author: "Yizhe Zhu et al."
+    description: "촉각 등변성을 활용한 인핸드 회전 보정. 본 논문은 회전 과제 자체를 다양한 센서 배치 조건에서 측정해 보완적인 통찰을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2511.07381"
+    scholar_url: "https://scholar.google.com/scholar?q=residual-rotation-correction-tactile-equivariance"
+    post_slug: "2511-equitac-tactile-equivariance"
+    category: "related"
+translated_to:
+  - "en"
+---
+
+## TL;DR
+
+로봇 손에 촉각 센서를 어디에 두면 인핸드 조작이 가장 잘 될까? Shadow Hand의 19개 영역에 힘-토크 센서를 배치하고 PPO+LSTM 정책을 몬테카를로식으로 학습한 결과, **촉각 추가만으로 연속 성공이 26%까지 향상되고 수렴이 3배 가속**된다. 그리고 **상부 손바닥(27.87 성공 / 3.1× 수렴)이 원위 지절(28.21 / 3.2×)에 거의 필적**하며, **물체 크기**에 따라 최적 배치가 달라진다(작은 물체→손끝, 큰 물체→손바닥).
+
+## 문제
+
+인핸드 조작에서 촉각은 시각으로 가려지는 접촉력·미끄러짐·표면 형상을 보완해주는 결정적 신호다. 그러나 로봇 손의 촉각 센서는 거의 모두 **손끝에만 집중**된다:
+
+- **손끝 편향의 관성**: 인간 손끝은 기계수용기 밀도가 가장 높지만, 인간 손바닥에도 광범위한 촉각이 분포한다
+- **비손끝 영역의 정량 평가 부재**: 근위 지절, 손등, 손바닥의 촉각이 정책 성능에 얼마나 기여하는지 체계적 비교가 없었다
+- **물체별 최적 배치의 불명확성**: 큰 물체와 작은 물체는 접촉 영역이 다르므로 동일한 센서 배치가 두 경우 모두 최적일 수 없다
+
+이 논문은 위 세 질문에 **RL 기반 정량 분석**으로 답한다.
+
+## 핵심 아이디어
+
+저자들은 Isaac Gym의 Shadow-Dexterous-Hand 환경을 확장해 **19개 영역(5개 손가락의 distal/middle/proximal 지절 + 상부 손바닥 5개 영역)에 힘-토크 센서**를 배치한다. 각 영역의 기여를 평가하기 위한 세 가지 핵심 설계:
+
+- **PPO + LSTM 정책 학습**: 4096개 병렬 환경에서 최대 3000 에폭 학습, ReLU LSTM + 추가 hidden layer 구조. 도메인 무작위화로 sim-to-real 격차 일부 흡수
+- **몬테카를로식 센서 배치 탐색**: 19개 영역의 부분집합을 무작위 + 구조적(같은 지절, 같은 손가락, 같은 사분면, 대각선) 방식으로 샘플링해 정책 성능을 측정
+- **다양한 물체 형태·크기 ablation**: 구형(테니스공·소프트볼·골프공), 타원체, 정육면체에 대해 각 영역의 상대적 중요도를 수량화
+
+평가 지표는 **연속 성공 횟수**(50초 안에 목표 자세에 도달한 연속 횟수)와 **수렴 속도**(baseline 대비 학습 속도 배수).
+
+<Figure src="./fig-2.png" caption="인간 손의 골격 해부도(왼쪽), Shadow Hand에 정의한 19개 촉각 감지 영역의 대략적 윤곽과 중심(가운데), 조작 과제에 사용된 구형 물체와 상대 크기(오른쪽)." />
+
+<Collapsible title="구체적 방법">
+
+### Shadow Hand와 19개 센서 영역
+
+Shadow Dexterous Hand는 20 자유도(20 DoA)를 가진 인간형 손이다. 본 연구는 손가락(엄지·검지·중지·약지·소지) 각각의 distal·middle·proximal 지절과 손등이 아닌 **상부 손바닥의 5개 영역**, 총 19개 영역에 힘-토크 센서를 추가한다. 각 센서는 해당 영역 부피에 가해진 평균 3D 힘과 토크를 측정.
+
+### Isaac Gym 환경과 PPO 학습
+
+NVIDIA Isaac Gym의 GPU 가속, 병렬화, 힘 센서 지원, 도메인 무작위화 기능을 활용. 정책은 LSTM에 추가 hidden layer(ReLU)를 쌓고 PPO로 학습. 한 실험당 4096개 병렬 환경, 최대 3000 에폭. 과제는 "물체를 50초 안에 목표 자세로 회전·재배치"하기.
+
+### 몬테카를로식 부분집합 탐색
+
+19개 영역의 모든 $2^{19}$ 부분집합을 시도할 수 없으므로, **무작위 부분집합 + 구조적 부분집합**을 섞어 탐색한다. 구조적 집합은 (i) same-phalanx (모두 distal/middle/proximal), (ii) same-finger, (iii) same-quadrant, (iv) diagonal 배치 등 4가지. 각 부분집합으로 정책을 학습하고, 영역 $r$이 들어간 정책과 빠진 정책의 성능 차이를 모아 $r$의 **상대 중요도**를 추정.
+
+### 물체 크기/형태 ablation
+
+물체 크기는 골프공·테니스공·소프트볼 세 종, 형태는 구·타원체·정육면체 세 종을 사용. 같은 정책 파이프라인을 각 조건에서 재학습해 각 영역 중요도 맵을 추출.
+
+</Collapsible>
+
+## 주요 결과
+
+- **촉각의 가치**: 손끝 촉각만 추가해도 연속 성공이 baseline(촉각 없음) 대비 **최대 26%** 향상, 수렴 속도 **3배** 가속
+- **지절별 비교** (Table I): distal 28.21 / 3.2× > 상부 손바닥 27.87 / 3.1× > middle 25.89 / 2.7× > proximal 25.77 / 2.2×
+  - **상부 손바닥은 원위 지절과 거의 동등한 효과** — 기존 "손끝 우선" 통설을 정면 반박
+- **물체 크기 영향**: 작은 구(골프) 실패율 약 4%, 큰 구(소프트볼) 실패율 약 8%. 작은 물체는 distal 지절 중요도, 큰 물체는 손바닥 중요도가 높아짐
+- **5-센서 vs 8-센서 구성**: 전체 영역 변동폭이 5-센서에선 최소값의 18.4%, 8-센서에선 16.9% — 영역마다 기여 차이가 명확하나, 센서 수가 많아질수록 상대 차이는 줄어듦
+- **형태 ablation**: 구·타원체·정육면체 모두에서 손끝 외부 센서가 측정 가능한 이득 — 대칭이 아닌 형태에서도 손바닥 가치가 유지
+
+<Figure src="./fig-5.png" caption="인핸드 조작 과제에서 의인화 손 영역들의 상대적 중요도(0=최저, 1=최고). 왼쪽: 손끝 포함; 오른쪽: 손끝 제외. 각 영역을 센서 집합에 추가했을 때 정책 성능에 얼마나 기여하는지를 정량화한 맵이다." />
+
+<Figure src="./fig-6.png" caption="물체 크기에 따른 인핸드 조작 시 손 영역의 상대적 중요도: 큰 물체(왼쪽), 작은 물체(오른쪽). 큰 물체는 중요도가 손바닥 쪽으로, 작은 물체는 원위 지절 쪽으로 이동한다." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+- **"손끝만"이 최적 아님을 RL로 정량 입증**: 상부 손바닥 = 원위 지절(차이 1% 이내) — 하드웨어 설계자에게 손바닥 센싱을 정당화하는 데이터
+- **물체 의존적 최적 배치 발견**: 작은 물체↔손끝, 큰 물체↔손바닥 — task-conditioned 센서 토폴로지 설계의 첫 번째 정량 근거
+- **재현 가능한 simulation 프레임워크**: Isaac Gym + Shadow Hand 환경을 19-영역 센싱으로 확장 — 후속 연구의 재사용 가능
+
+**한계점**
+- 시뮬레이션 전용 — 실제 Shadow Hand에서의 재현은 미수행 (sim-to-real 갭은 도메인 무작위화로 부분 해결만)
+- 센서 모델이 영역별 평균 3D F/T로 추상화 — 실제 GelSight 계열 픽셀 단위 비전-촉각이나 분포형 압력 어레이 동작은 반영되지 않음
+- 과제는 단순 기하 형태(구·타원체·정육면체)의 회전·재배치 — 실제 도구 사용·핸드오버 같은 복잡 과제와의 상관성은 별도 검증 필요
+- Shadow Hand 특화 — 다른 의인화 손(예: F-TAC Hand 15 DoF, TacPalm 3-finger soft) 일반화는 미검증
+- 🤖 19개 영역 모두 동일한 정확도와 노이즈를 가정 — 실제 센서는 영역별 SNR과 캘리브레이션 차이가 큼
+
+## Terry's Memo
+
+- *(None)*

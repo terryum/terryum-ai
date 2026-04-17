@@ -1,0 +1,133 @@
+---
+locale: "en"
+translation_of: "2509-tactile-sensing-distribution:ko"
+title: "The Role of Touch: Optimal Tactile Sensing Distribution for In-Hand Manipulation"
+subtitle: "Is the palm as important as the fingertips?"
+summary: "Robotic hands conventionally concentrate tactile sensors on fingertips, leaving the contribution of palm and proximal phalanges largely unevaluated. This work places force-torque sensors in 19 regions of the Shadow Hand and trains PPO+LSTM policies via Monte Carlo-style search to quantify each region's contribution. Adding tactile alone improves consecutive successes by up to 26% and accelerates convergence 3×, with the upper palm scoring nearly as high as distal phalanges and optimal placement shifting with object size."
+card_summary: "PPO ablation across 19 tactile regions of the Shadow Hand. The upper palm (27.87 successes / 3.1× convergence) is nearly on par with distal phalanges (28.21 / 3.2×), and the optimal placement shifts with object size."
+cover_caption: "Skeletal anatomy of the human hand and 19 tactile regions defined on the Shadow Hand, with the spherical objects used for evaluation. The work quantifies which regions matter most for in-hand manipulation."
+published_at: "2026-04-17T00:00:00Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2509.14984"
+source_date: "2025-09-18T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Tactile Sensing"
+  - "In-Hand Manipulation"
+  - "Palm"
+terrys_memo: ""
+references:
+  - title: "F-TAC Hand: Embedding High-Resolution Touch Across Robotic Hands for Adaptive Human-like Grasping"
+    author: "Zihang Zhao et al."
+    description: "Hardware paper that embeds 17 vision-based tactile sensors across the palm and fingers of a rigid biomimetic hand. This paper provides the RL-based quantitative analysis of 'where to place sensors' that complements such designs."
+    arxiv_url: "https://arxiv.org/abs/2412.14482"
+    scholar_url: "https://scholar.google.com/scholar?q=F-TAC+Hand+robotic+tactile"
+    post_slug: "2412-f-tac-hand"
+    category: "related"
+  - title: "TacPalm SoftHand: Soft robotic hand with tactile palm-finger coordination"
+    author: "Ningbin Zhang et al."
+    description: "High-density visual-tactile palm coordinated with soft fingers. This paper supports TacPalm's design intuition by showing in RL that palm regions are as important as fingertips on the Shadow Hand."
+    arxiv_url: "https://www.nature.com/articles/s41467-025-57741-6"
+    scholar_url: "https://scholar.google.com/scholar?q=TacPalm+SoftHand+soft+robotic+hand+palm-finger"
+    post_slug: "2503-tacpalm-softhand"
+    category: "related"
+  - title: "Learning In-Hand Translation Using Tactile Skin With Shear and Normal Force Sensing"
+    author: "Jessica Yin et al."
+    description: "RL approach that learns in-hand translation from tactile skin. This paper asks the meta-design question 'where should sensors go?' under the same RL paradigm."
+    arxiv_url: "https://arxiv.org/abs/2407.07885"
+    scholar_url: "https://scholar.google.com/scholar?q=tactile+skin+in-hand+translation"
+    post_slug: "2407-tactile-skin-inhand-translation"
+    category: "related"
+  - title: "Canonical Representation and Force-Based Pretraining of 3D Tactile for Dexterous Visuo-Tactile Policy Learning"
+    author: "Tianhao Wu et al."
+    description: "Canonical 3D tactile representation with force-based pretraining for visuotactile policy learning. The findings here (palm sensing helps) inform the input space design for such learned representations."
+    arxiv_url: "https://arxiv.org/abs/2409.17549"
+    scholar_url: "https://scholar.google.com/scholar?q=canonical+3D+tactile+visuo-tactile+policy"
+    post_slug: "2409-3dtactile-dex"
+    category: "related"
+  - title: "Residual Rotation Correction using Tactile Equivariance"
+    author: "Yizhe Zhu et al."
+    description: "Tactile equivariance for in-hand rotation correction. This paper studies the same rotation task across diverse sensor placement conditions, providing complementary insight."
+    arxiv_url: "https://arxiv.org/abs/2511.07381"
+    scholar_url: "https://scholar.google.com/scholar?q=residual-rotation-correction-tactile-equivariance"
+    post_slug: "2511-equitac-tactile-equivariance"
+    category: "related"
+translated_to: []
+---
+
+## TL;DR
+
+Where on a robotic hand should tactile sensors go for the best in-hand manipulation? Placing force-torque sensors in 19 regions of the Shadow Hand and training PPO+LSTM policies via Monte Carlo-style search shows: **adding tactile alone improves consecutive successes by up to 26% and accelerates convergence 3×**. Crucially, **the upper palm (27.87 successes / 3.1× convergence) is nearly on par with the distal phalanges (28.21 / 3.2×)**, and **optimal placement shifts with object size** (smaller → fingertips, larger → palm).
+
+## Problem
+
+In in-hand manipulation, tactile feedback supplies contact forces, slip, and surface geometry that vision cannot. Yet robotic hands almost universally **concentrate tactile sensors on fingertips**:
+
+- **Fingertip-bias inertia**: human fingertips have the highest mechanoreceptor density, but the human palm also has extensive tactile innervation
+- **Lack of quantitative evaluation for non-fingertip regions**: no systematic comparison of how proximal phalanges, dorsum, and palm tactile contribute to policy performance
+- **Object-dependent placement is unclear**: large vs small objects engage different contact regions, so a single sensor layout cannot be optimal in both
+
+This paper answers all three with **RL-based quantitative analysis**.
+
+## Key Idea
+
+The authors extend Isaac Gym's Shadow-Dexterous-Hand environment with **force-torque sensors in 19 regions** (distal/middle/proximal phalanges of all 5 fingers + 5 upper-palm regions). Three core design choices evaluate each region's contribution:
+
+- **PPO + LSTM policy**: trained for up to 3000 epochs across 4096 parallel environments, using LSTM with an extra ReLU hidden layer; domain randomization absorbs part of the sim-to-real gap
+- **Monte Carlo-style sensor subset search**: random + structured subsets (same-phalanx, same-finger, same-quadrant, diagonal) of the 19 regions are sampled, and policy performance is measured for each
+- **Object size/shape ablation**: spheres (golf, tennis, softball), ellipsoids, and a cube; each region's relative importance map is recomputed per condition
+
+Metrics: **consecutive successes** (number of consecutive 50-second goal-pose reaches) and **convergence speed** (training-speedup vs baseline).
+
+<Figure src="./fig-2.png" caption="Skeletal anatomy of the human hand (left), approximate contour and center of the 19 sensing regions defined on the Shadow Hand (middle), and the spherical objects with their relative sizes used in the manipulation task (right)." />
+
+<Collapsible title="Detailed Methods">
+
+### Shadow Hand and 19 Sensor Regions
+
+The Shadow Dexterous Hand has 20 degrees of actuation. This work adds force-torque sensors to each of 19 regions: distal/middle/proximal phalanges of all 5 fingers (15) plus 5 upper-palm regions. Each sensor measures average 3D force and torque applied to its region's volume.
+
+### Isaac Gym Environment and PPO Training
+
+NVIDIA Isaac Gym provides GPU acceleration, parallelization, force-sensor support, and domain randomization. The policy stacks an extra ReLU hidden layer on top of an LSTM and is trained with PPO. Each experiment uses 4096 parallel environments for up to 3000 epochs. Task: rotate/relocate the object to a goal pose within 50 s.
+
+### Monte Carlo-Style Subset Search
+
+Enumerating all $2^{19}$ subsets is infeasible, so the search mixes **random subsets with structured ones**: (i) same-phalanx (all distal / all middle / all proximal), (ii) same-finger, (iii) same-quadrant, (iv) diagonal. Each subset trains a policy; for region $r$, the average performance gap between subsets containing $r$ vs not is its **relative importance**.
+
+### Object Size/Shape Ablation
+
+Sizes: golf, tennis, softball. Shapes: sphere, ellipsoid, cube. The same pipeline is re-trained per condition to extract per-region importance maps.
+
+</Collapsible>
+
+## Key Results
+
+- **Value of tactile**: adding fingertip tactile alone yields up to **26%** more consecutive successes vs the no-tactile baseline and **3×** faster convergence
+- **Region comparison** (Table I): distal 28.21 / 3.2× > upper palm 27.87 / 3.1× > middle 25.89 / 2.7× > proximal 25.77 / 2.2×
+  - **Upper palm is nearly equivalent to distal phalanges** — directly contradicting the "fingertip-first" convention
+- **Object-size effect**: small (golf) failure rate ≈4%, large (softball) ≈8%. Smaller objects shift importance toward distal phalanges, larger objects toward the palm
+- **5- vs 8-sensor configs**: full-range variation across regions is 18.4% of the minimum at 5 sensors, 16.9% at 8 — region differences are clear but shrink as sensor count grows
+- **Shape ablation**: non-fingertip sensors yield measurable gains across spheres, ellipsoids, and cubes — palm value persists even on non-symmetric shapes
+
+<Figure src="./fig-5.png" caption="Relative importance (0 = least, 1 = most) of the anthropomorphic hand regions in an in-hand manipulation task. Left: with the fingertips included; Right: excluding fingertips. The maps quantify how much each region contributes to policy performance when added to the sensor set." />
+
+<Figure src="./fig-6.png" caption="Relative importance of hand regions in in-hand manipulation, separated by object size: larger objects (left) and smaller objects (right). Larger objects shift importance toward palm regions; smaller objects shift importance toward distal phalanges." />
+
+## Achievements and Limitations
+
+**Key achievements**
+- **RL-quantified rebuttal of fingertip-only orthodoxy**: upper palm matches distal phalanges within 1% — data hardware designers can use to justify palm sensing
+- **Object-dependent optimal placement**: small ↔ fingertips, large ↔ palm — first quantitative basis for task-conditioned sensor topology design
+- **Reproducible simulation framework**: Isaac Gym + Shadow Hand extended with 19-region sensing — directly reusable for follow-on studies
+
+**Limitations**
+- Simulation-only — no real Shadow Hand validation (the sim-to-real gap is only partially addressed by domain randomization)
+- Sensor model abstracts each region as average 3D F/T — not pixel-level visuo-tactile (GelSight-family) nor distributed pressure arrays
+- Tasks are simple geometric primitives (sphere/ellipsoid/cube) reorientation — correlation with complex tasks (tool use, handover) needs separate verification
+- Shadow Hand-specific — generalization to other anthropomorphic hands (e.g., F-TAC Hand 15 DoF, TacPalm 3-finger soft) is unverified
+- 🤖 All 19 regions assumed equal accuracy and noise — real sensors differ in SNR and calibration across regions
+
+## Terry's Memo
+
+- *(None)*

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-17T02:13:40.919Z",
-  "total_posts": 40,
+  "generated_at": "2026-04-17T02:23:01.181Z",
+  "total_posts": 41,
   "posts": [
     {
       "post_number": 1,
@@ -2865,6 +2865,93 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 41,
+      "slug": "2509-tactile-sensing-distribution",
+      "content_type": "papers",
+      "title_en": "The Role of Touch: Optimal Tactile Sensing Distribution for In-Hand Manipulation",
+      "title_ko": "촉각 분포의 역할: 인간형 손의 인핸드 조작 최적 센서 배치",
+      "summary_ko": "Shadow Hand의 19개 촉각 영역에 대한 PPO 정책 ablation. 상부 손바닥(27.87 성공/3.1× 수렴)이 원위 지절(28.21 성공/3.2× 수렴)에 거의 필적하며, 물체 크기에 따라 최적 배치가 달라진다.",
+      "summary_en": "PPO ablation across 19 tactile regions of the Shadow Hand. The upper palm (27.87 successes / 3.1× convergence) is nearly on par with distal phalanges (28.21 / 3.2×), and the optimal placement shifts with object size.",
+      "domain": "robotics",
+      "subfields": [
+        "tactile-sensing",
+        "in-hand-manipulation",
+        "reinforcement-learning"
+      ],
+      "key_concepts": [
+        "tactile-distribution",
+        "sensor-placement",
+        "Shadow-Hand",
+        "force-torque-sensing",
+        "PPO",
+        "LSTM-policy",
+        "Isaac-Gym",
+        "in-hand-reorientation",
+        "palm-tactile"
+      ],
+      "methodology": [
+        "deep-reinforcement-learning",
+        "PPO",
+        "Monte-Carlo-search",
+        "simulation-study",
+        "ablation-study"
+      ],
+      "contribution_type": "study",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "In-Hand Manipulation",
+        "Palm"
+      ],
+      "source_author": "João Damião Almeida et al.",
+      "source_date": "2025-09-18T00:00:00Z",
+      "published_at": "2026-04-17T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Systematic ablation across 19 tactile regions of a Shadow Hand shows the upper palm is nearly as important as distal phalanges for in-hand reorientation — fingertips alone are not optimal",
+        "problem": "Robotic hands typically place tactile sensors on fingertips, but the contribution of tactile feedback from non-fingertip regions (proximal phalanges, palm) to in-hand manipulation has been overlooked",
+        "solution": "Extend the Isaac Gym Shadow-Dexterous-Hand environment with force-torque sensors in 19 hand regions, then run a Monte Carlo-style search over PPO+LSTM policies trained with subsets of sensors to quantify each region's contribution",
+        "key_result": "Adding tactile improves consecutive successes by up to 26% and convergence by 3×; distal phalanges score 28.21 successes / 3.2× convergence, but upper palm reaches 27.87 / 3.1× — palm sensing is competitive with fingertips; sensor importance shifts with object size (smaller objects → distal sensors matter more, larger → palm matters more)",
+        "limitations": [
+          "Simulation-only (Isaac Gym), no real-hardware validation",
+          "Force-torque sensors abstracted as per-region 3D F/T — not pixel-level visual-tactile",
+          "Reorientation task on simple geometric primitives (spheres, ellipsoids, cube)",
+          "Shadow Hand-specific — generalization to other anthropomorphic hands unverified"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "2412-f-tac-hand",
+          "type": "compares_with"
+        },
+        {
+          "slug": "2503-tacpalm-softhand",
+          "type": "compares_with"
+        },
+        {
+          "slug": "2407-tactile-skin-inhand-translation",
+          "type": "related"
+        },
+        {
+          "slug": "2409-3dtactile-dex",
+          "type": "related"
+        },
+        {
+          "slug": "2511-equitac-tactile-equivariance",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -3316,6 +3403,26 @@
       {
         "from": "2503-tacpalm-softhand",
         "type": "related"
+      },
+      {
+        "from": "2509-tactile-sensing-distribution",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-tactile-sensing-distribution",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-tactile-sensing-distribution",
+        "type": "related"
+      },
+      {
+        "from": "2509-tactile-sensing-distribution",
+        "type": "related"
+      },
+      {
+        "from": "2509-tactile-sensing-distribution",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -3366,12 +3473,14 @@
           18,
           37,
           39,
-          40
+          40,
+          41
         ],
         "core_concepts": [
           "diffusion-policy",
           "dexterous-manipulation",
-          "human-to-robot-transfer"
+          "human-to-robot-transfer",
+          "palm-tactile"
         ],
         "taxonomy_nodes": [
           "robotics/hand/tactile"
@@ -3476,6 +3585,19 @@
         "taxonomy_nodes": []
       },
       {
+        "id": "concept-force-torque-sensing",
+        "label": "force-torque-sensing",
+        "post_numbers": [
+          1,
+          36,
+          41
+        ],
+        "core_concepts": [
+          "force-torque-sensing"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
         "id": "concept-diffusion-policy",
         "label": "diffusion-policy",
         "post_numbers": [
@@ -3528,7 +3650,8 @@
       37,
       38,
       39,
-      40
+      40,
+      41
     ],
     "outlier_papers": []
   },
@@ -3555,7 +3678,8 @@
     ],
     "force-torque-sensing": [
       1,
-      36
+      36,
+      41
     ],
     "pre-training": [
       2
@@ -4191,7 +4315,8 @@
       39
     ],
     "palm-tactile": [
-      39
+      39,
+      41
     ],
     "visual-tactile-palm": [
       40
@@ -4216,10 +4341,31 @@
     ],
     "object-classification": [
       40
+    ],
+    "tactile-distribution": [
+      41
+    ],
+    "sensor-placement": [
+      41
+    ],
+    "Shadow-Hand": [
+      41
+    ],
+    "PPO": [
+      41
+    ],
+    "LSTM-policy": [
+      41
+    ],
+    "Isaac-Gym": [
+      41
+    ],
+    "in-hand-reorientation": [
+      41
     ]
   },
   "domain_stats": {
-    "robotics": 29,
+    "robotics": 30,
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
@@ -4229,12 +4375,12 @@
     "robotics/brain/vla": 7,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
-    "robotics/hand/tactile": 9,
+    "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 3,
     "ai/agent": 7,
-    "robotics/hand/dexterous:secondary": 7,
+    "robotics/hand/dexterous:secondary": 8,
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 11,
     "ai/llm:secondary": 5,
@@ -4243,8 +4389,8 @@
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
     "robotics/arm": 5,
-    "robotics/hand": 12,
-    "robotics": 28,
+    "robotics/hand": 13,
+    "robotics": 29,
     "ai": 8
   }
 }

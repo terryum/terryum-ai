@@ -1,0 +1,64 @@
+{
+  "post_id": "2509-tactile-sensing-distribution",
+  "slug": "2509-tactile-sensing-distribution",
+  "post_number": 41,
+  "published_at": "2026-04-17T00:00:00Z",
+  "updated_at": "2026-04-17T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "tags": ["Papers", "Robotics", "Tactile Sensing", "In-Hand Manipulation", "Palm"],
+  "display_tags": ["Robotics", "Tactile Sensing", "In-Hand Manipulation", "Palm"],
+  "cover_image": "./cover.webp",
+  "cover_caption": "인체 손의 19개 촉각 영역 분할과 평가용 구형 물체. 어느 부위에 센서를 두는 것이 인핸드 조작에 가장 효과적인가를 정량적으로 분석한다.",
+  "cover_figure_number": 2,
+  "thumb_source": "./fig-1.png",
+  "reading_time_min": 6,
+  "source_type": "arXiv",
+  "source_title": "The Role of Touch: Towards Optimal Tactile Sensing Distribution in Anthropomorphic Hands for Dexterous In-Hand Manipulation",
+  "source_author": "João Damião Almeida et al.",
+  "source_authors_full": ["João Damião Almeida", "Egidio Falotico", "Cecilia Laschi", "José Santos-Victor"],
+  "source_url": "https://arxiv.org/abs/2509.14984",
+  "source_date": "2025-09-18T00:00:00Z",
+  "source_project_url": null,
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Role+of+Touch+Optimal+Tactile+Sensing+Distribution+Anthropomorphic+Hands",
+  "domain": "robotics",
+  "subfields": ["tactile-sensing", "in-hand-manipulation", "reinforcement-learning"],
+  "key_concepts": ["tactile-distribution", "sensor-placement", "Shadow-Hand", "force-torque-sensing", "PPO", "LSTM-policy", "Isaac-Gym", "in-hand-reorientation", "palm-tactile"],
+  "methodology": ["deep-reinforcement-learning", "PPO", "Monte-Carlo-search", "simulation-study", "ablation-study"],
+  "contribution_type": "study",
+  "taxonomy_primary": "robotics/hand/tactile",
+  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "relations": [
+    { "slug": "2412-f-tac-hand", "type": "compares_with" },
+    { "slug": "2503-tacpalm-softhand", "type": "compares_with" },
+    { "slug": "2407-tactile-skin-inhand-translation", "type": "related" },
+    { "slug": "2409-3dtactile-dex", "type": "related" },
+    { "slug": "2511-equitac-tactile-equivariance", "type": "related" }
+  ],
+  "ai_summary": {
+    "one_liner": "Systematic ablation across 19 tactile regions of a Shadow Hand shows the upper palm is nearly as important as distal phalanges for in-hand reorientation — fingertips alone are not optimal",
+    "problem": "Robotic hands typically place tactile sensors on fingertips, but the contribution of tactile feedback from non-fingertip regions (proximal phalanges, palm) to in-hand manipulation has been overlooked",
+    "solution": "Extend the Isaac Gym Shadow-Dexterous-Hand environment with force-torque sensors in 19 hand regions, then run a Monte Carlo-style search over PPO+LSTM policies trained with subsets of sensors to quantify each region's contribution",
+    "key_result": "Adding tactile improves consecutive successes by up to 26% and convergence by 3×; distal phalanges score 28.21 successes / 3.2× convergence, but upper palm reaches 27.87 / 3.1× — palm sensing is competitive with fingertips; sensor importance shifts with object size (smaller objects → distal sensors matter more, larger → palm matters more)",
+    "limitations": [
+      "Simulation-only (Isaac Gym), no real-hardware validation",
+      "Force-torque sensors abstracted as per-region 3D F/T — not pixel-level visual-tactile",
+      "Reorientation task on simple geometric primitives (spheres, ellipsoids, cube)",
+      "Shadow Hand-specific — generalization to other anthropomorphic hands unverified"
+    ]
+  },
+  "figures": [
+    { "number": 2, "src": "./fig-2.png", "caption": "Skeletal anatomy of the human hand (left), approximate contour and center of the 19 sensing regions defined on the Shadow Hand (middle), and the spherical objects with their relative sizes used in the manipulation task (right).", "caption_ko": "인간 손의 골격 해부도(왼쪽), Shadow Hand에 정의한 19개 촉각 감지 영역의 대략적 윤곽과 중심(가운데), 조작 과제에 사용된 구형 물체와 상대 크기(오른쪽)." },
+    { "number": 3, "src": "./fig-3.png", "caption": "Baselines — consecutive successes over training: B1 (no tactile sensors) vs B2 (fingertip sensors only). Adding fingertip tactile feedback already accelerates convergence relative to vision-only state input.", "caption_ko": "기준선 — 학습 동안의 연속 성공 횟수: B1(촉각 센서 없음) 대 B2(손끝 센서만). 손끝 촉각 피드백을 더하기만 해도 비전 단독 상태 입력 대비 수렴이 빨라진다." },
+    { "number": 4, "src": "./fig-4.png", "caption": "Four sensor placement configurations from categorical or geometrical sets: same-phalanx (first), same-finger (second), same-'quadrant' (third), and diagonally-placed sensors (last). These structured subsets are sampled by a Monte Carlo-style search to compare placement strategies.", "caption_ko": "범주형/기하학적 집합에서 추출한 네 가지 센서 배치 구성: 같은 지절(첫 번째), 같은 손가락(두 번째), 같은 '사분면'(세 번째), 대각선 배치(마지막). 몬테카를로식 탐색으로 이러한 구조화된 부분집합을 샘플링해 배치 전략을 비교한다." },
+    { "number": 5, "src": "./fig-5.png", "caption": "Relative importance (0 = least, 1 = most) of the anthropomorphic hand regions in an in-hand manipulation task. Left: with the fingertips included; Right: excluding fingertips. The maps quantify how much each region contributes to policy performance when added to the sensor set.", "caption_ko": "인핸드 조작 과제에서 의인화 손 영역들의 상대적 중요도(0=최저, 1=최고). 왼쪽: 손끝 포함; 오른쪽: 손끝 제외. 각 영역을 센서 집합에 추가했을 때 정책 성능에 얼마나 기여하는지를 정량화한 맵이다." },
+    { "number": 6, "src": "./fig-6.png", "caption": "Relative importance of hand regions in in-hand manipulation, separated by object size: larger objects (left) and smaller objects (right). Larger objects shift importance toward palm regions; smaller objects shift importance toward distal phalanges.", "caption_ko": "물체 크기에 따른 인핸드 조작 시 손 영역의 상대적 중요도: 큰 물체(왼쪽), 작은 물체(오른쪽). 큰 물체는 중요도가 손바닥 쪽으로, 작은 물체는 원위 지절 쪽으로 이동한다." },
+    { "number": 7, "src": "./fig-7.png", "caption": "Positive impact of sensors placed outside the fingertips when manipulating spherical, ellipsoidal, and cubic objects. Non-fingertip sensors deliver measurable gains across all three shape categories, not just symmetric ones.", "caption_ko": "구·타원체·정육면체 물체 조작 시 손끝 외부에 배치한 센서의 긍정적 효과. 손끝 외 센서는 대칭 형태뿐 아니라 세 가지 형태 범주 모두에서 측정 가능한 이득을 제공한다." }
+  ],
+  "tables": [
+    { "number": 1, "title": "Impact of sensor placement latitude in the IHM task", "caption_ko": "인핸드 조작 과제에서 센서 배치 위도의 영향" }
+  ],
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false
+}
