@@ -48,7 +48,7 @@ from pathlib import Path
 import requests
 
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://terry.artlab.ai")
-FACEBOOK_BASE_URL = os.environ.get("FACEBOOK_BASE_URL", "https://terry-artlab.vercel.app")
+FACEBOOK_BASE_URL = os.environ.get("FACEBOOK_BASE_URL", "https://www.terryum.ai")
 
 PUBLISHED_CACHE = REPO_ROOT / ".social-published.json"
 

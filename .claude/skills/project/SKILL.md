@@ -82,7 +82,7 @@ README.md도 읽어서:
     { "type": "github", "url": "https://github.com/owner/repo" },
     { "type": "demo", "url": "https://...", "label": "Live Demo" }
   ],
-  "embed_url": "https://my-project.vercel.app/",
+  "embed_url": "https://my-project.pages.dev/",
   "status": "active",
   "featured": false,
   "order": 0,
@@ -95,8 +95,9 @@ README.md도 읽어서:
 - `status`는 `pushed_at`이 1년 이내면 `active`, 아니면 `archived`
 
 ### embed_url 규칙
-- **Vercel 링크** (`*.vercel.app`) → `embed_url`에 설정 (iframe 내부 임베딩)
+- **Cloudflare Pages 링크** (`*.pages.dev`) → `embed_url`에 설정 (iframe 내부 임베딩)
   - 카드 클릭 시 `/projects/[slug]` 내부 페이지로 이동
+  - 외부 정적 호스팅(GitHub Pages 등)도 동일 방식으로 임베딩 가능
 - **그 외 링크** → `embed_url` 없음 (외부 링크, 새 탭에서 열림)
 - 사용자가 명시적으로 임베딩/외부 링크 지정 시 그에 따름
 

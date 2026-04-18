@@ -157,7 +157,7 @@ node scripts/generate-embeddings.mjs --slug=<slug>
 - `generate-thumbnails.mjs`: `cover.webp`에서 288×288 `cover-thumb.webp`를 `public/posts/<slug>/`에 생성 (리스트 카드 썸네일용)
 - `upload-to-r2.mjs`: 이미지를 Cloudflare R2에 업로드 (cover, **cover-thumb**, figures, OG)
 - **썸네일 생성 → R2 업로드 순서 필수**: `upload-to-r2.mjs`는 `public/posts/<slug>/cover-thumb.webp`가 있어야 업로드함
-- OG 이미지는 `public/posts/<slug>/og.png`에 생성 (Vercel에서 서빙, R2 아님)
+- OG 이미지는 `public/posts/<slug>/og.png`에 생성 (Cloudflare Worker 번들에 포함되어 서빙, R2 아님)
 
 ### Step R10) 포스트 검증
 ```bash
@@ -214,7 +214,7 @@ python3 bibtex/refs_index.py match <new-slug>
 - **Tier 3 (slug-token fuzzy, `⚠️  REQUIRES HUMAN REVIEW`) 매칭만 있으면** → **자동 링크 금지**. 사용자에게 매칭 후보를 보고하고 확인을 받은 뒤에만 삽입
 - 어느 Tier든 매칭이 있으면 → `/link-post-to-surveys <new-slug>` 스킬을 즉시 호출
   - link-post-to-surveys가 매칭된 모든 서베이 챕터의 `## 참고문헌` / `## References` 항목에 `[post]` 링크를 삽입하고 각 서베이를 `python3 build.py <survey-name>`으로 리빌드한다
-  - **snu-tactile-hand가 매칭에 포함되면** 추가로 `bash /Users/terrytaewoongum/Codes/personal/terry-surveys/surveys/snu-tactile-hand/scripts/push-private.sh "link post <new-slug> to snu-tactile-hand"` 를 실행해 private repo에 즉시 반영 (Vercel 재배포 트리거)
+  - **snu-tactile-hand가 매칭에 포함되면** 추가로 `bash /Users/terrytaewoongum/Codes/personal/terry-surveys/surveys/snu-tactile-hand/scripts/push-private.sh "link post <new-slug> to snu-tactile-hand"` 를 실행해 private repo에 즉시 반영 (Cloudflare Pages 자동 재배포 트리거)
 - 매칭 score가 모두 < 3이면 → 서베이에 이 논문이 인용되지 않은 것으로 간주하고 조용히 종료
 - 매칭은 있는데 link-post-to-surveys 실행이 실패하면 → 실패 이유를 기록하고 Step R13의 레슨에 추가
 

@@ -42,7 +42,7 @@
 - 퍼블리시 자동화는 기존 포스트 덮어쓰기 전 변경 요약(diff) 확인
 
 ## 인프라/배포 규칙
-- 인프라 고정: **Cloudflare(도메인/DNS/CDN) + Vercel(배포) + GitHub**
+- 인프라 고정: **Cloudflare(도메인/DNS/CDN/Workers/Pages/R2) + GitHub**
 - 시크릿/토큰 하드코딩 금지 (`.env.example`만 생성)
 - 핵심 테스트/검증 실패 시 배포 금지
 - 로컬 개발 서버 포트: **3040~3049** 사용 (`next dev -p 3040`)

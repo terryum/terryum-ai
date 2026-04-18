@@ -133,11 +133,11 @@
 
 | 플랫폼 | 로캘 | 베이스 URL | 이유 |
 |--------|------|-----------|------|
-| Facebook | `/ko/` | `terry-artlab.vercel.app` | vercel.app 도메인이 Facebook OG 크롤링에 유리 |
-| Threads | `/ko/` | `terry-artlab.vercel.app` | Facebook과 동일 |
-| LinkedIn | `/en/` | `terry.artlab.ai` | 영어 OG 태그 직접 접근 |
-| X | `/en/` | `terry.artlab.ai` | 영어 OG 태그 직접 접근 |
-| Bluesky | `/en/` | `terry.artlab.ai` | 영어 OG 태그 직접 접근 |
+| Facebook | `/ko/` | `www.terryum.ai` | canonical 도메인, OG 태그 정상 노출 |
+| Threads | `/ko/` | `www.terryum.ai` | Facebook과 동일 |
+| LinkedIn | `/en/` | `www.terryum.ai` | 영어 OG 태그 직접 접근 |
+| X | `/en/` | `www.terryum.ai` | 영어 OG 태그 직접 접근 |
+| Bluesky | `/en/` | `www.terryum.ai` | 영어 OG 태그 직접 접근 |
 
 ### X 캐시 버스팅
 - X 크롤러는 URL별로 카드를 공격적으로 캐싱함

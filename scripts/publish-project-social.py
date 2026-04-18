@@ -45,7 +45,7 @@ psub = importlib.util.module_from_spec(spec_sub)
 spec_sub.loader.exec_module(psub)
 
 SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://terry.artlab.ai")
-FACEBOOK_BASE_URL = os.environ.get("FACEBOOK_BASE_URL", "https://terry-artlab.vercel.app")
+FACEBOOK_BASE_URL = os.environ.get("FACEBOOK_BASE_URL", "https://www.terryum.ai")
 PROJECTS_PATH = REPO_ROOT / "projects" / "gallery" / "projects.json"
 SURVEYS_PATH = REPO_ROOT / "projects" / "surveys" / "surveys.json"
 
