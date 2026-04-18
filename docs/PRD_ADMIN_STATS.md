@@ -27,7 +27,7 @@
 - `/admin/stats`는 위 API를 호출해 KPI/차트/테이블 렌더링
 - Data API 인증은 **서비스 계정** 사용:
   - 서비스 계정 이메일을 GA4 Property에 사용자로 추가
-  - 자격증명(JSON)은 Vercel env에 저장(서버에서만 사용)
+  - 자격증명(JSON)은 Cloudflare Worker secret으로 저장 (`wrangler secret put GA_SERVICE_ACCOUNT_JSON`, 서버에서만 사용)
 
 참고: GA Data API는 GA4 리포트 데이터에 프로그램적으로 접근하는 API이며, `runReport`로 커스텀 리포트를 생성한다. citeturn1search1turn1search0
 
@@ -61,7 +61,7 @@
 - `/api/admin/*`는 admin 세션 없으면 401
 - 캐싱: 동일 기간 요청은 1~5분 캐시(관리자 UX 개선 + quota 보호)
 
-Vercel 환경변수는 프로젝트 설정으로 관리하고, 민감 값은 “Sensitive”로 저장하는 것을 권장한다. citeturn0search4turn0search1
+Cloudflare Worker 환경변수는 `wrangler.jsonc`의 `vars`(공개)와 `wrangler secret put`(민감)로 분리 관리한다. 민감 값은 반드시 secret으로 저장.
 
 ## 7) 환경변수(키 이름만)
 - Admin: `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET`
@@ -69,7 +69,7 @@ Vercel 환경변수는 프로젝트 설정으로 관리하고, 민감 값은 “
 - GA 조회(Data API):
   - `GA_PROPERTY_ID`
   - `GA_SERVICE_ACCOUNT_JSON` (서비스 계정 JSON 문자열 또는 base64)
-  - (대안) `GOOGLE_APPLICATION_CREDENTIALS` 경로 방식은 Vercel 환경에서 관리 복잡도가 있어 권장하지 않음
+  - (대안) `GOOGLE_APPLICATION_CREDENTIALS` 파일 경로 방식은 Workers 런타임에서 파일 시스템 접근이 제한되므로 사용 불가 — JSON 문자열 방식만 지원
 
 ## 8) 검증 체크(MVP)
 - 관리자 인증 후 `/admin/stats` 접근 가능

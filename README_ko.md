@@ -4,13 +4,13 @@
 
 > 로보틱스 & AI 연구를 위한 개인 홈페이지이자 AI가 운영하는 지식 관리 시스템.
 
-**사이트**: [terry.artlab.ai](https://terry.artlab.ai)
+**사이트**: [www.terryum.ai](https://www.terryum.ai)
 
 ---
 
 ## 소개
 
-[On the Manifold](https://terry.artlab.ai)은 한국어/영어 이중 언어 연구 블로그이자 지식 그래프, 개인 홈페이지입니다. [Andrej Karpathy의 외부 두뇌 방식](https://x.com/karpathy/status/1911080111710109960)에 영감을 받아, Claude Code가 AI 에이전트로서 논문 요약, 인덱싱, 관계 연결, 발행을 자연어 명령으로 수행합니다.
+[On the Manifold](https://www.terryum.ai)은 한국어/영어 이중 언어 연구 블로그이자 지식 그래프, 개인 홈페이지입니다. [Andrej Karpathy의 외부 두뇌 방식](https://x.com/karpathy/status/1911080111710109960)에 영감을 받아, Claude Code가 AI 에이전트로서 논문 요약, 인덱싱, 관계 연결, 발행을 자연어 명령으로 수행합니다.
 
 현재 27개 이상의 논문 요약, 테크 에세이, 메모, 인터랙티브 논문 관계 그래프를 AI 파이프라인으로 관리하고 있습니다. 이 프로젝트는 두 개의 워크스페이스로 운영됩니다: 이 레포는 사이트 개발용, `terry-obsidian`은 Obsidian 볼트 관리와 콘텐츠 발행용입니다.
 
@@ -26,17 +26,17 @@
   index.json    (그래프 DB)  (로컬 지식베이스)
        |              |              |
        v              v              v
-  ┌────────┐    ┌──────────┐  ┌────────────┐
-  │ Vercel │    │  Paper   │  │ 위키링크   │
-  │  배포  │    │  Map UI  │  │ + Dataview │
-  └────────┘    └──────────┘  └────────────┘
+  ┌──────────┐  ┌──────────┐  ┌────────────┐
+  │CF Worker │  │  Paper   │  │ 위키링크   │
+  │ (OpenNxt)│  │  Map UI  │  │ + Dataview │
+  └──────────┘  └──────────┘  └────────────┘
 ```
 
 | 레이어 | 스택 |
 |--------|------|
 | **프론트엔드** | Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 |
 | **콘텐츠** | 이중 언어 MDX (ko.mdx / en.mdx) + 프론트매터 메타데이터 |
-| **배포** | Cloudflare (DNS/CDN) + Vercel |
+| **배포** | Cloudflare Workers (OpenNext) + Pages + R2 |
 | **데이터베이스** | Supabase (논문 관계, 지식 그래프, 비공개 콘텐츠) |
 | **접근 제어** | 그룹별 비밀번호 인증 (`/co/[group]`) + Admin |
 | **지식 베이스** | Obsidian (로컬) + 동기화 스크립트 + Claude Code |
@@ -93,8 +93,7 @@
 | **환경 변수** | API 키, 시크릿 | `.env.example` → `.env.local` 복사 후 키 입력 |
 | **Supabase 프로젝트** | 논문 그래프 DB | 프로젝트 생성 후 `supabase/migrations/` 마이그레이션 실행 |
 | **Obsidian 볼트** | 로컬 지식 베이스 | Obsidian 설치 + 볼트 경로 설정 |
-| **Vercel 계정** | 배포 | 레포 연결 |
-| **Cloudflare** | DNS/CDN (선택) | 커스텀 도메인 + CDN 사용 시에만 |
+| **Cloudflare 계정** | 배포 (Workers + Pages + R2) + DNS/CDN | Free plan으로 충분. API 토큰으로 wrangler CLI 설정 |
 | **소셜 미디어 토큰** | 발행 자동화 | 플랫폼별 OAuth 설정 |
 | **Claude Code** | AI 에이전트 운영 | Claude Code CLI 설치 |
 
@@ -158,14 +157,14 @@ supabase db push
 npm run dev  # localhost:3040에서 시작
 ```
 
-#### 5. Vercel 배포
+#### 5. Cloudflare Workers 배포
 
 ```bash
-npm run build   # 빌드 성공 확인
-vercel          # 연결 및 배포
+npm run build:cf          # Workers용 OpenNext 빌드
+npx opennextjs-cloudflare deploy   # wrangler로 배포
 ```
 
-Vercel 프로젝트 설정에서 동일한 환경 변수를 설정하세요.
+런타임 환경변수는 `wrangler.jsonc`에 설정합니다 (공개값은 `vars`, 민감값은 `wrangler secret put`). 빌드 시점에 번들에 인라인되는 `NEXT_PUBLIC_*` 값들은 `.env.production` 참고.
 
 ---
 

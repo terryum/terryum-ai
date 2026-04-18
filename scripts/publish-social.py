@@ -28,7 +28,7 @@ Facebook Page, Threads, LinkedIn, X(Twitter), Bluesky에 공유한다.
     BLUESKY_IDENTIFIER              Bluesky handle (e.g. user.bsky.social)
     BLUESKY_APP_PASSWORD            App-specific password (만료 없음)
 
-    SITE_BASE_URL                   홈페이지 베이스 URL (기본: https://terry.artlab.ai)
+    SITE_BASE_URL                   홈페이지 베이스 URL (기본: https://www.terryum.ai)
 """
 # social_common 임포트가 UTF-8 설정 + dotenv 로드를 처리함
 from social_common import (
@@ -47,7 +47,7 @@ from pathlib import Path
 
 import requests
 
-SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://terry.artlab.ai")
+SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://www.terryum.ai")
 FACEBOOK_BASE_URL = os.environ.get("FACEBOOK_BASE_URL", "https://www.terryum.ai")
 
 PUBLISHED_CACHE = REPO_ROOT / ".social-published.json"

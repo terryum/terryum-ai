@@ -4,13 +4,13 @@
 
 > A personal homepage and AI-operated knowledge base for robotics & AI research.
 
-**Live**: [terry.artlab.ai](https://terry.artlab.ai)
+**Live**: [www.terryum.ai](https://www.terryum.ai)
 
 ---
 
 ## What This Is
 
-[On the Manifold](https://terry.artlab.ai) is a bilingual (Korean/English) research blog, knowledge graph, and personal homepage. Inspired by [Andrej Karpathy's approach](https://x.com/karpathy/status/1911080111710109960) to external-brain knowledge management, the entire content pipeline is operated by Claude Code — papers are summarized, indexed, connected, and published through natural language commands.
+[On the Manifold](https://www.terryum.ai) is a bilingual (Korean/English) research blog, knowledge graph, and personal homepage. Inspired by [Andrej Karpathy's approach](https://x.com/karpathy/status/1911080111710109960) to external-brain knowledge management, the entire content pipeline is operated by Claude Code — papers are summarized, indexed, connected, and published through natural language commands.
 
 The site hosts 35+ research paper summaries, tech essays, memos, and an interactive paper relationship graph. The project uses a multi-workspace setup:
 
@@ -33,10 +33,10 @@ The site hosts 35+ research paper summaries, tech essays, memos, and an interact
   index.json      (Graph DB)   (Local Knowledge)
        |              |              |
        v              v              v
-  ┌─────────┐   ┌──────────┐   ┌────────────┐
-  │ Vercel  │   │  Paper   │   │ Wikilinks  │
-  │ Deploy  │   │  Map UI  │   │ + Dataview │
-  └─────────┘   └──────────┘   └────────────┘
+  ┌──────────┐  ┌──────────┐   ┌────────────┐
+  │CF Worker │  │  Paper   │   │ Wikilinks  │
+  │ (OpenNxt)│  │  Map UI  │   │ + Dataview │
+  └──────────┘  └──────────┘   └────────────┘
 ```
 
 | Layer | Stack |
@@ -44,7 +44,7 @@ The site hosts 35+ research paper summaries, tech essays, memos, and an interact
 | **Frontend** | Next.js 15 (App Router) + TypeScript + Tailwind CSS v4 |
 | **Content** | Bilingual MDX (ko.mdx / en.mdx) + frontmatter metadata |
 | **Images** | Cloudflare R2 CDN (all post images served globally) |
-| **Deployment** | Cloudflare (DNS/CDN/R2) + Vercel |
+| **Deployment** | Cloudflare Workers (OpenNext) + Pages + R2 |
 | **Database** | Supabase (paper relationships, knowledge graph, private content) |
 | **Access Control** | Group-based password auth (`/co/[group]`) + Admin |
 | **Knowledge Base** | Obsidian (local) + sync script + Claude Code |
@@ -101,8 +101,7 @@ This is a personal project, not a plug-and-play template. However, since the rep
 | **Environment variables** | API keys, secrets | Copy `.env.example` → `.env.local`, fill in your keys |
 | **Supabase project** | Database for paper graph | Create project, run migration in `supabase/migrations/` |
 | **Obsidian vault** | Local knowledge base | Install Obsidian, configure vault path |
-| **Vercel account** | Deployment | Link repo to Vercel project |
-| **Cloudflare** | DNS/CDN (optional) | Only if you want custom domain + CDN |
+| **Cloudflare account** | Deployment (Workers + Pages + R2) + DNS/CDN | Free plan is enough; set up wrangler CLI with API token |
 | **Social media tokens** | Publishing automation | Platform-specific OAuth setup |
 | **Claude Code** | AI agent operation | Install Claude Code CLI |
 
@@ -166,14 +165,14 @@ Additionally, `002_acl_schema.sql` creates tables for legacy group-based access 
 npm run dev  # Starts on localhost:3040
 ```
 
-#### 5. Deploy to Vercel
+#### 5. Deploy to Cloudflare Workers
 
 ```bash
-npm run build   # Verify build succeeds
-vercel          # Link and deploy
+npm run build:cf          # OpenNext build for Workers
+npx opennextjs-cloudflare deploy   # Deploy via wrangler
 ```
 
-Set the same environment variables in Vercel project settings.
+Runtime env vars go in `wrangler.jsonc` (`vars` for public, `secrets` via `wrangler secret put` for sensitive). See `.env.production` for the set of `NEXT_PUBLIC_*` vars that Next.js inlines into the bundle at build time.
 
 ---
 

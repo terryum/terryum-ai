@@ -61,7 +61,7 @@
 
 ## 분석 도입 전략 (GA4보다 쉬운 기본안 + 확장성)
 ### v1 추천 기본안
-- **Vercel Web Analytics** 우선 도입 (Vercel 배포와 통합 쉬움)
+- **Cloudflare Web Analytics** 또는 **Google Analytics 4** (GA4) 도입 — 현재는 GA4 사용 중 (`NEXT_PUBLIC_GA_MEASUREMENT_ID`)
 - 목적: 일일 방문자, 상위 페이지, 리퍼러, 기본 트래픽 흐름 확인
 
 ### 체류시간 지표가 초기에 꼭 필요하면 (대안)

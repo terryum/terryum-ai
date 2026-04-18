@@ -26,7 +26,7 @@
   3) `/admin/*` 요청은 미들웨어로 쿠키 검증
 - 비밀번호 저장:
   - 로컬: `.env.local`
-  - 배포: Vercel Project Env (Preview/Production)
+  - 배포: Cloudflare Worker secret (`wrangler secret put ADMIN_PASSWORD`)
   - **절대 하드코딩 금지** (예: 현재 값이 “0222”라도 env로만)
 - 최소 환경변수:
   - `ADMIN_PASSWORD`

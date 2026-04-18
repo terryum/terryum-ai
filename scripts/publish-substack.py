@@ -13,7 +13,7 @@ EN/KO Substack Publication에 티저 + 홈페이지 링크를 포스팅한다.
                                     Chrome → F12 → Application → Cookies → substack.com → substack.sid
     NEXT_PUBLIC_SUBSTACK_EN_URL     영어 Substack URL (예: https://terry-en.substack.com)
     NEXT_PUBLIC_SUBSTACK_KO_URL     한국어 Substack URL (예: https://terry-ko.substack.com)
-    SITE_BASE_URL                   홈페이지 베이스 URL (기본: https://terry.artlab.ai)
+    SITE_BASE_URL                   홈페이지 베이스 URL (기본: https://www.terryum.ai)
 """
 # social_common 임포트가 UTF-8 설정 + dotenv 로드를 처리함
 from social_common import (
@@ -30,7 +30,7 @@ from pathlib import Path
 
 import requests
 
-SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://terry.artlab.ai")
+SITE_BASE_URL = os.environ.get("SITE_BASE_URL", "https://www.terryum.ai")
 SUBSTACK_COOKIE = os.environ.get("SUBSTACK_COOKIE", "")
 SUBSTACK_EN_URL = os.environ.get("NEXT_PUBLIC_SUBSTACK_EN_URL", "")
 SUBSTACK_KO_URL = os.environ.get("NEXT_PUBLIC_SUBSTACK_KO_URL", "")

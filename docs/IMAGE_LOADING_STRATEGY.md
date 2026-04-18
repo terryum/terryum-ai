@@ -16,7 +16,7 @@ public/posts/<slug>/cover.webp            (full-size, ~1200×675)
         ▼  Next.js Image Optimization
 /_next/image?url=...&w=...&q=75           (on-demand resize + format)
         │
-        ▼  Vercel CDN → Cloudflare CDN
+        ▼  Cloudflare Worker → Cloudflare CDN → R2 public bucket
 Cached response to client
 ```
 
@@ -48,9 +48,9 @@ Cached response to client
 ## Caching Layers
 
 1. **Next.js Image Cache** — `minimumCacheTTL: 86400` (24h), stored in `.next/cache/images/`
-2. **Vercel Edge Cache** — automatic for `/_next/image` responses
-3. **Cloudflare CDN** — fronts the Vercel origin, caches static assets
-4. **Static assets** (`/images/*`) — `Cache-Control: public, max-age=31536000, immutable`
+2. **Cloudflare Worker / R2 incremental cache** — OpenNext's `r2IncrementalCache` caches ISR + SSG HTML responses
+3. **Cloudflare CDN** — fronts the Worker, caches `/_next/image` and static assets per `public/_headers`
+4. **Static assets** (`/images/*`, `/fonts/*`, `/_next/static/*`) — `Cache-Control: public, max-age=31536000, immutable`
 
 ## Mobile Considerations
 
