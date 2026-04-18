@@ -51,7 +51,8 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
           BLUESKY_IDENTIFIER: ${{ secrets.BLUESKY_IDENTIFIER }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-          SITE_BASE_URL: https://terry.artlab.ai
+          SITE_BASE_URL: https://www.terryum.ai
+          FACEBOOK_BASE_URL: https://www.terryum.ai
         run: |
           ARGS=""
           [ "${{ inputs.dry_run }}" = "true" ] && ARGS="$ARGS --dry-run"
