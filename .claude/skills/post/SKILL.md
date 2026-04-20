@@ -1,7 +1,7 @@
 ---
 name: post
-description: "Post 생성 파이프라인. arXiv URL → Research 포스트, 블로그/기술문서 URL → Research 포스트(blog 태그), --type=blog → Blog 포스트(memos/essays), synthesis → 다중 소스 종합 Research 포스트 자동 생성. 커버 이미지 없을 시 /gemini-3-image-generation 사용."
-argument-hint: "<URL | --type=blog slug | virtual 자연어요청 | synthesis URL1 URL2 ...> [--tags=TAG1,TAG2] [--memo=메모] [--featured]"
+description: "Post 생성 파이프라인. 두 갈래: (A) 연구/외부 콘텐츠 요약 (From AI) — arXiv/학술 저널/기술 블로그 URL, KB 노드 추가됨. (B) 직접 쓴 초안 발행 (From Terry) — Obsidian Drafts의 essays/memos, KB 노드 추가 없음. virtual/synthesis는 A 계열. 커버 이미지 없을 시 /gemini-3-image-generation 사용."
+argument-hint: "<URL | --from=#-N --type=essays|memos | virtual 자연어요청 | synthesis URL1 URL2 ...> [--tags=TAG1,TAG2] [--memo=메모] [--featured]"
 ---
 
 # Post 생성 파이프라인
@@ -10,23 +10,43 @@ argument-hint: "<URL | --type=blog slug | virtual 자연어요청 | synthesis UR
 
 ## Step 0) 타입 자동 감지
 
-- `https://arxiv.org/` 포함 → **Research 경로 (arXiv)** (아래 Research 섹션 실행)
-- `nature.com`, `ieee.org`, `acm.org` 등 학술 저널 URL → **Research 경로 (학술)** (`docs/POST_LOADING_ETC.md` 참조)
-- 그 외 `http(s)://` URL (블로그 등) → **Research 경로 (블로그)** (아래 Research 섹션, 블로그 분기로 실행)
-- `--type=blog` 명시 또는 URL 없음 → **Blog 경로** (아래 Blog 섹션 실행)
-- `--from=<path>` 또는 `--from=#-N` 명시 → **Blog 경로** (Obsidian 초안에서 발행, `--type` 필수)
-- `virtual` 키워드로 시작 → **Virtual Paper 경로** (아래 Virtual 섹션 실행)
-- `synthesis` 키워드로 시작 → **Synthesis 경로** (아래 Synthesis 섹션 실행)
+두 큰 갈래가 있다 — **(A) 연구/외부 콘텐츠 요약 (From AI)** vs **(B) 직접 쓴 초안 발행 (From Terry)**.
+KB(terry-papers) 노드 추가 여부가 여기서 결정된다: A는 추가, B는 추가 안 함.
+
+### (A) Research 계열 (From AI) — KB 노드 추가됨
+
+외부 콘텐츠(논문·기술 블로그)를 요약해 포스팅. `export-knowledge.mjs` 실행.
+
+- `https://arxiv.org/` 포함 → **Research 경로 (arXiv 논문)** — `docs/POST_LOADING_ARXIV.md` 참조
+- `nature.com`, `ieee.org`, `acm.org` 등 학술 저널 URL → **Research 경로 (학술 논문)** — `docs/POST_LOADING_ETC.md` 참조
+- 그 외 `http(s)://` URL (Claude 블로그, Generalist 블로그, 기업 기술문서 등) → **Research 경로 (기술 블로그)** — `docs/POST_LOADING_BLOG.md` 참조
+- `virtual` 키워드로 시작 → **Virtual Paper 경로** (가상 논문)
+- `synthesis` 키워드로 시작 → **Synthesis 경로** (다중 소스 종합)
+
+### (B) 직접 쓴 초안 경로 (From Terry: essays/memos) — KB 노드 추가 **없음**
+
+Terry가 직접 쓴 Obsidian 초안을 공개 포스트로 발행. `export-knowledge.mjs` **실행 금지**.
+
+- `--from=<path>` 또는 `--from=#-N` 명시 → **직접 쓴 초안 경로** (Obsidian Drafts에서 발행, `--type=essays|memos` 필수)
+- `--type=essays` 또는 `--type=memos`만 명시 (`--from` 없이 posts/ 폴더 직접 지정) → **직접 쓴 초안 경로**
+
+> **중요**: 이 경로는 "기술 블로그 요약" 경로와 다르다. Terry 본인의 글 (essays/memos)은 외부 지식베이스 노드가 아니므로 `terry-papers` 레포에 넣지 않는다.
+
+### 예시
 
 ```
-/post https://arxiv.org/abs/2505.22159          → Research (arXiv)
-/post https://generalistai.com/blog/...         → Research (블로그)
-/post https://claude.com/blog/...               → Research (블로그)
-/post --type=memos 260406-writing-daily         → Blog (memos)
-/post --type=essays --from=#-3                  → Blog (Obsidian 초안 발행)
+# (A) Research 계열
+/post https://arxiv.org/abs/2505.22159          → Research (arXiv 논문)
+/post https://nature.com/articles/...           → Research (학술 논문)
+/post https://claude.com/blog/...               → Research (기술 블로그)
+/post https://generalistai.com/blog/...         → Research (기술 블로그)
 /post virtual --group=snu 촉각 잔차 학습 논문     → Virtual Paper
-/post virtual --from=~/path/to/draft.md         → Virtual Paper (MD 파일 기반)
-/post synthesis https://github.com/user/repo https://x.com/user/status/123  → Synthesis
+/post synthesis https://github.com/u/r https://x.com/u/s/123  → Synthesis
+
+# (B) 직접 쓴 초안 경로 (From Terry)
+/post --from=#-3 --type=essays                  → 직접 쓴 초안 → essays 발행
+/post --from=#-4 --type=memos                   → 직접 쓴 초안 → memos 발행
+/post #-4                                       → (frontmatter의 content_type 자동 사용)
 ```
 
 ### PDF Fallback 규칙 (URL 접근 불가 시)
@@ -181,6 +201,19 @@ git commit -m "feat(post): add <slug> (ko/en)"
 git push
 ```
 
+### Step R12.1) Cloudflare Workers 배포 (필수)
+
+**Git push만으로는 공개 사이트에 반영되지 않는다** — `posts/index.json`이 빌드 시점 번들에 import되므로, 새 포스트는 Worker 재배포 후에야 `/posts` 목록과 `tab=memos/essays/papers` 필터에 노출된다.
+
+```bash
+npm run deploy:cf
+```
+
+- 이 명령은 `opennextjs-cloudflare build && opennextjs-cloudflare deploy`를 실행해 CF Workers에 새 버전을 업로드한다
+- 배포 후 확인: `npx wrangler deployments list | head -5` 로 새 "Created" 항목이 생겼는지 확인
+- 기대되는 확인 URL: `https://www.terryum.ai/posts/<slug>` → HTTP 200
+- **CF Dashboard의 Git integration (Workers Builds)이 활성화된 경우에도 이 단계를 생략하지 말 것** — 현재(2026-04-20 기준) 자동 빌드가 간헐적으로 누락된다. 수동 배포가 진실의 원천.
+
 ### Step R12.5) Knowledge Base 업데이트 (terry-papers)
 ```bash
 node scripts/export-knowledge.mjs   # 기본 출력: ~/Codes/personal/terry-papers
@@ -265,22 +298,25 @@ python3 bibtex/refs_index.py match <new-slug>
 
 ---
 
-## Blog 경로 (memos/essays)
+## 직접 쓴 초안 경로 (From Terry: essays/memos)
 
-입력: `--type=blog [<slug>] [--from=<path>] [--type=memos|essays]`
+입력: `[--from=<path>|--from=#-N] [--type=memos|essays] [<slug>]`
+
+Terry 본인이 쓴 Obsidian 초안을 공개 포스트로 발행하는 경로. **`export-knowledge.mjs` (KB 노드 추가)는 실행하지 않는다** — 이 경로의 콘텐츠는 외부 지식베이스 자산이 아니다.
 
 모든 단계를 권한 요청 없이 완료할 것.
 
 ### `--from` 옵션 (Obsidian 연동)
 
 - `--from=<path>`: 외부 파일을 `post_original.md` 대신 사용
-  - `~` 확장 지원 (예: `~/Documents/Obsidian Vault/From Terry/Drafts/my-post.md`)
+  - `~` 확장 지원 (예: `~/Codes/personal/terry-obsidian/vault/From Terry/Drafts/my-post.md`)
   - `--from=#N`: `posts/global-index.json`에서 인덱스 N번 항목의 경로를 조회하여 사용
   - 파일이 존재하지 않으면 명확한 에러 메시지 출력 후 중단
 - 예시:
   ```
-  /post --type=blog --from="~/Documents/Obsidian Vault/From Terry/Drafts/my-post.md" 260403-my-idea
-  /post --type=blog --from=#42 260403-my-idea
+  /post --from=#-4 --type=memos
+  /post --from=#-3 --type=essays
+  /post #-4                       # content_type은 draft frontmatter에서 자동
   ```
 
 ### `--from` 사용 시 content_type 규칙
@@ -458,23 +494,39 @@ git commit -m "feat(post): add <slug> (ko/en)"
 git push
 ```
 
-### Step B10.5) Knowledge Base 업데이트 (Private)
-R12.5와 동일
+### Step B10.1) Cloudflare Workers 배포 (필수)
+
+**Git push만으로는 공개 사이트에 반영되지 않는다** — `posts/index.json`이 빌드 시점 번들에 import되므로(`src/lib/posts.ts` 등), 새 포스트는 Worker 재배포 후에야 `/posts` 목록과 `tab=memos/essays/papers` 필터에 노출된다.
+
+```bash
+npm run deploy:cf
+```
+
+- `opennextjs-cloudflare build && opennextjs-cloudflare deploy` 실행
+- 배포 후 확인: `curl -s -o /dev/null -w "%{http_code}" https://www.terryum.ai/posts/<slug>` → 200
+- **CF Dashboard Git integration이 활성화되어 있어도 이 단계를 건너뛰지 말 것** — 현재(2026-04-20 기준) 자동 빌드가 간헐적으로 누락된다. 수동 배포가 진실의 원천.
+
+### Step B10.5) Knowledge Base 업데이트는 **이 경로에서 실행하지 않는다**
+
+`export-knowledge.mjs`는 **연구/외부 콘텐츠 요약 경로(Research/Virtual/Synthesis)** 전용이다.
+Terry 본인이 쓴 essays/memos는 `terry-papers` 지식베이스의 노드가 아니므로 이 단계를 건너뛴다.
 
 ### Step B10.6) Obsidian Vault Sync
 - Run: `node scripts/sync-obsidian.mjs --slug=<slug>`
 - If vault directory does not exist or script fails, print warning and continue (non-blocking)
 - This ensures the new/updated post appears in Obsidian immediately
 
-### Step B10.7) Draft → Essays 이동 (--from 사용 시 필수)
+### Step B10.7) Draft → Essays/Memos 이동 (--from 사용 시 필수)
 
-Draft에서 발행한 경우, 원본 Draft 파일 삭제 후 **원문을 `From Terry/Essays/`에 저장**한다.
+Draft에서 발행한 경우, 원본 Draft 파일 삭제 후 **원문을 `From Terry/Essays/` 또는 `From Terry/Memos/`에 저장**한다 (content_type에 따라 분기).
 이 단계는 `sync-obsidian.mjs`와 별개로, 원문 전체를 Obsidian에 보존하기 위한 것이다.
 
 **절차:**
 1. Draft 파일 삭제 (원본 + `-revised` 있으면 함께)
-2. `~/Documents/Obsidian Vault/From Terry/Essays/<slug>.md`에 원문 저장
-3. `global-index.json`에서 음수 draft entry 제거
+2. `content_type`에 따라 저장:
+   - `essays` → `~/Codes/personal/terry-obsidian/vault/From Terry/Essays/<slug>.md`
+   - `memos` → `~/Codes/personal/terry-obsidian/vault/From Terry/Memos/<slug>.md`
+3. `global-index.json`에서 음수 draft entry 제거 + `next_private_id`가 삭제된 번호 이후였으면 되돌림
 
 **Essays 파일 형식:**
 ```markdown
@@ -498,8 +550,11 @@ tags: [<content_type>, <태그들>]
 
 ### Step B10.8) Style Guide Learning (optional, when --from was used)
 - Compare the original draft (--from file) with the final published MDX
-- If significant structural/tonal changes were made, update `~/Documents/Obsidian Vault/terry_writing_style_guide.md`
+- If significant structural/tonal changes were made, update the appropriate guide (**content_type별 분기**):
+  - `essays` → `~/Codes/personal/terry-obsidian/vault/terry_writing_style_guide.md`
+  - `memos` → `~/Codes/personal/terry-obsidian/vault/terry_memo_style_guide.md`
 - Merge new patterns with existing rules; don't let the guide grow too long
+- Do NOT mix lessons across the two guides — Essays rules and Memo rules are independent
 
 ### Step B10.9) 예외 발생 시 레슨 기록
 R13과 동일 — 예외/우회가 있었으면 `memory/posting-lessons.md`에 기록
@@ -699,10 +754,11 @@ ON CONFLICT (slug) DO UPDATE SET
 커버/썸네일/OG 이미지 → Supabase Storage `private-covers/{slug}/` 버킷 업로드
 (업로드 스크립트: `scripts/upload-private-content.mjs` 참조)
 
-### Step V7-public) Git 저장 (공개인 경우)
+### Step V7-public) Git 저장 + CF 배포 (공개인 경우)
 
 **`visibility: "public"`일 때**:
 - Research 경로 Step R9~R12와 동일 (빌드 스크립트 → 검증 → 커밋 → 푸시)
+- **Step R12.1 (`npm run deploy:cf`)도 동일하게 실행** — git push만으로는 사이트에 반영되지 않는다
 
 ### Step V8) global-index 업데이트
 
@@ -791,7 +847,7 @@ Research 포스트와 동일 구조. 차이점:
 - 사이트 내 관련 포스트: `post_slug` 필드
 - `description`: 각 소스가 이 포스트에서 어떤 맥락으로 사용되었는지
 
-### Step SY7~SY12) 빌드 → 검증 → 커밋 → 푸시
+### Step SY7~SY12) 빌드 → 검증 → 커밋 → 푸시 → **CF 배포**
 
 Research 경로 Step R9~R13과 동일:
-빌드 스크립트 → validate-post → npm run build → git commit + push → KB 업데이트 → Obsidian sync → 예외 레슨 기록
+빌드 스크립트 → validate-post → npm run build → git commit + push → **`npm run deploy:cf` (R12.1)** → KB 업데이트 → Obsidian sync → 예외 레슨 기록
