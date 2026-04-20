@@ -837,7 +837,7 @@ async function main() {
 
       globalIndex.entries.push({
         id: newId, slug: file.replace('.md', ''), type, visibility: 'private',
-        title, path: relPath,
+        title, path: storePath,
       });
 
       console.log(`  📋 Indexed: ${file} → #${newId}`);
