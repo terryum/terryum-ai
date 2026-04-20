@@ -153,6 +153,78 @@ function extractSyncHash(noteContent) {
   return match ? match[1] : null;
 }
 
+// ── Check whether an existing note has a sync_hash field (any value) ──
+function hasSyncHashField(noteContent) {
+  if (!noteContent) return false;
+  const fmMatch = noteContent.match(/^---\n([\s\S]*?)\n---/);
+  if (!fmMatch) return false;
+  return /^sync_hash:/m.test(fmMatch[1]);
+}
+
+// ── Strip frontmatter from MDX/MD content ──
+function stripFrontmatter(mdxContent) {
+  return mdxContent.replace(/^---\n[\s\S]*?\n---\n?/, '').replace(/^\n+/, '');
+}
+
+// ── Convert inline [text](/posts/slug) links to [[slug|text]] wikilinks ──
+function convertPostLinksToWikilinks(body) {
+  return body.replace(
+    /\[([^\]]+)\]\(\/posts\/([^\/\)#\s]+)\/?\)/g,
+    (_, text, slug) => `[[${slug}|${text}]]`
+  );
+}
+
+// ── Build canonical Terry tags: [type, ...meta.tags lowercase+hyphen] ──
+function buildTerryTags(meta) {
+  const type = (meta.content_type || 'essays').toLowerCase();
+  const out = [type];
+  const seen = new Set([type]);
+  for (const t of (meta.tags || [])) {
+    const s = String(t).trim().toLowerCase().replace(/\s+/g, '-');
+    if (!s || seen.has(s)) continue;
+    out.push(s);
+    seen.add(s);
+  }
+  return out;
+}
+
+// ── Build canonical full-body note for essays/memos (from-terry, no sync_hash) ──
+function buildCanonicalTerryNote(meta, koMdx) {
+  const koFm = parseFrontmatter(koMdx);
+  const title = koFm.title || meta.source_title || meta.slug;
+  const docId = meta.post_number;
+  const contentType = meta.content_type || 'essays';
+  const visibility = meta.visibility || 'public';
+  const publishedDate = meta.published_at ? meta.published_at.split('T')[0] : null;
+  const tags = buildTerryTags(meta);
+
+  const fmLines = [
+    '---',
+    `doc_id: ${docId}`,
+    `slug: "${meta.slug}"`,
+    `source: "from-terry"`,
+    `content_type: "${contentType}"`,
+    `visibility: "${visibility}"`,
+    `title: "${title.replace(/"/g, '\\"')}"`,
+    publishedDate ? `published_at: ${publishedDate}` : null,
+    `tags: [${tags.join(', ')}]`,
+    '---',
+  ].filter(Boolean);
+
+  const titleLine = `\`#${docId}\` · ${title}`;
+  const body = convertPostLinksToWikilinks(stripFrontmatter(koMdx));
+
+  const parts = [fmLines.join('\n'), '', titleLine, ''];
+  if (meta.cover_image) {
+    parts.push(`![cover](${r2ImageUrl(meta.slug, 'cover.webp')})`);
+    parts.push('');
+  }
+  parts.push(body);
+  if (!body.endsWith('\n')) parts.push('');
+
+  return parts.join('\n');
+}
+
 // ── Build note content for Papers ──
 function buildPaperNote(meta, koFm, terryMemos, existingContent) {
   const syncHash = computeSyncHash(meta);
@@ -545,20 +617,39 @@ async function main() {
     const vaultSubfolder = TYPE_TO_FOLDER[contentType] || 'From Terry/Memos';
     const notePath = path.join(VAULT_ROOT, vaultSubfolder, `${slug}.md`);
 
-    // Check sync_hash
-    const newHash = computeSyncHash(meta);
     const existingContent = await readExistingNote(notePath);
-    const existingHash = extractSyncHash(existingContent);
+    const isTerryAuthored = contentType === 'essays' || contentType === 'memos';
 
-    if (existingHash === newHash && !initMode) {
+    // Human-curated essays/memos: file exists and frontmatter lacks sync_hash → skip entirely
+    if (isTerryAuthored && existingContent && !hasSyncHashField(existingContent)) {
       skipped++;
+      // Still collect for meta files
+      slugToPostMap.push({
+        slug,
+        content_type: contentType,
+        taxonomy_primary: meta.taxonomy_primary || post.taxonomy_primary || null,
+        key_concepts: meta.key_concepts || post.key_concepts || [],
+        title_ko: koFm.title || meta.source_title || slug,
+      });
       continue;
+    }
+
+    // Check sync_hash for papers/notes (unchanged means skip)
+    if (!isTerryAuthored) {
+      const newHash = computeSyncHash(meta);
+      const existingHash = extractSyncHash(existingContent);
+      if (existingHash === newHash && !initMode) {
+        skipped++;
+        continue;
+      }
     }
 
     // Build note
     let noteContent;
     if (contentType === 'papers') {
       noteContent = buildPaperNote(meta, koFm, terryMemos, existingContent);
+    } else if (isTerryAuthored) {
+      noteContent = buildCanonicalTerryNote(meta, koMdx);
     } else {
       noteContent = buildEssayNote(meta, koFm, terryMemos, existingContent);
     }
