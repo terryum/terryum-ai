@@ -761,6 +761,32 @@ async function main() {
     console.log('  ⚠ posts/global-index.json not found — run generate-index.mjs first');
   }
 
+  // Reconcile allocator invariants against actual entries, in case past
+  // crashes / renumbers / manual edits left next_private_id or next_public_id
+  // in a state where they could reissue existing ids.
+  let allocatorReconciled = false;
+  const ids = (globalIndex.entries || [])
+    .map(e => (typeof e.id === 'number' ? e.id : null))
+    .filter(id => id !== null);
+  const negIds = ids.filter(id => id < 0);
+  const posIds = ids.filter(id => id > 0);
+  if (negIds.length > 0) {
+    const minNeg = Math.min(...negIds);
+    if (globalIndex.next_private_id > minNeg - 1) {
+      console.warn(`  ⚠ allocator reconcile: next_private_id ${globalIndex.next_private_id} → ${minNeg - 1} (min existing=${minNeg})`);
+      globalIndex.next_private_id = minNeg - 1;
+      allocatorReconciled = true;
+    }
+  }
+  if (posIds.length > 0) {
+    const maxPos = Math.max(...posIds);
+    if (globalIndex.next_public_id < maxPos + 1) {
+      console.warn(`  ⚠ allocator reconcile: next_public_id ${globalIndex.next_public_id} → ${maxPos + 1} (max existing=${maxPos})`);
+      globalIndex.next_public_id = maxPos + 1;
+      allocatorReconciled = true;
+    }
+  }
+
   // ── Reverse scan: index unregistered Obsidian memos/drafts ──
   const scanDirs = ['From Terry/Memos', 'From Terry/Essays', 'From Terry/Drafts'];
   let newlyIndexed = 0;
@@ -851,8 +877,8 @@ async function main() {
     }
   }
 
-  // Re-write global index if new entries were found
-  if (newlyIndexed > 0) {
+  // Re-write global index if new entries were found or the allocator was repaired
+  if (newlyIndexed > 0 || allocatorReconciled) {
     if (!dryRun) {
       await fs.writeFile(globalIndexPath, JSON.stringify(globalIndex, null, 2) + '\n', 'utf-8');
     }
