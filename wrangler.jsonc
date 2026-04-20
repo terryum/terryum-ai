@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "terryum-ai",
+  "name": "terry-artlab-homepage",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-04-17",
   "compatibility_flags": [
