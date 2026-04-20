@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-19T22:31:33.154Z",
-  "total_posts": 42,
+  "generated_at": "2026-04-20T05:22:35.948Z",
+  "total_posts": 43,
   "posts": [
     {
       "post_number": 1,
@@ -3005,6 +3005,77 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 43,
+      "slug": "260420-one-day-recovery",
+      "content_type": "memos",
+      "title_en": "SkinChat Infrastructure Debt, Cleared in a Day",
+      "title_ko": "하루 만에 고친 SkinChat 인프라 부채",
+      "summary_ko": "비개발자 혼자 하루 세션으로 SkinChat·SkinLog 인프라 부채 7건 해소. 응답 −37%/−32%, 90일 장애 복구, 보안 2건 봉쇄.",
+      "summary_en": "A non-developer closed seven SkinChat/SkinLog infra debts in one session: latency −37%/−32%, 90-day outage recovered, two security holes sealed.",
+      "domain": "Infra & Ops",
+      "subfields": [
+        "serverless",
+        "security",
+        "migration"
+      ],
+      "key_concepts": [
+        "infra debt",
+        "one-day session",
+        "AI coding session",
+        "RLS",
+        "service_role",
+        "Supabase",
+        "Lambda",
+        "backfill"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Memos",
+        "Infra",
+        "Supabase",
+        "Lambda",
+        "Security",
+        "AI Workflow"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-04-20T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "비개발자 혼자 하루 AI 세션으로 인프라 부채 7건을 닫고 90일짜리 장애를 복구한 기록",
+        "problem": "수년간 쌓인 SkinChat·SkinLog 인프라 부채 — 6~7초 응답 지연, 90일 꺼진 봇, RLS·service_role 보안 구멍 2개, Supabase 이중 비용",
+        "solution": "AI는 코드 읽기·분석·실행을, 사람은 스키마·사용자 인증·외부 승인 경계에서의 판단만 담당. 세 축에 걸리지 않는 부채는 하루에 닫힘",
+        "key_result": "응답 영어 −37% / 한국어 −32%, 미응답 105건 백필 에러 0, 보안 2건 봉쇄, Supabase 1개 통합",
+        "limitations": [
+          "빌드 아티팩트 이전, 모바일 앱 재제출, IAM 재설계는 별도 트랙 필요"
+        ]
+      },
+      "relations": [
+        {
+          "slug": "260419-vercel-quiet-bill",
+          "type": "related",
+          "note": "같은 묵힌 인프라 부채 정비 사례"
+        },
+        {
+          "slug": "260420-debt-changes-hands",
+          "type": "related",
+          "note": "이번 정비의 의미를 다룬 에세이"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260419-vercel-quiet-bill",
+        "260420-debt-changes-hands"
+      ],
+      "taxonomy_primary": "infra/serverless",
+      "taxonomy_secondary": [
+        "ops/security"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -3476,6 +3547,14 @@
       {
         "from": "2509-tactile-sensing-distribution",
         "type": "related"
+      },
+      {
+        "from": "260420-one-day-recovery",
+        "type": "related"
+      },
+      {
+        "from": "260420-one-day-recovery",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -3602,6 +3681,18 @@
         ],
         "taxonomy_nodes": [
           "robotics/brain"
+        ]
+      },
+      {
+        "id": "infra-serverless",
+        "label": "infra/serverless",
+        "post_numbers": [
+          42,
+          43
+        ],
+        "core_concepts": [],
+        "taxonomy_nodes": [
+          "infra/serverless"
         ]
       },
       {
@@ -4436,6 +4527,30 @@
     ],
     "WAF": [
       42
+    ],
+    "infra debt": [
+      43
+    ],
+    "one-day session": [
+      43
+    ],
+    "AI coding session": [
+      43
+    ],
+    "RLS": [
+      43
+    ],
+    "service_role": [
+      43
+    ],
+    "Supabase": [
+      43
+    ],
+    "Lambda": [
+      43
+    ],
+    "backfill": [
+      43
     ]
   },
   "domain_stats": {
@@ -4444,7 +4559,8 @@
     "ai": 6,
     "philosophy": 2,
     "AI & Society": 1,
-    "Infra & Cost": 1
+    "Infra & Cost": 1,
+    "Infra & Ops": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 7,
@@ -4463,7 +4579,8 @@
     "ai/agents:secondary": 1,
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
-    "infra/serverless": 1,
+    "infra/serverless": 2,
+    "ops/security:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 29,

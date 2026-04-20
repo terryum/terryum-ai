@@ -1,0 +1,91 @@
+---
+locale: "en"
+translation_of: "260420-one-day-recovery:ko"
+title: "SkinChat Infrastructure Debt, Cleared in a Day"
+subtitle: "Seven items closed in one session"
+summary: "A non-developer cleared seven years-old infrastructure debt items in a single AI coding session. Response latency dropped 37% (EN) and 32% (KO), a bot that had been dead for 90+ days was restored and 105 unresponded posts were backfilled, two security holes (RLS and service_role) were sealed, and two Supabase projects were merged into one. If a debt item doesn't touch schema, user auth, or external approval, it closes in a day."
+card_summary: "A non-developer closed seven SkinChat/SkinLog infra debts in one session: latency −37%/−32%, 90-day outage recovered, two security holes sealed."
+terrys_memo: ""
+---
+
+## TL;DR
+
+- A non-developer closed seven items of SkinChat·SkinLog infrastructure debt in a single one-day session
+- Response latency: **EN −37%, KO −32%**
+- Restored SkinTalk AI auto-reply that had been **dead for 90+ days** → backfilled 105 un-responded posts
+- Sealed two security holes — RLS `FOR ALL USING (true)` (5 policies) + service_role key leaked in browser bundle
+- Merged 2 Supabase projects into 1 (partial removal of duplicate cost)
+
+## Scope
+
+| Area                     | Work                                                                  |
+| ------------------------ | --------------------------------------------------------------------- |
+| SkinChat response latency | Azure OpenAI → direct OpenAI + keyword classifier + remove DeepL       |
+| Supabase                 | 2-project merge (dozens of projects, hundreds of feedback, meta tables) |
+| SkinTalk bot             | Replace Lambda env `COMMENTS_API` + retroactive invoke of 105 posts   |
+| Security                 | DROP 5 RLS policies + swap VITE key to anon                           |
+| Frontend                 | Bitbucket → GitHub migration + Amplify source switch                  |
+| Domain consolidation     | skinlog.ai → `*.artlab.ai` subdomain (preempt expiry risk)            |
+| UX                       | Text selection/copy (`user-select: text`)                             |
+
+## Deployment numbers
+
+- Lambda env values modified: 35 (dev 18 + prod 17)
+- Functions deployed: 25 (core API Lambda + chat API Lambda)
+- Actual deploy time: 148s + 70s
+- Smoke check passed: health + project endpoint 200
+
+## Measured latency
+
+| | Before | After | Δ |
+|---|---|---|---|
+| EN | 6.79s | 4.26s | −37% |
+| KO | 7.39s | 5.00s | −32% |
+| HTTP 500 (DeepL expired) | intermittent | 0 | — |
+
+## Maintenance items — grouped summary
+
+The seven debts group into four categories.
+
+**Performance (response latency)**
+Stripped out the Azure OpenAI proxy hop in favor of a direct OpenAI call, added a keyword-based input classifier, and removed the near-expiry DeepL layer. Double translation paths and external dependencies were the core of the 6–7 second lag.
+
+**Security (2 holes sealed)**
+- RLS policies set to `FOR ALL USING (true)` made every table readable/writable with just the anon key → 5 policies rewritten
+- A service_role key injected via the `VITE_` prefix was inlined in plaintext into the client bundle → swapped to anon key + service_role confined to server side
+
+**Infrastructure migration·consolidation**
+- Supabase 2 projects → merged into 1 (partial removal of duplicate cost)
+- Brand domain (skinlog.ai) expiry risk → preemptively migrated to `*.artlab.ai` subdomain + 301 redirect
+- Bitbucket → GitHub migration + Amplify source switch
+
+**Long-term outage recovery (SkinTalk bot)**
+A single Lambda env pointed at a sunset domain and failed silently for 90 days. After swapping the env, 105 of 112 posts were backfilled (35–40 min, 0 errors).
+
+## Division of labor — what the AI did vs. what the human decided
+
+- **AI execution**: reading dozens of scattered repos as one unit, analyzing load causes and blast radius, patching envs, rewriting policies, writing deploy scripts, writing and running backfill code
+- **Human judgment**: schema impact, external-approval boundaries (app store, ACM, etc.), backfill strategy/ordering, allowed ranges of security policy, migration order (build-artifact dependency)
+- **Safety net**: secret-leak blocking hook + outbound repo exfiltration block + commit-time auto review (also surfaced a stale RLS hole)
+
+## Decision criteria — what fits a one-day session, what doesn't
+
+Three axes separate "one-day AI session" from "separate track (another day / another team / external approval)."
+
+| Axis | Fits a one-day session | Needs a separate track |
+|---|---|---|
+| **Schema impact** | env/config/policy swaps (schema-safe) | DB migration, auth flow change |
+| **External approval** | finishes with self-deploy | app store resubmission, domain/cert issuance wait |
+| **Org boundary** | personal / single-team scope | full IAM redesign, legacy artifact migration owned by other teams |
+
+If it hits **any one** of the three, it becomes a separate track. The seven items this session all passed the three — that's why they closed in a day. The four items left for later each hit at least one.
+
+## ROI
+
+- **Input**: one day's session (human decides, AI executes)
+- **Output**: seven long-deferred issues closed + two months-old outages (DeepL 500, SkinTalk bot) recovered
+
+## Related posts
+
+- [Dev Debt](/posts/260420-debt-changes-hands) — what this clean-up reveals: the ownership of dev debt has come back to the founder
+- [The Quiet Bill — When Vercel Bills You for Bots](/posts/260419-vercel-quiet-bill) — same "long-buried infra debt" case (Vercel → Cloudflare migration cutting the bot billing structure)
