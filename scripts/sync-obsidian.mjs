@@ -816,6 +816,8 @@ async function main() {
             id, slug: file.replace('.md', ''), type, visibility: 'private',
             title, path: storePath,
           });
+          console.log(`  🔁 Recovered: ${file} → #${id}`);
+          newlyIndexed++;
         }
         continue;
       }
