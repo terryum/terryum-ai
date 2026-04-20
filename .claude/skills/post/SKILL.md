@@ -187,11 +187,13 @@ node scripts/validate-post.mjs <slug>
 - 경고(⚠️)는 가능하면 해결, 불가능하면 사유 기록
 - 검증 항목: meta.json 필수필드, figures 캡션(ko/en), 파일 존재, 제목 형식, index.json 정합성
 
-### Step R11) Build 검증
+### Step R11) Build 검증 (CF 호환 번들)
 ```bash
-npm run build
+npx opennextjs-cloudflare build
 ```
-실패 시 에러 수정 후 재실행
+- Next.js 빌드 + OpenNext 어댑터로 CF Workers 호환 번들(`.open-next/`) 생성
+- 이 번들이 Step R12.1에서 그대로 업로드되므로 **별도 `npm run build`는 불필요** (중복 next build 방지)
+- 실패 시 에러 수정 후 재실행
 
 ### Step R12) Git 커밋 + 푸시
 ```bash
@@ -206,13 +208,13 @@ git push
 **Git push만으로는 공개 사이트에 반영되지 않는다** — `posts/index.json`이 빌드 시점 번들에 import되므로, 새 포스트는 Worker 재배포 후에야 `/posts` 목록과 `tab=memos/essays/papers` 필터에 노출된다.
 
 ```bash
-npm run deploy:cf
+npx opennextjs-cloudflare deploy
 ```
 
-- 이 명령은 `opennextjs-cloudflare build && opennextjs-cloudflare deploy`를 실행해 CF Workers에 새 버전을 업로드한다
+- Step R11에서 생성한 `.open-next/` 번들을 그대로 CF Workers에 업로드한다 (재빌드 없음)
 - 배포 후 확인: `npx wrangler deployments list | head -5` 로 새 "Created" 항목이 생겼는지 확인
 - 기대되는 확인 URL: `https://www.terryum.ai/posts/<slug>` → HTTP 200
-- **CF Dashboard의 Git integration (Workers Builds)이 활성화된 경우에도 이 단계를 생략하지 말 것** — 현재(2026-04-20 기준) 자동 빌드가 간헐적으로 누락된다. 수동 배포가 진실의 원천.
+- **CF Dashboard의 Workers Builds (Git auto-build)는 의도적으로 끊어둔 상태** — 수동 배포가 유일한 진실의 원천. 실수로 재연결하지 말 것.
 
 ### Step R12.5) Knowledge Base 업데이트 (terry-papers)
 ```bash
@@ -478,12 +480,14 @@ node scripts/validate-post.mjs <slug>
 ```
 에러(❌) 0일 때까지 수정 반복
 
-### Step B9) Build 검증
+### Step B9) Build 검증 (CF 호환 번들)
 
 ```bash
-npm run build
+npx opennextjs-cloudflare build
 ```
-실패 시 에러 수정 후 재실행
+- Next.js 빌드 + OpenNext 어댑터로 CF Workers 호환 번들(`.open-next/`) 생성
+- 이 번들이 Step B10.1에서 그대로 업로드되므로 **별도 `npm run build`는 불필요** (중복 next build 방지)
+- 실패 시 에러 수정 후 재실행
 
 ### Step B10) Git 커밋 + 푸시
 
@@ -499,12 +503,12 @@ git push
 **Git push만으로는 공개 사이트에 반영되지 않는다** — `posts/index.json`이 빌드 시점 번들에 import되므로(`src/lib/posts.ts` 등), 새 포스트는 Worker 재배포 후에야 `/posts` 목록과 `tab=memos/essays/papers` 필터에 노출된다.
 
 ```bash
-npm run deploy:cf
+npx opennextjs-cloudflare deploy
 ```
 
-- `opennextjs-cloudflare build && opennextjs-cloudflare deploy` 실행
+- Step B9에서 생성한 `.open-next/` 번들을 그대로 업로드 (재빌드 없음)
 - 배포 후 확인: `curl -s -o /dev/null -w "%{http_code}" https://www.terryum.ai/posts/<slug>` → 200
-- **CF Dashboard Git integration이 활성화되어 있어도 이 단계를 건너뛰지 말 것** — 현재(2026-04-20 기준) 자동 빌드가 간헐적으로 누락된다. 수동 배포가 진실의 원천.
+- **CF Dashboard의 Workers Builds는 의도적으로 끊어둔 상태** — 수동 배포가 유일한 진실의 원천.
 
 ### Step B10.5) Knowledge Base 업데이트는 **이 경로에서 실행하지 않는다**
 
@@ -757,8 +761,8 @@ ON CONFLICT (slug) DO UPDATE SET
 ### Step V7-public) Git 저장 + CF 배포 (공개인 경우)
 
 **`visibility: "public"`일 때**:
-- Research 경로 Step R9~R12와 동일 (빌드 스크립트 → 검증 → 커밋 → 푸시)
-- **Step R12.1 (`npm run deploy:cf`)도 동일하게 실행** — git push만으로는 사이트에 반영되지 않는다
+- Research 경로 Step R9~R12와 동일 (빌드 스크립트 → CF 호환 빌드 검증 → 커밋 → 푸시)
+- **Step R12.1 (`npx opennextjs-cloudflare deploy`)도 동일하게 실행** — git push만으로는 사이트에 반영되지 않는다
 
 ### Step V8) global-index 업데이트
 
@@ -850,4 +854,4 @@ Research 포스트와 동일 구조. 차이점:
 ### Step SY7~SY12) 빌드 → 검증 → 커밋 → 푸시 → **CF 배포**
 
 Research 경로 Step R9~R13과 동일:
-빌드 스크립트 → validate-post → npm run build → git commit + push → **`npm run deploy:cf` (R12.1)** → KB 업데이트 → Obsidian sync → 예외 레슨 기록
+빌드 스크립트 → validate-post → `npx opennextjs-cloudflare build` (R11) → git commit + push → **`npx opennextjs-cloudflare deploy` (R12.1)** → KB 업데이트 → Obsidian sync → 예외 레슨 기록
