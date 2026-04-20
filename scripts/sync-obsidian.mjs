@@ -765,6 +765,24 @@ async function main() {
   const scanDirs = ['From Terry/Memos', 'From Terry/Essays', 'From Terry/Drafts'];
   let newlyIndexed = 0;
 
+  // Canonicalize stored entry.path to an absolute filesystem path for dedupe.
+  // Stored formats seen in the wild:
+  //   "vault/From Terry/..."                 (repo-relative, canonical going forward)
+  //   "~/Codes/personal/terry-obsidian/..."  (legacy tilde-absolute)
+  //   "/Users/.../vault/From Terry/..."      (absolute)
+  //   "From Terry/..."                       (vault-relative, very old)
+  const vaultParent = path.dirname(VAULT_ROOT);
+  function resolveEntryPath(p) {
+    if (!p) return null;
+    if (path.isAbsolute(p)) return p;
+    if (p.startsWith('~/')) return path.join(os.homedir(), p.slice(2));
+    if (p.startsWith('vault/')) return path.join(vaultParent, p);
+    if (p.startsWith('From Terry/') || p.startsWith('From AI/')) {
+      return path.join(VAULT_ROOT, p);
+    }
+    return null; // posts/... and other non-vault paths cannot match vault files
+  }
+
   for (const dir of scanDirs) {
     const dirPath = path.join(VAULT_ROOT, dir);
     let files;
@@ -777,10 +795,11 @@ async function main() {
       if (/_Source\.md$/.test(file) || /-source\.md$/.test(file)) continue;
 
       const filePath = path.join(dirPath, file);
-      const relPath = filePath.replace(os.homedir(), '~');
+      // Canonical stored format: repo-relative ("vault/From Terry/...")
+      const storePath = path.relative(vaultParent, filePath);
 
-      // Path-based dedupe: skip if an entry already references this exact path
-      if (globalIndex.entries.some(e => e.path === relPath)) continue;
+      // Path-based dedupe: resolve each stored entry path to absolute, compare to filePath
+      if (globalIndex.entries.some(e => resolveEntryPath(e.path) === filePath)) continue;
 
       const content = await fs.readFile(filePath, 'utf-8');
 
@@ -795,7 +814,7 @@ async function main() {
           const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
           globalIndex.entries.push({
             id, slug: file.replace('.md', ''), type, visibility: 'private',
-            title, path: relPath,
+            title, path: storePath,
           });
         }
         continue;
