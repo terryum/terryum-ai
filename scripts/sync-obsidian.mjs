@@ -772,7 +772,16 @@ async function main() {
 
     for (const file of files) {
       if (!file.endsWith('.md')) continue;
+
+      // Skip reserved raw-material naming (source files, not indexable notes)
+      if (/_Source\.md$/.test(file) || /-source\.md$/.test(file)) continue;
+
       const filePath = path.join(dirPath, file);
+      const relPath = filePath.replace(os.homedir(), '~');
+
+      // Path-based dedupe: skip if an entry already references this exact path
+      if (globalIndex.entries.some(e => e.path === relPath)) continue;
+
       const content = await fs.readFile(filePath, 'utf-8');
 
       // Check if already has a doc_id (positive or negative)
@@ -786,7 +795,7 @@ async function main() {
           const type = typeMatch ? typeMatch[1].trim().replace(/"/g, '') : 'memo';
           globalIndex.entries.push({
             id, slug: file.replace('.md', ''), type, visibility: 'private',
-            title, path: filePath.replace(os.homedir(), '~'),
+            title, path: relPath,
           });
         }
         continue;
@@ -809,7 +818,7 @@ async function main() {
 
       globalIndex.entries.push({
         id: newId, slug: file.replace('.md', ''), type, visibility: 'private',
-        title, path: filePath.replace(os.homedir(), '~'),
+        title, path: relPath,
       });
 
       console.log(`  📋 Indexed: ${file} → #${newId}`);
