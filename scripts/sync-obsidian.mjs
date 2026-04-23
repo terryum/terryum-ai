@@ -48,7 +48,7 @@ const VAULT_ROOT = await resolveVaultRoot();
 // ── Vault folder structure ──
 const VAULT_FOLDERS = [
   'From AI/Papers',
-  'From AI/Notes',
+  'From AI/Threads',
   'From Terry/Memos',
   'From Terry/Essays',
   'From Terry/Drafts',
@@ -65,7 +65,7 @@ function r2ImageUrl(slug, filename) {
 // ── content_type → vault subfolder mapping ──
 const TYPE_TO_FOLDER = {
   papers: 'From AI/Papers',
-  notes: 'From AI/Notes',
+  threads: 'From AI/Threads',
   memos: 'From Terry/Memos',
   essays: 'From Terry/Essays',
 };

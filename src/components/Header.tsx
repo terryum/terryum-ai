@@ -167,6 +167,11 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const projectsItem: NavItem = { href: `/${locale}/projects`, label: dict.nav.projects };
   const aboutItem: NavItem = { href: `/${locale}/about`, label: dict.nav.about };
 
+  // AI nav order: Papers → Surveys → Threads, then any future AI tabs
+  const papersTab = aiTabs.find(t => t.tabSlug === 'papers');
+  const threadsTab = aiTabs.find(t => t.tabSlug === 'threads');
+  const otherAiTabs = aiTabs.filter(t => t.tabSlug !== 'papers' && t.tabSlug !== 'threads');
+
   function isActive(item: NavItem) {
     if (item.tabSlug) {
       return pathname.startsWith(`/${locale}/posts`) && currentTab === item.tabSlug;
@@ -231,8 +236,10 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
             {/* AI group */}
             <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
             <div className="flex items-center gap-4 ml-1">
-              {aiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
+              {papersTab && <TabLink item={papersTab} />}
               <TabLink item={surveysItem} />
+              {threadsTab && <TabLink item={threadsTab} />}
+              {otherAiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
               {isAdmin && <TabLink item={projectsItem} />}
             </div>
 
@@ -279,8 +286,10 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-1">
             {/* AI group */}
             <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
-            {aiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
+            {papersTab && <MobileTabLink item={papersTab} />}
             <MobileTabLink item={surveysItem} />
+            {threadsTab && <MobileTabLink item={threadsTab} />}
+            {otherAiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
             {isAdmin && <MobileTabLink item={projectsItem} />}
 
             {/* Separator */}

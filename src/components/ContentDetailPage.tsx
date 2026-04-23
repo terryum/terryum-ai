@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import TagChip from './TagChip';
 import SourceInfoBlock from './SourceInfoBlock';
+import ThreadSourceLine from './ThreadSourceLine';
 import AppendixSection from './AppendixSection';
 import Figure from './Figure';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -31,6 +32,7 @@ interface ContentDetailPageProps {
     tables_gallery?: string;
     appendix_label?: string;
     terrys_memo_label?: string;
+    thread_source_prefix?: string;
     prev?: string;
     next?: string;
   };
@@ -139,6 +141,16 @@ export default function ContentDetailPage({
           sourceDate={meta.source_date}
           className="mb-8"
           labels={labels}
+        />
+      )}
+
+      {/* Threads: compact ChatGPT source line */}
+      {meta.content_type === 'threads' && meta.source_url && (
+        <ThreadSourceLine
+          sourceUrl={meta.source_url}
+          prefix={labels.thread_source_prefix ?? 'Based on a ChatGPT conversation'}
+          linkLabel={labels.source_label}
+          className="mb-6"
         />
       )}
 

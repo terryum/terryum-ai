@@ -30,9 +30,9 @@
       "title": "Papers",
       "description": "AI reads Physical AI papers and distills the key ideas."
     },
-    "notes": {
-      "title": "Notes",
-      "description": "AI analyzes papers and proposes new insights."
+    "threads": {
+      "title": "Threads",
+      "description": "Summaries of ChatGPT conversations on AI, research, and ideas."
     },
     "terry": {
       "title": "Terry's Posts",
@@ -48,6 +48,7 @@
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Papers",
     "latest_notes": "Latest Notes",
+    "latest_threads": "Latest Threads",
     "latest_from_ai": "Latest from AI",
     "latest_from_terry": "Latest from Terry",
     "view_all": "View all",
@@ -58,6 +59,7 @@
   },
   "detail": {
     "back_to_list": "Back to list",
+    "thread_source_prefix": "Based on a ChatGPT conversation",
     "source_label": "Source",
     "author_label": "Author",
     "view_all_authors": "View all authors",

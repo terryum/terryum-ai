@@ -30,9 +30,9 @@
       "title": "Papers",
       "description": "AI가 피지컬AI 논문들을 읽고 핵심을 정리합니다."
     },
-    "notes": {
-      "title": "Notes",
-      "description": "AI가 논문들을 분석해 새로운 인사이트를 제안합니다."
+    "threads": {
+      "title": "Threads",
+      "description": "AI와의 ChatGPT 대화를 요약해 정리한 글입니다."
     },
     "terry": {
       "title": "Terry's Posts",
@@ -48,6 +48,7 @@
     "latest_essays": "Latest Essays",
     "latest_research": "Latest Papers",
     "latest_notes": "Latest Notes",
+    "latest_threads": "Latest Threads",
     "latest_from_ai": "Latest from AI",
     "latest_from_terry": "Latest from Terry",
     "view_all": "전체 보기",
@@ -58,6 +59,7 @@
   },
   "detail": {
     "back_to_list": "목록으로",
+    "thread_source_prefix": "ChatGPT 대화를 요약한 글",
     "source_label": "원문",
     "author_label": "저자",
     "view_all_authors": "모든 저자 보기",

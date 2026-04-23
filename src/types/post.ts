@@ -75,6 +75,9 @@ export interface PostMeta {
   source_authors_full?: string[];
   first_author_scholar_url?: string;
   google_scholar_url?: string;
+  // Threads-specific (ChatGPT conversation summaries)
+  source?: 'chatgpt';
+  source_captured_at?: string;
   // Key references
   references?: Reference[];
   // Figure/Table galleries

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-21T00:08:04.621Z",
-  "total_posts": 44,
+  "generated_at": "2026-04-23T12:28:53.724Z",
+  "total_posts": 45,
   "posts": [
     {
       "post_number": 1,
@@ -3146,6 +3146,37 @@
       "taxonomy_secondary": [
         "ai/agents"
       ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": null,
+      "slug": "260423-plan-mode-exit",
+      "content_type": "threads",
+      "title_en": "Handling an existing plan file when re-entering Plan Mode",
+      "title_ko": "Plan 모드 재진입 시 남은 파일 다루기",
+      "summary_ko": "Claude Code에서 plan 모드로 재진입했을 때 기존 플랜 파일을 언제 덮어쓰고 언제 이어 쓸지 정리한 대화 요약.",
+      "summary_en": "Summary of a ChatGPT thread on when Claude Code should overwrite vs. extend the existing plan file on re-entry.",
+      "domain": null,
+      "subfields": [],
+      "key_concepts": [],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Threads",
+        "AI Workflow",
+        "Claude Code"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-04-23T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": null,
+      "relations": [],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": null,
+      "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
     }
