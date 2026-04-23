@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/admin-auth';
+import { isAdminFromRequest } from '@/lib/identity';
 import { getSupabaseAdmin } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!isAdminFromRequest(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!isAdminFromRequest(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
   }
 

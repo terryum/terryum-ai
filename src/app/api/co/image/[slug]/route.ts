@@ -1,15 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getGroupFromRequest } from '@/lib/group-auth';
+import { isAdminFromRequest } from '@/lib/identity';
 import { isSupabaseAdminConfigured, getSupabaseAdmin } from '@/lib/supabase';
 
 const BUCKET = 'private-covers';
-
-function isAdminRequest(request: NextRequest): boolean {
-  const token = request.cookies.get('admin-session')?.value;
-  if (!token) return false;
-  // Lightweight check — full HMAC verify is in admin-auth.ts but we avoid importing crypto here
-  return token.includes('admin:');
-}
 
 export async function GET(
   request: NextRequest,
@@ -19,7 +13,7 @@ export async function GET(
 
   // Auth check: must be group member or admin
   const group = getGroupFromRequest(request);
-  const admin = isAdminRequest(request);
+  const admin = isAdminFromRequest(request);
   if (!group && !admin) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

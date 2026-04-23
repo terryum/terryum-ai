@@ -16,15 +16,16 @@ export default function AdminBar({ locale }: { locale: string }) {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    fetch('/api/admin/stats', { method: 'HEAD' })
-      .then((res) => setIsAdmin(res.ok))
+    fetch('/api/session')
+      .then((res) => res.json())
+      .then((data) => setIsAdmin(data.sessionLabel === 'Admin'))
       .catch(() => setIsAdmin(false));
   }, []);
 
   if (!isAdmin) return null;
 
   async function handleLogout() {
-    await fetch('/api/admin/logout', { method: 'POST' });
+    await fetch('/api/auth/logout', { method: 'POST' });
     router.push(`/${locale}`);
     router.refresh();
   }

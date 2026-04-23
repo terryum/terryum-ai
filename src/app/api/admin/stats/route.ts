@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isAdminRequest } from '@/lib/admin-auth';
+import { isAdminFromRequest } from '@/lib/identity';
 import { BetaAnalyticsDataClient } from '@google-analytics/data';
 
 function getClient(): BetaAnalyticsDataClient {
@@ -16,7 +16,7 @@ const PERIOD_MAP: Record<string, string> = {
 };
 
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) {
+  if (!isAdminFromRequest(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

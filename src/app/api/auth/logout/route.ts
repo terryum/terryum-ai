@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { deleteCookieOptions } from '@/lib/admin-auth';
+import { deleteIdentityCookieOptions } from '@/lib/identity';
 
 export async function POST() {
   const response = NextResponse.json({ ok: true });
-  response.cookies.set(deleteCookieOptions());
+  response.cookies.set(deleteIdentityCookieOptions());
   return response;
 }

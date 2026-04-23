@@ -25,20 +25,12 @@ interface HeaderProps {
   navTabs: NavTabItem[];
 }
 
-function SettingsDropdown({ locale }: { locale: Locale }) {
+function SettingsDropdown({ locale, sessionLabel }: { locale: Locale; sessionLabel: string | null }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [sessionLabel, setSessionLabel] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
-
-  useEffect(() => {
-    fetch('/api/session')
-      .then(r => r.json())
-      .then(d => setSessionLabel(d.sessionLabel))
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -74,7 +66,7 @@ function SettingsDropdown({ locale }: { locale: Locale }) {
     setLoading(true);
     await Promise.all([
       fetch('/api/co/logout', { method: 'POST' }),
-      fetch('/api/admin/logout', { method: 'POST' }),
+      fetch('/api/auth/logout', { method: 'POST' }),
     ]);
     window.location.href = `/${locale}`;
   }
@@ -152,7 +144,16 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [sessionLabel, setSessionLabel] = useState<string | null>(null);
   const currentTab = searchParams.get('tab');
+  const isAdmin = sessionLabel === 'Admin';
+
+  useEffect(() => {
+    fetch('/api/session')
+      .then(r => r.json())
+      .then(d => setSessionLabel(d.sessionLabel))
+      .catch(() => {});
+  }, []);
 
   const aiTabs: NavItem[] = navTabs
     .filter(tab => tab.author === 'ai')
@@ -232,7 +233,7 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
             <div className="flex items-center gap-4 ml-1">
               {aiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
               <TabLink item={surveysItem} />
-              <TabLink item={projectsItem} />
+              {isAdmin && <TabLink item={projectsItem} />}
             </div>
 
             {/* Separator */}
@@ -247,14 +248,14 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
 
             <div className="flex items-center gap-2 ml-4">
               <LanguageSwitcher locale={locale} />
-              <SettingsDropdown locale={locale} />
+              <SettingsDropdown locale={locale} sessionLabel={sessionLabel} />
             </div>
           </nav>
 
           {/* Mobile: icon buttons + hamburger */}
           <div className="flex items-center gap-2 md:hidden">
             <LanguageSwitcher locale={locale} />
-            <SettingsDropdown locale={locale} />
+            <SettingsDropdown locale={locale} sessionLabel={sessionLabel} />
             <button
               className="p-2 text-text-secondary"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -280,7 +281,7 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
             <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
             {aiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
             <MobileTabLink item={surveysItem} />
-            <MobileTabLink item={projectsItem} />
+            {isAdmin && <MobileTabLink item={projectsItem} />}
 
             {/* Separator */}
             <div className="h-px bg-line-default my-2 mx-2" />

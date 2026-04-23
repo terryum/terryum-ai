@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 import { RateLimiter, verifyPassword, signToken, verifyToken, isTokenExpired, cookieOptions } from './auth-common';
-import { verifySessionToken } from './admin-auth';
+import { isAdmin } from './identity';
 
 const COOKIE_NAME = 'group-session';
 const rateLimiter = new RateLimiter();
@@ -45,13 +45,11 @@ export async function getAuthenticatedGroup(): Promise<string | null> {
 }
 
 export async function isAdminSession(): Promise<boolean> {
-  const cookieStore = await cookies();
-  const adminToken = cookieStore.get('admin-session')?.value;
-  return adminToken ? verifySessionToken(adminToken) : false;
+  return isAdmin();
 }
 
 export async function canAccessGroup(targetGroup: string): Promise<boolean> {
-  if (await isAdminSession()) return true;
+  if (await isAdmin()) return true;
   const sessionGroup = await getAuthenticatedGroup();
   return sessionGroup === targetGroup;
 }

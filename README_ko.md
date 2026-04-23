@@ -125,9 +125,13 @@ cp .env.example .env.local
 # 사이트
 NEXT_PUBLIC_SITE_URL=http://localhost:3040
 
-# 어드민 (원하는 비밀번호 설정)
-ADMIN_PASSWORD=your-password
-ADMIN_SESSION_SECRET=64자-hex-문자열-생성
+# 세션/신원 (HMAC 쿠키 키 + 관리자 이메일)
+SESSION_SECRET=64자-hex-문자열-생성
+ADMIN_EMAIL=you@example.com
+
+# Google OAuth (Google Cloud Console에 리다이렉트 URI 등록 필요)
+GOOGLE_OAUTH_CLIENT_ID=xxxxx.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET=GOCSPX-xxxxx
 
 # Supabase (선택 — 없어도 사이트는 동작하나 Paper Map 불가)
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co

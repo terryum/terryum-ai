@@ -126,9 +126,13 @@ At minimum, you need:
 # Site
 NEXT_PUBLIC_SITE_URL=http://localhost:3040
 
-# Admin (set any password you want)
-ADMIN_PASSWORD=your-password
-ADMIN_SESSION_SECRET=generate-a-64-char-hex-string
+# Identity / Session (HMAC cookie key + admin email)
+SESSION_SECRET=generate-a-64-char-hex-string
+ADMIN_EMAIL=you@example.com
+
+# Google OAuth (register redirect URI at Google Cloud Console)
+GOOGLE_OAUTH_CLIENT_ID=xxxxx.apps.googleusercontent.com
+GOOGLE_OAUTH_CLIENT_SECRET=GOCSPX-xxxxx
 
 # Supabase (optional — site works without it, but Paper Map won't)
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co

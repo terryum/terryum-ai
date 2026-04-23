@@ -1,10 +1,11 @@
 /**
- * Shared authentication utilities for admin-auth and group-auth.
- * Eliminates duplication of rate limiting, HMAC, and cookie logic.
+ * Shared authentication primitives: rate limiting, HMAC signing, cookie options.
+ * Used by group-auth (password-based group sessions) and identity (OAuth-based
+ * user sessions).
  */
 import crypto from 'crypto';
 
-const MAX_AGE = 60 * 60 * 24; // 24 hours
+const DEFAULT_MAX_AGE = 60 * 60 * 24; // 24 hours
 
 /* ─── Rate Limiter ─── */
 export class RateLimiter {
@@ -28,8 +29,8 @@ export class RateLimiter {
 
 /* ─── Secret ─── */
 export function getSecret(): string {
-  const secret = process.env.ADMIN_SESSION_SECRET;
-  if (!secret) throw new Error('ADMIN_SESSION_SECRET is not set');
+  const secret = process.env.SESSION_SECRET;
+  if (!secret) throw new Error('SESSION_SECRET is not set');
   return secret;
 }
 
@@ -62,12 +63,12 @@ export function verifyToken(token: string): { payload: string } | null {
   return { payload };
 }
 
-export function isTokenExpired(issuedAt: number): boolean {
-  return Date.now() - issuedAt > MAX_AGE * 1000;
+export function isTokenExpired(issuedAt: number, maxAgeSeconds: number = DEFAULT_MAX_AGE): boolean {
+  return Date.now() - issuedAt > maxAgeSeconds * 1000;
 }
 
 /* ─── Cookie Options ─── */
-export function cookieOptions(name: string, value: string, maxAge: number = MAX_AGE) {
+export function cookieOptions(name: string, value: string, maxAge: number = DEFAULT_MAX_AGE, domain?: string) {
   return {
     name,
     value,
@@ -76,5 +77,6 @@ export function cookieOptions(name: string, value: string, maxAge: number = MAX_
     sameSite: 'lax' as const,
     maxAge,
     path: '/',
+    ...(domain ? { domain } : {}),
   };
 }
