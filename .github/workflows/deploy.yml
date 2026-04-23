@@ -47,4 +47,11 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # R2 batch upload (rclone) for incremental-cache populate.
+          # With all three set, opennextjs-cloudflare 1.11.0 uses a single
+          # bulk upload instead of 151 sequential wrangler r2 puts —
+          # cuts the deploy step from ~5 min to ~30 sec.
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
         run: npx opennextjs-cloudflare deploy
