@@ -41,13 +41,13 @@ export default function Figure({ src, caption, alt, number, priority, isCover }:
   return (
     <>
       <figure className={`${isCover ? 'mb-8' : 'my-6'} cursor-pointer group`} onClick={handleOpen}>
-        <div className="rounded-lg overflow-hidden bg-bg-surface flex justify-center relative">
+        <div className={`rounded-lg overflow-hidden relative ${isCover ? '' : 'bg-bg-surface flex justify-center'}`}>
           <Image
             src={src}
             alt={alt || caption}
             width={imgWidth}
             height={imgHeight}
-            className="w-full h-auto max-h-96 object-contain"
+            className={`w-full h-auto ${isCover ? 'block' : 'max-h-96 object-contain'}`}
             sizes="(max-width: 768px) 100vw, 672px"
             priority={priority ?? isCover}
             unoptimized={src.startsWith('/api/')}
