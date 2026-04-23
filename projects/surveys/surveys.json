@@ -1,6 +1,47 @@
 {
-  "next_survey_number": 4,
+  "next_survey_number": 5,
   "surveys": [
+    {
+      "slug": "survey-humanoid-revolution",
+      "survey_number": 4,
+      "title": {
+        "ko": "휴머노이드 로보틱스의 10년: ZMP에서 VLA까지",
+        "en": "A Decade of Humanoid Robotics: From ZMP to VLA"
+      },
+      "description": {
+        "ko": "2015–2026년 휴머노이드 대격변을 16개 챕터로 정리한 서베이. 정통파 LIPM/ZMP/MPC 스택의 한계, 네 기폭제(QDD·GPU 시뮬·teacher-student RL·sim-to-real), System 0/1/2 아키텍처와 VLA 통합, BD·Figure·Agility·Unitree·AgiBot 선두 기업 분석, 한국 제조피지컬AI 관점의 미래 확산 시나리오까지.",
+        "en": "A 16-chapter survey of the humanoid robotics transformation from 2015 to 2026. Covers the limits of the orthodox LIPM/ZMP/MPC stack, the four catalysts (QDD actuators, GPU-parallel simulation, teacher-student RL, sim-to-real), the System 0/1/2 architecture with VLA integration, frontier-company analyses (Boston Dynamics, Figure, Agility, Unitree, AgiBot), and future diffusion scenarios through the lens of Korea's Manufacturing Physical AI."
+      },
+      "cover_image": "/images/projects/survey-humanoid-revolution-cover.webp",
+      "tech_stack": ["Humanoid", "Robotics", "RL", "VLA", "Sim-to-Real", "Survey"],
+      "toc": [
+        { "ko": "정통파 스택", "en": "Orthodox Stack" },
+        { "ko": "여전한 기본기", "en": "Lasting Foundations" },
+        { "ko": "패러다임 전환", "en": "Paradigm Shift" },
+        { "ko": "QDD 액추에이터", "en": "QDD Actuators" },
+        { "ko": "GPU 병렬 시뮬", "en": "GPU Parallel Sim" },
+        { "ko": "학습 Canon", "en": "Learning Canon" },
+        { "ko": "Sim-to-Real", "en": "Sim-to-Real" },
+        { "ko": "모던 이론", "en": "Modern Theory" },
+        { "ko": "System 0/1/2", "en": "System 0/1/2" },
+        { "ko": "VLA 통합", "en": "VLA Integration" },
+        { "ko": "Boston Dynamics", "en": "Boston Dynamics" },
+        { "ko": "미국 도전자", "en": "US Challengers" },
+        { "ko": "중국의 강자", "en": "China Leaders" },
+        { "ko": "한국 생태계", "en": "Korea's Position" },
+        { "ko": "차별화 네 축", "en": "Four Axes" },
+        { "ko": "확산 시나리오", "en": "Diffusion Paths" }
+      ],
+      "links": [
+        { "type": "demo", "url": "https://survey-humanoid-revolution.pages.dev/", "label": "Read" }
+      ],
+      "embed_url": "https://survey-humanoid-revolution.pages.dev/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-04-24",
+      "updated_at": "2026-04-24"
+    },
     {
       "slug": "survey-snu-largescale-tactile-hand",
       "survey_number": 2,
