@@ -3372,8 +3372,8 @@
       "summary_ko": "Stretchable liquid-metal glove with added tactile sensing as a scalable data engine: large-scale human worker demos (Data B) + sparse VR teleoperation (Data A) co-training for industrial dexterous manipulation",
       "summary_en": "Stretchable liquid-metal glove with added tactile sensing as a scalable data engine: large-scale human worker demos (Data B) + sparse VR teleoperation (Data A) co-training for industrial dexterous manipulation",
       "body_source": "r2",
-      "cover_image": "/api/co/image/2610-tactile-stretchable-glove-data-engine",
-      "cover_thumb": "/api/co/image/2610-tactile-stretchable-glove-data-engine?variant=cover-thumb.webp"
+      "cover_image": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/papers/2610-tactile-stretchable-glove-data-engine/cover.webp",
+      "cover_thumb": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/papers/2610-tactile-stretchable-glove-data-engine/cover-thumb.webp"
     },
     {
       "slug": "2611-tactile-play-cross-embodiment",
@@ -3488,8 +3488,8 @@
       "summary_ko": "Shared tactile glove on both human and robot hands enables teleop-free cross-embodiment transfer: robot learns the human-robot gap through autonomous tactile play, eliminating the need for teleoperation",
       "summary_en": "Shared tactile glove on both human and robot hands enables teleop-free cross-embodiment transfer: robot learns the human-robot gap through autonomous tactile play, eliminating the need for teleoperation",
       "body_source": "r2",
-      "cover_image": "/api/co/image/2611-tactile-play-cross-embodiment",
-      "cover_thumb": "/api/co/image/2611-tactile-play-cross-embodiment?variant=cover-thumb.webp"
+      "cover_image": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/papers/2611-tactile-play-cross-embodiment/cover.webp",
+      "cover_thumb": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/papers/2611-tactile-play-cross-embodiment/cover-thumb.webp"
     }
   ],
   "knowledge_graph": {
