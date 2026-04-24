@@ -34,16 +34,27 @@ export function getRedirectUri(requestOrigin: string): string {
   return `${requestOrigin}/api/auth/google/callback`;
 }
 
+// Encode state as base64url of JSON so it contains no URL-special characters.
+// Cloudflare Workers decodes `request.url` once at the runtime boundary; `searchParams.get`
+// then decodes again, so any %-escape inside the payload (e.g. `%2F`) ends up double-decoded
+// and breaks HMAC verification. base64url output is limited to [A-Za-z0-9_-] and is pass-through.
 export function signState(data: StateData): string {
-  return signToken(`state:${encodeURIComponent(data.redirect)}:${data.nonce}`);
+  const json = JSON.stringify({ redirect: data.redirect, nonce: data.nonce });
+  const payload = Buffer.from(json, 'utf8').toString('base64url');
+  return signToken(payload);
 }
 
 export function verifyState(token: string): StateData | null {
   const result = verifyToken(token);
   if (!result) return null;
-  const match = result.payload.match(/^state:([^:]+):([a-f0-9]+)$/);
-  if (!match) return null;
-  return { redirect: decodeURIComponent(match[1]), nonce: match[2] };
+  try {
+    const json = Buffer.from(result.payload, 'base64url').toString('utf8');
+    const data = JSON.parse(json);
+    if (typeof data?.redirect !== 'string' || typeof data?.nonce !== 'string') return null;
+    return { redirect: data.redirect, nonce: data.nonce };
+  } catch {
+    return null;
+  }
 }
 
 export function generateNonce(): string {
