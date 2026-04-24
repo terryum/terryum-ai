@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-24T11:51:10.248Z",
-  "total_posts": 46,
+  "generated_at": "2026-04-24T16:46:57.583Z",
+  "total_posts": 48,
   "posts": [
     {
       "post_number": 1,
@@ -3258,6 +3258,234 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "slug": "2610-tactile-stretchable-glove-data-engine",
+      "title_ko": "TacScale: 신축성 촉각 글러브 기반 산업용 손재주 조작을 위한 확장 가능 촉각 데이터 엔진",
+      "title_en": "TacScale: Scalable Tactile Data Engine via Stretchable Glove for Industrial Dexterous Manipulation",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Wearable",
+        "Human-Robot Transfer",
+        "Data Engine",
+        "Virtual Paper"
+      ],
+      "domain": "robotics",
+      "status": "published",
+      "tables": [],
+      "figures": [],
+      "post_id": "2610-tactile-stretchable-glove-data-engine",
+      "featured": true,
+      "relations": [
+        {
+          "type": "builds_on",
+          "target": "2407-stretchable-glove-hand-pose"
+        },
+        {
+          "type": "compares_with",
+          "target": "2512-osmo-tactile-glove"
+        },
+        {
+          "type": "related",
+          "target": "2505-dexumi"
+        },
+        {
+          "type": "related",
+          "target": "2506-exostart"
+        },
+        {
+          "type": "related",
+          "target": "2509-dexop"
+        },
+        {
+          "type": "related",
+          "target": "2505-forcevla-force-aware-moe"
+        }
+      ],
+      "subfields": [
+        "tactile-sensing",
+        "wearable-sensing",
+        "human-robot-transfer",
+        "data-collection",
+        "teleoperation"
+      ],
+      "ai_summary": {
+        "problem": "Teleoperation alone cannot provide sufficient demonstration data for complex industrial manipulation; human hand data lacks tactile signals and robot-executable action labels",
+        "solution": "Extend Park et al.'s stretchable glove with fingertip/palm tactile arrays, deploy on factory workers with smart glasses for large-scale Data B collection, co-train with sparse Manus+VR+Isaac Sim teleoperation Data A via cross-embodiment retargeting",
+        "one_liner": "Stretchable liquid-metal glove with added tactile sensing as a scalable data engine: large-scale human worker demos (Data B) + sparse VR teleoperation (Data A) co-training for industrial dexterous manipulation",
+        "key_result": "Hypothetical: Data A+B co-training achieves 78% success on cosmetics assembly vs 45% Data A-only and 52% Data B-only, with log-linear scaling from additional worker hours",
+        "limitations": [
+          "Virtual paper — no experimental validation yet",
+          "Cross-embodiment tactile transfer methodology remains open",
+          "Factory deployment requires durability/washability engineering"
+        ]
+      },
+      "updated_at": "2026-04-06T00:00:00Z",
+      "visibility": "group",
+      "methodology": [
+        "co-training",
+        "imitation-learning",
+        "cross-embodiment-retargeting",
+        "domain-randomization"
+      ],
+      "post_number": 26,
+      "source_date": "2026-10-01T00:00:00Z",
+      "source_type": "Virtual Paper (Research Proposal)",
+      "content_type": "papers",
+      "key_concepts": [
+        "stretchable-sensor",
+        "tactile-glove",
+        "data-engine",
+        "cross-embodiment",
+        "human-demonstration",
+        "egocentric-video",
+        "sim-to-real",
+        "isaac-sim",
+        "VR-teleoperation",
+        "cosmetics-manufacturing"
+      ],
+      "published_at": "2026-04-06T00:00:00Z",
+      "source_title": "TacScale: Scalable Tactile Data Engine via Stretchable Glove for Industrial Dexterous Manipulation",
+      "cover_caption": "TacScale system overview: Human hand with tactile-augmented stretchable glove collecting large-scale Data B from factory workers, combined with sparse VR teleoperation Data A, co-trained through a neural network for robot dexterous manipulation.",
+      "source_author": "Terry T. Um, Yong-Lae Park et al.",
+      "allowed_groups": [
+        "snu"
+      ],
+      "reading_time_min": 12,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "contribution_type": "system",
+      "google_scholar_url": "https://scholar.google.com/scholar?q=TacScale+scalable+tactile+data+engine+stretchable+glove",
+      "taxonomy_secondary": [
+        "robotics/arm/teleoperation",
+        "robotics/learning/imitation"
+      ],
+      "cover_figure_number": null,
+      "newsletter_eligible": false,
+      "source_authors_full": [
+        "Terry Taewoong Um (KAIST / ArtLab)",
+        "Yong-Lae Park (Seoul National University / Soft Robotics Research Center)",
+        "Myungsun Park (Seoul National University)",
+        "et al."
+      ],
+      "summary_ko": "Stretchable liquid-metal glove with added tactile sensing as a scalable data engine: large-scale human worker demos (Data B) + sparse VR teleoperation (Data A) co-training for industrial dexterous manipulation",
+      "summary_en": "Stretchable liquid-metal glove with added tactile sensing as a scalable data engine: large-scale human worker demos (Data B) + sparse VR teleoperation (Data A) co-training for industrial dexterous manipulation",
+      "body_source": "r2"
+    },
+    {
+      "slug": "2611-tactile-play-cross-embodiment",
+      "title_ko": "TacPlay: 공유 촉각 글러브와 자율 탐색을 통한 텔레오퍼레이션 없는 손재주 조작",
+      "title_en": "TacPlay: Teleop-Free Dexterous Manipulation via Shared Tactile Glove and Autonomous Cross-Embodiment Play",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Tactile Sensing",
+        "Cross-Embodiment",
+        "Self-Supervised",
+        "Autonomous Exploration",
+        "Virtual Paper"
+      ],
+      "domain": "robotics",
+      "status": "published",
+      "tables": [],
+      "figures": [],
+      "post_id": "2611-tactile-play-cross-embodiment",
+      "featured": true,
+      "relations": [
+        {
+          "type": "builds_on",
+          "target": "2610-tactile-stretchable-glove-data-engine"
+        },
+        {
+          "type": "builds_on",
+          "target": "2512-osmo-tactile-glove"
+        },
+        {
+          "type": "builds_on",
+          "target": "2407-stretchable-glove-hand-pose"
+        },
+        {
+          "type": "compares_with",
+          "target": "2506-exostart"
+        },
+        {
+          "type": "compares_with",
+          "target": "2509-dexop"
+        },
+        {
+          "type": "compares_with",
+          "target": "2505-dexumi"
+        }
+      ],
+      "subfields": [
+        "cross-embodiment",
+        "tactile-sensing",
+        "autonomous-exploration",
+        "human-robot-transfer",
+        "self-supervised-learning"
+      ],
+      "ai_summary": {
+        "problem": "Teleoperation is slow and cannot replicate complex dexterous tasks; human hand data alone lacks robot executability due to embodiment gap",
+        "solution": "Same tactile glove worn by human (data collection) and robot (autonomous play); robot self-discovers the kinematic/dynamic gap through tactile-guided exploration, then aligns human demos to its own body without any teleoperation",
+        "one_liner": "Shared tactile glove on both human and robot hands enables teleop-free cross-embodiment transfer: robot learns the human-robot gap through autonomous tactile play, eliminating the need for teleoperation",
+        "key_result": "Hypothetical: Teleop-free pipeline achieves 68% success on cosmetics tasks, matching 200-demo teleoperation baseline while requiring zero operator hours",
+        "limitations": [
+          "Virtual paper — no experimental validation yet",
+          "Autonomous play requires safe exploration constraints in factory settings",
+          "Tactile play convergence time for complex tasks is unknown"
+        ]
+      },
+      "updated_at": "2026-04-06T00:00:00Z",
+      "visibility": "group",
+      "methodology": [
+        "self-supervised-learning",
+        "reinforcement-learning",
+        "cross-embodiment-retargeting",
+        "residual-policy-learning"
+      ],
+      "post_number": 27,
+      "source_date": "2026-11-01T00:00:00Z",
+      "source_type": "Virtual Paper (Research Proposal)",
+      "content_type": "papers",
+      "key_concepts": [
+        "shared-tactile-glove",
+        "embodiment-bridge",
+        "autonomous-play",
+        "cross-embodiment-alignment",
+        "tactile-residual",
+        "teleop-free",
+        "self-supervised-exploration",
+        "contact-prior",
+        "sim-to-real",
+        "cosmetics-manufacturing"
+      ],
+      "published_at": "2026-04-06T00:00:00Z",
+      "source_title": "TacPlay: Teleop-Free Dexterous Manipulation via Shared Tactile Glove and Autonomous Cross-Embodiment Play",
+      "cover_caption": "TacPlay system: Human demonstrations collected with shared tactile glove (left) provide contact priors. The same glove on a robot hand (center) enables autonomous tactile play — the robot explores and discovers its own embodiment gap. The resulting aligned policy (right) performs dexterous tasks without any teleoperation.",
+      "source_author": "Terry T. Um, Yong-Lae Park et al.",
+      "allowed_groups": [
+        "snu"
+      ],
+      "reading_time_min": 11,
+      "taxonomy_primary": "robotics/hand/tactile",
+      "contribution_type": "method",
+      "google_scholar_url": "https://scholar.google.com/scholar?q=TacPlay+teleop-free+dexterous+manipulation+shared+tactile+glove",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous",
+        "robotics/learning/imitation"
+      ],
+      "cover_figure_number": null,
+      "newsletter_eligible": false,
+      "source_authors_full": [
+        "Terry Taewoong Um (KAIST / ArtLab)",
+        "Yong-Lae Park (Seoul National University / Soft Robotics Research Center)",
+        "Myungsun Park (Seoul National University)",
+        "et al."
+      ],
+      "summary_ko": "Shared tactile glove on both human and robot hands enables teleop-free cross-embodiment transfer: robot learns the human-robot gap through autonomous tactile play, eliminating the need for teleoperation",
+      "summary_en": "Shared tactile glove on both human and robot hands enables teleop-free cross-embodiment transfer: robot learns the human-robot gap through autonomous tactile play, eliminating the need for teleoperation",
+      "body_source": "r2"
     }
   ],
   "knowledge_graph": {

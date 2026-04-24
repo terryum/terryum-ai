@@ -91,3 +91,6 @@ posts/essays/*/cover.webp
 posts/essays/*/cover-thumb.webp
 posts/essays/*/cover.png
 posts/memos/*/cover.webp
+
+# Local-only throwaway scripts (one-off migrations, exploratory helpers)
+scripts/_*
