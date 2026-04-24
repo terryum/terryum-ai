@@ -140,7 +140,15 @@ export async function buildContentDetailProps(
 ): Promise<ContentDetailProps> {
   if (!isValidLocale(lang)) notFound();
 
-  const post = await getPost(slug, lang);
+  let post: Awaited<ReturnType<typeof getPost>>;
+  try {
+    post = await getPost(slug, lang);
+  } catch (e) {
+    const msg = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+    console.error(`[buildContentDetailProps] getPost failed for ${slug} (${lang}): ${msg}`);
+    if (e instanceof Error && e.stack) console.error(e.stack);
+    throw e;
+  }
 
   if (!post) {
     const altLocale = lang === 'ko' ? 'en' : 'ko';
