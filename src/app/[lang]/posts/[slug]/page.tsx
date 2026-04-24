@@ -23,7 +23,14 @@ export async function generateMetadata({
   params: Promise<{ lang: string; slug: string }>;
 }): Promise<Metadata> {
   const { lang, slug } = await params;
-  const post = await getPost(slug, lang);
+  console.log(`[page:generateMetadata] enter ${slug} ${lang}`);
+  let post: Awaited<ReturnType<typeof getPost>> = null;
+  try {
+    post = await getPost(slug, lang);
+  } catch (e) {
+    console.error(`[page:generateMetadata] getPost threw:`, e);
+  }
+  console.log(`[page:generateMetadata] post=${post ? 'yes' : 'null'} for ${slug}`);
   if (!post) return { title: 'Not Found' };
 
   const title = post.meta.seo_title || post.meta.title;
@@ -58,12 +65,16 @@ export default async function PostDetailPage({
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang, slug } = await params;
+  console.log(`[page:PostDetailPage] enter ${slug} ${lang}`);
   const gateMeta = (await getPost(slug, lang))?.meta;
+  console.log(`[page:PostDetailPage] gateMeta=${gateMeta ? gateMeta.visibility : 'null'}`);
   if (gateMeta) {
     await requireReadAccess(gateMeta, `/${lang}/posts/${slug}`);
   }
+  console.log(`[page:PostDetailPage] past gate, calling buildContentDetailProps`);
   const { locale, post, content, alternateLocale, labels, relatedPosts, taxonomyBreadcrumb, adjacentPosts } =
     await buildContentDetailProps(lang, slug);
+  console.log(`[page:PostDetailPage] got props, rendering`);
 
   return (
     <ContentDetailPage
