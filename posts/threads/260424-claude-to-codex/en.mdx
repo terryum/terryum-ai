@@ -1,0 +1,55 @@
+---
+title: "From Claude Code to Codex"
+subtitle: "Migrate or rebuild"
+summary: "After GPT-5.5 shipped, migration to Codex picked up momentum. Two practical strategies for moving Claude Code projects to Codex — refactor-as-you-go when there's enough code, migration tools when there isn't."
+card_summary: "Refactor or auto-migrate: two paths from Claude Code to Codex."
+terrys_memo: ""
+locale: "en"
+translation_of: "260424-claude-to-codex:ko"
+---
+
+## What I wanted to figure out
+
+- How the community has actually experienced Claude Code vs Codex over the last two months
+- How the two tools' positions shifted after GPT-5.5 launched
+- Whether it's safe to let Claude and Codex take turns editing the same repo
+- The fastest path for moving an existing Claude Code project onto Codex
+- Which strategy — auto-migration vs rebuild — fits which code size
+
+## Lessons
+
+- Claude Code is fast, conversational, and rides on a rich harness (`CLAUDE.md` + subagents + hooks + skills). Codex is slower but stricter about following rules, and leans on a simpler, more portable stack: `AGENTS.md` + `~/.codex/config.toml` + skills.
+- Since GPT-5.5, Codex has made a clear jump in reasoning and long-task autonomy. Claude's strategy reads as "how do you operate the AI (external harness)"; Codex + GPT-5.5 reads as "how does the AI operate itself (internalized into the model)."
+- As long as both tools look at the same filesystem and git repo, switching is mechanically possible. The real precondition is that knowledge lives in plain files (`AGENTS.md`, `HANDOFF.md`, `TASKS.md`) — not inside `CLAUDE.md` or subagent memory.
+- If the repo has a moderate amount of code, don't reach for auto-converters. It's cleaner to hand the old repo to Codex as reference material and let it rebuild on a fresh branch. The minimum scaffolding is just three files — `AGENTS.md`, `REFACTOR_PRD.md`, `HANDOFF.md` — driven by a staged set of prompts.
+- If there's almost no code, or you're mostly moving the `~/.claude` environment itself, tools like `claude2codex` (an auto-migration CLI) and `cc2codex` (a Codex plugin with a safe preview) exist. Both are still early and not fully battle-tested.
+
+## FAQ
+
+### Q. Why pick Codex at all?
+
+- With GPT-5.5, Codex overtook Claude in parts of reasoning and long-task consistency
+- At the same time, Opus 4.7 + Claude Code drew backlash over token usage and reports of regressions
+- Codex's operating contract is tool-neutral — `AGENTS.md` + `config.toml` is simple, which makes multi-agent portability easier
+- That said, the most common community pattern isn't "switch" — it's role-splitting: Claude for design and harness work, Codex for implementation, refactoring, and review
+
+### Q. Can you just jump into Codex mid-project after doing everything in Claude?
+
+- Mechanically yes. Both tools look at the same filesystem and git
+- Safe conditions: rules live in plain text, build/test/lint commands are documented, current state lives in `HANDOFF.md`, and nothing relies on tool-specific memory
+- Risky conditions: Claude-only rules buried in `CLAUDE.md` or subagents, hook/plugin dependencies, mid-conversation context that never made it into a file
+- Takeaway: the real cost isn't the switch itself — it's externalizing the knowledge
+
+### Q. How do you move a moderately-coded repo (the rebuild path)?
+
+- Start on a fresh branch or a new repo. Treat the old repo as reference material only
+- Create just three files first: `AGENTS.md` (rules Codex should follow), `REFACTOR_PRD.md` (what you're rebuilding and why — what to keep vs. drop), `HANDOFF.md` (current state and next step)
+- First prompt is read-only: "Analyze the old repo and produce `OLD_REPO_ANALYSIS.md`, `REFACTOR_PLAN.md`, `TASKS.md` — don't touch anything"
+- Second prompt: skeleton only. Third prompt: implement the smallest feature. Keep it staged
+
+### Q. Does the multi-agent harness migrate automatically?
+
+- Almost every auto-converter explicitly marks subagents and hooks as lossy
+- `claude2codex` maps subagents to `multi_agent=true` skills — tool permissions and subtle behavior don't survive. Hooks mostly get dropped
+- `cc2codex` also flags that team-style Claude agent workflows need redesign
+- The harness layer ends up being a manual rebuild: `.codex/agents/*.toml` (TOML definitions), `.codex/skills/*/SKILL.md` (with `name`/`description` metadata), and `AGENTS.md` for shared rules

@@ -1,0 +1,40 @@
+{
+  "post_id": "260424-claude-to-codex",
+  "slug": "260424-claude-to-codex",
+  "post_number": 46,
+  "published_at": "2026-04-24T12:00:00Z",
+  "updated_at": "2026-04-24T12:00:00Z",
+  "status": "published",
+  "content_type": "threads",
+  "visibility": "public",
+  "tags": ["Threads", "Claude Code", "Codex", "AI Tooling", "Migration"],
+  "cover_image": "./cover.webp",
+  "reading_time_min": 4,
+  "source": "chatgpt",
+  "source_url": "https://chatgpt.com/share/69eb557d-cbe8-83a3-b69e-d06b8495d550",
+  "source_captured_at": "2026-04-24T11:35:25.827Z",
+  "domain": "ai-tooling",
+  "subfields": ["coding-agents", "migration", "harness-design"],
+  "key_concepts": [
+    "claude-code",
+    "codex",
+    "agents-md",
+    "handoff",
+    "refactor-migration",
+    "claude2codex",
+    "cc2codex",
+    "multi-agent-harness"
+  ],
+  "related_posts": ["260423-slack-agents-control-plane"],
+  "ai_summary": {
+    "one_liner": "Codex로 옮기는 실전 전략은 코드 양에 따라 갈린다 — 적당히 있으면 재구현, 거의 없으면 자동 마이그레이션 도구.",
+    "problem": "GPT-5.5와 Codex 업그레이드 이후 Claude Code 사용자가 Codex로 이관하려 할 때 어떤 경로가 가장 덜 꼬이는가. 하네스·서브에이전트·스킬을 어떻게 옮겨야 하는가.",
+    "solution": "지식을 `AGENTS.md`·`HANDOFF.md`·`TASKS.md`로 외부화한 다음, 코드가 적당히 있으면 Codex에게 기존 repo를 참고자료로 두고 재구현시키고, 환경 자체를 옮기는 거면 `claude2codex`/`cc2codex` 같은 자동 도구를 쓴다. 멀티에이전트 하네스는 어느 쪽이든 수동 재설계.",
+    "key_result": "세 파일(AGENTS.md/REFACTOR_PRD.md/HANDOFF.md) + 단계적 프롬프트로 재구현 파이프라인을 구축. 자동 도구는 subagents/hooks가 lossy라는 점을 기억하면 범위 선택이 쉬워진다.",
+    "limitations": ["2026-04 시점 대화 요약 — claude2codex/cc2codex는 초기 단계 툴", "GPT-5.5 벤치마크는 공개 직후 커뮤니티 체감이라 통제된 수치 아님"]
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
