@@ -5,8 +5,11 @@ import { requireReadAccess } from '@/lib/access-guard';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
-// Allow on-demand rendering for private/group posts that aren't in generateStaticParams.
-// Public posts are still prerendered; non-public ones render dynamically with an auth gate.
+// Render every request on-demand so that private/group posts (not in
+// generateStaticParams) resolve via the R2 fallback behind requireReadAccess.
+// SSG under OpenNext + Cloudflare Workers with dynamicParams=true was 500'ing
+// on slugs outside the prerender manifest (visible only to SNU etc.).
+export const dynamic = 'force-dynamic';
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
