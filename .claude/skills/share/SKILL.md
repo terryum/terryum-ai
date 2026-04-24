@@ -101,6 +101,34 @@ argument-hint: "<번호 | slug | 제목 | URL> [플랫폼 필터]"
 
 ---
 
+## Step 3.7. 글자수 pre-check (필수)
+
+스크립트를 실행하기 **전에** 데이터 소스의 글자수를 측정해 각 플랫폼 한계를 넘는지 확인한다. 초과 시 **첫 실행 전에** 짧은 커스텀 메시지를 준비해 `--message-*-file`로 넘긴다. 실패 후 재시도는 안티패턴 — X는 길이 초과에 403을 쓰므로 오진단을 유발한다.
+
+### 한계 (CTA/URL 오버헤드 차감 후 description 상한)
+
+| 플랫폼 | 총 한계 | CTA+URL 오버헤드 | description 상한 |
+|--------|---------|------------------|-------------------|
+| X | 280자 | Read more ↓(17) + URL(23) + 개행 = 43 | **237자** |
+| Bluesky | 300 grapheme | Read more ↓(17), URL은 external embed | **283자 (안전 270)** |
+| Threads | 500자 | Read more ↓(17) | **483자** |
+| LinkedIn | 3,000자 | 없음 | 3,000자 (거의 무제한) |
+| Facebook | 63,206자 | 없음 | 거의 무제한 |
+
+### 절차
+
+1. 데이터 소스에서 ko/en description 추출:
+   - Post: `posts/{slug}/ko.mdx` / `en.mdx`의 `summary`
+   - Survey: `projects/surveys/surveys.json`의 `description.ko` / `description.en`
+   - Project: `projects/gallery/projects.json`의 `description.ko` / `description.en`
+2. `wc -m` 또는 Python `len()`으로 각 길이 측정
+3. EN이 237자 초과 → X용 짧은 버전 준비 필요 (Bluesky도 270자면 거의 확실히 오버)
+4. KO가 483자 초과 → Threads용 짧은 버전 필요
+5. 짧은 버전을 `/tmp/share-ko.txt`, `/tmp/share-en.txt`에 저장 → `--message-ko-file` / `--message-en-file`로 **첫 실행부터** 전달
+6. 모두 한계 이내면 기본 흐름 그대로 진행
+
+---
+
 ## Step 3.5. 사용자 커스텀 메시지 처리
 
 사용자가 직접 메시지를 제공한 경우:
