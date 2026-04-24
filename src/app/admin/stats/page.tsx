@@ -59,7 +59,8 @@ export default function StatsPage() {
       const res = await fetch(`/api/admin/stats?period=${p}`);
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || 'Failed to fetch');
+        const msg = body.error ? (body.detail ? `${body.error}: ${body.detail}` : body.error) : `Stats API ${res.status}`;
+        throw new Error(msg);
       }
       setData(await res.json());
     } catch (err) {

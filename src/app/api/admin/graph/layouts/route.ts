@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { isAdminFromRequest } from '@/lib/identity';
 import { getSupabaseAdmin } from '@/lib/supabase';
 
+export const runtime = 'nodejs';
+
 export async function PATCH(request: NextRequest) {
   if (!isAdminFromRequest(request)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });

@@ -31,6 +31,7 @@ function SettingsDropdown({ locale, sessionLabel }: { locale: Locale; sessionLab
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const isAdmin = sessionLabel === 'Admin';
 
   useEffect(() => {
     if (!open) return;
@@ -87,7 +88,37 @@ function SettingsDropdown({ locale, sessionLabel }: { locale: Locale; sessionLab
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-36 rounded-lg border border-line-default bg-bg-surface shadow-lg backdrop-blur-sm z-50 py-1">
+        <div className="absolute right-0 top-full mt-2 w-40 rounded-lg border border-line-default bg-bg-surface shadow-lg backdrop-blur-sm z-50 py-1">
+          {/* Admin links */}
+          {isAdmin && (
+            <>
+              <Link
+                href={`/${locale}/admin/stats`}
+                onClick={() => setOpen(false)}
+                className={menuItemClass}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17V9m5 8V5m5 12v-6M4 21h16" />
+                </svg>
+                Stats
+              </Link>
+              <Link
+                href={`/${locale}/admin/graph`}
+                onClick={() => setOpen(false)}
+                className={menuItemClass}
+              >
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <circle cx="6" cy="6" r="2" />
+                  <circle cx="18" cy="6" r="2" />
+                  <circle cx="12" cy="18" r="2" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 7.5l3 9m3 0l3-9m-10 0h10" />
+                </svg>
+                Graph
+              </Link>
+              <div className="h-px bg-line-default my-1" />
+            </>
+          )}
+
           {/* Theme */}
           <button onClick={toggleTheme} className={menuItemClass}>
             <svg className="w-3.5 h-3.5 theme-icon-moon" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

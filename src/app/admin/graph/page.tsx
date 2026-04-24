@@ -37,7 +37,11 @@ export default function GraphPage() {
     setError('');
     try {
       const res = await fetch('/api/admin/graph');
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || 'Failed');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        const msg = body.error ? (body.detail ? `${body.error}: ${body.detail}` : body.error) : `Graph API ${res.status}`;
+        throw new Error(msg);
+      }
       setData(await res.json());
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load');
