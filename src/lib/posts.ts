@@ -207,28 +207,27 @@ export async function getPost(slug: string, locale: string): Promise<Post | null
     }
   }
 
-  // Fallback 1: private body in R2 (new unified path).
+  // Fallback: private body in R2 under private/posts/<type>/<slug>/<lang>.mdx.
   const index = await loadIndexJson();
   const entry = (index as { posts?: Array<Record<string, unknown>> }).posts?.find(
     (p) => p.slug === slug
   );
-  if (entry) {
-    const contentType = (entry.content_type as string) || 'essays';
-    const { fetchPrivateMdx } = await import('@/lib/r2-private');
-    const raw = await fetchPrivateMdx('posts', contentType, slug, locale);
-    if (raw) {
-      const { data: frontmatter, content } = matter(raw);
-      const merged = { ...entry, ...stripUndefined(frontmatter) };
-      return {
-        meta: normalizeMeta(merged, slug, contentType as PostCategory),
-        content,
-      };
-    }
-  }
-
-  // Fallback 2: legacy Supabase private_content (transitional until R2 migration).
-  const { getPrivatePost } = await import('@/lib/private-content');
-  return getPrivatePost(slug, locale);
+  if (!entry) return null;
+  const contentType = (entry.content_type as string) || 'essays';
+  const { fetchPrivateMdx } = await import('@/lib/r2-private');
+  const raw = await fetchPrivateMdx('posts', contentType, slug, locale);
+  if (!raw) return null;
+  const { data: frontmatter, content } = matter(raw);
+  // Merge precedence: frontmatter wins for content fields, but the index
+  // entry wins for paths (cover_image/cover_thumb) because those may point
+  // at a different bucket/API than the R2 body itself.
+  const merged: Record<string, unknown> = { ...entry, ...stripUndefined(frontmatter) };
+  if (entry.cover_image) merged.cover_image = entry.cover_image;
+  if (entry.cover_thumb) merged.cover_thumb = entry.cover_thumb;
+  return {
+    meta: normalizeMeta(merged, slug, contentType as PostCategory),
+    content,
+  };
 }
 
 export async function getPostMeta(slug: string, locale: string): Promise<PostMeta | null> {
@@ -297,29 +296,9 @@ export async function getAllPostParams(): Promise<{ lang: string; slug: string }
 }
 
 export async function getAllPosts(locale: string): Promise<PostMeta[]> {
-  // index.json is the source of truth for public + R2-migrated private metadata.
-  // Legacy Supabase private_content still surfaces for authenticated sessions
-  // until the R2 migration completes.
-  const fromIndex = await getAllPostsFromIndex(locale);
-
-  const { getAuthenticatedGroup, isAdminSession } = await import('@/lib/group-auth');
-  const [group, admin] = await Promise.all([getAuthenticatedGroup(), isAdminSession()]);
-  if (!group && !admin) return fromIndex;
-
-  const { getAllPrivatePosts, getPrivatePosts } = await import('@/lib/private-content');
-  const legacy = admin
-    ? await getAllPrivatePosts(locale)
-    : group ? await getPrivatePosts(group, locale) : [];
-  const seen = new Set(fromIndex.map((p) => p.slug));
-  for (const p of legacy) {
-    if (!seen.has(p.slug)) fromIndex.push(p);
-  }
-
-  return fromIndex.sort((a, b) => {
-    const dateDiff = new Date(b.published_at).getTime() - new Date(a.published_at).getTime();
-    if (dateDiff !== 0) return dateDiff;
-    return (b.post_number ?? 0) - (a.post_number ?? 0);
-  });
+  // index.json is the single source of truth for both public and private post
+  // metadata; private bodies live in R2 and are fetched only on the detail page.
+  return getAllPostsFromIndex(locale);
 }
 
 /**
@@ -362,8 +341,8 @@ export async function getAllPostsFromIndex(locale: string): Promise<PostMeta[]> 
       status: 'published' as const,
       content_type: p.content_type as PostMeta['content_type'],
       tags,
-      cover_image: resolvePostCdnPath(p.slug as string, 'cover.webp'),
-      cover_thumb: resolvePostCdnPath(p.slug as string, 'cover-thumb.webp'),
+      cover_image: (p.cover_image as string) || resolvePostCdnPath(p.slug as string, 'cover.webp'),
+      cover_thumb: (p.cover_thumb as string) || resolvePostCdnPath(p.slug as string, 'cover-thumb.webp'),
       post_number: p.post_number as number,
       domain: p.domain as string,
       subfields: (p.subfields as string[]) ?? [],
