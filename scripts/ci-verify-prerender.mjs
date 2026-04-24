@@ -28,13 +28,20 @@ const index = JSON.parse(fs.readFileSync(INDEX_PATH, 'utf-8'));
 const routes = manifest.routes || {};
 const dynamicRoutes = manifest.dynamicRoutes || {};
 
-// If the posts detail route is force-dynamic, prerender-manifest has no
-// /<locale>/posts/<slug> entries at all — only a /[lang]/posts/[slug]
-// template under dynamicRoutes. In that regime this check has nothing to
-// verify; pass with a note.
-if (dynamicRoutes['/[lang]/posts/[slug]'] && !Object.keys(routes).some((r) => r.includes('/posts/'))) {
-  console.log('✓ Prerender check skipped — /[lang]/posts/[slug] is force-dynamic (by design).');
-  process.exit(0);
+// If the posts detail page opts into force-dynamic, there are no
+// /<locale>/posts/<slug> prerender entries to verify. The unlocalized
+// /posts/<slug> redirect entries may still appear, and the OpenNext CF
+// build can omit /[lang]/posts/[slug] from dynamicRoutes entirely — so
+// the source file is the authoritative signal, not the manifest shape.
+const PAGE_SRC = 'src/app/[lang]/posts/[slug]/page.tsx';
+try {
+  const src = fs.readFileSync(PAGE_SRC, 'utf-8');
+  if (/export\s+const\s+dynamic\s*=\s*['"]force-dynamic['"]/.test(src)) {
+    console.log('✓ Prerender check skipped — /[lang]/posts/[slug] is force-dynamic (by design).');
+    process.exit(0);
+  }
+} catch {
+  // Source missing — fall through to manifest check.
 }
 
 const publicPosts = (index.posts || []).filter(
