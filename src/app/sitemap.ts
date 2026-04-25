@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllSlugs, getPostMeta } from '@/lib/posts';
 import { loadPublicSurveys } from '@/lib/surveys';
-import { loadPublicProjects } from '@/lib/projects';
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.terryum.ai';
 
@@ -14,7 +13,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: `${BASE_URL}/${lang}`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
       { url: `${BASE_URL}/${lang}/posts`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
       { url: `${BASE_URL}/${lang}/surveys`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-      { url: `${BASE_URL}/${lang}/projects`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
       { url: `${BASE_URL}/${lang}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     );
   }
@@ -45,21 +43,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(survey.published_at),
           changeFrequency: 'monthly',
           priority: 0.7,
-        });
-      }
-    }
-  }
-
-  // Project pages (public only)
-  const projects = await loadPublicProjects();
-  for (const project of projects) {
-    if (project.embed_url) {
-      for (const lang of ['ko', 'en']) {
-        entries.push({
-          url: `${BASE_URL}/${lang}/projects/${project.slug}`,
-          lastModified: new Date(project.published_at),
-          changeFrequency: 'monthly',
-          priority: 0.6,
         });
       }
     }
