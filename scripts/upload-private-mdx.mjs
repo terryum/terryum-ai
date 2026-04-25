@@ -29,12 +29,11 @@
 import fs from 'fs/promises';
 import path from 'path';
 import {
-  S3Client,
   PutObjectCommand,
   HeadObjectCommand,
 } from '@aws-sdk/client-s3';
 import { loadEnv } from './lib/env.mjs';
-import { getR2PublicUrl } from './lib/r2-config.mjs';
+import { getR2PublicUrl, getR2Client } from './lib/r2-config.mjs';
 
 await loadEnv();
 
@@ -63,35 +62,17 @@ if (!VALID_TYPES.has(type)) {
   process.exit(1);
 }
 
-const {
-  R2_ACCOUNT_ID,
-  R2_ACCESS_KEY_ID,
-  R2_SECRET_ACCESS_KEY,
-  R2_BUCKET_NAME,
-} = process.env;
 const R2_PUBLIC_URL = getR2PublicUrl();
-
-if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET_NAME) {
-  console.error('❌ R2 credentials missing in .env.local (need R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME)');
-  process.exit(1);
-}
 if (!R2_PUBLIC_URL) {
   console.error('❌ R2_PUBLIC_URL or NEXT_PUBLIC_R2_URL not set — needed for HEAD verification');
   process.exit(1);
 }
 
+const { s3, bucket: R2_BUCKET_NAME } = getR2Client({ requireBucket: true });
+
 const sourceDir = source.startsWith('~')
   ? path.join(process.env.HOME || '', source.slice(1))
   : path.resolve(source);
-
-const s3 = new S3Client({
-  region: 'auto',
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
 
 const PREFIX = `private/posts/${type}/${slug}`;
 

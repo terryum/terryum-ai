@@ -14,11 +14,11 @@
  *   node scripts/r2-cache-gc.mjs --apply   [--keep 3]
  */
 import {
-  S3Client,
   ListObjectsV2Command,
   DeleteObjectsCommand,
 } from '@aws-sdk/client-s3';
 import { loadEnv } from './lib/env.mjs';
+import { getR2Client } from './lib/r2-config.mjs';
 
 const BUCKET = 'terryum-ai-cache';
 const ROOT_PREFIX = 'incremental-cache/';
@@ -106,15 +106,7 @@ async function deleteKeys(s3, keys) {
 async function main() {
   await loadEnv();
   const args = parseArgs(process.argv.slice(2));
-  const { R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY } = process.env;
-  if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY) {
-    throw new Error('Missing R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY.');
-  }
-  const s3 = new S3Client({
-    region: 'auto',
-    endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-    credentials: { accessKeyId: R2_ACCESS_KEY_ID, secretAccessKey: R2_SECRET_ACCESS_KEY },
-  });
+  const { s3 } = getR2Client();
 
   const prefixes = await listBuildIdPrefixes(s3);
   console.log(`Found ${prefixes.length} buildId prefix(es) under ${ROOT_PREFIX}.`);
