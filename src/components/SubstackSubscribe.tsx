@@ -51,8 +51,8 @@ export default function SubstackSubscribe({
   // article variant
   return (
     <div className="mt-12 pt-8 border-t border-line-default">
-      <div className="bg-surface-subtle rounded-xl px-6 py-6 flex flex-col sm:flex-row items-start sm:items-center gap-2 justify-center">
-        <div>
+      <div className="bg-surface-subtle rounded-xl px-6 py-6 flex flex-col sm:flex-row items-center gap-3 sm:gap-2 justify-center">
+        <div className="text-center sm:text-left">
           <p className="font-semibold text-text-primary text-base leading-snug">
             {labels.headline}
           </p>
@@ -62,7 +62,7 @@ export default function SubstackSubscribe({
           href={subscribeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="shrink-0 ml-16 inline-flex items-center px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:opacity-90 transition-opacity"
+          className="shrink-0 sm:ml-16 inline-flex items-center px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:opacity-90 transition-opacity"
         >
           {labels.button}
         </a>
