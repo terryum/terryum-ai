@@ -1,0 +1,42 @@
+{
+  "post_id": "260422-work-that-isnt",
+  "slug": "260422-work-that-isnt",
+  "post_number": 47,
+  "published_at": "2026-04-25T00:00:00Z",
+  "updated_at": "2026-04-25T00:00:00Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "tags": ["Essays", "AI", "Productivity", "Founder Work"],
+  "cover_image": "./cover.webp",
+  "reading_time_min": 6,
+  "domain": "AI & Society",
+  "subfields": ["AI productivity", "developer behavior", "self-reflection"],
+  "key_concepts": ["AI addiction", "Claude Code", "token burning", "How vs Why", "low-hanging fruit", "deep work"],
+  "idea_status": null,
+  "related_posts": [
+    "260420-one-day-recovery",
+    "260420-debt-changes-hands",
+    "260413-new-leverage",
+    "260406-writing-daily-by-hand"
+  ],
+  "taxonomy_primary": "ai/society",
+  "taxonomy_secondary": ["ai/productivity"],
+  "relations": [
+    {"target": "260420-one-day-recovery", "type": "extends"},
+    {"target": "260420-debt-changes-hands", "type": "related"},
+    {"target": "260413-new-leverage", "type": "related"},
+    {"target": "260406-writing-daily-by-hand", "type": "related"}
+  ],
+  "ai_summary": {
+    "one_liner": "토큰을 태우는 건 일이 아니다",
+    "problem": "AI 도구가 손에 쥐어진 뒤로 잔잔바리만 끝없이 다듬으며 토큰을 태우는 자신을 발견한다",
+    "solution": "10년 전 GPU를 쉬게 하지 못하던 박사 시절 자신과 같은 패턴임을 자각하고, How에 빠져 Why를 잊은 자기 모순을 고백한다",
+    "key_result": "AI 뒤치다꺼리를 일이라 부르지 말 것 — 진짜 가치 있는 일로 돌아가자고 자신에게 명령한다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

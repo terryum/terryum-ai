@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-24T16:46:57.583Z",
-  "total_posts": 48,
+  "generated_at": "2026-04-25T04:17:03.303Z",
+  "total_posts": 47,
   "posts": [
     {
       "post_number": 1,
@@ -3258,6 +3258,79 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 47,
+      "slug": "260422-work-that-isnt",
+      "content_type": "essays",
+      "title_en": "Coding Addiction: Work That Isn't",
+      "title_ko": "개발 중독: 일이 아닌 일",
+      "summary_ko": "세션 4개를 끝없이 돌리며 잔잔바리만 정리하는 자신을 본다. 10년 전 GPU를 쉬게 하지 못하던 강박과 같은 패턴 — 일이 아닌 일을 일이라 착각하지 말 것.",
+      "summary_en": "Four sessions running, polishing rooms already spotless. Same compulsion as keeping GPUs running through Christmas a decade ago — don't mistake work-that-isn't for work.",
+      "domain": "AI & Society",
+      "subfields": [
+        "AI productivity",
+        "developer behavior",
+        "self-reflection"
+      ],
+      "key_concepts": [
+        "AI addiction",
+        "Claude Code",
+        "token burning",
+        "How vs Why",
+        "low-hanging fruit",
+        "deep work"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Productivity",
+        "Founder Work"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-04-25T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "토큰을 태우는 건 일이 아니다",
+        "problem": "AI 도구가 손에 쥐어진 뒤로 잔잔바리만 끝없이 다듬으며 토큰을 태우는 자신을 발견한다",
+        "solution": "10년 전 GPU를 쉬게 하지 못하던 박사 시절 자신과 같은 패턴임을 자각하고, How에 빠져 Why를 잊은 자기 모순을 고백한다",
+        "key_result": "AI 뒤치다꺼리를 일이라 부르지 말 것 — 진짜 가치 있는 일로 돌아가자고 자신에게 명령한다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260420-one-day-recovery",
+          "type": "extends"
+        },
+        {
+          "target": "260420-debt-changes-hands",
+          "type": "related"
+        },
+        {
+          "target": "260413-new-leverage",
+          "type": "related"
+        },
+        {
+          "target": "260406-writing-daily-by-hand",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260420-one-day-recovery",
+        "260420-debt-changes-hands",
+        "260413-new-leverage",
+        "260406-writing-daily-by-hand"
+      ],
+      "taxonomy_primary": "ai/society",
+      "taxonomy_secondary": [
+        "ai/productivity"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -3757,6 +3830,26 @@
         "from": "260420-debt-changes-hands",
         "to": "260406-writing-daily-by-hand",
         "type": "related"
+      },
+      {
+        "from": "260422-work-that-isnt",
+        "to": "260420-one-day-recovery",
+        "type": "extends"
+      },
+      {
+        "from": "260422-work-that-isnt",
+        "to": "260420-debt-changes-hands",
+        "type": "related"
+      },
+      {
+        "from": "260422-work-that-isnt",
+        "to": "260413-new-leverage",
+        "type": "related"
+      },
+      {
+        "from": "260422-work-that-isnt",
+        "to": "260406-writing-daily-by-hand",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -3890,9 +3983,12 @@
         "label": "ai/society",
         "post_numbers": [
           32,
-          44
+          44,
+          47
         ],
-        "core_concepts": [],
+        "core_concepts": [
+          "Claude Code"
+        ],
         "taxonomy_nodes": [
           "ai/society"
         ]
@@ -4776,7 +4872,8 @@
       44
     ],
     "Claude Code": [
-      44
+      44,
+      47
     ],
     "legacy code": [
       44
@@ -4825,6 +4922,21 @@
     ],
     "multi-agent-harness": [
       46
+    ],
+    "AI addiction": [
+      47
+    ],
+    "token burning": [
+      47
+    ],
+    "How vs Why": [
+      47
+    ],
+    "low-hanging fruit": [
+      47
+    ],
+    "deep work": [
+      47
     ]
   },
   "domain_stats": {
@@ -4832,7 +4944,7 @@
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
-    "AI & Society": 2,
+    "AI & Society": 3,
     "Infra & Cost": 1,
     "Infra & Ops": 1,
     "ai-tooling": 2
@@ -4841,24 +4953,25 @@
     "robotics/brain/vla": 7,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
-    "robotics/hand/tactile": 8,
+    "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 3,
     "ai/agent": 7,
-    "robotics/hand/dexterous:secondary": 7,
+    "robotics/hand/dexterous:secondary": 8,
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 11,
     "ai/llm:secondary": 5,
-    "ai/society": 2,
+    "ai/society": 3,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
+    "ai/productivity:secondary": 1,
     "robotics/arm": 5,
-    "robotics/hand": 11,
-    "robotics": 27,
-    "ai": 9
+    "robotics/hand": 13,
+    "robotics": 29,
+    "ai": 10
   }
 }
