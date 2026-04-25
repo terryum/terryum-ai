@@ -25,7 +25,6 @@ export interface ActiveTab {
   slug: string;
   matchTags: string[];
   order: number;
-  author?: 'terry' | 'ai';
   label: string;
   count: number;
 }
@@ -37,7 +36,6 @@ export function getActiveTabs(posts: PostMeta[], locale: string): ActiveTab[] {
     .sort((a, b) => a.order - b.order)
     .map(tab => ({
       ...tab,
-      author: tab.author,
       label: getTagLabel(tab.slug, locale),
       count: getPostsForTab(posts, tab.slug).length,
     }));
@@ -60,17 +58,6 @@ export interface NavTabItem {
   href: string;
   label: string;
   tabSlug: string;
-  author?: 'terry' | 'ai';
-}
-
-/** Get posts belonging to a specific author group (terry or ai) */
-export function getPostsForAuthor(posts: PostMeta[], author: 'terry' | 'ai'): PostMeta[] {
-  const matchSet = new Set(
-    TAB_CONFIG.filter(t => t.author === author).flatMap(t => t.matchTags)
-  );
-  return posts.filter(post =>
-    post.tags.some(tag => matchSet.has(normalizeTagSlug(tag)))
-  );
 }
 
 /** Generate nav menu items for tabs */
@@ -79,7 +66,6 @@ export function getNavTabs(posts: PostMeta[], locale: string): NavTabItem[] {
     href: `/${locale}/posts?tab=${tab.slug}`,
     label: tab.label,
     tabSlug: tab.slug,
-    author: tab.author,
   }));
 }
 

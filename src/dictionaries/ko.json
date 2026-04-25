@@ -2,7 +2,6 @@
   "nav": {
     "home": "Home",
     "about": "About",
-    "projects": "Projects",
     "surveys": "Surveys"
   },
   "hero": {
@@ -11,17 +10,19 @@
   },
   "about": {
     "title": "About",
-    "contact_label": "연락처"
+    "contact_label": "연락처",
+    "currently": "Currently",
+    "around_the_web": "Around the web",
+    "talks": "Talks & interviews",
+    "writing": "In writing",
+    "books": "Books & writing",
+    "code": "Code"
   },
   "posts_index": {
     "title": "Posts",
     "description": "AI, 로보틱스, 스타트업, 제조 혁신에 관한 글을 나눕니다."
   },
   "tabs_index": {
-    "memos": {
-      "title": "Memos",
-      "description": "Terry가 연구·개발 관련 메모를 남깁니다."
-    },
     "essays": {
       "title": "Essays",
       "description": "Terry가 기술로 변화하는 세상과 삶에 대한 생각을 나눕니다."
@@ -30,32 +31,19 @@
       "title": "Papers",
       "description": "AI가 피지컬AI 논문들을 읽고 핵심을 정리합니다."
     },
-    "threads": {
-      "title": "Threads",
-      "description": "AI에게 묻고 답한 내용을 정리합니다."
-    },
-    "terry": {
-      "title": "Terry's Posts",
-      "description": "Terry가 쓴 글 모음입니다."
-    },
-    "ai": {
-      "title": "AI Posts",
-      "description": "AI가 작성한 글 모음입니다."
+    "notes": {
+      "title": "Notes",
+      "description": "개발 메모와 AI 대화를 정리한 짧은 노트들입니다."
     }
   },
   "home": {
-    "latest_ideas": "Latest Essays",
+    "featured_surveys": "Featured Surveys",
     "latest_essays": "Latest Essays",
-    "latest_research": "Latest Papers",
+    "recent_papers": "Recent Papers",
     "latest_notes": "Latest Notes",
-    "latest_threads": "Latest Threads",
-    "latest_from_ai": "Latest from AI",
-    "latest_from_terry": "Latest from Terry",
     "view_all": "전체 보기",
     "show_more": "더 보기",
-    "no_posts_yet": "아직 글이 없습니다.",
-    "latest_projects": "Latest Projects",
-    "latest_surveys": "Latest Surveys"
+    "no_posts_yet": "아직 글이 없습니다."
   },
   "detail": {
     "back_to_list": "목록으로",
@@ -89,11 +77,6 @@
     "title": "페이지를 찾을 수 없습니다",
     "description": "요청하신 페이지가 존재하지 않습니다.",
     "back_home": "홈으로 돌아가기"
-  },
-  "projects": {
-    "title": "Projects",
-    "description": "오픈소스 프로젝트와 사이드 프로젝트 모음입니다.",
-    "empty": "아직 프로젝트가 없습니다."
   },
   "surveys": {
     "title": "Surveys",

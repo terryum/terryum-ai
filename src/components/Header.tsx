@@ -14,13 +14,12 @@ interface NavItem {
   href: string;
   label: string;
   tabSlug?: string;
-  author?: 'terry' | 'ai';
 }
 
 interface HeaderProps {
   locale: Locale;
   dict: {
-    nav: { home: string; about: string; projects: string; surveys: string };
+    nav: { home: string; about: string; surveys: string };
   };
   navTabs: NavTabItem[];
 }
@@ -177,7 +176,6 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [sessionLabel, setSessionLabel] = useState<string | null>(null);
   const currentTab = searchParams.get('tab');
-  const isAdmin = sessionLabel === 'Admin';
 
   useEffect(() => {
     fetch('/api/session')
@@ -186,22 +184,22 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
       .catch(() => {});
   }, []);
 
-  const aiTabs: NavItem[] = navTabs
-    .filter(tab => tab.author === 'ai')
-    .map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author }));
-
-  const terryTabs: NavItem[] = navTabs
-    .filter(tab => tab.author === 'terry')
-    .map(tab => ({ href: tab.href, label: tab.label, tabSlug: tab.tabSlug, author: tab.author }));
+  // Header order: Essays · Surveys · Papers · Notes  ·  About
+  // Surveys is a top-level route, the others are tabs of /posts.
+  const tabBySlug = new Map(navTabs.map(t => [t.tabSlug, t]));
+  const essaysTab = tabBySlug.get('essays');
+  const papersTab = tabBySlug.get('papers');
+  const notesTab = tabBySlug.get('notes');
 
   const surveysItem: NavItem = { href: `/${locale}/surveys`, label: dict.nav.surveys };
-  const projectsItem: NavItem = { href: `/${locale}/projects`, label: dict.nav.projects };
   const aboutItem: NavItem = { href: `/${locale}/about`, label: dict.nav.about };
 
-  // AI nav order: Papers → Surveys → Threads, then any future AI tabs
-  const papersTab = aiTabs.find(t => t.tabSlug === 'papers');
-  const threadsTab = aiTabs.find(t => t.tabSlug === 'threads');
-  const otherAiTabs = aiTabs.filter(t => t.tabSlug !== 'papers' && t.tabSlug !== 'threads');
+  const primaryItems: NavItem[] = [
+    essaysTab && { href: essaysTab.href, label: essaysTab.label, tabSlug: essaysTab.tabSlug },
+    surveysItem,
+    papersTab && { href: papersTab.href, label: papersTab.label, tabSlug: papersTab.tabSlug },
+    notesTab && { href: notesTab.href, label: notesTab.label, tabSlug: notesTab.tabSlug },
+  ].filter((x): x is NavItem => Boolean(x));
 
   function isActive(item: NavItem) {
     if (item.tabSlug) {
@@ -264,25 +262,23 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {/* AI group */}
-            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
-            <div className="flex items-center gap-4 ml-1">
-              {papersTab && <TabLink item={papersTab} />}
-              <TabLink item={surveysItem} />
-              {threadsTab && <TabLink item={threadsTab} />}
-              {otherAiTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
-              {isAdmin && <TabLink item={projectsItem} />}
+            <div className="flex items-center gap-4">
+              {primaryItems.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
             </div>
 
-            {/* Separator */}
-            <div className="w-px h-4 bg-line-default mx-2" />
-
-            {/* Terry group */}
-            <span className="text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-terry">Terry</span>
-            <div className="flex items-center gap-4 ml-1">
-              {terryTabs.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
-              <TabLink item={aboutItem} />
-            </div>
+            {/* About — smaller, secondary */}
+            <div className="w-px h-3 bg-line-default mx-3 opacity-60" />
+            <Link
+              href={aboutItem.href}
+              className={`text-xs transition-colors ${
+                isActive(aboutItem)
+                  ? 'text-accent'
+                  : 'text-text-muted hover:text-accent'
+              }`}
+              aria-current={isActive(aboutItem) ? 'page' : undefined}
+            >
+              {aboutItem.label}
+            </Link>
 
             <div className="flex items-center gap-2 ml-4">
               <LanguageSwitcher locale={locale} />
@@ -315,21 +311,18 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
         {/* Mobile nav panel */}
         {mobileOpen && (
           <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-1">
-            {/* AI group */}
-            <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-ai">AI</span>
-            {papersTab && <MobileTabLink item={papersTab} />}
-            <MobileTabLink item={surveysItem} />
-            {threadsTab && <MobileTabLink item={threadsTab} />}
-            {otherAiTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
-            {isAdmin && <MobileTabLink item={projectsItem} />}
-
-            {/* Separator */}
-            <div className="h-px bg-line-default my-2 mx-2" />
-
-            {/* Terry group */}
-            <span className="mx-2 mt-0.5 mb-1 inline-block text-[10px] px-1.5 py-0.5 rounded font-medium leading-none nav-tag-terry">Terry</span>
-            {terryTabs.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
-            <MobileTabLink item={aboutItem} />
+            {primaryItems.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
+            <div className="h-px bg-line-default my-2 mx-2 opacity-60" />
+            <Link
+              href={aboutItem.href}
+              onClick={() => setMobileOpen(false)}
+              className={`text-xs px-2 py-1 transition-colors ${
+                isActive(aboutItem) ? 'text-accent font-medium' : 'text-text-muted hover:text-accent'
+              }`}
+              aria-current={isActive(aboutItem) ? 'page' : undefined}
+            >
+              {aboutItem.label}
+            </Link>
           </nav>
         )}
       </Container>

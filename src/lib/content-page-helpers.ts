@@ -71,12 +71,6 @@ export async function buildContentIndexProps(
         tabTitles[tab.slug] = { title: entry.title, description: entry.description };
       }
     }
-    for (const author of ['terry', 'ai'] as const) {
-      const entry = tabsIndex[author];
-      if (entry) {
-        tabTitles[author] = { title: entry.title, description: entry.description };
-      }
-    }
   }
 
   // Load taxonomy data
