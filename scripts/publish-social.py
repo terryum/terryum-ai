@@ -44,6 +44,7 @@ import json
 import argparse
 from datetime import date, datetime
 from pathlib import Path
+from typing import Optional
 
 import requests
 
@@ -158,12 +159,13 @@ def get_hashtags(post: dict, locale: str) -> str:
     return " ".join(f"#{t.replace(' ', '')}" for t in tags[:3])
 
 
-def build_facebook_text(post: dict, fm: dict) -> tuple[str, str]:
+def build_facebook_text(post: dict, fm: dict, override_desc: Optional[str] = None) -> tuple[str, str]:
     """(text, url)
     url은 Facebook link 파라미터용 — OG 태그가 직접 있는 언어 페이지를 사용.
+    override_desc가 주어지면 frontmatter summary 대신 그 값을 description으로 쓴다.
     """
     title = fm.get("title") or post.get("title_ko", post["slug"])
-    description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
+    description = override_desc or fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
     url = f"{FACEBOOK_BASE_URL}/ko/posts/{post['slug']}"
     tags = get_hashtags(post, "ko")
 
@@ -177,9 +179,9 @@ def build_facebook_text(post: dict, fm: dict) -> tuple[str, str]:
     return "\n".join(lines), url
 
 
-def build_threads_text(post: dict, fm: dict) -> tuple[str, str]:
+def build_threads_text(post: dict, fm: dict, override_desc: Optional[str] = None) -> tuple[str, str]:
     """(text, url) — 500자 제한"""
-    description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
+    description = override_desc or fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
     url = f"{FACEBOOK_BASE_URL}/posts/{post['slug']}?utm_source=threads&utm_medium=social"
     tags = get_hashtags(post, "ko")
 
@@ -198,9 +200,9 @@ def build_threads_text(post: dict, fm: dict) -> tuple[str, str]:
     return body + suffix, url
 
 
-def build_linkedin_text(post: dict, fm: dict) -> tuple[str, str]:
+def build_linkedin_text(post: dict, fm: dict, override_desc: Optional[str] = None) -> tuple[str, str]:
     """(text, url) — 3000자. URL은 ARTICLE 카드로 별도 첨부."""
-    description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
+    description = override_desc or fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
     url = f"{SITE_BASE_URL}/posts/{post['slug']}"
     tags = get_hashtags(post, "en")
 
@@ -214,9 +216,9 @@ def build_linkedin_text(post: dict, fm: dict) -> tuple[str, str]:
     return "\n".join(lines), url
 
 
-def build_x_text(post: dict, fm: dict) -> tuple[str, str]:
+def build_x_text(post: dict, fm: dict, override_desc: Optional[str] = None) -> tuple[str, str]:
     """(text, url) — 280자 (URL은 23자로 계산)"""
-    description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
+    description = override_desc or fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
     # X 카드 크롤러 캐시 우회를 위해 타임스탬프 쿼리 추가
     cache_bust = date.today().strftime("%Y%m%d")
     url = f"{SITE_BASE_URL}/posts/{post['slug']}?v={cache_bust}"
@@ -237,9 +239,9 @@ def build_x_text(post: dict, fm: dict) -> tuple[str, str]:
     return body + suffix, url
 
 
-def build_bluesky_text(post: dict, fm: dict) -> tuple[str, str]:
+def build_bluesky_text(post: dict, fm: dict, override_desc: Optional[str] = None) -> tuple[str, str]:
     """(text, url) — 300 grapheme 제한. URL은 external embed로 별도 첨부."""
-    description = fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
+    description = override_desc or fm.get("summary") or fm.get("card_summary") or extract_ai_summary(post.get("ai_summary"))
     url = f"{SITE_BASE_URL}/posts/{post['slug']}"
     tags = get_hashtags(post, "en")
 
@@ -760,7 +762,17 @@ def main():
         default=",".join(ALL_PLATFORMS),
         help="플랫폼 (facebook,threads,linkedin,x — 기본: 전체)",
     )
+    parser.add_argument("--message-ko", default=None, help="커스텀 한국어 메시지 (Facebook/Threads용)")
+    parser.add_argument("--message-en", default=None, help="커스텀 영어 메시지 (LinkedIn/X/Bluesky용)")
+    parser.add_argument("--message-ko-file", default=None, help="한국어 메시지 파일 경로")
+    parser.add_argument("--message-en-file", default=None, help="영어 메시지 파일 경로")
     args = parser.parse_args()
+
+    # 파일에서 메시지 로드 (--message-* 직접 지정과 동시에 주면 파일이 우선)
+    if args.message_ko_file:
+        args.message_ko = Path(args.message_ko_file).read_text().strip()
+    if args.message_en_file:
+        args.message_en = Path(args.message_en_file).read_text().strip()
 
     platforms = [p.strip() for p in args.platform.split(",") if p.strip() in ALL_PLATFORMS]
     if not platforms:
@@ -797,23 +809,23 @@ def main():
         print(f"\n[{platform.upper()}]")
 
         if platform == "facebook":
-            text, url = build_facebook_text(post, fm_ko)
+            text, url = build_facebook_text(post, fm_ko, override_desc=args.message_ko)
             ok = publish_facebook(text, url, args.dry_run)
 
         elif platform == "threads":
-            text, url = build_threads_text(post, fm_ko)
+            text, url = build_threads_text(post, fm_ko, override_desc=args.message_ko)
             ok = publish_threads(text, url, args.dry_run)
 
         elif platform == "linkedin":
-            text, url = build_linkedin_text(post, fm_en)
+            text, url = build_linkedin_text(post, fm_en, override_desc=args.message_en)
             ok = publish_linkedin(text, url, args.dry_run)
 
         elif platform == "x":
-            text, url = build_x_text(post, fm_en)
+            text, url = build_x_text(post, fm_en, override_desc=args.message_en)
             ok = publish_x(text, args.dry_run)
 
         elif platform == "bluesky":
-            text, url = build_bluesky_text(post, fm_en)
+            text, url = build_bluesky_text(post, fm_en, override_desc=args.message_en)
             ok = publish_bluesky(text, url, args.dry_run)
 
         else:
