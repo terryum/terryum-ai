@@ -6,18 +6,30 @@ import { isAdmin } from './identity';
 const COOKIE_NAME = 'group-session';
 const rateLimiter = new RateLimiter();
 
+// Add a slug here when introducing a new group (also set CO_<SLUG>_PASSWORD).
+const ALLOWED_GROUPS = ['snu'] as const;
+type AllowedGroup = (typeof ALLOWED_GROUPS)[number];
+
+function isAllowedGroup(group: string): group is AllowedGroup {
+  return (ALLOWED_GROUPS as readonly string[]).includes(group);
+}
+
+function envKeyFor(group: AllowedGroup): string {
+  return `CO_${group.toUpperCase().replace(/-/g, '_')}_PASSWORD`;
+}
+
 export function checkGroupRateLimit(ip: string): boolean {
   return rateLimiter.check(ip);
 }
 
 export function verifyGroupPassword(group: string, input: string): boolean {
-  const envKey = `CO_${group.toUpperCase().replace(/-/g, '_')}_PASSWORD`;
-  return verifyPassword(input, process.env[envKey]);
+  if (!isAllowedGroup(group)) return false;
+  return verifyPassword(input, process.env[envKeyFor(group)]);
 }
 
 export function isGroupConfigured(group: string): boolean {
-  const envKey = `CO_${group.toUpperCase().replace(/-/g, '_')}_PASSWORD`;
-  return !!process.env[envKey]?.trim();
+  if (!isAllowedGroup(group)) return false;
+  return !!process.env[envKeyFor(group)]?.trim();
 }
 
 export function signGroupToken(group: string): string {

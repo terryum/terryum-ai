@@ -1,16 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getPublicSupabaseClient } from '@/lib/supabase-public';
 
 export const runtime = 'nodejs';
 
 const GRAPH_DECAY = 0.5;
-
-function getConfig() {
-  return {
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '',
-  };
-}
 
 interface SearchResult {
   slug: string;
@@ -32,8 +25,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ results: [] });
   }
 
-  const config = getConfig();
-  if (!config.supabaseUrl || !config.supabaseKey) {
+  const supabase = getPublicSupabaseClient();
+  if (!supabase) {
     return NextResponse.json(
       { error: 'Search not configured', fallback: true },
       { status: 503 }
@@ -41,7 +34,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const supabase = createClient(config.supabaseUrl, config.supabaseKey);
 
     // 1. Full-text search via Supabase RPC
     const { data: ftsResults, error: rpcError } = await supabase.rpc('search_posts_fts', {

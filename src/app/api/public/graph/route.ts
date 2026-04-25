@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getPublicSupabaseClient } from '@/lib/supabase-public';
 import { getPostsByType } from '@/lib/posts';
 
 export const runtime = 'nodejs';
@@ -30,21 +30,6 @@ interface GraphPayload {
   papers: GraphPaper[];
   edges: GraphEdge[];
   layouts: GraphLayout[];
-}
-
-function getSupabaseRuntimeConfig() {
-  const url =
-    process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    process.env.SUPABASE_URL ||
-    process.env.SUPABASE_PROJECT_URL ||
-    '';
-  const key =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    process.env.SUPABASE_ANON_KEY ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    '';
-
-  return { url, key };
 }
 
 function buildFallbackEdges(papers: GraphPaper[]): GraphEdge[] {
@@ -117,15 +102,13 @@ async function loadFallbackGraphData(): Promise<GraphPayload> {
 }
 
 async function loadSupabaseGraphData(): Promise<GraphPayload | null> {
-  const { url, key } = getSupabaseRuntimeConfig();
-  if (!url || !key) {
+  const supabase = getPublicSupabaseClient();
+  if (!supabase) {
     console.warn('[paper-map] Supabase runtime env missing, using filesystem fallback');
     return null;
   }
 
   try {
-    const supabase = createClient(url, key);
-
     const [papersRes, edgesRes, layoutsRes] = await Promise.all([
       supabase
         .from('papers')
