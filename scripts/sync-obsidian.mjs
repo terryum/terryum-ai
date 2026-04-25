@@ -19,9 +19,9 @@ import path from 'path';
 import os from 'os';
 import crypto from 'crypto';
 import { POSTS_DIR, getContentDirs } from './lib/paths.mjs';
-import { isSupabaseConfigured, getSupabase } from './lib/supabase.mjs';
 import { loadEnv } from './lib/env.mjs';
 import { getR2PublicUrl } from './lib/r2-config.mjs';
+import { fetchPrivateMdx, fetchPrivateMeta } from './lib/r2-private.mjs';
 
 await loadEnv();
 
@@ -581,14 +581,6 @@ async function main() {
     }
   }
 
-  // Load Supabase client for private post content
-  let supabase = null;
-  if (isSupabaseConfigured()) {
-    try {
-      supabase = getSupabase();
-    } catch { /* Supabase not available */ }
-  }
-
   const allPosts = indexData.posts || [];
   const targetPosts = slugFilter
     ? allPosts.filter(p => p.slug === slugFilter)
@@ -609,27 +601,24 @@ async function main() {
     const contentType = post.content_type;
     const catDir = contentType || 'papers';
     const postDir = path.join(POSTS_DIR, catDir, slug);
-    const isPrivate = post.visibility === 'group';
+    const isPrivate = post.visibility && post.visibility !== 'public';
 
-    // Read meta.json (filesystem or Supabase)
+    // Read meta.json + ko.mdx — public posts live on the filesystem,
+    // private/group posts live in R2 (private/posts/<type>/<slug>/...).
     let meta;
     let koMdx = '';
 
-    if (isPrivate && supabase) {
-      // Private post: fetch from Supabase
-      try {
-        const { data } = await supabase
-          .from('private_content')
-          .select('meta_json, content_ko')
-          .eq('slug', slug)
-          .single();
-        if (data) {
-          meta = data.meta_json;
-          koMdx = data.content_ko || '';
-        }
-      } catch { /* fall through */ }
+    if (isPrivate) {
+      meta = await fetchPrivateMeta(R2_PUBLIC_URL, contentType, slug);
       if (!meta) {
-        console.warn(`  ⚠ Skipping ${slug}: Supabase fetch failed`);
+        // Fall back to the index entry itself — index-private.json carries
+        // enough meta for note generation when a separate meta.json hasn't
+        // been uploaded.
+        meta = post;
+      }
+      koMdx = (await fetchPrivateMdx(R2_PUBLIC_URL, contentType, slug, 'ko')) || '';
+      if (!koMdx) {
+        console.warn(`  ⚠ Skipping ${slug}: R2 ko.mdx not found at private/posts/${contentType}/${slug}/ko.mdx`);
         continue;
       }
     } else {
