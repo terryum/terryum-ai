@@ -115,13 +115,25 @@ function extractMemoTopics(memos, keyConcepts) {
   return [...topics];
 }
 
-// ── Assign relation strength ──
-function assignRelationStrength(relationType) {
-  const foundational = ['builds_on', 'extends', 'uses_method'];
-  const direct = ['compares_with', 'fills_gap_of', 'addresses_task'];
-  if (foundational.includes(relationType)) return 'foundational';
-  if (direct.includes(relationType)) return 'direct';
-  return 'tangential';
+// ── Predicate registry (see ONTOLOGY.md) ──
+// Each forward predicate has a strength tier and either an inverse predicate
+// (for directional edges) or null (for symmetric edges, stored once with
+// directional: false).
+const PREDICATES = {
+  // Foundational — academic lineage
+  cites:         { strength: 'foundational', inverse: 'isCitedBy',           directional: true  },
+  extends:       { strength: 'foundational', inverse: 'isExtendedBy',        directional: true  },
+  usesMethodIn:  { strength: 'foundational', inverse: 'providesMethodFor',   directional: true  },
+  // Direct — explicit comparison/critique/shared goal
+  reviews:       { strength: 'direct',       inverse: null,                  directional: false },
+  critiques:     { strength: 'direct',       inverse: 'isCritiquedBy',       directional: true  },
+  sharesGoalWith:{ strength: 'direct',       inverse: null,                  directional: false },
+  // Tangential — weak topical overlap
+  sharesTopicWith:{ strength: 'tangential',  inverse: null,                  directional: false },
+};
+
+function assignRelationStrength(predicate) {
+  return PREDICATES[predicate]?.strength || 'tangential';
 }
 
 // ── Main ──
@@ -182,9 +194,12 @@ async function main() {
       );
     }
 
-    // Enrich relations with strength
+    // Enrich relations with strength. Some legacy meta.json files use
+    // `slug` instead of `target` for the edge endpoint — accept both, but
+    // canonicalize to `target` in the output.
     const enrichedRelations = (meta.relations || []).map(rel => ({
       ...rel,
+      target: rel.target ?? rel.slug,
       strength: assignRelationStrength(rel.type),
     }));
 
@@ -232,19 +247,33 @@ async function main() {
     }
 
     for (const rel of enrichedRelations) {
+      const spec = PREDICATES[rel.type];
+      if (!spec) {
+        console.warn(`  ⚠ ${slug}: unknown predicate "${rel.type}" → ${rel.target} (skipped, see ONTOLOGY.md)`);
+        continue;
+      }
+      // Forward edge
       allEdges.push({
         from: slug,
         to: rel.target,
-        type: rel.type,
+        predicate: rel.type,
         strength: rel.strength,
+        directional: spec.directional,
+        inverse_of: null,
       });
-      // Reverse edge
-      allEdges.push({
-        from: rel.target,
-        to: slug,
-        type: `reverse_${rel.type}`,
-        strength: rel.strength,
-      });
+      // Inverse edge — only emit for directional predicates with a defined
+      // inverse. Symmetric edges (reviews/sharesGoalWith/sharesTopicWith)
+      // are stored once.
+      if (spec.directional && spec.inverse) {
+        allEdges.push({
+          from: rel.target,
+          to: slug,
+          predicate: spec.inverse,
+          strength: rel.strength,
+          directional: true,
+          inverse_of: rel.type,
+        });
+      }
     }
 
     const memoStatus = terryMemos.length > 0 ? `📝 ${terryMemos.length} memo(s)` : '—';

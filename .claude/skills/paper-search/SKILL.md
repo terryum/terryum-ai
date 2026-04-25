@@ -1,93 +1,149 @@
 ---
 name: paper-search
-description: "지식그래프 기반 논문 추천. 사용자의 연구 관심사와 기존 포스트를 분석하여 읽어야 할 후보 논문 10개를 추천한다. /paper-search 명령어로 실행. '논문 추천', '읽을 논문 찾아줘', '관련 논문', 'paper search' 등 요청 시 트리거."
+description: "GraphRAG-lite 기반 논문 추천. 사용자 질문을 임베딩으로 anchor 노드에 매핑한 뒤 지식그래프를 BFS로 탐색하여 내부 논문(interpolation)을 찾고, 외부 학술 검색(arXiv/Semantic Scholar)에서 새 후보를 가져와 기존 그래프와의 정렬도(alignment)로 평가한다(extrapolation). /paper-search 명령어로 실행. '논문 추천', '읽을 논문 찾아줘', '관련 논문', 'paper search' 등 요청 시 트리거."
 argument-hint: "<질문 또는 연구 방향 설명> [#인덱스 참조]"
 ---
 
-# /paper-search — 지식그래프 기반 논문 추천
+# /paper-search — Anchor + Traversal + Alignment
 
-## 용도
-사용자의 연구 관심사, 기존 포스트 분석, 외부 학술 검색을 결합하여 **읽어야 할 후보 논문 Top 10**을 추천한다.
+## 핵심 흐름 (3-step GraphRAG-lite)
+
+```
+사용자 질문 Q
+    │
+    ▼
+[Step 1] Anchor lookup
+    Q → embedding → top-K 노드 (Supabase pgvector)
+    │
+    ▼
+[Step 2] Internal interpolation
+    anchors → BFS depth=2 over knowledge-index.json
+    score = α·anchor_sim + β·edge_path_weight + γ·memo_bonus
+    │
+    ▼
+[Step 3] External extrapolation
+    anchor의 메타에서 검색 키워드 추출
+    arXiv + Semantic Scholar 병렬 검색
+    각 후보 abstract → alignment_score
+        (anchor_sim + citation_overlap + concept_jaccard + gap_completion)
+    │
+    ▼
+출력: Internal Top-K + External Top-N (각각 path/rationale 명시)
+```
+
+이 흐름은 사용자의 명시적 의도를 따른다:
+> "가장 가까운 임베딩 논문 하나만 검색되더라도 그들의 관계성 안에서 빠르게 내가 봐야할 논문들이 어떤 맥락에서 참조되어야 하는지"
+>
+> "새롭게 검색된 논문이 더해졌을 때 우리가 묻는 주제에 대한 답변은 훨씬 더 깊이있는 답변을 할 수 있어야"
+
+`anchor_sim`은 임베딩 거리, `edge_path_weight`는 typed edge의 strength(`ONTOLOGY.md`), `alignment_score`는 외부 후보가 기존 그래프 위에 얼마나 잘 얹히는지를 정량화한다.
 
 ## 입력
+
 ```
 /paper-search <질문 또는 연구 방향>
 ```
-- `#인덱스`로 기존 포스트 참조 가능
-- 예: `/paper-search #16 논문의 리타게팅 한계를 해결하는 접근법은?`
-- 예: `/paper-search VLA 모델에서 힘 제어를 통합하는 최신 연구`
 
-## 실행 순서
+- `#인덱스`로 기존 포스트 참조 가능 (예: `/paper-search #16 논문의 한계를 보완하는 연구`)
+- 한국어/영어 모두 OK (임베딩이 bilingual 텍스트로 학습됨)
 
-### Step 1) 사용자 의도 분석
-- 질문에서 핵심 키워드, 연구 방향, 해결하고 싶은 문제 추출
-- `#인덱스` 참조 시 `posts/global-index.json`에서 slug 조회 → 해당 포스트의 `meta.json` 읽기
-- 사용자가 언급한 논문의 key_concepts, methodology, limitations 파악
+## 실행 단계
 
-### Step 2) 내부 지식그래프 탐색
-- `posts/index.json` 로드 → 기존 포스트들의 relations, key_concepts, methodology 분석
-- 참조된 논문과 직접 연결된 논문들 (builds_on, extends, compares_with 등) 확인
-- 기존 포스트의 references 섹션에서 인용된 논문들 수집
-- 지식그래프에서 **아직 포스팅되지 않았지만 여러 포스트에서 반복 인용되는 논문** 식별
+### Step 1) 의도 정리 + 질문 정제
 
-### Step 3) 검색 쿼리 생성
-사용자 의도 + 내부 그래프에서 추출한 키워드로 다층 검색 쿼리 구성:
-- **핵심 쿼리**: 사용자가 명시한 주제 (예: "human hand data robot dexterous manipulation retargeting")
-- **확장 쿼리**: 관련 key_concepts 조합 (예: "teleoperation wearable glove sim-to-real transfer")
-- **저자 쿼리**: 참조 논문의 주요 저자들의 최신 연구
+- 사용자 질문에서 핵심 의도, 제약, "왜 이걸 알고 싶은지" 추출
+- `#N` 참조 시 `posts/global-index.json`에서 slug 조회 → 그 포스트의 메타도 질문에 합침
+- 정제된 질문 Q (1-3 문장) 만들기
 
-### Step 4) 외부 학술 검색 (병렬)
-다음 소스를 **병렬로** 검색:
+### Step 2) Internal: anchor + traversal
+
+```bash
+cd ~/Codes/personal/terryum-ai
+node scripts/paper-search-internal.mjs --query="<정제된 Q>" --top-k=3 --depth=2 --top-n=10 --json > /tmp/paper-search-internal.json
+```
+
+`/tmp/paper-search-internal.json`에 `{ query, anchors, recommendations, neighborhood_slugs, q_embedding }` 저장.
+
+**해석 포인트**:
+- `anchors[].similarity`가 0.4 미만이면 KB가 이 주제를 거의 다루지 않음 → 외부 검색 비중을 늘려야 함
+- `recommendations[].path`는 anchor에서부터의 의미 있는 경로 (e.g. `2505-dexumi --reviews--> 2407-stretchable-glove`)
+- `📝memo` 표시된 노드는 Terry가 직접 분석한 것이라 추천 우선순위 ↑
+
+### Step 3) External 검색 키워드 도출
+
+`anchors[].key_concepts`와 사용자 질문에서 검색 쿼리 3종 도출:
+- **핵심 쿼리**: 사용자 질문의 명사구 (그대로)
+- **확장 쿼리**: anchor의 key_concepts 상위 3-5개 조합
+- **갭 쿼리**: neighborhood의 research_gaps에서 핵심 명사 추출 (gap을 메우는 후보 찾기)
+
+### Step 4) 외부 학술 검색 (병렬 WebFetch)
 
 **a) Semantic Scholar API**
 ```
-WebFetch: https://api.semanticscholar.org/graph/v1/paper/search?query=<query>&limit=20&fields=title,authors,year,citationCount,url,abstract,externalIds
+WebFetch: https://api.semanticscholar.org/graph/v1/paper/search?query=<query>&limit=15&fields=title,authors,year,citationCount,abstract,externalIds,references.externalIds,citations.externalIds
 ```
-- 관련성 기반 검색 + 인용 수 확인
-- 최근 2년(2024-2026) 논문 우선
+- `references.externalIds` / `citations.externalIds`가 alignment 평가에 핵심 — 인용 그래프 1-hop 가져옴
+- 최근 2년 우선
 
 **b) arXiv API**
 ```
-WebFetch: https://export.arxiv.org/api/query?search_query=all:<query>&sortBy=submittedDate&sortOrder=descending&max_results=20
+WebFetch: https://export.arxiv.org/api/query?search_query=all:<query>&sortBy=submittedDate&sortOrder=descending&max_results=15
 ```
-- 최신 프리프린트 탐색
+- 최신 프리프린트
 
-**c) Google Scholar (제목 기반)**
-- Step 2에서 발견된 "반복 인용되지만 포스팅 안 된 논문"의 제목으로 검색
-- 인용 수 및 관련 논문 확인
+**c) 기존 그래프에서 자주 인용되지만 KB에 없는 후보**
+- `knowledge-index.json`에 없는 slug지만 anchor의 references[]에 자주 등장하는 논문 식별
 
-**d) 주요 저자 최신 논문**
-- 참조된 논문의 first/last author의 Semantic Scholar profile에서 최근 논문 확인
-- `WebFetch: https://api.semanticscholar.org/graph/v1/author/search?query=<author>&limit=1` → authorId → recent papers
+세 소스에서 모은 후보는 다음 형식의 JSON 배열로 정리:
+```json
+[
+  {
+    "id": "arxiv:2511.99999",
+    "title": "...",
+    "abstract": "...",
+    "authors": ["..."],
+    "year": 2025,
+    "url": "...",
+    "ext_references": ["arxiv:2402.12345"],
+    "ext_cited_by":   ["arxiv:2603.45678"]
+  }
+]
+```
 
-### Step 5) 후보 평가 및 랭킹
-수집된 후보를 다음 기준으로 점수화:
+이미 KB에 포스팅된 슬러그는 제외 (`posts/index.json`의 slug 목록과 대조).
 
-| 기준 | 가중치 | 설명 |
-|---|---|---|
-| **관련성** | 30% | 사용자 질문과의 의미적 유사도, key_concepts 겹침 |
-| **참신성** | 20% | 기존 지식그래프에 없는 새로운 접근법/방법론 |
-| **인용 영향력** | 15% | 인용 수 (최신 논문은 인용 수 대신 트렌딩 속도) |
-| **최신성** | 15% | 발행일 (최근 1년 보너스) |
-| **저자 신뢰도** | 10% | 해당 분야 주요 연구 그룹/저자 여부 |
-| **실용성** | 10% | 사용자가 제기한 구체적 문제를 해결하는 정도 |
+### Step 5) Alignment scoring
 
-### Step 6) 중복 제거
-- 기존 포스트에 이미 있는 논문 제외
-- 같은 연구 그룹의 유사 버전 (v1/v2, workshop/conference) 통합
-- arXiv preprint과 conference version이 둘 다 있으면 최신 버전만 유지
+```bash
+echo '<candidates JSON>' | node scripts/paper-search-score-external.mjs --internal=/tmp/paper-search-internal.json
+```
 
-### Step 7) Top 10 추천 출력
+stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 breakdown을 가진다:
+- `anchor_sim`: anchor 클러스터와의 의미적 거리 (w1=0.4)
+- `citation_overlap`: 후보의 인용/피인용이 neighborhood와 겹치는 정도 (w2=0.3)
+- `concept_jaccard`: 후보 abstract의 컨셉이 neighborhood concept vocab과 겹치는 정도 (w3=0.2)
+- `gap_completion`: neighborhood의 research_gaps를 후보가 다루는 정도 (w4=0.1)
 
-각 논문에 대해:
+`gap_completion`이 0보다 큰 후보는 **기존 그래프의 미해결 질문을 메우는** 가치 있는 추가다 — 사용자가 강조한 "답변을 더 깊이 있게 만들어주는" 후보.
+
+### Step 6) Top-N 출력 형식
+
+내부 추천 3-5개 + 외부 추천 5-7개 = 총 10개. 각 항목:
+
 ```markdown
-### 1. [논문 제목] (YYYY)
-- **저자**: First Author et al. (소속)
-- **출처**: arXiv:XXXX.XXXXX / Conference Name
-- **인용**: N회 (또는 "프리프린트, 트렌딩 중")
-- **추천 이유**: 왜 이 논문이 사용자의 질문에 답하는지 2-3문장
-- **기존 그래프와의 연결**: [[관련 포스트]] 와의 관계 (builds_on, fills_gap_of 등)
-- **arXiv URL**: https://arxiv.org/abs/XXXX.XXXXX
+### Internal #1 — [제목] (`slug`)
+- **anchor 경로**: `2505-dexumi --reviews--> 2407-stretchable-glove`
+- **score**: 0.703 (sim=0.61, path=0.6, has_memo=true)
+- **추천 이유**: 사용자 질문의 어떤 부분을 이 논문이 다루는지 1-2 문장
+- **메모 미리보기** (있을 때): "..."
+
+### External #1 — [제목] (arXiv:XXXX.XXXXX, YYYY)
+- **저자**: First Author et al.
+- **alignment_score**: 0.62
+  - anchor_sim 0.58 / citation_overlap 0.18 / concept_jaccard 0.12 / **gap_completion 0.20** ← 어떤 갭을 메우는지
+- **그래프 정렬**: `2505-dexumi`, `2509-dexop`의 references와 겹침. neighborhood의 "long-horizon contact-rich manipulation" 갭 다룸
+- **추천 이유**: 1-2 문장
+- **URL**: https://arxiv.org/abs/XXXX.XXXXX
 ```
 
 출력 끝에:
@@ -96,18 +152,30 @@ WebFetch: https://export.arxiv.org/api/query?search_query=all:<query>&sortBy=sub
 💡 위 논문 중 포스팅하려면: `/post <arXiv URL>` 또는 `/post <블로그 URL>`
 ```
 
-### Step 8) QA 파일링 (선택)
-추천 결과를 Obsidian vault에 저장하고 싶으면:
-- `/write 위의 대화 인사이트 저장해줘` 로 이어갈 수 있음을 안내
-- 사용자가 요청하면 `From AI/Notes/` 에 검색 결과 파일링
+## Anchor 품질 진단
 
-## 검색 실패 시
+스크립트 출력의 `anchors[].similarity`로 KB 커버리지 진단:
+- ≥ 0.55: KB에 좋은 anchor 있음 → 내부 추천 비중 ↑
+- 0.35 - 0.55: 부분 커버 → 내부 50% / 외부 50%
+- < 0.35: KB가 이 주제를 거의 안 다룸 → 외부 80% + 내부는 "관련 인접 영역" 정도
+
+## 검색 실패 fallback
+
 - Semantic Scholar API 실패 → arXiv만으로 진행
-- arXiv도 실패 → 내부 지식그래프의 references에서만 추천 (최소 5개)
-- 모든 외부 검색 실패 → 내부 그래프 분석만으로 "포스팅되지 않았지만 자주 인용되는 논문" 추천
+- arXiv도 실패 → 내부 추천만 출력 (anchor + traversal 결과)
+- OpenAI 임베딩 실패 → FTS RPC `search_posts_fts`로 키워드 anchor 대체 (정확도 ↓)
+- `search_papers_vector` RPC 미설치 → 자동으로 클라이언트 사이드 cosine fallback (`paper-search-internal.mjs`가 처리)
 
 ## 주의사항
-- **이미 포스팅된 논문은 추천하지 않는다** — `posts/index.json`의 slug 목록과 대조
-- 추천 이유는 사용자의 구체적 질문에 맞춰 작성 (일반적인 "좋은 논문이니까" 금지)
-- 인용 수가 낮더라도 최신+관련성 높으면 추천 (트렌딩 우선)
+
+- **이미 KB에 있는 논문은 외부 후보에서 제외** — `posts/index.json`의 slug 목록과 대조
+- 추천 이유는 사용자의 구체적 질문에 맞춰 작성 (일반적 "좋은 논문이니까" 금지)
+- `gap_completion > 0` 후보는 강하게 추천 (기존 그래프 보완)
 - 한국어로 응답하되, 논문 제목은 원문 영어 유지
+- 가중치는 `--top-k` `--depth` `--weights=w1,w2,w3,w4` 등으로 오버라이드 가능
+
+## 현재 KG 상태 (참고)
+
+- 36개 논문 노드, 110 엣지 (forward + 자동 inverse). CiTO/SPAR 기반 7개 predicate 어휘 (`ONTOLOGY.md`)
+- 32/36 노드에 1536-dim 임베딩 (4개는 Supabase 미동기화 — `sync-papers.mjs` 필요)
+- 기본 가중치: α=0.5 / β=0.4 / γ=0.1 (internal), w1=0.4 / w2=0.3 / w3=0.2 / w4=0.1 (external)

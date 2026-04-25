@@ -79,13 +79,23 @@ const TYPE_TO_FOLDER = {
 };
 
 // ── Relation type → Korean label ──
+// Canonical predicates from ONTOLOGY.md. Legacy keys retained as fallback
+// in case any meta.json missed migration.
 const RELATION_LABELS = {
-  builds_on: 'Builds on',
+  // Canonical (forward)
+  cites: 'Cites',
   extends: 'Extends',
+  usesMethodIn: 'Uses method from',
+  reviews: 'Reviews',
+  critiques: 'Critiques',
+  sharesGoalWith: 'Shares goal with',
+  sharesTopicWith: 'Related to',
+  // Legacy aliases
+  builds_on: 'Extends',
   uses_method: 'Uses method from',
-  compares_with: 'Compares with',
-  fills_gap_of: 'Fills gap of',
-  addresses_task: 'Addresses task of',
+  compares_with: 'Reviews',
+  fills_gap_of: 'Critiques',
+  addresses_task: 'Shares goal with',
   related: 'Related to',
 };
 
