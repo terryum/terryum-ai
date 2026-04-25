@@ -117,11 +117,16 @@ node scripts/paper-search-rank-next.mjs --top-n=10 [--restrict] < /tmp/paper-sea
 
 **External fallback 신호**: `top_anchor_similarity < 0.45` 일 때 `suggest_external_fallback=true`. 이 때 `mode == next`라면 Step 3 (외부 검색)을 추가로 수행하고 출력에 `[external]` 태그로 명시 구분. `mode == next-restricted`라면 무시.
 
+**Metadata quality 배지**: 각 candidate는 `metadata_quality: "rich" | "skeleton"`을 가진다 — surveys-side `_research/papers.json` 엔트리가 deep-researcher 패스를 거쳐 method_summary/tags가 채워졌으면 `rich`, `provenance: "bibtex_backfill"` 스켈레톤만 있으면 `skeleton`. 출력 상위 영역에 `metadata_coverage: { rich, skeleton, rich_in_top, skeleton_in_top }`로 풀 전체와 top-N 분포를 표시. 사용자에게 "이 후보는 surveys 본문에 풍부히 언급됐는지(rich) / 단순 인용에 그치는지(skeleton)"의 신호.
+
 각 candidate 출력 항목:
 ```json
 {
   "canonical_id": "arxiv:2410.24164",
   "title": "...", "year": 2024, "venue": "...",
+  "metadata_quality": "rich",
+  "bibtex_keys": ["bjorck2025gr00tn1", "nvidia2025grt"],
+  "aliases": [{ "title": "GR00T-N1 Foundation Model", "year": "2025" }],
   "score": 0.706, "breakdown": { "anchor": 0.66, ... },
   "survey_backrefs": [{ "survey": "humanoid-revolution", "chapters_cited": [8, 10] }],
   "nearest_confirmed": [{ "slug": "2410-pi0-vla-flow-model", "similarity": 0.3 }],
@@ -130,7 +135,9 @@ node scripts/paper-search-rank-next.mjs --top-n=10 [--restrict] < /tmp/paper-sea
 }
 ```
 
-이미 confirmed 노드로 promote된 candidate는 `promoted_to_slug` 필드가 채워져 있어 자동 제외된다.
+`bibtex_keys` (plural)는 surveys-side dedup이 같은 논문으로 머지한 모든 bibtex 키 목록 (예: GR00T-N1이 두 가지 키로 인용된 경우). `aliases`는 머지된 title 변형(예: "GR00T N1" / "GR00T-N1 Foundation Model"). 둘 다 candidate UI에 "동일 논문의 다른 표기" 정보로 노출 가능.
+
+이미 confirmed 노드로 promote된 candidate는 `promoted_to_slug` 필드가 채워져 있어 자동 제외된다. promotion lookup은 arxiv_id, doi, **bibtex_keys 전체 배열**, aliases, title 모두를 시도하므로 surveys-side 변형이 어떻게 잡혀도 confirmed와 매칭된다.
 
 → 결과를 받은 뒤 Step 6 출력 단계로 (Step 3-5는 explore 또는 fallback 시에만).
 
@@ -218,21 +225,26 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 #### Next 모드
 
 ```markdown
-**Mode: next** — surveys 인용 풀에서 추천 (455개 active candidates)
+**Mode: next** — surveys 인용 풀에서 추천 (active 405 / 풀 428개)
+**Metadata coverage**: 🟢 rich 108 / ⚪ skeleton 320 — top-5엔 🟢 5 / ⚪ 0
+   (skeleton은 surveys deep-researcher 패스 전 — method_summary 미채움)
 
-### Candidate #1 — [제목] (`canonical_id`)
+### Candidate #1 — [제목] (`canonical_id`) 🟢 rich
 - **score**: 0.706 (anchor=0.66 / survey=1.0 / graph=0.30 / gap=1.0 / verify=1.0 / recency=0.33)
 - **인용 위치**: humanoid-revolution Ch8,10 · robot-hand-tactile-sensor Ch8 · vla-agentic-robotics Ch1,4,5
 - **인접 confirmed 노드**: `2410-pi0-vla-flow-model` (sim=0.30)
 - **메우는 gap**: manipulation
 - **검증 상태**: ✓ fact-checked (primary source)
-- **method 요약**: "..." (있을 때)
+- **method 요약**: "..." (rich일 때만)
+- **다른 표기** (있을 때): bibtex `bjorck2025gr00tn1` / `nvidia2025grt`, alias "GR00T-N1 Foundation Model"
 - **추천 이유**: 사용자 질문 + 인용 맥락 + gap을 엮어 1-2 문장
 - **URL**: arXiv:2406.09246
 
 ### [external] #1 — ... (suggest_external_fallback=true 일 때만)
 ... explore 모드와 동일 포맷
 ```
+
+skeleton 후보는 `🟢 rich` 자리에 `⚪ skeleton`으로 표시하고, **method 요약**과 **메우는 gap** 라인은 생략 (정보 없음). 사용자가 "이 후보는 surveys 본문에 깊이 다뤄지지 않았다"는 신호로 해석.
 
 출력 끝에:
 ```markdown
@@ -267,7 +279,7 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 
 - 36개 confirmed 논문 노드, 110 엣지 (forward + 자동 inverse). CiTO/SPAR 기반 7개 predicate 어휘 (`ONTOLOGY.md`)
 - 32/36 노드에 1536-dim 임베딩 (4개는 Supabase 미동기화 — `sync-papers.mjs` 필요)
-- **477개 candidate 노드** (4 surveys에서 lift, 22 promoted, 455 active). `.cache/candidates-embeddings.json`에 임베딩 캐시.
+- **428개 candidate 노드** (4 surveys에서 lift, 23 promoted, 405 active; rich 108 / skeleton 320). `.cache/candidates-embeddings.json`에 임베딩 + content hash 캐시 (입력 텍스트 변경 시 자동 재생성).
 - 기본 가중치:
   - explore mode: α=0.5 / β=0.4 / γ=0.1 (internal), w1=0.4 / w2=0.3 / w3=0.2 / w4=0.1 (external)
   - next mode: anchor=0.60 / survey=0.12 / graph=0.10 / gap=0.08 / verify=0.05 / recency=0.05, anchor floor 0.20

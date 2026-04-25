@@ -28,6 +28,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import crypto from 'node:crypto';
 import { loadEnv } from './lib/env.mjs';
 
 await loadEnv();
@@ -152,19 +153,27 @@ function buildBibtexLookup(entries) {
 }
 
 function loadResearchPapersIndex(surveysRoot) {
-  // Map: bibtex_key → research entry (rich method_summary, tags, limitations)
+  // Map: bibtex_key → research entry (rich method_summary, tags, limitations).
+  // Prefer rich entries (provenance != "bibtex_backfill") over skeletons when
+  // the same bibtex_key appears in multiple surveys' shards.
   const byKey = new Map();
   const byTitle = new Map();
   if (!fs.existsSync(surveysRoot)) return { byKey, byTitle };
+  function isRich(p) { return p && p.provenance !== 'bibtex_backfill' && (p.method_summary || (p.tags || []).length > 0); }
+  function maybeSet(map, key, p) {
+    if (!key) return;
+    const cur = map.get(key);
+    if (!cur || (isRich(p) && !isRich(cur))) map.set(key, p);
+  }
   for (const dir of fs.readdirSync(surveysRoot)) {
     const f = path.join(surveysRoot, dir, '_research', 'papers.json');
     const j = loadJson(f);
     if (!Array.isArray(j)) continue;
     for (const p of j) {
       const enriched = { ...p, _survey: dir };
-      if (p.bibtex_key) byKey.set(p.bibtex_key, enriched);
+      maybeSet(byKey, p.bibtex_key, enriched);
       const tn = normalizeTitle(p.title);
-      if (tn) byTitle.set(tn, enriched);
+      maybeSet(byTitle, tn, enriched);
     }
   }
   return { byKey, byTitle };
@@ -238,33 +247,60 @@ function buildGapMatches(candidate, gapIndex) {
   }).slice(0, 5);
 }
 
+function embeddingInputFor(c) {
+  return [
+    c.title || '',
+    c.method_summary || '',
+    (c.tags || []).join(' '),
+    c.venue ? `Venue: ${c.venue}` : '',
+  ].filter(Boolean).join('\n\n').slice(0, 8000);
+}
+
+function inputHash(s) {
+  return crypto.createHash('sha1').update(s).digest('hex').slice(0, 16);
+}
+
 async function maybeSyncEmbeddings(candidates, outDir) {
   if (!WITH_EMBEDDINGS) return { skipped: true };
   const cacheDir = path.join(outDir, '.cache');
   if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
   const cachePath = path.join(cacheDir, 'candidates-embeddings.json');
-  const cache = loadJson(cachePath) || { generated_at: null, model: 'text-embedding-3-small', embeddings: {} };
+  // Schema: { embeddings: { canonical_id: vector }, hashes: { canonical_id: sha1 } }
+  // Backwards-compatible: older caches without hashes are treated as stale and
+  // fall through the hash-mismatch branch (regenerate).
+  const cache = loadJson(cachePath) || {
+    generated_at: null,
+    model: 'text-embedding-3-small',
+    embeddings: {},
+    hashes: {},
+  };
+  if (!cache.hashes) cache.hashes = {};
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.warn('  ⚠ OPENAI_API_KEY not set — skipping embedding generation');
     return { skipped: true };
   }
-  const todo = candidates.filter(c => !cache.embeddings[c.canonical_id]);
+  const todo = [];
+  let stale = 0;
+  for (const c of candidates) {
+    const text = embeddingInputFor(c);
+    const h = inputHash(text);
+    const cachedH = cache.hashes[c.canonical_id];
+    const cachedVec = cache.embeddings[c.canonical_id];
+    if (!cachedVec) { todo.push({ c, text, h }); continue; }
+    if (cachedH !== h) { todo.push({ c, text, h }); stale += 1; continue; }
+  }
   if (todo.length === 0) {
     console.log(`  ✓ embeddings up-to-date (${Object.keys(cache.embeddings).length} cached)`);
-    return { generated: 0, total: Object.keys(cache.embeddings).length };
+    return { generated: 0, stale: 0, total: Object.keys(cache.embeddings).length };
   }
-  console.log(`  ⋯ generating embeddings for ${todo.length} new candidates...`);
+  const fresh = todo.length - stale;
+  console.log(`  ⋯ generating embeddings: ${fresh} new + ${stale} stale (content changed)`);
   const BATCH = 50;
   let generated = 0;
   for (let i = 0; i < todo.length; i += BATCH) {
     const batch = todo.slice(i, i + BATCH);
-    const inputs = batch.map(c => [
-      c.title || '',
-      c.method_summary || '',
-      (c.tags || []).join(' '),
-      c.venue ? `Venue: ${c.venue}` : '',
-    ].filter(Boolean).join('\n\n').slice(0, 8000));
+    const inputs = batch.map(t => t.text);
     const res = await fetch('https://api.openai.com/v1/embeddings', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
@@ -276,15 +312,21 @@ async function maybeSyncEmbeddings(candidates, outDir) {
     }
     const data = await res.json();
     for (let j = 0; j < batch.length; j += 1) {
-      cache.embeddings[batch[j].canonical_id] = data.data[j].embedding;
+      cache.embeddings[batch[j].c.canonical_id] = data.data[j].embedding;
+      cache.hashes[batch[j].c.canonical_id] = batch[j].h;
       generated += 1;
     }
     process.stdout.write(`    batch ${Math.floor(i / BATCH) + 1}/${Math.ceil(todo.length / BATCH)} done\r`);
   }
+  // Drop stale entries for canonical_ids that are no longer active
+  const liveIds = new Set(candidates.map(c => c.canonical_id));
+  for (const id of Object.keys(cache.embeddings)) {
+    if (!liveIds.has(id)) { delete cache.embeddings[id]; delete cache.hashes[id]; }
+  }
   cache.generated_at = new Date().toISOString();
   fs.writeFileSync(cachePath, JSON.stringify(cache) + '\n', 'utf8');
   console.log('');
-  return { generated, total: Object.keys(cache.embeddings).length };
+  return { generated, stale, total: Object.keys(cache.embeddings).length };
 }
 
 async function main() {
@@ -320,28 +362,33 @@ async function main() {
   const bySurvey = {};
 
   for (const [titleKey, entry] of Object.entries(refsPapers)) {
-    // Resolve bibtex_key by matching against bibtex master
+    // Resolve bibtex keys: prefer entry.bibtex_keys (plural, post-dedup) when
+    // present; fall back to title/arxiv/doi lookup against bibtex master.
     const tn = normalizeTitle(entry.title);
     const bibByTitle = bibLookup.byTitle.get(tn);
-    let bibtex_key = bibByTitle?.key || null;
+    const bibtexKeysFromEntry = Array.isArray(entry.bibtex_keys) ? entry.bibtex_keys.filter(Boolean) : [];
+    const bibtexKeysAll = new Set(bibtexKeysFromEntry);
 
-    // Fallback: lookup by arxiv/doi from refs entry
-    if (!bibtex_key) {
-      const ax = (entry.ids?.arxiv || []).map(normalizeArxiv).filter(Boolean)[0];
-      if (ax && bibLookup.byArxiv.has(ax)) bibtex_key = bibLookup.byArxiv.get(ax).key;
-    }
-    if (!bibtex_key) {
-      const doi = (entry.ids?.doi || []).map(normalizeDoi).filter(Boolean)[0];
-      if (doi && bibLookup.byDoi.has(doi)) bibtex_key = bibLookup.byDoi.get(doi).key;
-    }
+    if (bibByTitle?.key) bibtexKeysAll.add(bibByTitle.key);
+    const ax = (entry.ids?.arxiv || []).map(normalizeArxiv).filter(Boolean)[0];
+    if (ax && bibLookup.byArxiv.has(ax)) bibtexKeysAll.add(bibLookup.byArxiv.get(ax).key);
+    const doi = (entry.ids?.doi || []).map(normalizeDoi).filter(Boolean)[0];
+    if (doi && bibLookup.byDoi.has(doi)) bibtexKeysAll.add(bibLookup.byDoi.get(doi).key);
+
+    const bibtex_key = bibtexKeysFromEntry[0] || bibByTitle?.key || [...bibtexKeysAll][0] || null;
+    const bibtex_keys = [...bibtexKeysAll];
 
     const idObj = canonicalIdFromIds(entry.ids, entry.title, bibtex_key);
     if (!idObj) continue;
 
-    // Pull augmentation from _research/papers.json (richer data)
-    const richByKey = bibtex_key ? research.byKey.get(bibtex_key) : null;
-    const richByTitle = research.byTitle.get(tn);
-    const rich = richByKey || richByTitle || null;
+    // Pull augmentation from _research/papers.json (richer data). Try every
+    // bibtex_key in the merged set so dedup'd variants find their rich entry.
+    let rich = null;
+    for (const k of bibtex_keys) {
+      const r = research.byKey.get(k);
+      if (r && (!rich || (r.provenance !== 'bibtex_backfill' && rich.provenance === 'bibtex_backfill'))) rich = r;
+    }
+    if (!rich) rich = research.byTitle.get(tn) || null;
 
     // Pull venue/journal from bibtex
     const venue = rich?.venue || bibByTitle?.journal || null;
@@ -374,6 +421,18 @@ async function main() {
     const bibByKey = bibtex_key ? bibLookup.byKey.get(bibtex_key) : null;
     const titleFallback = rich?.title || entry.title || bibByKey?.title || '';
 
+    // metadata_quality reflects whether the candidate has *real* content
+    // (method_summary etc.) vs just a bibtex skeleton. Drives UI badging
+    // and ranker awareness.
+    const metadataQuality = (rich && rich.provenance !== 'bibtex_backfill' && (rich.method_summary || (rich.tags || []).length > 0))
+      ? 'rich' : 'skeleton';
+
+    // Aliases: alternate {title, year} shapes that surveys-side dedup
+    // collapsed into this canonical paper. Surfaced for "also cited as" UI.
+    const aliases = Array.isArray(entry.aliases)
+      ? entry.aliases.filter(a => a && (a.title || a.year))
+      : [];
+
     const newCand = {
       canonical_id: idObj.canonical_id,
       id_scheme: idObj.id_scheme,
@@ -385,11 +444,14 @@ async function main() {
       arxiv_id: idObj.arxiv_id || (rich ? normalizeArxiv(rich.arxiv_id) : null),
       doi: idObj.doi || (rich ? normalizeDoi(rich.doi) : null),
       bibtex_key,
+      bibtex_keys,
+      aliases,
       url: url || null,
       method_summary: rich?.method_summary || null,
       limitations: rich?.limitations || [],
       tags: rich?.tags || entry.keywords || [],
       group: rich?.group || null,
+      metadata_quality: metadataQuality,
       survey_backrefs: surveyBackrefs,
       graph_proximity: null,
       matches_gaps: [],
@@ -413,6 +475,9 @@ async function main() {
       if (!existing.arxiv_id && newCand.arxiv_id) existing.arxiv_id = newCand.arxiv_id;
       if (!existing.doi && newCand.doi) existing.doi = newCand.doi;
       if (!existing.bibtex_key && newCand.bibtex_key) existing.bibtex_key = newCand.bibtex_key;
+      existing.bibtex_keys = Array.from(new Set([...(existing.bibtex_keys || []), ...(newCand.bibtex_keys || [])]));
+      existing.aliases = [...(existing.aliases || []), ...(newCand.aliases || [])];
+      if (newCand.metadata_quality === 'rich') existing.metadata_quality = 'rich';
       existing.tags = Array.from(new Set([...(existing.tags || []), ...(newCand.tags || [])]));
       // merge survey_backrefs by survey, unioning chapters_cited
       const refsBySurvey = new Map(existing.survey_backrefs.map(r => [r.survey, r]));
@@ -433,12 +498,18 @@ async function main() {
     }
   }
 
-  // Promotion stamp
+  // Promotion stamp — try every known identifier (arxiv, doi, every bibtex
+  // key in the merged set, then title) so dedup'd variants find their match.
   for (const cand of candidatesMap.values()) {
     const altKeys = [];
     if (cand.arxiv_id) altKeys.push(`arxiv:${cand.arxiv_id}`);
     if (cand.doi) altKeys.push(`doi:${cand.doi}`);
+    for (const bk of (cand.bibtex_keys || [])) altKeys.push(`bib:${bk}`);
     if (cand.bibtex_key) altKeys.push(`bib:${cand.bibtex_key}`);
+    for (const a of (cand.aliases || [])) {
+      const t = normalizeTitle(a.title);
+      if (t) altKeys.push(`title:${t}`);
+    }
     const t = normalizeTitle(cand.title);
     if (t) altKeys.push(`title:${t}`);
     for (const k of altKeys) {
@@ -472,11 +543,16 @@ async function main() {
 
   const embedStat = await maybeSyncEmbeddings(candidates, OUT_DIR);
 
+  const richCount = candidates.filter(c => c.metadata_quality === 'rich').length;
+  const skeletonCount = candidates.length - richCount;
+
   knowledgeIndex.candidate_index = {
     generated_at: now,
     total_candidates: candidates.length,
     active_candidates: active,
     promoted_candidates: promoted,
+    rich_candidates: richCount,
+    skeleton_candidates: skeletonCount,
     by_survey: bySurvey,
     candidates,
   };
@@ -485,10 +561,11 @@ async function main() {
   fs.writeFileSync(outPath, JSON.stringify(knowledgeIndex, null, 2) + '\n', 'utf8');
   console.log(`\n✅ Wrote candidate_index: ${candidates.length} candidates (${active} active, ${promoted} promoted)`);
   console.log(`   📚 by survey: ${JSON.stringify(bySurvey)}`);
+  console.log(`   🎚 metadata: ${richCount} rich, ${skeletonCount} skeleton (skeleton = bibtex_backfill, awaiting deep-researcher pass)`);
   if (embedStat.skipped) {
     console.log(`   ⏭  embeddings skipped (use --with-embeddings to generate)`);
   } else {
-    console.log(`   🔢 embeddings: ${embedStat.generated || 0} new, ${embedStat.total} total cached`);
+    console.log(`   🔢 embeddings: ${embedStat.generated || 0} regenerated (${embedStat.stale || 0} stale), ${embedStat.total} total cached`);
   }
 }
 

@@ -172,6 +172,9 @@ async function main() {
       matches_gaps: c.matches_gaps || [],
       method_summary: c.method_summary,
       tags: c.tags || [],
+      metadata_quality: c.metadata_quality || 'skeleton',
+      bibtex_keys: c.bibtex_keys || [],
+      aliases: c.aliases || [],
       reason: buildReason(c),
     }));
   ranked.sort((a, b) => b.score - a.score);
@@ -184,11 +187,20 @@ async function main() {
   // i.e. the surveys pool doesn't really cover this query.
   const weakMatch = ranked.length === 0 || topAnchor < 0.45;
 
+  const richInTop = top.filter(c => c.metadata_quality === 'rich').length;
+  const skeletonInTop = top.length - richInTop;
+
   process.stdout.write(JSON.stringify({
     query: input.query,
     mode: RESTRICTED ? 'next-restricted' : 'next',
     weights: W,
     embedding_coverage: { cached: embCount, total: ci.candidates.length },
+    metadata_coverage: {
+      rich: ci.rich_candidates ?? null,
+      skeleton: ci.skeleton_candidates ?? null,
+      rich_in_top: richInTop,
+      skeleton_in_top: skeletonInTop,
+    },
     total_active_candidates: active.length,
     suggest_external_fallback: !RESTRICTED && weakMatch,
     top_score: topScore,
