@@ -4,13 +4,12 @@ import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 const nextConfig: NextConfig = {
   serverExternalPackages: ['katex'],
   outputFileTracingIncludes: {
+    // mdx/md entries dropped: posts MDX is bundled via post-bodies.ts ?raw,
+    // content/* MDX via about.tsx ?raw, post_original.md is build artifact only.
+    // JSON entries are kept defensively though they are statically imported.
     '*': [
       './posts/**/*.json',
-      './posts/**/*.mdx',
-      './posts/**/*.md',
       './projects/**/*.json',
-      './content/**/*.mdx',
-      './content/**/*.md',
       './content.config.json',
     ],
   },
