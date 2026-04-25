@@ -208,6 +208,9 @@ async function main() {
       slug,
       post_number: meta.post_number,
       source_title: meta.source_title || null,
+      arxiv_id: meta.arxiv_id || null,
+      doi: meta.doi || null,
+      bibtex_key: meta.bibtex_key || null,
       domain: meta.domain,
       subfields: meta.subfields || [],
       key_concepts: meta.key_concepts || [],
@@ -313,6 +316,18 @@ async function main() {
       memo_preview: i.terry_memos[0]?.slice(0, 100) || null,
     })).sort((a, b) => (a.post_number ?? 999) - (b.post_number ?? 999)),
   };
+
+  // Preserve candidate_index section managed by sync-survey-candidates.mjs.
+  // export-knowledge owns confirmed-paper data; candidate_index is owned by
+  // the surveys sync. Reading the existing file lets the two writers coexist.
+  try {
+    const existing = JSON.parse(await fs.readFile(path.join(outDir, 'knowledge-index.json'), 'utf-8'));
+    if (existing && existing.candidate_index) {
+      knowledgeIndex.candidate_index = existing.candidate_index;
+    }
+  } catch {
+    // file missing or unreadable — fine, candidate_index stays absent
+  }
 
   await fs.writeFile(
     path.join(outDir, 'knowledge-index.json'),

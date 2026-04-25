@@ -1,10 +1,24 @@
 ---
 name: paper-search
-description: "GraphRAG-lite 기반 논문 추천. 사용자 질문을 임베딩으로 anchor 노드에 매핑한 뒤 지식그래프를 BFS로 탐색하여 내부 논문(interpolation)을 찾고, 외부 학술 검색(arXiv/Semantic Scholar)에서 새 후보를 가져와 기존 그래프와의 정렬도(alignment)로 평가한다(extrapolation). /paper-search 명령어로 실행. '논문 추천', '읽을 논문 찾아줘', '관련 논문', 'paper search' 등 요청 시 트리거."
+description: "GraphRAG-lite 기반 논문 추천. 두 모드: (1) explore — 사용자 질문을 임베딩으로 anchor 노드에 매핑한 뒤 지식그래프를 BFS로 탐색하여 내부 논문(interpolation)을 찾고, 외부 학술 검색(arXiv/Semantic Scholar)에서 새 후보를 가져와 기존 그래프와의 정렬도(alignment)로 평가(extrapolation). (2) next — 'surveys에서 어떤 논문을 다음에 추가할 차례인지' 답하기 위해 surveys candidate pool에서 추천. /paper-search 명령어로 실행. '논문 추천', '읽을 논문 찾아줘', '관련 논문', 'paper search', '다음에 무슨 논문', '다음 차례', '추가할' 등 요청 시 트리거."
 argument-hint: "<질문 또는 연구 방향 설명> [#인덱스 참조]"
 ---
 
 # /paper-search — Anchor + Traversal + Alignment
+
+## 의도 분류 (Step 0)
+
+질문 텍스트를 보고 모드를 결정한다. **이 분류는 LLM이 한 줄 판단으로 수행**한다.
+
+| 모드 | 트리거 표현 (한국어 / 영어) | 설명 |
+|---|---|---|
+| `next-restricted` | "survey 안에서만", "이미 모은 것 중", "외부 말고", "internal only", "no external" | candidate pool로만 추천, 외부 검색 차단 |
+| `next` | "다음에", "다음 차례", "다음에 추가할", "쌓을", "next paper to add", "what should I read next" | surveys candidate pool 우선, 약하게 매칭되면 외부 자동 보충 |
+| `explore` (default) | 위 트리거 없음 — 일반적 "관련 논문 찾아줘" 류 | 기존 동작 (내부 BFS + 외부 arXiv/SemScholar) |
+
+**우선순위**: `next-restricted` > `next` > `explore` (구체 → 일반).
+
+판단이 모호하면 `next` 모드로 가되, 출력에 모드 표기.
 
 ## 핵심 흐름 (3-step GraphRAG-lite)
 
@@ -46,11 +60,13 @@ argument-hint: "<질문 또는 연구 방향 설명> [#인덱스 참조]"
 
 - `#인덱스`로 기존 포스트 참조 가능 (예: `/paper-search #16 논문의 한계를 보완하는 연구`)
 - 한국어/영어 모두 OK (임베딩이 bilingual 텍스트로 학습됨)
+- 모드 트리거 표현 (위 표 참조)으로 `next` / `next-restricted` 모드 진입
 
 ## 실행 단계
 
 ### Step 1) 의도 정리 + 질문 정제
 
+- Step 0 분류 결과(mode) 확정
 - 사용자 질문에서 핵심 의도, 제약, "왜 이걸 알고 싶은지" 추출
 - `#N` 참조 시 `posts/global-index.json`에서 slug 조회 → 그 포스트의 메타도 질문에 합침
 - 정제된 질문 Q (1-3 문장) 만들기
@@ -68,6 +84,57 @@ node scripts/paper-search-internal.mjs --query="<정제된 Q>" --top-k=3 --depth
 - `anchors[].similarity`가 0.4 미만이면 KB가 이 주제를 거의 다루지 않음 → 외부 검색 비중을 늘려야 함
 - `recommendations[].path`는 anchor에서부터의 의미 있는 경로 (e.g. `2505-dexumi --reviews--> 2407-stretchable-glove`)
 - `📝memo` 표시된 노드는 Terry가 직접 분석한 것이라 추천 우선순위 ↑
+
+---
+
+### **🔀 모드 분기**
+
+- `mode == explore` → Step 3 (외부 검색)으로 진행
+- `mode == next` 또는 `next-restricted` → Step 2b (next-mode ranking)로 진입
+
+---
+
+### Step 2b) Next mode — surveys candidate pool ranking
+
+surveys (`humanoid-revolution`, `robot-hand-tactile-sensor`, `vla-agentic-robotics`, `snu-tactile-hand`)의 인용 풀을 예비 노드로 매달아둔 `candidate_index`에서 "내가 다음에 추가할 차례인 논문"을 추천한다.
+
+```bash
+# Step 2의 출력을 stdin으로 전달
+node scripts/paper-search-rank-next.mjs --top-n=10 [--restrict] < /tmp/paper-search-internal.json
+```
+
+- `--restrict`: `next-restricted` 모드 (외부 fallback 신호 무시)
+- 출력: `{ mode, top_score, top_anchor_similarity, suggest_external_fallback, candidates: [...] }`
+
+**점수 구성** (`paper-search-rank-next.mjs`):
+- `anchor` (0.60): 사용자 질문 임베딩과 candidate 임베딩의 cosine
+- `survey` (0.12): surveys 인용 빈도 (몇 개 surveys에서 인용됐나 / 3, clamp 0-1)
+- `graph` (0.10): 가장 가까운 confirmed 노드와의 Jaccard (anchor와 일치하면 1.4× boost)
+- `gap` (0.08): 미해결 research_gaps 매칭 여부
+- `verify` (0.05): surveys 본문 fact-check 여부 (primary_source_verified면 1, else 0.5)
+- `recency` (0.05): 출판 연도 (current_year - 3 기준 정규화)
+- **anchor floor 0.20**: 임베딩 유사도가 너무 낮은 후보는 제외
+
+**External fallback 신호**: `top_anchor_similarity < 0.45` 일 때 `suggest_external_fallback=true`. 이 때 `mode == next`라면 Step 3 (외부 검색)을 추가로 수행하고 출력에 `[external]` 태그로 명시 구분. `mode == next-restricted`라면 무시.
+
+각 candidate 출력 항목:
+```json
+{
+  "canonical_id": "arxiv:2410.24164",
+  "title": "...", "year": 2024, "venue": "...",
+  "score": 0.706, "breakdown": { "anchor": 0.66, ... },
+  "survey_backrefs": [{ "survey": "humanoid-revolution", "chapters_cited": [8, 10] }],
+  "nearest_confirmed": [{ "slug": "2410-pi0-vla-flow-model", "similarity": 0.3 }],
+  "matches_gaps": [{ "concept": "manipulation", "gap_slug": "..." }],
+  "reason": "cited in humanoid-revolution ch8,10 / ...; near 2410-pi0-...; fills gap on manipulation; fact-checked"
+}
+```
+
+이미 confirmed 노드로 promote된 candidate는 `promoted_to_slug` 필드가 채워져 있어 자동 제외된다.
+
+→ 결과를 받은 뒤 Step 6 출력 단계로 (Step 3-5는 explore 또는 fallback 시에만).
+
+---
 
 ### Step 3) External 검색 키워드 도출
 
@@ -128,6 +195,8 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 
 ### Step 6) Top-N 출력 형식
 
+#### Explore 모드
+
 내부 추천 3-5개 + 외부 추천 5-7개 = 총 10개. 각 항목:
 
 ```markdown
@@ -146,10 +215,30 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 - **URL**: https://arxiv.org/abs/XXXX.XXXXX
 ```
 
+#### Next 모드
+
+```markdown
+**Mode: next** — surveys 인용 풀에서 추천 (455개 active candidates)
+
+### Candidate #1 — [제목] (`canonical_id`)
+- **score**: 0.706 (anchor=0.66 / survey=1.0 / graph=0.30 / gap=1.0 / verify=1.0 / recency=0.33)
+- **인용 위치**: humanoid-revolution Ch8,10 · robot-hand-tactile-sensor Ch8 · vla-agentic-robotics Ch1,4,5
+- **인접 confirmed 노드**: `2410-pi0-vla-flow-model` (sim=0.30)
+- **메우는 gap**: manipulation
+- **검증 상태**: ✓ fact-checked (primary source)
+- **method 요약**: "..." (있을 때)
+- **추천 이유**: 사용자 질문 + 인용 맥락 + gap을 엮어 1-2 문장
+- **URL**: arXiv:2406.09246
+
+### [external] #1 — ... (suggest_external_fallback=true 일 때만)
+... explore 모드와 동일 포맷
+```
+
 출력 끝에:
 ```markdown
 ---
 💡 위 논문 중 포스팅하려면: `/post <arXiv URL>` 또는 `/post <블로그 URL>`
+   포스팅 후 `/survey --sync-candidates`로 candidate pool 재계산 (또는 `/survey --deploy` 시 자동)
 ```
 
 ## Anchor 품질 진단
@@ -176,6 +265,9 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 
 ## 현재 KG 상태 (참고)
 
-- 36개 논문 노드, 110 엣지 (forward + 자동 inverse). CiTO/SPAR 기반 7개 predicate 어휘 (`ONTOLOGY.md`)
+- 36개 confirmed 논문 노드, 110 엣지 (forward + 자동 inverse). CiTO/SPAR 기반 7개 predicate 어휘 (`ONTOLOGY.md`)
 - 32/36 노드에 1536-dim 임베딩 (4개는 Supabase 미동기화 — `sync-papers.mjs` 필요)
-- 기본 가중치: α=0.5 / β=0.4 / γ=0.1 (internal), w1=0.4 / w2=0.3 / w3=0.2 / w4=0.1 (external)
+- **477개 candidate 노드** (4 surveys에서 lift, 22 promoted, 455 active). `.cache/candidates-embeddings.json`에 임베딩 캐시.
+- 기본 가중치:
+  - explore mode: α=0.5 / β=0.4 / γ=0.1 (internal), w1=0.4 / w2=0.3 / w3=0.2 / w4=0.1 (external)
+  - next mode: anchor=0.60 / survey=0.12 / graph=0.10 / gap=0.08 / verify=0.05 / recency=0.05, anchor floor 0.20
