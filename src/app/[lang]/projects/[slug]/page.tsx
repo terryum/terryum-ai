@@ -27,7 +27,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang, slug } = await params;
   const project = await getProject(slug);
-  if (!project) return {};
+  // notFound() in generateMetadata so the framework sets HTTP 404 before
+  // the page render; otherwise the response commits at 200 even with the
+  // not-found tree rendered.
+  if (!project || !project.embed_url) notFound();
   const title = project.title[lang as 'ko' | 'en'] || project.title.en;
   const description = project.description[lang as 'ko' | 'en'] || project.description.en;
   // OG 이미지: webp는 X(Twitter) 크롤러 미지원 → jpg 변환본 사용

@@ -26,7 +26,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang, slug } = await params;
   const survey = await getSurvey(slug);
-  if (!survey) return {};
+  // notFound() in generateMetadata so the framework sets HTTP 404 before
+  // the page render; otherwise the response commits at 200 even with the
+  // not-found tree rendered.
+  if (!survey || !survey.embed_url) notFound();
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
   const description = survey.description[lang as 'ko' | 'en'] || survey.description.en;
   const ogImage = survey.cover_image?.replace(/-cover\.webp$/, '-og.jpg');

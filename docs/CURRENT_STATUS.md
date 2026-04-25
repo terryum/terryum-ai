@@ -23,14 +23,13 @@
 
 ## 4) 알려진 제약
 - 비공개 슬러그 on-demand 렌더링: 메타 (index-private.json) + 본문 (R2 `private/posts/...`) 모두 R2 에 업로드돼야 동작. terry-private repo 의 본문이 R2 미업로드면 sync-obsidian 도 R2 fetch 가 빈 결과 반환
-- 미지의 슬러그: `notFound()` 가 HTTP 200 + `<title>Not Found>` 템플릿 렌더 (OpenNext+Workers 동작). 깔끔한 HTTP 404 가 필요하면 후속 작업 필요
+- 미지의 dynamic 슬러그 (`/en/posts/zzz`): body 는 not-found tree 정상 렌더 + `<meta name="robots" content="noindex">` 적용 (Google 인덱싱 차단)이지만 HTTP status 는 여전히 200 — `dynamicParams=true` + on-demand prerender 의 Next.js 15 구조적 한계. 진짜 HTTP 404 가 필요하면 middleware 에서 known-slug 검증 후 rewrite 가 필요 (별도 작업)
 - Cloudflare CDN edge cache (`s-maxage=31536000`) 는 deploy 가 자동 갱신하지 않음. 카드 회귀 같은 사고 시 R2 ISR cache 만 비우면 부족할 수 있고, Cloudflare 대시보드에서 URL purge 필요할 수 있음
 
-## 5) 다음 작업 후보 (Phase 2 — `docs/NEXT_SESSION_PLAN.md` 참조)
+## 5) 다음 작업 후보
 - **#1** 비공개 본문 자동 R2 업로드 (`/post --visibility=group/private` 흐름 끝에 R2 업로드 단계 추가) — terry-obsidian 워크스페이스에서 진행
-- **#2** SEO 404 (soft 404 → hard 404): notFound() 가 HTTP 404 propagate 하도록 OpenNext 동작 점검
-- **#3** `next.config.ts` `outputFileTracingIncludes` 에서 mdx/content 항목 제거 (?raw 번들로 대체됨, ~15분)
-- **#4** 번들 사이즈 모니터링: `scripts/check-bundle-size.mjs` 추가, CI 후 임계 5MB 경고. 트리거 도달(100+ posts 또는 worker 압축 사이즈 5MB) 시 R2 fetch 또는 chunked 전환
+- **Hard HTTP 404**: 위 4) 항목 참조. middleware 에서 known-slug 검증 후 rewrite 또는 Next.js issue 진척 확인
+- **번들 사이즈 트리거 도달 시**: `node scripts/check-bundle-size.mjs --strict` 가 5 MiB 임계 알림. 도달 시 R2 fetch 또는 chunked imports 검토
 
 ## 6) 검증 상태 (이번 세션 마지막)
 - 로컬 dev (`http://localhost:3041/en`): 6 회귀 슬러그 모두 카드에서 `cover-v2.webp` / `cover-thumb-v2.webp` 정상 표시 ✅

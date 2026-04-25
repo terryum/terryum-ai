@@ -1,5 +1,6 @@
 import 'katex/dist/katex.min.css';
-import { getPost, getAllPostParams } from '@/lib/posts';
+import { notFound, redirect } from 'next/navigation';
+import { getPost, getAllPostParams, postExistsForLocale } from '@/lib/posts';
 import { buildContentDetailProps } from '@/lib/content-page-helpers';
 import { requireReadAccess } from '@/lib/access-guard';
 import ContentDetailPage from '@/components/ContentDetailPage';
@@ -24,7 +25,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang, slug } = await params;
   const post = await getPost(slug, lang);
-  if (!post) return { title: 'Not Found' };
+  if (!post) {
+    // Mirror buildContentDetailProps so metadata and page render agree on
+    // the response status. Returning normal metadata with `title: 'Not Found'`
+    // makes Next.js commit a 200 response even when the page later throws
+    // notFound(); calling notFound() / redirect() here lets the framework set
+    // the 404 / 307 status before the page render starts (when the route
+    // segment hasn't been prerendered with dynamicParams=true).
+    const altLocale = lang === 'ko' ? 'en' : 'ko';
+    if (await postExistsForLocale(slug, altLocale)) {
+      redirect(`/${altLocale}/posts/${slug}`);
+    }
+    notFound();
+  }
 
   const title = post.meta.seo_title || post.meta.title;
   const description = post.meta.seo_description || post.meta.summary;
