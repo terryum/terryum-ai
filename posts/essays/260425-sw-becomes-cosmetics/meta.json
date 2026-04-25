@@ -1,0 +1,42 @@
+{
+  "post_id": "260425-sw-becomes-cosmetics",
+  "slug": "260425-sw-becomes-cosmetics",
+  "post_number": 48,
+  "published_at": "2026-04-25T00:00:00Z",
+  "updated_at": "2026-04-25T00:00:00Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "private",
+  "body_source": "r2",
+  "tags": ["Essays", "AI", "Industry", "Marketing", "Branding"],
+  "cover_image": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/essays/260425-sw-becomes-cosmetics/cover.webp",
+  "cover_thumb": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/essays/260425-sw-becomes-cosmetics/cover-thumb.webp",
+  "reading_time_min": 5,
+  "domain": "AI & Society",
+  "subfields": ["industry transition", "branding", "marketing"],
+  "key_concepts": ["software commoditization", "ODM", "branding", "marketing", "cosmetics industry"],
+  "idea_status": null,
+  "related_posts": [
+    "260415-democratization-of-research",
+    "260413-new-leverage",
+    "260420-debt-changes-hands"
+  ],
+  "taxonomy_primary": "ai/society",
+  "taxonomy_secondary": ["industry/transition"],
+  "relations": [
+    {"target": "260415-democratization-of-research", "type": "extends"},
+    {"target": "260413-new-leverage", "type": "related"},
+    {"target": "260420-debt-changes-hands", "type": "related"}
+  ],
+  "ai_summary": {
+    "one_liner": "SW가 보편재가 되면 가치의 축은 만들기에서 브랜드·마케팅·ODM으로 옮겨간다",
+    "problem": "AI로 SW 양산이 폭증하면 만드는 능력은 더 이상 가치가 아니다",
+    "solution": "한국 화장품 산업이 그린 곡선 — 브랜드, 마케팅, ODM 분업 — 을 SW도 따라간다",
+    "key_result": "SW의 미래는 화장품 산업을 보면 알 수 있다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

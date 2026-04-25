@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-25T04:38:20.832Z",
-  "total_posts": 47,
+  "generated_at": "2026-04-25T06:01:31.191Z",
+  "total_posts": 48,
   "posts": [
     {
       "post_number": 1,
@@ -1973,12 +1973,12 @@
       },
       "relations": [
         {
-          "slug": "2502-ai-co-scientist",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2502-ai-co-scientist"
         },
         {
-          "slug": "2604-harnessing-claude-intelligence",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2604-harnessing-claude-intelligence"
         }
       ],
       "idea_status": null,
@@ -2045,16 +2045,16 @@
       },
       "relations": [
         {
-          "slug": "2511-gen0-embodied-foundation-model",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2511-gen0-embodied-foundation-model"
         },
         {
-          "slug": "2604-gen1-scaling-mastery",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2604-gen1-scaling-mastery"
         },
         {
-          "slug": "2410-pi0-vla-flow-model",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2410-pi0-vla-flow-model"
         }
       ],
       "idea_status": null,
@@ -2119,12 +2119,12 @@
       },
       "relations": [
         {
-          "slug": "2502-ai-co-scientist",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2502-ai-co-scientist"
         },
         {
-          "slug": "2604-automated-alignment-researchers",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2604-automated-alignment-researchers"
         }
       ],
       "idea_status": null,
@@ -2190,16 +2190,16 @@
       },
       "relations": [
         {
-          "slug": "2502-ai-co-scientist",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2502-ai-co-scientist"
         },
         {
-          "slug": "2604-automated-alignment-researchers",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2604-automated-alignment-researchers"
         },
         {
-          "slug": "2603-autoresearch-autonomous-ml",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2603-autoresearch-autonomous-ml"
         }
       ],
       "idea_status": null,
@@ -2346,16 +2346,16 @@
       },
       "relations": [
         {
-          "slug": "2410-pi0-vla-flow-model",
-          "type": "extends"
+          "type": "extends",
+          "target": "2410-pi0-vla-flow-model"
         },
         {
-          "slug": "2511-pi0-6-recap",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2511-pi0-6-recap"
         },
         {
-          "slug": "2505-forcevla-force-aware-moe",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2505-forcevla-force-aware-moe"
         }
       ],
       "idea_status": null,
@@ -2423,16 +2423,16 @@
       },
       "relations": [
         {
-          "slug": "2410-pi0-vla-flow-model",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2410-pi0-vla-flow-model"
         },
         {
-          "slug": "2505-forcevla-force-aware-moe",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2505-forcevla-force-aware-moe"
         },
         {
-          "slug": "2602-habilis-vla-on-device",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2602-habilis-vla-on-device"
         }
       ],
       "idea_status": null,
@@ -2502,16 +2502,16 @@
       },
       "relations": [
         {
-          "slug": "2303-diffusion-policy",
-          "type": "extends"
+          "type": "extends",
+          "target": "2303-diffusion-policy"
         },
         {
-          "slug": "2505-dexumi",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2505-dexumi"
         },
         {
-          "slug": "2602-robopaint",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2602-robopaint"
         }
       ],
       "idea_status": null,
@@ -2579,20 +2579,20 @@
       },
       "relations": [
         {
-          "slug": "2402-umi-universal-manipulation-interface",
-          "type": "extends"
+          "type": "extends",
+          "target": "2402-umi-universal-manipulation-interface"
         },
         {
-          "slug": "2303-diffusion-policy",
-          "type": "usesMethodIn"
+          "type": "usesMethodIn",
+          "target": "2303-diffusion-policy"
         },
         {
-          "slug": "2501-dexforce-force-informed-actions",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2501-dexforce-force-informed-actions"
         },
         {
-          "slug": "2505-forcevla-force-aware-moe",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2505-forcevla-force-aware-moe"
         }
       ],
       "idea_status": null,
@@ -2659,16 +2659,16 @@
       },
       "relations": [
         {
-          "slug": "2407-tactile-skin-inhand-translation",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2407-tactile-skin-inhand-translation"
         },
         {
-          "slug": "2409-3dtactile-dex",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2409-3dtactile-dex"
         },
         {
-          "slug": "2504-pp-tac",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2504-pp-tac"
         }
       ],
       "idea_status": null,
@@ -2737,20 +2737,20 @@
       },
       "relations": [
         {
-          "slug": "2303-diffusion-policy",
-          "type": "usesMethodIn"
+          "type": "usesMethodIn",
+          "target": "2303-diffusion-policy"
         },
         {
-          "slug": "2410-pi0-vla-flow-model",
-          "type": "extends"
+          "type": "extends",
+          "target": "2410-pi0-vla-flow-model"
         },
         {
-          "slug": "2505-dexumi",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2505-dexumi"
         },
         {
-          "slug": "2511-act1-robot-foundation-model",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2511-act1-robot-foundation-model"
         }
       ],
       "idea_status": null,
@@ -2821,28 +2821,28 @@
       },
       "relations": [
         {
-          "slug": "2201-mano-hand-model",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2201-mano-hand-model"
         },
         {
-          "slug": "2407-tactile-skin-inhand-translation",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2407-tactile-skin-inhand-translation"
         },
         {
-          "slug": "2409-3dtactile-dex",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2409-3dtactile-dex"
         },
         {
-          "slug": "2504-pp-tac",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2504-pp-tac"
         },
         {
-          "slug": "2511-equitac-tactile-equivariance",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2511-equitac-tactile-equivariance"
         },
         {
-          "slug": "2512-osmo-tactile-glove",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2512-osmo-tactile-glove"
         }
       ],
       "idea_status": null,
@@ -2913,28 +2913,28 @@
       },
       "relations": [
         {
-          "slug": "2412-f-tac-hand",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2412-f-tac-hand"
         },
         {
-          "slug": "2407-tactile-skin-inhand-translation",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2407-tactile-skin-inhand-translation"
         },
         {
-          "slug": "2409-3dtactile-dex",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2409-3dtactile-dex"
         },
         {
-          "slug": "2504-pp-tac",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2504-pp-tac"
         },
         {
-          "slug": "2511-equitac-tactile-equivariance",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2511-equitac-tactile-equivariance"
         },
         {
-          "slug": "2512-osmo-tactile-glove",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2512-osmo-tactile-glove"
         }
       ],
       "idea_status": null,
@@ -3006,24 +3006,24 @@
       },
       "relations": [
         {
-          "slug": "2412-f-tac-hand",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2412-f-tac-hand"
         },
         {
-          "slug": "2503-tacpalm-softhand",
-          "type": "reviews"
+          "type": "reviews",
+          "target": "2503-tacpalm-softhand"
         },
         {
-          "slug": "2407-tactile-skin-inhand-translation",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2407-tactile-skin-inhand-translation"
         },
         {
-          "slug": "2409-3dtactile-dex",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2409-3dtactile-dex"
         },
         {
-          "slug": "2511-equitac-tactile-equivariance",
-          "type": "sharesTopicWith"
+          "type": "sharesTopicWith",
+          "target": "2511-equitac-tactile-equivariance"
         }
       ],
       "idea_status": null,
@@ -3425,6 +3425,76 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 48,
+      "slug": "260425-sw-becomes-cosmetics",
+      "content_type": "essays",
+      "title_en": "Software Becomes Cosmetics",
+      "title_ko": "SW는 화장품이 된다",
+      "summary_ko": "SW 만드는 능력이 흔해지면 가치는 다른 축으로 이동한다. 한국 화장품 산업이 이미 그린 곡선을 SW가 따라간다.",
+      "summary_en": "When the ability to build software becomes common, value shifts to other axes — brand, marketing, ODM. Korea's cosmetics industry already drew that curve.",
+      "cover_image": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/essays/260425-sw-becomes-cosmetics/cover.webp",
+      "cover_thumb": "https://pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev/private/posts/essays/260425-sw-becomes-cosmetics/cover-thumb.webp",
+      "domain": "AI & Society",
+      "subfields": [
+        "industry transition",
+        "branding",
+        "marketing"
+      ],
+      "key_concepts": [
+        "software commoditization",
+        "ODM",
+        "branding",
+        "marketing",
+        "cosmetics industry"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Industry",
+        "Marketing",
+        "Branding"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-04-25T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "SW가 보편재가 되면 가치의 축은 만들기에서 브랜드·마케팅·ODM으로 옮겨간다",
+        "problem": "AI로 SW 양산이 폭증하면 만드는 능력은 더 이상 가치가 아니다",
+        "solution": "한국 화장품 산업이 그린 곡선 — 브랜드, 마케팅, ODM 분업 — 을 SW도 따라간다",
+        "key_result": "SW의 미래는 화장품 산업을 보면 알 수 있다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260415-democratization-of-research",
+          "type": "extends"
+        },
+        {
+          "target": "260413-new-leverage",
+          "type": "related"
+        },
+        {
+          "target": "260420-debt-changes-hands",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260415-democratization-of-research",
+        "260413-new-leverage",
+        "260420-debt-changes-hands"
+      ],
+      "taxonomy_primary": "ai/society",
+      "taxonomy_secondary": [
+        "industry/transition"
+      ],
+      "visibility": "private",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -3686,42 +3756,52 @@
       },
       {
         "from": "2604-automated-alignment-researchers",
+        "to": "2502-ai-co-scientist",
         "type": "sharesTopicWith"
       },
       {
         "from": "2604-automated-alignment-researchers",
+        "to": "2604-harnessing-claude-intelligence",
         "type": "sharesTopicWith"
       },
       {
         "from": "2511-act1-robot-foundation-model",
+        "to": "2511-gen0-embodied-foundation-model",
         "type": "reviews"
       },
       {
         "from": "2511-act1-robot-foundation-model",
+        "to": "2604-gen1-scaling-mastery",
         "type": "reviews"
       },
       {
         "from": "2511-act1-robot-foundation-model",
+        "to": "2410-pi0-vla-flow-model",
         "type": "sharesTopicWith"
       },
       {
         "from": "2603-autoresearch-autonomous-ml",
+        "to": "2502-ai-co-scientist",
         "type": "sharesTopicWith"
       },
       {
         "from": "2603-autoresearch-autonomous-ml",
+        "to": "2604-automated-alignment-researchers",
         "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
+        "to": "2502-ai-co-scientist",
         "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
+        "to": "2604-automated-alignment-researchers",
         "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
+        "to": "2603-autoresearch-autonomous-ml",
         "type": "sharesTopicWith"
       },
       {
@@ -3751,150 +3831,187 @@
       },
       {
         "from": "2602-habilis-vla-on-device",
+        "to": "2410-pi0-vla-flow-model",
         "type": "extends"
       },
       {
         "from": "2602-habilis-vla-on-device",
+        "to": "2511-pi0-6-recap",
         "type": "reviews"
       },
       {
         "from": "2602-habilis-vla-on-device",
+        "to": "2505-forcevla-force-aware-moe",
         "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
+        "to": "2410-pi0-vla-flow-model",
         "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
+        "to": "2505-forcevla-force-aware-moe",
         "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
+        "to": "2602-habilis-vla-on-device",
         "type": "sharesTopicWith"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
+        "to": "2303-diffusion-policy",
         "type": "extends"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
+        "to": "2505-dexumi",
         "type": "sharesTopicWith"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
+        "to": "2602-robopaint",
         "type": "sharesTopicWith"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
+        "to": "2402-umi-universal-manipulation-interface",
         "type": "extends"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
+        "to": "2303-diffusion-policy",
         "type": "usesMethodIn"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
+        "to": "2501-dexforce-force-informed-actions",
         "type": "sharesTopicWith"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
+        "to": "2505-forcevla-force-aware-moe",
         "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
+        "to": "2407-tactile-skin-inhand-translation",
         "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
+        "to": "2409-3dtactile-dex",
         "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
+        "to": "2504-pp-tac",
         "type": "sharesTopicWith"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
+        "to": "2303-diffusion-policy",
         "type": "usesMethodIn"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
+        "to": "2410-pi0-vla-flow-model",
         "type": "extends"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
+        "to": "2505-dexumi",
         "type": "sharesTopicWith"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
+        "to": "2511-act1-robot-foundation-model",
         "type": "reviews"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2201-mano-hand-model",
         "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2407-tactile-skin-inhand-translation",
         "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2409-3dtactile-dex",
         "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2504-pp-tac",
         "type": "reviews"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2511-equitac-tactile-equivariance",
         "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
+        "to": "2512-osmo-tactile-glove",
         "type": "reviews"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2412-f-tac-hand",
         "type": "reviews"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2407-tactile-skin-inhand-translation",
         "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2409-3dtactile-dex",
         "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2504-pp-tac",
         "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2511-equitac-tactile-equivariance",
         "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
+        "to": "2512-osmo-tactile-glove",
         "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
+        "to": "2412-f-tac-hand",
         "type": "reviews"
       },
       {
         "from": "2509-tactile-sensing-distribution",
+        "to": "2503-tacpalm-softhand",
         "type": "reviews"
       },
       {
         "from": "2509-tactile-sensing-distribution",
+        "to": "2407-tactile-skin-inhand-translation",
         "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
+        "to": "2409-3dtactile-dex",
         "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
+        "to": "2511-equitac-tactile-equivariance",
         "type": "sharesTopicWith"
       },
       {
@@ -3943,6 +4060,21 @@
       {
         "from": "260422-work-that-isnt",
         "to": "260406-writing-daily-by-hand",
+        "type": "related"
+      },
+      {
+        "from": "260425-sw-becomes-cosmetics",
+        "to": "260415-democratization-of-research",
+        "type": "extends"
+      },
+      {
+        "from": "260425-sw-becomes-cosmetics",
+        "to": "260413-new-leverage",
+        "type": "related"
+      },
+      {
+        "from": "260425-sw-becomes-cosmetics",
+        "to": "260420-debt-changes-hands",
         "type": "related"
       }
     ],
@@ -4078,7 +4210,8 @@
         "post_numbers": [
           32,
           44,
-          47
+          47,
+          48
         ],
         "core_concepts": [
           "Claude Code"
@@ -5031,6 +5164,21 @@
     ],
     "deep work": [
       47
+    ],
+    "software commoditization": [
+      48
+    ],
+    "ODM": [
+      48
+    ],
+    "branding": [
+      48
+    ],
+    "marketing": [
+      48
+    ],
+    "cosmetics industry": [
+      48
     ]
   },
   "domain_stats": {
@@ -5038,7 +5186,7 @@
     "ml": 2,
     "ai": 6,
     "philosophy": 2,
-    "AI & Society": 3,
+    "AI & Society": 4,
     "Infra & Cost": 1,
     "Infra & Ops": 1,
     "ai-tooling": 2
@@ -5056,16 +5204,17 @@
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 11,
     "ai/llm:secondary": 5,
-    "ai/society": 3,
+    "ai/society": 4,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
     "ai/productivity:secondary": 1,
+    "industry/transition:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 29,
-    "ai": 10
+    "ai": 11
   }
 }
