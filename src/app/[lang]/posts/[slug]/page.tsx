@@ -5,11 +5,14 @@ import { requireReadAccess } from '@/lib/access-guard';
 import ContentDetailPage from '@/components/ContentDetailPage';
 import type { Metadata } from 'next';
 
-// force-dynamic keeps the per-request auth gate in place for future private
-// posts. generateStaticParams still primes the public routes; non-prerendered
-// slugs render on-demand through the R2 fallback in getPost().
-export const dynamic = 'force-dynamic';
-export const dynamicParams = true;
+// Pure SSG: every public slug is in posts/index.json, generateStaticParams
+// returns them all, and the build prerenders to static HTML (Workers serves
+// the cached output). dynamicParams=false makes unknown slugs 404 cleanly
+// instead of triggering the OpenNext+Workers crash on hybrid SSG paths.
+// Re-introduce dynamicParams only after the runtime data path is Workers-safe
+// (fs.readFile in src/lib/posts.ts:206 fails on Workers — public MDX bodies
+// would need to move to R2 first).
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return getAllPostParams();
