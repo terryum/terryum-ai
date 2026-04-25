@@ -28,7 +28,7 @@
   "relations": [
     {
       "target": "2511-pi0-6-recap",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "ai_summary": {

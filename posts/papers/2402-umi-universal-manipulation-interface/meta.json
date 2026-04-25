@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Imitation Learning", "Data Collection", "Manipulation"],
-  "display_tags": ["Robotics", "Imitation Learning", "Data Collection", "Manipulation"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Imitation Learning",
+    "Data Collection",
+    "Manipulation"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Imitation Learning",
+    "Data Collection",
+    "Manipulation"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Universal Manipulation Interface (UMI) — portable, intuitive, low-cost data collection and policy learning framework",
   "cover_figure_number": 1,
@@ -15,34 +26,92 @@
   "source_type": "arXiv",
   "source_title": "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots",
   "source_author": "Cheng Chi et al.",
-  "source_authors_full": ["Cheng Chi", "Zhenjia Xu", "Chuer Pan", "Eric Cousineau", "Benjamin Burchfiel", "Siyuan Feng", "Russ Tedrake", "Shuran Song"],
+  "source_authors_full": [
+    "Cheng Chi",
+    "Zhenjia Xu",
+    "Chuer Pan",
+    "Eric Cousineau",
+    "Benjamin Burchfiel",
+    "Siyuan Feng",
+    "Russ Tedrake",
+    "Shuran Song"
+  ],
   "source_url": "https://arxiv.org/abs/2402.10329",
   "source_date": "2024-02-15T00:00:00Z",
   "source_project_url": "https://umi-gripper.github.io",
   "google_scholar_url": "https://scholar.google.com/scholar?q=universal-manipulation-interface-in-the-wild-robot-teaching",
   "domain": "robotics",
-  "subfields": ["manipulation", "imitation-learning", "data-collection", "visuomotor-policy"],
-  "key_concepts": ["hand-held-gripper", "in-the-wild-demonstration", "fisheye-camera", "side-mirror-stereo", "relative-trajectory", "latency-matching", "diffusion-policy", "zero-shot-generalization"],
-  "methodology": ["imitation-learning", "diffusion-model", "SLAM", "data-collection-interface"],
+  "subfields": [
+    "manipulation",
+    "imitation-learning",
+    "data-collection",
+    "visuomotor-policy"
+  ],
+  "key_concepts": [
+    "hand-held-gripper",
+    "in-the-wild-demonstration",
+    "fisheye-camera",
+    "side-mirror-stereo",
+    "relative-trajectory",
+    "latency-matching",
+    "diffusion-policy",
+    "zero-shot-generalization"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "diffusion-model",
+    "SLAM",
+    "data-collection-interface"
+  ],
   "contribution_type": "system",
   "taxonomy_primary": "robotics/brain",
-  "taxonomy_secondary": ["robotics/arm"],
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ],
   "relations": [
-    { "slug": "2303-diffusion-policy", "type": "builds_on" },
-    { "slug": "2505-dexumi", "type": "related" },
-    { "slug": "2602-robopaint", "type": "related" }
+    {
+      "type": "extends",
+      "target": "2303-diffusion-policy"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2505-dexumi"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2602-robopaint"
+    }
   ],
   "ai_summary": {
     "one_liner": "$371 hand-held gripper + GoPro for in-the-wild robot teaching — zero-shot deployment across multiple robot platforms",
     "problem": "Teleoperation-based data collection is expensive, environment-limited, and cannot demonstrate dynamic/bimanual tasks",
     "solution": "Hand-held gripper with fisheye camera + side mirrors + IMU-SLAM for in-the-wild data, Diffusion Policy with latency matching and relative trajectory for hardware-agnostic deployment",
     "key_result": "Cup arrangement 100%, dynamic tossing 87.5%, bimanual cloth folding 70%, dish washing 70%; zero-shot generalization to unseen environments (71.7% vs 0% with lab data)",
-    "limitations": ["Relies on data filtering for kinematic feasibility", "SLAM fails in texture-poor environments", "2-DOF gripper only"]
+    "limitations": [
+      "Relies on data filtering for kinematic feasibility",
+      "SLAM fails in texture-poor environments",
+      "2-DOF gripper only"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.png", "caption": "Universal Manipulation Interface (UMI) is a portable, intuitive, low-cost data collection and policy learning framework. This framework allows us to transfer diverse human demonstrations to effective visuomotor policies. We showcase the framework for tasks that would be difficult with traditional teleoperation, such as dynamic, precise, bimanual and long-horizon tasks.", "caption_ko": "Universal Manipulation Interface (UMI)는 이동 가능하고 직관적이며 저비용의 데이터 수집 및 정책 학습 프레임워크다. 이 프레임워크는 다양한 인간 시연을 효과적인 시각-운동 정책으로 전환한다. 동적 조작, 정밀 조작, 양손 조작, 장기 과제 등 기존 텔레오퍼레이션으로 어려운 과제를 시연한다." },
-    { "number": 2, "src": "./fig-2.png", "caption": "UMI Demonstration Interface Design. Left: Hand-held grippers for data collection, with a GoPro as the only sensor and recording device. Middle: Image from the GoPro's 155° Fisheye view. Note the physical side mirrors highlighted in green which provide implicit stereo information. Right: UMI-compatible robot gripper and camera setup make observation similar to hand-held gripper view.", "caption_ko": "UMI 시연 인터페이스 설계. 왼쪽: 데이터 수집용 핸드헬드 그리퍼, GoPro가 유일한 센서. 중앙: GoPro의 155° 피쉬아이 뷰. 녹색으로 표시된 사이드 미러가 암묵적 스테레오 정보를 제공한다. 오른쪽: UMI 호환 로봇 그리퍼 및 카메라 설정." },
-    { "number": 7, "src": "./fig-7.png", "caption": "Policy Rollouts. We test UMI on a variety of challenging real-world tasks. Cup arrangement tests UMI's ability to learn both prehensile and non-prehensile actions, and to capture multi-modal action distribution (clockwise and counter-clockwise rotation). Dynamic tossing tests UMI's ability to capture and transfer rapid human motions. Bimanual cloth folding tests two-arm coordination. Dish washing tests long-horizon tasks with multiple object types.", "caption_ko": "정책 롤아웃. 다양한 실환경 과제에서 UMI를 테스트. 컵 정리는 파지/비파지 행동과 멀티모달 분포(시계/반시계 회전), 동적 던지기는 빠른 인간 동작 전이, 양손 옷 접기는 양팔 협응, 설거지는 다수 물체 유형의 장기 과제를 검증한다." }
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Universal Manipulation Interface (UMI) is a portable, intuitive, low-cost data collection and policy learning framework. This framework allows us to transfer diverse human demonstrations to effective visuomotor policies. We showcase the framework for tasks that would be difficult with traditional teleoperation, such as dynamic, precise, bimanual and long-horizon tasks.",
+      "caption_ko": "Universal Manipulation Interface (UMI)는 이동 가능하고 직관적이며 저비용의 데이터 수집 및 정책 학습 프레임워크다. 이 프레임워크는 다양한 인간 시연을 효과적인 시각-운동 정책으로 전환한다. 동적 조작, 정밀 조작, 양손 조작, 장기 과제 등 기존 텔레오퍼레이션으로 어려운 과제를 시연한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "UMI Demonstration Interface Design. Left: Hand-held grippers for data collection, with a GoPro as the only sensor and recording device. Middle: Image from the GoPro's 155° Fisheye view. Note the physical side mirrors highlighted in green which provide implicit stereo information. Right: UMI-compatible robot gripper and camera setup make observation similar to hand-held gripper view.",
+      "caption_ko": "UMI 시연 인터페이스 설계. 왼쪽: 데이터 수집용 핸드헬드 그리퍼, GoPro가 유일한 센서. 중앙: GoPro의 155° 피쉬아이 뷰. 녹색으로 표시된 사이드 미러가 암묵적 스테레오 정보를 제공한다. 오른쪽: UMI 호환 로봇 그리퍼 및 카메라 설정."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Policy Rollouts. We test UMI on a variety of challenging real-world tasks. Cup arrangement tests UMI's ability to learn both prehensile and non-prehensile actions, and to capture multi-modal action distribution (clockwise and counter-clockwise rotation). Dynamic tossing tests UMI's ability to capture and transfer rapid human motions. Bimanual cloth folding tests two-arm coordination. Dish washing tests long-horizon tasks with multiple object types.",
+      "caption_ko": "정책 롤아웃. 다양한 실환경 과제에서 UMI를 테스트. 컵 정리는 파지/비파지 행동과 멀티모달 분포(시계/반시계 회전), 동적 던지기는 빠른 인간 동작 전이, 양손 옷 접기는 양팔 협응, 설거지는 다수 물체 유형의 장기 과제를 검증한다."
+    }
   ],
   "tables": [],
   "thumb_source": "./fig-7.png",

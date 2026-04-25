@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-25T04:34:07.267Z",
+  "generated_at": "2026-04-25T04:38:20.832Z",
   "total_posts": 47,
   "posts": [
     {
@@ -55,11 +55,11 @@
       "relations": [
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "uses_method"
+          "type": "usesMethodIn"
         }
       ],
       "idea_status": null,
@@ -126,7 +126,7 @@
       "relations": [
         {
           "target": "2511-pi0-6-recap",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -189,7 +189,7 @@
       "relations": [
         {
           "target": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -254,7 +254,7 @@
       "relations": [
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "builds_on"
+          "type": "extends"
         }
       ],
       "idea_status": null,
@@ -493,15 +493,15 @@
       "relations": [
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "addresses_task"
+          "type": "sharesGoalWith"
         },
         {
           "target": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -572,15 +572,15 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "addresses_task"
+          "type": "sharesGoalWith"
         },
         {
           "target": "2505-forcevla-force-aware-moe",
-          "type": "addresses_task"
+          "type": "sharesGoalWith"
         }
       ],
       "idea_status": null,
@@ -649,15 +649,15 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2506-exostart",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "addresses_task"
+          "type": "sharesGoalWith"
         }
       ],
       "idea_status": null,
@@ -796,15 +796,15 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2501-dexforce",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -876,15 +876,15 @@
       "relations": [
         {
           "target": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -956,19 +956,19 @@
       "relations": [
         {
           "target": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2505-dexumi",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1041,19 +1041,19 @@
       "relations": [
         {
           "target": "2505-dexumi",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2506-exostart",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2509-dexop",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1125,19 +1125,19 @@
       "relations": [
         {
           "target": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2505-dexumi",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1210,15 +1210,15 @@
       "relations": [
         {
           "target": "2407-stretchable-glove-hand-pose",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2512-unitachand",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2602-robopaint",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1289,23 +1289,23 @@
       "relations": [
         {
           "target": "2407-tactile-skin-inhand-translation",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "target": "2512-unitachand",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "target": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2505-dexumi",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -1373,7 +1373,7 @@
       "relations": [
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -1442,11 +1442,11 @@
       "relations": [
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "target": "2603-capx-coding-agents-manipulation",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -1514,7 +1514,7 @@
       "relations": [
         {
           "target": "2502-ai-co-scientist",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -1643,11 +1643,11 @@
       "relations": [
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2511-pi0-6-recap",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1715,15 +1715,15 @@
       "relations": [
         {
           "target": "2511-gen0-embodied-foundation-model",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "target": "2410-pi0-vla-flow-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2511-pi0-6-recap",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1794,11 +1794,11 @@
       "relations": [
         {
           "target": "2603-meta-harness-optimization",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "target": "2502-ai-co-scientist",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -1974,11 +1974,11 @@
       "relations": [
         {
           "slug": "2502-ai-co-scientist",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2604-harnessing-claude-intelligence",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2046,15 +2046,15 @@
       "relations": [
         {
           "slug": "2511-gen0-embodied-foundation-model",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2604-gen1-scaling-mastery",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2410-pi0-vla-flow-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2120,11 +2120,11 @@
       "relations": [
         {
           "slug": "2502-ai-co-scientist",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2604-automated-alignment-researchers",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2191,15 +2191,15 @@
       "relations": [
         {
           "slug": "2502-ai-co-scientist",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2604-automated-alignment-researchers",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2603-autoresearch-autonomous-ml",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2347,15 +2347,15 @@
       "relations": [
         {
           "slug": "2410-pi0-vla-flow-model",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "slug": "2511-pi0-6-recap",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2424,15 +2424,15 @@
       "relations": [
         {
           "slug": "2410-pi0-vla-flow-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2602-habilis-vla-on-device",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2503,15 +2503,15 @@
       "relations": [
         {
           "slug": "2303-diffusion-policy",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "slug": "2505-dexumi",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2602-robopaint",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2580,19 +2580,19 @@
       "relations": [
         {
           "slug": "2402-umi-universal-manipulation-interface",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "slug": "2303-diffusion-policy",
-          "type": "uses_method"
+          "type": "usesMethodIn"
         },
         {
           "slug": "2501-dexforce-force-informed-actions",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2505-forcevla-force-aware-moe",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2660,15 +2660,15 @@
       "relations": [
         {
           "slug": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -2738,19 +2738,19 @@
       "relations": [
         {
           "slug": "2303-diffusion-policy",
-          "type": "uses_method"
+          "type": "usesMethodIn"
         },
         {
           "slug": "2410-pi0-vla-flow-model",
-          "type": "builds_on"
+          "type": "extends"
         },
         {
           "slug": "2505-dexumi",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2511-act1-robot-foundation-model",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -2822,27 +2822,27 @@
       "relations": [
         {
           "slug": "2201-mano-hand-model",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2504-pp-tac",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2511-equitac-tactile-equivariance",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2512-osmo-tactile-glove",
-          "type": "compares_with"
+          "type": "reviews"
         }
       ],
       "idea_status": null,
@@ -2914,27 +2914,27 @@
       "relations": [
         {
           "slug": "2412-f-tac-hand",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2504-pp-tac",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2511-equitac-tactile-equivariance",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2512-osmo-tactile-glove",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -3007,23 +3007,23 @@
       "relations": [
         {
           "slug": "2412-f-tac-hand",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2503-tacpalm-softhand",
-          "type": "compares_with"
+          "type": "reviews"
         },
         {
           "slug": "2407-tactile-skin-inhand-translation",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2409-3dtactile-dex",
-          "type": "related"
+          "type": "sharesTopicWith"
         },
         {
           "slug": "2511-equitac-tactile-equivariance",
-          "type": "related"
+          "type": "sharesTopicWith"
         }
       ],
       "idea_status": null,
@@ -3432,297 +3432,297 @@
       {
         "from": "2505-forcevla-force-aware-moe",
         "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2505-forcevla-force-aware-moe",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "uses_method"
+        "type": "usesMethodIn"
       },
       {
         "from": "2410-pi0-vla-flow-model",
         "to": "2511-pi0-6-recap",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2501-dexforce-force-informed-actions",
         "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-pi0-6-recap",
         "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2505-dexumi",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2505-dexumi",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
+        "type": "sharesGoalWith"
       },
       {
         "from": "2505-dexumi",
         "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2506-exostart",
         "to": "2505-dexumi",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2506-exostart",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
+        "type": "sharesGoalWith"
       },
       {
         "from": "2506-exostart",
         "to": "2505-forcevla-force-aware-moe",
-        "type": "addresses_task"
+        "type": "sharesGoalWith"
       },
       {
         "from": "2509-dexop",
         "to": "2505-dexumi",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2509-dexop",
         "to": "2506-exostart",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2509-dexop",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "addresses_task"
+        "type": "sharesGoalWith"
       },
       {
         "from": "2504-pp-tac",
         "to": "2505-dexumi",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2504-pp-tac",
         "to": "2501-dexforce",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2504-pp-tac",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2407-tactile-skin-inhand-translation",
         "to": "2504-pp-tac",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2407-tactile-skin-inhand-translation",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2407-tactile-skin-inhand-translation",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2409-3dtactile-dex",
         "to": "2504-pp-tac",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2409-3dtactile-dex",
         "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2409-3dtactile-dex",
         "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2409-3dtactile-dex",
         "to": "2505-dexumi",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2602-robopaint",
         "to": "2505-dexumi",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2602-robopaint",
         "to": "2506-exostart",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2602-robopaint",
         "to": "2509-dexop",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2602-robopaint",
         "to": "2410-pi0-vla-flow-model",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-unitachand",
         "to": "2409-3dtactile-dex",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-unitachand",
         "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-unitachand",
         "to": "2504-pp-tac",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-unitachand",
         "to": "2505-dexumi",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2201-mano-hand-model",
         "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2201-mano-hand-model",
         "to": "2512-unitachand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2201-mano-hand-model",
         "to": "2602-robopaint",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-osmo-tactile-glove",
         "to": "2407-tactile-skin-inhand-translation",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2512-osmo-tactile-glove",
         "to": "2512-unitachand",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2512-osmo-tactile-glove",
         "to": "2504-pp-tac",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-osmo-tactile-glove",
         "to": "2409-3dtactile-dex",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2512-osmo-tactile-glove",
         "to": "2505-dexumi",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2603-capx-coding-agents-manipulation",
         "to": "2410-pi0-vla-flow-model",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2603-roboclaw-agentic-long-horizon",
         "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2603-roboclaw-agentic-long-horizon",
         "to": "2603-capx-coding-agents-manipulation",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2603-medical-ai-scientist",
         "to": "2502-ai-co-scientist",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2511-gen0-embodied-foundation-model",
         "to": "2410-pi0-vla-flow-model",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-gen0-embodied-foundation-model",
         "to": "2511-pi0-6-recap",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-gen1-scaling-mastery",
         "to": "2511-gen0-embodied-foundation-model",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2604-gen1-scaling-mastery",
         "to": "2410-pi0-vla-flow-model",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-gen1-scaling-mastery",
         "to": "2511-pi0-6-recap",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-harnessing-claude-intelligence",
         "to": "2603-meta-harness-optimization",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-harnessing-claude-intelligence",
         "to": "2502-ai-co-scientist",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-automated-alignment-researchers",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-automated-alignment-researchers",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-act1-robot-foundation-model",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2511-act1-robot-foundation-model",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2511-act1-robot-foundation-model",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2603-autoresearch-autonomous-ml",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2603-autoresearch-autonomous-ml",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2604-self-driving-labs",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "260415-democratization-of-research",
@@ -3751,151 +3751,151 @@
       },
       {
         "from": "2602-habilis-vla-on-device",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2602-habilis-vla-on-device",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2602-habilis-vla-on-device",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2303-diffusion-policy",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2402-umi-universal-manipulation-interface",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
-        "type": "uses_method"
+        "type": "usesMethodIn"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2601-umi-ft-compliant-manipulation",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2511-equitac-tactile-equivariance",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
-        "type": "uses_method"
+        "type": "usesMethodIn"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
-        "type": "builds_on"
+        "type": "extends"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2602-humanplus-humanoid-shadowing",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2412-f-tac-hand",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2503-tacpalm-softhand",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2509-tactile-sensing-distribution",
-        "type": "compares_with"
+        "type": "reviews"
       },
       {
         "from": "2509-tactile-sensing-distribution",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "2509-tactile-sensing-distribution",
-        "type": "related"
+        "type": "sharesTopicWith"
       },
       {
         "from": "260420-one-day-recovery",

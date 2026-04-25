@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Diffusion Model", "Imitation Learning", "Visuomotor Policy"],
-  "display_tags": ["Robotics", "Diffusion Model", "Imitation Learning", "Visuomotor Policy"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Diffusion Model",
+    "Imitation Learning",
+    "Visuomotor Policy"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Diffusion Model",
+    "Imitation Learning",
+    "Visuomotor Policy"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Diffusion Policy's energy landscape — learned energy function visualized as contours where bright regions indicate high probability",
   "cover_figure_number": 2,
@@ -15,33 +26,84 @@
   "source_type": "arXiv",
   "source_title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
   "source_author": "Cheng Chi et al.",
-  "source_authors_full": ["Cheng Chi", "Zhenjia Xu", "Siyuan Feng", "Eric Cousineau", "Yilun Du", "Benjamin Burchfiel", "Russ Tedrake", "Shuran Song"],
+  "source_authors_full": [
+    "Cheng Chi",
+    "Zhenjia Xu",
+    "Siyuan Feng",
+    "Eric Cousineau",
+    "Yilun Du",
+    "Benjamin Burchfiel",
+    "Russ Tedrake",
+    "Shuran Song"
+  ],
   "source_url": "https://arxiv.org/abs/2303.04137",
   "source_date": "2023-03-07T00:00:00Z",
   "source_project_url": "https://diffusion-policy.cs.columbia.edu",
   "google_scholar_url": "https://scholar.google.com/scholar?q=diffusion-policy-visuomotor-policy-learning-action-diffusion",
   "domain": "robotics",
-  "subfields": ["visuomotor-policy", "imitation-learning", "diffusion-model", "manipulation"],
-  "key_concepts": ["diffusion-policy", "DDPM", "score-function", "receding-horizon-control", "visual-conditioning", "multimodal-action-distribution"],
-  "methodology": ["imitation-learning", "diffusion-model", "behavior-cloning", "denoising-diffusion"],
+  "subfields": [
+    "visuomotor-policy",
+    "imitation-learning",
+    "diffusion-model",
+    "manipulation"
+  ],
+  "key_concepts": [
+    "diffusion-policy",
+    "DDPM",
+    "score-function",
+    "receding-horizon-control",
+    "visual-conditioning",
+    "multimodal-action-distribution"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "diffusion-model",
+    "behavior-cloning",
+    "denoising-diffusion"
+  ],
   "contribution_type": "method",
   "taxonomy_primary": "robotics/brain",
-  "taxonomy_secondary": ["robotics/arm"],
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ],
   "relations": [
-    { "slug": "2410-pi0-vla-flow-model", "type": "related" },
-    { "slug": "2505-forcevla-force-aware-moe", "type": "related" },
-    { "slug": "2602-habilis-vla-on-device", "type": "related" }
+    {
+      "type": "sharesTopicWith",
+      "target": "2410-pi0-vla-flow-model"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2505-forcevla-force-aware-moe"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2602-habilis-vla-on-device"
+    }
   ],
   "ai_summary": {
     "one_liner": "Diffusion models applied to robot visuomotor policies — 46.9% average improvement over SOTA across 15 tasks from 4 benchmarks",
     "problem": "Behavior cloning struggles with multimodal action distributions, high-dimensional action spaces, and training instability",
     "solution": "Represent visuomotor policy as conditional DDPM with receding horizon control, visual conditioning, and time-series diffusion transformer",
     "key_result": "Average 46.9% improvement across 15 tasks; ToolHang 87% (BET: 20%), Kitchen 4-stage 99% (BET: 44%)",
-    "limitations": ["CNN over-smooths fast actions; Transformer is hyperparameter-sensitive", "Iterative denoising limits inference speed", "Single-arm manipulation tasks only"]
+    "limitations": [
+      "CNN over-smooths fast actions; Transformer is hyperparameter-sensitive",
+      "Iterative denoising limits inference speed",
+      "Single-arm manipulation tasks only"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.jpeg", "caption": "Diffusion Policy's gradient field. Visualizing the learned score function ∇log p(a|o), showing the direction toward high-probability regions from each point in action space.", "caption_ko": "Diffusion Policy의 gradient field. 학습된 score function ∇log p(a|o)의 기울기장을 시각화한 것으로, 행동 공간의 각 점에서 높은 확률 영역을 향한 방향을 나타낸다." },
-    { "number": 2, "src": "./fig-2.jpeg", "caption": "Diffusion Policy's energy landscape. Visualizing contours of the learned energy function where the black curve represents demonstration trajectories and bright regions indicate low energy (high probability).", "caption_ko": "Diffusion Policy의 에너지 경관(energy landscape). 학습된 에너지 함수의 등고선을 시각화한 것으로, 검은 곡선은 시연 궤적, 밝은 영역이 낮은 에너지(높은 확률)를 나타낸다." }
+    {
+      "number": 1,
+      "src": "./fig-1.jpeg",
+      "caption": "Diffusion Policy's gradient field. Visualizing the learned score function ∇log p(a|o), showing the direction toward high-probability regions from each point in action space.",
+      "caption_ko": "Diffusion Policy의 gradient field. 학습된 score function ∇log p(a|o)의 기울기장을 시각화한 것으로, 행동 공간의 각 점에서 높은 확률 영역을 향한 방향을 나타낸다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.jpeg",
+      "caption": "Diffusion Policy's energy landscape. Visualizing contours of the learned energy function where the black curve represents demonstration trajectories and bright regions indicate low energy (high probability).",
+      "caption_ko": "Diffusion Policy의 에너지 경관(energy landscape). 학습된 에너지 함수의 등고선을 시각화한 것으로, 검은 곡선은 시연 궤적, 밝은 영역이 낮은 에너지(높은 확률)를 나타낸다."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

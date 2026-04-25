@@ -6,8 +6,19 @@
   "updated_at": "2026-04-17T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Tactile Sensing", "Dexterous Manipulation", "Palm"],
-  "display_tags": ["Robotics", "Tactile Sensing", "Dexterous Manipulation", "Palm"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Tactile Sensing",
+    "Dexterous Manipulation",
+    "Palm"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Tactile Sensing",
+    "Dexterous Manipulation",
+    "Palm"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "F-TAC Hand 개요. 손 표면 70%를 덮는 17개 고해상도 촉각 센서로 인간 수준의 적응형 파지를 구현한다.",
   "cover_figure_number": 1,
@@ -16,25 +27,77 @@
   "source_type": "arXiv",
   "source_title": "Embedding high-resolution touch across robotic hands enables adaptive human-like grasping",
   "source_author": "Zihang Zhao et al.",
-  "source_authors_full": ["Zihang Zhao", "Wanlin Li", "Yuyang Li", "Tengyu Liu", "Boren Li", "Meng Wang", "Kai Du", "Hangxin Liu", "Yixin Zhu", "Qining Wang", "Kaspar Althoefer", "Song-Chun Zhu"],
+  "source_authors_full": [
+    "Zihang Zhao",
+    "Wanlin Li",
+    "Yuyang Li",
+    "Tengyu Liu",
+    "Boren Li",
+    "Meng Wang",
+    "Kai Du",
+    "Hangxin Liu",
+    "Yixin Zhu",
+    "Qining Wang",
+    "Kaspar Althoefer",
+    "Song-Chun Zhu"
+  ],
   "source_url": "https://arxiv.org/abs/2412.14482",
   "source_date": "2024-12-19T00:00:00Z",
   "source_project_url": null,
   "google_scholar_url": "https://scholar.google.com/scholar?q=F-TAC+Hand+embedding+high-resolution+touch+robotic+hands",
   "domain": "robotics",
-  "subfields": ["tactile-sensing", "dexterous-manipulation", "robotic-hand"],
-  "key_concepts": ["high-resolution-tactile", "vision-based-tactile-sensor", "biomimetic-hand", "multi-object-grasping", "human-like-grasp-generation", "adaptive-control", "GelSight", "palm-tactile"],
-  "methodology": ["mechatronic-design", "probabilistic-grasp-generation", "ADELM-energy-landscape", "context-sensitive-motor-control", "tactile-feedback-control"],
+  "subfields": [
+    "tactile-sensing",
+    "dexterous-manipulation",
+    "robotic-hand"
+  ],
+  "key_concepts": [
+    "high-resolution-tactile",
+    "vision-based-tactile-sensor",
+    "biomimetic-hand",
+    "multi-object-grasping",
+    "human-like-grasp-generation",
+    "adaptive-control",
+    "GelSight",
+    "palm-tactile"
+  ],
+  "methodology": [
+    "mechatronic-design",
+    "probabilistic-grasp-generation",
+    "ADELM-energy-landscape",
+    "context-sensitive-motor-control",
+    "tactile-feedback-control"
+  ],
   "contribution_type": "system",
   "taxonomy_primary": "robotics/hand/tactile",
-  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous"
+  ],
   "relations": [
-    { "slug": "2201-mano-hand-model", "type": "related" },
-    { "slug": "2407-tactile-skin-inhand-translation", "type": "related" },
-    { "slug": "2409-3dtactile-dex", "type": "related" },
-    { "slug": "2504-pp-tac", "type": "compares_with" },
-    { "slug": "2511-equitac-tactile-equivariance", "type": "related" },
-    { "slug": "2512-osmo-tactile-glove", "type": "compares_with" }
+    {
+      "type": "sharesTopicWith",
+      "target": "2201-mano-hand-model"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2407-tactile-skin-inhand-translation"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2409-3dtactile-dex"
+    },
+    {
+      "type": "reviews",
+      "target": "2504-pp-tac"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2511-equitac-tactile-equivariance"
+    },
+    {
+      "type": "reviews",
+      "target": "2512-osmo-tactile-glove"
+    }
   ],
   "ai_summary": {
     "one_liner": "17 vision-based tactile sensors covering 70% of a 15-DoF biomimetic hand enable 100% success on multi-object adaptive grasping (vs 53.5% without tactile, p<0.0001)",
@@ -49,10 +112,30 @@
     ]
   },
   "figures": [
-    { "number": 2, "src": "./fig-2.png", "caption": "Hardware of the F-TAC Hand. a, Seamless integration of 17 vision-based sensors in 6 configurations, maintaining 15 DoF and adult hand dimensions. Each sensor includes a streamlined camera module for efficient tactile data acquisition in confined space. b, F-TAC Hand demonstrates its strength by holding a 2.5 kg dumbbell; each phalanx contributes to a total grasping force of 10.3 N. c, Schematic of a finger, with K_n, θ_n, and F denoting joint stiffness, rotation angle, and cable force. d, Top-down view comparison of F-TAC Hand and human finger flexion. e, Despite the numerous sensors, F-TAC Hand retains its mobility, as evidenced by a successful Kapandji test.", "caption_ko": "F-TAC Hand의 하드웨어. a, 17개 시각 기반 센서를 6가지 형태로 통합하면서 15 DoF와 성인 손 크기를 유지. 각 센서는 좁은 공간에서 효율적인 촉각 데이터 수집을 위한 슬림형 카메라 모듈을 포함. b, 2.5 kg 덤벨을 들어 강도를 입증; 각 지절이 총 10.3 N의 파지력에 기여. c, 손가락 모식도 (K_n: 관절 강성, θ_n: 회전각, F: 케이블 장력). d, F-TAC Hand와 인간 손가락 굴곡의 위에서 본 비교. e, 많은 센서에도 불구하고 Kapandji 테스트를 성공적으로 통과하여 가동성 유지." },
-    { "number": 4, "src": "./fig-4.png", "caption": "Comprehensive tactile sensing capabilities. a, Raw tactile sensor readings from the configuration shown in Figure 1a are processed by neural networks (b) to reconstruct contact site geometries (c), visualized as normal maps. The neural networks, trained on simulated data (d) generated by a physics-based image formation model, enable efficient and precise mapping of extensive raw data to geometric information at the contact interface. When grasping an object (e), F-TAC Hand captures detailed contact information through its advanced tactile sensing capabilities (f). g, This rich tactile feedback enables F-TAC Hand to accurately perceive and interpret object characteristics, as demonstrated by its precise estimation of in-hand object poses.", "caption_ko": "포괄적인 촉각 감지 능력. a, Figure 1a 구성에서 얻은 원시 촉각 센서 데이터를 신경망(b)으로 처리하여 접촉 영역 형상(c)을 법선맵으로 복원. 신경망은 물리 기반 이미지 형성 모델로 생성한 시뮬레이션 데이터(d)로 학습되어, 방대한 원시 데이터를 접촉 인터페이스의 기하 정보로 효율적이고 정밀하게 매핑한다. 물체를 잡을 때(e) F-TAC Hand는 고도화된 촉각 감지 능력으로 상세한 접촉 정보를 포착(f)한다. g, 이 풍부한 촉각 피드백 덕분에 F-TAC Hand는 인핸드 물체 자세 추정과 같이 물체 특성을 정확히 인지하고 해석할 수 있다." },
-    { "number": 5, "src": "./fig-5.png", "caption": "Human-like diverse grasping strategies for single objects. a, A total of 23 objects, varying in dimensions and geometrical complexity, are chosen to assess the efficacy of the grasp generation method. b–d, The landscape of possible grasps is depicted as a disconnectivity graph, generated using the ADELM algorithm. e, For the piler, the diversity in grasp strategies mirrors its common usage in daily human activities. f, Diversity in grasping strategies is maintained even when the object possesses complex geometric features. g, Comprehensive categorization of generated grasps for all 23 objects, based on human grasp types adopted from Feix et al. The results collectively cover all 19 common grasp types, implying the human-like diversity of the generated grasping strategies.", "caption_ko": "단일 물체에 대한 인간 유사 다양 파지 전략. a, 크기와 기하학적 복잡도가 다양한 23개 물체로 파지 생성법의 유효성을 평가. b-d, 가능한 파지의 풍경(landscape)을 ADELM 알고리즘으로 생성한 비연결성(disconnectivity) 그래프로 시각화. e, 펜치의 경우 파지 전략의 다양성이 일상 활동에서의 사용 양상을 반영. f, 복잡한 기하학적 특징을 가진 물체에서도 파지 다양성이 유지됨. g, Feix 등의 인간 파지 분류 체계로 23개 물체에 대해 생성된 파지 전체를 분류한 결과, 19가지 일반적 파지 유형을 모두 포괄하여 인간 수준의 다양성을 입증." },
-    { "number": 6, "src": "./fig-6.png", "caption": "F-TAC Hand's adaptive behaviors in physical world. a, F-TAC Hand tackles the challenge presented in prior work, specifically its ability to grasp multiple objects simultaneously in a manner that mimics human capabilities. b, Despite execution noise, F-TAC Hand can optimize object transport through multi-object grasping. This offers a more adaptable solution to the enduring challenge. c, While the initial strategy is effective in optimal conditions, real-world disturbances can complicate interactions with subsequent objects, making continuous monitoring through tactile embodiment essential. d, Tactile embodiment facilitates the adoption of alternative strategies. This capability, underpinned by human-like diverse grasping strategies, significantly enhances the success rate of grasping the second object compared to systems lacking these attributes.", "caption_ko": "실세계에서의 F-TAC Hand 적응 행동. a, 선행 연구가 제기한 도전 과제 — 인간처럼 여러 물체를 동시에 잡는 능력을 다룸. b, 실행 노이즈에도 불구하고 다중 물체 파지로 운반을 최적화. 지속적인 도전 과제에 더 적응적인 해법 제공. c, 초기 전략은 최적 조건에서 효과적이지만 실세계 외란은 후속 물체와의 상호작용을 복잡하게 만들어 촉각 임베딩을 통한 지속 감시가 필수적. d, 촉각 임베딩은 대안 전략 채택을 가능하게 함. 인간 유사 다양 파지 전략에 기반한 이 능력은 두 번째 물체 파지 성공률을 비촉각 시스템 대비 크게 향상시킴." }
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Hardware of the F-TAC Hand. a, Seamless integration of 17 vision-based sensors in 6 configurations, maintaining 15 DoF and adult hand dimensions. Each sensor includes a streamlined camera module for efficient tactile data acquisition in confined space. b, F-TAC Hand demonstrates its strength by holding a 2.5 kg dumbbell; each phalanx contributes to a total grasping force of 10.3 N. c, Schematic of a finger, with K_n, θ_n, and F denoting joint stiffness, rotation angle, and cable force. d, Top-down view comparison of F-TAC Hand and human finger flexion. e, Despite the numerous sensors, F-TAC Hand retains its mobility, as evidenced by a successful Kapandji test.",
+      "caption_ko": "F-TAC Hand의 하드웨어. a, 17개 시각 기반 센서를 6가지 형태로 통합하면서 15 DoF와 성인 손 크기를 유지. 각 센서는 좁은 공간에서 효율적인 촉각 데이터 수집을 위한 슬림형 카메라 모듈을 포함. b, 2.5 kg 덤벨을 들어 강도를 입증; 각 지절이 총 10.3 N의 파지력에 기여. c, 손가락 모식도 (K_n: 관절 강성, θ_n: 회전각, F: 케이블 장력). d, F-TAC Hand와 인간 손가락 굴곡의 위에서 본 비교. e, 많은 센서에도 불구하고 Kapandji 테스트를 성공적으로 통과하여 가동성 유지."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Comprehensive tactile sensing capabilities. a, Raw tactile sensor readings from the configuration shown in Figure 1a are processed by neural networks (b) to reconstruct contact site geometries (c), visualized as normal maps. The neural networks, trained on simulated data (d) generated by a physics-based image formation model, enable efficient and precise mapping of extensive raw data to geometric information at the contact interface. When grasping an object (e), F-TAC Hand captures detailed contact information through its advanced tactile sensing capabilities (f). g, This rich tactile feedback enables F-TAC Hand to accurately perceive and interpret object characteristics, as demonstrated by its precise estimation of in-hand object poses.",
+      "caption_ko": "포괄적인 촉각 감지 능력. a, Figure 1a 구성에서 얻은 원시 촉각 센서 데이터를 신경망(b)으로 처리하여 접촉 영역 형상(c)을 법선맵으로 복원. 신경망은 물리 기반 이미지 형성 모델로 생성한 시뮬레이션 데이터(d)로 학습되어, 방대한 원시 데이터를 접촉 인터페이스의 기하 정보로 효율적이고 정밀하게 매핑한다. 물체를 잡을 때(e) F-TAC Hand는 고도화된 촉각 감지 능력으로 상세한 접촉 정보를 포착(f)한다. g, 이 풍부한 촉각 피드백 덕분에 F-TAC Hand는 인핸드 물체 자세 추정과 같이 물체 특성을 정확히 인지하고 해석할 수 있다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Human-like diverse grasping strategies for single objects. a, A total of 23 objects, varying in dimensions and geometrical complexity, are chosen to assess the efficacy of the grasp generation method. b–d, The landscape of possible grasps is depicted as a disconnectivity graph, generated using the ADELM algorithm. e, For the piler, the diversity in grasp strategies mirrors its common usage in daily human activities. f, Diversity in grasping strategies is maintained even when the object possesses complex geometric features. g, Comprehensive categorization of generated grasps for all 23 objects, based on human grasp types adopted from Feix et al. The results collectively cover all 19 common grasp types, implying the human-like diversity of the generated grasping strategies.",
+      "caption_ko": "단일 물체에 대한 인간 유사 다양 파지 전략. a, 크기와 기하학적 복잡도가 다양한 23개 물체로 파지 생성법의 유효성을 평가. b-d, 가능한 파지의 풍경(landscape)을 ADELM 알고리즘으로 생성한 비연결성(disconnectivity) 그래프로 시각화. e, 펜치의 경우 파지 전략의 다양성이 일상 활동에서의 사용 양상을 반영. f, 복잡한 기하학적 특징을 가진 물체에서도 파지 다양성이 유지됨. g, Feix 등의 인간 파지 분류 체계로 23개 물체에 대해 생성된 파지 전체를 분류한 결과, 19가지 일반적 파지 유형을 모두 포괄하여 인간 수준의 다양성을 입증."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "F-TAC Hand's adaptive behaviors in physical world. a, F-TAC Hand tackles the challenge presented in prior work, specifically its ability to grasp multiple objects simultaneously in a manner that mimics human capabilities. b, Despite execution noise, F-TAC Hand can optimize object transport through multi-object grasping. This offers a more adaptable solution to the enduring challenge. c, While the initial strategy is effective in optimal conditions, real-world disturbances can complicate interactions with subsequent objects, making continuous monitoring through tactile embodiment essential. d, Tactile embodiment facilitates the adoption of alternative strategies. This capability, underpinned by human-like diverse grasping strategies, significantly enhances the success rate of grasping the second object compared to systems lacking these attributes.",
+      "caption_ko": "실세계에서의 F-TAC Hand 적응 행동. a, 선행 연구가 제기한 도전 과제 — 인간처럼 여러 물체를 동시에 잡는 능력을 다룸. b, 실행 노이즈에도 불구하고 다중 물체 파지로 운반을 최적화. 지속적인 도전 과제에 더 적응적인 해법 제공. c, 초기 전략은 최적 조건에서 효과적이지만 실세계 외란은 후속 물체와의 상호작용을 복잡하게 만들어 촉각 임베딩을 통한 지속 감시가 필수적. d, 촉각 임베딩은 대안 전략 채택을 가능하게 함. 인간 유사 다양 파지 전략에 기반한 이 능력은 두 번째 물체 파지 성공률을 비촉각 시스템 대비 크게 향상시킴."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

@@ -32,11 +32,11 @@
   "relations": [
     {
       "target": "2603-meta-harness-optimization",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2502-ai-co-scientist",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "ai_summary": {

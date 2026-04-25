@@ -28,7 +28,7 @@
   "relations": [
     {
       "target": "2410-pi0-vla-flow-model",
-      "type": "builds_on"
+      "type": "extends"
     }
   ],
   "ai_summary": {

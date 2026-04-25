@@ -14,7 +14,14 @@
   "source_authors_full": "Jessica Yin (Meta FAIR), Haozhi Qi (Meta FAIR), Youngsun Wi (Meta FAIR, University of Michigan), Sayantan Kundu (Meta FAIR), Mike Lambeta (Meta FAIR), William Yang (University of Pennsylvania), Changhao Wang (Meta FAIR), Tingfan Wu (Meta FAIR), Jitendra Malik (Meta FAIR), Tess Hellebrekers (Meta FAIR)",
   "source_project_url": "https://jessicayin.github.io/osmo_tactile_glove/",
   "google_scholar_url": "https://scholar.google.com/scholar?&q=osmo-open-source-tactile-glove",
-  "tags": ["Papers", "Robotics", "Tactile Sensing", "Human-Robot Transfer", "Wearable", "Open Source"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Tactile Sensing",
+    "Human-Robot Transfer",
+    "Wearable",
+    "Open Source"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "(A) The OSMO tactile glove for collecting in-the-wild human demonstrations provides full-hand coverage with 3-axis tactile sensors, integrates seamlessly with hand-tracking systems, and can be directly deployed on robots. (B) We demonstrate that a contact-rich wiping policy trained solely on OSMO tactile-glove human demonstrations can be directly deployed on a robot, outperforming vision-only policies. More videos, code, and design files are available at the project website.",
   "cover_figure_number": 1,
@@ -53,23 +60,23 @@
   "relations": [
     {
       "target": "2407-tactile-skin-inhand-translation",
-      "type": "builds_on"
+      "type": "extends"
     },
     {
       "target": "2512-unitachand",
-      "type": "compares_with"
+      "type": "reviews"
     },
     {
       "target": "2504-pp-tac",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2409-3dtactile-dex",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2505-dexumi",
-      "type": "compares_with"
+      "type": "reviews"
     }
   ],
   "idea_status": null,

@@ -166,15 +166,15 @@
   "relations": [
     {
       "target": "2505-dexumi",
-      "type": "compares_with"
+      "type": "reviews"
     },
     {
       "target": "2506-exostart",
-      "type": "compares_with"
+      "type": "reviews"
     },
     {
       "target": "2407-stretchable-glove-hand-pose",
-      "type": "addresses_task"
+      "type": "sharesGoalWith"
     }
   ],
   "ai_summary": {

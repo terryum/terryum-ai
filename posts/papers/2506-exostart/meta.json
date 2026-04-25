@@ -160,15 +160,15 @@
   "relations": [
     {
       "target": "2505-dexumi",
-      "type": "compares_with"
+      "type": "reviews"
     },
     {
       "target": "2501-dexforce-force-informed-actions",
-      "type": "addresses_task"
+      "type": "sharesGoalWith"
     },
     {
       "target": "2505-forcevla-force-aware-moe",
-      "type": "addresses_task"
+      "type": "sharesGoalWith"
     }
   ],
   "ai_summary": {

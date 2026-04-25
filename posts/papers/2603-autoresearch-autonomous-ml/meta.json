@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "AI Agent", "Autonomous Research", "LLM", "ML Optimization"],
-  "display_tags": ["AI Agent", "Autonomous Research", "LLM", "ML Optimization"],
+  "tags": [
+    "Papers",
+    "AI Agent",
+    "Autonomous Research",
+    "LLM",
+    "ML Optimization"
+  ],
+  "display_tags": [
+    "AI Agent",
+    "Autonomous Research",
+    "LLM",
+    "ML Optimization"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Autotune Progress: 276 Experiments, 29 Kept Improvements — validation BPB steadily decreasing as experiments progress",
   "cover_figure_number": 2,
@@ -15,32 +26,70 @@
   "source_type": "GitHub",
   "source_title": "autoresearch: A framework for autonomous AI research agents",
   "source_author": "Andrej Karpathy",
-  "source_authors_full": ["Andrej Karpathy"],
+  "source_authors_full": [
+    "Andrej Karpathy"
+  ],
   "source_url": "https://github.com/karpathy/autoresearch",
   "source_date": "2026-03-26T00:00:00Z",
   "source_project_url": "https://github.com/karpathy/autoresearch",
   "google_scholar_url": null,
   "domain": "ai",
-  "subfields": ["autonomous-research", "ml-optimization", "agent-systems"],
-  "key_concepts": ["autonomous-research", "ml-optimization", "agent-experimentation", "hyperparameter-tuning", "validation-loss"],
-  "methodology": ["autonomous-agent", "iterative-optimization", "automated-experimentation"],
+  "subfields": [
+    "autonomous-research",
+    "ml-optimization",
+    "agent-systems"
+  ],
+  "key_concepts": [
+    "autonomous-research",
+    "ml-optimization",
+    "agent-experimentation",
+    "hyperparameter-tuning",
+    "validation-loss"
+  ],
+  "methodology": [
+    "autonomous-agent",
+    "iterative-optimization",
+    "automated-experimentation"
+  ],
   "contribution_type": "system",
   "taxonomy_primary": "ai/agent",
-  "taxonomy_secondary": ["ai/llm"],
+  "taxonomy_secondary": [
+    "ai/llm"
+  ],
   "relations": [
-    { "slug": "2502-ai-co-scientist", "type": "related" },
-    { "slug": "2604-automated-alignment-researchers", "type": "related" }
+    {
+      "type": "sharesTopicWith",
+      "target": "2502-ai-co-scientist"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2604-automated-alignment-researchers"
+    }
   ],
   "ai_summary": {
     "one_liner": "Open-source framework for AI agents to autonomously iterate on ML training — 700 experiments in 2 days, 11% faster GPT-2",
     "problem": "Human researcher is the bottleneck in the iterative ML experiment loop — can only test one hypothesis at a time",
     "solution": "autoresearch: 3-file framework (prepare.py, train.py, program.md) with fixed 5-min time budget and single val_bpb metric, letting AI agents autonomously modify and evaluate",
     "key_result": "GPT-2 training time 2.02h → 1.80h (11% reduction) in ~700 autonomous experiments over 2 days; found real bugs (QKnorm, missing regularization) that transferred to larger models",
-    "limitations": ["Single file + single GPU constraint", "Hyperparameter tuning level, not novel research", "Multi-agent scaling unimplemented"]
+    "limitations": [
+      "Single file + single GPU constraint",
+      "Hyperparameter tuning level, not novel research",
+      "Multi-agent scaling unimplemented"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.jpeg", "caption": "autoresearch's initial run log. Over 12 hours, the AI agent tried 110 changes, reducing the d12 model's validation loss from 0.862415 to 0.858039. DISCARDED/KEPT decisions are made automatically.", "caption_ko": "autoresearch의 첫 실행 로그. 12시간 동안 AI 에이전트가 110개의 변경을 시도하며 d12 모델의 validation loss를 0.862415에서 0.858039로 낮추었다. DISCARDED/KEPT 판정이 자동으로 이루어진다." },
-    { "number": 2, "src": "./fig-2.jpeg", "caption": "Autotune Progress: 276 Experiments, 29 Kept Improvements. The agent autonomously runs experiments, steadily reducing validation BPB. Gray dots are discarded experiments; green dots are kept improvements.", "caption_ko": "Autotune Progress: 276 Experiments, 29 Kept Improvements. 에이전트가 자율적으로 실험을 수행하며 validation BPB를 지속적으로 낮추는 과정. 회색 점은 discard된 실험, 녹색 점은 keep된 개선이다." }
+    {
+      "number": 1,
+      "src": "./fig-1.jpeg",
+      "caption": "autoresearch's initial run log. Over 12 hours, the AI agent tried 110 changes, reducing the d12 model's validation loss from 0.862415 to 0.858039. DISCARDED/KEPT decisions are made automatically.",
+      "caption_ko": "autoresearch의 첫 실행 로그. 12시간 동안 AI 에이전트가 110개의 변경을 시도하며 d12 모델의 validation loss를 0.862415에서 0.858039로 낮추었다. DISCARDED/KEPT 판정이 자동으로 이루어진다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.jpeg",
+      "caption": "Autotune Progress: 276 Experiments, 29 Kept Improvements. The agent autonomously runs experiments, steadily reducing validation BPB. Gray dots are discarded experiments; green dots are kept improvements.",
+      "caption_ko": "Autotune Progress: 276 Experiments, 29 Kept Improvements. 에이전트가 자율적으로 실험을 수행하며 validation BPB를 지속적으로 낮추는 과정. 회색 점은 discard된 실험, 녹색 점은 keep된 개선이다."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

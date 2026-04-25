@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "AI Agent", "Autonomous Lab", "Scientific Discovery", "Robotics"],
-  "display_tags": ["AI Agent", "Autonomous Lab", "Scientific Discovery", "Robotics"],
+  "tags": [
+    "Papers",
+    "AI Agent",
+    "Autonomous Lab",
+    "Scientific Discovery",
+    "Robotics"
+  ],
+  "display_tags": [
+    "AI Agent",
+    "Autonomous Lab",
+    "Scientific Discovery",
+    "Robotics"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "The robot scientist Eve at Chalmers University of Technology — a 5m×5m×3m autonomous experimental platform",
   "cover_figure_number": 1,
@@ -15,33 +26,73 @@
   "source_type": "Nature",
   "source_title": "'Self-driving' labs power up",
   "source_author": "Rachel Brazil",
-  "source_authors_full": ["Rachel Brazil"],
+  "source_authors_full": [
+    "Rachel Brazil"
+  ],
   "source_url": "https://www.nature.com/articles/d41586-026-00974-2",
   "source_date": "2026-04-02T00:00:00Z",
   "source_project_url": null,
   "google_scholar_url": null,
   "domain": "ai",
-  "subfields": ["autonomous-lab", "scientific-discovery", "ai-robotics"],
-  "key_concepts": ["self-driving-lab", "autonomous-experimentation", "bayesian-optimization", "llm-guided-research", "robot-scientist"],
-  "methodology": ["autonomous-agent", "bayesian-optimization", "llm-integration", "robotic-automation"],
+  "subfields": [
+    "autonomous-lab",
+    "scientific-discovery",
+    "ai-robotics"
+  ],
+  "key_concepts": [
+    "self-driving-lab",
+    "autonomous-experimentation",
+    "bayesian-optimization",
+    "llm-guided-research",
+    "robot-scientist"
+  ],
+  "methodology": [
+    "autonomous-agent",
+    "bayesian-optimization",
+    "llm-integration",
+    "robotic-automation"
+  ],
   "contribution_type": "survey",
   "taxonomy_primary": "ai/agent",
   "taxonomy_secondary": [],
   "relations": [
-    { "slug": "2502-ai-co-scientist", "type": "related" },
-    { "slug": "2604-automated-alignment-researchers", "type": "related" },
-    { "slug": "2603-autoresearch-autonomous-ml", "type": "related" }
+    {
+      "type": "sharesTopicWith",
+      "target": "2502-ai-co-scientist"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2604-automated-alignment-researchers"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2603-autoresearch-autonomous-ml"
+    }
   ],
   "ai_summary": {
     "one_liner": "Nature survey on self-driving labs: AI+robotics platforms autonomously running the full scientific experimentation loop",
     "problem": "Scientific experimentation is mostly manual craft work — humans are the bottleneck in the experiment-evaluate-iterate loop",
     "solution": "Self-driving labs integrating AI, robotics, and automated instrumentation to design and perform experiments with minimal human input",
     "key_result": "Eve discovered antimalarial compounds from 1,600 candidates; Coscientist optimized synthesis in ~20 cycles; AISF achieved superhuman experiment design in catalyst discovery",
-    "limitations": ["Cannot understand the big picture or achieve conceptual breakthroughs", "Safety control frameworks incomplete", "Researcher resistance to automation"]
+    "limitations": [
+      "Cannot understand the big picture or achieve conceptual breakthroughs",
+      "Safety control frameworks incomplete",
+      "Researcher resistance to automation"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.jpeg", "caption": "The robot scientist Eve at Chalmers University of Technology. A 5m×5m×3m autonomous experimental platform where AI formulates hypotheses and robotic arms execute experiments.", "caption_ko": "Chalmers University of Technology의 로봇 과학자 Eve. 5m×5m×3m 크기의 자율 실험 플랫폼으로, AI가 가설을 수립하고 로봇 팔이 실험을 수행한다." },
-    { "number": 2, "src": "./fig-2.jpeg", "caption": "Lila Sciences' autonomous research facility, aiming to provide autonomous experimental platforms as a service to research-intensive organizations.", "caption_ko": "Lila Sciences의 자율 연구실. 연구 집약적 기관에 서비스형 자율 실험 플랫폼을 제공하는 것을 목표로 한다." }
+    {
+      "number": 1,
+      "src": "./fig-1.jpeg",
+      "caption": "The robot scientist Eve at Chalmers University of Technology. A 5m×5m×3m autonomous experimental platform where AI formulates hypotheses and robotic arms execute experiments.",
+      "caption_ko": "Chalmers University of Technology의 로봇 과학자 Eve. 5m×5m×3m 크기의 자율 실험 플랫폼으로, AI가 가설을 수립하고 로봇 팔이 실험을 수행한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.jpeg",
+      "caption": "Lila Sciences' autonomous research facility, aiming to provide autonomous experimental platforms as a service to research-intensive organizations.",
+      "caption_ko": "Lila Sciences의 자율 연구실. 연구 집약적 기관에 서비스형 자율 실험 플랫폼을 제공하는 것을 목표로 한다."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

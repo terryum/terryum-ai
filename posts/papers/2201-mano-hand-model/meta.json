@@ -14,7 +14,14 @@
   "source_authors_full": "Javier Romero (Max Planck Institute for Intelligent Systems), Dimitrios Tzionas (Max Planck Institute for Intelligent Systems), Michael J. Black (Max Planck Institute for Intelligent Systems)",
   "source_project_url": "https://mano.is.tue.mpg.de/",
   "google_scholar_url": "https://scholar.google.com/scholar?&q=embodied-hands-modeling-capturing",
-  "tags": ["Papers", "Robotics", "Hand Modeling", "3D Reconstruction", "SMPL+H", "SIGGRAPH Asia 2017"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Hand Modeling",
+    "3D Reconstruction",
+    "SMPL+H",
+    "SIGGRAPH Asia 2017"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Fig. 1. Capturing hands and bodies together. Beige: raw 4D scan. Pink: recovered shape and pose using our model of hands and bodies interacting together (SMPL+H). To deal with noise and missing data, we develop a new model of hands called MANO (hand Model with Articulated and Non-rigid defOrmations) and combine it with a parameterized 3D body model (SMPL). This combination enables natural performance capture even under severely noisy measurements.",
   "cover_figure_number": 1,
@@ -51,15 +58,15 @@
   "relations": [
     {
       "target": "2407-stretchable-glove-hand-pose",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2512-unitachand",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2602-robopaint",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "idea_status": null,

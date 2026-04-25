@@ -6,8 +6,19 @@
   "updated_at": "2026-04-17T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Tactile Sensing", "Soft Robotics", "Palm"],
-  "display_tags": ["Robotics", "Tactile Sensing", "Soft Robotics", "Palm"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Tactile Sensing",
+    "Soft Robotics",
+    "Palm"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Tactile Sensing",
+    "Soft Robotics",
+    "Palm"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "TacPalm SoftHand 개념도. 고밀도 시각-촉각 손바닥과 2-세그먼트 공압 소프트 손가락의 협조로 정밀한 파지·인식·조작을 구현한다.",
   "cover_figure_number": 1,
@@ -16,25 +27,73 @@
   "source_type": "Nature Communications",
   "source_title": "Soft robotic hand with tactile palm-finger coordination",
   "source_author": "Ningbin Zhang et al.",
-  "source_authors_full": ["Ningbin Zhang", "Jieji Ren", "Yueshi Dong", "Xinyu Yang", "Rong Bian", "Jinhao Li", "Guoying Gu", "Xiangyang Zhu"],
+  "source_authors_full": [
+    "Ningbin Zhang",
+    "Jieji Ren",
+    "Yueshi Dong",
+    "Xinyu Yang",
+    "Rong Bian",
+    "Jinhao Li",
+    "Guoying Gu",
+    "Xiangyang Zhu"
+  ],
   "source_url": "https://www.nature.com/articles/s41467-025-57741-6",
   "source_date": "2025-03-10T00:00:00Z",
   "source_project_url": null,
   "google_scholar_url": "https://scholar.google.com/scholar?q=Soft+robotic+hand+tactile+palm-finger+coordination+TacPalm",
   "domain": "robotics",
-  "subfields": ["soft-robotics", "tactile-sensing", "robotic-hand"],
-  "key_concepts": ["visual-tactile-palm", "soft-pneumatic-finger", "fiber-reinforced-actuator", "palm-finger-cooperation", "high-density-tactile", "GelSight-style-sensor", "two-segment-actuation", "object-classification"],
-  "methodology": ["soft-robot-fabrication", "visual-tactile-sensing", "shape-reconstruction", "ResNet34-classification", "tactile-feedback-control"],
+  "subfields": [
+    "soft-robotics",
+    "tactile-sensing",
+    "robotic-hand"
+  ],
+  "key_concepts": [
+    "visual-tactile-palm",
+    "soft-pneumatic-finger",
+    "fiber-reinforced-actuator",
+    "palm-finger-cooperation",
+    "high-density-tactile",
+    "GelSight-style-sensor",
+    "two-segment-actuation",
+    "object-classification"
+  ],
+  "methodology": [
+    "soft-robot-fabrication",
+    "visual-tactile-sensing",
+    "shape-reconstruction",
+    "ResNet34-classification",
+    "tactile-feedback-control"
+  ],
   "contribution_type": "system",
   "taxonomy_primary": "robotics/hand/tactile",
-  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous"
+  ],
   "relations": [
-    { "slug": "2412-f-tac-hand", "type": "compares_with" },
-    { "slug": "2407-tactile-skin-inhand-translation", "type": "related" },
-    { "slug": "2409-3dtactile-dex", "type": "related" },
-    { "slug": "2504-pp-tac", "type": "related" },
-    { "slug": "2511-equitac-tactile-equivariance", "type": "related" },
-    { "slug": "2512-osmo-tactile-glove", "type": "related" }
+    {
+      "type": "reviews",
+      "target": "2412-f-tac-hand"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2407-tactile-skin-inhand-translation"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2409-3dtactile-dex"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2504-pp-tac"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2511-equitac-tactile-equivariance"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2512-osmo-tactile-glove"
+    }
   ],
   "ai_summary": {
     "one_liner": "Three-finger soft pneumatic hand with a 181,000 unit/cm² visual-tactile palm — palm-finger coordination yields 100% cup-cap pickup, 97% fabric classification, and dynamic teapot-pose stabilization",
@@ -49,12 +108,42 @@
     ]
   },
   "figures": [
-    { "number": 2, "src": "./fig-2.png", "caption": "Mechanical design of TacPalm SoftHand. a, Overall hand structure: cylinder-like visual-tactile palm + three soft two-segment fingers + a 40°-inclined three-base palm-finger connector. b, Tactile palm cross-section: micro camera, multi-layer sensing body (gray-ink-coated transparent elastomer + acrylic + diffuser), and an RGB LED ring. c, Optical model determining LED mounting height h_lm = (r_p − w_l)/tan(θ/2) − h_ca = 4.56 mm to suppress inter-reflection. d, Soft finger composition: two-segment fiber-reinforced elastomeric chamber (Dragon Skin 10), polyethylene sheet (E = 275 MPa), and Ecoflex 00-30 outer skin; segment length ratio L_p:L_d = 2:3.", "caption_ko": "TacPalm SoftHand의 기계 설계. a, 전체 손 구조: 원통형 시각-촉각 손바닥 + 3개의 2세그먼트 소프트 손가락 + 40° 기울기 3-마운팅 베이스 연결부. b, 촉각 손바닥 단면도: 마이크로 카메라, 다층 센싱 바디(회색 잉크 코팅 투명 탄성체 + 아크릴 + 디퓨저), RGB LED 링. c, 광학 모델로 LED 장착 높이 h_lm = (r_p − w_l)/tan(θ/2) − h_ca = 4.56 mm로 결정해 내부 반사 억제. d, 소프트 손가락 구성: 2세그먼트 섬유 강화 탄성 챔버(Dragon Skin 10), 폴리에틸렌 시트(E = 275 MPa), Ecoflex 00-30 외피; 세그먼트 길이 비 L_p:L_d = 2:3." },
-    { "number": 3, "src": "./fig-3.png", "caption": "Tactile sensing performance of the palm. a, Characterization setup with motion platform + force sensor pressing standard probes (flat probe A and hemispherical probe B) onto the palm. b, Dimension mapping that fixes the total sensing area at 30.08 × 18.80 mm and density 181,000 unit/cm². c, Indentation geometry vs normal pressing force from probe B (0.05–5 N, n=3). d, Long-term cycling at 2.5 mm depth — no significant degradation across >5,000 cycles. e, Raw image RGB intensity distributions showing uniform LED illumination. f, Look-up-table accuracy: R² = 0.9783 (x), 0.9798 (y) for depth gradients (G_x, G_y). g, Reconstructed surface of stripe block A (1 mm interval) — sub-millimeter peaks. h, Reconstructed surface of triangular-step block B (0.5 mm height step). SSRA = 92.3% (x-y), 81% (z).", "caption_ko": "손바닥의 촉각 감지 성능. a, 모션 플랫폼과 힘 센서로 표준 프로브(평면 프로브 A, 반구 프로브 B)를 손바닥에 누르는 측정 셋업. b, 차원 매핑으로 총 감지 영역 30.08 × 18.80 mm와 밀도 181,000 unit/cm² 결정. c, 프로브 B의 수직 가압력별(0.05–5 N, n=3) 압흔 기하 변화. d, 2.5 mm 깊이에서 5,000회 이상 장기 사이클링에서도 유의미한 성능 저하 없음. e, 원시 이미지의 RGB 강도 분포로 균일한 LED 조명 확인. f, 룩업 테이블 정확도: 깊이 기울기 (G_x, G_y)에 대해 R² = 0.9783 (x), 0.9798 (y). g, 줄무늬 블록 A(1 mm 간격) 표면 재구성 — 서브-밀리미터 피크. h, 삼각 계단 블록 B(0.5 mm 단차) 표면 재구성. SSRA = 92.3% (x-y), 81% (z)." },
-    { "number": 4, "src": "./fig-4.png", "caption": "Finger performance and palm-assisted grasping. a, Crescent-shaped finger workspace spanning 57.2 mm (x) × 96.5 mm (y). b, Flexion vs pneumatic pressure for proximal-only (PA), distal-only (DA), and uniform (UA) actuation; max angles 85.3°/117.9°/204.3°. c, Fingertip forces 0.71/1.31/2.19 N (PA/DA/UA); max grasping force ≈14.6 N. d, TacPalm SoftHand mounted on a JAKA Zu7 7-DoF arm grasping diverse everyday objects. e, Human–robot handover examples — finger mode transitions PA → DA → UA; precision pinch to power wrap. f, High-speed delivery (180°/s, 720°/s²): tactile-enabled hand succeeds, no-tactile baseline fails. g, Cup-cap pickup: 100% (n=20) with tactile palm vs 65% (n=20) without.", "caption_ko": "손가락 성능과 손바닥 보조 파지. a, 초승달 모양의 손가락 작업 공간 57.2 mm (x) × 96.5 mm (y). b, 근위(PA)·원위(DA)·균등(UA) 작동에 대한 굽힘각-공압 곡선; 최대각 85.3°/117.9°/204.3°. c, 손끝 힘 0.71/1.31/2.19 N (PA/DA/UA); 최대 파지력 약 14.6 N. d, JAKA Zu7 7-DoF 로봇팔에 장착된 TacPalm SoftHand로 다양한 일상 물체 파지. e, 인간-로봇 핸드오버 예시 — 손가락 모드가 PA → DA → UA로 전환되며 정밀 핀치에서 파워 랩까지. f, 고속 운반(180°/s, 720°/s²): 촉각 사용 시 성공, 미사용 기준선은 실패. g, 컵 뚜껑 집기: 촉각 손바닥 사용 시 100% (n=20), 미사용 시 65% (n=20)." },
-    { "number": 5, "src": "./fig-5.png", "caption": "Exquisite perception and classification of different objects. a, Thick natural objects (balsam pear, cookie, pinecone; ~40.2±11.5 mm thickness) — proximal-to-distal pressure sequence; 3D surface reconstructions show vivid features without surface damage. b, Thin industrial parts (circuit board, check valve, screw; ~5.0±4.2 mm) — distal-to-proximal sequence with a single finger; subtle geometric features captured. c, Deformable fabrics (~0.5±0.1 mm) — distal-to-proximal sequence with all fingers + filtering algorithm to mitigate finger-indentation artifacts; FFT spectra reveal periodic patterns. d, Ten-class fabric set used for classification. e, Confusion matrix: 97% mean classification accuracy via a fine-tuned ResNet34 on tactile images (<0.01 s per image).", "caption_ko": "다양한 물체의 정밀 인지와 분류. a, 두꺼운 자연 물체(여주, 쿠키, 솔방울; 두께 약 40.2±11.5 mm) — 근위→원위 가압 순서; 표면 손상 없이 3D 표면 재구성에서 생생한 특징 확인. b, 얇은 산업 부품(회로 기판, 체크 밸브, 나사; 약 5.0±4.2 mm) — 단일 손가락의 원위→근위 순서; 미세 기하 특징 포착. c, 변형되는 직물(약 0.5±0.1 mm) — 모든 손가락의 원위→근위 순서 + 필터링으로 손가락 자국 영향 완화; FFT 스펙트럼에서 주기 패턴 확인. d, 분류에 사용한 10종 직물 세트. e, 혼동 행렬: 촉각 이미지에 대해 미세조정된 ResNet34로 평균 분류 정확도 97% (이미지당 <0.01초)." },
-    { "number": 6, "src": "./fig-6.png", "caption": "Cooperation of the tactile palm and soft fingers. a, Picking a card placed on a desk with only its top exposed (n=3 task times). b, Cyclic finger gait: rest→touch→pull→raise→recover gradually moves the card edge to contact the palm. c, Pneumatic actuation system. d, Edge detection on the palm triggers adaptive grasping by other fingers. e, Continuous flaw detection on a variegated fabric — fingers step the fabric across the palm so the palm scans more area than its 30×19 mm sensing region. f, Indentation difference between flaw vs flawless captured via color-difference image processing. g, Teapot pouring with dynamic pose adjustment (n=3 task times). h, Real-time monitoring of indentation contour area (ICA) on a selected dot on the teapot bottom. i, Tactile-feedback control system. j, Pneumatic pressure and ICA over time T1–T6: when ICA falls below the threshold during pouring, one finger's distal segment inflates to 80 kPa and restabilizes the teapot.", "caption_ko": "촉각 손바닥과 소프트 손가락의 협조. a, 윗면만 노출된 채 책상에 놓인 카드 집기(n=3). b, 순환 손가락 가이트: rest→touch→pull→raise→recover로 카드 모서리를 손바닥에 점차 접촉. c, 공압 작동 시스템. d, 손바닥의 모서리 감지가 다른 손가락의 적응적 파지를 촉발. e, 무늬 직물의 연속 결함 감지 — 손가락이 직물을 손바닥 위로 한 단계씩 이동시켜 30×19 mm 감지 영역보다 더 넓은 영역을 스캔. f, 결함 vs 무결함의 압흔 차이를 색상 차이 기반 영상 처리로 구분. g, 동적 자세 조정과 함께 차 따르기(n=3). h, 차주전자 바닥의 선택된 점에 대한 압흔 윤곽 면적(ICA) 실시간 모니터링. i, 촉각 피드백 제어 시스템. j, 시간 T1–T6에서의 공압과 ICA — 따르는 도중 ICA가 임계값 아래로 떨어지면 한 손가락의 원위 세그먼트가 80 kPa로 부풀어 차주전자를 재안정화." },
-    { "number": 7, "src": "./fig-7.png", "caption": "Identification and delivery of packaged objects in an HMI application. a, Five clusters of objects (hexagon nuts, peas, bolts, melon seeds, sagos) packed in opaque 'blind bags' hanging on a string. b, Participant commands the arm-hand system to find a specific item; the arm scans bag by bag. c, Real-time identification result shown on a screen. d, Confusion matrix — 88% mean accuracy across 5 categories; melon seeds 100%; hexagon nuts↔sagos and bolts↔peas confused at ~15% due to similar size/shape and bag blurring. e, Probability analysis of the misclassified groups.", "caption_ko": "HMI 응용에서의 포장 물체 식별과 전달. a, 다섯 종(육각 너트, 완두콩, 볼트, 호박씨, 사고)을 불투명 '블라인드 백'에 포장해 끈에 매달음. b, 참가자가 특정 품목을 요청하면 팔-손 시스템이 가방을 하나씩 스캔. c, 식별 결과를 화면에 실시간 표시. d, 혼동 행렬 — 5종 평균 정확도 88%, 호박씨 100%; 크기·형태 유사성과 봉투의 블러 효과로 인해 육각 너트↔사고, 볼트↔완두콩이 약 15% 혼동. e, 오분류 그룹의 확률 분석." }
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Mechanical design of TacPalm SoftHand. a, Overall hand structure: cylinder-like visual-tactile palm + three soft two-segment fingers + a 40°-inclined three-base palm-finger connector. b, Tactile palm cross-section: micro camera, multi-layer sensing body (gray-ink-coated transparent elastomer + acrylic + diffuser), and an RGB LED ring. c, Optical model determining LED mounting height h_lm = (r_p − w_l)/tan(θ/2) − h_ca = 4.56 mm to suppress inter-reflection. d, Soft finger composition: two-segment fiber-reinforced elastomeric chamber (Dragon Skin 10), polyethylene sheet (E = 275 MPa), and Ecoflex 00-30 outer skin; segment length ratio L_p:L_d = 2:3.",
+      "caption_ko": "TacPalm SoftHand의 기계 설계. a, 전체 손 구조: 원통형 시각-촉각 손바닥 + 3개의 2세그먼트 소프트 손가락 + 40° 기울기 3-마운팅 베이스 연결부. b, 촉각 손바닥 단면도: 마이크로 카메라, 다층 센싱 바디(회색 잉크 코팅 투명 탄성체 + 아크릴 + 디퓨저), RGB LED 링. c, 광학 모델로 LED 장착 높이 h_lm = (r_p − w_l)/tan(θ/2) − h_ca = 4.56 mm로 결정해 내부 반사 억제. d, 소프트 손가락 구성: 2세그먼트 섬유 강화 탄성 챔버(Dragon Skin 10), 폴리에틸렌 시트(E = 275 MPa), Ecoflex 00-30 외피; 세그먼트 길이 비 L_p:L_d = 2:3."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Tactile sensing performance of the palm. a, Characterization setup with motion platform + force sensor pressing standard probes (flat probe A and hemispherical probe B) onto the palm. b, Dimension mapping that fixes the total sensing area at 30.08 × 18.80 mm and density 181,000 unit/cm². c, Indentation geometry vs normal pressing force from probe B (0.05–5 N, n=3). d, Long-term cycling at 2.5 mm depth — no significant degradation across >5,000 cycles. e, Raw image RGB intensity distributions showing uniform LED illumination. f, Look-up-table accuracy: R² = 0.9783 (x), 0.9798 (y) for depth gradients (G_x, G_y). g, Reconstructed surface of stripe block A (1 mm interval) — sub-millimeter peaks. h, Reconstructed surface of triangular-step block B (0.5 mm height step). SSRA = 92.3% (x-y), 81% (z).",
+      "caption_ko": "손바닥의 촉각 감지 성능. a, 모션 플랫폼과 힘 센서로 표준 프로브(평면 프로브 A, 반구 프로브 B)를 손바닥에 누르는 측정 셋업. b, 차원 매핑으로 총 감지 영역 30.08 × 18.80 mm와 밀도 181,000 unit/cm² 결정. c, 프로브 B의 수직 가압력별(0.05–5 N, n=3) 압흔 기하 변화. d, 2.5 mm 깊이에서 5,000회 이상 장기 사이클링에서도 유의미한 성능 저하 없음. e, 원시 이미지의 RGB 강도 분포로 균일한 LED 조명 확인. f, 룩업 테이블 정확도: 깊이 기울기 (G_x, G_y)에 대해 R² = 0.9783 (x), 0.9798 (y). g, 줄무늬 블록 A(1 mm 간격) 표면 재구성 — 서브-밀리미터 피크. h, 삼각 계단 블록 B(0.5 mm 단차) 표면 재구성. SSRA = 92.3% (x-y), 81% (z)."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Finger performance and palm-assisted grasping. a, Crescent-shaped finger workspace spanning 57.2 mm (x) × 96.5 mm (y). b, Flexion vs pneumatic pressure for proximal-only (PA), distal-only (DA), and uniform (UA) actuation; max angles 85.3°/117.9°/204.3°. c, Fingertip forces 0.71/1.31/2.19 N (PA/DA/UA); max grasping force ≈14.6 N. d, TacPalm SoftHand mounted on a JAKA Zu7 7-DoF arm grasping diverse everyday objects. e, Human–robot handover examples — finger mode transitions PA → DA → UA; precision pinch to power wrap. f, High-speed delivery (180°/s, 720°/s²): tactile-enabled hand succeeds, no-tactile baseline fails. g, Cup-cap pickup: 100% (n=20) with tactile palm vs 65% (n=20) without.",
+      "caption_ko": "손가락 성능과 손바닥 보조 파지. a, 초승달 모양의 손가락 작업 공간 57.2 mm (x) × 96.5 mm (y). b, 근위(PA)·원위(DA)·균등(UA) 작동에 대한 굽힘각-공압 곡선; 최대각 85.3°/117.9°/204.3°. c, 손끝 힘 0.71/1.31/2.19 N (PA/DA/UA); 최대 파지력 약 14.6 N. d, JAKA Zu7 7-DoF 로봇팔에 장착된 TacPalm SoftHand로 다양한 일상 물체 파지. e, 인간-로봇 핸드오버 예시 — 손가락 모드가 PA → DA → UA로 전환되며 정밀 핀치에서 파워 랩까지. f, 고속 운반(180°/s, 720°/s²): 촉각 사용 시 성공, 미사용 기준선은 실패. g, 컵 뚜껑 집기: 촉각 손바닥 사용 시 100% (n=20), 미사용 시 65% (n=20)."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Exquisite perception and classification of different objects. a, Thick natural objects (balsam pear, cookie, pinecone; ~40.2±11.5 mm thickness) — proximal-to-distal pressure sequence; 3D surface reconstructions show vivid features without surface damage. b, Thin industrial parts (circuit board, check valve, screw; ~5.0±4.2 mm) — distal-to-proximal sequence with a single finger; subtle geometric features captured. c, Deformable fabrics (~0.5±0.1 mm) — distal-to-proximal sequence with all fingers + filtering algorithm to mitigate finger-indentation artifacts; FFT spectra reveal periodic patterns. d, Ten-class fabric set used for classification. e, Confusion matrix: 97% mean classification accuracy via a fine-tuned ResNet34 on tactile images (<0.01 s per image).",
+      "caption_ko": "다양한 물체의 정밀 인지와 분류. a, 두꺼운 자연 물체(여주, 쿠키, 솔방울; 두께 약 40.2±11.5 mm) — 근위→원위 가압 순서; 표면 손상 없이 3D 표면 재구성에서 생생한 특징 확인. b, 얇은 산업 부품(회로 기판, 체크 밸브, 나사; 약 5.0±4.2 mm) — 단일 손가락의 원위→근위 순서; 미세 기하 특징 포착. c, 변형되는 직물(약 0.5±0.1 mm) — 모든 손가락의 원위→근위 순서 + 필터링으로 손가락 자국 영향 완화; FFT 스펙트럼에서 주기 패턴 확인. d, 분류에 사용한 10종 직물 세트. e, 혼동 행렬: 촉각 이미지에 대해 미세조정된 ResNet34로 평균 분류 정확도 97% (이미지당 <0.01초)."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Cooperation of the tactile palm and soft fingers. a, Picking a card placed on a desk with only its top exposed (n=3 task times). b, Cyclic finger gait: rest→touch→pull→raise→recover gradually moves the card edge to contact the palm. c, Pneumatic actuation system. d, Edge detection on the palm triggers adaptive grasping by other fingers. e, Continuous flaw detection on a variegated fabric — fingers step the fabric across the palm so the palm scans more area than its 30×19 mm sensing region. f, Indentation difference between flaw vs flawless captured via color-difference image processing. g, Teapot pouring with dynamic pose adjustment (n=3 task times). h, Real-time monitoring of indentation contour area (ICA) on a selected dot on the teapot bottom. i, Tactile-feedback control system. j, Pneumatic pressure and ICA over time T1–T6: when ICA falls below the threshold during pouring, one finger's distal segment inflates to 80 kPa and restabilizes the teapot.",
+      "caption_ko": "촉각 손바닥과 소프트 손가락의 협조. a, 윗면만 노출된 채 책상에 놓인 카드 집기(n=3). b, 순환 손가락 가이트: rest→touch→pull→raise→recover로 카드 모서리를 손바닥에 점차 접촉. c, 공압 작동 시스템. d, 손바닥의 모서리 감지가 다른 손가락의 적응적 파지를 촉발. e, 무늬 직물의 연속 결함 감지 — 손가락이 직물을 손바닥 위로 한 단계씩 이동시켜 30×19 mm 감지 영역보다 더 넓은 영역을 스캔. f, 결함 vs 무결함의 압흔 차이를 색상 차이 기반 영상 처리로 구분. g, 동적 자세 조정과 함께 차 따르기(n=3). h, 차주전자 바닥의 선택된 점에 대한 압흔 윤곽 면적(ICA) 실시간 모니터링. i, 촉각 피드백 제어 시스템. j, 시간 T1–T6에서의 공압과 ICA — 따르는 도중 ICA가 임계값 아래로 떨어지면 한 손가락의 원위 세그먼트가 80 kPa로 부풀어 차주전자를 재안정화."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Identification and delivery of packaged objects in an HMI application. a, Five clusters of objects (hexagon nuts, peas, bolts, melon seeds, sagos) packed in opaque 'blind bags' hanging on a string. b, Participant commands the arm-hand system to find a specific item; the arm scans bag by bag. c, Real-time identification result shown on a screen. d, Confusion matrix — 88% mean accuracy across 5 categories; melon seeds 100%; hexagon nuts↔sagos and bolts↔peas confused at ~15% due to similar size/shape and bag blurring. e, Probability analysis of the misclassified groups.",
+      "caption_ko": "HMI 응용에서의 포장 물체 식별과 전달. a, 다섯 종(육각 너트, 완두콩, 볼트, 호박씨, 사고)을 불투명 '블라인드 백'에 포장해 끈에 매달음. b, 참가자가 특정 품목을 요청하면 팔-손 시스템이 가방을 하나씩 스캔. c, 식별 결과를 화면에 실시간 표시. d, 혼동 행렬 — 5종 평균 정확도 88%, 호박씨 100%; 크기·형태 유사성과 봉투의 블러 효과로 인해 육각 너트↔사고, 볼트↔완두콩이 약 15% 혼동. e, 오분류 그룹의 확률 분석."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

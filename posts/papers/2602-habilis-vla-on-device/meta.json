@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "VLA", "On-Device", "Deployment"],
-  "display_tags": ["Robotics", "VLA", "On-Device", "Deployment"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "On-Device",
+    "Deployment"
+  ],
+  "display_tags": [
+    "Robotics",
+    "VLA",
+    "On-Device",
+    "Deployment"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "Habilis-β Overview: 3-stage training pipeline for Fast-Motion and Long-Lasting capabilities with on-device inference",
   "cover_figure_number": 1,
@@ -15,36 +26,119 @@
   "source_type": "arXiv",
   "source_title": "Habilis-β: A Fast-Motion and Long-Lasting On-Device Vision-Language-Action Model",
   "source_author": "Jesoon Kang et al.",
-  "source_authors_full": ["Jesoon Kang", "Taegeon Park", "Jisu An", "Soo Min Kimm", "Jaejoon Kim", "Jinu Pahk", "Byungju Kim", "Junseok Lee", "Namheon Baek", "Sungwan Ha", "Hojun Baek", "Eduardo Ayerve Cruz", "Wontae Kim", "Junghyeon Choi", "Yousuk Lee", "Joonmo Han", "Sunghyun Cho", "Sunghyun Kwon", "Soyoung Lee", "Jun Ki Lee", "Seung-Joon Yi", "Byoung-Tak Zhang", "Theo Taeyeong Kim"],
+  "source_authors_full": [
+    "Jesoon Kang",
+    "Taegeon Park",
+    "Jisu An",
+    "Soo Min Kimm",
+    "Jaejoon Kim",
+    "Jinu Pahk",
+    "Byungju Kim",
+    "Junseok Lee",
+    "Namheon Baek",
+    "Sungwan Ha",
+    "Hojun Baek",
+    "Eduardo Ayerve Cruz",
+    "Wontae Kim",
+    "Junghyeon Choi",
+    "Yousuk Lee",
+    "Joonmo Han",
+    "Sunghyun Cho",
+    "Sunghyun Kwon",
+    "Soyoung Lee",
+    "Jun Ki Lee",
+    "Seung-Joon Yi",
+    "Byoung-Tak Zhang",
+    "Theo Taeyeong Kim"
+  ],
   "source_url": "https://arxiv.org/abs/2602.18813",
   "source_date": "2026-02-21T00:00:00Z",
   "source_project_url": "https://tommoro-ai.github.io/habilis-beta/",
   "google_scholar_url": "https://scholar.google.com/scholar?q=habilis-beta-fast-motion-long-lasting-on-device-VLA",
   "domain": "robotics",
-  "subfields": ["vla", "on-device-inference", "deployment", "manipulation"],
-  "key_concepts": ["VLA", "on-device-inference", "tasks-per-hour", "MTBI", "rectified-flow-distillation", "ESPADA", "classifier-free-guidance", "play-data-pretraining"],
-  "methodology": ["flow-matching", "knowledge-distillation", "imitation-learning", "continuous-evaluation"],
+  "subfields": [
+    "vla",
+    "on-device-inference",
+    "deployment",
+    "manipulation"
+  ],
+  "key_concepts": [
+    "VLA",
+    "on-device-inference",
+    "tasks-per-hour",
+    "MTBI",
+    "rectified-flow-distillation",
+    "ESPADA",
+    "classifier-free-guidance",
+    "play-data-pretraining"
+  ],
+  "methodology": [
+    "flow-matching",
+    "knowledge-distillation",
+    "imitation-learning",
+    "continuous-evaluation"
+  ],
   "contribution_type": "method",
   "taxonomy_primary": "robotics/brain/vla",
-  "taxonomy_secondary": ["robotics/arm"],
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ],
   "relations": [
-    { "slug": "2410-pi0-vla-flow-model", "type": "builds_on" },
-    { "slug": "2511-pi0-6-recap", "type": "compares_with" },
-    { "slug": "2505-forcevla-force-aware-moe", "type": "related" }
+    {
+      "type": "extends",
+      "target": "2410-pi0-vla-flow-model"
+    },
+    {
+      "type": "reviews",
+      "target": "2511-pi0-6-recap"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2505-forcevla-force-aware-moe"
+    }
   ],
   "ai_summary": {
     "one_liner": "On-device VLA model achieving 572.6 TPH in simulation and 124 TPH in real-world via 3-stage training + ESPADA motion compression",
     "problem": "Single-trial success rates don't capture real deployment performance; cloud-dependent VLA models have latency/cost barriers",
     "solution": "3-stage training (play pre-train → cyclic post-train → rectified flow distillation) + ESPADA semantic motion compression + CFG deployment knob",
     "key_result": "Simulation: TPH 572.6 (4.75× vs π0.5); Real-world: TPH 124, MTBI 137.4s, 82.7% success (6.53× productivity vs π0.5)",
-    "limitations": ["Limited generalization, not human-level accuracy", "ESPADA LLM-based segmentation introduces variance", "Single real-world task validation only"]
+    "limitations": [
+      "Limited generalization, not human-level accuracy",
+      "ESPADA LLM-based segmentation introduces variance",
+      "Single real-world task validation only"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.png", "caption": "Habilis-β Overview. (Left) Training Pipeline: The model is trained in three stages to achieve Fast-Motion and Long-Lasting capabilities. Stage 1 learns a robust, task-agnostic interaction prior via play data pre-training. Stage 2 post-trains on cyclic task demonstrations, utilizing Spatially Aware Downsampling (ESPADA) to compress casual free-space motions. Stage 3 distills the multi-step flow matching action expert into an efficient rectified flow model. (Right) Inference Pipeline: To enable On-Device operation, a pre-trained VLM prefix fuses multimodal observations to condition the distilled action expert.", "caption_ko": "Habilis-β 개요. (왼쪽) 학습 파이프라인: 3단계 학습으로 Fast-Motion과 Long-Lasting 능력을 달성. Stage 1은 Play 데이터 사전학습으로 과제 무관 상호작용 사전지식 습득. Stage 2는 순환 과제 시연으로 후학습하며 ESPADA로 자유 공간 동작 압축. Stage 3는 다단계 flow matching action expert를 효율적인 rectified flow 모델로 증류. (오른쪽) 추론 파이프라인: 온디바이스 동작을 위해 사전학습된 VLM prefix가 멀티모달 관측을 융합하여 증류된 action expert를 조건화." },
-    { "number": 2, "src": "./fig-2.png", "caption": "Model Architecture. Habilis-β's prefix-suffix architecture uses a pre-trained VLM prefix to process multimodal inputs, conditioning a suffix action expert that generates continuous action chunks.", "caption_ko": "모델 아키텍처. Habilis-β의 prefix-suffix 아키텍처는 사전학습된 VLM prefix로 멀티모달 입력을 처리하고, suffix action expert가 연속 action chunk를 생성한다." },
-    { "number": 5, "src": "./fig-5.png", "caption": "Simulation Productivity-Reliability Plane. We plot the deployment performance of different methods in simulation. Habilis-β (w/o ESPADA) achieves the highest reliability (MTBI), while the full Habilis-β dramatically increases throughput (TPH), offering a configurable trade-off for different operational needs.", "caption_ko": "시뮬레이션 생산성-신뢰성 평면. 시뮬레이션에서 다양한 방법의 배포 성능을 시각화. ESPADA 없는 Habilis-β가 가장 높은 신뢰성(MTBI)을 달성하고, 전체 Habilis-β는 처리량(TPH)을 극적으로 증가시켜 운영 요구에 따라 구성 가능한 트레이드오프를 제공한다." },
-    { "number": 7, "src": "./fig-rb-y1.png", "caption": "RB-Y1. We used a humanoid platform in real-world experiments.", "caption_ko": "RB-Y1. 실환경 실험에 사용된 휴머노이드 플랫폼." },
-    { "number": 9, "src": "./fig-9.png", "caption": "Real-world Productivity-Reliability Plane. We visualize the performance landscape, where the ideal system resides in the top-right quadrant (high throughput, high robustness).", "caption_ko": "실환경 생산성-신뢰성 평면. 이상적인 시스템은 우상단(높은 처리량, 높은 견고성)에 위치한다." }
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Habilis-β Overview. (Left) Training Pipeline: The model is trained in three stages to achieve Fast-Motion and Long-Lasting capabilities. Stage 1 learns a robust, task-agnostic interaction prior via play data pre-training. Stage 2 post-trains on cyclic task demonstrations, utilizing Spatially Aware Downsampling (ESPADA) to compress casual free-space motions. Stage 3 distills the multi-step flow matching action expert into an efficient rectified flow model. (Right) Inference Pipeline: To enable On-Device operation, a pre-trained VLM prefix fuses multimodal observations to condition the distilled action expert.",
+      "caption_ko": "Habilis-β 개요. (왼쪽) 학습 파이프라인: 3단계 학습으로 Fast-Motion과 Long-Lasting 능력을 달성. Stage 1은 Play 데이터 사전학습으로 과제 무관 상호작용 사전지식 습득. Stage 2는 순환 과제 시연으로 후학습하며 ESPADA로 자유 공간 동작 압축. Stage 3는 다단계 flow matching action expert를 효율적인 rectified flow 모델로 증류. (오른쪽) 추론 파이프라인: 온디바이스 동작을 위해 사전학습된 VLM prefix가 멀티모달 관측을 융합하여 증류된 action expert를 조건화."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Model Architecture. Habilis-β's prefix-suffix architecture uses a pre-trained VLM prefix to process multimodal inputs, conditioning a suffix action expert that generates continuous action chunks.",
+      "caption_ko": "모델 아키텍처. Habilis-β의 prefix-suffix 아키텍처는 사전학습된 VLM prefix로 멀티모달 입력을 처리하고, suffix action expert가 연속 action chunk를 생성한다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Simulation Productivity-Reliability Plane. We plot the deployment performance of different methods in simulation. Habilis-β (w/o ESPADA) achieves the highest reliability (MTBI), while the full Habilis-β dramatically increases throughput (TPH), offering a configurable trade-off for different operational needs.",
+      "caption_ko": "시뮬레이션 생산성-신뢰성 평면. 시뮬레이션에서 다양한 방법의 배포 성능을 시각화. ESPADA 없는 Habilis-β가 가장 높은 신뢰성(MTBI)을 달성하고, 전체 Habilis-β는 처리량(TPH)을 극적으로 증가시켜 운영 요구에 따라 구성 가능한 트레이드오프를 제공한다."
+    },
+    {
+      "number": 7,
+      "src": "./fig-rb-y1.png",
+      "caption": "RB-Y1. We used a humanoid platform in real-world experiments.",
+      "caption_ko": "RB-Y1. 실환경 실험에 사용된 휴머노이드 플랫폼."
+    },
+    {
+      "number": 9,
+      "src": "./fig-9.png",
+      "caption": "Real-world Productivity-Reliability Plane. We visualize the performance landscape, where the ideal system resides in the top-right quadrant (high throughput, high robustness).",
+      "caption_ko": "실환경 생산성-신뢰성 평면. 이상적인 시스템은 우상단(높은 처리량, 높은 견고성)에 위치한다."
+    }
   ],
   "tables": [],
   "thumb_source": "./fig-rb-y1.png",

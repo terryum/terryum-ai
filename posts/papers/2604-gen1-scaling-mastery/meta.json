@@ -31,15 +31,15 @@
   "relations": [
     {
       "target": "2511-gen0-embodied-foundation-model",
-      "type": "builds_on"
+      "type": "extends"
     },
     {
       "target": "2410-pi0-vla-flow-model",
-      "type": "related"
+      "type": "sharesTopicWith"
     },
     {
       "target": "2511-pi0-6-recap",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "ai_summary": {

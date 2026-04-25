@@ -6,8 +6,19 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Force Control", "Imitation Learning", "Compliant Manipulation"],
-  "display_tags": ["Robotics", "Force Control", "Imitation Learning", "Compliant Manipulation"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Force Control",
+    "Imitation Learning",
+    "Compliant Manipulation"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Force Control",
+    "Imitation Learning",
+    "Compliant Manipulation"
+  ],
   "cover_image": "./cover.webp",
   "cover_caption": "UMI-FT controller structure and information flow — three parallel control loops for position, wrist compliance, and grasp force",
   "cover_figure_number": 2,
@@ -15,34 +26,88 @@
   "source_type": "arXiv",
   "source_title": "In-the-Wild Compliant Manipulation with UMI-FT",
   "source_author": "Hojung Choi et al.",
-  "source_authors_full": ["Hojung Choi", "Yifan Hou", "Chuer Pan", "Seongheon Hong", "Austin Patel", "Xiaomeng Xu", "Mark R. Cutkosky", "Shuran Song"],
+  "source_authors_full": [
+    "Hojung Choi",
+    "Yifan Hou",
+    "Chuer Pan",
+    "Seongheon Hong",
+    "Austin Patel",
+    "Xiaomeng Xu",
+    "Mark R. Cutkosky",
+    "Shuran Song"
+  ],
   "source_url": "https://arxiv.org/abs/2601.09988",
   "source_date": "2026-01-15T00:00:00Z",
   "source_project_url": "https://umi-ft.github.io/",
   "google_scholar_url": "https://scholar.google.com/scholar?q=in-the-wild-compliant-manipulation-UMI-FT",
   "domain": "robotics",
-  "subfields": ["force-control", "compliant-manipulation", "imitation-learning", "data-collection"],
-  "key_concepts": ["CoinFT", "adaptive-compliance-policy", "force-torque-sensing", "admittance-control", "in-the-wild-demonstration", "UMI"],
-  "methodology": ["imitation-learning", "diffusion-model", "admittance-control", "compliance-control"],
+  "subfields": [
+    "force-control",
+    "compliant-manipulation",
+    "imitation-learning",
+    "data-collection"
+  ],
+  "key_concepts": [
+    "CoinFT",
+    "adaptive-compliance-policy",
+    "force-torque-sensing",
+    "admittance-control",
+    "in-the-wild-demonstration",
+    "UMI"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "diffusion-model",
+    "admittance-control",
+    "compliance-control"
+  ],
   "contribution_type": "system",
   "taxonomy_primary": "robotics/arm/force-control",
-  "taxonomy_secondary": ["robotics/brain"],
+  "taxonomy_secondary": [
+    "robotics/brain"
+  ],
   "relations": [
-    { "slug": "2402-umi-universal-manipulation-interface", "type": "builds_on" },
-    { "slug": "2303-diffusion-policy", "type": "uses_method" },
-    { "slug": "2501-dexforce-force-informed-actions", "type": "related" },
-    { "slug": "2505-forcevla-force-aware-moe", "type": "related" }
+    {
+      "type": "extends",
+      "target": "2402-umi-universal-manipulation-interface"
+    },
+    {
+      "type": "usesMethodIn",
+      "target": "2303-diffusion-policy"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2501-dexforce-force-informed-actions"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2505-forcevla-force-aware-moe"
+    }
   ],
   "ai_summary": {
     "one_liner": "UMI + 2g CoinFT 6-axis sensors on each finger for in-the-wild force-aware compliant manipulation learning",
     "problem": "Contact-rich manipulation requires force modulation but commercial F/T sensors are too expensive/bulky for in-the-wild data collection",
     "solution": "CoinFT per-finger sensors + Adaptive Compliance Policy predicting position, grasp force, and stiffness simultaneously via 3 parallel control loops",
     "key_result": "Whiteboard wiping 92%, zucchini skewering 80% (in-the-wild: 100%), lightbulb insertion 95% — overwhelming advantage over force-unaware baselines",
-    "limitations": ["Tethered via USB-serial", "CoinFT delamination risk", "3 single-arm tasks only"]
+    "limitations": [
+      "Tethered via USB-serial",
+      "CoinFT delamination risk",
+      "3 single-arm tasks only"
+    ]
   },
   "figures": [
-    { "number": 2, "src": "./fig-2.png", "caption": "Controller structure of UMI-FT and the flow of information. Sensor modalities are listed on the left, with proprioception omitted for clarity. They flow to three controller loops in the middle, where the learned policy runs the slowest and generates reference targets to the other two model-based controllers.", "caption_ko": "UMI-FT의 제어 구조와 정보 흐름. 센서 모달리티(왼쪽)에서 학습된 정책, 손목 컴플라이언스, 파지력 제어 3개 루프(가운데)로 흐른다. 학습된 정책이 가장 느린 루프에서 실행되며 다른 두 모델 기반 컨트롤러에 참조 목표를 생성한다." },
-    { "number": 7, "src": "./fig-7.png", "caption": "Lightbulb Insertion policy rollout, test scenarios, and representative baseline failures.", "caption_ko": "전구 삽입 정책 롤아웃, 테스트 시나리오, 대표적 baseline 실패 사례." }
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Controller structure of UMI-FT and the flow of information. Sensor modalities are listed on the left, with proprioception omitted for clarity. They flow to three controller loops in the middle, where the learned policy runs the slowest and generates reference targets to the other two model-based controllers.",
+      "caption_ko": "UMI-FT의 제어 구조와 정보 흐름. 센서 모달리티(왼쪽)에서 학습된 정책, 손목 컴플라이언스, 파지력 제어 3개 루프(가운데)로 흐른다. 학습된 정책이 가장 느린 루프에서 실행되며 다른 두 모델 기반 컨트롤러에 참조 목표를 생성한다."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Lightbulb Insertion policy rollout, test scenarios, and representative baseline failures.",
+      "caption_ko": "전구 삽입 정책 롤아웃, 테스트 시나리오, 대표적 baseline 실패 사례."
+    }
   ],
   "tables": [],
   "thumb_source": "./fig-4.png",

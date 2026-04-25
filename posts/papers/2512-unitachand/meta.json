@@ -6,15 +6,31 @@
   "updated_at": "2026-03-19T11:00:00+09:00",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Tactile Sensing", "Dexterous Manipulation", "Human-Robot Transfer", "Contrastive Learning"],
-  "display_tags": ["Tactile Sensing", "Dexterous Manipulation", "Human-Robot Transfer", "Contrastive Learning"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Tactile Sensing",
+    "Dexterous Manipulation",
+    "Human-Robot Transfer",
+    "Contrastive Learning"
+  ],
+  "display_tags": [
+    "Tactile Sensing",
+    "Dexterous Manipulation",
+    "Human-Robot Transfer",
+    "Contrastive Learning"
+  ],
   "cover_image": "./cover.webp",
   "cover_figure_number": 1,
   "thumb_source": "./fig-5.png",
   "thumb_position": "centre",
   "reading_time_min": 8,
   "domain": "robotics",
-  "subfields": ["dexterous-manipulation", "tactile-sensing", "human-robot-transfer"],
+  "subfields": [
+    "dexterous-manipulation",
+    "tactile-sensing",
+    "human-robot-transfer"
+  ],
   "key_concepts": [
     "MANO-UV-mapping",
     "unified-tactile-representation",
@@ -36,21 +52,50 @@
   "idea_status": null,
   "related_posts": null,
   "taxonomy_primary": "robotics/hand/tactile",
-  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous"
+  ],
   "relations": [
-    { "target": "2409-3dtactile-dex", "type": "related" },
-    { "target": "2407-tactile-skin-inhand-translation", "type": "related" },
-    { "target": "2504-pp-tac", "type": "related" },
-    { "target": "2505-dexumi", "type": "related" }
+    {
+      "target": "2409-3dtactile-dex",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2407-tactile-skin-inhand-translation",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2504-pp-tac",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2505-dexumi",
+      "type": "sharesTopicWith"
+    }
   ],
   "source_title": "UniTacHand: Unified Spatio-Tactile Representation for Human to Robotic Hand Skill Transfer",
   "source_author": "Chi Zhang et al.",
   "source_authors_full": [
-    { "name": "Chi Zhang", "affiliation": "Peking University / BeingBeyond" },
-    { "name": "Penglin Cai", "affiliation": "Peking University / BeingBeyond" },
-    { "name": "Haoqi Yuan", "affiliation": "Peking University / BeingBeyond" },
-    { "name": "Chaoyi Xu", "affiliation": "BeingBeyond" },
-    { "name": "Zongqing Lu", "affiliation": "Peking University / BeingBeyond" }
+    {
+      "name": "Chi Zhang",
+      "affiliation": "Peking University / BeingBeyond"
+    },
+    {
+      "name": "Penglin Cai",
+      "affiliation": "Peking University / BeingBeyond"
+    },
+    {
+      "name": "Haoqi Yuan",
+      "affiliation": "Peking University / BeingBeyond"
+    },
+    {
+      "name": "Chaoyi Xu",
+      "affiliation": "BeingBeyond"
+    },
+    {
+      "name": "Zongqing Lu",
+      "affiliation": "Peking University / BeingBeyond"
+    }
   ],
   "source_url": "https://arxiv.org/abs/2512.21233",
   "source_type": "arxiv",

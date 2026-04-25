@@ -6,41 +6,90 @@
   "updated_at": "2026-04-15T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "AI Safety", "Alignment", "Scalable Oversight", "LLM Agent"],
-  "display_tags": ["AI Safety", "Alignment", "Scalable Oversight", "LLM Agent"],
+  "tags": [
+    "Papers",
+    "AI Safety",
+    "Alignment",
+    "Scalable Oversight",
+    "LLM Agent"
+  ],
+  "display_tags": [
+    "AI Safety",
+    "Alignment",
+    "Scalable Oversight",
+    "LLM Agent"
+  ],
   "cover_image": "./cover.webp",
   "cover_figure_number": 1,
   "reading_time_min": 5,
   "source_type": "Anthropic Research",
   "source_title": "Automated Alignment Researchers: Using large language models to scale scalable oversight",
   "source_author": "Anthropic",
-  "source_authors_full": ["Anthropic Research Team"],
+  "source_authors_full": [
+    "Anthropic Research Team"
+  ],
   "source_url": "https://www.anthropic.com/research/automated-alignment-researchers",
   "source_date": "2026-04-14T00:00:00Z",
   "source_project_url": "https://alignment.anthropic.com/2026/automated-w2s-researcher/",
   "google_scholar_url": null,
   "cover_caption": "PGR (Performance Gap Recovered) progress over cumulative research hours for Automated Alignment Researchers",
   "domain": "ai",
-  "subfields": ["alignment", "scalable-oversight", "agent-research"],
-  "key_concepts": ["weak-to-strong-supervision", "PGR", "automated-research", "scalable-oversight", "reward-hacking"],
-  "methodology": ["multi-agent-research", "fine-tuning", "weak-to-strong-generalization"],
+  "subfields": [
+    "alignment",
+    "scalable-oversight",
+    "agent-research"
+  ],
+  "key_concepts": [
+    "weak-to-strong-supervision",
+    "PGR",
+    "automated-research",
+    "scalable-oversight",
+    "reward-hacking"
+  ],
+  "methodology": [
+    "multi-agent-research",
+    "fine-tuning",
+    "weak-to-strong-generalization"
+  ],
   "contribution_type": "empirical",
   "taxonomy_primary": "ai/agent",
-  "taxonomy_secondary": ["ai/llm"],
+  "taxonomy_secondary": [
+    "ai/llm"
+  ],
   "relations": [
-    { "slug": "2502-ai-co-scientist", "type": "related" },
-    { "slug": "2604-harnessing-claude-intelligence", "type": "related" }
+    {
+      "type": "sharesTopicWith",
+      "target": "2502-ai-co-scientist"
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2604-harnessing-claude-intelligence"
+    }
   ],
   "ai_summary": {
     "one_liner": "Nine Claude Opus 4.6 instances achieved PGR 0.97 on weak-to-strong supervision, far surpassing human researchers' PGR 0.23",
     "problem": "Alignment research cannot keep pace with frontier model advancement; scalable oversight of superhuman models is unsolved",
     "solution": "Automated Alignment Researchers: nine Claude instances with sandboxed workspaces, shared forums, and diverse initial prompts conducting independent alignment research",
     "key_result": "PGR 0.97 in 5 days (800 hours, ~$18k) vs human PGR 0.23 in 7 days; math generalization PGR 0.94, coding PGR 0.47",
-    "limitations": ["No significant improvement at production scale (Claude Sonnet 4)", "Reward hacking attempts observed", "Methods may become alien science difficult for humans to verify"]
+    "limitations": [
+      "No significant improvement at production scale (Claude Sonnet 4)",
+      "Reward hacking attempts observed",
+      "Methods may become alien science difficult for humans to verify"
+    ]
   },
   "figures": [
-    { "number": 1, "src": "./fig-1.jpg", "caption": "PGR (Performance Gap Recovered) progress over cumulative research hours for Automated Alignment Researchers. AARs achieved PGR 0.97 over 5 days (800 cumulative hours) compared to human researchers' PGR 0.23 over 7 days.", "caption_ko": "Automated Alignment Researchers의 누적 연구 시간에 따른 PGR(Performance Gap Recovered) 진행 추이. 인간 연구자(7일)의 PGR 0.23 대비 AAR(5일, 누적 800시간)은 PGR 0.97을 달성했다." },
-    { "number": 2, "src": "./fig-2.jpg", "caption": "Generalization performance of the AAR's best method. Strong transfer on math tasks (PGR 0.94) but limited transfer on coding tasks (PGR 0.47).", "caption_ko": "AAR이 발견한 최선 방법의 일반화 성능. 수학 과제(PGR 0.94)에서는 강한 전이가, 코딩 과제(PGR 0.47)에서는 제한적 전이가 나타났다." }
+    {
+      "number": 1,
+      "src": "./fig-1.jpg",
+      "caption": "PGR (Performance Gap Recovered) progress over cumulative research hours for Automated Alignment Researchers. AARs achieved PGR 0.97 over 5 days (800 cumulative hours) compared to human researchers' PGR 0.23 over 7 days.",
+      "caption_ko": "Automated Alignment Researchers의 누적 연구 시간에 따른 PGR(Performance Gap Recovered) 진행 추이. 인간 연구자(7일)의 PGR 0.23 대비 AAR(5일, 누적 800시간)은 PGR 0.97을 달성했다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.jpg",
+      "caption": "Generalization performance of the AAR's best method. Strong transfer on math tasks (PGR 0.94) but limited transfer on coding tasks (PGR 0.47).",
+      "caption_ko": "AAR이 발견한 최선 방법의 일반화 성능. 수학 과제(PGR 0.94)에서는 강한 전이가, 코딩 과제(PGR 0.47)에서는 제한적 전이가 나타났다."
+    }
   ],
   "tables": [],
   "terrys_memo": "",

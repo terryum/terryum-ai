@@ -6,15 +6,38 @@
   "updated_at": "2026-04-03T00:00:00Z",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "VLA", "Agentic Framework", "Long-Horizon", "Manipulation"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Agentic Framework",
+    "Long-Horizon",
+    "Manipulation"
+  ],
   "cover_image": "./cover.webp",
   "cover_figure_number": 1,
   "thumb_source": "./fig-5.jpg",
   "reading_time_min": 7,
   "domain": "robotics",
-  "subfields": ["manipulation", "long-horizon-planning", "agentic-framework", "data-collection"],
-  "key_concepts": ["VLA", "Entangled-Action-Pairs", "self-resetting", "MCP-tools", "VLM-agent", "policy-orchestration"],
-  "methodology": ["imitation-learning", "LoRA-fine-tuning", "agentic-inference"],
+  "subfields": [
+    "manipulation",
+    "long-horizon-planning",
+    "agentic-framework",
+    "data-collection"
+  ],
+  "key_concepts": [
+    "VLA",
+    "Entangled-Action-Pairs",
+    "self-resetting",
+    "MCP-tools",
+    "VLM-agent",
+    "policy-orchestration"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "LoRA-fine-tuning",
+    "agentic-inference"
+  ],
   "contribution_type": "framework",
   "source_title": "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks",
   "source_author": "Ruiying Li et al.",
@@ -46,15 +69,17 @@
   "idea_status": null,
   "related_posts": null,
   "taxonomy_primary": "robotics/brain/vla",
-  "taxonomy_secondary": ["robotics/arm"],
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ],
   "relations": [
     {
       "target": "2410-pi0-vla-flow-model",
-      "type": "builds_on"
+      "type": "extends"
     },
     {
       "target": "2603-capx-coding-agents-manipulation",
-      "type": "compares_with"
+      "type": "reviews"
     }
   ],
   "ai_summary": {
@@ -69,15 +94,50 @@
     ]
   },
   "figures": [
-    {"number": 1, "src": "./fig-1.jpg", "caption": "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management. Data is collected through basic human demonstrations followed by online rollout with EAP self resetting, producing a VLA policy pool that is continuously updated via streaming data. During long-horizon task execution, the same VLM-based agent performs high-level planning and dynamically orchestrates learned policy primitives.", "caption_ko": "Figure 1: RoboClaw의 로봇 정책 라이프사이클 워크플로. 로봇 개발자가 시스템 설정, MCP 도구, 스킬을 지정하면 RoboClaw가 파일 기반 메모리, 메모리 임베딩, 검색 및 관리를 제공한다. 기본 인간 시연과 EAP 자가 리셋 온라인 롤아웃으로 데이터를 수집하고, 스트리밍 데이터로 VLA 정책 풀을 지속 업데이트한다. Long-horizon 태스크 실행 시 동일 VLM 에이전트가 고수준 계획과 정책 오케스트레이션을 수행한다."},
-    {"number": 2, "src": "./fig-2.png", "caption": "Figure 2: RoboClaw system architecture. A Vision-Language-Model (VLM) acts as a meta-controller operating under an in-context learning paradigm. Multimodal observations are integrated with structured memory (role identity, task-level memory, and working memory) to form the decision context. Through chain-of-thought (CoT) reasoning, the agent generates high-level decisions and invokes tools through the MCP interface.", "caption_ko": "Figure 2: RoboClaw 시스템 아키텍처. VLM이 메타 컨트롤러로서 in-context learning 패러다임 하에 동작한다. 멀티모달 관찰이 구조화된 메모리(역할 정체성, 태스크 레벨 메모리, 작업 메모리)와 통합되어 의사결정 맥락을 형성한다. Chain-of-thought(CoT) 추론을 통해 에이전트가 고수준 결정을 생성하고 MCP 인터페이스로 도구를 호출한다."},
-    {"number": 3, "src": "./fig-3.png", "caption": "Figure 3: RoboClaw Autonomous Data Collection Workflow. This diagram illustrates the process of the agent interacting with a user to initiate a data collection task for the robot (\"place the primer into the drawer\"). The agent autonomously processes visual observations using MCP tools, evaluates the initial state of the environment, and formulates a task plan. Subsequently, it continuously executes the EAP loop of forward-inverse policies for autonomous data collection.", "caption_ko": "Figure 3: RoboClaw 자율 데이터 수집 워크플로. 에이전트가 사용자와 상호작용하여 로봇 데이터 수집 태스크(\"프라이머를 서랍에 넣기\")를 시작하는 과정. 에이전트가 MCP 도구로 시각 관찰을 처리하고, 환경 초기 상태를 평가하며, 태스크 계획을 수립한 후 순방향-역방향 정책의 EAP 루프를 연속 실행한다."},
-    {"number": 4, "src": "./fig-4.png", "caption": "Figure 4: Human effort comparison for data collection. (a) Relative human time required to collect the same amount of data. (b) Relative human intervention during rollout execution. All values are normalized with respect to our method (Ours = 1). (c) Success rate across iterations on the vanity table organization task. RoboClaw (Ours) significantly outperforms both end-to-end VLA baselines and the open-loop multi-policy pipeline.", "caption_ko": "Figure 4: 데이터 수집의 인간 노력 비교. (a) 동일 데이터량 수집에 필요한 상대적 인간 시간. (b) 롤아웃 실행 중 상대적 인간 개입 비율. 모든 값은 RoboClaw 기준 정규화(Ours = 1). (c) vanity table 정리 태스크에서 iteration별 성공률. RoboClaw가 end-to-end VLA baseline과 open-loop multi-policy pipeline을 크게 상회한다."},
-    {"number": 5, "src": "./fig-5.jpg", "caption": "Figure 5: Long-horizon task execution with agent orchestration. The same VLM-based agent plans over the vanity table tidying task and dynamically composes independent forward policy checkpoints (primer placement, lipstick insertion, lotion placement and tissue wipe), invoking re-planning when needed.", "caption_ko": "Figure 5: 에이전트 오케스트레이션을 통한 long-horizon 태스크 실행. 동일 VLM 에이전트가 vanity table 정리 태스크를 계획하고, 독립적인 순방향 정책 체크포인트(프라이머 배치, 립스틱 삽입, 로션 배치, 티슈 닦기)를 동적으로 조합하며, 필요 시 재계획을 수행한다."}
+    {
+      "number": 1,
+      "src": "./fig-1.jpg",
+      "caption": "Figure 1: RoboClaw workflow across the robot policy lifecycle. A robot developer specifies system configuration, MCP tools, and skills, while RoboClaw provides file-based memory, memory embeddings, search, and management. Data is collected through basic human demonstrations followed by online rollout with EAP self resetting, producing a VLA policy pool that is continuously updated via streaming data. During long-horizon task execution, the same VLM-based agent performs high-level planning and dynamically orchestrates learned policy primitives.",
+      "caption_ko": "Figure 1: RoboClaw의 로봇 정책 라이프사이클 워크플로. 로봇 개발자가 시스템 설정, MCP 도구, 스킬을 지정하면 RoboClaw가 파일 기반 메모리, 메모리 임베딩, 검색 및 관리를 제공한다. 기본 인간 시연과 EAP 자가 리셋 온라인 롤아웃으로 데이터를 수집하고, 스트리밍 데이터로 VLA 정책 풀을 지속 업데이트한다. Long-horizon 태스크 실행 시 동일 VLM 에이전트가 고수준 계획과 정책 오케스트레이션을 수행한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: RoboClaw system architecture. A Vision-Language-Model (VLM) acts as a meta-controller operating under an in-context learning paradigm. Multimodal observations are integrated with structured memory (role identity, task-level memory, and working memory) to form the decision context. Through chain-of-thought (CoT) reasoning, the agent generates high-level decisions and invokes tools through the MCP interface.",
+      "caption_ko": "Figure 2: RoboClaw 시스템 아키텍처. VLM이 메타 컨트롤러로서 in-context learning 패러다임 하에 동작한다. 멀티모달 관찰이 구조화된 메모리(역할 정체성, 태스크 레벨 메모리, 작업 메모리)와 통합되어 의사결정 맥락을 형성한다. Chain-of-thought(CoT) 추론을 통해 에이전트가 고수준 결정을 생성하고 MCP 인터페이스로 도구를 호출한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: RoboClaw Autonomous Data Collection Workflow. This diagram illustrates the process of the agent interacting with a user to initiate a data collection task for the robot (\"place the primer into the drawer\"). The agent autonomously processes visual observations using MCP tools, evaluates the initial state of the environment, and formulates a task plan. Subsequently, it continuously executes the EAP loop of forward-inverse policies for autonomous data collection.",
+      "caption_ko": "Figure 3: RoboClaw 자율 데이터 수집 워크플로. 에이전트가 사용자와 상호작용하여 로봇 데이터 수집 태스크(\"프라이머를 서랍에 넣기\")를 시작하는 과정. 에이전트가 MCP 도구로 시각 관찰을 처리하고, 환경 초기 상태를 평가하며, 태스크 계획을 수립한 후 순방향-역방향 정책의 EAP 루프를 연속 실행한다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Human effort comparison for data collection. (a) Relative human time required to collect the same amount of data. (b) Relative human intervention during rollout execution. All values are normalized with respect to our method (Ours = 1). (c) Success rate across iterations on the vanity table organization task. RoboClaw (Ours) significantly outperforms both end-to-end VLA baselines and the open-loop multi-policy pipeline.",
+      "caption_ko": "Figure 4: 데이터 수집의 인간 노력 비교. (a) 동일 데이터량 수집에 필요한 상대적 인간 시간. (b) 롤아웃 실행 중 상대적 인간 개입 비율. 모든 값은 RoboClaw 기준 정규화(Ours = 1). (c) vanity table 정리 태스크에서 iteration별 성공률. RoboClaw가 end-to-end VLA baseline과 open-loop multi-policy pipeline을 크게 상회한다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.jpg",
+      "caption": "Figure 5: Long-horizon task execution with agent orchestration. The same VLM-based agent plans over the vanity table tidying task and dynamically composes independent forward policy checkpoints (primer placement, lipstick insertion, lotion placement and tissue wipe), invoking re-planning when needed.",
+      "caption_ko": "Figure 5: 에이전트 오케스트레이션을 통한 long-horizon 태스크 실행. 동일 VLM 에이전트가 vanity table 정리 태스크를 계획하고, 독립적인 순방향 정책 체크포인트(프라이머 배치, 립스틱 삽입, 로션 배치, 티슈 닦기)를 동적으로 조합하며, 필요 시 재계획을 수행한다."
+    }
   ],
   "tables": [
-    {"number": 1, "src": "./tab-1.png", "caption": "Table 1: Training hyperparameters for π₀.₅ fine-tuning. Table 2: Success rates of inverse reset policies across four manipulation tasks.", "caption_ko": "Table 1: π₀.₅ fine-tuning 학습 하이퍼파라미터. Table 2: 4개 조작 태스크에서 역방향 리셋 정책의 성공률."},
-    {"number": 2, "src": "./tab-2.png", "caption": "Table 3: Success rates of forward manipulation policies across rollout iterations.", "caption_ko": "Table 3: 롤아웃 iteration별 순방향 조작 정책 성공률."}
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Training hyperparameters for π₀.₅ fine-tuning. Table 2: Success rates of inverse reset policies across four manipulation tasks.",
+      "caption_ko": "Table 1: π₀.₅ fine-tuning 학습 하이퍼파라미터. Table 2: 4개 조작 태스크에서 역방향 리셋 정책의 성공률."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 3: Success rates of forward manipulation policies across rollout iterations.",
+      "caption_ko": "Table 3: 롤아웃 iteration별 순방향 조작 정책 성공률."
+    }
   ],
   "newsletter_eligible": false,
   "featured": false

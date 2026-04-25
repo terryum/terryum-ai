@@ -154,15 +154,15 @@
   "relations": [
     {
       "target": "2407-stretchable-glove-hand-pose",
-      "type": "compares_with"
+      "type": "reviews"
     },
     {
       "target": "2501-dexforce-force-informed-actions",
-      "type": "addresses_task"
+      "type": "sharesGoalWith"
     },
     {
       "target": "2505-forcevla-force-aware-moe",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "ai_summary": {

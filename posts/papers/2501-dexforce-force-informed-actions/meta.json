@@ -27,7 +27,7 @@
   "relations": [
     {
       "target": "2505-forcevla-force-aware-moe",
-      "type": "related"
+      "type": "sharesTopicWith"
     }
   ],
   "ai_summary": {

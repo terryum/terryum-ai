@@ -6,15 +6,32 @@
   "updated_at": "2026-03-19T10:00:00+09:00",
   "status": "published",
   "content_type": "papers",
-  "tags": ["Papers", "Robotics", "Data Collection", "Human-Robot Transfer", "3D Gaussian Splatting", "VLA"],
-  "display_tags": ["Data Collection", "Human-Robot Transfer", "3D Gaussian Splatting", "VLA"],
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Data Collection",
+    "Human-Robot Transfer",
+    "3D Gaussian Splatting",
+    "VLA"
+  ],
+  "display_tags": [
+    "Data Collection",
+    "Human-Robot Transfer",
+    "3D Gaussian Splatting",
+    "VLA"
+  ],
   "cover_image": "./cover.webp",
   "cover_figure_number": 2,
   "thumb_source": "./fig-2.png",
   "thumb_position": "left",
   "reading_time_min": 8,
   "domain": "robotics",
-  "subfields": ["data-collection", "human-robot-transfer", "dexterous-manipulation", "sim-to-real"],
+  "subfields": [
+    "data-collection",
+    "human-robot-transfer",
+    "dexterous-manipulation",
+    "sim-to-real"
+  ],
   "key_concepts": [
     "Real-Sim-Real",
     "human-to-robot-retargeting",
@@ -36,23 +53,58 @@
   "idea_status": null,
   "related_posts": null,
   "taxonomy_primary": "robotics/arm/exoskeleton",
-  "taxonomy_secondary": ["robotics/hand/dexterous"],
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous"
+  ],
   "relations": [
-    { "target": "2505-dexumi", "type": "compares_with" },
-    { "target": "2506-exostart", "type": "compares_with" },
-    { "target": "2509-dexop", "type": "compares_with" },
-    { "target": "2410-pi0-vla-flow-model", "type": "related" }
+    {
+      "target": "2505-dexumi",
+      "type": "reviews"
+    },
+    {
+      "target": "2506-exostart",
+      "type": "reviews"
+    },
+    {
+      "target": "2509-dexop",
+      "type": "reviews"
+    },
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "sharesTopicWith"
+    }
   ],
   "source_title": "RoboPaint: From Human Demonstration to Any Robot and Any View",
   "source_author": "Jiacheng Fan et al.",
   "source_authors_full": [
-    { "name": "Jiacheng Fan", "affiliation": "Paxini Tech / Shanghai Jiao Tong University" },
-    { "name": "Zhiyue Zhao", "affiliation": "Paxini Tech" },
-    { "name": "Yiqian Zhang", "affiliation": "Paxini Tech" },
-    { "name": "Chao Chen", "affiliation": "Paxini Tech" },
-    { "name": "Peide Wang", "affiliation": "Paxini Tech" },
-    { "name": "Hengdi Zhang", "affiliation": "Paxini Tech / Zhejiang University" },
-    { "name": "Zhengxue Cheng", "affiliation": "Paxini Tech" }
+    {
+      "name": "Jiacheng Fan",
+      "affiliation": "Paxini Tech / Shanghai Jiao Tong University"
+    },
+    {
+      "name": "Zhiyue Zhao",
+      "affiliation": "Paxini Tech"
+    },
+    {
+      "name": "Yiqian Zhang",
+      "affiliation": "Paxini Tech"
+    },
+    {
+      "name": "Chao Chen",
+      "affiliation": "Paxini Tech"
+    },
+    {
+      "name": "Peide Wang",
+      "affiliation": "Paxini Tech"
+    },
+    {
+      "name": "Hengdi Zhang",
+      "affiliation": "Paxini Tech / Zhejiang University"
+    },
+    {
+      "name": "Zhengxue Cheng",
+      "affiliation": "Paxini Tech"
+    }
   ],
   "source_url": "https://arxiv.org/abs/2602.05325",
   "source_type": "arxiv",
