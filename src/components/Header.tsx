@@ -264,21 +264,9 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           <nav className="hidden md:flex items-center gap-1">
             <div className="flex items-center gap-4">
               {primaryItems.map(item => <TabLink key={item.tabSlug || item.href} item={item} />)}
+              <div className="w-px h-3 bg-line-default opacity-60" />
+              <TabLink item={aboutItem} />
             </div>
-
-            {/* About — smaller, secondary */}
-            <div className="w-px h-3 bg-line-default mx-3 opacity-60" />
-            <Link
-              href={aboutItem.href}
-              className={`text-xs transition-colors ${
-                isActive(aboutItem)
-                  ? 'text-accent'
-                  : 'text-text-muted hover:text-accent'
-              }`}
-              aria-current={isActive(aboutItem) ? 'page' : undefined}
-            >
-              {aboutItem.label}
-            </Link>
 
             <div className="flex items-center gap-2 ml-4">
               <LanguageSwitcher locale={locale} />
@@ -313,16 +301,7 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
           <nav className="md:hidden pb-4 border-t border-line-default pt-3 flex flex-col gap-1">
             {primaryItems.map(item => <MobileTabLink key={item.tabSlug || item.href} item={item} />)}
             <div className="h-px bg-line-default my-2 mx-2 opacity-60" />
-            <Link
-              href={aboutItem.href}
-              onClick={() => setMobileOpen(false)}
-              className={`text-xs px-2 py-1 transition-colors ${
-                isActive(aboutItem) ? 'text-accent font-medium' : 'text-text-muted hover:text-accent'
-              }`}
-              aria-current={isActive(aboutItem) ? 'page' : undefined}
-            >
-              {aboutItem.label}
-            </Link>
+            <MobileTabLink item={aboutItem} />
           </nav>
         )}
       </Container>
