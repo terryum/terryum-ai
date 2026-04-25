@@ -1,8 +1,9 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
-import { getAboutContent, getBioContent, getBioPlainText } from '@/lib/about';
+import { getAboutContent, getAboutMedia, getBioContent, getBioPlainText } from '@/lib/about';
 import ProfileImage from '@/components/ProfileImage';
 import SocialIcons from '@/components/SocialIcons';
+import AroundTheWeb from '@/components/about/AroundTheWeb';
 import type { Metadata } from 'next';
 
 export function generateStaticParams() {
@@ -33,8 +34,13 @@ export default async function AboutPage({
   if (!isValidLocale(lang)) return null;
 
   const dict = await getDictionary(lang);
-  const bioContent = await getBioContent(lang);
-  const aboutContent = await getAboutContent(lang);
+  const [bioContent, aboutContent, media] = await Promise.all([
+    getBioContent(lang),
+    getAboutContent(lang),
+    getAboutMedia(lang),
+  ]);
+
+  const aboutLabels = dict.about as Record<string, string>;
 
   return (
     <div className="max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-10">
@@ -50,10 +56,35 @@ export default async function AboutPage({
         <SocialIcons className="mt-3" />
       </div>
 
-      {/* Detailed bio from MDX */}
+      {/* Detailed bio from MDX — kept plain on purpose */}
       <div className="prose prose-neutral dark:prose-invert max-w-none">
         {aboutContent}
       </div>
+
+      {/* Currently — one-liner about active focus */}
+      {media.currently && (
+        <section className="mt-10 pt-8 border-t border-line-default">
+          <h2 className="text-base font-[540] text-text-primary tracking-tight mb-2">
+            {aboutLabels.currently || 'Currently'}
+          </h2>
+          <p className="text-sm text-text-secondary leading-relaxed">{media.currently}</p>
+        </section>
+      )}
+
+      {/* Around the web — curated external mentions, modest tone */}
+      <AroundTheWeb
+        labels={{
+          around_the_web: aboutLabels.around_the_web || 'Around the web',
+          talks: aboutLabels.talks || 'Talks & interviews',
+          writing: aboutLabels.writing || 'In writing',
+          books: aboutLabels.books || 'Books & writing',
+          code: aboutLabels.code || 'Code',
+        }}
+        talks={media.talks}
+        writing={media.writing}
+        books={media.books}
+        code={media.code}
+      />
     </div>
   );
 }
