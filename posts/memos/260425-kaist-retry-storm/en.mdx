@@ -1,6 +1,6 @@
 ---
 locale: "en"
-translation_of: "260425-retry-storm-postmortem:ko"
+translation_of: "260425-kaist-retry-storm:ko"
 title: "The Vercel Surge — The Culprit Was Someone at KAIST"
 subtitle: "What happened that day, and what was my fault"
 summary: "From April 9 to 12, about 50 million edge requests hit three broken images on a static survey site from a single KAIST IP — a retry storm. The trigger: stale figure paths multiplied by an `onerror` self-loop multiplied by external automation with no termination condition. One line of code, a hosting migration, and four alerts later, the same incident now costs zero."
@@ -8,7 +8,7 @@ card_summary: "50M hits from a bot, and four days of not noticing — my fault."
 terrys_memo: ""
 ---
 
-> Where the previous post [[260419-vercel-quiet-bill]] covered "why the invoice ballooned (the structural problem)," this one covers "what exactly happened that day, and what was my responsibility (the postmortem of one incident)."
+> Where the previous post [The Quiet Bill — When Vercel Bills You for Bots](/en/posts/260419-vercel-quiet-bill) covered "why the invoice ballooned (the structural problem)," this one covers "what exactly happened that day, and what was my responsibility (the postmortem of one incident)."
 
 ## TL;DR
 
@@ -120,4 +120,4 @@ So every public asset has to start from four baseline assumptions: **infrastruct
 
 ## Related
 
-- [[260419-vercel-quiet-bill]] — the same incident from a cost-structure angle. If this post is "the event," that one is "the structure."
+- [The Quiet Bill — When Vercel Bills You for Bots](/en/posts/260419-vercel-quiet-bill) — the same incident from a cost-structure angle. If this post is "the event," that one is "the structure."

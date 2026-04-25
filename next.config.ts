@@ -53,6 +53,8 @@ const nextConfig: NextConfig = {
       { source: '/:locale/research/:slug', destination: '/:locale/posts/:slug', permanent: true },
       { source: '/:locale/ideas/:slug', destination: '/:locale/posts/:slug', permanent: true },
       { source: '/:locale/essays/:slug', destination: '/:locale/posts/:slug', permanent: true },
+      // Slug renames
+      { source: '/:locale/posts/260425-retry-storm-postmortem', destination: '/:locale/posts/260425-kaist-retry-storm', permanent: true },
     ];
   },
   async headers() {
