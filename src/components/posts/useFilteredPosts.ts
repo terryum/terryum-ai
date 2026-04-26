@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import { normalizeTagSlug } from '@/lib/tags';
 import { TAB_TAG_SLUGS } from '@/lib/site-config';
-import { getPostsForTab, getPostsForAuthor } from '@/lib/tabs';
+import { getPostsForTab } from '@/lib/tabs';
 import { getDisplayTags } from '@/lib/display';
 import type { PostMeta } from '@/types/post';
 import type { TagItem } from '@/types/tag';
@@ -13,7 +13,6 @@ interface FilterInputs {
   posts: PostMeta[];
   allTags: TagItem[];
   selectedTab: string | null;
-  selectedAuthor: 'terry' | 'ai' | null;
   selectedTaxonomy: string | null;
   taxonomyNodes: Record<string, TaxonomyNodeData>;
   selectedTags: string[];
@@ -21,7 +20,7 @@ interface FilterInputs {
 }
 
 /**
- * Four-stage filter chain (tab/author → taxonomy → tags → starred) plus a
+ * Four-stage filter chain (tab → taxonomy → tags → starred) plus a
  * derived `availableTags` list scoped to the taxonomy filter so the chip
  * bar only surfaces tags that can match the current scope.
  */
@@ -29,7 +28,6 @@ export function useFilteredPosts({
   posts,
   allTags,
   selectedTab,
-  selectedAuthor,
   selectedTaxonomy,
   taxonomyNodes,
   selectedTags,
@@ -37,9 +35,8 @@ export function useFilteredPosts({
 }: FilterInputs) {
   const tabFilteredPosts = useMemo(() => {
     if (selectedTab) return getPostsForTab(posts, selectedTab);
-    if (selectedAuthor) return getPostsForAuthor(posts, selectedAuthor);
     return posts;
-  }, [posts, selectedTab, selectedAuthor]);
+  }, [posts, selectedTab]);
 
   const taxonomyFilteredPosts = useMemo(() => {
     if (!selectedTaxonomy) return tabFilteredPosts;

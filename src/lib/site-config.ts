@@ -23,18 +23,27 @@ export interface TabDefinition {
   slug: string;        // URL param value & tag slug
   matchTags: string[]; // posts matching ANY of these tags belong to this tab
   order: number;       // display order in nav menu
-  author: 'terry' | 'ai'; // content author type for nav badge
 }
 
+// Header order: Essays · Surveys · Papers · Notes (depth/weight descending).
+// Surveys is rendered separately (top-level route), not via TAB_CONFIG.
 export const TAB_CONFIG: TabDefinition[] = [
-  { slug: 'papers',  matchTags: ['papers'],  order: 0, author: 'ai'    },
-  { slug: 'threads', matchTags: ['threads'], order: 1, author: 'ai'    },
-  { slug: 'essays',  matchTags: ['essays'],  order: 2, author: 'terry' },
-  { slug: 'memos',   matchTags: ['memos'],   order: 3, author: 'terry' },
+  { slug: 'essays', matchTags: ['essays'],            order: 0 },
+  { slug: 'papers', matchTags: ['papers'],            order: 1 },
+  { slug: 'notes',  matchTags: ['memos', 'threads'],  order: 2 },
 ];
 
 /** All tab matchTags combined — used to hide tab tags from TagFilterBar & ContentCard */
 export const TAB_TAG_SLUGS = new Set(TAB_CONFIG.flatMap(t => t.matchTags));
+
+/** Resolve a post's content_type to its nav tab slug (e.g. "memos" → "notes"). */
+export function getTabSlugForContentType(contentType: string | undefined | null): string | null {
+  if (!contentType) return null;
+  const tab = TAB_CONFIG.find(
+    t => t.slug === contentType || t.matchTags.includes(contentType),
+  );
+  return tab?.slug ?? null;
+}
 
 export const ETC_TAB_SLUG = 'etc';
 

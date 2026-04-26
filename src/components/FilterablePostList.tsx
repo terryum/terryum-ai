@@ -61,7 +61,6 @@ function FilterablePostListInner({
 }: FilterablePostListProps) {
   const searchParams = useSearchParams();
   const selectedTab = searchParams.get('tab');
-  const selectedAuthor = searchParams.get('author') as 'terry' | 'ai' | null;
 
   const { selectedTags, setSelectedTags, starredOnly, setStarredOnly } =
     useFilterableUrlState(initialSelectedTags);
@@ -73,19 +72,18 @@ function FilterablePostListInner({
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
 
-  // Reset tags, starred, taxonomy when tab/author changes.
-  const currentScope = selectedTab || selectedAuthor;
-  const prevScopeRef = useRef(currentScope);
+  // Reset tags, starred, taxonomy when tab changes.
+  const prevScopeRef = useRef(selectedTab);
   useEffect(() => {
-    if (prevScopeRef.current !== currentScope) {
-      prevScopeRef.current = currentScope;
+    if (prevScopeRef.current !== selectedTab) {
+      prevScopeRef.current = selectedTab;
       setSelectedTags([]);
       setStarredOnly(false);
       setSelectedTaxonomy(null);
       setMobileTaxonomyOpen(false);
       setCurrentPage(1);
     }
-  }, [currentScope, setSelectedTags, setStarredOnly]);
+  }, [selectedTab, setSelectedTags, setStarredOnly]);
 
   // Reset tags when taxonomy changes (selected tags may not exist in new scope).
   const prevTaxonomyRef = useRef(selectedTaxonomy);
@@ -108,7 +106,6 @@ function FilterablePostListInner({
     posts,
     allTags,
     selectedTab,
-    selectedAuthor,
     selectedTaxonomy,
     taxonomyNodes,
     selectedTags,
@@ -116,13 +113,9 @@ function FilterablePostListInner({
   });
 
   const currentTitle =
-    (selectedTab && tabTitles?.[selectedTab]?.title) ||
-    (selectedAuthor && tabTitles?.[selectedAuthor]?.title) ||
-    defaultTitle;
+    (selectedTab && tabTitles?.[selectedTab]?.title) || defaultTitle;
   const currentDescription =
-    (selectedTab && tabTitles?.[selectedTab]?.description) ||
-    (selectedAuthor && tabTitles?.[selectedAuthor]?.description) ||
-    defaultDescription;
+    (selectedTab && tabTitles?.[selectedTab]?.description) || defaultDescription;
 
   const [graphOpen, setGraphOpen] = useState(false);
 

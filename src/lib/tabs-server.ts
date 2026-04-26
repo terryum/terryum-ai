@@ -21,11 +21,10 @@ export async function getNavTabsFromIndex(locale: string): Promise<NavTabItem[]>
   return TAB_CONFIG
     .slice()
     .sort((a, b) => a.order - b.order)
-    .filter(tab => (counts.get(tab.slug) ?? 0) > 0)
+    .filter(tab => tab.matchTags.some(mt => (counts.get(mt) ?? 0) > 0))
     .map(tab => ({
       href: `/${locale}/posts?tab=${tab.slug}`,
       label: getTagLabel(tab.slug, locale),
       tabSlug: tab.slug,
-      author: tab.author,
     }));
 }

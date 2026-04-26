@@ -117,6 +117,27 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 308 });
   }
 
+  // Legacy IA redirects (memos/threads tabs and author= filter merged into "notes").
+  if (/^\/(ko|en)\/posts\/?$/.test(pathname)) {
+    const tab = request.nextUrl.searchParams.get('tab');
+    const author = request.nextUrl.searchParams.get('author');
+    if (tab === 'memos' || tab === 'threads' || author === 'terry' || author === 'ai') {
+      const url = request.nextUrl.clone();
+      url.searchParams.delete('author');
+      url.searchParams.set('tab', 'notes');
+      return NextResponse.redirect(url, { status: 308 });
+    }
+  }
+
+  // /projects → /about (Projects merged into About → "Code" curation).
+  const projectsMatch = pathname.match(/^\/(ko|en)\/projects(?:\/.*)?$/);
+  if (projectsMatch) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${projectsMatch[1]}/about`;
+    url.search = '';
+    return NextResponse.redirect(url, { status: 308 });
+  }
+
   // Visibility gate for private/group post detail pages. The page itself is
   // SSG-prerendered (so MDX compiles at build time on Node, not under
   // Workers' eval ban), so the access check has to happen here at the edge.

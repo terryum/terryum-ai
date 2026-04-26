@@ -451,9 +451,9 @@ export interface AdjacentPosts {
 }
 
 /**
- * Returns adjacent posts within the same author group (AI or Terry).
- * Grouping is driven by TAB_CONFIG.author — adding a new tab with the correct
- * author field automatically includes it in the right prev/next navigation group.
+ * Returns adjacent posts within the same nav tab.
+ * Grouping is driven by TAB_CONFIG.matchTags — e.g. memos and threads share
+ * the "notes" tab, so prev/next on a memo links to the next memo or thread.
  */
 export async function getAdjacentPosts(
   slug: string,
@@ -467,15 +467,13 @@ export async function getAdjacentPosts(
   const currentMeta = findBySlug(allPosts, slug);
   if (!currentMeta) return { prev: null, next: null };
 
-  const currentTab = TAB_CONFIG.find(t => t.slug === currentMeta.content_type);
+  const currentTab = TAB_CONFIG.find(
+    t => t.slug === currentMeta.content_type || t.matchTags.includes(currentMeta.content_type),
+  );
   if (!currentTab) return { prev: null, next: null };
 
-  const authorGroup = currentTab.author;
-  const authorContentTypes = new Set(
-    TAB_CONFIG.filter(t => t.author === authorGroup).map(t => t.slug)
-  );
-
-  const groupPosts = allPosts.filter(p => authorContentTypes.has(p.content_type));
+  const tabContentTypes = new Set(currentTab.matchTags);
+  const groupPosts = allPosts.filter(p => tabContentTypes.has(p.content_type));
 
   const idx = groupPosts.findIndex(p => p.slug === slug);
   if (idx === -1) return { prev: null, next: null };
