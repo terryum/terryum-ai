@@ -8,6 +8,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import ShareButton from './ShareButton';
 import RelatedPapers from './RelatedPapers';
 import SubstackSubscribe from './SubstackSubscribe';
+import PostInteractions from './posts/PostInteractions';
 import { localizeGalleryItems } from '@/lib/localize';
 import { FigureGroupProvider } from '@/contexts/FigureGroupContext';
 import { formatPostDate } from '@/lib/display';
@@ -191,6 +192,9 @@ export default function ContentDetailPage({
       {meta.content_type === 'essays' && (
         <SubstackSubscribe locale={locale} variant="article" />
       )}
+
+      {/* Reader interactions: anonymous likes + comments */}
+      <PostInteractions slug={meta.slug} locale={locale} />
 
       {/* Bottom navigation */}
       <div className="mt-12 pt-6 border-t border-line-default flex flex-col gap-4">
