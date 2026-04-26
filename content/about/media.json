@@ -66,21 +66,39 @@
   "writing": [],
   "books": [
     {
-      "title_ko": "Physical AI 서베이 시리즈",
-      "title_en": "Physical AI Survey Series",
-      "source": "terryum.ai/surveys",
-      "year": "2024",
-      "url": "/surveys",
-      "thumbnail_url": "https://picsum.photos/seed/book-survey/300/400"
+      "title_ko": "미래를 읽다 과학이슈 11 SEASON 4 (공저)",
+      "title_en": "Reading the Future: Science Issues 11, Season 4 (Co-author)",
+      "source": "동아엠앤비",
+      "year": "2021-05",
+      "url": "https://www.yes24.com/product/goods/101512250",
+      "thumbnail_url": "https://image.yes24.com/goods/101512250/xl",
+      "content_lang": "ko"
     },
     {
-      "title_ko": "딥러닝 핸드북 (공저)",
-      "title_en": "Deep Learning Handbook (Co-author)",
-      "source": "Hanbit Media",
-      "year": "2022",
-      "url": "#",
-      "content_lang": "ko",
-      "thumbnail_url": "https://picsum.photos/seed/book-dl-handbook/300/400"
+      "title_ko": "대학원생 때 알았더라면 좋았을 것들",
+      "title_en": "Things I Wish I'd Known in Grad School",
+      "source": "스마트북스",
+      "year": "2019",
+      "url": "https://product.kyobobook.co.kr/detail/S000001926765",
+      "thumbnail_url": "https://image.aladin.co.kr/product/18987/45/cover200/k262635791_1.jpg",
+      "content_lang": "ko"
+    },
+    {
+      "title_ko": "인공지능이 인간을 지배할 수 있을까?",
+      "title_en": "Will AI Dominate Humanity?",
+      "source": "동아엠앤비",
+      "year": "2018-08",
+      "url": "https://product.kyobobook.co.kr/detail/S000001866839",
+      "content_lang": "ko"
+    },
+    {
+      "title_ko": "인공지능과 딥러닝 (옮김)",
+      "title_en": "AI and Deep Learning (Translation)",
+      "source": "동아엠앤비",
+      "year": "2015-12",
+      "url": "https://www.yes24.com/product/goods/23196334",
+      "thumbnail_url": "https://image.yes24.com/goods/23196334/xl",
+      "content_lang": "ko"
     }
   ],
   "code": [
