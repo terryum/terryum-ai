@@ -1,5 +1,6 @@
-import { rm, access } from 'fs/promises';
+import { rm, access, readdir } from 'fs/promises';
 import { execSync } from 'child_process';
+import { join } from 'path';
 
 // Refuse to wipe .next while another build/deploy is touching the same dirs.
 // The classic failure mode is: a previous `opennextjs-cloudflare deploy` is
@@ -64,7 +65,20 @@ try {
   // pgrep missing (non-Unix) — skip the guard rather than fail the build.
 }
 
-const targets = ['.next', 'tsconfig.tsbuildinfo'];
+// CI runners are ephemeral and have no concurrent build/deploy, so we keep
+// `.next/cache` to let `actions/cache` accelerate the next `next build` via
+// Next.js incremental compile. Locally we still wipe `.next` entirely to
+// avoid the random-ENOENT failure mode the conflict guard above describes.
+const isCI = process.env.CI === 'true';
+
+let targets;
+if (isCI) {
+  const entries = await readdir('.next').catch(() => []);
+  targets = entries.filter((e) => e !== 'cache').map((e) => join('.next', e));
+  targets.push('tsconfig.tsbuildinfo');
+} else {
+  targets = ['.next', 'tsconfig.tsbuildinfo'];
+}
 
 const results = await Promise.allSettled(
   targets.map((t) => rm(t, { recursive: true, force: true }))
@@ -74,7 +88,6 @@ const removed = [];
 const failed = [];
 for (let i = 0; i < targets.length; i++) {
   if (results[i].status === 'fulfilled') {
-    // Verify it's actually gone
     try {
       await access(targets[i]);
       failed.push(targets[i]);
@@ -88,3 +101,4 @@ for (let i = 0; i < targets.length; i++) {
 
 if (removed.length) console.log(`Cleaned: ${removed.join(', ')}`);
 if (failed.length) console.warn(`Failed to clean: ${failed.join(', ')}`);
+if (isCI) console.log('[clean-next] CI mode — preserved .next/cache for incremental compile');
