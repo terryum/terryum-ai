@@ -27,7 +27,7 @@ export default function ContactEmail({ localPart, domain, fallbackLabel }: Conta
         ref={ref}
         data-l={localPart}
         data-d={domain}
-        className="text-text-primary hover:text-accent transition-colors underline-offset-2"
+        className="text-sm text-text-primary hover:text-accent transition-colors underline-offset-2"
       >
         {fallbackLabel}
       </a>
@@ -37,7 +37,7 @@ export default function ContactEmail({ localPart, domain, fallbackLabel }: Conta
   return (
     <a
       href={`mailto:${email}`}
-      className="text-text-primary hover:text-accent transition-colors underline-offset-2"
+      className="text-sm text-text-primary hover:text-accent transition-colors underline-offset-2"
     >
       {email}
     </a>
