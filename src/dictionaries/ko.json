@@ -12,13 +12,12 @@
     "title": "About",
     "contact_label": "연락처",
     "currently": "Currently",
-    "around_the_web": "Around the web",
+    "around_the_web_ko": "Around the web (Korean)",
+    "around_the_web_en": "Around the web (English)",
     "talks": "Talks",
     "interviews": "Interviews",
-    "writing": "In writing",
     "books": "Books & writing",
-    "code": "Code",
-    "lang_other": "(영어)"
+    "code": "Code"
   },
   "posts_index": {
     "title": "Posts",

@@ -14,7 +14,8 @@ export interface MediaItem {
   source?: string; // e.g. "YouTube", "Podcast", magazine name
   year?: string | number;
   url: string;
-  content_lang?: 'ko' | 'en'; // language of the content itself; marker shown when it differs from view locale
+  content_lang?: 'ko' | 'en'; // language of the content; routes the item into the matching section
+  thumbnail_url?: string;     // optional cover image (used by the Books gallery)
 }
 
 export interface AboutMedia {
@@ -31,16 +32,20 @@ export interface LocalizedMediaItem {
   source?: string;
   year?: string;
   url: string;
-  isOtherLang: boolean; // content language differs from current view locale
+  thumbnail_url?: string;
+}
+
+export interface KoSectionMedia {
+  talks: LocalizedMediaItem[];
+  interviews: LocalizedMediaItem[];
+  books: LocalizedMediaItem[];
+  code: LocalizedMediaItem[];
 }
 
 export interface LocalizedAboutMedia {
   currently: string;
-  talks: LocalizedMediaItem[];
-  interviews: LocalizedMediaItem[];
-  writing: LocalizedMediaItem[];
-  books: LocalizedMediaItem[];
-  code: LocalizedMediaItem[];
+  koSection: KoSectionMedia;
+  enSection: LocalizedMediaItem[]; // single flat list — English content is sparse
   hasAnyMedia: boolean;
 }
 
@@ -110,26 +115,67 @@ function localizeItem(item: MediaItem, locale: Locale): LocalizedMediaItem {
     source: item.source,
     year: formatYearMonth(item.year),
     url: item.url,
-    isOtherLang: item.content_lang != null && item.content_lang !== locale,
+    thumbnail_url: item.thumbnail_url,
   };
+}
+
+// Routes items into Korean / English sections by content_lang. Items without
+// content_lang (e.g. bilingual books) appear in BOTH sections.
+function splitByContentLang(items: MediaItem[]): { ko: MediaItem[]; en: MediaItem[] } {
+  const ko: MediaItem[] = [];
+  const en: MediaItem[] = [];
+  for (const item of items) {
+    if (item.content_lang === 'en') en.push(item);
+    else if (item.content_lang === 'ko') ko.push(item);
+    else { ko.push(item); en.push(item); }
+  }
+  return { ko, en };
 }
 
 export async function getAboutMedia(locale: Locale): Promise<LocalizedAboutMedia> {
   const data = mediaJson as AboutMedia;
-  const talks      = sortNewestFirst(data.talks      ?? []).map(i => localizeItem(i, locale));
-  const interviews = sortNewestFirst(data.interviews ?? []).map(i => localizeItem(i, locale));
-  const writing    = sortNewestFirst(data.writing    ?? []).map(i => localizeItem(i, locale));
-  const books      = sortNewestFirst(data.books      ?? []).map(i => localizeItem(i, locale));
-  const code       = sortNewestFirst(data.code       ?? []).map(i => localizeItem(i, locale));
-  const currently = (data.currently?.[locale] ?? '').trim();
-  return {
-    currently,
-    talks,
-    interviews,
-    writing,
-    books,
-    code,
-    hasAnyMedia:
-      talks.length + interviews.length + writing.length + books.length + code.length > 0,
+  const allCategories = {
+    talks:      sortNewestFirst(data.talks      ?? []),
+    interviews: sortNewestFirst(data.interviews ?? []),
+    writing:    sortNewestFirst(data.writing    ?? []),
+    books:      sortNewestFirst(data.books      ?? []),
+    code:       sortNewestFirst(data.code       ?? []),
   };
+
+  // Korean section keeps category structure
+  const koSplits = {
+    talks:      splitByContentLang(allCategories.talks),
+    interviews: splitByContentLang(allCategories.interviews),
+    writing:    splitByContentLang(allCategories.writing),
+    books:      splitByContentLang(allCategories.books),
+    code:       splitByContentLang(allCategories.code),
+  };
+
+  const koSection: KoSectionMedia = {
+    talks:      koSplits.talks.ko.map(i => localizeItem(i, locale)),
+    interviews: koSplits.interviews.ko.map(i => localizeItem(i, locale)),
+    books:      koSplits.books.ko.map(i => localizeItem(i, locale)),
+    code:       koSplits.code.ko.map(i => localizeItem(i, locale)),
+  };
+
+  // English section: flatten all categories, sort newest-first as one list
+  const enRaw = [
+    ...koSplits.talks.en,
+    ...koSplits.interviews.en,
+    ...koSplits.writing.en,
+    ...koSplits.books.en,
+    ...koSplits.code.en,
+  ];
+  const enSection = sortNewestFirst(enRaw).map(i => localizeItem(i, locale));
+
+  const currently = (data.currently?.[locale] ?? '').trim();
+  const hasAnyMedia =
+    koSection.talks.length +
+      koSection.interviews.length +
+      koSection.books.length +
+      koSection.code.length +
+      enSection.length >
+    0;
+
+  return { currently, koSection, enSection, hasAnyMedia };
 }

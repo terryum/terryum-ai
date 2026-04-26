@@ -70,7 +70,8 @@
       "title_en": "Physical AI Survey Series",
       "source": "terryum.ai/surveys",
       "year": "2024",
-      "url": "/surveys"
+      "url": "/surveys",
+      "thumbnail_url": "https://picsum.photos/seed/book-survey/300/400"
     },
     {
       "title_ko": "딥러닝 핸드북 (공저)",
@@ -78,7 +79,8 @@
       "source": "Hanbit Media",
       "year": "2022",
       "url": "#",
-      "content_lang": "ko"
+      "content_lang": "ko",
+      "thumbnail_url": "https://picsum.photos/seed/book-dl-handbook/300/400"
     }
   ],
   "code": [

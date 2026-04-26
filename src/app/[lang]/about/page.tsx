@@ -71,22 +71,19 @@ export default async function AboutPage({
         </section>
       )}
 
-      {/* Around the web — curated external mentions, modest tone */}
+      {/* Around the web — split by content language; Korean keeps categories,
+          English collapses into a single flat list since it's sparse. */}
       <AroundTheWeb
         labels={{
-          around_the_web: aboutLabels.around_the_web || 'Around the web',
+          around_the_web_ko: aboutLabels.around_the_web_ko || 'Around the web (Korean)',
+          around_the_web_en: aboutLabels.around_the_web_en || 'Around the web (English)',
           talks: aboutLabels.talks || 'Talks',
           interviews: aboutLabels.interviews || 'Interviews',
-          writing: aboutLabels.writing || 'In writing',
           books: aboutLabels.books || 'Books & writing',
           code: aboutLabels.code || 'Code',
-          lang_other: aboutLabels.lang_other || (lang === 'ko' ? '(영어)' : '(Korean)'),
         }}
-        talks={media.talks}
-        interviews={media.interviews}
-        writing={media.writing}
-        books={media.books}
-        code={media.code}
+        koSection={media.koSection}
+        enSection={media.enSection}
       />
     </div>
   );
