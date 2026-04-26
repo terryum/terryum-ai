@@ -21,9 +21,17 @@ function todayIso(): string {
 
 export async function GET() {
   const supabase = getSupabaseAdmin();
-  const propertyId = process.env.GA4_PROPERTY_ID;
+  const propertyIdRaw = process.env.GA4_PROPERTY_ID;
+  const propertyId = (propertyIdRaw ?? '').trim() || undefined;
+  const saRaw = process.env.GA4_SERVICE_ACCOUNT_JSON;
   const startDate = process.env.GA4_START_DATE ?? '2024-01-01';
   const endDate = todayIso();
+  const debug = {
+    propertyIdLength: propertyIdRaw?.length ?? 0,
+    propertyIdSet: propertyIdRaw != null,
+    saLength: saRaw?.length ?? 0,
+    saSet: saRaw != null,
+  };
 
   let viewsError: string | null = null;
   if (!propertyId) viewsError = 'GA4_PROPERTY_ID not configured';
@@ -70,7 +78,7 @@ export async function GET() {
   }
 
   return NextResponse.json(
-    { stats, fetchedAt: new Date().toISOString(), viewsError },
+    { stats, fetchedAt: new Date().toISOString(), viewsError, debug },
     {
       headers: {
         'cache-control': 'public, s-maxage=3600, stale-while-revalidate=86400',
