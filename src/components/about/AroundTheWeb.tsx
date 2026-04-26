@@ -16,6 +16,21 @@ interface AroundTheWebProps {
   enSection: LocalizedMediaItem[];
 }
 
+// Renders "Around the web (Korean)" with the trailing parenthetical
+// dropped to a smaller, muted style — keeps the language tag from
+// competing visually with the section name.
+function SectionHeading({ label }: { label: string }) {
+  const m = label.match(/^(.*?)\s*(\(.+\))\s*$/);
+  return (
+    <h2 className="text-base font-[540] text-text-primary tracking-tight mb-5">
+      {m ? m[1] : label}
+      {m && (
+        <span className="ml-2 text-xs font-normal text-text-muted">{m[2]}</span>
+      )}
+    </h2>
+  );
+}
+
 function MetaLine({ source, year }: { source?: string; year?: string }) {
   if (!source && !year) return null;
   return (
@@ -119,9 +134,7 @@ export default function AroundTheWeb({ labels, koSection, enSection }: AroundThe
     <>
       {koHasAny && (
         <section className="mt-10 pt-8 border-t border-line-default">
-          <h2 className="text-base font-[540] text-text-primary tracking-tight mb-5">
-            {labels.around_the_web_ko}
-          </h2>
+          <SectionHeading label={labels.around_the_web_ko} />
           <MediaList heading={labels.talks} items={koSection.talks} />
           <MediaList heading={labels.interviews} items={koSection.interviews} />
           <BooksGallery heading={labels.books} items={koSection.books} />
@@ -131,9 +144,7 @@ export default function AroundTheWeb({ labels, koSection, enSection }: AroundThe
 
       {enHasAny && (
         <section className="mt-10 pt-8 border-t border-line-default">
-          <h2 className="text-base font-[540] text-text-primary tracking-tight mb-5">
-            {labels.around_the_web_en}
-          </h2>
+          <SectionHeading label={labels.around_the_web_en} />
           <MediaList items={enSection} />
         </section>
       )}
