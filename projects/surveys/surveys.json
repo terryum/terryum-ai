@@ -1,5 +1,5 @@
 {
-  "next_survey_number": 6,
+  "next_survey_number": 7,
   "surveys": [
     {
       "slug": "survey-claude-to-codex",
@@ -440,6 +440,80 @@
       "order": 0,
       "published_at": "2026-04-01",
       "updated_at": "2026-04-08"
+    },
+    {
+      "slug": "physical-ai-manufacturing",
+      "survey_number": 6,
+      "title": {
+        "ko": "제조업 피지컬AI 전략 서베이",
+        "en": "Physical AI in Manufacturing: A Strategic Survey"
+      },
+      "description": {
+        "ko": "공장이 스스로 생각하기 시작했다 — NVIDIA부터 코스맥스까지. — 3 Parts, 9 Chapters",
+        "en": "Factories are starting to think for themselves — from NVIDIA to Cosmax. — 3 Parts, 9 Chapters"
+      },
+      "cover_image": "/images/projects/physical-ai-manufacturing-cover.webp",
+      "tech_stack": [
+        "Physical AI",
+        "Manufacturing",
+        "Robotics",
+        "Industry 4.0"
+      ],
+      "toc": [
+        {
+          "ko": "피지컬AI 패러다임",
+          "en": "What Is Physical AI"
+        },
+        {
+          "ko": "NVIDIA 전략",
+          "en": "NVIDIA Mfg Strategy"
+        },
+        {
+          "ko": "OT기업의 전환",
+          "en": "Legacy OT Adapts"
+        },
+        {
+          "ko": "컨설팅 AI ROI",
+          "en": "McKinsey BCG on ROI"
+        },
+        {
+          "ko": "자동차·반도체 AI",
+          "en": "Vanguard Industries"
+        },
+        {
+          "ko": "물류 창고 자율화",
+          "en": "Warehouse AI Lab"
+        },
+        {
+          "ko": "수작업 산업 AI",
+          "en": "Consumer Mfg AI"
+        },
+        {
+          "ko": "화장품 기업 과제",
+          "en": "Cosm. AI Challenges"
+        },
+        {
+          "ko": "코스맥스 전략",
+          "en": "Cosmax AI Strategy"
+        }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://physical-ai-manufacturing.pages.dev/",
+          "label": "Read"
+        }
+      ],
+      "embed_url": "https://physical-ai-manufacturing.pages.dev/",
+      "status": "active",
+      "featured": false,
+      "order": 1,
+      "published_at": "2026-04-28",
+      "updated_at": "2026-04-28",
+      "visibility": "group",
+      "allowed_groups": [
+        "snu"
+      ]
     }
   ]
 }
