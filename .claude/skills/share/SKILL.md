@@ -165,6 +165,8 @@ python scripts/publish-project-social.py --slug={slug} --message-ko-file=/tmp/sh
 
 **중요: Substack은 `publish-social.py`에 포함되어 있지 않다.** 반드시 `publish-substack.py`를 별도로 실행해야 한다. `--platform=substack`은 `publish-social.py`에서 무시된다.
 
+**Substack 지원 범위**: `essays`, `tech` 타입만. `threads`, `memos`, `papers`, `surveys`는 publish-substack.py가 명시적 stderr 메시지(`✗ Substack 미지원: ...`)와 함께 skip한다 (2026-04-28 사고 D 후 명시화). 결과 요약에 반드시 `— substack: 미지원 (<type>)` 형태로 표시할 것 — silent skip 금지.
+
 **글자수 초과 시 재발행**: 특정 플랫폼이 실패하면 해당 플랫폼만 기본 메시지로 재시도:
 ```bash
 python scripts/publish-project-social.py --slug={slug} --platform=threads
@@ -172,20 +174,36 @@ python scripts/publish-project-social.py --slug={slug} --platform=threads
 
 ---
 
-## Step 5. 결과 요약
+## Step 5. 결과 요약 — silent fail 금지
+
+각 플랫폼 게시 URL뿐 아니라 **OG/thumb 첨부 여부**까지 명시. 사용자가 결과만 봐도 어느 플랫폼에서 카드 깨졌는지 즉시 인지하도록.
 
 ```
 ─── /share 결과 ────────────────────────────────────
 [Post] #11 260310-on-the-manifold-first-post
 
-✓ facebook   — https://www.facebook.com/permalink/...
+✓ facebook   — https://www.facebook.com/permalink/...     (OG: ✓)
 ✓ threads    — https://www.threads.net/@terry.artlab/post/...
 ✓ linkedin   — https://www.linkedin.com/feed/update/...
-✓ x          — https://x.com/TerryUm_ML/status/...
-✓ bluesky    — https://bsky.app/profile/.../post/...
+✓ x          — https://x.com/TerryUm_ML/status/...        (card: ✓)
+⚠ bluesky    — https://bsky.app/profile/.../post/...     (게시 OK, thumb 미첨부 — OG fetch 실패)
 ✓ substack(en) — https://terryum.substack.com/p/...
 ✓ substack(ko) — https://taewoongum.substack.com/p/...
 ────────────────────────────────────────────────────
 ```
 
-실패 시 원인 포함: `✗ x — 실패 (CreditsDepleted)`
+**검증 신호**:
+- **`✓`**: 게시 성공 + OG/thumb 정상
+- **`⚠`**: 게시 성공이지만 thumb/OG 누락 — publish-social.py가 stderr로 사고 알림 출력
+- **`✗`**: 게시 실패 (원인 포함, 예: `CreditsDepleted`, `blob too big`, `unauthorized`)
+- **`— 미지원 (<type>)`**: 해당 콘텐츠 타입을 스크립트가 지원 안 함 (예: `substack — 미지원 (threads)`)
+
+**Bluesky thumb 누락 시 진단** (2026-04-28 사고 C 후 강화):
+- publish-social.py가 stderr로 다음을 출력: `⚠ Bluesky thumb 업로드 실패 — 게시는 진행되나 link card에 이미지 없음`
+- 원인 후보: (a) OG image 1MB 초과, (b) R2 dev URL access, (c) OG meta 부재
+- 표준 4-asset spec(og.png ≤500 KB)을 따르면 (a) 사고 자체가 불가능. (b)는 자체도메인(www.terryum.ai)으로 fallback 필요. (c)는 발행 전 URL의 OG 메타 점검.
+
+**Facebook OG 캐시 사고**:
+- 처음 게시 직전 og.png가 너무 컸거나 라이브에 없으면 Facebook scraper가 빈 캐시를 저장 → 카드 깨짐
+- 복구: https://developers.facebook.com/tools/debug/?q=<URL>에서 "Scrape Again"
+- 영구 가드: 표준 spec(og.png ≤500 KB)으로 시작하면 발생 0
