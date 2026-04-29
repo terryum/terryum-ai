@@ -12,13 +12,16 @@ argument-hint: "<질문 또는 연구 방향 설명> [#인덱스 참조]"
 
 | 모드 | 트리거 표현 (한국어 / 영어) | 설명 |
 |---|---|---|
+| `mode_a` | **인자 없음 / 빈 query** | "현재 그래프 상태에서 다음 읽을 후보 — 방향성 없음" |
 | `next-restricted` | "survey 안에서만", "이미 모은 것 중", "외부 말고", "internal only", "no external" | candidate pool로만 추천, 외부 검색 차단 |
 | `next` | "다음에", "다음 차례", "다음에 추가할", "쌓을", "next paper to add", "what should I read next" | surveys candidate pool 우선, 약하게 매칭되면 외부 자동 보충 |
-| `explore` (default) | 위 트리거 없음 — 일반적 "관련 논문 찾아줘" 류 | 기존 동작 (내부 BFS + 외부 arXiv/SemScholar) |
+| `explore` (default, =Mode B) | 위 트리거 없음 — 자연어 query | 내부 BFS → anchor 약하면 외부 검색 자동 → alignment 평가 |
 
-**우선순위**: `next-restricted` > `next` > `explore` (구체 → 일반).
+**우선순위**: `mode_a` (인자 없음) > `next-restricted` > `next` > `explore`.
 
 판단이 모호하면 `next` 모드로 가되, 출력에 모드 표기.
+
+> **가중치 출처**: 모든 scoring weight는 `terry-papers/config/search-weights.json` 한 곳에서 로드된다 (`scripts/lib/search-weights.mjs` 경유). 튜닝은 거기서만 한다.
 
 ## 핵심 흐름 (3-step GraphRAG-lite)
 
@@ -89,8 +92,33 @@ node scripts/paper-search-internal.mjs --query="<정제된 Q>" --top-k=3 --depth
 
 ### **🔀 모드 분기**
 
-- `mode == explore` → Step 3 (외부 검색)으로 진행
+- `mode == mode_a` → Step 2a (Mode A 단독 흐름) 으로 진입 (Step 1/2 건너뜀)
+- `mode == explore` → 내부 결과 검토 후 Step 3 (외부 검색 자동 보강) 으로 진행
 - `mode == next` 또는 `next-restricted` → Step 2b (next-mode ranking)로 진입
+
+`anchors[].similarity` 최댓값이 0.55 미만이면 KB 커버리지가 약함 — `explore` 모드는 외부 검색의 비중을 높여야 한다 (Step 3-5 자동 수행).
+
+---
+
+### Step 2a) Mode A — no-query 추천
+
+방향성 query 없이 "현재 그래프 상태"만으로 다음 읽을 후보를 추천한다. 5개 시드를 혼합:
+
+```bash
+node scripts/paper-search-mode-a.mjs --top-n=10
+```
+
+- 입력 없음 (인자 없음 또는 `--top-n=N`)
+- 출력: `{ mode: "mode_a", recent_confirmed, weights, recommendations: [{score, seed_breakdown, reason, ...}] }`
+
+시드 (가중치 출처: `mode_a_weights`):
+- `seed_a` (0.35): 최근 3 confirmed 논문의 그래프 이웃 정도
+- `seed_d` (0.25): rank-next의 5개 비-anchor 신호 (survey/graph/gap/verify/recency) 정규화
+- `seed_c` (0.25): `matches_gaps` 보유
+- `seed_e` (0.10): 여러 surveys 인용되지만 그래프 연결 빈약 (frontier)
+- `seed_b` (0.05): 가장 가까운 confirmed가 memo 보유
+
+→ 결과를 받은 뒤 Step 6 출력 단계로.
 
 ---
 
@@ -150,25 +178,19 @@ node scripts/paper-search-rank-next.mjs --top-n=10 [--restrict] < /tmp/paper-sea
 - **확장 쿼리**: anchor의 key_concepts 상위 3-5개 조합
 - **갭 쿼리**: neighborhood의 research_gaps에서 핵심 명사 추출 (gap을 메우는 후보 찾기)
 
-### Step 4) 외부 학술 검색 (병렬 WebFetch)
+### Step 4) 외부 학술 검색 (orchestrator)
 
-**a) Semantic Scholar API**
+```bash
+node scripts/paper-search-external-search.mjs --query="<정제된 Q>" --max-per-source=20
+# 또는 neighborhood concepts로:
+node scripts/paper-search-external-search.mjs --concepts="tactile-sensing,palm,robot-hand"
 ```
-WebFetch: https://api.semanticscholar.org/graph/v1/paper/search?query=<query>&limit=15&fields=title,authors,year,citationCount,abstract,externalIds,references.externalIds,citations.externalIds
-```
-- `references.externalIds` / `citations.externalIds`가 alignment 평가에 핵심 — 인용 그래프 1-hop 가져옴
-- 최근 2년 우선
 
-**b) arXiv API**
-```
-WebFetch: https://export.arxiv.org/api/query?search_query=all:<query>&sortBy=submittedDate&sortOrder=descending&max_results=15
-```
-- 최신 프리프린트
+- arXiv (최신 프리프린트, submittedDate desc) + Semantic Scholar (references/citations 포함) 병렬 호출
+- arXiv ID / DOI / normalized title 로 dedup, `posts/index.json` 슬러그와 매칭되는 후보 자동 제외 (`--no-exclude-internal` 으로 끌 수 있음)
+- 한 소스 실패해도 다른 소스로 진행 (Semantic Scholar 429 자주 발생 — 정상)
 
-**c) 기존 그래프에서 자주 인용되지만 KB에 없는 후보**
-- `knowledge-index.json`에 없는 slug지만 anchor의 references[]에 자주 등장하는 논문 식별
-
-세 소스에서 모은 후보는 다음 형식의 JSON 배열로 정리:
+출력 형식 (score-external이 stdin으로 받는 형식):
 ```json
 [
   {
@@ -189,7 +211,8 @@ WebFetch: https://export.arxiv.org/api/query?search_query=all:<query>&sortBy=sub
 ### Step 5) Alignment scoring
 
 ```bash
-echo '<candidates JSON>' | node scripts/paper-search-score-external.mjs --internal=/tmp/paper-search-internal.json
+node scripts/paper-search-external-search.mjs --query="<정제된 Q>" \
+  | node scripts/paper-search-score-external.mjs --internal=/tmp/paper-search-internal.json
 ```
 
 stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 breakdown을 가진다:
@@ -201,6 +224,22 @@ stdout에 `alignment_score`로 정렬된 후보 배열. 각 후보는 다음 bre
 `gap_completion`이 0보다 큰 후보는 **기존 그래프의 미해결 질문을 메우는** 가치 있는 추가다 — 사용자가 강조한 "답변을 더 깊이 있게 만들어주는" 후보.
 
 ### Step 6) Top-N 출력 형식
+
+#### Mode A (no-query)
+
+```markdown
+**Mode: mode_a** — 현재 그래프 상태에서 다음 읽을 후보 (recent: `2509-..., 2503-..., 2412-...`)
+**Total active candidates**: 404
+
+### Candidate #1 — [제목] (`canonical_id`) 🟢 rich
+- **score**: 0.486 (a=.. d=.. c=.. e=.. b=..)
+- **인용 위치**: humanoid-revolution Ch3,8 / robot-hand-tactile-sensor Ch6
+- **메우는 gap**: manipulation
+- **추천 이유**: 최근 X 의 이웃 / Y survey ch.. 인용 / Z gap 매움
+- **URL**: arXiv:...
+```
+
+`recent_confirmed`은 paper_list의 최신 3 confirmed slug. seed_breakdown의 `a/d/c/e/b`는 각각 시드 점수.
 
 #### Explore 모드
 
