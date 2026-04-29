@@ -191,11 +191,12 @@ grep -rl "[[<slug>]]" "$HOME/Documents/Obsidian Vault/" 2>/dev/null
 
 ```bash
 node scripts/export-knowledge.mjs   # 기본 출력: ~/Codes/personal/terry-papers
+node scripts/sync-obsidian-kg.mjs   # KG → vault/Papers KB/ 시각화 (삭제된 노드 제거)
 cd ~/Codes/personal/terry-papers && git add papers/ knowledge-index.json \
   && git commit -m "kb: remove <slug>" && git push && cd -
 ```
 
-별도 KB 레포는 없다 — `papers/<slug>.json`과 `knowledge-index.json`은 `terry-papers` 레포에 직접 커밋된다. 실패 시 경고만 출력하고 계속 진행.
+별도 KB 레포는 없다 — `papers/<slug>.json`과 `knowledge-index.json`은 `terry-papers` 레포에 직접 커밋된다. 실패 시 경고만 출력하고 계속 진행. `sync-obsidian-kg.mjs`는 매번 `Papers KB/` 폴더를 비우고 재생성하므로 삭제된 슬러그는 자동으로 vault에서도 사라진다.
 
 ---
 
