@@ -339,6 +339,21 @@ async function main() {
   console.log(`   📝 ${knowledgeIndex.papers_with_memos} papers with Terry's memos`);
   console.log(`   🔬 ${knowledgeIndex.papers_with_gaps} papers with research gaps`);
   console.log(`   🔗 ${allEdges.length} edges (including reverse)`);
+
+  // Sync paper_embeddings (incremental — only stale rows are re-embedded).
+  // Soft-fail: missing OPENAI_API_KEY or Supabase shouldn't block KB export.
+  try {
+    const { spawnSync } = await import('child_process');
+    const here = path.dirname(new URL(import.meta.url).pathname);
+    const r = spawnSync('node', [path.join(here, 'sync-embeddings.mjs')], {
+      stdio: 'inherit',
+    });
+    if (r.status !== 0) {
+      console.warn('⚠ sync-embeddings exited non-zero (continuing)');
+    }
+  } catch (err) {
+    console.warn(`⚠ sync-embeddings skipped: ${err.message}`);
+  }
 }
 
 main().catch(err => {
