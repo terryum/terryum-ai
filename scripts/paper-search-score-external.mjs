@@ -43,8 +43,10 @@ import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
 import { loadEnv } from './lib/env.mjs';
+import { loadWeights } from './lib/search-weights.mjs';
 
 await loadEnv();
+const WEIGHTS = await loadWeights();
 
 const KB_PATH = process.env.RESEARCH_KB_PATH
   || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
@@ -58,9 +60,10 @@ if (!internalArg) {
   process.exit(2);
 }
 
+const EA = WEIGHTS.external_alignment;
 const [W1, W2, W3, W4] = weightsArg
   ? weightsArg.split(',').map(Number)
-  : [0.4, 0.3, 0.2, 0.1];
+  : [EA.w1_anchor_sim, EA.w2_citation_overlap, EA.w3_concept_jaccard, EA.w4_gap_diversity];
 
 async function readStdinJson() {
   let data = '';

@@ -20,7 +20,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { loadWeights } from './lib/search-weights.mjs';
 
+const WEIGHTS = await loadWeights();
 const args = process.argv.slice(2);
 const argMap = Object.fromEntries(args.filter(a => a.startsWith('--') && a.includes('=')).map(a => {
   const [k, v] = a.replace(/^--/, '').split('=');
@@ -33,11 +35,9 @@ const RESTRICTED = FLAGS.has('restrict');
 const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
 
 // Topic relevance dominates ("what about X?"); other signals are tiebreakers.
-const W = { anchor: 0.60, survey: 0.12, graph: 0.10, gap: 0.08, verify: 0.05, recency: 0.05 };
-// If anchor sim is below this floor, the candidate is excluded — prevents
-// high-citation papers from drowning out off-topic queries with their
-// non-anchor signals.
-const ANCHOR_FLOOR = 0.20;
+// Weights and anchor floor (excludes high-citation but off-topic candidates)
+// loaded from config/search-weights.json — see RNW.* references below.
+const RNW = WEIGHTS.rank_next_weights;
 
 function loadJson(p) {
   if (!fs.existsSync(p)) return null;
@@ -86,8 +86,8 @@ function score(cand, qEmbedding, embCache, anchorSlugs) {
   const yearGap = (cand.year || 0) - (currentYear() - 3);
   const sRecency = clamp(yearGap / 3, 0, 1);
 
-  const total = W.anchor * sAnchor + W.survey * sSurvey + W.graph * sGraph
-              + W.gap * sGap + W.verify * sVerify + W.recency * sRecency;
+  const total = RNW.anchor * sAnchor + RNW.survey * sSurvey + RNW.graph * sGraph
+              + RNW.gap * sGap + RNW.verify * sVerify + RNW.recency * sRecency;
 
   return {
     total: Math.round(total * 1000) / 1000,
@@ -155,7 +155,7 @@ async function main() {
 
   const ranked = active
     .map(c => ({ c, s: score(c, input.q_embedding, embCache, anchorSlugs) }))
-    .filter(({ s }) => s.breakdown.anchor >= ANCHOR_FLOOR)
+    .filter(({ s }) => s.breakdown.anchor >= RNW.anchor_floor)
     .map(({ c, s }) => ({
       canonical_id: c.canonical_id,
       title: c.title,
@@ -193,7 +193,7 @@ async function main() {
   process.stdout.write(JSON.stringify({
     query: input.query,
     mode: RESTRICTED ? 'next-restricted' : 'next',
-    weights: W,
+    weights: RNW,
     embedding_coverage: { cached: embCount, total: ci.candidates.length },
     metadata_coverage: {
       rich: ci.rich_candidates ?? null,

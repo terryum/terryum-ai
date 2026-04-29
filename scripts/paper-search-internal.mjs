@@ -30,8 +30,10 @@ import path from 'path';
 import os from 'os';
 import { loadEnv } from './lib/env.mjs';
 import { getSupabase } from './lib/supabase.mjs';
+import { loadWeights } from './lib/search-weights.mjs';
 
 await loadEnv();
+const WEIGHTS = await loadWeights();
 
 const KB_PATH = process.env.RESEARCH_KB_PATH
   || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
@@ -44,12 +46,9 @@ const depth = Number(args.find(a => a.startsWith('--depth='))?.split('=')[1] || 
 const topN = Number(args.find(a => a.startsWith('--top-n='))?.split('=')[1] || 10);
 const jsonOnly = args.includes('--json');
 
-// Edge weights for traversal scoring (from ONTOLOGY.md strength tiers).
-const EDGE_WEIGHT = { foundational: 1.0, direct: 0.6, tangential: 0.3 };
-// Combined node score: α·anchor_sim + β·edge_path_weight + γ·memo_bonus.
-const ALPHA = 0.5;
-const BETA = 0.4;
-const GAMMA = 0.1;
+// Edge weights (ONTOLOGY.md tiers) and node-score coefficients
+// (α·anchor_sim + β·edge_path_weight + γ·memo_bonus) loaded from
+// config/search-weights.json — see WEIGHTS.* references below.
 
 async function readQuery() {
   if (queryArg) return queryArg;
@@ -142,7 +141,7 @@ function traverse(anchorSlugs, adj, paperList) {
       if (node.depth >= depth) continue;
       const neighbors = adj.get(node.slug) || [];
       for (const n of neighbors) {
-        const w = EDGE_WEIGHT[n.strength] || 0.3;
+        const w = WEIGHTS.edge_weights[n.strength] || WEIGHTS.edge_weights.tangential;
         const newWeight = node.pathWeight * w;
         const existing = visited.get(n.neighbor);
         if (existing !== undefined && existing >= newWeight) continue;
@@ -234,7 +233,9 @@ async function main() {
   }
 
   for (const c of candidates) {
-    c.score = ALPHA * c.similarity + BETA * c.pathWeight + GAMMA * (c.hasMemo ? 1 : 0);
+    c.score = WEIGHTS.alpha_embedding_sim * c.similarity
+            + WEIGHTS.beta_edge_weight * c.pathWeight
+            + WEIGHTS.gamma_memo_bonus * (c.hasMemo ? 1 : 0);
   }
   candidates.sort((a, b) => b.score - a.score);
   const recommendations = candidates.slice(0, topN);
@@ -242,7 +243,12 @@ async function main() {
   const output = {
     query,
     fallback_used: fallback,
-    weights: { alpha: ALPHA, beta: BETA, gamma: GAMMA, edge_weight: EDGE_WEIGHT },
+    weights: {
+      alpha: WEIGHTS.alpha_embedding_sim,
+      beta: WEIGHTS.beta_edge_weight,
+      gamma: WEIGHTS.gamma_memo_bonus,
+      edge_weight: WEIGHTS.edge_weights,
+    },
     anchors,
     recommendations,
     neighborhood_slugs: [...new Set(candidates.map(c => c.slug))],
