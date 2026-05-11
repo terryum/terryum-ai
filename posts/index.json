@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-11T15:03:53.028Z",
-  "total_posts": 55,
+  "generated_at": "2026-05-11T15:18:00.608Z",
+  "total_posts": 56,
   "posts": [
     {
       "post_number": 1,
@@ -4052,6 +4052,87 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 56,
+      "slug": "2412-robovlms-what-matters",
+      "content_type": "papers",
+      "title_en": "What Matters in Building VLAs: A Design Guidebook via RoboVLMs",
+      "title_ko": "What Matters in Building VLAs: RoboVLMs로 풀어낸 VLA 설계 가이드북",
+      "summary_ko": "8개 VLM 백본·4개 정책 구조·600+개 실험으로 작성한 VLA 설계 가이드북. 결론은 KosMos/Paligemma 백본 + 연속 행동 + Policy Head + OXE post-train. 모든 조합을 한 프레임워크(RoboVLMs)로 묶어 오픈소스로 공개했다.",
+      "summary_en": "A VLA design guidebook from 8 VLM backbones × 4 policy architectures × 600+ experiments. The verdict: KosMos/Paligemma backbone, continuous actions, a separate policy head, and OXE as post-train. All combinations are bundled into one open-source meta-builder, RoboVLMs.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "foundation-model",
+        "visuomotor-policy",
+        "design-study"
+      ],
+      "key_concepts": [
+        "VLA",
+        "generalist-policy",
+        "VLM-backbone-study",
+        "policy-head",
+        "continuous-action",
+        "history-aggregation",
+        "cross-embodiment",
+        "post-training",
+        "ablation-study",
+        "RoboVLMs"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "transformer",
+        "pre-training",
+        "ablation-study"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Foundation Model",
+        "VLM",
+        "Manipulation",
+        "Design Study",
+        "Open-Source"
+      ],
+      "source_author": "Xinghang Li et al.",
+      "source_date": "2024-12-18T00:00:00Z",
+      "published_at": "2026-05-12T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A 600+ experiment systematic study of VLA design choices (backbone, action space, history, OXE timing) bundled into the open-source RoboVLMs meta-builder.",
+        "problem": "VLA papers each pick a different VLM backbone, action formulation, and OXE integration strategy on their own terms, making honest comparisons impossible and leaving follow-up researchers without a clear recipe.",
+        "solution": "Decompose VLA design into (backbone, structure, OXE timing), run 600+ controlled experiments on CALVIN / SimplerEnv / 20 real-robot tasks using one framework (RoboVLMs), and quantify each axis.",
+        "key_result": "KosMos / Paligemma backbone + continuous actions + Policy Head + OXE post-train (KosMos P.H.) outperforms Octo-Base, OpenVLA, and other VLAs on every evaluation; emergent self-correction observed.",
+        "limitations": [
+          "Snapshot of late-2024 VLMs — newer PaliGemma successors / Gemini Robotics not covered",
+          "Action representation limited to regression (no diffusion / flow-matching heads)",
+          "Real-robot evaluation on a single embodiment",
+          "No data-efficiency curve for OXE post-train"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2405-octo-generalist-policy",
+          "type": "reviews"
+        },
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "ai/llm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -4772,6 +4853,16 @@
         "type": "sharesTopicWith"
       },
       {
+        "from": "2412-robovlms-what-matters",
+        "to": "2405-octo-generalist-policy",
+        "type": "reviews"
+      },
+      {
+        "from": "2412-robovlms-what-matters",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "sharesTopicWith"
+      },
+      {
         "from": "2201-mano-hand-model",
         "to": "2407-stretchable-glove-hand-pose",
         "type": "related"
@@ -5034,7 +5125,8 @@
           23,
           24,
           33,
-          55
+          55,
+          56
         ],
         "core_concepts": [
           "VLA",
@@ -5043,7 +5135,9 @@
           "fine-tuning",
           "embodied-foundation-model",
           "scaling-laws",
-          "harmonic-reasoning"
+          "harmonic-reasoning",
+          "cross-embodiment",
+          "generalist-policy"
         ],
         "taxonomy_nodes": [
           "robotics/brain/vla"
@@ -5193,7 +5287,8 @@
           24,
           33,
           38,
-          55
+          55,
+          56
         ],
         "core_concepts": [
           "VLA"
@@ -5298,7 +5393,8 @@
       24,
       33,
       38,
-      55
+      55,
+      56
     ],
     "flow-matching": [
       1,
@@ -5558,7 +5654,8 @@
     "cross-embodiment": [
       15,
       23,
-      38
+      38,
+      56
     ],
     "MANO-UV-mapping": [
       16
@@ -6245,7 +6342,8 @@
       54
     ],
     "generalist-policy": [
-      55
+      55,
+      56
     ],
     "open-x-embodiment": [
       55
@@ -6261,10 +6359,31 @@
     ],
     "language-conditioning": [
       55
+    ],
+    "VLM-backbone-study": [
+      56
+    ],
+    "policy-head": [
+      56
+    ],
+    "continuous-action": [
+      56
+    ],
+    "history-aggregation": [
+      56
+    ],
+    "post-training": [
+      56
+    ],
+    "ablation-study": [
+      56
+    ],
+    "RoboVLMs": [
+      56
     ]
   },
   "domain_stats": {
-    "robotics": 31,
+    "robotics": 32,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -6278,7 +6397,7 @@
     "ai-and-work": 1
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 8,
+    "robotics/brain/vla": 9,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
@@ -6288,8 +6407,8 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 8,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 12,
-    "ai/llm:secondary": 5,
+    "robotics/brain": 13,
+    "ai/llm:secondary": 6,
     "ai/society": 4,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
@@ -6307,7 +6426,7 @@
     "robotics/brain/rl-policy:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 30,
+    "robotics": 31,
     "ai": 12
   }
 }

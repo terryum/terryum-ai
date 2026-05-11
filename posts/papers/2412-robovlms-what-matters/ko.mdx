@@ -1,0 +1,183 @@
+---
+locale: ko
+title: "What Matters in Building VLAs: RoboVLMs로 풀어낸 VLA 설계 가이드북"
+summary: "ByteDance·칭화 팀이 8개 VLM 백본·4개 정책 아키텍처·600+개 실험으로 VLA의 4가지 핵심 설계 질문(왜·어떤 백본·어떻게 정형화·언제 cross-embodiment)을 체계적으로 답한 연구. KosMos/Paligemma 백본 + 연속 행동 + 정책 헤드(P.H.) 조합이 최선이며, OXE는 post-train으로 쓰는 게 가장 좋다는 결론을 CALVIN·SimplerEnv·실로봇에서 입증했다."
+card_summary: "8개 VLM 백본·4개 정책 구조·600+개 실험으로 작성한 VLA 설계 가이드북. 결론은 KosMos/Paligemma 백본 + 연속 행동 + Policy Head + OXE post-train. 모든 조합을 한 프레임워크(RoboVLMs)로 묶어 오픈소스로 공개했다."
+terrys_memo: ''
+translation_of: null
+translated_to:
+  - en
+references:
+  - title: 'Octo: An Open-Source Generalist Robot Policy'
+    author: Ghosh et al. (2024)
+    description: >-
+      RoboVLMs가 실로봇 평가에서 직접 비교 대상으로 삼은 오픈소스 generalist 정책. KosMos P.H. (RoboVLMs)가 Octo-Base를 모든 실로봇 평가 셋업에서 상회한다.
+    arxiv_url: 'https://arxiv.org/abs/2405.12213'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy
+    post_slug: 2405-octo-generalist-policy
+    category: foundational
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Kim et al. (2024)
+    description: >-
+      Llama-2 기반 7B 오픈소스 VLA. RoboVLMs의 핵심 비교 대상이며, KosMos P.H.가 SimplerEnv와 실로봇 평가에서 모두 상회한다.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model
+    category: foundational
+  - title: 'RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control'
+    author: Brohan et al. (2023)
+    description: >-
+      VLA 계보의 출발점이자 RoboVLMs 분류 체계의 "이산 행동 + 원샷" 그룹의 대표. 본 논문이 정량적으로 분해한 설계 공간의 한 축을 점유한다.
+    arxiv_url: 'https://arxiv.org/abs/2307.15818'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      Cross-embodiment 데이터를 "post-train" 방식으로 활용한 대표 사례. RoboVLMs의 결론(OXE는 pre-train이 아닌 post-train이 최선)과 같은 노선을 PaliGemma 백본 + flow matching으로 확장한다.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+  - title: KosMos-2 (Microsoft)
+    author: Peng et al. (2023)
+    description: >-
+      RoboVLMs 실험에서 8개 VLM 백본 중 Paligemma와 함께 가장 우수한 성능을 보인 VLM 백본. Grounding 능력과 풍부한 VL 사전학습이 강점.
+    arxiv_url: 'https://arxiv.org/abs/2306.14824'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=KosMos-2+grounding+multimodal
+    category: foundational
+  - title: 'CALVIN: A Benchmark for Language-Conditioned Policy Learning'
+    author: Mees et al. (2022)
+    description: >-
+      RoboVLMs의 주요 시뮬레이션 벤치마크. ABCD/ABC 분할 학습 → D 분할 평가로 일반화 성능을 측정한다.
+    arxiv_url: 'https://arxiv.org/abs/2112.03227'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=CALVIN+benchmark+language-conditioned+policy
+    category: foundational
+---
+
+## TL;DR
+
+8개 VLM 백본·4개 정책 구조·600+개 실험으로 작성한 VLA 설계 가이드북. 결론은 KosMos/Paligemma 백본 + 연속 행동 + Policy Head + OXE post-train. 모든 조합을 한 프레임워크(RoboVLMs)로 묶어 오픈소스로 공개했다.
+
+## 문제
+
+2023년 RT-2 이후 VLA(Vision-Language-Action) 모델이 폭발적으로 등장했지만, 각 연구가 (1) 어떤 VLM을 백본으로 골랐는지, (2) 행동을 어떻게 정형화했는지(이산 토큰 vs 연속, history 통합 방식), (3) Open X-Embodiment 같은 cross-embodiment 데이터를 어느 단계에 끼워 넣었는지를 **제각각** 결정해 왔다. 그 결과 "어떤 VLA가 더 좋은가"라는 질문에 정직하게 답하기 어려웠고, 후발 연구자들은 무엇을 따라하고 무엇을 바꿔야 하는지 모르는 상태에서 새 모델을 만들기 시작해야 했다.
+
+이 논문은 VLA 설계 공간을 (a) 백본 선택, (b) 정책 구조(action space × history), (c) cross-embodiment 데이터 통합 시점이라는 **세 축으로 분해**하고, 같은 데이터·같은 평가 프로토콜·같은 프레임워크 안에서 600회 이상의 실험으로 각 축의 영향을 정량화한다. 그 결과를 한 줄로 압축한 "현재 시점의 best practice"가 본 논문의 산출물이다.
+
+## 핵심 아이디어
+
+**RoboVLMs: 모든 설계 조합을 한 프레임워크로 묶는 메타 VLA 빌더**.
+
+핵심 구성 요소:
+
+- **VLA 분류체계 (Figure 2)**: 모든 기존 VLA를 두 축으로 분류 — 세로축은 행동 공간(이산 토큰 vs 연속), 가로축은 history 사용 여부(원샷 vs 통합). History 통합은 다시 `interleaved`(VLM 컨텍스트 안에 obs+action을 교대 배치) vs `policy head`(VLM이 매 시점 obs를 처리하고 별도 policy head가 history를 모아 행동 예측)로 갈린다.
+- **3개 핵심 질문**:
+  1. **어떤 VLM을 백본으로?** — 8개 VLM(LLaVA, Flamingo, KosMos, Paligemma 등)을 동일 정책 구조에 끼워 비교. 결론: **KosMos와 Paligemma**가 일관되게 최상위.
+  2. **VLA 구조를 어떻게?** — 12개 조합(3개 VLM × 4개 구조)을 동일 데이터로 학습. 결론: **연속 행동 > 이산 행동**, **history 통합 > 원샷**, 그리고 history 통합 방식은 **Policy Head(P.H.) > Interleaved**.
+  3. **Cross-embodiment(OXE)는 언제?** — 세 가지 시점(pre-train, fine-tune, post-train)을 비교. 결론: in-domain 학습 후 OXE를 **post-train**하는 방식이 가장 효과적 (π₀와 같은 노선).
+- **베스트 조합: KosMos P.H.** — KosMos 백본 + Policy Head 구조 + 연속 행동 + OXE post-train이 CALVIN, SimplerEnv, 20개 실로봇 태스크 전부에서 Octo-Base·OpenVLA·기존 VLA들을 상회.
+
+<Figure src="./fig-1.png" alt="VLA 4대 질문 다이어그램" caption="이 연구는 VLM 기반 VLA 구축의 네 가지 핵심 질문을 다룬다 — 왜 VLA를 선호하는가, 어떤 백본을 사용할 것인가, VLA를 어떻게 정형화할 것인가, cross-embodiment 데이터를 추가 데이터 소스로 언제 사용할 것인가. RoboVLMs를 통해 VLM을 다양한 임바디먼트·시나리오·태스크를 지원하는 generalist 로봇 정책으로 손쉽게 전환할 수 있다." number={1} />
+
+<Figure src="./fig-2.png" alt="VLA 분류 체계" caption="저자들의 분류 체계에 따른 기존 generalist 정책 및 최근 연구의 분류. VLA 구조를 두 개의 1차 축으로 분류한다 — (1) 행동 공간(세로축), (2) history 정보 통합 여부(가로축). history를 통합하는 VLA는 history 정보의 조직 패턴에 따라 policy head 형식과 interleaved 형식으로 다시 나눈다." number={2} />
+
+<Collapsible title="구체적 방법">
+
+**1. VLM 백본 비교 (8종)**
+
+| 백본 | 구조 | 이미지 토큰 수 | VL 사전학습 규모 |
+| --- | --- | --- | --- |
+| OpenFlamingo 9B | Encoder-Decoder | 64 | ~2B |
+| Flamingo 80B | Encoder-Decoder | 64 | ~2.3B |
+| KosMos-2 | Decoder-only | 196 | UNK |
+| LLaVA-7B | Decoder-only | 576 | ~1.2M |
+| MoonDream2 | Decoder-only | 49 | UNK |
+| Uform-Gen2 | Decoder-only | 196 | UNK |
+| Paligemma | Decoder-only | 256 | ~10B+ |
+| Qwen-VL | Decoder-only | 256 | ~1.4B |
+
+핵심 관찰: 풍부한 VL 사전학습 데이터로 학습된 디코더 전용 모델(KosMos, Paligemma)이 VLA 성능에서 일관된 우위. 단순히 모델 크기가 큰 게 아니라 **VL 사전학습 폭과 grounding 능력**이 결정적이다.
+
+**2. VLA 정형화: 4개 구조 비교**
+
+행동 공간 × history 처리의 4개 조합:
+
+- **Disc + One-step**: RT-2 스타일 (이산 토큰 자기회귀, 현재 obs만)
+- **Disc + History**: RT-2 + obs history (interleaved)
+- **Cont + Interleaved**: 연속 행동 + obs/action을 VLM 컨텍스트에 interleaved 삽입
+- **Cont + Policy Head (P.H.)**: 연속 행동 + 각 시점 obs를 VLM이 따로 처리, history를 별도 policy head에서 통합
+
+세 개 VLM(LLaVA, Flamingo, KosMos)을 4개 구조와 모두 결합 → 12개 모델 → CALVIN ABCD 분할에서 비교. 결과: **Cont + P.H. 조합이 모든 백본에서 최고**. interleaved 구조는 VLM 토큰 분포를 변형시켜 사전학습된 VL 정렬이 깨지는 것이 원인.
+
+**3. Policy Head 구조의 세부 설계**
+
+- VLM은 매 시점 (obs, language) → 토큰 시퀀스로 변환
+- Policy head는 N개 시점의 VLM 출력 토큰을 받아 행동 청크를 예측
+- Policy head 후보: GPT-style decoder, LSTM, transformer 등 다양한 ph 구조를 Appendix G에서 비교 — 차이는 있지만 **VLM 백본 선택만큼 크지는 않다**
+- 학습은 행동 청크에 대한 회귀 손실 (또는 디퓨전 가능). 본 실험은 행동 회귀 사용
+
+**4. Cross-embodiment 데이터 활용 비교**
+
+세 가지 시점:
+
+- **Pre-train**: OXE로 사전학습 → in-domain fine-tune (RT-2, OpenVLA, Octo 패턴)
+- **Bridge Finetune (in-domain only)**: 비교용 베이스라인 — OXE 없이 in-domain만
+- **Post-train**: in-domain fine-tune → OXE 데이터로 추가 학습 (π₀ 패턴)
+
+WidowX+Bridge와 Google Robot 환경에서 모두 **post-train이 가장 우수**. pre-train만으로는 in-domain 분포에 충분히 적응하지 못하고, post-train은 in-domain 우선순위를 유지하면서 OXE의 다양성을 흡수한다.
+
+**5. 학습 파이프라인**
+
+- 데이터: CALVIN 환경(가상 키친 조작), Bridge V2(WidowX), SimplerEnv(Google Robot), 그리고 20개 실로봇 태스크 + 총 74K 시연
+- 모든 RoboVLMs 베리언트는 동일 데이터·동일 학습 스케줄로 학습 — 변수는 (백본, 구조, OXE 통합 시점) 셋
+- 평가 지표: CALVIN은 5연속 태스크 성공률 + 평균 태스크 길이, SimplerEnv는 태스크 성공률, 실로봇은 5롤아웃 × 20태스크
+
+</Collapsible>
+
+<Figure src="./fig-4.png" alt="3개 벤치마크 셋업" caption="2개의 시뮬레이션 벤치마크와 1개의 실세계 벤치마크. 환경 셋업과 포함된 예시 태스크를 함께 보여준다." number={4} />
+
+## 주요 결과
+
+<Figure src="./fig-5.png" alt="실세계 평가 셋업" caption="실세계 실험 셋팅의 도식. 20개 태스크에 대해 각각 5회 롤아웃을 수행하여 모델을 평가한다 — Unseen Distractor, Unseen Target Object, Unseen Background, Novel Skill Description 카테고리를 포함한다. Open Drawer 같은 태스크는 unseen object 셋업을 테스트하지 않으며, 각 롤아웃의 객체 배치는 무작위로 초기화되어 학습 셋과 다르게 구성한다. unseen target object는 학습 시 보지 못한 객체가 등장하는 셋업에서만 측정된다." number={5} />
+
+- **CALVIN ABCD → D 평가**: KosMos P.H. (RoboVLMs)가 5 epoch 학습 안에서 SOTA. 평균 태스크 길이 4.25 (RoboFlamingo·OpenVLA 등 베이스라인 모두 상회).
+- **SimplerEnv (WidowX+Bridge, Google Robot)**: KosMos P.H.가 가장 좋은 VLA 구조 — 동일 학습 스텝 기준으로 비교했을 때 기존 VLA 패밀리(RT-2-X, Octo, OpenVLA)를 모두 능가.
+- **실로봇 20개 태스크**: Octo-Base와 OpenVLA를 fine-tune해 직접 비교. KosMos P.H.가 모든 평가 셋업(Simple / Unseen Distractor / Unseen Target Object / Unseen Background / Novel Skill)에서 1위, 특히 Simple과 Unseen Background에서 격차가 큼.
+- **자기 교정(self-correction) emergent 행동**: 학습 데이터에 없는 행동임에도, KosMos P.H. (RoboVLMs)는 "오븐 열기" 같은 태스크에서 첫 시도가 손잡이에 닿지 않으면 다시 엔드이펙터 위치를 조정해서 재시도하는 행동을 보였다.
+
+<Figure src="./fig-7.png" alt="SimplerEnv 평가" caption="SimplerEnv 시뮬레이션 벤치마크(WidowX+Bridge, Google Robot 환경)의 평가 결과. 베이스라인 방법들의 성능은 Li et al. [25]에서 참조했다. RoboVLMs로 구축한 KosMos P.H.가 조사된 VLA 구조 중 가장 우수하며, 고정된 학습 스텝으로 학습되었다. 자세한 수치 결과는 Appendix H 참조." number={7} />
+
+<Figure src="./fig-9.png" alt="실로봇 성능" caption="다양한 셋업에서 RoboVLMs로 구축한 최선 VLA(KosMos P.H.)의 실로봇 성능을 베이스라인 방법들과 비교. RoboVLM은 모든 셋업에서 기존 VLA들을 능가하며, 특히 unseen 메트릭에서 두드러져 모델의 효과성과 강건성을 입증한다." number={9} />
+
+### 핵심 설계 결정 정리
+
+<Figure src="./fig-8.png" alt="VL 사전학습 ablation" caption="CALVIN 벤치마크의 서로 다른 셋팅에서 VLA의 비전-언어 사전학습 효과에 대한 ablation 연구. P.H.는 policy head, No VL은 VL 사전학습을 적용하지 않은 모델, 5x는 5배 재생성된 학습 데이터로 학습한 경우를 의미한다. 학습 셋팅과 데이터 규모에 대한 전체 결과는 Appendix E에 제시." number={8} />
+
+- **백본**: VL 사전학습 규모와 grounding 능력이 핵심 — KosMos·Paligemma > LLaVA·Flamingo > 작은 디코더 모델들. "No VL" 베이스라인(VL 사전학습 없이 처음부터 학습)은 5배 데이터로도 사전학습 모델 대비 큰 폭으로 뒤처짐.
+- **행동 공간**: 연속 > 이산. 이산 토큰 자기회귀는 fine-grain 정밀 조작에서 한계.
+- **History 통합**: 통합 > 원샷, 그리고 통합 방식은 Policy Head > Interleaved. Interleaved는 VLM의 사전학습 토큰 분포를 손상시키는 것이 원인.
+- **OXE 데이터 활용**: post-train > fine-tune > pre-train. in-domain을 먼저 익히고 다양성을 나중에 흡수하는 순서가 효과적.
+
+<Figure src="./fig-10.png" alt="Self-correction 롤아웃 시각화" caption="RoboVLMs로 구축한 베스트 셋팅 VLA가 self-correction 능력을 보여주는 롤아웃 시각화. 예를 들어 Open The Oven 태스크에서 로봇의 첫 시도가 오븐 손잡이에 도달하지 못하면, 엔드이펙터 위치를 조정해 두 번째 시도에서 다시 손잡이를 잡는다. 학습 데이터셋에는 이런 종류의 데이터가 포함되어 있지 않다." number={10} />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- **VLA 설계 공간의 정량적 분해와 가이드북화**: 8개 VLM × 4개 정책 구조 × 3개 OXE 통합 전략을 같은 데이터·같은 평가 프로토콜에서 600+회 실험으로 비교, 각 축의 영향을 분리 측정
+- **명확한 설계 결론**: KosMos/Paligemma + 연속 행동 + Policy Head + OXE post-train이 현 시점의 best practice — 후발 VLA 연구자들이 어디서 출발해야 할지 명시
+- **오픈소스 RoboVLMs 프레임워크**: 새 VLM 백본·새 정책 구조를 자유롭게 조합 가능한 메타 VLA 빌더. 코드·모델·데이터셋·툴킷·학습/평가 레시피 전부 공개 ([robovlms.github.io](https://robovlms.github.io))
+- **Self-correction emergent 행동 보고**: 학습 데이터에 없는 자기 교정 행동이 best VLA(KosMos P.H.)에서 자연스럽게 나타남 — VLM 백본의 풍부한 prior가 비효율적 정책을 회복시키는 데 기여
+
+### 한계점
+
+- **단일 시점의 가이드북**: 2024년 말 기준 VLM·VLA의 스냅샷. PaliGemma 후속 모델이나 Gemini Robotics·π₀.₅ 같은 더 큰 VLM 백본이 등장하면 일부 결론이 다시 검증 필요
+- **행동 표현은 회귀로 제한**: 디퓨전·플로우 매칭 같은 생성 모델 기반 행동 헤드(π₀, Diffusion Policy 패턴)는 본 비교 범위에 포함되지 않음 — Policy Head 자체의 추가 설계 공간은 부록에서 일부만 다룸
+- **실로봇 평가가 단일 임바디먼트**: 20개 태스크가 단일 7-DoF 로봇 셋업에서 측정 — VLM 백본의 grounding 능력이 임바디먼트 가변성으로 어떻게 일반화되는지는 추가 검증 필요
+- **OXE post-train의 데이터 효율 정량화 부족**: post-train이 최선이라는 결론은 있지만, "어느 시점에 멈춰야 in-domain 성능을 잃지 않는지"의 trade-off 곡선은 본문에서 충분히 다루지 않음

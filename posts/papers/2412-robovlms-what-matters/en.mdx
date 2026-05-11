@@ -1,0 +1,190 @@
+---
+locale: en
+title: "What Matters in Building VLAs: A Design Guidebook via RoboVLMs"
+summary: "A ByteDance/Tsinghua team systematically answers four key VLA design questions — why VLA, which backbone, how to formulate, and when to add cross-embodiment data — through 600+ experiments spanning 8 VLM backbones and 4 policy architectures. The winning recipe is KosMos/Paligemma backbone + continuous actions + a separate policy head + OXE post-training, validated on CALVIN, SimplerEnv, and 20 real-robot tasks."
+card_summary: "A VLA design guidebook from 8 VLM backbones × 4 policy architectures × 600+ experiments. The verdict: KosMos/Paligemma backbone, continuous actions, a separate policy head, and OXE as post-train. All combinations are bundled into one open-source meta-builder, RoboVLMs."
+terrys_memo: ''
+translation_of: '2412-robovlms-what-matters:ko'
+translated_to: []
+references:
+  - title: 'Octo: An Open-Source Generalist Robot Policy'
+    author: Ghosh et al. (2024)
+    description: >-
+      The open-source generalist policy that RoboVLMs compares against head-to-head
+      on real robots. KosMos P.H. (built with RoboVLMs) outperforms fine-tuned
+      Octo-Base on every real-robot evaluation setup.
+    arxiv_url: 'https://arxiv.org/abs/2405.12213'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy
+    post_slug: 2405-octo-generalist-policy
+    category: foundational
+  - title: 'OpenVLA: An Open-Source Vision-Language-Action Model'
+    author: Kim et al. (2024)
+    description: >-
+      A 7B open-source VLA built on Llama-2. A key baseline for RoboVLMs that
+      KosMos P.H. surpasses on both SimplerEnv and real-robot evaluations.
+    arxiv_url: 'https://arxiv.org/abs/2406.09246'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=OpenVLA+open-source+vision-language-action+model
+    category: foundational
+  - title: 'RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control'
+    author: Brohan et al. (2023)
+    description: >-
+      The origin point of the VLA lineage and the canonical "discrete-action +
+      one-step" entry in RoboVLMs's taxonomy. Occupies one axis of the design
+      space this paper quantitatively decomposes.
+    arxiv_url: 'https://arxiv.org/abs/2307.15818'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      The prototypical example of using cross-embodiment data as a "post-train"
+      stage. RoboVLMs's conclusion (OXE works best as post-train, not pre-train)
+      aligns with π₀, which extends the recipe with PaliGemma + flow matching.
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model
+    post_slug: 2410-pi0-vla-flow-model
+    category: recent
+  - title: KosMos-2 (Microsoft)
+    author: Peng et al. (2023)
+    description: >-
+      The VLM backbone that — together with Paligemma — consistently outperforms
+      the other six VLM backbones evaluated by RoboVLMs. Its grounding ability
+      and rich VL pre-training are the standout factors.
+    arxiv_url: 'https://arxiv.org/abs/2306.14824'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=KosMos-2+grounding+multimodal
+    category: foundational
+  - title: 'CALVIN: A Benchmark for Language-Conditioned Policy Learning'
+    author: Mees et al. (2022)
+    description: >-
+      The main simulation benchmark for RoboVLMs. Training on splits ABCD or
+      ABC and evaluating on split D is the standard generalization protocol.
+    arxiv_url: 'https://arxiv.org/abs/2112.03227'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=CALVIN+benchmark+language-conditioned+policy
+    category: foundational
+---
+
+## TL;DR
+
+A VLA design guidebook from 8 VLM backbones × 4 policy architectures × 600+ experiments. The verdict: KosMos/Paligemma backbone, continuous actions, a separate policy head, and OXE as post-train. All combinations are bundled into one open-source meta-builder, RoboVLMs.
+
+## Problem
+
+Since RT-2 in 2023, VLA (Vision-Language-Action) models have exploded — but each new work picks (1) a VLM backbone, (2) an action formulation (discrete tokens vs continuous, with or without history integration), and (3) a way of mixing in cross-embodiment data like Open X-Embodiment **on its own terms**. That makes it nearly impossible to answer "which VLA is actually better?" honestly, and forces follow-up researchers to build new VLAs without knowing what to keep and what to change.
+
+This paper decomposes the VLA design space along three axes — (a) backbone choice, (b) policy structure (action space × history aggregation), and (c) cross-embodiment data integration timing — and quantifies each axis through 600+ controlled experiments using the same data, same evaluation protocol, and the same framework. The output is a one-line, current-best-practice recipe.
+
+## Key Idea
+
+**RoboVLMs: a meta VLA builder that bundles every design combination into one framework.**
+
+Core components:
+
+- **A VLA taxonomy (Figure 2)**: every existing VLA is placed along two axes — the vertical axis is action space (discrete tokens vs continuous), the horizontal axis is whether history is integrated (one-step vs history). For history-integrating VLAs, two sub-flavors split off: `interleaved` (obs and actions are interleaved inside the VLM context) vs `policy head` (the VLM processes each timestep's observation independently and a separate policy head aggregates history before predicting actions).
+- **Three core questions**:
+  1. **Which VLM backbone?** — eight VLMs (LLaVA, Flamingo, KosMos, Paligemma, etc.) are slotted into the same policy structure and compared. Result: **KosMos and Paligemma** consistently sit at the top.
+  2. **How to formulate the VLA?** — 12 configurations (3 VLMs × 4 structures) are trained on the same data. Result: **continuous > discrete actions**, **history > one-step**, and within history aggregation, **Policy Head (P.H.) > Interleaved**.
+  3. **When to use cross-embodiment (OXE) data?** — three timings (pre-train, fine-tune, post-train) are compared. Result: in-domain training first, then OXE **post-training** wins (the same recipe π₀ adopts).
+- **The winning combination — KosMos P.H.**: KosMos backbone + Policy Head structure + continuous actions + OXE post-train tops Octo-Base, OpenVLA, and the broader VLA family across CALVIN, SimplerEnv, and 20 real-robot tasks.
+
+<Figure src="./fig-1.png" alt="The four core VLA questions" caption="This work mainly considers four questions for building VLAs based on VLMs: Why do we prefer VLAs; Which backbone to use; How to formulate the VLAs; and When to use cross-embodiment data as an extra data source. With our proposed RoboVLMs, we can easily transfer VLMs into generalist robot policies that support multiple embodiments, various scenarios, and tasks." number={1} />
+
+<Figure src="./fig-2.png" alt="VLA taxonomy" caption="The categorization of the existing generalist policies and recent works with year information under our taxonomy. We categorize the VLA structures based on two primary levels: 1) action space (vertical axis); and 2) whether the history information is integrated (horizontal axis). Moreover, for the VLAs that involved history, we split the VLAs that involved history into policy head and interleaved formulation based on the organization pattern of the history information." number={2} />
+
+<Collapsible title="Method in detail">
+
+**1. VLM backbone comparison (8 backbones)**
+
+| Backbone | Structure | Image tokens | VL pre-train scale |
+| --- | --- | --- | --- |
+| OpenFlamingo 9B | Encoder-Decoder | 64 | ~2B |
+| Flamingo 80B | Encoder-Decoder | 64 | ~2.3B |
+| KosMos-2 | Decoder-only | 196 | UNK |
+| LLaVA-7B | Decoder-only | 576 | ~1.2M |
+| MoonDream2 | Decoder-only | 49 | UNK |
+| Uform-Gen2 | Decoder-only | 196 | UNK |
+| Paligemma | Decoder-only | 256 | ~10B+ |
+| Qwen-VL | Decoder-only | 256 | ~1.4B |
+
+Headline observation: decoder-only VLMs trained on rich vision-language data (KosMos, Paligemma) lead VLA performance — not raw model size, but **VL pre-training breadth and grounding ability** are the deciding factors.
+
+**2. VLA formulation — four-way structure comparison**
+
+The 2×2 of action space × history handling produces:
+
+- **Disc + One-step**: RT-2 style (discrete-token autoregression, current observation only).
+- **Disc + History**: RT-2 plus an observation history (interleaved).
+- **Cont + Interleaved**: continuous actions, with observation and action tokens interleaved inside the VLM context window.
+- **Cont + Policy Head (P.H.)**: continuous actions, with the VLM processing each observation separately and a dedicated policy head aggregating history to predict an action chunk.
+
+All three VLMs (LLaVA, Flamingo, KosMos) are paired with all four structures → 12 models trained and compared on CALVIN ABCD. Result: **Cont + P.H. wins across every backbone.** The interleaved structure distorts the VLM's token distribution and breaks pre-trained vision-language alignment.
+
+**3. Policy Head design details**
+
+- The VLM converts each timestep's (obs, language) into a token sequence.
+- The policy head consumes N timesteps of VLM output tokens and predicts an action chunk.
+- Candidate heads — GPT-style decoder, LSTM, transformer — are compared in Appendix G. Differences exist, **but they are smaller than the VLM backbone effect**.
+- Training uses regression loss over action chunks (a diffusion head would be a drop-in alternative). This study uses regression.
+
+**4. Cross-embodiment data — three timing strategies**
+
+- **Pre-train**: train on OXE first, then in-domain fine-tune (the RT-2 / OpenVLA / Octo pattern).
+- **Bridge fine-tune (in-domain only)**: a baseline without OXE.
+- **Post-train**: in-domain fine-tune first, then continue training on OXE (the π₀ pattern).
+
+**Post-train wins** in both WidowX+Bridge and Google Robot environments. Pre-train alone doesn't adapt enough to the in-domain distribution; post-train absorbs OXE's diversity while preserving in-domain priorities.
+
+**5. Training pipeline**
+
+- Data: CALVIN (simulated kitchen manipulation), Bridge V2 (WidowX), SimplerEnv (Google Robot), and a real-robot benchmark of 20 tasks — 74K trajectories in total.
+- All RoboVLMs variants share the same data and the same training schedule — the only varying axes are (backbone, structure, OXE integration timing).
+- Evaluation metrics: CALVIN reports 5-task chain success and average task length; SimplerEnv reports task success rates; real-robot evaluation runs 5 rollouts × 20 tasks across four generalization setups.
+
+</Collapsible>
+
+<Figure src="./fig-4.png" alt="Three-benchmark setup" caption="Two simulated and one real-world benchmarks. We show environment setups and example tasks involved." number={4} />
+
+## Key Results
+
+<Figure src="./fig-5.png" alt="Real-world evaluation setup" caption="The illustration of the experimental settings in real-world experiments. We evaluate the models in 20 tasks with five rollouts for each task, involving Unseen Distractor, Unseen Target Object and Unseen Background, Novel Skill Description. Note that for tasks like Open Drawer, we do not test the unseen object setting, and the object layout for each rollout is randomly initialized and different from the one in the training set. Note that the unseen target object is only available in setups where unseen objects appear at test time." number={5} />
+
+- **CALVIN ABCD → D**: KosMos P.H. (RoboVLMs) becomes SOTA within just 5 training epochs, with an average task length of 4.25 — clearing RoboFlamingo, OpenVLA, and other baselines.
+- **SimplerEnv (WidowX+Bridge, Google Robot)**: KosMos P.H. is the best VLA structure observed under matched training steps, surpassing the prior VLA family (RT-2-X, Octo, OpenVLA).
+- **20 real-robot tasks**: against fine-tuned Octo-Base and OpenVLA, KosMos P.H. wins every evaluation setup (Simple / Unseen Distractor / Unseen Target Object / Unseen Background / Novel Skill), with the largest gap on Simple and Unseen Background.
+- **Emergent self-correction**: even though the training data contains no such examples, KosMos P.H. (RoboVLMs) produces self-correcting rollouts — e.g. on "Open The Oven," when the first attempt misses the handle, the policy re-positions the end-effector and grabs the handle on the second attempt.
+
+<Figure src="./fig-7.png" alt="SimplerEnv evaluation" caption="Evaluation results on the SimplerEnv simulation benchmarks, including the WidowX+Bridge and Google Robot environments. Performance of baseline methods are referred from Li et al. [25]. The KosMos P.H. built by RoboVLMs is the best VLA structure investigated, which is trained over fixed training steps. Detailed numerical results can be further referred to Appendix H." number={7} />
+
+<Figure src="./fig-9.png" alt="Real-robot performance" caption="Real-robot performance of our best VLA (KosMos P.H.) built by RoboVLMs against baseline methods over different settings. RoboVLM outperforms the existing VLAs over all settings, especially for unseen metrics, demonstrating the effectiveness and robustness of our model." number={9} />
+
+### Key design decisions, in one breath
+
+<Figure src="./fig-8.png" alt="VL pre-training ablation" caption="Ablation study of VLAs for vision-language pre-train on different settings of the CALVIN benchmark. 'P.H.' denotes policy head. 'No VL' suggests models without VL pre-training. '5x' represents training with 5x re-generated training data. Full results on different training setting and data scale are shown in Appendix E." number={8} />
+
+- **Backbone**: VL pre-training scale and grounding capability dominate — KosMos / Paligemma > LLaVA / Flamingo > smaller decoder VLMs. The "No VL" baseline (trained from scratch without VL pre-training) loses by a wide margin even when given 5× the training data.
+- **Action space**: continuous > discrete. Autoregressive discrete tokens hit a ceiling on fine-grained precise manipulation.
+- **History aggregation**: history > one-step, and within history, Policy Head > Interleaved. Interleaving damages the VLM's pre-trained token distribution.
+- **OXE data integration**: post-train > fine-tune > pre-train. Learning in-domain first, then absorbing diversity, is the effective order.
+
+<Figure src="./fig-10.png" alt="Self-correction rollout visualization" caption="Visualization for rollouts that the best setting VLA built by RoboVLMs emerges the ability of self-correction. For instance, in the Open The Oven task, the robot's first attempt does not reach the oven handle, and it adjusts the end-effector position to re-locate the handle at the second attempt. Note that the training dataset does not contain this kind of data." number={10} />
+
+## Achievements and Limitations
+
+### What this work achieved
+
+- **A quantitative decomposition of the VLA design space**: 8 VLMs × 4 policy structures × 3 OXE integration strategies, 600+ runs, same data and same protocol — each axis's effect isolated and measured.
+- **A clear, actionable recipe**: KosMos / Paligemma + continuous actions + Policy Head + OXE post-train is the current best practice for new VLA work, giving researchers a concrete starting point.
+- **The open-source RoboVLMs framework**: a meta VLA builder that lets any VLM backbone and policy structure be mixed and matched. Code, models, datasets, toolkits, and training/evaluation recipes are all public at [robovlms.github.io](https://robovlms.github.io).
+- **An emergent self-correction observation**: the best VLA (KosMos P.H.) produces self-correcting behavior absent from its training data — suggesting that the VLM's rich prior helps recover from imperfect policy attempts.
+
+### Limitations
+
+- **A snapshot guidebook**: this is a late-2024 picture of VLMs and VLAs. As PaliGemma successors, Gemini Robotics, or π₀.₅-scale models land, some conclusions will need re-verification.
+- **Action representation limited to regression**: generative action heads (diffusion / flow matching, as in π₀ and Diffusion Policy) are outside the studied space — the additional design dimension inside the policy head is only partially covered in the appendix.
+- **Single embodiment for real-robot evaluation**: the 20 tasks live on a single 7-DoF robot — how the VLM's grounding ability generalizes across embodiment variation still needs separate validation.
+- **No data-efficiency curve for OXE post-train**: the paper establishes that post-train is best, but doesn't fully chart the trade-off curve of "when to stop OXE post-train so in-domain performance isn't lost."

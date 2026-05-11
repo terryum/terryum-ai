@@ -1,0 +1,161 @@
+{
+  "post_id": "2412-robovlms-what-matters",
+  "slug": "2412-robovlms-what-matters",
+  "post_number": 56,
+  "source_date": "2024-12-18T00:00:00Z",
+  "published_at": "2026-05-12T00:00:00Z",
+  "updated_at": "2026-05-12T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "domain": "robotics",
+  "subfields": [
+    "manipulation",
+    "foundation-model",
+    "visuomotor-policy",
+    "design-study"
+  ],
+  "key_concepts": [
+    "VLA",
+    "generalist-policy",
+    "VLM-backbone-study",
+    "policy-head",
+    "continuous-action",
+    "history-aggregation",
+    "cross-embodiment",
+    "post-training",
+    "ablation-study",
+    "RoboVLMs"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "transformer",
+    "pre-training",
+    "ablation-study"
+  ],
+  "contribution_type": "method",
+  "relations": [
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "reviews"
+    },
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A 600+ experiment systematic study of VLA design choices (backbone, action space, history, OXE timing) bundled into the open-source RoboVLMs meta-builder.",
+    "problem": "VLA papers each pick a different VLM backbone, action formulation, and OXE integration strategy on their own terms, making honest comparisons impossible and leaving follow-up researchers without a clear recipe.",
+    "solution": "Decompose VLA design into (backbone, structure, OXE timing), run 600+ controlled experiments on CALVIN / SimplerEnv / 20 real-robot tasks using one framework (RoboVLMs), and quantify each axis.",
+    "key_result": "KosMos / Paligemma backbone + continuous actions + Policy Head + OXE post-train (KosMos P.H.) outperforms Octo-Base, OpenVLA, and other VLAs on every evaluation; emergent self-correction observed.",
+    "limitations": [
+      "Snapshot of late-2024 VLMs — newer PaliGemma successors / Gemini Robotics not covered",
+      "Action representation limited to regression (no diffusion / flow-matching heads)",
+      "Real-robot evaluation on a single embodiment",
+      "No data-efficiency curve for OXE post-train"
+    ]
+  },
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "VLM",
+    "Manipulation",
+    "Design Study",
+    "Open-Source"
+  ],
+  "display_tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "VLM",
+    "Manipulation",
+    "Design Study",
+    "Open-Source"
+  ],
+  "cover_image": "./cover.webp",
+  "thumb_source": "./fig-10.png",
+  "cover_caption": "The four core VLA design questions this work tackles — why VLA, which VLM backbone, how to formulate (action space × history aggregation), and when to add cross-embodiment data — bundled into one meta-builder, RoboVLMs.",
+  "reading_time_min": 12,
+  "source_url": "https://arxiv.org/abs/2412.14058",
+  "source_title": "Towards Generalist Robot Policies: What Matters in Building Vision-Language-Action Models",
+  "source_author": "Xinghang Li et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://robovlms.github.io/",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Towards+Generalist+Robot+Policies%3A+What+Matters+in+Building+Vision-Language-Action+Models&btnG=",
+  "source_authors_full": [
+    "Xinghang Li (Tsinghua University / ByteDance Research)",
+    "Peiyan Li (ByteDance Research / CASIA MAIS-NLPR)",
+    "Minghuan Liu (ByteDance Research / Shanghai Jiao Tong University)",
+    "Dong Wang (Tsinghua University / ByteDance Research)",
+    "Jirong Liu (ByteDance Research / Shanghai Jiao Tong University)",
+    "Bingyi Kang (ByteDance Research)",
+    "Xiao Ma (ByteDance Research)",
+    "Tao Kong (ByteDance Research, corresponding)",
+    "Hanbo Zhang (National University of Singapore, corresponding)",
+    "Huaping Liu (Tsinghua University, corresponding)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "This work mainly considers four questions for building VLAs based on VLMs: Why do we prefer VLAs; Which backbone to use; How to formulate the VLAs; and When to use cross-embodiment data as an extra data source. With our proposed RoboVLMs, we can easily transfer VLMs into generalist robot policies that support multiple embodiments, various scenarios, and tasks.",
+      "caption_ko": "이 연구는 VLM 기반 VLA 구축의 네 가지 핵심 질문을 다룬다 — 왜 VLA를 선호하는가, 어떤 백본을 사용할 것인가, VLA를 어떻게 정형화할 것인가, cross-embodiment 데이터를 추가 데이터 소스로 언제 사용할 것인가. RoboVLMs를 통해 VLM을 다양한 임바디먼트·시나리오·태스크를 지원하는 generalist 로봇 정책으로 손쉽게 전환할 수 있다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "The categorization of the existing generalist policies and recent works with year information under our taxonomy. We categorize the VLA structures based on two primary levels: 1) action space (vertical axis); and 2) whether the history information is integrated (horizontal axis). Moreover, for the VLAs that involved history, we split the VLAs that involved history into policy head and interleaved formulation based on the organization pattern of the history information.",
+      "caption_ko": "저자들의 분류 체계에 따른 기존 generalist 정책 및 최근 연구의 분류. VLA 구조를 두 개의 1차 축으로 분류한다 — (1) 행동 공간(세로축), (2) history 정보 통합 여부(가로축). history를 통합하는 VLA는 history 정보의 조직 패턴에 따라 policy head 형식과 interleaved 형식으로 다시 나눈다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Two simulated and one real-world benchmarks. We show environment setups and example tasks involved.",
+      "caption_ko": "2개의 시뮬레이션 벤치마크와 1개의 실세계 벤치마크. 환경 셋업과 포함된 예시 태스크를 함께 보여준다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "The illustration of the experimental settings in real-world experiments. We evaluate the models in 20 tasks with five rollouts for each task, involving Unseen Distractor, Unseen Target Object and Unseen Background, Novel Skill Description. Note that for tasks like Open Drawer, we do not test the unseen object setting, and the object layout for each rollout is randomly initialized and different from the one in the training set. Note that the unseen target object is only available in setups where unseen objects appear at test time.",
+      "caption_ko": "실세계 실험 셋팅의 도식. 20개 태스크에 대해 각각 5회 롤아웃을 수행하여 모델을 평가한다 — Unseen Distractor, Unseen Target Object, Unseen Background, Novel Skill Description 카테고리를 포함한다. Open Drawer 같은 태스크는 unseen object 셋업을 테스트하지 않으며, 각 롤아웃의 객체 배치는 무작위로 초기화되어 학습 셋과 다르게 구성한다. unseen target object는 학습 시 보지 못한 객체가 등장하는 셋업에서만 측정된다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Evaluation results on the SimplerEnv simulation benchmarks, including the WidowX+Bridge and Google Robot environments. Performance of baseline methods are referred from Li et al. [25]. The KosMos P.H. built by RoboVLMs is the best VLA structure investigated, which is trained over fixed training steps. Detailed numerical results can be further referred to Appendix H.",
+      "caption_ko": "SimplerEnv 시뮬레이션 벤치마크(WidowX+Bridge, Google Robot 환경)의 평가 결과. 베이스라인 방법들의 성능은 Li et al. [25]에서 참조했다. RoboVLMs로 구축한 KosMos P.H.가 조사된 VLA 구조 중 가장 우수하며, 고정된 학습 스텝으로 학습되었다. 자세한 수치 결과는 Appendix H 참조.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "Ablation study of VLAs for vision-language pre-train on different settings of the CALVIN benchmark. 'P.H.' denotes policy head. 'No VL' suggests models without VL pre-training. '5x' represents training with 5x re-generated training data. Full results on different training setting and data scale are shown in Appendix E.",
+      "caption_ko": "CALVIN 벤치마크의 서로 다른 셋팅에서 VLA의 비전-언어 사전학습 효과에 대한 ablation 연구. P.H.는 policy head, No VL은 VL 사전학습을 적용하지 않은 모델, 5x는 5배 재생성된 학습 데이터로 학습한 경우를 의미한다. 학습 셋팅과 데이터 규모에 대한 전체 결과는 Appendix E에 제시.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Real-robot performance of our best VLA (KosMos P.H.) built by RoboVLMs against baseline methods over different settings. RoboVLM outperforms the existing VLAs over all settings, especially for unseen metrics, demonstrating the effectiveness and robustness of our model.",
+      "caption_ko": "다양한 셋업에서 RoboVLMs로 구축한 최선 VLA(KosMos P.H.)의 실로봇 성능을 베이스라인 방법들과 비교. RoboVLM은 모든 셋업에서 기존 VLA들을 능가하며, 특히 unseen 메트릭에서 두드러져 모델의 효과성과 강건성을 입증한다.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.png",
+      "caption": "Visualization for rollouts that the best setting VLA built by RoboVLMs emerges the ability of self-correction. For instance, in the Open The Oven task, the robot's first attempt does not reach the oven handle, and it adjusts the end-effector position to re-locate the handle at the second attempt. Note that the training dataset does not contain this kind of data.",
+      "caption_ko": "RoboVLMs로 구축한 베스트 셋팅 VLA가 self-correction 능력을 보여주는 롤아웃 시각화. 예를 들어 Open The Oven 태스크에서 로봇의 첫 시도가 오븐 손잡이에 도달하지 못하면, 엔드이펙터 위치를 조정해 두 번째 시도에서 다시 손잡이를 잡는다. 학습 데이터셋에는 이런 종류의 데이터가 포함되어 있지 않다.",
+      "number": 10
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "starred": false,
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "ai/llm"
+  ],
+  "cover_figure_number": 1,
+  "arxiv_id": "2412.14058",
+  "bibtex_key": "li2024robovlms"
+}
