@@ -1,0 +1,173 @@
+---
+locale: ko
+title: "Octo: 오픈소스 범용 로봇 정책"
+summary: "Open X-Embodiment 데이터셋의 80만 시연으로 트랜스포머 정책을 사전학습한 오픈소스 범용 로봇 모델. 블록 단위 어텐션과 디퓨전 행동 헤드로 새로운 카메라·센서·행동 공간에 모듈식으로 파인튜닝되며, 9개 실제 로봇 셋업에서 RT-1-X를 능가하고 RT-2-X(55B)와 대등한 성능을 달성했다."
+card_summary: "Open X-Embodiment 80만 시연으로 사전학습된 27M·93M 파라미터의 오픈소스 범용 트랜스포머 정책. 블록 어텐션과 디퓨전 행동 헤드로 새로운 로봇·카메라·행동 공간에 5시간 만에 모듈식 파인튜닝이 가능하다."
+terrys_memo: ''
+translation_of: null
+translated_to:
+  - en
+references:
+  - title: 'Open X-Embodiment: Robotic Learning Datasets and RT-X Models'
+    author: Open X-Embodiment Collaboration (2023)
+    description: >-
+      Octo 사전학습의 기반이 된 21개 기관·22종 로봇 통합 데이터셋. Octo는 이 중 25개 데이터셋·800k 시연을 선별 사용했다.
+    arxiv_url: 'https://arxiv.org/abs/2310.08864'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Open+X-Embodiment+robotic+learning+datasets+RT-X
+    category: foundational
+  - title: 'RT-1: Robotics Transformer for Real-World Control at Scale'
+    author: Brohan et al. (2022)
+    description: >-
+      이산화된 행동 토큰을 자기회귀로 예측하는 최초의 대규모 로봇 트랜스포머. Octo는 이 계보를 잇되 디퓨전 행동 헤드와 블록 어텐션으로 확장한다.
+    arxiv_url: 'https://arxiv.org/abs/2212.06817'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real-world+control+scale
+    category: foundational
+  - title: 'RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control'
+    author: Brohan et al. (2023)
+    description: >-
+      웹 규모 비전-언어 모델을 로봇 행동 생성에 사용한 VLA 계보의 출발점. Octo는 zero-shot 평가에서 RT-2-X(55B)와 직접 비교된다.
+    arxiv_url: 'https://arxiv.org/abs/2307.15818'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge
+    category: foundational
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al. (2023)
+    description: >-
+      디퓨전 모델로 행동 청크를 생성하는 단일 태스크 시각운동 정책. Octo의 행동 헤드 설계의 직접적 영감이며, 사이트 내 별도 포스트로 정리되어 있다.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=diffusion+policy+visuomotor+policy+learning
+    post_slug: 2303-diffusion-policy
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      Octo 직후 등장한 차세대 generalist 정책. PaliGemma VLM 백본 + flow matching 행동 전문가 구조로 Octo 대비 zero-shot·파인튜닝 모두에서 큰 폭으로 앞선다.
+    post_slug: 2410-pi0-vla-flow-model
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model
+    category: recent
+  - title: 'ForceVla: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation'
+    author: Yu et al. (2025)
+    description: >-
+      VLA에 힘/토크 인지 MoE 모듈을 더한 후속 연구. Octo 계열 generalist 정책이 누락한 접촉 기반 정교 조작 영역을 보완한다.
+    post_slug: 2505-forcevla-force-aware-moe
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=ForceVLA+force-aware+MoE+contact-rich+manipulation
+    category: recent
+---
+
+## TL;DR
+
+Open X-Embodiment 80만 시연으로 사전학습된 27M·93M 파라미터의 오픈소스 범용 트랜스포머 정책. 블록 어텐션과 디퓨전 행동 헤드로 새로운 로봇·카메라·행동 공간에 5시간 만에 모듈식 파인튜닝이 가능하다.
+
+## 문제
+
+기존 generalist 로봇 정책은 RT-1처럼 행동을 이산 토큰으로 자기회귀 예측하는 구조가 주류였다. 이 방식은 사전학습된 토큰화 체계와 카메라·센서·행동 공간이 그대로 따라붙기 때문에, 새로운 로봇 셋업으로 옮기려면 모델 입출력 구조 자체를 손봐야 하고 그 과정에서 사전학습된 가중치를 부분적으로 버려야 한다. 또한 RT-2-X(55B)처럼 대형 VLM에 의존하는 방식은 출시 가중치가 닫혀 있어 학계가 재현·확장하기 어렵다.
+
+이 논문은 (1) 단일 카메라·고정 행동 공간으로 묶이지 않고 새로운 관측·행동 공간이 들어와도 사전학습 가중치를 보존한 채 모듈식으로 확장 가능하며, (2) 일반 소비자 GPU로 몇 시간이면 파인튜닝 가능하고, (3) 학습 코드·데이터 파이프라인·체크포인트가 모두 공개되는 generalist 정책을 만드는 것을 목표로 한다.
+
+## 핵심 아이디어
+
+**블록 단위 어텐션 트랜스포머 + 디퓨전 행동 헤드**: 태스크 토큰(언어 또는 목표 이미지) → 관측 토큰(이미지 패치) → readout 토큰의 3블록 인과 어텐션 구조로 입력 모듈성을 확보하고, 행동은 별도의 작은 디퓨전 헤드로 분리해 생성한다.
+
+핵심 구성 요소:
+
+- **블록 어텐션의 모듈성**: 태스크/관측 블록은 같은 시간 스텝의 자기 블록과 이전 시간 스텝까지의 블록에만 어텐션. readout 블록만 태스크·관측 블록을 한 방향으로 어텐션한다. 새 카메라가 추가되면 새 관측 토큰을 끼워 넣고 readout이 그쪽에도 어텐션하기만 하면 되며, 사전학습된 가중치는 손대지 않는다.
+- **디퓨전 행동 헤드**: readout 출력 임베딩을 조건으로 받아 행동 청크에 대해 K-스텝 DDPM 디노이징을 수행한다. MSE/이산 토큰 대비 zero-shot·파인튜닝 양쪽에서 일관되게 우세했다.
+- **Open X-Embodiment 대규모 사전학습**: OXE 중 이미지 관측·엔드이펙터 행동·다양성을 만족하는 25개 데이터셋, 80만 시연을 선별 사용. 데이터셋별 가중치를 크기와 다양성을 균형 잡아 부여했다.
+- **모듈식 파인튜닝**: 새로운 관측(예: 6축 힘/토크)이나 행동 공간(예: 관절 위치 제어)이 들어와도 해당 블록만 추가/교체하여 단일 A5000 24GB GPU에서 ~5시간 만에 학습한다.
+
+<Figure src="./fig-1.png" alt="Octo 모델 아키텍처" caption="모델 아키텍처. 좌: Octo는 사전학습된 언어 모델로 태스크 설명(녹색)을, 가벼운 CNN으로 입력 관측(파랑)을 토큰화한다. 상: 트랜스포머 백본이 태스크와 관측 토큰 시퀀스를 처리하여 readout 토큰(보라)을 생성하고, 이를 출력 헤드에 전달해 행동을 만든다. 하: 트랜스포머의 블록 단위 어텐션 구조 덕분에 파인튜닝 시 사전학습 파라미터를 건드리지 않고도 입력과 출력을 추가하거나 제거할 수 있다 — 예를 들어 새 관측(파랑 점선)이나 행동 공간(보라 점선)을 그대로 끼워 넣을 수 있다." number={1} />
+
+<Collapsible title="구체적 방법">
+
+**1. 토큰화 파이프라인**
+
+- **언어 태스크**: 사전학습된 T5-base(111M) 인코더로 명령어를 임베딩한 뒤 학습 가능한 투영 레이어를 거쳐 태스크 토큰 $\mathcal{T}_T$로 사용
+- **목표 이미지**: 관측 인코더와 동일한 얕은 CNN을 통과시켜 패치 단위 토큰화
+- **관측 이미지**: 얕은 컨볼루션 스택 → ViT 스타일 패치 분할 → 평탄화. 2프레임 관측 히스토리(예비 실험에서 그 이상은 한계 효용 급감)
+- **위치 임베딩**: 태스크와 관측 토큰에 학습 가능한 위치 임베딩 $p$를 더한 뒤 시퀀스 $[\mathcal{T}_T, \mathcal{T}_{o,1}, \mathcal{T}_{o,2}, \dots]$로 배치
+
+**2. 블록 단위 인과 어텐션 구조**
+
+각 시간 스텝마다 세 종류의 블록이 존재한다:
+- **태스크 블록**: 자기 블록 내부에만 양방향 어텐션
+- **관측 블록**: 같은 시간 스텝의 태스크 블록과 이전 시간 스텝까지의 관측·태스크 블록에 어텐션
+- **readout 블록**: 같은 시간 스텝의 태스크·관측 블록에 단방향 어텐션 (자신은 어떤 다른 토큰에도 영향을 주지 않음)
+
+이 구조의 장점:
+- readout은 "정보를 빨아들이기만 하는" 블록이므로, 사전학습 이후 새 모달리티가 들어와도 readout이 그쪽으로 어텐션을 추가하기만 하면 된다
+- 사전학습 시 사용했던 카메라 일부를 떼고 새 카메라를 다는 식의 입력 재구성이 가능하며, 파인튜닝 시 기존 가중치는 그대로 유지된다
+
+**3. 디퓨전 행동 헤드**
+
+readout 임베딩 $e$를 조건으로 받아 행동 청크 $a$에 대해 K-스텝 DDPM:
+
+$$x^{k-1} = \alpha (x^k - \gamma \epsilon_\theta(x^k, e, k)) + \mathcal{N}(0, \sigma^2 I)$$
+
+- 표준 cosine 노이즈 스케줄([Nichol & Dhariwal, 2021])
+- $K$-스텝 디노이징을 작은 디퓨전 헤드 안에서만 수행 — 백본은 단 1회 forward만으로 충분
+- 학습 시 표준 DDPM 목적함수(노이즈 예측)로 학습
+- 행동 차원은 7-DoF로 zero-pad 통일
+
+**4. 학습 설정**
+
+- 변형 2종: Octo-Small(ViT-S 크기, 27M 파라미터), Octo-Base(ViT-B 크기, 93M 파라미터)
+- 옵티마이저: AdamW, weight decay 0.1, gradient clipping 1.0
+- 학습률 스케줄: inverse square root decay + linear warmup
+- ViT-B 기준 300k 스텝, 배치 크기 2048, TPU v4-128 pod, 학습 시간 약 14시간
+- 단일 NVIDIA A5000 24GB에서 파인튜닝 시 약 5시간 소요 (멀티 GPU로 더 단축 가능)
+- Hindsight goal relabeling: 미래 상태 중 균일 샘플로 목표 이미지 지정
+- 학습 시 언어 명령어를 일정 비율로 zero-out하여 언어/목표-이미지 조건부 모두 학습
+
+**5. 데이터 구성**
+
+- Open X-Embodiment 60+ 데이터셋 중 25개 선별 (이미지 관측 ✓, 엔드이펙터 행동 ✓, 다양한 행동 분포 ✓)
+- 시연 수 기준 80만 trajectories
+- 데이터셋별 가중치를 단순히 시연 수에 비례시키지 않고, 크기 균형과 다양성을 동시에 고려하여 작은 데이터셋이 완전히 묻히지 않도록 조정
+
+</Collapsible>
+
+<Figure src="./fig-2.png" alt="OXE 학습 데이터 구성" caption="학습 데이터셋 구성. 이미지 관측, 엔드이펙터 행동, 다양한 행동 분포를 만족하는 Open X-Embodiment 25개 데이터셋의 부분집합. 파이 차트는 각 데이터셋이 학습 배치에서 평균적으로 차지하는 비율을 시각화한 것. 데이터셋 가중치는 데이터셋 크기와 다양성의 균형을 맞추도록 시연 수에 약간의 보정을 가해 결정된다 (자세한 내용은 Section III-B 참조)." number={2} />
+
+## 주요 결과
+
+<Figure src="./fig-3.png" alt="평가 태스크 — 9개 실로봇 셋업" caption="평가 태스크. 4개 기관에 걸친 9개 실제 로봇 셋업에서 Octo를 평가한다. 다양한 객체 상호작용(예: WidowX BridgeV2), 긴 태스크 호라이즌(예: Stanford Coffee), 정밀 조작(예: Berkeley Peg Insertion)을 포함한다. 사전학습 데이터에 나타난 환경에서 즉시 사용 가능한 제어 능력과, 소량 타깃 도메인 데이터로 새로운 태스크·환경에 효율적으로 파인튜닝되는 능력 양쪽을 평가한다. 새 관측(Berkeley Peg Insertion의 힘/토크 입력), 행동 공간(관절 위치 제어), 카메라 등이 들어와도 파인튜닝되는지도 함께 검증한다." number={3} />
+
+- **Zero-shot, 언어 조건부**: WidowX·RT-1 Robot·UR5의 3종 임바디먼트에서, 동일한 OXE로 사전학습된 RT-1-X(35M)를 일관되게 능가했다. 55B 파라미터 VLM 기반 RT-2-X와도 WidowX·RT-1 Robot 태스크에서 대등한 성능을 보였다 — Octo는 RT-2-X 대비 600배 이상 작은 모델이다.
+- **Zero-shot, 목표 이미지 조건부**: 언어 라벨이 없는 OXE 데이터 비중이 크기 때문에, 동일 태스크에서 목표 이미지 조건부 zero-shot 성능이 평균 25% 더 높았다.
+- **파인튜닝 효율성**: 4개 기관 6개 환경(CMU Baking, Stanford Coffee, Berkeley Peg Insertion 등)에 각 ~100개 시연으로 파인튜닝. 동일한 하이퍼파라미터로 Octo가 (a) 처음부터 학습한 ResNet+Transformer Scratch, (b) VC-1 사전학습 시각 표현, (c) 동일 데이터 mix로 사전학습된 OXE-VC-1 모두를 능가했다.
+- **새 관측·행동 공간 파인튜닝**: Berkeley Peg Insertion에서 6축 힘/토크 입력 추가, Berkeley Bimanual에서 관절 위치 제어 행동 공간으로의 전환이 모두 단일 GPU 5시간 학습으로 성공했다.
+
+<Figure src="./fig-4.png" alt="파인튜닝 평가 표" caption="Table I — Finetuning Evaluation. Octo는 새 도메인으로의 데이터 효율적 파인튜닝을 가능케 하며, 처음부터 학습한 모델이나 SOTA 사전학습 시각 표현 모두를 능가한다. 각 도메인은 ~100개 타깃 시연과 동일한 파인튜닝 하이퍼파라미터를 사용하며, 도메인별 성공률은 20회 시도 평균이다. *: 새 관측 입력(힘/토크 고유감각). †: 새 행동 공간(관절 위치 제어)." number={4} />
+
+<Figure src="./fig-5.png" alt="Zero-shot 평가 결과" caption="Figure 3 — Zero-Shot Evaluation. 즉시 사용 시(Out-of-the-box) Octo는 사전학습 데이터의 환경에서 여러 로봇을 제어할 수 있다. 자연어로 태스크를 지정할 때 Octo는 현재 가장 우수한 공개 generalist 정책인 RT-1-X[67]를 3개의 서로 다른 로봇 임바디먼트·셋업에서 능가한다. WidowX와 RT-1 Robot 태스크에서는 RT-2-X[103]와도 유사한 성능을 보인다." number={5} />
+
+### 핵심 설계 결정 (Ablation)
+
+<Figure src="./fig-6.png" alt="모델 ablation 표" caption="Table II — Model Ablations. ViT 아키텍처, 디퓨전 행동 헤드, 광범위한 학습 데이터 mix를 함께 사용할 때 가장 좋은 성능을 얻는다. 모든 평가는 WidowX 셋업에서 수행됐고, 성공률은 언어 조건부 2종·목표 이미지 조건부 2종 태스크에 걸친 40회 시도 평균이다." number={6} />
+
+- **백본 아키텍처**: ViT 단일 트랜스포머 > ResNet-50 + 트랜스포머 헤드 분리. 큰 백본을 ResNet에 두는 기존 패턴은 모듈성을 깨고 성능도 떨어졌다.
+- **행동 헤드**: 디퓨전 > MSE > 이산 토큰. 디퓨전 헤드만이 다중 모드 행동 분포를 표현 가능했고, zero-shot/파인튜닝 양쪽에서 일관 우위.
+- **데이터 mix**: 광범위한 OXE 25개 데이터셋 > BridgeV2 단일 데이터셋. 광범위 데이터로 사전학습할 때 zero-shot뿐 아니라 BridgeV2 인-도메인 평가에서도 더 좋았다.
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- **블록 어텐션 + 분리된 디퓨전 헤드로 모듈식 generalist 정책 설계**: 사전학습된 가중치를 보존한 채 새 관측·행동 공간을 끼워 넣을 수 있는 트랜스포머 구조를 정립
+- **80만 시연 규모 사전학습**: 당시 가장 큰 로봇 조작 데이터셋(OXE 부분집합)으로 9개 실로봇 셋업에서 RT-1-X 대비 일관된 우위, RT-2-X(55B) 대비 600배 작은 모델로 대등 성능
+- **완전 오픈소스 generalist VLA의 기준선**: 학습 파이프라인, 데이터 로더, 모델 코드, 27M·93M 체크포인트, 파인튜닝 스크립트까지 모두 공개 — π₀, OpenVLA, ForceVLA 등 후속 연구의 직접적 비교 대상이자 부트스트랩 발판이 됐다
+- **소비자 GPU 파인튜닝**: 단일 NVIDIA A5000 24GB에서 ~5시간이면 새 태스크로 파인튜닝 가능 — 학계 접근성을 실질적으로 끌어올림
+
+### 한계점
+
+- **언어 조건부 성능이 목표 이미지 대비 약함**: OXE 데이터의 언어 라벨 비중이 낮아 zero-shot 언어 성공률이 평균 25% 낮았다
+- **손목 카메라·고해상도 입력 의존성**: 정밀 조작이 필요한 일부 환경에서는 손목 카메라 도입이 사실상 필수였으며, 일부 셋업에서는 손목 카메라 없이 성능이 크게 떨어짐
+- **표현형 백본 부족**: VLM/LLM에 비해 백본이 작아 (93M) 시각·언어 일반화 폭이 제한 — 이 한계는 이후 π₀(3B VLM), OpenVLA, RT-2(55B) 등 VLM 기반 후속 연구로 보완됨
+- **접촉/촉각 정보 부재**: 일반적인 image + proprio 입력만 사용, 힘/토크 입력은 파인튜닝 시 옵션이고 사전학습 단계에서는 부재 — ForceVLA 같은 후속 연구가 이 격차를 보완

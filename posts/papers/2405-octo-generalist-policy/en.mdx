@@ -1,0 +1,185 @@
+---
+locale: en
+title: "Octo: An Open-Source Generalist Robot Policy"
+summary: "An open-source generalist robot transformer pre-trained on 800k trajectories from the Open X-Embodiment dataset. Its block-wise attention and diffusion action head enable modular fine-tuning to new cameras, sensors, and action spaces — outperforming RT-1-X across 9 real robots and matching RT-2-X (55B) at ~600× smaller scale."
+card_summary: "A 27M / 93M open-source generalist transformer policy pre-trained on 800k Open X-Embodiment trajectories. Block-wise attention plus a diffusion action head allow it to be fine-tuned to new robots, cameras, and action spaces on a single consumer GPU in about five hours."
+terrys_memo: ''
+translation_of: '2405-octo-generalist-policy:ko'
+translated_to: []
+references:
+  - title: 'Open X-Embodiment: Robotic Learning Datasets and RT-X Models'
+    author: Open X-Embodiment Collaboration (2023)
+    description: >-
+      The 21-institution, 22-robot pooled dataset that underwrites Octo's
+      pre-training. Octo selects 25 sub-datasets totaling 800k demonstrations
+      from this collection.
+    arxiv_url: 'https://arxiv.org/abs/2310.08864'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=Open+X-Embodiment+robotic+learning+datasets+RT-X
+    category: foundational
+  - title: 'RT-1: Robotics Transformer for Real-World Control at Scale'
+    author: Brohan et al. (2022)
+    description: >-
+      The first large-scale robotics transformer to predict actions
+      autoregressively as discrete tokens. Octo continues this lineage but
+      replaces the discrete head with a diffusion head and uses block-wise
+      attention for modularity.
+    arxiv_url: 'https://arxiv.org/abs/2212.06817'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-1+robotics+transformer+real-world+control+scale
+    category: foundational
+  - title: 'RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control'
+    author: Brohan et al. (2023)
+    description: >-
+      The starting point of the VLA lineage that puts web-scale vision-language
+      models into robot action generation. Octo is benchmarked head-to-head
+      with RT-2-X (55B) on its WidowX and RT-1 Robot zero-shot tasks.
+    arxiv_url: 'https://arxiv.org/abs/2307.15818'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge
+    category: foundational
+  - title: 'Diffusion Policy: Visuomotor Policy Learning via Action Diffusion'
+    author: Chi et al. (2023)
+    description: >-
+      A single-task visuomotor policy that generates action chunks via a
+      diffusion model. The direct design inspiration for Octo's action head and
+      covered in a dedicated on-site post.
+    arxiv_url: 'https://arxiv.org/abs/2303.04137'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=diffusion+policy+visuomotor+policy+learning
+    post_slug: 2303-diffusion-policy
+    category: foundational
+  - title: 'π₀: A Vision-Language-Action Flow Model for General Robot Control'
+    author: Black et al. (2024)
+    description: >-
+      The next-generation generalist policy that arrived shortly after Octo.
+      Built on a PaliGemma VLM backbone with a flow matching action expert, it
+      surpasses Octo in both zero-shot and fine-tuning evaluations.
+    post_slug: 2410-pi0-vla-flow-model
+    arxiv_url: 'https://arxiv.org/abs/2410.24164'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=pi0+vision+language+action+flow+model
+    category: recent
+  - title: 'ForceVla: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation'
+    author: Yu et al. (2025)
+    description: >-
+      A follow-up that adds a force/torque-aware mixture-of-experts module to
+      VLA models, filling in the contact-rich manipulation gap that Octo-style
+      generalist policies leave open.
+    post_slug: 2505-forcevla-force-aware-moe
+    arxiv_url: 'https://arxiv.org/abs/2505.22159'
+    scholar_url: >-
+      https://scholar.google.com/scholar?q=ForceVLA+force-aware+MoE+contact-rich+manipulation
+    category: recent
+---
+
+## TL;DR
+
+A 27M / 93M open-source generalist transformer policy pre-trained on 800k Open X-Embodiment trajectories. Block-wise attention plus a diffusion action head allow it to be fine-tuned to new robots, cameras, and action spaces on a single consumer GPU in about five hours.
+
+## Problem
+
+Prior generalist policies such as RT-1 predicted actions autoregressively as discrete tokens. That setup hard-wires the policy to the camera configuration, sensor stack, and action space it was tokenized with — moving the policy to a new robot meant editing the input/output structure of the model, which forced part of the pre-trained weights to be discarded. The competing approach of building generalist policies on top of huge VLMs (e.g. RT-2-X at 55B parameters) yielded closed-weight checkpoints that the broader research community could neither reproduce nor extend.
+
+This paper aims to deliver a generalist policy that (1) is not locked into one camera setup or one action space and can absorb new observation / action spaces without disturbing the pre-trained weights, (2) fine-tunes on a single consumer GPU within hours, and (3) ships with fully open training code, data pipeline, and checkpoints.
+
+## Key Idea
+
+**A block-wise causal transformer with a separate diffusion action head**: input modularity comes from a three-block attention structure (task tokens → observation tokens → readout tokens), and action generation is offloaded to a small diffusion head that conditions on readout embeddings.
+
+Core components:
+
+- **Modularity from block-wise attention**: task and observation blocks only attend within their own block and to earlier time-step blocks. Readout blocks then attend one-way into task and observation blocks. Adding a new camera means slotting in fresh observation tokens and letting the readout attend over them — no surgery on the pre-trained weights.
+- **Diffusion action head**: takes the readout embedding as conditioning and runs K-step DDPM denoising over an action chunk. The diffusion head consistently beat both MSE and discretized-token heads in zero-shot and fine-tuning evaluations.
+- **Large-scale OXE pre-training**: 25 hand-picked Open X-Embodiment sub-datasets that have image observations, end-effector actions, and diverse behaviors, totaling 800k demonstrations. Per-dataset weights were tuned to balance size and behavioral diversity.
+- **Modular fine-tuning**: new observations (e.g. 6-axis force/torque) or new action spaces (e.g. joint-position control) are folded in by adding or swapping the relevant blocks, and the model fine-tunes on a single NVIDIA A5000 24GB GPU in roughly five hours.
+
+<Figure src="./fig-1.png" alt="Octo model architecture" caption="Model architecture. Left: Octo tokenizes task descriptions (green) and input observations (blue) using a pretrained language model and a lightweight CNN, respectively. Top: The transformer backbone processes the sequence of task and observation tokens and produces readout tokens (purple) that get passed to output heads to produce actions. Bottom: The block-wise attention structure of the transformer allows us to add or remove inputs and outputs during finetuning: for example, we can add new observations (blue, dashed) or action spaces (purple, dashed) without modifying any pretrained parameters." number={1} />
+
+<Collapsible title="Method in detail">
+
+**1. Tokenization pipeline**
+
+- **Language tasks**: instructions are embedded with a pretrained T5-base (111M) encoder and passed through a learned projection to form the task tokens $\mathcal{T}_T$.
+- **Goal images**: tokenized by the same shallow CNN as observation images, then split into patches.
+- **Observation images**: shallow convolutional stem → ViT-style patches → flatten. Uses a 2-frame observation history (preliminary ablations showed sharply diminishing returns past one extra frame).
+- **Position embeddings**: learnable embeddings $p$ are added to task and observation tokens, which are then arranged sequentially as $[\mathcal{T}_T, \mathcal{T}_{o,1}, \mathcal{T}_{o,2}, \dots]$.
+
+**2. Block-wise causal attention**
+
+At every time step there are three kinds of blocks:
+- **Task blocks**: bidirectional attention only within their own block.
+- **Observation blocks**: attend to the task block at the current time step and to observation/task blocks at all earlier time steps.
+- **Readout blocks**: one-way attention into task and observation blocks at the current time step (and never attended to themselves).
+
+Why this matters:
+- Readouts only consume information — new modalities can be introduced after pre-training by giving the readout extra attention paths into the new tokens.
+- Cameras used during pre-training can be dropped and new ones added without disturbing the pre-trained weights during fine-tuning.
+
+**3. Diffusion action head**
+
+The readout embedding $e$ conditions a K-step DDPM over an action chunk $a$:
+
+$$x^{k-1} = \alpha (x^k - \gamma \epsilon_\theta(x^k, e, k)) + \mathcal{N}(0, \sigma^2 I)$$
+
+- Standard cosine noise schedule (Nichol & Dhariwal, 2021).
+- The full $K$-step denoising runs inside the small diffusion head — the backbone is invoked only once per action prediction.
+- Trained with the canonical DDPM objective (noise prediction).
+- Action dimensions are zero-padded to a unified 7-DoF space.
+
+**4. Training setup**
+
+- Two variants: Octo-Small (ViT-S sized, 27M parameters) and Octo-Base (ViT-B sized, 93M parameters).
+- AdamW with weight decay 0.1 and gradient clipping 1.0.
+- Inverse-square-root learning rate decay with linear warmup.
+- Octo-Base: 300k steps, batch size 2048, on a TPU v4-128 pod, ~14 hours of training.
+- Fine-tuning on a single NVIDIA A5000 24GB GPU takes ~5 hours (faster with multi-GPU).
+- Hindsight goal relabeling: a future state in the trajectory is uniformly sampled as the goal image.
+- A fraction of language instructions are zero-out during training so the same model learns both language- and goal-image-conditioned behaviour.
+
+**5. Data composition**
+
+- 25 datasets selected from the 60+ Open X-Embodiment pool (image observations ✓, end-effector actions ✓, diverse behaviors ✓).
+- 800k trajectories in total by demonstration count.
+- Per-dataset weights are not raw demo-count proportional — small datasets are upweighted to balance dataset size against behavioral diversity so they are not drowned out.
+
+</Collapsible>
+
+<Figure src="./fig-2.png" alt="OXE training data composition" caption="Training dataset composition. We curate a subset of 25 datasets from the Open X-Embodiment dataset that have image observations, end-effector actions, and show diverse behaviors. The pie chart visualizes the fractions that each dataset contributes to every training batch on average. The dataset weights are determined by the number of samples in each dataset with small modifications to balance dataset size and diversity (see Section III-B for details)." number={2} />
+
+## Key Results
+
+<Figure src="./fig-3.png" alt="Evaluation tasks — 9 real robot setups" caption="Evaluation Tasks. We evaluate Octo on 9 real robot setups across 4 institutions. Our evaluations capture diverse object interactions (e.g., 'WidowX BridgeV2'), long task horizons (e.g., 'Stanford Coffee') and precise manipulation (e.g., 'Berkeley Peg Insertion'). We evaluate Octo's capabilities to control robots in environments from the pretraining data out-of-the-box and to efficiently finetune to new tasks and environments with small target domain datasets. We also test finetuning with new observations (force-torque inputs for 'Berkeley Peg Insertion'), action spaces (joint position control), and cameras." number={3} />
+
+- **Zero-shot, language-conditioned**: Octo consistently outperformed RT-1-X (35M, also pre-trained on OXE) across three embodiments — WidowX, RT-1 Robot, UR5. On WidowX and RT-1 Robot tasks it matched RT-2-X (a 55B VLM-based generalist) — Octo is roughly 600× smaller.
+- **Zero-shot, goal-image-conditioned**: because a large fraction of OXE has no language labels, goal-image conditioning was ~25% more reliable on average than language conditioning on the same tasks.
+- **Fine-tuning efficiency**: across 6 environments at 4 institutions (CMU Baking, Stanford Coffee, Berkeley Peg Insertion, etc.) with ~100 demos each and identical fine-tuning hyperparameters, Octo beat (a) ResNet+Transformer trained from scratch, (b) VC-1 pre-trained visual representations, and (c) OXE-VC-1 (a model pre-trained on the same data mix without Octo's architecture).
+- **New observations and action spaces**: adding 6-axis F/T inputs (Berkeley Peg Insertion) or switching to joint-position control (Berkeley Bimanual) both succeeded with ~5 hours of fine-tuning on a single GPU.
+
+<Figure src="./fig-4.png" alt="Fine-tuning evaluation table" caption="Table I — Finetuning Evaluation. Octo enables data-efficient finetuning to new domains and out-performs training from scratch as well as state-of-the-art pretrained visual representations. Each domain uses ∼100 target demonstrations and the same finetuning hyperparameters. In each domain, success rates are averaged over 20 trials. *: New observation input (force-torque proprioception). †: New action space (joint position control)." number={4} />
+
+<Figure src="./fig-5.png" alt="Zero-shot evaluation results" caption="Figure 3 — Zero-Shot Evaluation. Out-of-the-box, Octo can control multiple robots in environments from the pretraining data. When using natural language to specify tasks, Octo outperforms RT-1-X [67], the current best openly available generalist robot policy across three different robot embodiments and setups. Octo also performs similarly to RT-2-X [103] on the tested WidowX and RT-1 Robot tasks." number={5} />
+
+### Key design decisions (ablations)
+
+<Figure src="./fig-6.png" alt="Model ablation table" caption="Table II — Model Ablations. We achieve best performance when using the ViT architecture, diffusion action head, and wide training data mixture. All evaluations are performed on the WidowX setup. Success rates are averaged over 40 trials across two language-conditioned tasks and two goal-conditioned tasks." number={6} />
+
+- **Backbone architecture**: a single ViT transformer beats a ResNet-50 + small transformer head split. The legacy pattern of putting most of the parameters in a ResNet broke modularity and produced worse numbers.
+- **Action head**: diffusion > MSE > discretized tokens. Only the diffusion head could express multi-modal action distributions and stayed ahead in both zero-shot and fine-tuning evaluations.
+- **Data mixture**: training on the full 25-dataset OXE mix beat training on BridgeV2 alone — even when evaluated in-domain on BridgeV2.
+
+## Achievements and Limitations
+
+### What Octo achieved
+
+- **Modular generalist policy design via block attention + a separated diffusion head**: established a transformer recipe where new observation and action spaces can be slotted in after pre-training without disturbing the pre-trained weights.
+- **800k-trajectory pre-training**: trained on what was then the largest robot manipulation dataset (a curated OXE subset), reaching consistent wins over RT-1-X and parity with RT-2-X (55B) at ~600× smaller scale across 9 real robot setups.
+- **The reference baseline for open-source generalist VLAs**: full training pipeline, data loaders, model code, 27M / 93M checkpoints, and fine-tuning scripts were all released — Octo became the direct comparison target and bootstrap for π₀, OpenVLA, ForceVLA, and many follow-ups.
+- **Fine-tuning on consumer GPUs**: new tasks can be learned with ~5 hours on a single NVIDIA A5000 24GB GPU, materially lowering the bar for academic groups to work on generalist policies.
+
+### Limitations
+
+- **Language conditioning trails goal-image conditioning**: with OXE's relatively thin language labeling, zero-shot success rates under language conditioning averaged ~25% lower than under goal-image conditioning.
+- **Heavy reliance on wrist cameras and high-resolution inputs**: precise manipulation environments often required a wrist camera, and some setups degraded sharply without one.
+- **Modest backbone capacity**: at 93M parameters the model is small compared to the VLM-based successors — limiting its visual and linguistic generalization. This gap was the explicit motivation for VLM-backed follow-ups like π₀ (3B VLM), OpenVLA, and RT-2 (55B).
+- **No contact/tactile signals**: only image + proprio inputs are used at pre-training. Force/torque inputs are an opt-in fine-tuning extension, not part of the pre-training signal — leaving contact-rich manipulation to follow-ups such as ForceVLA.

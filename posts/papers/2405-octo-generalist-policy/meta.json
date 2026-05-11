@@ -1,0 +1,161 @@
+{
+  "post_id": "2405-octo-generalist-policy",
+  "slug": "2405-octo-generalist-policy",
+  "post_number": 55,
+  "source_date": "2024-05-20T00:00:00Z",
+  "published_at": "2026-05-12T00:00:00Z",
+  "updated_at": "2026-05-12T00:00:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "domain": "robotics",
+  "subfields": [
+    "manipulation",
+    "foundation-model",
+    "visuomotor-policy"
+  ],
+  "key_concepts": [
+    "VLA",
+    "generalist-policy",
+    "open-x-embodiment",
+    "diffusion-policy",
+    "transformer-policy",
+    "block-wise-attention",
+    "pre-training",
+    "fine-tuning",
+    "goal-image-conditioning",
+    "language-conditioning"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "diffusion-modeling",
+    "pre-training",
+    "transformer"
+  ],
+  "contribution_type": "method",
+  "relations": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2303-diffusion-policy",
+      "type": "usesMethodIn"
+    },
+    {
+      "target": "2505-forcevla-force-aware-moe",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "Open-source generalist robot transformer pre-trained on 800k Open X-Embodiment trajectories with block-wise attention and a diffusion action head for modular fine-tuning to new robots, cameras, and action spaces.",
+    "problem": "Prior generalist policies (RT-1, RT-2-X) hard-wire the camera, sensor, and action stack into the tokenization and either lose pre-trained weights when migrated to a new robot or ship as closed 55B VLMs that are infeasible to reproduce and extend.",
+    "solution": "Block-wise causal transformer separating task / observation / readout blocks plus a small diffusion action head; pre-trained on 800k OXE demos with two scales (27M Octo-Small, 93M Octo-Base).",
+    "key_result": "Outperforms RT-1-X across 9 real robots and 4 institutions, matches RT-2-X (55B) at ~600× smaller, and fine-tunes to new observations / action spaces on a single A5000 GPU in ~5 hours.",
+    "limitations": [
+      "Language conditioning trails goal-image conditioning by ~25% in zero-shot",
+      "Heavy reliance on wrist cameras for precise manipulation",
+      "93M backbone limits visual/linguistic generalization vs VLM-based successors",
+      "No contact/tactile signals at pre-training time"
+    ]
+  },
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "Diffusion Policy",
+    "Manipulation",
+    "Open-Source",
+    "RSS 2024"
+  ],
+  "display_tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "Diffusion Policy",
+    "Manipulation",
+    "Open-Source",
+    "RSS 2024"
+  ],
+  "cover_image": "./cover.webp",
+  "thumb_source": "./fig-3.png",
+  "cover_caption": "Model architecture. Octo tokenizes language tasks and observations with a pretrained T5 encoder and a shallow CNN, runs them through a block-wise causal transformer, and decodes actions via a diffusion head — letting new cameras, sensors, and action spaces be slotted in during fine-tuning without disturbing the pre-trained weights.",
+  "reading_time_min": 12,
+  "source_url": "https://arxiv.org/abs/2405.12213",
+  "source_title": "Octo: An Open-Source Generalist Robot Policy",
+  "source_author": "Dibya Ghosh et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://octo-models.github.io/",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Octo%3A+An+Open-Source+Generalist+Robot+Policy&btnG=",
+  "source_authors_full": [
+    "Octo Model Team (UC Berkeley / Stanford / CMU / Google DeepMind)",
+    "Dibya Ghosh (UC Berkeley)",
+    "Homer Walke (UC Berkeley)",
+    "Karl Pertsch (UC Berkeley / Stanford)",
+    "Kevin Black (UC Berkeley)",
+    "Oier Mees (UC Berkeley)",
+    "Sudeep Dasari (CMU)",
+    "Joey Hejna (Stanford)",
+    "Tobias Kreiman (UC Berkeley)",
+    "Charles Xu (UC Berkeley)",
+    "Jianlan Luo (UC Berkeley)",
+    "You Liang Tan (UC Berkeley)",
+    "Lawrence Yunliang Chen (UC Berkeley)",
+    "Pannag Sanketi (Google DeepMind)",
+    "Quan Vuong (Google DeepMind)",
+    "Ted Xiao (Google DeepMind)",
+    "Dorsa Sadigh (Stanford)",
+    "Chelsea Finn (Stanford)",
+    "Sergey Levine (UC Berkeley)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Model architecture. Left: Octo tokenizes task descriptions (green) and input observations (blue) using a pretrained language model and a lightweight CNN, respectively. Top: The transformer backbone processes the sequence of task and observation tokens and produces readout tokens (purple) that get passed to output heads to produce actions. Bottom: The block-wise attention structure of the transformer allows us to add or remove inputs and outputs during finetuning: for example, we can add new observations (blue, dashed) or action spaces (purple, dashed) without modifying any pretrained parameters.",
+      "caption_ko": "모델 아키텍처. 좌: Octo는 사전학습된 언어 모델로 태스크 설명(녹색)을, 가벼운 CNN으로 입력 관측(파랑)을 토큰화한다. 상: 트랜스포머 백본이 태스크와 관측 토큰 시퀀스를 처리하여 readout 토큰(보라)을 생성하고, 이를 출력 헤드에 전달해 행동을 만든다. 하: 트랜스포머의 블록 단위 어텐션 구조 덕분에 파인튜닝 시 사전학습 파라미터를 건드리지 않고도 입력과 출력을 추가하거나 제거할 수 있다 — 예를 들어 새 관측(파랑 점선)이나 행동 공간(보라 점선)을 그대로 끼워 넣을 수 있다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Training dataset composition. We curate a subset of 25 datasets from the Open X-Embodiment dataset that have image observations, end-effector actions, and show diverse behaviors. The pie chart visualizes the fractions that each dataset contributes to every training batch on average. The dataset weights are determined by the number of samples in each dataset with small modifications to balance dataset size and diversity (see Section III-B for details).",
+      "caption_ko": "학습 데이터셋 구성. 이미지 관측, 엔드이펙터 행동, 다양한 행동 분포를 만족하는 Open X-Embodiment 25개 데이터셋의 부분집합. 파이 차트는 각 데이터셋이 학습 배치에서 평균적으로 차지하는 비율을 시각화한 것. 데이터셋 가중치는 데이터셋 크기와 다양성의 균형을 맞추도록 시연 수에 약간의 보정을 가해 결정된다 (자세한 내용은 Section III-B 참조).",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Evaluation Tasks. We evaluate Octo on 9 real robot setups across 4 institutions. Our evaluations capture diverse object interactions (e.g., 'WidowX BridgeV2'), long task horizons (e.g., 'Stanford Coffee') and precise manipulation (e.g., 'Berkeley Peg Insertion'). We evaluate Octo's capabilities to control robots in environments from the pretraining data out-of-the-box and to efficiently finetune to new tasks and environments with small target domain datasets. We also test finetuning with new observations (force-torque inputs for 'Berkeley Peg Insertion'), action spaces (joint position control), and cameras.",
+      "caption_ko": "평가 태스크. 4개 기관에 걸친 9개 실제 로봇 셋업에서 Octo를 평가한다. 다양한 객체 상호작용(예: WidowX BridgeV2), 긴 태스크 호라이즌(예: Stanford Coffee), 정밀 조작(예: Berkeley Peg Insertion)을 포함한다. 사전학습 데이터에 나타난 환경에서 즉시 사용 가능한 제어 능력과, 소량 타깃 도메인 데이터로 새로운 태스크·환경에 효율적으로 파인튜닝되는 능력 양쪽을 평가한다. 새 관측(Berkeley Peg Insertion의 힘/토크 입력), 행동 공간(관절 위치 제어), 카메라 등이 들어와도 파인튜닝되는지도 함께 검증한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Table I — Finetuning Evaluation. Octo enables data-efficient finetuning to new domains and out-performs training from scratch as well as state-of-the-art pretrained visual representations. Each domain uses ∼100 target demonstrations and the same finetuning hyperparameters. In each domain, success rates are averaged over 20 trials. *: New observation input (force-torque proprioception). †: New action space (joint position control).",
+      "caption_ko": "Table I — Finetuning Evaluation. Octo는 새 도메인으로의 데이터 효율적 파인튜닝을 가능케 하며, 처음부터 학습한 모델이나 SOTA 사전학습 시각 표현 모두를 능가한다. 각 도메인은 ~100개 타깃 시연과 동일한 파인튜닝 하이퍼파라미터를 사용하며, 도메인별 성공률은 20회 시도 평균이다. *: 새 관측 입력(힘/토크 고유감각). †: 새 행동 공간(관절 위치 제어).",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 3 — Zero-Shot Evaluation. Out-of-the-box, Octo can control multiple robots in environments from the pretraining data. When using natural language to specify tasks, Octo outperforms RT-1-X [67], the current best openly available generalist robot policy across three different robot embodiments and setups. Octo also performs similarly to RT-2-X [103] on the tested WidowX and RT-1 Robot tasks.",
+      "caption_ko": "Figure 3 — Zero-Shot Evaluation. 즉시 사용 시(Out-of-the-box) Octo는 사전학습 데이터의 환경에서 여러 로봇을 제어할 수 있다. 자연어로 태스크를 지정할 때 Octo는 현재 가장 우수한 공개 generalist 정책인 RT-1-X[67]를 3개의 서로 다른 로봇 임바디먼트·셋업에서 능가한다. WidowX와 RT-1 Robot 태스크에서는 RT-2-X[103]와도 유사한 성능을 보인다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Table II — Model Ablations. We achieve best performance when using the ViT architecture, diffusion action head, and wide training data mixture. All evaluations are performed on the WidowX setup. Success rates are averaged over 40 trials across two language-conditioned tasks and two goal-conditioned tasks.",
+      "caption_ko": "Table II — Model Ablations. ViT 아키텍처, 디퓨전 행동 헤드, 광범위한 학습 데이터 mix를 함께 사용할 때 가장 좋은 성능을 얻는다. 모든 평가는 WidowX 셋업에서 수행됐고, 성공률은 언어 조건부 2종·목표 이미지 조건부 2종 태스크에 걸친 40회 시도 평균이다.",
+      "number": 6
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "starred": false,
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "robotics/brain/rl-policy"
+  ],
+  "cover_figure_number": 1,
+  "arxiv_id": "2405.12213",
+  "bibtex_key": "ghosh2024octo"
+}

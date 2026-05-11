@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-05T07:04:17.856Z",
-  "total_posts": 54,
+  "generated_at": "2026-05-11T15:03:53.028Z",
+  "total_posts": 55,
   "posts": [
     {
       "post_number": 1,
@@ -3968,6 +3968,90 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 55,
+      "slug": "2405-octo-generalist-policy",
+      "content_type": "papers",
+      "title_en": "Octo: An Open-Source Generalist Robot Policy",
+      "title_ko": "Octo: 오픈소스 범용 로봇 정책",
+      "summary_ko": "Open X-Embodiment 80만 시연으로 사전학습된 27M·93M 파라미터의 오픈소스 범용 트랜스포머 정책. 블록 어텐션과 디퓨전 행동 헤드로 새로운 로봇·카메라·행동 공간에 5시간 만에 모듈식 파인튜닝이 가능하다.",
+      "summary_en": "A 27M / 93M open-source generalist transformer policy pre-trained on 800k Open X-Embodiment trajectories. Block-wise attention plus a diffusion action head allow it to be fine-tuned to new robots, cameras, and action spaces on a single consumer GPU in about five hours.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "robotics",
+      "subfields": [
+        "manipulation",
+        "foundation-model",
+        "visuomotor-policy"
+      ],
+      "key_concepts": [
+        "VLA",
+        "generalist-policy",
+        "open-x-embodiment",
+        "diffusion-policy",
+        "transformer-policy",
+        "block-wise-attention",
+        "pre-training",
+        "fine-tuning",
+        "goal-image-conditioning",
+        "language-conditioning"
+      ],
+      "methodology": [
+        "imitation-learning",
+        "diffusion-modeling",
+        "pre-training",
+        "transformer"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Foundation Model",
+        "Diffusion Policy",
+        "Manipulation",
+        "Open-Source",
+        "RSS 2024"
+      ],
+      "source_author": "Dibya Ghosh et al.",
+      "source_date": "2024-05-20T00:00:00Z",
+      "published_at": "2026-05-12T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Open-source generalist robot transformer pre-trained on 800k Open X-Embodiment trajectories with block-wise attention and a diffusion action head for modular fine-tuning to new robots, cameras, and action spaces.",
+        "problem": "Prior generalist policies (RT-1, RT-2-X) hard-wire the camera, sensor, and action stack into the tokenization and either lose pre-trained weights when migrated to a new robot or ship as closed 55B VLMs that are infeasible to reproduce and extend.",
+        "solution": "Block-wise causal transformer separating task / observation / readout blocks plus a small diffusion action head; pre-trained on 800k OXE demos with two scales (27M Octo-Small, 93M Octo-Base).",
+        "key_result": "Outperforms RT-1-X across 9 real robots and 4 institutions, matches RT-2-X (55B) at ~600× smaller, and fine-tunes to new observations / action spaces on a single A5000 GPU in ~5 hours.",
+        "limitations": [
+          "Language conditioning trails goal-image conditioning by ~25% in zero-shot",
+          "Heavy reliance on wrist cameras for precise manipulation",
+          "93M backbone limits visual/linguistic generalization vs VLM-based successors",
+          "No contact/tactile signals at pre-training time"
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2303-diffusion-policy",
+          "type": "usesMethodIn"
+        },
+        {
+          "target": "2505-forcevla-force-aware-moe",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/brain/rl-policy"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -4673,6 +4757,21 @@
         "type": "related"
       },
       {
+        "from": "2405-octo-generalist-policy",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2405-octo-generalist-policy",
+        "to": "2303-diffusion-policy",
+        "type": "usesMethodIn"
+      },
+      {
+        "from": "2405-octo-generalist-policy",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "sharesTopicWith"
+      },
+      {
         "from": "2201-mano-hand-model",
         "to": "2407-stretchable-glove-hand-pose",
         "type": "related"
@@ -4934,11 +5033,14 @@
           20,
           23,
           24,
-          33
+          33,
+          55
         ],
         "core_concepts": [
           "VLA",
           "flow-matching",
+          "pre-training",
+          "fine-tuning",
           "embodied-foundation-model",
           "scaling-laws",
           "harmonic-reasoning"
@@ -5090,7 +5192,8 @@
           23,
           24,
           33,
-          38
+          38,
+          55
         ],
         "core_concepts": [
           "VLA"
@@ -5131,7 +5234,8 @@
           12,
           14,
           34,
-          35
+          35,
+          55
         ],
         "core_concepts": [
           "diffusion-policy"
@@ -5193,7 +5297,8 @@
       23,
       24,
       33,
-      38
+      38,
+      55
     ],
     "flow-matching": [
       1,
@@ -5210,10 +5315,12 @@
       41
     ],
     "pre-training": [
-      2
+      2,
+      55
     ],
     "fine-tuning": [
-      2
+      2,
+      55
     ],
     "force-informed-actions": [
       3
@@ -5379,7 +5486,8 @@
       12,
       14,
       34,
-      35
+      35,
+      55
     ],
     "force-control": [
       12
@@ -6135,10 +6243,28 @@
     ],
     "GRPO": [
       54
+    ],
+    "generalist-policy": [
+      55
+    ],
+    "open-x-embodiment": [
+      55
+    ],
+    "transformer-policy": [
+      55
+    ],
+    "block-wise-attention": [
+      55
+    ],
+    "goal-image-conditioning": [
+      55
+    ],
+    "language-conditioning": [
+      55
     ]
   },
   "domain_stats": {
-    "robotics": 30,
+    "robotics": 31,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -6152,7 +6278,7 @@
     "ai-and-work": 1
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 7,
+    "robotics/brain/vla": 8,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
@@ -6162,7 +6288,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 8,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 11,
+    "robotics/brain": 12,
     "ai/llm:secondary": 5,
     "ai/society": 4,
     "ai/agents:secondary": 2,
@@ -6178,9 +6304,10 @@
     "infra/cost": 1,
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
+    "robotics/brain/rl-policy:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 29,
+    "robotics": 30,
     "ai": 12
   }
 }
