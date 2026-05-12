@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-11T15:18:00.608Z",
-  "total_posts": 56,
+  "generated_at": "2026-05-12T08:28:04.417Z",
+  "total_posts": 57,
   "posts": [
     {
       "post_number": 1,
@@ -4133,6 +4133,87 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 57,
+      "slug": "2206-global-planning-contact",
+      "content_type": "papers",
+      "title_en": "Contact Planning: Global Manipulation Planning Through Smoothed Contact Models",
+      "title_ko": "Contact Planning: 접촉 모드를 부드럽게 만드는 전역 조작 계획",
+      "summary_ko": "Contact-rich manipulation은 접촉 모드가 폭발적으로 많고 dynamics가 non-smooth해서 전역 planning이 어렵다. 이 논문은 RL이 sampling으로 접촉 불연속성을 평균화한다는 관점을 모델 기반 planning으로 가져와, quasi-dynamic contact model을 local smoothing하고 이를 RRT의 metric과 extension step에 결합한다.",
+      "summary_en": "Contact-rich manipulation is difficult because contact modes are combinatorial and the dynamics are non-smooth. This paper transfers the smoothing intuition behind RL into model-based planning: it locally smooths quasi-dynamic contact models and uses the resulting local metrics and extension steps inside RRT.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "robotics",
+      "subfields": [
+        "contact-rich-manipulation",
+        "motion-planning",
+        "sampling-based-planning",
+        "contact-dynamics"
+      ],
+      "key_concepts": [
+        "contact-rich-manipulation",
+        "quasi-dynamic-contact-model",
+        "local-smoothing",
+        "randomized-smoothing",
+        "analytic-smoothing",
+        "sampling-based-motion-planning",
+        "RRT",
+        "contact-mode-abstraction"
+      ],
+      "methodology": [
+        "convex-quasi-dynamic-contact-model",
+        "log-barrier-relaxation",
+        "implicit-differentiation",
+        "local-mahalanobis-metric",
+        "contact-aware-RRT"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Contact-Rich Manipulation",
+        "Motion Planning",
+        "RRT"
+      ],
+      "source_author": "Tao Pang et al.",
+      "source_date": "2022-06-22T00:00:00Z",
+      "published_at": "2026-05-12T08:15:51Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Global planner for contact-rich manipulation that smooths quasi-dynamic contact models and uses the resulting local models to guide RRT search",
+        "problem": "Contact-rich manipulation is hard for classical planning because contact modes are combinatorial, non-smooth, and globally non-convex.",
+        "solution": "Smooth quasi-dynamic contact models locally, derive contact-aware metrics and extension steps, and plug them into an enhanced RRT planner.",
+        "key_result": "Demonstrates global planning across in-hand manipulation, plate pickup, door opening, pen placement, and bimanual bucket rotation, with lower computation than RL-style approaches.",
+        "limitations": [
+          "Quasi-dynamic first-order model can mismatch second-order real dynamics.",
+          "3D systems show larger sim-to-real error than simpler planar setups.",
+          "Contact sampling can introduce non-physical teleportation assumptions."
+        ]
+      },
+      "relations": [
+        {
+          "type": "sharesTopicWith",
+          "target": "2506-exostart"
+        },
+        {
+          "type": "sharesTopicWith",
+          "target": "2501-dexforce-force-informed-actions"
+        },
+        {
+          "type": "sharesGoalWith",
+          "target": "2509-tactile-sensing-distribution"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous",
+        "robotics/arm/force-control"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -4863,254 +4944,19 @@
         "type": "sharesTopicWith"
       },
       {
-        "from": "2201-mano-hand-model",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2201-mano-hand-model",
-        "to": "2512-unitachand",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2201-mano-hand-model",
-        "to": "2602-robopaint",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2410-pi0-vla-flow-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2501-dexforce-force-informed-actions",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "compares_with"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "uses_method"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2509-dexop",
+        "from": "2206-global-planning-contact",
         "to": "2506-exostart",
-        "type": "compares_with"
+        "type": "sharesTopicWith"
       },
       {
-        "from": "2509-dexop",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "addresses_task"
+        "from": "2206-global-planning-contact",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "sharesTopicWith"
       },
       {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2511-pi0-6-recap",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2512-unitachand",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2506-exostart",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2509-dexop",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2603-capx-coding-agents-manipulation",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-medical-ai-scientist",
-        "to": "2502-ai-co-scientist",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2603-capx-coding-agents-manipulation",
-        "type": "compares_with"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-gen0-embodied-foundation-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2603-meta-harness-optimization",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2502-ai-co-scientist",
-        "type": "related"
+        "from": "2206-global-planning-contact",
+        "to": "2509-tactile-sensing-distribution",
+        "type": "sharesGoalWith"
       }
     ],
     "clusters": [
@@ -5378,9 +5224,12 @@
       39,
       40,
       41,
-      52
+      52,
+      57
     ],
-    "outlier_papers": []
+    "outlier_papers": [
+      57
+    ]
   },
   "concept_index": {
     "VLA": [
@@ -5717,7 +5566,8 @@
       18
     ],
     "contact-rich-manipulation": [
-      18
+      18,
+      57
     ],
     "MuMetal-shielding": [
       18
@@ -6380,10 +6230,31 @@
     ],
     "RoboVLMs": [
       56
+    ],
+    "quasi-dynamic-contact-model": [
+      57
+    ],
+    "local-smoothing": [
+      57
+    ],
+    "randomized-smoothing": [
+      57
+    ],
+    "analytic-smoothing": [
+      57
+    ],
+    "sampling-based-motion-planning": [
+      57
+    ],
+    "RRT": [
+      57
+    ],
+    "contact-mode-abstraction": [
+      57
     ]
   },
   "domain_stats": {
-    "robotics": 32,
+    "robotics": 33,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -6405,9 +6276,9 @@
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 3,
     "ai/agent": 8,
-    "robotics/hand/dexterous:secondary": 8,
+    "robotics/hand/dexterous:secondary": 9,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 13,
+    "robotics/brain": 14,
     "ai/llm:secondary": 6,
     "ai/society": 4,
     "ai/agents:secondary": 2,
@@ -6424,9 +6295,11 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
+    "robotics/brain/rl-policy": 1,
+    "robotics/arm/force-control:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 31,
+    "robotics": 32,
     "ai": 12
   }
 }

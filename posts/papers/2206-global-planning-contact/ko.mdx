@@ -1,0 +1,95 @@
+---
+locale: "ko"
+title: "Contact Planning: 접촉 모드를 부드럽게 만드는 전역 조작 계획"
+subtitle: "Quasi-dynamic contact model smoothing으로 RRT를 contact-rich manipulation에 적용하기"
+summary: "Contact-rich manipulation은 접촉 모드가 폭발적으로 많고 dynamics가 non-smooth해서 전역 planning이 어렵다. 이 논문은 RL이 sampling으로 접촉 불연속성을 평균화한다는 관점을 모델 기반 planning으로 가져와, quasi-dynamic contact model을 local smoothing하고 이를 RRT의 metric과 extension step에 결합한다. 결과적으로 in-hand manipulation, plate pickup, door opening, pen placement, bimanual bucket rotation 같은 접촉 풍부 과제에서 contact mode enumeration 없이 계획을 생성한다."
+card_summary: "Contact-rich manipulation은 접촉 모드가 폭발적으로 많고 dynamics가 non-smooth해서 전역 planning이 어렵다. 이 논문은 RL이 sampling으로 접촉 불연속성을 평균화한다는 관점을 모델 기반 planning으로 가져와, quasi-dynamic contact model을 local smoothing하고 이를 RRT의 metric과 extension step에 결합한다."
+cover_caption: "제안한 global planner가 만든 contact-rich manipulation 계획 예시."
+published_at: "2026-05-12T08:15:51Z"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2206.10787"
+source_date: "2022-06-22T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Contact-Rich Manipulation"
+  - "Motion Planning"
+  - "RRT"
+terrys_memo: ""
+references:
+  - title: "Bundled Gradients through Contact via Randomized Smoothing"
+    author: "H.J. Terry Suh et al. (2021)"
+    description: "이 논문의 직접적인 선행 연구. 접촉 dynamics에서 exact gradient 대신 randomized smoothing으로 얻은 bundled gradient를 사용하면 non-smooth contact optimization이 더 안정화된다는 관점을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2109.05143"
+    scholar_url: "https://scholar.google.com/scholar?q=Bundled+Gradients+through+Contact+via+Randomized+Smoothing"
+    category: "foundational"
+  - title: "Contact Mode Guided Motion Planning for Quasidynamic Dexterous Manipulation in 3D"
+    author: "Xianyi Cheng et al. (2021)"
+    description: "3D quasi-dynamic dexterous manipulation에서 contact mode를 명시적으로 사용해 tree expansion을 안내하는 planning 연구. 본 논문은 contact mode enumeration 대신 smoothing된 local model로 RRT를 안내한다는 점에서 대비된다."
+    arxiv_url: "https://arxiv.org/abs/2105.14431"
+    scholar_url: "https://scholar.google.com/scholar?q=Contact+Mode+Guided+Motion+Planning+for+Quasidynamic+Dexterous+Manipulation+in+3D"
+    category: "recent"
+  - title: "A Direct Method for Trajectory Optimization of Rigid Bodies Through Contact"
+    author: "Michael Posa et al. (2014)"
+    description: "Rigid-body contact trajectory optimization의 고전적 기반 연구. Contact를 complementarity constraints로 다루는 계열의 대표적 출발점이며, 본 논문의 model-based contact planning 배경을 이룬다."
+    arxiv_url: "https://doi.org/10.1177/0278364913506757"
+    scholar_url: "https://scholar.google.com/scholar?q=A+Direct+Method+for+Trajectory+Optimization+of+Rigid+Bodies+Through+Contact"
+    category: "foundational"
+translated_to:
+  - "en"
+---
+
+## TL;DR
+
+접촉이 많은 조작에서 RL이 잘 되는 이유를 "접촉 모드가 sampling으로 부드러워진다"는 관점으로 해석하고, 이를 모델 기반 전역 planning에 이식한 논문이다. 핵심은 quasi-dynamic contact model을 local smoothing한 뒤, 그 모델에서 나온 metric과 extension step으로 RRT를 contact-rich manipulation에 맞게 바꾸는 것이다.
+
+## 문제
+
+Contact-rich manipulation은 접촉이 생기고 끊기고 미끄러지는 순간마다 dynamics가 급격히 바뀐다. 접촉 모드를 모두 나열하면 조합이 폭발하고, gradient 기반 trajectory optimization은 local minimum이나 non-smooth 지점에서 쉽게 막힌다. RL은 sampling으로 이런 불연속성을 평균화하지만 계산량이 크고, 왜 잘 되는지 모델 기반 관점에서 설명하기 어렵다. 이 논문은 RL의 smoothing 효과를 명시적인 contact model과 sampling-based planner 안으로 가져오려 한다.
+
+## 핵심 아이디어
+
+논문의 핵심은 contact dynamics를 직접 "정확하게" 따라가려 하지 않고, planning에 유용한 방향으로 부드럽게 만든다는 것이다.
+
+- **Smoothing 관점**: randomized smoothing과 analytic smoothing을 같은 local surrogate model을 만드는 두 방법으로 본다.
+- **Quasi-dynamic contact model**: frictional contact를 convex한 quasi-dynamic formulation으로 만들고, relaxation을 통해 미분 가능한 local model을 얻는다.
+- **RRT와 결합**: smoothed local model로 reachability를 반영하는 Mahalanobis metric을 만들고, RRT의 nearest/extend/contact sampling을 contact-aware하게 바꾼다.
+
+<Figure src="./fig-1.png" caption="제안한 방법으로 생성한 다섯 가지 접촉 풍부 조작 계획 예시." />
+
+<Collapsible title="구체적 방법">
+
+### Local smoothing
+
+Non-smooth function 주변에서 직접 gradient 하나를 믿는 대신, 주변의 작은 분포에서 평균화된 surrogate dynamics를 만든다. Randomized smoothing은 샘플 평균으로 이를 근사하고, analytic smoothing은 relaxation된 contact model에서 직접 local derivative를 얻는다. 논문은 두 방식이 단순 시스템에서는 같은 local linear model로 수렴하고, 복잡한 contact system에서도 비슷한 역할을 한다고 설명한다.
+
+### Convex quasi-dynamic contact
+
+저자들은 friction cone과 complementarity를 완전한 hybrid mode enumeration으로 풀지 않고, Anitescu-style relaxation과 log-barrier relaxation을 통해 convex하고 differentiable한 quasi-dynamic contact model을 구성한다. 이 모델은 first-order dynamics라서 빠른 inertial motion을 완전히 재현하려는 목적보다는, contact-rich planning에서 "어느 방향이 도달 가능해 보이는가"를 알려주는 local guide 역할을 한다.
+
+### Enhanced RRT
+
+기존 RRT의 Euclidean nearest metric은 contact system에서 좋지 않다. 같은 거리라도 손가락이 물체를 실제로 밀 수 있는 방향과 그렇지 않은 방향이 다르기 때문이다. 이 논문은 smoothed dynamics에서 나온 local covariance/metric으로 nearest node를 고르고, contact를 만들 수 있는 sample을 추가하며, local model 기반 extension으로 tree를 확장한다.
+
+</Collapsible>
+
+## 주요 결과
+
+- **Trajectory optimization case study**: smoothing을 쓰지 않은 exact dynamics보다 analytic/randomized smoothing이 더 안정적으로 cost를 낮춘다.
+- **RRT case study**: contact sampling과 local metric을 넣은 RRT가 vanilla/global metric/no-contact-sampling ablation보다 훨씬 잘 공간을 탐색한다.
+- **Task coverage**: 3D in-hand manipulation, plate pickup, door opening, pen placement, bimanual bucket rotation 등 접촉이 핵심인 과제에서 계획을 생성한다.
+- **계산 관점**: RL처럼 대규모 policy 학습을 하지 않고도 contact-rich behavior를 얻는 model-based 경로를 제시한다.
+
+<Figure src="./fig-9.png" caption="Contact sampling과 local metric이 RRT tree 성장에 미치는 영향을 보여주는 ablation." />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+- RL의 contact smoothing 효과를 모델 기반 planning 언어로 번역했다.
+- Contact mode를 명시적으로 enumerate하지 않고도 contact-rich RRT를 구성했다.
+- Analytic smoothing과 randomized smoothing을 같은 local model 관점에서 비교했다.
+
+**한계점**
+- Quasi-dynamic first-order model이라 실제 second-order dynamics와 phase mismatch가 생길 수 있다.
+- 3D 실제 시스템에서는 sim-to-real error가 더 커진다.
+- Contact sampling 과정에 비물리적인 teleportation 가정이 일부 남아 있다.
+- 🤖 현재는 planner 중심 결과라, closed-loop tactile feedback이나 modern policy/VLA와의 결합은 아직 열려 있다.
