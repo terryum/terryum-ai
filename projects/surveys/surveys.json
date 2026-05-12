@@ -1,6 +1,57 @@
 {
-  "next_survey_number": 7,
+  "next_survey_number": 8,
   "surveys": [
+    {
+      "slug": "survey-microbiome-cosmetics-ai",
+      "survey_number": 7,
+      "title": {
+        "ko": "마이크로바이옴 × AI 화장품",
+        "en": "Microbiome × AI Cosmetics"
+      },
+      "description": {
+        "ko": "발효 시대에서 AI 시대로, 마이크로바이옴 화장품 연구의 지각변동을 12장으로 정리한 서베이. 균주 발효의 한계, NGS·AlphaFold·DBTL·디지털 트윈·임상 시뮬레이션 — 그리고 로레알·유니레버·아모레퍼시픽·COSMAX 등 글로벌 사례 + 제약·헬스푸드(Insilico·Seres·ZOE) 인접 산업의 transfer-learning 청사진까지.",
+        "en": "A 12-chapter survey of the tectonic shift from fermentation cosmetics to AI-driven microbiome design. Covers the limits of single-strain ferments, NGS / AlphaFold / DBTL / digital twins / clinical simulation, and global cases from L'Oréal, Unilever, Amorepacific, and COSMAX, plus a transfer-learning blueprint drawn from adjacent pharma and nutraceutical players (Insilico, Seres, ZOE)."
+      },
+      "cover_image": "/images/projects/survey-microbiome-cosmetics-ai-cover.webp",
+      "tech_stack": [
+        "Microbiome",
+        "Cosmetics",
+        "AlphaFold",
+        "Synthetic Biology",
+        "Survey"
+      ],
+      "toc": [
+        { "ko": "발효의 한계", "en": "Fermentation Limits" },
+        { "ko": "피부 균총 지도", "en": "Skin Microbiome Map" },
+        { "ko": "NGS와 배양체학", "en": "NGS & Culturomics" },
+        { "ko": "AI 균주 스크리닝", "en": "AI Strain Screening" },
+        { "ko": "AlphaFold 이후", "en": "After AlphaFold" },
+        { "ko": "디지털 트윈", "en": "Microbiome Digital Twins" },
+        { "ko": "합성생물학 DBTL", "en": "Synthetic Biology DBTL" },
+        { "ko": "AI 제형 설계", "en": "AI Formulation Design" },
+        { "ko": "임상까지의 다리", "en": "From In Silico to Clinic" },
+        { "ko": "글로벌 화장품사", "en": "Global Cosmetic Firms" },
+        { "ko": "인접 산업 학습", "en": "Adjacent Industries" },
+        { "ko": "신규 연구 청사진", "en": "Blueprint for New R&D" }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://microbiome-cosmetics-ai.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys"
+        }
+      ],
+      "embed_url": "https://microbiome-cosmetics-ai.pages.dev/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-05-13",
+      "updated_at": "2026-05-13"
+    },
     {
       "slug": "survey-claude-to-codex",
       "survey_number": 5,
