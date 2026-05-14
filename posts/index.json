@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-12T08:28:04.417Z",
-  "total_posts": 57,
+  "generated_at": "2026-05-14T00:00:13.131Z",
+  "total_posts": 58,
   "posts": [
     {
       "post_number": 1,
@@ -4214,6 +4214,74 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 58,
+      "slug": "260514-ai-superpower-time-lag",
+      "content_type": "essays",
+      "title_en": "Getting Smug About Using AI",
+      "title_ko": "AI 좀 쓴다고 꺼드럭 대기",
+      "summary_ko": "AI를 먼저 쓴다고 그게 곧 깊이는 아니다. 좋은 도구는 모두가 쓰게 되고, 남는 것은 그 도구가 키워줄 만한 경험과 고민이다.",
+      "summary_en": "Using AI early is not the same as depth. Good tools become common; what remains is the experience and judgment they can amplify.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI & Society",
+      "subfields": [
+        "ai tooling",
+        "organizational change",
+        "judgment"
+      ],
+      "key_concepts": [
+        "AI tooling",
+        "competitive advantage",
+        "judgment",
+        "organizational change"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "AI Tooling",
+        "Reflection"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-05-14T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI 도구를 먼저 쓰는 시간차는 깊이가 아니며, 진짜 가치는 오래 쌓은 경험과 판단에서 나온다",
+        "problem": "AI 도구를 남보다 먼저 익힌 사람들이 그 시간차를 자신의 우월함으로 착각하기 쉽다",
+        "solution": "좋은 도구는 곧 모두가 쓰게 된다는 점을 인정하고, 조직과 개인의 본질 가치가 무엇인지 다시 묻는다",
+        "key_result": "AI는 쌓아온 시간을 증폭할 수는 있지만, 쌓지 않은 시간을 대신 살아주지는 않는다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260415-democratization-of-research",
+          "type": "related"
+        },
+        {
+          "target": "260413-new-leverage",
+          "type": "related"
+        },
+        {
+          "target": "260422-work-that-isnt",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260415-democratization-of-research",
+        "260413-new-leverage",
+        "260422-work-that-isnt"
+      ],
+      "taxonomy_primary": "ai/society",
+      "taxonomy_secondary": [
+        "ai/tooling"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -4957,6 +5025,21 @@
         "from": "2206-global-planning-contact",
         "to": "2509-tactile-sensing-distribution",
         "type": "sharesGoalWith"
+      },
+      {
+        "from": "260514-ai-superpower-time-lag",
+        "to": "260415-democratization-of-research",
+        "type": "related"
+      },
+      {
+        "from": "260514-ai-superpower-time-lag",
+        "to": "260413-new-leverage",
+        "type": "related"
+      },
+      {
+        "from": "260514-ai-superpower-time-lag",
+        "to": "260422-work-that-isnt",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -5099,7 +5182,8 @@
           32,
           44,
           47,
-          48
+          48,
+          58
         ],
         "core_concepts": [
           "Claude Code"
@@ -6251,6 +6335,18 @@
     ],
     "contact-mode-abstraction": [
       57
+    ],
+    "AI tooling": [
+      58
+    ],
+    "competitive advantage": [
+      58
+    ],
+    "judgment": [
+      58
+    ],
+    "organizational change": [
+      58
     ]
   },
   "domain_stats": {
@@ -6258,7 +6354,7 @@
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
-    "AI & Society": 4,
+    "AI & Society": 5,
     "Infra & Cost": 1,
     "Infra & Ops": 2,
     "ai-tooling": 2,
@@ -6280,7 +6376,7 @@
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 14,
     "ai/llm:secondary": 6,
-    "ai/society": 4,
+    "ai/society": 5,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
@@ -6297,9 +6393,10 @@
     "robotics/brain/rl-policy:secondary": 1,
     "robotics/brain/rl-policy": 1,
     "robotics/arm/force-control:secondary": 1,
+    "ai/tooling:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 32,
-    "ai": 12
+    "ai": 13
   }
 }
