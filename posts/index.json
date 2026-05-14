@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-14T00:00:13.131Z",
-  "total_posts": 58,
+  "generated_at": "2026-05-14T23:54:28.855Z",
+  "total_posts": 59,
   "posts": [
     {
       "post_number": 1,
@@ -4258,23 +4258,87 @@
       },
       "relations": [
         {
-          "target": "260415-democratization-of-research",
+          "target": "260413-new-leverage",
           "type": "related"
         },
         {
-          "target": "260413-new-leverage",
+          "target": "260415-democratization-of-research",
           "type": "related"
         },
         {
           "target": "260422-work-that-isnt",
           "type": "related"
+        },
+        {
+          "target": "260515-how-fast-should-we-adopt",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
-        "260415-democratization-of-research",
         "260413-new-leverage",
-        "260422-work-that-isnt"
+        "260415-democratization-of-research",
+        "260422-work-that-isnt",
+        "260515-how-fast-should-we-adopt"
+      ],
+      "taxonomy_primary": "ai/society",
+      "taxonomy_secondary": [
+        "ai/tooling"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 59,
+      "slug": "260515-how-fast-should-we-adopt",
+      "content_type": "essays",
+      "title_en": "How Fast Should We Adopt?",
+      "title_ko": "얼마나 빨리 받아들여야 할까?",
+      "summary_ko": "모든 AI 기능을 가장 빨리 배울 필요는 없다. 내 본업의 문제와 맞닿을 때 받아들이는 것이 가장 효율적일 수 있다.",
+      "summary_en": "Not every AI feature needs to be learned first. The right time is when it touches the real problem in your work.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI & Society",
+      "subfields": [
+        "ai tooling",
+        "learning timing",
+        "technology adoption"
+      ],
+      "key_concepts": [
+        "AI adoption",
+        "FOMO",
+        "learning timing",
+        "harness engineering",
+        "tooling fatigue"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "AI Tooling",
+        "Learning"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-05-15T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI 도구는 가장 먼저 배우는 것보다 내 본업에 필요한 타이밍에 배우는 것이 더 효율적일 수 있다",
+        "problem": "새 AI 기능이 나올 때마다 모두가 빨리 배워야 한다는 압박과 피로를 느낀다",
+        "solution": "기능과 방향을 구분하고, 본업의 근본 지표를 움직이는 시점에 도입한다",
+        "key_result": "FOMO는 뒤처짐의 증거가 아니라 자기 업의 속도와 남의 직업을 혼동할 때 생기는 신호다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260514-ai-superpower-time-lag",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260514-ai-superpower-time-lag"
       ],
       "taxonomy_primary": "ai/society",
       "taxonomy_secondary": [
@@ -5028,17 +5092,27 @@
       },
       {
         "from": "260514-ai-superpower-time-lag",
-        "to": "260415-democratization-of-research",
-        "type": "related"
-      },
-      {
-        "from": "260514-ai-superpower-time-lag",
         "to": "260413-new-leverage",
         "type": "related"
       },
       {
         "from": "260514-ai-superpower-time-lag",
+        "to": "260415-democratization-of-research",
+        "type": "related"
+      },
+      {
+        "from": "260514-ai-superpower-time-lag",
         "to": "260422-work-that-isnt",
+        "type": "related"
+      },
+      {
+        "from": "260514-ai-superpower-time-lag",
+        "to": "260515-how-fast-should-we-adopt",
+        "type": "related"
+      },
+      {
+        "from": "260515-how-fast-should-we-adopt",
+        "to": "260514-ai-superpower-time-lag",
         "type": "related"
       }
     ],
@@ -5183,7 +5257,8 @@
           44,
           47,
           48,
-          58
+          58,
+          59
         ],
         "core_concepts": [
           "Claude Code"
@@ -6347,6 +6422,21 @@
     ],
     "organizational change": [
       58
+    ],
+    "AI adoption": [
+      59
+    ],
+    "FOMO": [
+      59
+    ],
+    "learning timing": [
+      59
+    ],
+    "harness engineering": [
+      59
+    ],
+    "tooling fatigue": [
+      59
     ]
   },
   "domain_stats": {
@@ -6354,7 +6444,7 @@
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
-    "AI & Society": 5,
+    "AI & Society": 6,
     "Infra & Cost": 1,
     "Infra & Ops": 2,
     "ai-tooling": 2,
@@ -6376,7 +6466,7 @@
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 14,
     "ai/llm:secondary": 6,
-    "ai/society": 5,
+    "ai/society": 6,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
     "robotics/brain/vla:secondary": 1,
@@ -6393,10 +6483,10 @@
     "robotics/brain/rl-policy:secondary": 1,
     "robotics/brain/rl-policy": 1,
     "robotics/arm/force-control:secondary": 1,
-    "ai/tooling:secondary": 1,
+    "ai/tooling:secondary": 2,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 32,
-    "ai": 13
+    "ai": 14
   }
 }

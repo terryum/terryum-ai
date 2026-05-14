@@ -1,0 +1,65 @@
+{
+  "post_id": "260515-how-fast-should-we-adopt",
+  "slug": "260515-how-fast-should-we-adopt",
+  "post_number": 59,
+  "published_at": "2026-05-15T00:00:00Z",
+  "updated_at": "2026-05-15T00:00:00Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "얼마나 빨리 받아들여야 할까?",
+  "title_en": "How Fast Should We Adopt?",
+  "subtitle_ko": "늦게 배울수록 싸지는 지식도 있다",
+  "subtitle_en": "Some knowledge gets cheaper with time",
+  "summary_ko": "새 AI 기능을 볼 때마다 빨리 배워야 한다는 압박이 생긴다. 하지만 본업의 근본 지표를 움직이지 않는다면, 늦게 배우는 것이 오히려 더 싸고 효율적인 선택일 수 있다.",
+  "summary_en": "Every new AI feature creates pressure to learn it immediately. But if it does not move the core metrics of one’s real work, learning later can be the cheaper and more efficient choice.",
+  "card_summary_ko": "모든 AI 기능을 가장 빨리 배울 필요는 없다. 내 본업의 문제와 맞닿을 때 받아들이는 것이 가장 효율적일 수 있다.",
+  "card_summary_en": "Not every AI feature needs to be learned first. The right time is when it touches the real problem in your work.",
+  "tags": [
+    "Essays",
+    "AI",
+    "AI Tooling",
+    "Learning"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 8,
+  "domain": "AI & Society",
+  "subfields": [
+    "ai tooling",
+    "learning timing",
+    "technology adoption"
+  ],
+  "key_concepts": [
+    "AI adoption",
+    "FOMO",
+    "learning timing",
+    "harness engineering",
+    "tooling fatigue"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260514-ai-superpower-time-lag"
+  ],
+  "taxonomy_primary": "ai/society",
+  "taxonomy_secondary": [
+    "ai/tooling"
+  ],
+  "relations": [
+    {
+      "target": "260514-ai-superpower-time-lag",
+      "type": "related"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "AI 도구는 가장 먼저 배우는 것보다 내 본업에 필요한 타이밍에 배우는 것이 더 효율적일 수 있다",
+    "problem": "새 AI 기능이 나올 때마다 모두가 빨리 배워야 한다는 압박과 피로를 느낀다",
+    "solution": "기능과 방향을 구분하고, 본업의 근본 지표를 움직이는 시점에 도입한다",
+    "key_result": "FOMO는 뒤처짐의 증거가 아니라 자기 업의 속도와 남의 직업을 혼동할 때 생기는 신호다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
