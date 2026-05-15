@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-14T23:54:28.855Z",
+  "generated_at": "2026-05-15T00:16:13.298Z",
   "total_posts": 59,
   "posts": [
     {
@@ -4296,8 +4296,8 @@
       "title_ko": "얼마나 빨리 받아들여야 할까?",
       "summary_ko": "모든 AI 기능을 가장 빨리 배울 필요는 없다. 내 본업의 문제와 맞닿을 때 받아들이는 것이 가장 효율적일 수 있다.",
       "summary_en": "Not every AI feature needs to be learned first. The right time is when it touches the real problem in your work.",
-      "cover_image": "./cover.webp",
-      "cover_thumb": "./cover-thumb.webp",
+      "cover_image": "./cover-v2.webp",
+      "cover_thumb": "./cover-thumb-v2.webp",
       "domain": "AI & Society",
       "subfields": [
         "ai tooling",
