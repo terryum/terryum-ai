@@ -1,0 +1,52 @@
+{
+  "post_id": "260522-ai-agent-outcome-operations",
+  "slug": "260522-ai-agent-outcome-operations",
+  "post_number": 60,
+  "published_at": "2026-05-23T09:27:04Z",
+  "updated_at": "2026-05-23T09:27:04Z",
+  "status": "published",
+  "content_type": "notes",
+  "visibility": "public",
+  "tags": [
+    "Notes",
+    "AI Agents",
+    "Business Strategy",
+    "Workflow Automation",
+    "Vertical SaaS"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 7,
+  "source": "chatgpt",
+  "source_url": "https://chatgpt.com/share/6a0f9f81-aef8-83ab-a4e0-270b7d69bb21",
+  "source_captured_at": "2026-05-23T09:27:04Z",
+  "domain": "ai-tooling",
+  "subfields": [
+    "agentic-workflows",
+    "vertical-saas",
+    "business-models"
+  ],
+  "key_concepts": [
+    "ai-agent",
+    "outcome-operations",
+    "vertical-saas",
+    "service-bureau",
+    "workflow-automation",
+    "governance"
+  ],
+  "related_posts": [],
+  "ai_summary": {
+    "one_liner": "AI agent 시대의 장기 수익은 도구 사용 능력이 아니라 업무 결과를 검증 가능하게 끝내는 운영 책임에서 나온다.",
+    "problem": "AI agent가 코딩과 사무 자동화를 싸게 만들면, 단순 대행·교육·vertical SaaS 중 어디에 오래가는 사업 기회가 생기는가.",
+    "solution": "계산기와 컴퓨터 확산기의 가치 이동을 대응시켜 보고, vertical SaaS와 순수 대행 사이의 managed agentic operations 구조를 도출한다.",
+    "key_result": "방어력은 UI나 프롬프트가 아니라 권한·감사로그·예외 처리 데이터셋·SLA·cross-customer 운영 학습에 생긴다.",
+    "limitations": [
+      "ChatGPT 대화 요약 기반",
+      "대화 안의 외부 출처 수치와 인용은 별도 fact-check 필요"
+    ]
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

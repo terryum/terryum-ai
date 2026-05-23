@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-15T00:16:13.298Z",
-  "total_posts": 59,
+  "generated_at": "2026-05-23T09:32:51.306Z",
+  "total_posts": 60,
   "posts": [
     {
       "post_number": 1,
@@ -4346,6 +4346,61 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 60,
+      "slug": "260522-ai-agent-outcome-operations",
+      "content_type": "notes",
+      "title_en": "Where Money Moves in the AI Agent Era",
+      "title_ko": "AI agent 시대의 돈은 업무 결과를 책임지는 곳에 있다",
+      "summary_ko": "계산기에서 AI agent까지, 돈은 도구가 아니라 업무 결과를 책임지는 곳으로 이동한다.",
+      "summary_en": "From calculators to AI agents, value moves from tools to accountable workflow outcomes.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "ai-tooling",
+      "subfields": [
+        "agentic-workflows",
+        "vertical-saas",
+        "business-models"
+      ],
+      "key_concepts": [
+        "ai-agent",
+        "outcome-operations",
+        "vertical-saas",
+        "service-bureau",
+        "workflow-automation",
+        "governance"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Notes",
+        "AI Agents",
+        "Business Strategy",
+        "Workflow Automation",
+        "Vertical SaaS"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-05-23T09:27:04Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI agent 시대의 장기 수익은 도구 사용 능력이 아니라 업무 결과를 검증 가능하게 끝내는 운영 책임에서 나온다.",
+        "problem": "AI agent가 코딩과 사무 자동화를 싸게 만들면, 단순 대행·교육·vertical SaaS 중 어디에 오래가는 사업 기회가 생기는가.",
+        "solution": "계산기와 컴퓨터 확산기의 가치 이동을 대응시켜 보고, vertical SaaS와 순수 대행 사이의 managed agentic operations 구조를 도출한다.",
+        "key_result": "방어력은 UI나 프롬프트가 아니라 권한·감사로그·예외 처리 데이터셋·SLA·cross-customer 운영 학습에 생긴다.",
+        "limitations": [
+          "ChatGPT 대화 요약 기반",
+          "대화 안의 외부 출처 수치와 인용은 별도 fact-check 필요"
+        ]
+      },
+      "relations": [],
+      "idea_status": null,
+      "related_posts": [],
+      "taxonomy_primary": null,
+      "taxonomy_secondary": [],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -5860,7 +5915,8 @@
       27
     ],
     "ai-agent": [
-      27
+      27,
+      60
     ],
     "self-replication": [
       27
@@ -6437,6 +6493,21 @@
     ],
     "tooling fatigue": [
       59
+    ],
+    "outcome-operations": [
+      60
+    ],
+    "vertical-saas": [
+      60
+    ],
+    "service-bureau": [
+      60
+    ],
+    "workflow-automation": [
+      60
+    ],
+    "governance": [
+      60
     ]
   },
   "domain_stats": {
@@ -6447,7 +6518,7 @@
     "AI & Society": 6,
     "Infra & Cost": 1,
     "Infra & Ops": 2,
-    "ai-tooling": 2,
+    "ai-tooling": 3,
     "Infrastructure": 1,
     "Self & Reflection": 1,
     "AI/ML": 1,
