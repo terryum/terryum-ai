@@ -1,6 +1,94 @@
 {
-  "next_survey_number": 8,
+  "next_survey_number": 9,
   "surveys": [
+    {
+      "slug": "survey-llm-wiki-to-ai-scientist",
+      "survey_number": 8,
+      "title": {
+        "ko": "LLM 위키에서 AI 사이언티스트까지",
+        "en": "From LLM Wiki to AI Scientist"
+      },
+      "description": {
+        "ko": "Karpathy의 파일 기반 LLM 위키에서 폐쇄루프 AI 사이언티스트까지, AI 에이전트 기반 연구방법론을 12장으로 정리한 서베이. 4-레이어 분류(LLM Wiki / Paper-to-Agent / Research Associate / AI Scientist) × 6-Level 성숙도 로드맵, 2026-04 LLM Wiki 폭발의 OSS 매트릭스, Sakana 2408에서 Anthropic AAR·Karpathy autoresearch·Google Co-Scientist까지의 계보, 그리고 자체 LLM 없이 Claude Code/Codex + Obsidian만으로 외장두뇌를 짓는 튜토리얼.",
+        "en": "A 12-chapter survey of AI-agent-driven research methodology, from Karpathy's file-based LLM Wiki to closed-loop AI Scientist systems. Covers the four-layer taxonomy (LLM Wiki / Paper-to-Agent / Research Associate / AI Scientist) × six-level maturity roadmap, the April-2026 LLM Wiki OSS explosion matrix, the lineage from Sakana 2408 through Anthropic AAR, Karpathy autoresearch, and Google Co-Scientist, and a tutorial for building an external brain with just Claude Code/Codex + Obsidian."
+      },
+      "cover_image": "/images/projects/llm-wiki-to-ai-scientist-cover.webp",
+      "tech_stack": [
+        "LLM Wiki",
+        "AI Scientist",
+        "Claude Code",
+        "Codex",
+        "Obsidian",
+        "Survey"
+      ],
+      "toc": [
+        {
+          "ko": "패러다임 시프트",
+          "en": "Paradigm Shift"
+        },
+        {
+          "ko": "4-레이어 분류",
+          "en": "Four-Layer Taxonomy"
+        },
+        {
+          "ko": "시간선·6-Level",
+          "en": "Timeline & 6 Levels"
+        },
+        {
+          "ko": "Karpathy 패턴",
+          "en": "Karpathy Pattern"
+        },
+        {
+          "ko": "OSS 매트릭스",
+          "en": "OSS Matrix"
+        },
+        {
+          "ko": "연구용 스키마",
+          "en": "Research Schema"
+        },
+        {
+          "ko": "Scientist 계보",
+          "en": "Scientist Lineage"
+        },
+        {
+          "ko": "자율 실험 루프",
+          "en": "autoresearch & AAR"
+        },
+        {
+          "ko": "분야별 실전",
+          "en": "Domain Cases"
+        },
+        {
+          "ko": "외장 두뇌 시작",
+          "en": "Start Building"
+        },
+        {
+          "ko": "워크플로우 사례",
+          "en": "A Worked Example"
+        },
+        {
+          "ko": "단계별 로드맵",
+          "en": "Maturity Roadmap"
+        }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://llm-wiki-to-ai-scientist.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys"
+        }
+      ],
+      "embed_url": "https://llm-wiki-to-ai-scientist.pages.dev/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-05-23",
+      "updated_at": "2026-05-23"
+    },
     {
       "slug": "survey-microbiome-cosmetics-ai",
       "survey_number": 7,
@@ -21,18 +109,54 @@
         "Survey"
       ],
       "toc": [
-        { "ko": "발효의 한계", "en": "Fermentation Limits" },
-        { "ko": "피부 균총 지도", "en": "Skin Microbiome Map" },
-        { "ko": "NGS와 배양체학", "en": "NGS & Culturomics" },
-        { "ko": "AI 균주 스크리닝", "en": "AI Strain Screening" },
-        { "ko": "AlphaFold 이후", "en": "After AlphaFold" },
-        { "ko": "디지털 트윈", "en": "Microbiome Digital Twins" },
-        { "ko": "합성생물학 DBTL", "en": "Synthetic Biology DBTL" },
-        { "ko": "AI 제형 설계", "en": "AI Formulation Design" },
-        { "ko": "임상까지의 다리", "en": "From In Silico to Clinic" },
-        { "ko": "글로벌 화장품사", "en": "Global Cosmetic Firms" },
-        { "ko": "인접 산업 학습", "en": "Adjacent Industries" },
-        { "ko": "신규 연구 청사진", "en": "Blueprint for New R&D" }
+        {
+          "ko": "발효의 한계",
+          "en": "Fermentation Limits"
+        },
+        {
+          "ko": "피부 균총 지도",
+          "en": "Skin Microbiome Map"
+        },
+        {
+          "ko": "NGS와 배양체학",
+          "en": "NGS & Culturomics"
+        },
+        {
+          "ko": "AI 균주 스크리닝",
+          "en": "AI Strain Screening"
+        },
+        {
+          "ko": "AlphaFold 이후",
+          "en": "After AlphaFold"
+        },
+        {
+          "ko": "디지털 트윈",
+          "en": "Microbiome Digital Twins"
+        },
+        {
+          "ko": "합성생물학 DBTL",
+          "en": "Synthetic Biology DBTL"
+        },
+        {
+          "ko": "AI 제형 설계",
+          "en": "AI Formulation Design"
+        },
+        {
+          "ko": "임상까지의 다리",
+          "en": "From In Silico to Clinic"
+        },
+        {
+          "ko": "글로벌 화장품사",
+          "en": "Global Cosmetic Firms"
+        },
+        {
+          "ko": "인접 산업 학습",
+          "en": "Adjacent Industries"
+        },
+        {
+          "ko": "신규 연구 청사진",
+          "en": "Blueprint for New R&D"
+        }
       ],
       "links": [
         {
@@ -47,8 +171,8 @@
       ],
       "embed_url": "https://microbiome-cosmetics-ai.pages.dev/",
       "status": "active",
-      "featured": true,
-      "order": 0,
+      "featured": false,
+      "order": 1,
       "published_at": "2026-05-13",
       "updated_at": "2026-05-13"
     },
@@ -133,8 +257,8 @@
       ],
       "embed_url": "https://survey-claude-to-codex.pages.dev/",
       "status": "active",
-      "featured": true,
-      "order": 0,
+      "featured": false,
+      "order": 1,
       "published_at": "2026-04-28",
       "updated_at": "2026-04-28"
     },
@@ -233,8 +357,8 @@
       ],
       "embed_url": "https://survey-humanoid-revolution.pages.dev/",
       "status": "active",
-      "featured": true,
-      "order": 0,
+      "featured": false,
+      "order": 1,
       "published_at": "2026-04-24",
       "updated_at": "2026-04-24"
     },
@@ -312,7 +436,7 @@
       "embed_url": "https://survey-snu-largescale-tactile-hand.pages.dev/",
       "status": "active",
       "featured": false,
-      "order": 1,
+      "order": 2,
       "published_at": "2026-04-07",
       "updated_at": "2026-04-07",
       "visibility": "group",
@@ -398,8 +522,8 @@
       ],
       "embed_url": "https://survey-korea-vla-agentic-robotics.pages.dev/",
       "status": "active",
-      "featured": true,
-      "order": 0,
+      "featured": false,
+      "order": 1,
       "published_at": "2026-04-08",
       "updated_at": "2026-04-08"
     },
@@ -487,8 +611,8 @@
       ],
       "embed_url": "https://survey-robot-hand-tactile-sensor.pages.dev/",
       "status": "active",
-      "featured": true,
-      "order": 0,
+      "featured": false,
+      "order": 1,
       "published_at": "2026-04-01",
       "updated_at": "2026-04-08"
     },
@@ -558,7 +682,7 @@
       "embed_url": "https://physical-ai-manufacturing.pages.dev/",
       "status": "active",
       "featured": false,
-      "order": 1,
+      "order": 2,
       "published_at": "2026-04-28",
       "updated_at": "2026-04-28",
       "visibility": "group",
