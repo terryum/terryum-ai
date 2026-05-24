@@ -44,7 +44,7 @@
 ## 7) 컨텍스트 메모
 - R2 버킷: `terryum-ai-cache` (incremental cache), `terryum-ai-assets` (public) = `pub-0c3a2ab4c1e34dd1b7abc088a943482d.r2.dev`
 - 빌드/배포: GitHub push 시 CF Workers 자동 (~2분) + 그 직후 GC step 실행
-- GitHub 계정: **`gh auth switch --user terryum`** — 기본 활성은 `terry-cosmax` 인 경우가 많음
+- GitHub 계정: `terryum` 단일 계정 사용
 - 포트: 3040~3049
 - 월 비용: ~$3-5
 - 심링크 복원: `terry-surveys` clone 후 `scripts/link-private.sh` 1회 실행
