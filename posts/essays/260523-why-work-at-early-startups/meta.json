@@ -1,0 +1,58 @@
+{
+  "post_id": "260523-why-work-at-early-startups",
+  "slug": "260523-why-work-at-early-startups",
+  "post_number": 61,
+  "published_at": "2026-05-24T00:00:00Z",
+  "updated_at": "2026-05-24T00:00:00Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "왜 초기 스타트업에서 일해야 하는가?",
+  "title_en": "Why Work at an Early Startup?",
+  "subtitle_ko": "젊을 때 쌓아야 할 신뢰 자본",
+  "subtitle_en": "Trust capital compounds early",
+  "summary_ko": "초기 스타트업의 진짜 보상은 큰돈이나 화려한 이름이 아니다. 좋은 창업자와 초기 멤버를 가까이서 보고, 어려운 일을 함께 통과하며, 다음 기회로 이어지는 고신뢰 관계를 쌓는 일이다.",
+  "summary_en": "The real reward of an early startup is not money or a prestigious name. It is the chance to work close to strong founders and early teammates, pass through hard problems together, and build trust that carries into future opportunities.",
+  "card_summary_ko": "초기 스타트업의 보상은 직함보다 신뢰다. 좋은 사람 곁에서 어려운 일을 통과한 기록은 오래 작동한다.",
+  "card_summary_en": "The reward of an early startup is trust, not title. A record of passing through hard work with good people lasts.",
+  "tags": [
+    "Essays",
+    "Startup",
+    "Career",
+    "Trust"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 10,
+  "domain": "Startup",
+  "subfields": [
+    "early startup",
+    "career capital",
+    "founder apprenticeship"
+  ],
+  "key_concepts": [
+    "early-startup",
+    "earned-trust-capital",
+    "career-capital",
+    "operating-lineage",
+    "responsibility"
+  ],
+  "idea_status": null,
+  "related_posts": [],
+  "taxonomy_primary": "startup/career",
+  "taxonomy_secondary": [
+    "startup/organization"
+  ],
+  "relations": [],
+  "ai_summary": {
+    "one_liner": "초기 스타트업의 진짜 보상은 화려한 이름보다 좋은 사람 곁에서 쌓는 신뢰 자본이다",
+    "problem": "젊은 커리어에서 많은 사람이 큰 회사 이름, 체계, 사수라는 환상을 좇으며 가까운 배움과 신뢰의 기회를 놓친다",
+    "solution": "좋은 창업자와 초기 멤버를 가까이서 보고 어려운 일을 함께 통과하며 책임과 평판을 쌓는다",
+    "key_result": "스펙 몇 줄보다 함께 압력을 통과한 동료들의 책임의 증언이 장기 커리어의 이름표가 된다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
