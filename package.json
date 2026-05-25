@@ -19,7 +19,8 @@
     "sync-obsidian:init": "node scripts/sync-obsidian.mjs --init",
     "build:cf": "node scripts/clean-next.mjs && node scripts/generate-post-bodies.mjs && opennextjs-cloudflare build",
     "preview:cf": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy:cf": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:cf": "npm run build:cf && node scripts/deploy-cf-fast.mjs",
+    "deploy:cf:fast": "node scripts/deploy-cf-fast.mjs",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
