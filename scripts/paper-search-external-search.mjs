@@ -102,9 +102,22 @@ async function fetchArxiv(term, max) {
 }
 
 async function fetchSemanticScholar(term, max) {
+  const fields = [
+    'title',
+    'abstract',
+    'authors',
+    'year',
+    'venue',
+    'publicationVenue',
+    'citationCount',
+    'influentialCitationCount',
+    'externalIds',
+    'references.externalIds',
+    'citations.externalIds',
+  ].join(',');
   const url = `https://api.semanticscholar.org/graph/v1/paper/search`
             + `?query=${encodeURIComponent(term)}&limit=${max}`
-            + `&fields=title,abstract,authors,year,externalIds,references.externalIds,citations.externalIds`;
+            + `&fields=${fields}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Semantic Scholar ${res.status}`);
   const json = await res.json();
@@ -128,6 +141,9 @@ async function fetchSemanticScholar(term, max) {
       abstract: p.abstract || '',
       authors: (p.authors || []).map(a => a.name).filter(Boolean),
       year: p.year || null,
+      venue: p.venue || p.publicationVenue?.name || '',
+      citationCount: p.citationCount ?? null,
+      influentialCitationCount: p.influentialCitationCount ?? null,
       url: arxivId
         ? `https://arxiv.org/abs/${arxivId}`
         : doi ? `https://doi.org/${doi}`
@@ -159,6 +175,12 @@ function dedup(entries) {
       merged.source = merged.source === e.source ? merged.source : 'both';
       if (!merged.abstract && e.abstract) merged.abstract = e.abstract;
       if (!merged.year && e.year) merged.year = e.year;
+      if (!merged.venue && e.venue) merged.venue = e.venue;
+      merged.citationCount = Math.max(merged.citationCount ?? 0, e.citationCount ?? 0) || null;
+      merged.influentialCitationCount = Math.max(
+        merged.influentialCitationCount ?? 0,
+        e.influentialCitationCount ?? 0,
+      ) || null;
       for (const k of keys) byKey.set(k, merged);
     } else {
       for (const k of keys) byKey.set(k, e);
