@@ -1,0 +1,182 @@
+---
+locale: "en"
+title: "π₀.₇: A Steerable Generalist Robotic Foundation Model"
+summary: "Physical Intelligence introduces π₀.₇, a 5B-parameter VLA that is trained with rich context rather than language commands alone. The key move is to condition on subtask instructions, subgoal images, episode-quality metadata, and control mode, so mixed robot, human, web, failure, and autonomous rollout data can be used without averaging incompatible behaviors. The paper reports over 90% success on many seen tasks, 60-80% success on unseen tasks or unseen task-robot combinations, and 80% success on UR5e shirt folding, close to expert teleoperators at 80.6%."
+card_summary: "π₀.₇ is a 5B steerable VLA that uses language, subgoal images, and episode metadata to turn heterogeneous robot data into controllable behavior modes rather than a single averaged policy."
+terrys_memo: ""
+translation_of: "2604-pi0-7-steerable-generalist-vla:ko"
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "The first public π₀-line VLA from Physical Intelligence. π₀.₇ inherits this flow-based VLA and action-expert lineage, then expands it with richer context conditioning and broader data mixtures."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=pi0+Vision-Language-Action+Flow+Model+General+Robot+Control&btnG="
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "π₀.₆: a VLA That Learns From Experience"
+    author: "Ali Amin et al. (2025)"
+    description: "A RECAP study on improving π-line VLAs after deployment with experience and RL data. π₀.₇ absorbs specialist and rollout data through context metadata to improve out-of-the-box behavior."
+    arxiv_url: "https://arxiv.org/abs/2511.14759"
+    scholar_url: "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=a+VLA+That+Learns+From+Experience&btnG="
+    post_slug: "2511-pi0-6-recap"
+    category: "foundational"
+  - title: "Octo: An Open-Source Generalist Robot Policy"
+    author: "Ghosh et al. (2024)"
+    description: "An open-source generalist robot policy trained on Open X-Embodiment. It shares π₀.₇'s generalist-policy goal, while π₀.₇ pushes toward larger models, richer prompt conditioning, dexterity, and language following."
+    arxiv_url: "https://arxiv.org/abs/2405.12213"
+    scholar_url: "https://scholar.google.com/scholar?q=Octo+open-source+generalist+robot+policy"
+    project_url: "https://octo-models.github.io/"
+    post_slug: "2405-octo-generalist-policy"
+    category: "recent"
+  - title: "RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control"
+    author: "Brohan et al. (2023)"
+    description: "A representative early VLA work that transfers web knowledge into robot control. π₀.₇ continues the VLA direction but uses a flow-matching action expert and strengthens steerability through subgoal images and metadata."
+    arxiv_url: "https://arxiv.org/abs/2307.15818"
+    scholar_url: "https://scholar.google.com/scholar?q=RT-2+vision+language+action+models+transfer+web+knowledge"
+    category: "foundational"
+  - title: "Gemini Robotics: Bringing AI into the Physical World"
+    author: "Gemini Robotics Team et al. (2025)"
+    description: "A contemporary robot foundation model effort that brings large multimodal models into physical interaction. It is a useful recent comparison point for the broader scaling direction of generalist robot models."
+    arxiv_url: "https://arxiv.org/abs/2503.20020"
+    scholar_url: "https://scholar.google.com/scholar?q=Gemini+Robotics+Bringing+AI+into+the+Physical+World"
+    category: "recent"
+---
+
+## TL;DR
+
+π₀.₇ is a generalist VLA trained not only on what the robot should do, but also on how and at what quality it should do it. Rich context conditioning lets the model use failures, low-quality demonstrations, autonomous rollouts, human videos, and web data without collapsing them into an averaged behavior, producing steerable generalization across unseen environments, embodiments, and task combinations.
+
+## Problem
+
+Scaling VLAs has not yet produced the kind of compositional generalization that language models show. If demonstrations from many robots, tasks, strategies, and quality levels are naively mixed, a policy can average incompatible modes and produce mediocre behavior. Failures and suboptimal autonomous data can even hurt performance. Recent systems such as π₀, Octo, and OpenVLA move toward generalist robot policies, but unseen instruction following, cross-embodiment transfer, long-horizon dexterity, and mixed-quality data utilization remain difficult to achieve in one model. This paper asks how to make the model understand and steer the strategy and quality encoded in the dataset, rather than merely ingesting more data.
+
+## Core Idea
+
+The core idea is to expand VLA context from a short language command into a **steerable multimodal prompt**.
+
+- **Subtask instructions**: intermediate semantic goals in addition to the overall task command.
+- **Subgoal images**: near-future images from a lightweight world model that specify what success should look like.
+- **Episode metadata**: labels for speed, quality score, and mistakes, separating different behavior modes in mixed-quality data.
+- **Control mode**: joint-level and end-effector actions are both included, with a prompt field selecting the mode at runtime.
+
+<Figure src="./fig-4.png" caption="Illustrations of some of the robots in the experiments. π0.7 is evaluated on bimanual mobile manipulators, static bimanual robots, and a bimanual UR5e setup for cross-embodiment experiments." number={4} />
+
+With this framing, a failed or slow demonstration is not just noise. It becomes conditional data for a lower-quality or slower strategy. At test time, metadata can be set toward high quality and no mistakes, steering the same model toward the desired mode.
+
+<Collapsible title="Method Details">
+
+π₀.₇ is an approximately 5B-parameter VLA combining a 4B VLM backbone, a MEM-style video history encoder, and an 860M-parameter action expert. It accepts up to four camera views with up to six history frames, plus up to three subgoal-image views. Image and history tokens use bidirectional attention, while following text tokens use causal attention.
+
+Action generation follows the π₀ lineage: a flow-matching action expert predicts continuous action chunks. Given observation and context $c$, training maximizes an approximate action likelihood:
+
+$$
+\log p(a \mid o, c)
+$$
+
+For subgoal-image training, the model uses both real future frames and generated future images to reduce train-test mismatch. Real subgoals are sampled from segment endpoints or uniformly from 0-4 seconds into the future; generated images are mixed in at scale. Component dropout is also central. Subgoal images appear in 25% of batches; when subgoal images are present, subtask instructions are dropped 30% of the time. Episode metadata is fully dropped 15% of the time, with each metadata component dropped independently with 5% probability.
+
+At test time, control mode and episode metadata are always provided. Metadata is usually set to high quality and no mistake. Subtask instructions and subgoal images are updated by a high-level policy or a human coach. VLA inference and subgoal generation run asynchronously, so the action model always consumes the latest available context.
+
+<Figure src="./fig-2.png" caption="Architecture overview. π0.7 is a 5B VLA with a 4B VLM backbone, a MEM-style video history encoder, and an 860M-parameter action expert, conditioned on language commands, episode metadata, and subgoal images." number={2} />
+
+</Collapsible>
+
+## Results
+
+- **Out-of-the-box dexterity**: On tasks such as making espresso, folding laundry, and box building, π₀.₇ matches task-specific π₀.₆/π₀.₆* specialists without task-specific post-training, and exceeds specialist throughput on some tasks.
+- **Instruction following**: Across 14 open-ended instruction-following scenarios in 4 unseen kitchens and 2 unseen bedrooms, π₀.₇ broadly outperforms π₀.₅ and π₀.₆.
+- **Cross-embodiment transfer**: The model discovers strategies adapted to target embodiments rather than simply imitating source behavior. On UR5e shirt folding, π₀.₇(GC) reaches 85.6% task progress and 80% success, close to expert teleoperators at 90.9% progress and 80.6% success.
+- **Mixed-quality data scaling**: With metadata, π₀.₇ keeps improving when trained on larger datasets even as average data quality decreases. Without metadata, adding lower-quality data can degrade performance.
+- **Unseen task coaching**: The model can be coached through unseen long-horizon tasks such as loading a sweet potato into an air fryer, then use those coaching episodes to train a high-level policy without additional teleoperation.
+
+<Figure src="./fig-6.png" caption="Out-of-the-box dexterity. π0.7 performs a range of dexterous manipulation tasks, including π0.6* tasks and “Robot Olympics” tasks, without task-specific fine-tuning." number={6} />
+
+<Figure src="./fig-18.png" caption="Scaling of generalization performance with diverse context and data. With metadata, π0.7 improves with larger datasets even when average data quality decreases; without rich conditioning, lower-quality data can hurt performance." number={18} />
+
+## Achievements and Limitations
+
+### What This Achieves
+
+- It treats **context conditioning as a data-scaling mechanism** for VLAs. With metadata, mixed strategy and mixed quality data can be used rather than aggressively filtered.
+- A single model demonstrates dexterity, instruction following, cross-embodiment transfer, language coaching, and mixed-quality data scaling.
+- Cross-embodiment transfer appears as target-adapted strategy discovery, not only source behavior mimicry.
+- Human coaching episodes can be converted into high-level prompting policies without collecting new low-level teleoperation data.
+
+### Limitations
+
+- **Author-stated**: Seen tasks often exceed 90% success, but unseen tasks or unseen task-robot combinations drop to roughly 60-80%. Zero-shot generalization still trails in-distribution performance.
+- **Author-stated**: In a very large heterogeneous dataset, it is difficult to determine which tasks are truly unseen. Some generalization may be remixing related skills seen under different labels or contexts.
+- 🤖 **Reproducibility**: The model scale, data mixture, annotation pipeline, robot fleet, and evaluation infrastructure include large proprietary components, making independent replication and fair comparison difficult.
+
+## KG enrichment
+
+```json
+{
+  "source_metadata": {
+    "slug": "2604-pi0-7-steerable-generalist-vla",
+    "arxiv_id": "2604.15483",
+    "source_url": "https://arxiv.org/abs/2604.15483",
+    "source_project_url": "https://www.pi.website/pi07"
+  },
+  "concepts": [
+    "VLA",
+    "robot-foundation-model",
+    "context-conditioning",
+    "subgoal-images",
+    "episode-metadata",
+    "cross-embodiment-transfer",
+    "language-coaching",
+    "compositional-generalization"
+  ],
+  "methodology": [
+    "flow-matching",
+    "multimodal-prompting",
+    "episode-metadata-conditioning",
+    "subgoal-image-conditioning",
+    "classifier-free-guidance",
+    "distillation-from-autonomous-data"
+  ],
+  "relation_candidates": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "extends",
+      "evidence": "π₀.₇ inherits the flow-based VLA/action-expert lineage and expands it with richer context conditioning.",
+      "confidence": "high"
+    },
+    {
+      "target": "2511-pi0-6-recap",
+      "type": "extends",
+      "evidence": "π₀.₇ uses data from prior autonomous/RL-specialist evaluations and compares directly against π₀.₆/π₀.₆* specialist policies.",
+      "confidence": "high"
+    },
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "sharesGoalWith",
+      "evidence": "Both target generalist robot policies across tasks and embodiments, though π₀.₇ emphasizes richer prompt steering and dexterous out-of-the-box behavior.",
+      "confidence": "medium"
+    }
+  ],
+  "research_gaps": [
+    "How can the field benchmark truly unseen robot tasks when large proprietary training mixtures may contain related skills under different labels?",
+    "Can context metadata be standardized enough for open datasets, or is this advantage tied to private annotation pipelines?",
+    "How far does subgoal-image prompting scale when generated goals are physically plausible but execution-critical details are not visually obvious?"
+  ],
+  "future_directions": [
+    "Use the model's steerability for fast test-task adaptation through language coaching or autonomous RL.",
+    "Build open metadata schemas for robot demonstrations so mixed-quality data can be used without aggressive filtering.",
+    "Compare language-only, metadata-only, and generated-subgoal prompting across reproducible open robot benchmarks."
+  ],
+  "survey_hooks": [
+    "robot-foundation-model scaling",
+    "context-conditioned robot policies",
+    "cross-embodiment generalization",
+    "data quality metadata for robot learning"
+  ],
+  "next_reading": [
+    "2410-pi0-vla-flow-model",
+    "2511-pi0-6-recap",
+    "2405-octo-generalist-policy",
+    "2412-robovlms-what-matters"
+  ]
+}
+```

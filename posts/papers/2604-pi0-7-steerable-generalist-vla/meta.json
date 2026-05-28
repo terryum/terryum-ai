@@ -1,0 +1,331 @@
+{
+  "post_id": "2604-pi0-7-steerable-generalist-vla",
+  "slug": "2604-pi0-7-steerable-generalist-vla",
+  "post_number": 62,
+  "published_at": "2026-05-28T06:25:22Z",
+  "updated_at": "2026-05-28T06:25:22Z",
+  "status": "published",
+  "content_type": "papers",
+  "domain": "robotics",
+  "subfields": [
+    "foundation-model",
+    "vla",
+    "robot-manipulation",
+    "cross-embodiment",
+    "compositional-generalization"
+  ],
+  "key_concepts": [
+    "VLA",
+    "robot-foundation-model",
+    "context-conditioning",
+    "subgoal-images",
+    "episode-metadata",
+    "cross-embodiment-transfer",
+    "language-coaching",
+    "compositional-generalization",
+    "flow-matching",
+    "MEM"
+  ],
+  "methodology": [
+    "flow-matching",
+    "context-conditioning",
+    "multimodal-prompting",
+    "episode-metadata-conditioning",
+    "subgoal-image-conditioning",
+    "classifier-free-guidance",
+    "distillation-from-autonomous-data"
+  ],
+  "contribution_type": "system",
+  "relations": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "extends"
+    },
+    {
+      "target": "2511-pi0-6-recap",
+      "type": "extends"
+    },
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "sharesGoalWith"
+    },
+    {
+      "target": "2412-robovlms-what-matters",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2602-habilis-vla-on-device",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "Steerable 5B VLA robot foundation model that uses rich context conditioning to combine mixed-quality robot, human, and web data into broad out-of-the-box generalization",
+    "problem": "Prior VLAs improve with scale but still struggle to recombine skills, follow complex instructions, transfer across embodiments, and use mixed-quality or suboptimal data without averaging incompatible behaviors.",
+    "solution": "Train a 5B flow-based VLA with diverse prompt context: language/subtask instructions, subgoal images, episode-quality metadata, control-mode labels, and dropout so the model can be steered at test time.",
+    "key_result": "Seen tasks often exceed 90% success, unseen tasks or unseen task-robot combinations land around 60-80%; the model matches or exceeds specialized π0.6/π0.6* policies on several dexterous tasks and reaches 80% success in UR5e shirt folding, close to expert teleoperators at 80.6%.",
+    "limitations": [
+      "Zero-shot generalization remains lower than in-distribution performance.",
+      "It is hard to prove which tasks are truly unseen in such a large heterogeneous dataset.",
+      "The training data, annotations, and large-scale evaluation infrastructure are not reproducible from the paper alone."
+    ]
+  },
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "Physical Intelligence",
+    "Compositional Generalization",
+    "Cross-Embodiment",
+    "Manipulation"
+  ],
+  "display_tags": [
+    "VLA",
+    "Robot Foundation Model",
+    "Physical Intelligence",
+    "Cross-Embodiment"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Architecture overview. The π0.7 model is a 5B-parameter VLA consisting of a 4B VLM backbone, a MEM-style video history encoder and a 860M parameter action expert. The model’s context includes multiple distinct modalities, including language commands, episode metadata that describes the data quality and strategy, and multimodal inputs such as subgoal images. At runtime, the language commands are produced by a high-level semantic policy based on the same architecture, and the subgoal images are produced by a lightweight world model based on the BAGEL image generation model [105].",
+  "thumb_source": "./fig-4.png",
+  "thumb_position": "centre",
+  "reading_time_min": 13,
+  "source_url": "https://arxiv.org/abs/2604.15483",
+  "source_project_url": "https://www.pi.website/pi07",
+  "source_date": "2026-04-16",
+  "source_title": "π₀.₇: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities",
+  "source_author": "Physical Intelligence et al.",
+  "source_type": "arXiv",
+  "arxiv_id": "2604.15483",
+  "doi": "10.48550/arXiv.2604.15483",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=a+Steerable+Generalist+Robotic+Foundation+Model+with+Emergent+Capabilities&btnG=",
+  "source_authors_full": [
+    "Physical Intelligence",
+    "Bo Ai",
+    "Ali Amin",
+    "Raichelle Aniceto",
+    "Ashwin Balakrishna",
+    "Greg Balke",
+    "Kevin Black",
+    "George Bokinsky",
+    "Shihao Cao",
+    "Thomas Charbonnier",
+    "Vedant Choudhary",
+    "Foster Collins",
+    "Ken Conley",
+    "Grace Connors",
+    "James Darpinian",
+    "Karan Dhabalia",
+    "Maitrayee Dhaka",
+    "Jared DiCarlo",
+    "Danny Driess",
+    "Michael Equi",
+    "Adnan Esmail",
+    "Yunhao Fang",
+    "Chelsea Finn",
+    "Catherine Glossop",
+    "Thomas Godden",
+    "Ivan Goryachev",
+    "Lachlan Groom",
+    "Haroun Habeeb",
+    "Hunter Hancock",
+    "Karol Hausman",
+    "Gashon Hussein",
+    "Victor Hwang",
+    "Brian Ichter",
+    "Connor Jacobsen",
+    "Szymon Jakubczak",
+    "Rowan Jen",
+    "Tim Jones",
+    "Gregg Kammerer",
+    "Ben Katz",
+    "Liyiming Ke",
+    "Mairbek Khadikov",
+    "Chandra Kuchi",
+    "Marinda Lamb",
+    "Devin LeBlanc",
+    "Brendon LeCount",
+    "Sergey Levine",
+    "Xinyu Li",
+    "Adrian Li-Bell",
+    "Vladislav Lialin",
+    "Zhonglin Liang",
+    "Wallace Lim",
+    "Yao Lu",
+    "Enyu Luo",
+    "Vishnu Mano",
+    "Nandan Marwaha",
+    "Aikys Mongush",
+    "Liam Murphy",
+    "Suraj Nair",
+    "Tyler Patterson",
+    "Karl Pertsch",
+    "Allen Z. Ren",
+    "Gavin Schelske",
+    "Charvi Sharma",
+    "Baifeng Shi",
+    "Lucy Xiaoyang Shi",
+    "Laura Smith",
+    "Jost Tobias Springenberg",
+    "Kyle Stachowicz",
+    "Will Stoeckle",
+    "Jiaming Tang",
+    "Jimmy Tanner",
+    "Shalom Tekeste",
+    "Marcel Torne",
+    "Kyle Vedder",
+    "Quan Vuong",
+    "Anna Walling",
+    "Haohuan Wang",
+    "Jason Wang",
+    "XuDong Wang",
+    "Chris Whalen",
+    "Samuel Whitmore",
+    "Blake Williams",
+    "Charles Xu",
+    "Sukwon Yoo",
+    "Lili Yu",
+    "Wuming Zhang",
+    "Zhuoyang Zhang",
+    "Ury Zhilinsky"
+  ],
+  "figures": [
+    {
+      "src": "./fig-2.png",
+      "caption": "Architecture overview. The π0.7 model is a 5B-parameter VLA consisting of a 4B VLM backbone, a MEM-style video history encoder and a 860M parameter action expert. The model’s context includes multiple distinct modalities, including language commands, episode metadata that describes the data quality and strategy, and multimodal inputs such as subgoal images. At runtime, the language commands are produced by a high-level semantic policy based on the same architecture, and the subgoal images are produced by a lightweight world model based on the BAGEL image generation model [105].",
+      "caption_ko": "아키텍처 개요. π0.7 모델은 4B VLM 백본, MEM 스타일 비디오 히스토리 인코더, 860M 파라미터 action expert로 구성된 5B 파라미터 VLA다. 모델 컨텍스트에는 언어 명령, 데이터 품질과 전략을 설명하는 episode metadata, subgoal image 같은 멀티모달 입력이 포함된다. 런타임에서는 같은 아키텍처 기반의 high-level semantic policy가 언어 명령을 만들고, BAGEL 이미지 생성 모델 기반의 경량 world model이 subgoal image를 만든다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Prompt overview. π0.7 uses diverse modalities of context in the prompt, including: subtask instructions, subgoal images, and episode metadata. We train the model with dropout for each component, and then prompt the model flexibly combining modalities. For example, when using the UR5e bimanual manipulator to fold a shirt, we use subgoal image and metadata prompting.",
+      "caption_ko": "프롬프트 개요. π0.7은 subtask instruction, subgoal image, episode metadata 등 다양한 컨텍스트 모달리티를 프롬프트에 사용한다. 각 구성요소에 dropout을 적용해 학습하고, 런타임에는 모달리티를 유연하게 조합해 프롬프트한다. 예를 들어 UR5e 양팔 매니퓰레이터로 셔츠를 접을 때 subgoal image와 metadata prompting을 사용한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Illustrations of some of the robots in our experiments. We evaluate π0.7 on a variety of robots, including bimanual mobile manipulators (left), static bimanual robots (middle), and a bimanual UR5e setup (right) that we use for cross-embodiment experiments.",
+      "caption_ko": "실험에 사용한 일부 로봇 예시. π0.7은 양팔 모바일 매니퓰레이터(왼쪽), 정적 양팔 로봇(가운데), cross-embodiment 실험에 사용한 양팔 UR5e 셋업(오른쪽) 등 다양한 로봇에서 평가된다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Illustration of selected evaluation tasks. We evaluate π0.7 on a number of tasks, and two of the more longer-horizon ones are visualized here. For some tasks such as “Take Out Trash”, we provide a coarse instruction like “take out the trash” and π0.7 performs the full long-horizon task. For other tasks which do not appear in the training data for π0.7 such as “Toasting a Bagel”, we can leverage the strong language following capabilities of π0.7 to coach it to perform the task with a series of detailed instructions that break down the task step-by-step.",
+      "caption_ko": "선별된 평가 태스크 예시. π0.7은 여러 태스크에서 평가되며, 여기에는 더 긴 horizon을 가진 두 태스크가 시각화되어 있다. “Take Out Trash”처럼 일부 태스크에는 “take out the trash” 같은 거친 명령만 제공하고 π0.7이 전체 장기 태스크를 수행한다. “Toasting a Bagel”처럼 학습 데이터에 없는 태스크는 π0.7의 언어 추종 능력을 활용해 세부 단계별 명령으로 코칭할 수 있다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Out-of-the-box dexterity: π0.7 can perform a wide range of highly dexterous tasks directly out of the box. We consider tasks from π0.6∗ [50] (top row) and a number of other dexterous tasks including ones from the “Robot Olympics” experiments (bottom row). For the tasks from π0.6∗, we report success rate and normalized throughput (relative to the specialist model; raw throughput means successes per hour), while for other tasks we report task progress. We find that the same π0.7 model can match the performance of the task-specific post-trained specialist policy from π0.6∗ or π0.6 for each of these tasks, and even achieve higher throughput than the RL specialists in diverse laundry folding and box building.",
+      "caption_ko": "Out-of-the-box dexterity. π0.7은 다양한 고난도 정교 조작 태스크를 별도 파인튜닝 없이 수행할 수 있다. 위 행은 π0.6* 태스크, 아래 행은 “Robot Olympics” 실험을 포함한 다른 정교 조작 태스크를 다룬다. π0.6* 태스크에는 성공률과 정규화 throughput을, 나머지 태스크에는 task progress를 보고한다. 같은 π0.7 모델이 각 태스크에서 task-specific post-trained specialist policy와 맞먹고, 다양한 세탁물 접기와 박스 조립에서는 RL specialist보다 더 높은 throughput도 달성한다.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Impact of prompt composition and evaluation data on out-of-the-box performance: We compare π0.7 with two ablations: one that does not include episode metadata in the context, π0.7 (no metadata), and another that does not include data from autonomous evaluation episodes during training, π0.7 (no eval data). We find that π0.7 outperforms both π0.7 (no metadata) and π0.7 (no eval data) across the board, with the gap most prominent in throughput. Throughput (successes/hour) here is normalized relative to π0.7.",
+      "caption_ko": "프롬프트 구성과 평가 데이터가 out-of-the-box 성능에 미치는 영향. π0.7을 episode metadata가 없는 ablation, 자율 평가 episode 데이터를 학습에서 제외한 ablation과 비교한다. π0.7은 전반적으로 두 ablation보다 우수하며, 특히 throughput에서 차이가 크다. 여기서 throughput은 π0.7 대비 정규화되어 있다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "Tasks that require memory: π0.7 can also perform tasks that require explicitly keeping track of prior context, achieving similar or better performance compared to the specialist policies with memory fine-tuned to some of the tasks in the MEM paper [37].",
+      "caption_ko": "메모리가 필요한 태스크. π0.7은 이전 컨텍스트를 명시적으로 추적해야 하는 태스크도 수행하며, MEM 논문의 일부 태스크에 memory fine-tuning된 specialist policy와 비슷하거나 더 나은 성능을 보인다.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Broad instruction following in novel environments: We evaluate π0.7 on 14 instruction following scenarios, each of which involve following a sequence of 3-6 open-ended instructions, across 4 unseen kitchen and 2 unseen bedroom environments. We report the instruction following success rate, the percentage of total instructions that were correctly followed across all evaluations. We find that π0.7 significantly outperforms π0.5 and π0.6 across the board, attaining high absolute success rates.",
+      "caption_ko": "새 환경에서의 폭넓은 instruction following. 4개의 unseen kitchen과 2개의 unseen bedroom 환경에서, 각각 3-6개의 open-ended instruction 시퀀스를 따르는 14개 시나리오로 π0.7을 평가한다. 전체 평가에서 올바르게 따른 instruction 비율을 성공률로 보고한다. π0.7은 π0.5와 π0.6을 전반적으로 크게 앞서며 높은 절대 성공률을 달성한다.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.png",
+      "caption": "Following complex referential instructions: π0.7 and prior models all succeed on the simpler re-arrangement instructions (instructions include “pick up the spoon”, “put the spoon to the left of the fork” and “put the spoon to the right of the fork”), but π0.7 performs significantly better on the complex and unusual instructions (instructions include “pick up the largest bowl on the table”, “pick up the object I would use to eat soup” and “pick up the fruit on the largest plate”). Including subgoal images generated by a lightweight world model (π0.7 (GC)) further boosts instruction following performance, making π0.7 significantly more capable at following complex instructions.",
+      "caption_ko": "복잡한 지시 표현 따르기. π0.7과 기존 모델은 단순 재배치 명령에는 모두 성공하지만, “테이블에서 가장 큰 그릇을 집어라”, “수프를 먹을 때 쓰는 물건을 집어라”, “가장 큰 접시 위의 과일을 집어라” 같은 복잡하고 비정형적인 명령에서는 π0.7이 훨씬 더 잘 수행한다. 경량 world model이 만든 subgoal image를 포함하면 instruction following 성능이 더 향상된다.",
+      "number": 10
+    },
+    {
+      "src": "./fig-11.png",
+      "caption": "Breaking dataset biases by following instructions: the improved language-following performance of π0.7 enables it to break strong dataset biases. Prior models struggle on these data bias challenge tasks, which require following instructions that contradict the pattern in the data (e.g., putting dishes in the trash and trash in the dish bin). π0.7, however, can follow instructions sufficiently well that it can break these strong biases to still perform the task. Notably, for the “Reverse Fridge to Microwave” task, including subgoal images from the world model in the context (π0.7(GC)) is critical for success.",
+      "caption_ko": "명령 추종으로 데이터셋 bias 깨기. π0.7의 향상된 언어 추종 성능은 강한 데이터셋 bias를 깨게 해준다. 기존 모델은 데이터 패턴과 반대되는 지시(예: 접시는 쓰레기통에, 쓰레기는 접시통에 넣기)를 따라야 하는 bias challenge task에서 어려움을 겪는다. π0.7은 지시를 충분히 잘 따라 이러한 강한 bias를 깨고 태스크를 수행할 수 있다. 특히 “Reverse Fridge to Microwave” 태스크에서는 world model의 subgoal image를 컨텍스트에 포함하는 것이 성공에 중요하다.",
+      "number": 11
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "Cross-embodiment transfer: Left: Both π0.7 and prior models achieve strong cross-embodiment transfer directly out of the box on simpler re-arrangement or repositioning style tasks. For example, for the “Table Setting” task, data was collected with a variety of different robots, and the task was tested on the static bimanual robot. All of the models performed well. For tasks that required transfer from the bimanual UR5e robot to the smaller static bimanual robot (“Bag In Backpack” and “Organize Tupperware”), the embodiment gap is larger, as there is only one source robot that is bigger and heavier than the target robot. Here, π0.5 performed very poorly, but π0.6 still performs quite well. Transferring from the smaller static bimanual robot to the UR5e for the “Shirt Bagging” task introduces the largest embodiment gap, and here the π0.7 model significantly outperforms prior models. Right: for the more dexterous tasks that require folding towels and t-shirts, the embodiment gap poses an even greater challenge. Data for these tasks was collected with the smaller static bimanual robot, and the task was evaluated on the larger bimanual UR5e platform. π0.7 was able to transfer this task successfully, and improved even more when using visual subgoal images generated by our lightweight world model. In fact, task progress matches the “zero-shot” performance of our most experienced human teleoperators, who have operated a diverse set of robots and attempted this task on the UR5e for the first time.",
+      "caption_ko": "Cross-embodiment transfer. 왼쪽: 단순 재배치/위치 변경 태스크에서는 π0.7과 기존 모델 모두 별도 학습 없이 강한 cross-embodiment transfer를 보인다. “Table Setting”처럼 다양한 로봇으로 데이터를 수집하고 정적 양팔 로봇에서 테스트한 경우 모든 모델이 잘 수행한다. 하지만 UR5e 양팔 로봇에서 더 작은 정적 양팔 로봇으로 전이해야 하는 “Bag In Backpack”, “Organize Tupperware”에서는 embodiment gap이 커진다. 이때 π0.5는 매우 낮고 π0.6은 여전히 꽤 잘 수행한다. 가장 큰 gap인 작은 정적 양팔 로봇에서 UR5e로 “Shirt Bagging”을 전이하는 경우 π0.7이 기존 모델을 크게 앞선다. 오른쪽: 수건과 티셔츠 접기 같은 더 정교한 태스크에서는 embodiment gap이 더 어렵다. 작은 정적 양팔 로봇에서 수집한 데이터를 더 큰 UR5e 양팔 플랫폼에서 평가했으며, π0.7은 이 태스크를 성공적으로 전이했고 경량 world model의 visual subgoal image를 쓰면 더 향상되었다. task progress는 다양한 로봇을 조작해 본 숙련 teleoperator가 UR5e에서 처음 시도했을 때의 zero-shot 성능과 맞먹는다.",
+      "number": 12
+    },
+    {
+      "src": "./fig-13.png",
+      "caption": "Cross-embodiment transfer produces emergent strategies adapted to the target embodiment. (a) On the source robot, human teleoperators use one arm to hold the bag open while the other performs insertion. On the UR5e target robot, π0.7 instead discovers a single-arm pick-and-place strategy suited to the robot’s greater reach. (b) Human teleoperators approach the shirt with a tilted end-effector on the source robot, while π0.7 produces vertical grasps on the UR5e, which is more suitable for the larger robot’s arm placement. In both cases, the policy goes beyond replicating source behavior, discovering manipulation strategies for the task that are better suited to the target embodiment.",
+      "caption_ko": "Cross-embodiment transfer는 target embodiment에 맞는 emergent strategy를 만든다. (a) source robot에서는 사람이 한 팔로 가방을 벌리고 다른 팔로 물체를 넣지만, UR5e target robot에서 π0.7은 더 큰 reach에 맞는 single-arm pick-and-place 전략을 발견한다. (b) source robot에서는 사람이 기울어진 end-effector로 셔츠에 접근하지만, UR5e의 π0.7은 더 큰 팔 배치에 적합한 수직 grasp를 만든다. 두 경우 모두 source behavior를 단순 복제하지 않고 target embodiment에 더 알맞은 조작 전략을 발견한다.",
+      "number": 13
+    },
+    {
+      "src": "./fig-14.png",
+      "caption": "Example of language coaching: We can “teach” a new task to π0.7 by providing step-by-step verbal instructions. Because of its language following ability, π0.7 can perform new tasks successfully under user instruction, and these instructions can then by used to train a high-level policy that prompts π0.7 so that it can perform the task fully autonomously.",
+      "caption_ko": "언어 코칭 예시. 단계별 구두 지시를 제공해 π0.7에게 새 태스크를 “가르칠” 수 있다. π0.7은 언어 추종 능력 덕분에 사용자 지시 아래 새 태스크를 성공적으로 수행할 수 있고, 이 지시는 이후 π0.7을 프롬프트하는 high-level policy 학습에 사용되어 완전 자율 수행으로 이어질 수 있다.",
+      "number": 14
+    },
+    {
+      "src": "./fig-15.png",
+      "caption": "Coaching to perform new long-horizon tasks: Because π0.7 can follow language instructions effectively, even for unfamiliar skills, it can be “coached” to perform a number of unseen, longer horizon tasks both when conditioned on language and generated subgoal images (π0.7 (GC)). Prior models generally lack the language following ability needed to follow the coaching commands, and thus achieve very poor performance.",
+      "caption_ko": "새로운 long-horizon 태스크를 위한 코칭. π0.7은 익숙하지 않은 skill에 대해서도 언어 지시를 효과적으로 따르기 때문에, 언어와 생성된 subgoal image로 조건화되었을 때 여러 unseen long-horizon task를 코칭받아 수행할 수 있다. 기존 모델은 코칭 명령을 따르는 데 필요한 언어 추종 능력이 부족해 매우 낮은 성능을 보인다.",
+      "number": 15
+    },
+    {
+      "src": "./fig-16.png",
+      "caption": "Acquiring new autonomous capabilities with coaching: We can use the coaching episodes collected for a number of different unseen tasks to train a high-level policy to automatically prompt π0.7 in accordance with the coaching episodes. This allows us to create fully autonomous policies for these tasks (π0.7 (autonomous)) that closely match the performance of the policy with live human coaching (π0.7 (coaching)) without collecting any additional data with teleoperation or any other kind of low-level actions.",
+      "caption_ko": "코칭으로 새로운 자율 능력 획득. 여러 unseen task에서 수집한 coaching episode를 사용해, coaching episode에 맞춰 π0.7을 자동으로 프롬프트하는 high-level policy를 학습할 수 있다. 이를 통해 teleoperation이나 다른 low-level action 데이터를 추가로 수집하지 않고도 live human coaching 정책과 거의 비슷한 fully autonomous policy를 만들 수 있다.",
+      "number": 16
+    },
+    {
+      "src": "./fig-17.png",
+      "caption": "Performing new short-horizon tasks: π0.7 can perform a number of new short-horizon tasks directly out of the box, including scooping rice into a rice cooker, spinning various objects such as a gear set and desk fan, and wiping down objects with a cloth, such as a ruler and headphones, despite no data being collected for any of these tasks. π0.7 shows roughly equally strong performance when conditioned directly on language instructions (π0.7) or generated image goals (π0.7 (GC)).",
+      "caption_ko": "새로운 short-horizon task 수행. π0.7은 해당 태스크 데이터를 전혀 수집하지 않았음에도, 밥솥에 쌀을 퍼 넣기, 기어 세트와 탁상 선풍기 같은 물체 회전시키기, 자와 헤드폰을 천으로 닦기 같은 여러 새 short-horizon task를 바로 수행할 수 있다. 언어 지시로 직접 조건화하거나 생성 이미지 goal로 조건화했을 때 모두 비슷하게 강한 성능을 보인다.",
+      "number": 17
+    },
+    {
+      "src": "./fig-18.png",
+      "caption": "Scaling of generalization performance with diverse context and data: Left: We find that π0.7 (with metadata) can continuously improve its performance when it is trained on larger datasets, even when the average quality of the data actually decreases. By contrast, without training on rich conditioning information, we find that π0.7 (without metadata) actually can degrade in performance as more lower quality data is introduced. Right: When π0.7 is trained without our robot data with the highest task diversity, its performance degrades substantially. This suggests that π0.7 is able to utilize the task diversity in our robot data to drive substantial improvements in compositional task generalization.",
+      "caption_ko": "다양한 컨텍스트와 데이터에 따른 generalization 성능 스케일링. 왼쪽: metadata가 있는 π0.7은 평균 데이터 품질이 낮아지더라도 더 큰 데이터셋으로 학습할 때 성능이 지속적으로 향상된다. 반대로 rich conditioning 없이 학습하면 낮은 품질 데이터가 늘어날수록 성능이 오히려 떨어질 수 있다. 오른쪽: task diversity가 가장 높은 robot data를 제거하면 성능이 크게 하락한다. 이는 π0.7이 robot data의 task diversity를 활용해 compositional task generalization을 크게 개선할 수 있음을 시사한다.",
+      "number": 18
+    },
+    {
+      "src": "./fig-19.png",
+      "caption": "The π0.7 model and its world model (for generating subgoal images) use several different nontrivial attention patterns during training and inference. From top left: in absence of image goals we use the same attention patterns as in π0.5, with global bidirectional attention between embeddings for all memory-aware image views. Note that the FAST tokens (only available at training time) and the flow actions do not attend to each other. When image goals are present, we include them as an additional block-causal bidirectional block, after the text prompt. When we do classifier-free guidance (at inference time), we pack both the positive and negative example into the same sequence for efficient inference by constructing an “attention tree” with two branches (positive and negative), which do not attend to one another. Following BAGEL, at training time the world model receives three copies of the image, each of which is block-bidirectional within the multiview group: current observation, encoded with ViT; current observation encoded with VAE; noisy image goal encoded with VAE. The world model uses a similar inference-time CFG trick, albeit with a more complex mask because it has three CFG groups rather than two.",
+      "caption_ko": "π0.7 모델과 subgoal image 생성을 위한 world model은 학습과 추론에서 여러 비자명한 attention pattern을 사용한다. 이미지 goal이 없을 때는 π0.5와 같은 attention pattern을 쓰며, 모든 memory-aware image view embedding 사이에 global bidirectional attention을 둔다. 학습 때만 있는 FAST token과 flow action은 서로 attend하지 않는다. 이미지 goal이 있으면 text prompt 뒤에 추가 block-causal bidirectional block으로 포함한다. 추론 시 classifier-free guidance를 할 때는 효율적인 추론을 위해 positive와 negative 예시를 같은 sequence에 pack하고, 서로 attend하지 않는 두 branch의 “attention tree”를 구성한다. BAGEL을 따라 world model은 학습 시 현재 관측 ViT encoding, 현재 관측 VAE encoding, noisy image goal VAE encoding이라는 세 image copy를 받으며, 각 copy는 multiview group 내부에서 block-bidirectional이다. world model도 inference-time CFG trick을 사용하지만 CFG group이 세 개라 mask가 더 복잡하다.",
+      "number": 19
+    },
+    {
+      "src": "./fig-20.png",
+      "caption": "Joint vs. end-effector control for prior models on cross-embodiment tasks. We compare joint-space and end-effector (EE) control for baseline policies across a range of tasks, observing no substantial difference in performance between the two control modes.",
+      "caption_ko": "Cross-embodiment task에서 기존 모델의 joint control과 end-effector control 비교. 여러 태스크에서 baseline policy의 joint-space control과 end-effector control을 비교했으며, 두 control mode 사이에 큰 성능 차이는 관찰되지 않았다.",
+      "number": 20
+    },
+    {
+      "src": "./fig-21.png",
+      "caption": "Operator experience in the human subject study. Box plots show teleoperation experience (in hours) of the ten recruited operators across three categories: UR5e (target robot), the static bimanual robot (source robot), and all robots combined. The selected operators rank within the top 2% of our operator fleet in terms of teleoperation experience.",
+      "caption_ko": "Human subject study의 operator 경험. 박스플롯은 모집된 10명의 operator가 UR5e(target robot), 정적 양팔 로봇(source robot), 전체 로봇에서 가진 teleoperation 경험 시간을 보여준다. 선택된 operator들은 teleoperation 경험 기준 전체 operator fleet의 상위 2%에 해당한다.",
+      "number": 21
+    },
+    {
+      "src": "./fig-22.png",
+      "caption": "Comparison of π0.7 (GC) and human. We find that π0.7 (GC) achieves competitive performance compared to the human operators, in the shirt folding task with the UR5e bimanual platform.",
+      "caption_ko": "π0.7(GC)와 사람 비교. UR5e 양팔 플랫폼의 셔츠 접기 태스크에서 π0.7(GC)는 사람 operator와 경쟁 가능한 성능을 달성한다.",
+      "number": 22
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "robotics/arm/manipulation",
+    "robotics/dataset/cross-embodiment"
+  ],
+  "cover_figure_number": 2,
+  "visibility": "public",
+  "allowed_groups": []
+}

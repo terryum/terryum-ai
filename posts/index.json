@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-24T08:55:51.559Z",
-  "total_posts": 61,
+  "generated_at": "2026-05-28T06:34:28.662Z",
+  "total_posts": 62,
   "posts": [
     {
       "post_number": 1,
@@ -4453,6 +4453,103 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 62,
+      "slug": "2604-pi0-7-steerable-generalist-vla",
+      "content_type": "papers",
+      "title_en": "π₀.₇: A Steerable Generalist Robotic Foundation Model",
+      "title_ko": "π₀.₇: 조종 가능한 범용 로봇 파운데이션 모델",
+      "summary_ko": "π₀.₇은 언어·subgoal image·episode metadata를 함께 조건으로 넣어, 실패와 저품질 데이터를 포함한 거대한 로봇 데이터셋에서도 원하는 행동 모드를 조종할 수 있게 만든 5B VLA다.",
+      "summary_en": "π₀.₇ is a 5B steerable VLA that uses language, subgoal images, and episode metadata to turn heterogeneous robot data into controllable behavior modes rather than a single averaged policy.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "robotics",
+      "subfields": [
+        "foundation-model",
+        "vla",
+        "robot-manipulation",
+        "cross-embodiment",
+        "compositional-generalization"
+      ],
+      "key_concepts": [
+        "VLA",
+        "robot-foundation-model",
+        "context-conditioning",
+        "subgoal-images",
+        "episode-metadata",
+        "cross-embodiment-transfer",
+        "language-coaching",
+        "compositional-generalization",
+        "flow-matching",
+        "MEM"
+      ],
+      "methodology": [
+        "flow-matching",
+        "context-conditioning",
+        "multimodal-prompting",
+        "episode-metadata-conditioning",
+        "subgoal-image-conditioning",
+        "classifier-free-guidance",
+        "distillation-from-autonomous-data"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Foundation Model",
+        "Physical Intelligence",
+        "Compositional Generalization",
+        "Cross-Embodiment",
+        "Manipulation"
+      ],
+      "source_author": "Physical Intelligence et al.",
+      "source_date": "2026-04-16",
+      "published_at": "2026-05-28T06:25:22Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Steerable 5B VLA robot foundation model that uses rich context conditioning to combine mixed-quality robot, human, and web data into broad out-of-the-box generalization",
+        "problem": "Prior VLAs improve with scale but still struggle to recombine skills, follow complex instructions, transfer across embodiments, and use mixed-quality or suboptimal data without averaging incompatible behaviors.",
+        "solution": "Train a 5B flow-based VLA with diverse prompt context: language/subtask instructions, subgoal images, episode-quality metadata, control-mode labels, and dropout so the model can be steered at test time.",
+        "key_result": "Seen tasks often exceed 90% success, unseen tasks or unseen task-robot combinations land around 60-80%; the model matches or exceeds specialized π0.6/π0.6* policies on several dexterous tasks and reaches 80% success in UR5e shirt folding, close to expert teleoperators at 80.6%.",
+        "limitations": [
+          "Zero-shot generalization remains lower than in-distribution performance.",
+          "It is hard to prove which tasks are truly unseen in such a large heterogeneous dataset.",
+          "The training data, annotations, and large-scale evaluation infrastructure are not reproducible from the paper alone."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "extends"
+        },
+        {
+          "target": "2511-pi0-6-recap",
+          "type": "extends"
+        },
+        {
+          "target": "2405-octo-generalist-policy",
+          "type": "sharesGoalWith"
+        },
+        {
+          "target": "2412-robovlms-what-matters",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2602-habilis-vla-on-device",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/arm/manipulation",
+        "robotics/dataset/cross-embodiment"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -5221,6 +5318,31 @@
         "from": "260515-how-fast-should-we-adopt",
         "to": "260514-ai-superpower-time-lag",
         "type": "related"
+      },
+      {
+        "from": "2604-pi0-7-steerable-generalist-vla",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "extends"
+      },
+      {
+        "from": "2604-pi0-7-steerable-generalist-vla",
+        "to": "2511-pi0-6-recap",
+        "type": "extends"
+      },
+      {
+        "from": "2604-pi0-7-steerable-generalist-vla",
+        "to": "2405-octo-generalist-policy",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2604-pi0-7-steerable-generalist-vla",
+        "to": "2412-robovlms-what-matters",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2604-pi0-7-steerable-generalist-vla",
+        "to": "2602-habilis-vla-on-device",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -5236,7 +5358,8 @@
           24,
           33,
           55,
-          56
+          56,
+          62
         ],
         "core_concepts": [
           "VLA",
@@ -5400,7 +5523,8 @@
           33,
           38,
           55,
-          56
+          56,
+          62
         ],
         "core_concepts": [
           "VLA"
@@ -5414,7 +5538,8 @@
           1,
           2,
           37,
-          38
+          38,
+          62
         ],
         "core_concepts": [
           "flow-matching"
@@ -5509,13 +5634,15 @@
       33,
       38,
       55,
-      56
+      56,
+      62
     ],
     "flow-matching": [
       1,
       2,
       37,
-      38
+      38,
+      62
     ],
     "MoE": [
       1
@@ -6575,10 +6702,34 @@
     ],
     "responsibility": [
       61
+    ],
+    "robot-foundation-model": [
+      62
+    ],
+    "context-conditioning": [
+      62
+    ],
+    "subgoal-images": [
+      62
+    ],
+    "episode-metadata": [
+      62
+    ],
+    "cross-embodiment-transfer": [
+      62
+    ],
+    "language-coaching": [
+      62
+    ],
+    "compositional-generalization": [
+      62
+    ],
+    "MEM": [
+      62
     ]
   },
   "domain_stats": {
-    "robotics": 33,
+    "robotics": 34,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -6593,7 +6744,7 @@
     "Startup": 1
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 9,
+    "robotics/brain/vla": 10,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
@@ -6603,7 +6754,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 9,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 14,
+    "robotics/brain": 15,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -6625,9 +6776,11 @@
     "ai/tooling:secondary": 2,
     "startup/career": 1,
     "startup/organization:secondary": 1,
+    "robotics/arm/manipulation:secondary": 1,
+    "robotics/dataset/cross-embodiment:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 32,
+    "robotics": 33,
     "ai": 14
   }
 }
