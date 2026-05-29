@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-29T09:54:55.998Z",
+  "generated_at": "2026-05-29T13:20:15.423Z",
   "total_posts": 63,
   "posts": [
     {
@@ -4410,8 +4410,8 @@
       "title_ko": "왜 초기 스타트업에서 일해야 하는가?",
       "summary_ko": "초기 스타트업의 보상은 직함보다 신뢰다. 좋은 사람 곁에서 어려운 일을 통과한 기록은 오래 작동한다.",
       "summary_en": "The reward of an early startup is trust, not title. A record of passing through hard work with good people lasts.",
-      "cover_image": "./cover.webp",
-      "cover_thumb": "./cover-thumb.webp",
+      "cover_image": "./cover-v2.webp",
+      "cover_thumb": "./cover-thumb-v2.webp",
       "domain": "Startup",
       "subfields": [
         "early startup",
@@ -4559,8 +4559,8 @@
       "title_ko": "AI시대의 인재상",
       "summary_ko": "AI시대의 좋은 인재는 여러 agent를 다루는 작은 회사 같고, 동시에 팀 우승을 위해 뛰는 프로여야 한다.",
       "summary_en": "In the AI era, strong talent is a small company of agents and a pro who plays for the team title.",
-      "cover_image": "./cover.webp",
-      "cover_thumb": "./cover-thumb.webp",
+      "cover_image": "./cover-v2.webp",
+      "cover_thumb": "./cover-thumb-v2.webp",
       "domain": "AI Organization",
       "subfields": [
         "AI-native company",
