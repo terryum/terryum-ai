@@ -1,0 +1,68 @@
+{
+  "post_id": "260528-hiring-for-agentic-execution",
+  "slug": "260528-hiring-for-agentic-execution",
+  "post_number": 63,
+  "published_at": "2026-05-29T00:00:00Z",
+  "updated_at": "2026-05-29T00:00:00Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "AI시대의 인재상",
+  "title_en": "The Talent Standard in the Age of AI Agents",
+  "subtitle_ko": "작은 회사 같은 개인들의 팀",
+  "subtitle_en": "Teams of one-person companies",
+  "summary_ko": "AI agent 시대에도 지능, 실행력, 인성이라는 채용 기준은 사라지지 않는다. 다만 각 기준의 내용은 바뀌며, 여기에 불확실한 문제를 사업의 결과로 바꾸는 창업가적 오너십이 더해져야 한다.",
+  "summary_en": "In the age of AI agents, intelligence, execution, and character do not disappear as hiring criteria. But each criterion changes, and entrepreneurial ownership becomes the fourth axis: the ability to turn ambiguity into business outcomes.",
+  "card_summary_ko": "AI시대의 좋은 인재는 여러 agent를 다루는 작은 회사 같고, 동시에 팀 우승을 위해 뛰는 프로여야 한다.",
+  "card_summary_en": "In the AI era, strong talent is a small company of agents and a pro who plays for the team title.",
+  "tags": [
+    "Essays",
+    "AI",
+    "Hiring",
+    "Startup",
+    "Organization"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 14,
+  "domain": "AI Organization",
+  "subfields": [
+    "AI-native company",
+    "hiring",
+    "agentic execution"
+  ],
+  "key_concepts": [
+    "agentic-execution",
+    "hiring",
+    "ai-native-company",
+    "entrepreneurial-ownership",
+    "startup-team"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260523-why-work-at-early-startups"
+  ],
+  "taxonomy_primary": "ai-organization/hiring",
+  "taxonomy_secondary": [
+    "startup/team",
+    "ai-tooling/agents"
+  ],
+  "relations": [
+    {
+      "target": "260523-why-work-at-early-startups",
+      "type": "related",
+      "note": "Both essays discuss what kind of talent and career environment compounds under pressure."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "AI시대의 좋은 인재는 여러 agent를 운용하는 작은 회사이면서 팀 우승을 위해 뛰는 프로다",
+    "problem": "AI가 지능과 실행력을 증폭시키면서 기존 채용 기준만으로는 좋은 인재를 선별하기 어려워지고 있다",
+    "solution": "지능, 실행력, 인성의 의미를 AI native 환경에 맞게 재정의하고 창업가적 오너십을 네 번째 축으로 추가한다",
+    "key_result": "채용 기준은 개인 생산성보다 사업 결과, agent 운용보다 팀 정렬, 좋은 성격보다 프로로서의 성숙함을 보게 된다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
