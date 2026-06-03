@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-29T13:54:45.980Z",
-  "total_posts": 63,
+  "generated_at": "2026-06-03T03:25:01.045Z",
+  "total_posts": 64,
   "posts": [
     {
       "post_number": 1,
@@ -4599,16 +4599,82 @@
           "target": "260523-why-work-at-early-startups",
           "type": "related",
           "note": "Both essays discuss what kind of talent and career environment compounds under pressure."
+        },
+        {
+          "target": "260603-age-of-virtue-generals",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
-        "260523-why-work-at-early-startups"
+        "260523-why-work-at-early-startups",
+        "260603-age-of-virtue-generals"
       ],
       "taxonomy_primary": "ai-organization/hiring",
       "taxonomy_secondary": [
         "startup/team",
         "ai-tooling/agents"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 64,
+      "slug": "260603-age-of-virtue-generals",
+      "content_type": "essays",
+      "title_en": "The Path of the Virtuous Commander",
+      "title_ko": "덕장의 길",
+      "summary_ko": "AI시대의 리더십은 지와 체보다 덕의 축으로 이동한다. 사람은 기술이 아니라 신뢰를 따라 헌신한다.",
+      "summary_en": "Leadership in the AI era shifts from intelligence and force toward virtue. People commit through trust, not technology.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "Leadership",
+      "subfields": [
+        "AI era leadership",
+        "organizational trust",
+        "human leadership"
+      ],
+      "key_concepts": [
+        "deokjang",
+        "trust",
+        "ai-era-leadership",
+        "relationship-capital",
+        "virtue"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "Leadership",
+        "AI",
+        "Organization",
+        "Trust"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-03T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI시대에는 지와 체가 기계로 확장될수록 사람의 마음을 얻는 덕장의 힘이 더 중요해진다",
+        "problem": "지식과 실행의 비용이 AI와 로봇으로 낮아지면서 리더십의 기존 강점인 지와 체의 희소성이 줄어든다",
+        "solution": "덕을 착한 평판이 아니라 사람을 알아보고 키우며 위기 때 버리지 않고 기준을 흐리지 않는 신뢰의 축으로 재정의한다",
+        "key_result": "한 번의 실수를 용서받게 하는 것은 순간의 해명이 아니라 이전에 쌓아온 관계와 덕의 기록이라는 관점으로 AI시대 리더십을 설명한다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260528-hiring-for-agentic-execution",
+          "type": "related",
+          "note": "Both essays revisit human character and trust as durable leadership criteria in the AI era."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260528-hiring-for-agentic-execution"
+      ],
+      "taxonomy_primary": "leadership/organization",
+      "taxonomy_secondary": [
+        "ai-organization/culture"
       ],
       "visibility": "public",
       "allowed_groups": []
@@ -5409,6 +5475,16 @@
       {
         "from": "260528-hiring-for-agentic-execution",
         "to": "260523-why-work-at-early-startups",
+        "type": "related"
+      },
+      {
+        "from": "260528-hiring-for-agentic-execution",
+        "to": "260603-age-of-virtue-generals",
+        "type": "related"
+      },
+      {
+        "from": "260603-age-of-virtue-generals",
+        "to": "260528-hiring-for-agentic-execution",
         "type": "related"
       }
     ],
@@ -6808,6 +6884,21 @@
     ],
     "startup-team": [
       63
+    ],
+    "deokjang": [
+      64
+    ],
+    "trust": [
+      64
+    ],
+    "ai-era-leadership": [
+      64
+    ],
+    "relationship-capital": [
+      64
+    ],
+    "virtue": [
+      64
     ]
   },
   "domain_stats": {
@@ -6824,7 +6915,8 @@
     "AI/ML": 1,
     "ai-and-work": 1,
     "Startup": 1,
-    "AI Organization": 1
+    "AI Organization": 1,
+    "Leadership": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 10,
@@ -6864,6 +6956,8 @@
     "ai-organization/hiring": 1,
     "startup/team:secondary": 1,
     "ai-tooling/agents:secondary": 1,
+    "leadership/organization": 1,
+    "ai-organization/culture:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 33,

@@ -40,7 +40,8 @@
   ],
   "idea_status": null,
   "related_posts": [
-    "260523-why-work-at-early-startups"
+    "260523-why-work-at-early-startups",
+    "260603-age-of-virtue-generals"
   ],
   "taxonomy_primary": "ai-organization/hiring",
   "taxonomy_secondary": [
@@ -52,6 +53,10 @@
       "target": "260523-why-work-at-early-startups",
       "type": "related",
       "note": "Both essays discuss what kind of talent and career environment compounds under pressure."
+    },
+    {
+      "target": "260603-age-of-virtue-generals",
+      "type": "related"
     }
   ],
   "ai_summary": {
