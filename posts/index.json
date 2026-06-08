@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T08:48:38.638Z",
+  "generated_at": "2026-06-08T09:08:17.029Z",
   "total_posts": 65,
   "posts": [
     {
@@ -4685,8 +4685,8 @@
       "content_type": "notes",
       "title_en": "Jensen Huang's SNU Talk (June 8, 2026)",
       "title_ko": "젠슨 황의 서울대 연설 (2026. 6. 8)",
-      "summary_ko": "엔비디아 CEO 젠슨 황의 2026년 6월 8일 서울대학교 Build-a-Claw 강연 기록.",
-      "summary_en": "A record of NVIDIA CEO Jensen Huang's June 8, 2026 Build-a-Claw talk at Seoul National University.",
+      "summary_ko": "엔비디아 CEO 젠슨 황의 2026년 6월 8일 서울대학교 Build-a-Claw 강연 전문.",
+      "summary_en": "Full transcript of NVIDIA CEO Jensen Huang's June 8, 2026 Build-a-Claw talk at Seoul National University.",
       "cover_image": "./cover.webp",
       "cover_thumb": "./cover-thumb.webp",
       "domain": "AI",
@@ -4716,13 +4716,11 @@
       "published_at": "2026-06-08T00:00:00Z",
       "citation_count": null,
       "ai_summary": {
-        "one_liner": "엔비디아 CEO 젠슨 황의 서울대학교 Build-a-Claw 강연 기록",
-        "problem": "영상 공개 전에는 비로그인 환경에서 자막과 원문 전문을 가져올 수 없다",
-        "solution": "영상 임베드와 커버 자산을 먼저 배포하고, 공개 후 한국어/영어 전문을 같은 슬러그로 업데이트한다",
-        "key_result": "언어 설정에 따라 한국어 또는 영어 본문을 제공할 수 있는 발행 구조를 준비했다",
-        "limitations": [
-          "Initial body awaits the public transcript or source text."
-        ]
+        "one_liner": "엔비디아 CEO 젠슨 황의 서울대학교 Build-a-Claw 강연 전문",
+        "problem": "AI와 로보틱스가 동시에 바뀌는 시기에 학생들이 어떤 기회를 마주하는지 설명한다",
+        "solution": "LLM, 하네스, 에이전트, 로보틱스, 한국의 산업 역량을 연결해 미래 기회를 제시한다",
+        "key_result": "언어 설정에 따라 한국어 또는 영어 전문과 강연 영상을 함께 볼 수 있게 했다",
+        "limitations": []
       },
       "relations": [],
       "idea_status": null,
