@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-08T09:24:31.159Z",
-  "total_posts": 65,
+  "generated_at": "2026-06-08T12:03:11.253Z",
+  "total_posts": 66,
   "posts": [
     {
       "post_number": 1,
@@ -4722,12 +4722,84 @@
         "key_result": "언어 설정에 따라 한국어 또는 영어 전문과 강연 영상을 함께 볼 수 있게 했다",
         "limitations": []
       },
-      "relations": [],
+      "relations": [
+        {
+          "target": "260608-jensen-hwang-new-wave",
+          "type": "related"
+        }
+      ],
       "idea_status": null,
-      "related_posts": [],
+      "related_posts": [
+        "260608-jensen-hwang-new-wave"
+      ],
       "taxonomy_primary": "ai/robotics",
       "taxonomy_secondary": [
         "ai-education/events"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 66,
+      "slug": "260608-jensen-hwang-new-wave",
+      "content_type": "essays",
+      "title_en": "Jensen Huang's New Wave: Agentic Computers and Physical AI",
+      "title_ko": "젠슨황의 뉴웨이브: 에이전틱 컴퓨터와 피지컬AI",
+      "summary_ko": "젠슨 황이 새롭게 베팅하는 미래는 LLM+harness의 에이전틱 컴퓨터와 몸체를 가진 피지컬AI다.",
+      "summary_en": "Jensen Huang's new bet is the agentic computer built from LLMs and harnesses, followed by embodied physical AI.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI",
+      "subfields": [
+        "agentic computers",
+        "physical AI",
+        "robotics",
+        "manufacturing"
+      ],
+      "key_concepts": [
+        "jensen-huang",
+        "nvidia",
+        "agentic-computer",
+        "physical-ai",
+        "robotics",
+        "manufacturing-ai"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Robotics",
+        "NVIDIA",
+        "Physical AI",
+        "SNU"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-08T10:30:00.000Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "젠슨 황의 다음 베팅은 LLM+harness의 에이전틱 컴퓨터와 몸체를 가진 피지컬AI다",
+        "problem": "NVIDIA가 GPU 회사 이후 어떤 새 시장을 만들려 하는지 단순한 AI PC나 로봇 담론만으로는 설명하기 어렵다",
+        "solution": "그래픽카드, CUDA, DGX, AI factory의 과거 베팅을 짚고 에이전틱 컴퓨터와 피지컬AI를 다음 베팅으로 해석한다",
+        "key_result": "PC와 노동력이 모두 GPU 수요를 동반하는 agentic/physical AI 플랫폼으로 재정의되는 방향을 읽는다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260608-jensen-huang-snu-speech",
+          "type": "related",
+          "note": "This essay reflects on the Jensen Huang SNU talk and links to the full transcript."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260608-jensen-huang-snu-speech"
+      ],
+      "taxonomy_primary": "ai/robotics",
+      "taxonomy_secondary": [
+        "ai-tooling/agents",
+        "manufacturing/physical-ai"
       ],
       "visibility": "public",
       "allowed_groups": []
@@ -5539,6 +5611,16 @@
         "from": "260603-age-of-virtue-generals",
         "to": "260528-hiring-for-agentic-execution",
         "type": "related"
+      },
+      {
+        "from": "260608-jensen-huang-snu-speech",
+        "to": "260608-jensen-hwang-new-wave",
+        "type": "related"
+      },
+      {
+        "from": "260608-jensen-hwang-new-wave",
+        "to": "260608-jensen-huang-snu-speech",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -5703,6 +5785,22 @@
         "core_concepts": [],
         "taxonomy_nodes": [
           "infra/serverless"
+        ]
+      },
+      {
+        "id": "ai-robotics",
+        "label": "ai/robotics",
+        "post_numbers": [
+          65,
+          66
+        ],
+        "core_concepts": [
+          "jensen-huang",
+          "nvidia",
+          "physical-ai"
+        ],
+        "taxonomy_nodes": [
+          "ai/robotics"
         ]
       },
       {
@@ -6954,10 +7052,12 @@
       64
     ],
     "jensen-huang": [
-      65
+      65,
+      66
     ],
     "nvidia": [
-      65
+      65,
+      66
     ],
     "snu": [
       65
@@ -6966,7 +7066,17 @@
       65
     ],
     "physical-ai": [
-      65
+      65,
+      66
+    ],
+    "agentic-computer": [
+      66
+    ],
+    "robotics": [
+      66
+    ],
+    "manufacturing-ai": [
+      66
     ]
   },
   "domain_stats": {
@@ -6985,7 +7095,7 @@
     "Startup": 1,
     "AI Organization": 1,
     "Leadership": 1,
-    "AI": 1
+    "AI": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 10,
@@ -7024,14 +7134,15 @@
     "robotics/dataset/cross-embodiment:secondary": 1,
     "ai-organization/hiring": 1,
     "startup/team:secondary": 1,
-    "ai-tooling/agents:secondary": 1,
+    "ai-tooling/agents:secondary": 2,
     "leadership/organization": 1,
     "ai-organization/culture:secondary": 1,
-    "ai/robotics": 1,
+    "ai/robotics": 2,
     "ai-education/events:secondary": 1,
+    "manufacturing/physical-ai:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 33,
-    "ai": 15
+    "ai": 16
   }
 }

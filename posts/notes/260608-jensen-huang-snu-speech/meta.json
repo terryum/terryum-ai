@@ -39,12 +39,19 @@
     "physical-ai"
   ],
   "idea_status": null,
-  "related_posts": [],
+  "related_posts": [
+    "260608-jensen-hwang-new-wave"
+  ],
   "taxonomy_primary": "ai/robotics",
   "taxonomy_secondary": [
     "ai-education/events"
   ],
-  "relations": [],
+  "relations": [
+    {
+      "target": "260608-jensen-hwang-new-wave",
+      "type": "related"
+    }
+  ],
   "ai_summary": {
     "one_liner": "엔비디아 CEO 젠슨 황의 서울대학교 Build-a-Claw 강연 전문",
     "problem": "AI와 로보틱스가 동시에 바뀌는 시기에 학생들이 어떤 기회를 마주하는지 설명한다",

@@ -1,0 +1,74 @@
+{
+  "post_id": "260608-jensen-hwang-new-wave",
+  "slug": "260608-jensen-hwang-new-wave",
+  "post_number": 66,
+  "published_at": "2026-06-08T10:30:00.000Z",
+  "updated_at": "2026-06-08T10:30:00.000Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "젠슨황의 뉴웨이브: 에이전틱 컴퓨터와 피지컬AI",
+  "title_en": "Jensen Huang's New Wave: Agentic Computers and Physical AI",
+  "subtitle_ko": "그가 다시 베팅하는 미래",
+  "subtitle_en": "The next future he is betting on",
+  "summary_ko": "서울대 Build-a-Claw 연설에서 젠슨 황은 에이전틱 컴퓨터와 피지컬AI를 NVIDIA의 다음 시장으로 제시했다. 그래픽카드, CUDA, DGX, AI factory를 거쳐 새 컴퓨터와 로봇의 시대를 만들려는 그의 미래 베팅을 정리한다.",
+  "summary_en": "At the Build-a-Claw talk at Seoul National University, Jensen Huang framed agentic computers and physical AI as NVIDIA's next markets. This essay follows the arc from graphics cards, CUDA, DGX, and AI factories to his new bet on computers run by agents and robots that act in the physical world.",
+  "card_summary_ko": "젠슨 황이 새롭게 베팅하는 미래는 LLM+harness의 에이전틱 컴퓨터와 몸체를 가진 피지컬AI다.",
+  "card_summary_en": "Jensen Huang's new bet is the agentic computer built from LLMs and harnesses, followed by embodied physical AI.",
+  "tags": [
+    "Essays",
+    "AI",
+    "Robotics",
+    "NVIDIA",
+    "Physical AI",
+    "SNU"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 7,
+  "domain": "AI",
+  "subfields": [
+    "agentic computers",
+    "physical AI",
+    "robotics",
+    "manufacturing"
+  ],
+  "key_concepts": [
+    "jensen-huang",
+    "nvidia",
+    "agentic-computer",
+    "physical-ai",
+    "robotics",
+    "manufacturing-ai"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260608-jensen-huang-snu-speech"
+  ],
+  "related_surveys": [
+    "survey-nvidia-physical-ai-robotics"
+  ],
+  "taxonomy_primary": "ai/robotics",
+  "taxonomy_secondary": [
+    "ai-tooling/agents",
+    "manufacturing/physical-ai"
+  ],
+  "relations": [
+    {
+      "target": "260608-jensen-huang-snu-speech",
+      "type": "related",
+      "note": "This essay reflects on the Jensen Huang SNU talk and links to the full transcript."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "젠슨 황의 다음 베팅은 LLM+harness의 에이전틱 컴퓨터와 몸체를 가진 피지컬AI다",
+    "problem": "NVIDIA가 GPU 회사 이후 어떤 새 시장을 만들려 하는지 단순한 AI PC나 로봇 담론만으로는 설명하기 어렵다",
+    "solution": "그래픽카드, CUDA, DGX, AI factory의 과거 베팅을 짚고 에이전틱 컴퓨터와 피지컬AI를 다음 베팅으로 해석한다",
+    "key_result": "PC와 노동력이 모두 GPU 수요를 동반하는 agentic/physical AI 플랫폼으로 재정의되는 방향을 읽는다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
