@@ -3,7 +3,7 @@
   "slug": "260608-jensen-huang-snu-speech",
   "post_number": 65,
   "published_at": "2026-06-08T00:00:00Z",
-  "updated_at": "2026-06-08T09:07:46.617Z",
+  "updated_at": "2026-06-08T09:24:06.294Z",
   "status": "published",
   "content_type": "notes",
   "visibility": "public",
@@ -55,5 +55,6 @@
   "figures": [],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "hide_cover_in_body": true
 }

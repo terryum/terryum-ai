@@ -60,6 +60,7 @@ export interface PostMeta {
   cover_caption?: string;
   cover_figure_number?: number;
   cover_thumb?: string;
+  hide_cover_in_body?: boolean;
   thumb_fit?: 'cover' | 'contain';
   card_summary?: string;
   reading_time_min?: number;

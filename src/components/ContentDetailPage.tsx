@@ -158,7 +158,7 @@ export default function ContentDetailPage({
       )}
 
       {/* Cover image */}
-      {meta.cover_image && (
+      {meta.cover_image && !meta.hide_cover_in_body && (
         <Figure
           src={meta.cover_image}
           caption={coverCaption || ''}
