@@ -1,6 +1,96 @@
 {
-  "next_survey_number": 9,
+  "next_survey_number": 10,
   "surveys": [
+    {
+      "slug": "survey-nvidia-physical-ai-robotics",
+      "survey_number": 9,
+      "title": {
+        "ko": "NVIDIA 피지컬AI와 제조 로보틱스",
+        "en": "NVIDIA Physical AI for Manufacturing Robotics"
+      },
+      "description": {
+        "ko": "NVIDIA의 Physical AI 스택을 제조 수작업 자동화 관점에서 읽는 12장짜리 서베이 초안. Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, GEAR 연구를 공장 셀·촉각·검증·데이터 자산 전략으로 연결한다.",
+        "en": "A 12-chapter draft survey reading NVIDIA physical AI from the perspective of manual-work automation in manufacturing. Connects Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, and GEAR research to factory cells, touch, validation, and process-data strategy."
+      },
+      "cover_image": "/images/projects/survey-nvidia-physical-ai-robotics-cover.webp",
+      "tech_stack": [
+        "NVIDIA",
+        "Physical AI",
+        "Robotics",
+        "Isaac",
+        "Cosmos",
+        "GR00T",
+        "Manufacturing",
+        "Survey"
+      ],
+      "toc": [
+        {
+          "ko": "왜 NVIDIA",
+          "en": "Why NVIDIA"
+        },
+        {
+          "ko": "Omniverse",
+          "en": "Omniverse"
+        },
+        {
+          "ko": "Cosmos",
+          "en": "Cosmos"
+        },
+        {
+          "ko": "GR00T",
+          "en": "GR00T"
+        },
+        {
+          "ko": "GEAR",
+          "en": "GEAR"
+        },
+        {
+          "ko": "손과 촉각",
+          "en": "Hands & Touch"
+        },
+        {
+          "ko": "공장 셀",
+          "en": "Factory Cells"
+        },
+        {
+          "ko": "검증·안전",
+          "en": "Safety Gates"
+        },
+        {
+          "ko": "DGX→Jetson",
+          "en": "DGX to Jetson"
+        },
+        {
+          "ko": "구매·직접",
+          "en": "Buy vs Build"
+        },
+        {
+          "ko": "2026 로드맵",
+          "en": "2026 Roadmap"
+        },
+        {
+          "ko": "결론",
+          "en": "Conclusion"
+        }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://nvidia-physical-ai-robotics.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys"
+        }
+      ],
+      "embed_url": "https://nvidia-physical-ai-robotics.pages.dev/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-06-08",
+      "updated_at": "2026-06-08"
+    },
     {
       "slug": "survey-llm-wiki-to-ai-scientist",
       "survey_number": 8,
