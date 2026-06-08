@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-03T04:42:45.034Z",
-  "total_posts": 64,
+  "generated_at": "2026-06-08T08:48:38.638Z",
+  "total_posts": 65,
   "posts": [
     {
       "post_number": 1,
@@ -4678,6 +4678,61 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 65,
+      "slug": "260608-jensen-huang-snu-speech",
+      "content_type": "notes",
+      "title_en": "Jensen Huang's SNU Talk (June 8, 2026)",
+      "title_ko": "젠슨 황의 서울대 연설 (2026. 6. 8)",
+      "summary_ko": "엔비디아 CEO 젠슨 황의 2026년 6월 8일 서울대학교 Build-a-Claw 강연 기록.",
+      "summary_en": "A record of NVIDIA CEO Jensen Huang's June 8, 2026 Build-a-Claw talk at Seoul National University.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI",
+      "subfields": [
+        "robotics",
+        "physical AI",
+        "AI education"
+      ],
+      "key_concepts": [
+        "jensen-huang",
+        "nvidia",
+        "snu",
+        "build-a-claw",
+        "physical-ai"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Notes",
+        "AI",
+        "Robotics",
+        "NVIDIA",
+        "SNU"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-08T00:00:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "엔비디아 CEO 젠슨 황의 서울대학교 Build-a-Claw 강연 기록",
+        "problem": "영상 공개 전에는 비로그인 환경에서 자막과 원문 전문을 가져올 수 없다",
+        "solution": "영상 임베드와 커버 자산을 먼저 배포하고, 공개 후 한국어/영어 전문을 같은 슬러그로 업데이트한다",
+        "key_result": "언어 설정에 따라 한국어 또는 영어 본문을 제공할 수 있는 발행 구조를 준비했다",
+        "limitations": [
+          "Initial body awaits the public transcript or source text."
+        ]
+      },
+      "relations": [],
+      "idea_status": null,
+      "related_posts": [],
+      "taxonomy_primary": "ai/robotics",
+      "taxonomy_secondary": [
+        "ai-education/events"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6899,6 +6954,21 @@
     ],
     "virtue": [
       64
+    ],
+    "jensen-huang": [
+      65
+    ],
+    "nvidia": [
+      65
+    ],
+    "snu": [
+      65
+    ],
+    "build-a-claw": [
+      65
+    ],
+    "physical-ai": [
+      65
     ]
   },
   "domain_stats": {
@@ -6916,7 +6986,8 @@
     "ai-and-work": 1,
     "Startup": 1,
     "AI Organization": 1,
-    "Leadership": 1
+    "Leadership": 1,
+    "AI": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 10,
@@ -6958,9 +7029,11 @@
     "ai-tooling/agents:secondary": 1,
     "leadership/organization": 1,
     "ai-organization/culture:secondary": 1,
+    "ai/robotics": 1,
+    "ai-education/events:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 33,
-    "ai": 14
+    "ai": 15
   }
 }
