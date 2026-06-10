@@ -625,8 +625,8 @@
         "en": "Tactile Sensing for Dexterous Robot Hands"
       },
       "description": {
-        "ko": "131편 이상의 논문을 AI scientist들과 분석한 촉각 로봇핸드 서베이. 다양한 촉각 센서 기술을 체계적으로 분류하고, 파지 제어부터 인간-로봇 기술 전이까지 핵심 연구 흐름을 13개 챕터로 정리합니다.",
-        "en": "A survey of 131+ papers on tactile sensing for robot hands, written with AI scientists. Covers sensor technologies, grasp control, in-hand manipulation, sim-to-real transfer, and human-robot skill transfer across 13 chapters."
+        "ko": "촉각 센서, 로봇핸드, 햅틱 피드백 텔레오퍼레이션, 접촉 제어, 대규모 사람 손 데이터, 제조 수작업 자동화를 연결한 18장짜리 종합 서베이. 센서 신호의 데이터화부터 slip, multi-contact, force closure, VLA/전이, Cosmax형 제조 셀 적용까지 다룹니다.",
+        "en": "An 18-chapter survey linking tactile sensors, robot hands, haptic-feedback teleoperation, contact control, large-scale human hand data, and manufacturing manual-work automation. Covers signal-to-data pipelines, slip, multi-contact control, force closure, VLA/transfer, and Cosmax-style manufacturing cells."
       },
       "cover_image": "/images/projects/survey-robot-hand-tactile-sensor-cover.webp",
       "tech_stack": [
@@ -636,56 +636,56 @@
       ],
       "toc": [
         {
-          "ko": "소개",
-          "en": "Introduction"
+          "ko": "촉각의 필요성",
+          "en": "Why Touch Matters"
         },
         {
-          "ko": "촉각 센서 기술",
-          "en": "Tactile Sensor Technologies"
+          "ko": "센서에서 데이터까지",
+          "en": "From Sensors to Data"
         },
         {
-          "ko": "센서 설계 원리",
-          "en": "Sensor Design Principles"
+          "ko": "로봇핸드와 사람 손",
+          "en": "Robot and Human Hands"
         },
         {
-          "ko": "신호 처리 및 표현",
-          "en": "Signal Processing & Representation"
+          "ko": "햅틱 피드백 텔레오퍼레이션",
+          "en": "Haptic Feedback for Teleoperation"
         },
         {
-          "ko": "로봇 손 기구학 및 설계",
-          "en": "Robot Hand Kinematics & Design"
+          "ko": "접촉 동역학",
+          "en": "Contact Dynamics"
         },
         {
-          "ko": "파지 및 인핸드 조작",
-          "en": "Grasping & In-Hand Manipulation"
+          "ko": "슬립과 전단 제어",
+          "en": "Slip and Shear Control"
         },
         {
-          "ko": "촉각 기반 제어",
-          "en": "Tactile-Guided Control"
+          "ko": "다중 접촉 손안 조작",
+          "en": "Multi-Contact In-Hand Manipulation"
         },
         {
-          "ko": "촉각 데이터 학습",
-          "en": "Learning from Tactile Data"
+          "ko": "Force Closure와 파지 제어",
+          "en": "Force Closure and Grasp Control"
         },
         {
-          "ko": "시뮬레이션-실제 전이",
-          "en": "Sim-to-Real Transfer"
+          "ko": "학습과 VLA",
+          "en": "Learning and VLA"
         },
         {
-          "ko": "인간-로봇 기술 전이",
-          "en": "Human-Robot Skill Transfer"
+          "ko": "Sim-to-Real과 전이",
+          "en": "Sim-to-Real and Transfer"
         },
         {
-          "ko": "멀티모달 통합",
-          "en": "Multi-Modal Integration"
+          "ko": "상용 로봇핸드",
+          "en": "Commercial Robot Hands"
         },
         {
-          "ko": "산업 응용",
-          "en": "Industrial Applications"
+          "ko": "제조 셀 적용",
+          "en": "Manufacturing Cell Deployment"
         },
         {
-          "ko": "미래 방향",
-          "en": "Future Directions"
+          "ko": "통합과 미래 방향",
+          "en": "Integration and Future Directions"
         }
       ],
       "links": [
@@ -704,7 +704,7 @@
       "featured": false,
       "order": 1,
       "published_at": "2026-04-01",
-      "updated_at": "2026-04-08"
+      "updated_at": "2026-06-10"
     },
     {
       "slug": "physical-ai-manufacturing",
