@@ -1,7 +1,7 @@
 import type { SurveyMeta } from '@/types/survey';
 import surveysBundle from '../../projects/surveys/surveys.json';
 import { findBySlug } from './find-by-slug';
-import { byNumberDesc } from './sort';
+import { byUpdatedDesc } from './sort';
 
 /**
  * Internal raw view: includes private URLs (embed_url, links) for restricted
@@ -31,7 +31,7 @@ export async function loadPublicSurveys(): Promise<SurveyMeta[]> {
 /** All surveys (public + private/group) with private URLs redacted. */
 export async function getAllSurveys(): Promise<SurveyMeta[]> {
   const surveys = (await loadPublicSurveys()).slice();
-  return surveys.sort(byNumberDesc);
+  return surveys.sort(byUpdatedDesc);
 }
 
 /**

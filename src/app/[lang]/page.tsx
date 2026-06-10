@@ -3,7 +3,7 @@ import { getDictionary } from '@/lib/dictionaries';
 import { getAllPostsFromIndex } from '@/lib/posts';
 import { loadPublicSurveys } from '@/lib/surveys';
 import { getAudience, filterByAudience } from '@/lib/audience';
-import { sortByNumberDesc } from '@/lib/sort';
+import { sortByUpdatedDesc } from '@/lib/sort';
 import { formatSurveyNumber } from '@/lib/numbering';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { getPostsForTab } from '@/lib/tabs';
@@ -49,7 +49,7 @@ export default async function HomePage({
 
   const l = lang as 'ko' | 'en';
   const allPosts = filterByAudience(allPostsRaw, audience);
-  const surveys = sortByNumberDesc(filterByAudience(surveysRaw, audience));
+  const surveys = sortByUpdatedDesc(filterByAudience(surveysRaw, audience));
   const essaysPosts = getPostsForTab(allPosts, 'essays');
   const papersPosts = getPostsForTab(allPosts, 'papers');
   const notesPosts = getPostsForTab(allPosts, 'notes');
