@@ -1,0 +1,205 @@
+{
+  "post_id": "2605-rldx-1",
+  "slug": "2605-rldx-1",
+  "post_number": 67,
+  "published_at": "2026-06-10T07:40:00Z",
+  "updated_at": "2026-06-10T07:40:00Z",
+  "status": "published",
+  "content_type": "papers",
+  "domain": "robotics",
+  "subfields": [
+    "foundation-model",
+    "vla",
+    "dexterous-manipulation",
+    "humanoid",
+    "tactile-sensing"
+  ],
+  "key_concepts": [
+    "VLA",
+    "multi-stream-action-transformer",
+    "motion-awareness",
+    "long-term-memory",
+    "physical-sensing",
+    "tactile-torque-sensing",
+    "synthetic-data",
+    "inference-optimization",
+    "dexterous-manipulation",
+    "humanoid-manipulation"
+  ],
+  "methodology": [
+    "flow-matching",
+    "multi-stream-action-transformer",
+    "mm-dit",
+    "memory-module",
+    "motion-module",
+    "physics-stream",
+    "synthetic-data-augmentation",
+    "inverse-dynamics-labeling",
+    "recap-reinforcement-learning",
+    "cuda-graph-kernel-fusion"
+  ],
+  "contribution_type": "system",
+  "relations": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "extends"
+    },
+    {
+      "target": "2511-pi0-6-recap",
+      "type": "extends"
+    },
+    {
+      "target": "2604-pi0-7-steerable-generalist-vla",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2505-forcevla-force-aware-moe",
+      "type": "sharesGoalWith"
+    },
+    {
+      "target": "2602-habilis-vla-on-device",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A general-purpose dexterous-manipulation VLA that unifies motion awareness, long-term memory, and physical (tactile/torque) sensing in a Multi-Stream Action Transformer, with synthetic data and inference optimizations for real-time humanoid deployment.",
+    "problem": "VLAs inherit broad scene understanding and language generalization from pre-trained VLMs but still fail on contact-rich real-world tasks that need motion awareness, long-term memory, and physical sensing — capabilities absent from standard vision-language pre-training.",
+    "solution": "RLDX-1 adds a Motion Module and Memory Module to the VLM and a Physics Stream for torque/tactile inputs, fusing all modalities through a Multi-Stream Action Transformer (MSAT) with cross-modal joint self-attention, then trains it with synthetic data, a 3-stage pre/mid/post-training recipe (with optional RECAP-style RL), and CUDA-graph + kernel-fusion inference optimization.",
+    "key_result": "On the ALLEX humanoid benchmark RLDX-1 reaches 86.8% average success vs ~40% for π0.5 (39.1%) and GR00T N1.6 (44.8%); on Franka Research 3 it reaches 68.5% average vs 34.4%/31.6%. Inference latency drops from 71.2 ms to 43.7 ms (1.63x speedup, ~22 Hz) on an RTX 5090.",
+    "limitations": [
+      "Functional capabilities are injected through in-house teleoperation and synthetic data, so reproducing the gains requires private data and a large robot fleet.",
+      "Reported gains are on the authors' own ALLEX/FR3 benchmarks and tasks, making head-to-head comparison with other labs' setups difficult.",
+      "RECAP-style RL and test-time sampling help on some tasks but can degrade near-converged policies, so the recipe is not uniformly beneficial."
+    ]
+  },
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Foundation Model",
+    "Dexterous Manipulation",
+    "Humanoid",
+    "Tactile Sensing",
+    "RLWRLD"
+  ],
+  "display_tags": [
+    "VLA",
+    "Dexterous Manipulation",
+    "Humanoid",
+    "Physical Sensing"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_caption": "Figure 1: Overview of RLDX-1. RLDX-1 is a Vision-Language-Action model (VLA) that integrates diverse functional capabilities for dexterous manipulation in real-world deployment.",
+  "thumb_source": "./fig-12.png",
+  "thumb_position": "centre",
+  "reading_time_min": 11,
+  "source_url": "https://arxiv.org/abs/2605.03269",
+  "source_project_url": "https://rlwrld.ai/rldx-1",
+  "source_date": "2026-05-05",
+  "source_title": "RLDX-1 Technical Report",
+  "source_author": "Dongyoung Kim et al. (RLWRLD)",
+  "source_type": "arXiv",
+  "arxiv_id": "2605.03269",
+  "doi": "10.48550/arXiv.2605.03269",
+  "google_scholar_url": "https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=RLDX-1+Technical+Report&btnG=",
+  "source_authors_full": [
+    "Dongyoung Kim",
+    "Huiwon Jang",
+    "Myungkyu Koo",
+    "Suhyeok Jang",
+    "Taeyoung Kim",
+    "Beomjun Kim",
+    "et al. (RLWRLD)"
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Overview of RLDX-1. RLDX-1 is a Vision-Language-Action model (VLA) that integrates diverse functional capabilities for dexterous manipulation in real-world deployment.",
+      "caption_ko": "그림 1: RLDX-1 개요. RLDX-1은 실제 배포 환경에서의 정교 조작을 위해 다양한 기능적 역량을 통합한 Vision-Language-Action 모델(VLA)이다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Overview of RLDX-1. Given video observations and a language instruction, RLDX-1 predicts future actions through three key functionalities: motion awareness via the Motion Module, long-term memory via the Memory Module, and physical sensing via the Physics Stream that ingests torque and tactile signals. A VLM backbone grounds vision and language into a cognition representation, which is jointly denoised with physics and action tokens by the Multi-Stream Action Transformer to produce the final action.",
+      "caption_ko": "그림 2: RLDX-1 개요. 비디오 관측과 언어 지시가 주어지면, RLDX-1은 세 가지 핵심 기능을 통해 미래 행동을 예측한다: Motion Module을 통한 motion awareness, Memory Module을 통한 long-term memory, 그리고 토크·촉각 신호를 받아들이는 Physics Stream을 통한 physical sensing이다. VLM 백본이 비전과 언어를 cognition 표현으로 grounding하고, 이를 Multi-Stream Action Transformer가 physics·action 토큰과 함께 joint denoising하여 최종 행동을 만든다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Overview of the RLDX-1 architecture. RLDX-1 consists of two main components: a Vision-Language Model (VLM) and an action model. The VLM takes video observations as input, captures motion-aware visual-language representations, and converts the extracted representations into cognition features that are passed to the action model. These cognition features are further augmented with memory features through a memory module. The action model then takes the memory-augmented cognition features, physical signals, robot states, and previous actions as inputs to a Multi-Stream Action Transformer (MSAT), which predicts future physical signals and actions for downstream manipulation.",
+      "caption_ko": "그림 3: RLDX-1 아키텍처 개요. RLDX-1은 Vision-Language Model(VLM)과 action model 두 주요 구성요소로 이루어진다. VLM은 비디오 관측을 입력으로 받아 motion-aware한 비전-언어 표현을 포착하고, 추출한 표현을 cognition feature로 변환해 action model로 전달한다. 이 cognition feature는 memory module을 통해 memory feature로 보강된다. action model은 memory가 보강된 cognition feature, 물리 신호, 로봇 상태, 이전 행동을 Multi-Stream Action Transformer(MSAT)의 입력으로 받아, 후속 조작을 위한 미래 물리 신호와 행동을 예측한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Overview of the synthetic data framework. (1) Data Generation: a source demonstration is diversified via scene and task augmentation, and an inverse dynamics model (IDM) annotates action labels for the generated videos. (2) Data Filtering: IDM-predicted actions are replayed in a simulator, and a motion-consistency classifier compares the rollout against the synthetic video to retain only consistent samples.",
+      "caption_ko": "그림 4: 합성 데이터 프레임워크 개요. (1) 데이터 생성: 소스 시연을 scene·task augmentation으로 다양화하고, inverse dynamics model(IDM)이 생성된 영상에 행동 라벨을 단다. (2) 데이터 필터링: IDM이 예측한 행동을 시뮬레이터에서 재생하고, motion-consistency 분류기가 rollout과 합성 영상을 비교해 일관된 샘플만 남긴다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Examples of synthetic data. We visualize one example of our synthetic data: (a) original in-house ALLEX stack cup noodles demonstration, (b) task-augmented variant with a VLM-generated instruction, and (c) scene-augmented variant via I2I editing of the initial frame followed by I2V generation.",
+      "caption_ko": "그림 5: 합성 데이터 예시. 합성 데이터의 한 예를 시각화한다: (a) 원본 인하우스 ALLEX 컵라면 쌓기 시연, (b) VLM이 생성한 지시로 만든 task-augmented 변형, (c) 초기 프레임의 I2I 편집 후 I2V 생성을 거친 scene-augmented 변형.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Overview of dataset composition for pre-training RLDX-1. RLDX-1 pre-train dataset covers multiple embodiments spanning single-arm grippers, dual-arm grippers, and humanoid platforms equipped with dexterous hands, including synthetic GR-1 humanoid data (Section 3.3).",
+      "caption_ko": "그림 6: RLDX-1 사전학습 데이터셋 구성 개요. RLDX-1 사전학습 데이터셋은 single-arm gripper, dual-arm gripper, 그리고 정교한 손을 장착한 humanoid 플랫폼에 이르는 여러 embodiment를 포괄하며, 합성 GR-1 humanoid 데이터(3.3절)도 포함한다.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Figure 7: Overview of data compositions of RLDX-1 mid-training. The mid-training data covers two target platforms: ALLEX and Franka Research 3 platform (FR3). The ALLEX composition combines in-house teleoperation data with synthetic data from our generation pipeline (Section 3.3), while the FR3 composition combines in-house teleoperation data with the public DROID dataset (khazatsky2024droid).",
+      "caption_ko": "그림 7: RLDX-1 mid-training 데이터 구성 개요. mid-training 데이터는 ALLEX와 Franka Research 3 플랫폼(FR3) 두 타깃 플랫폼을 다룬다. ALLEX 구성은 인하우스 teleoperation 데이터와 생성 파이프라인의 합성 데이터(3.3절)를 결합하고, FR3 구성은 인하우스 teleoperation 데이터와 공개 DROID 데이터셋을 결합한다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "Figure 12: Real-robot platforms. We use (a) OpenArm with Inspire RH56F1 Hands, a 28-DoF upper-body humanoid with stereo egocentric cameras; (b) ALLEX, a 48-DoF upper-body humanoid with stereo egocentric cameras; (c) Franka Research 3 platform (FR3), a 7-DoF single-arm robot with an AnySkin tactile sensor, wrist and third-person cameras.",
+      "caption_ko": "그림 12: 실제 로봇 플랫폼. (a) Inspire RH56F1 핸드를 장착한 OpenArm — 스테레오 egocentric 카메라를 가진 28-DoF 상반신 humanoid, (b) ALLEX — 스테레오 egocentric 카메라를 가진 48-DoF 상반신 humanoid, (c) Franka Research 3 플랫폼(FR3) — AnySkin 촉각 센서와 손목·3인칭 카메라를 가진 7-DoF 단일 팔 로봇을 사용한다.",
+      "number": 12
+    },
+    {
+      "src": "./fig-13.png",
+      "caption": "Figure 13: OpenArm humanoid benchmark. We visualize the initial setup for six tasks for evaluating versatility in humanoid manipulation: Basic PnP, Directional PnP (Shelf), Directional PnP (Dish Rack), Unseen Object (Instance), Unseen Task (Placement), and Object Grounding.",
+      "caption_ko": "그림 13: OpenArm humanoid 벤치마크. humanoid 조작의 versatility를 평가하기 위한 여섯 태스크의 초기 설정을 시각화한다: Basic PnP, Directional PnP (Shelf), Directional PnP (Dish Rack), Unseen Object (Instance), Unseen Task (Placement), Object Grounding.",
+      "number": 13
+    },
+    {
+      "src": "./fig-15.png",
+      "caption": "Figure 15: ALLEX humanoid benchmark. We design four tasks for evaluating functional capabilities in dexterous humanoid manipulation: Conveyor Pick-and-Place, Object-in-Box Selection, Card Slide-and-Pick, and Pot-to-Cup Pouring.",
+      "caption_ko": "그림 15: ALLEX humanoid 벤치마크. 정교한 humanoid 조작의 기능적 역량을 평가하기 위해 네 태스크를 설계했다: Conveyor Pick-and-Place, Object-in-Box Selection, Card Slide-and-Pick, Pot-to-Cup Pouring.",
+      "number": 15
+    },
+    {
+      "src": "./fig-16.png",
+      "caption": "Figure 16: ALLEX humanoid benchmark results. We report the success rates (%) of VLAs fine-tuned on the training dataset of each task. RLDX-1 substantially outperforms the baselines across all task categories, including motion awareness (Conveyor Pick-and-Place), long-term memory (Object-in-Box Selection), and physical sensing (Card Slide-and-Pick, Pot-to-Cup-Pouring).",
+      "caption_ko": "그림 16: ALLEX humanoid 벤치마크 결과. 각 태스크의 학습 데이터로 파인튜닝한 VLA들의 성공률(%)을 보고한다. RLDX-1은 motion awareness(Conveyor Pick-and-Place), long-term memory(Object-in-Box Selection), physical sensing(Card Slide-and-Pick, Pot-to-Cup Pouring)을 포함한 모든 태스크 범주에서 베이스라인을 크게 앞선다.",
+      "number": 16
+    },
+    {
+      "src": "./fig-17.png",
+      "caption": "Figure 17: Franka Research 3 benchmark. We design six tasks for evaluating functional capabilities in dexterous single-arm robot manipulation: Spin Tracking, Pong Game, Cup Swapping, Shell Game, Plug Insertion, and Egg Pick-and-Place.",
+      "caption_ko": "그림 17: Franka Research 3 벤치마크. 정교한 단일 팔 로봇 조작의 기능적 역량을 평가하기 위해 여섯 태스크를 설계했다: Spin Tracking, Pong Game, Cup Swapping, Shell Game, Plug Insertion, Egg Pick-and-Place.",
+      "number": 17
+    },
+    {
+      "src": "./fig-18.png",
+      "caption": "Figure 18: Franka Research 3 benchmark results. We report the success rates (%) of VLAs fine-tuned on the training dataset of each task. RLDX-1 substantially outperforms the baselines across all task categories, including motion awareness (Spin Tracking, Pong Game), long-term memory (Cup Swapping, Shell Game), and physical sensing (Plug Insertion, Egg PnP).",
+      "caption_ko": "그림 18: Franka Research 3 벤치마크 결과. 각 태스크의 학습 데이터로 파인튜닝한 VLA들의 성공률(%)을 보고한다. RLDX-1은 motion awareness(Spin Tracking, Pong Game), long-term memory(Cup Swapping, Shell Game), physical sensing(Plug Insertion, Egg PnP)을 포함한 모든 태스크 범주에서 베이스라인을 크게 앞선다.",
+      "number": 18
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous",
+    "robotics/hand/tactile"
+  ],
+  "cover_figure_number": 1,
+  "visibility": "public",
+  "allowed_groups": []
+}

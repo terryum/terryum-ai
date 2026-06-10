@@ -1,0 +1,104 @@
+---
+locale: "ko"
+title: "RLDX-1: 모션·기억·물리 감각을 통합한 정교 조작 VLA"
+summary: "한국 로봇 기업 RLWRLD가 정교 조작용 범용 VLA인 RLDX-1을 공개했다. 기존 VLA에 부족한 motion awareness, long-term memory, physical sensing(토크·촉각) 세 가지 기능을 Motion/Memory 모듈과 Physics Stream으로 보강하고, 이 이종 모달리티를 Multi-Stream Action Transformer(MSAT)로 융합한다. ALLEX 휴머노이드 태스크에서 평균 86.8% 성공률로 π0.5(39.1%)·GR00T N1.6(44.8%)을 크게 앞서고, 추론 지연도 71.2ms에서 43.7ms로 줄였다."
+card_summary: "RLDX-1은 모션·기억·물리 감각을 멀티스트림 트랜스포머로 융합해, 접촉이 많은 휴머노이드 조작에서 π0.5·GR00T N1.6을 크게 앞선 RLWRLD의 정교 조작 VLA다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "Flow matching action expert를 VLM에 결합한 대표적 VLA. RLDX-1은 이 표준 flow-matching VLA 구조를 출발점으로 삼아 모달리티별 스트림과 기능 모듈을 추가한다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+Vision-Language-Action+Flow+Model+General+Robot+Control"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots"
+    author: "NVIDIA, Johan Bjorck et al. (2025)"
+    description: "휴머노이드 범용 조작을 겨냥한 오픈 파운데이션 모델. RLDX-1은 GR-1 휴머노이드 데이터와 GR00T N1.6 베이스라인을 직접 비교 대상으로 사용한다."
+    arxiv_url: "https://arxiv.org/abs/2503.14734"
+    scholar_url: "https://scholar.google.com/scholar?q=GR00T+N1+Open+Foundation+Model+Generalist+Humanoid+Robots"
+    category: "foundational"
+  - title: "Scaling Rectified Flow Transformers for High-Resolution Image Synthesis (MM-DiT)"
+    author: "Patrick Esser et al. (2024)"
+    description: "다중 모달리티를 별도 스트림으로 두고 joint attention으로 결합하는 Multi-Modal Diffusion Transformer(MM-DiT). RLDX-1의 MSAT는 이 구조를 행동 모델링으로 확장한 것이다."
+    arxiv_url: "https://arxiv.org/abs/2403.03206"
+    scholar_url: "https://scholar.google.com/scholar?q=Scaling+Rectified+Flow+Transformers+High-Resolution+Image+Synthesis"
+    category: "foundational"
+  - title: "π₀.₅: a Vision-Language-Action Model with Open-World Generalization"
+    author: "Physical Intelligence (2025)"
+    description: "오픈월드 일반화를 강조한 frontier VLA로, RLDX-1의 주요 비교 베이스라인(π0.5)이다. RLDX-1은 접촉·동적 태스크에서 이 모델을 크게 앞선다고 보고한다."
+    arxiv_url: "https://arxiv.org/abs/2504.16054"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0.5+Vision-Language-Action+Model+Open-World+Generalization"
+    category: "recent"
+  - title: "π₀.₆: a VLA That Learns From Experience (RECAP)"
+    author: "Ali Amin et al. (2025)"
+    description: "배포 경험과 RL로 VLA를 개선하는 RECAP 연구. RLDX-1은 어려운 태스크에서 성공률을 더 높이기 위해 RECAP 스타일 RL을 선택적으로 적용한다."
+    arxiv_url: "https://arxiv.org/abs/2511.14759"
+    scholar_url: "https://scholar.google.com/scholar?q=a+VLA+That+Learns+From+Experience"
+    post_slug: "2511-pi0-6-recap"
+    category: "recent"
+---
+
+## TL;DR
+
+VLA는 사전학습된 VLM에서 폭넓은 장면 이해와 언어 일반화를 물려받지만, 모션 인지·장기 기억·물리 감각이 필요한 접촉 많은 실제 태스크에선 여전히 약하다. RLDX-1은 이 세 기능을 Motion/Memory 모듈과 Physics Stream으로 보강하고 Multi-Stream Action Transformer로 융합해, 휴머노이드 정교 조작에서 π0.5·GR00T N1.6을 크게 앞선다.
+
+## 문제
+
+VLA는 웹 규모로 사전학습된 VLM 덕분에 장면을 이해하고 언어 지시를 따르는 "versatile intelligence"는 잘 물려받았다. 하지만 컨베이어 위의 물체를 빠르게 잡거나, 여러 단계 전의 정보를 기억하거나, 시각만으로는 알 수 없는 접촉력을 다뤄야 하는 태스크에서는 한계가 분명하다. 이런 능력 — 저자들이 motion awareness(움직임 인지), long-term memory(장기 기억), physical sensing(물리 감각, 토크·촉각) 로 정리한 기능적 역량 — 은 비전-언어 사전학습 데이터에 거의 담겨 있지 않기 때문이다. 최근 π0.5나 GR00T N1.6 같은 frontier VLA도 범용성은 높지만 이런 fine-grained 기능이 결정적인 태스크에서는 성공률이 크게 떨어진다. RLDX-1은 "더 많은 데이터로 키운다"가 아니라, 부족한 기능을 아키텍처와 데이터·학습·추론 차원에서 명시적으로 주입하는 문제를 다룬다.
+
+## 핵심 아이디어
+
+핵심은 표준 flow-matching VLA에 **세 가지 기능을 전용 경로로 추가**하고, 이 이종 모달리티를 하나의 트랜스포머로 묶는 것이다.
+
+- **Motion awareness**: 비전 인코더에 motion learning 모듈을 결합해 시간적 동역학을 포착하고, 과거 비디오 프레임을 VLM 중간 레이어에서 단일 토큰으로 압축해 시간 맥락을 효율적으로 다룬다.
+- **Long-term memory**: 과거 관측 feature를 큐로 유지하는 명시적 memory module을 두어, 짧은 multi-frame 관측을 넘어 장기 추론을 가능하게 한다.
+- **Physical sensing**: 시각만으로 얻을 수 없는 토크·촉각 신호를 action 모듈에 입력하는 Physics Stream을 두고, 미래 물리 신호를 예측하도록 학습한다.
+
+<Figure src="./fig-2.png" caption="그림 2: RLDX-1 개요. 비디오 관측과 언어 지시가 주어지면 Motion Module(motion awareness), Memory Module(long-term memory), 토크·촉각을 받는 Physics Stream(physical sensing)을 거쳐, VLM이 만든 cognition 표현과 함께 Multi-Stream Action Transformer가 joint denoising으로 최종 행동을 만든다." number={2} />
+
+이 모든 모달리티를 묶는 것이 **Multi-Stream Action Transformer(MSAT)** 다. 이미지 생성에서 쓰이는 Multi-Modal Diffusion Transformer(MM-DiT)를 행동 모델링으로 확장한 구조로, 모달리티마다 전용 스트림을 두되 cross-modal joint self-attention으로 묶는다. 덕분에 각 모달리티가 고유 표현을 유지하면서도 함께 행동 생성에 기여한다. 저자들에 따르면 이 설계는 컨베이어에서 빠르게 움직이는 물체를 잡는 태스크에서 RLDX-1이 87.5% 이상을, π0.5는 29.2% 미만을 기록하게 만든다.
+
+<Collapsible title="구체적 방법">
+
+RLDX-1은 두 부분으로 나뉜다: 비디오를 받아 motion-aware한 비전-언어 표현을 만드는 **VLM**과, 그 cognition feature에 memory·물리 신호·로봇 상태·이전 행동을 더해 행동을 생성하는 **action model**이다. cognition feature는 memory module을 통해 과거 관측 feature와 통합되어 memory-augmented cognition으로 보강된다. MSAT는 physics 토큰과 action 토큰을 함께 denoising하며 미래 물리 신호와 행동을 동시에 예측한다.
+
+<Figure src="./fig-3.png" caption="그림 3: RLDX-1 아키텍처. VLM이 비디오에서 cognition feature를 추출하고 memory module로 보강하면, action model이 이를 물리 신호·로봇 상태·이전 행동과 함께 MSAT에 입력해 미래 물리 신호와 행동을 예측한다." number={3} />
+
+**데이터.** 세 종류를 함께 쓴다: (a) single-arm·dual-arm·humanoid를 아우르는 대규모 공개 로봇 데이터, (b) 토크·촉각 신호가 포함된 인하우스 시연, (c) 합성 데이터. 합성 데이터 파이프라인은 소스 시연을 scene·task augmentation으로 다양화한 뒤 inverse dynamics model(IDM)로 행동 라벨을 달고, 예측 행동을 시뮬레이터에서 재생해 motion-consistency 분류기로 일관된 샘플만 남긴다. 이렇게 흔치 않은 조작 시나리오의 데이터 부족을 메운다.
+
+<Figure src="./fig-4.png" caption="그림 4: 합성 데이터 프레임워크. (1) scene·task augmentation으로 소스 시연을 다양화하고 IDM이 행동을 라벨링한 뒤, (2) 예측 행동을 시뮬레이터에서 재생해 motion-consistency 분류기로 일관된 샘플만 필터링한다." number={4} />
+
+**학습.** 3단계로 진행한다. 사전학습으로 범용 모델을 만들고, mid-training에서 공개 데이터에 없는 기능(모션·기억·물리 감각)을 주입하며 ALLEX 휴머노이드와 FR3용 변형을 만든다. 마지막으로 각 변형을 태스크별 데이터로 post-training하고, 어려운 태스크에서는 RECAP 스타일 강화학습(VLM critic 활용)을 선택적으로 적용해 성공률을 더 끌어올린다.
+
+**추론.** 실로봇에서는 추론 지연이 길면 관측과 실행 사이에 장면이 바뀌어 mismatch가 생긴다. PyTorch Eager 기준 RTX 5090에서 71.2ms이던 per-step 지연을, 모델을 static graph로 변환해 forward pass 전체를 단일 CUDA Graph로 캡처하고(그래프 레벨) 핵심 연산 그룹을 융합하는 커스텀 커널(커널 레벨)을 설계해 43.7ms까지 줄였다 — 약 1.63배 가속.
+
+</Collapsible>
+
+## 주요 결과
+
+- **ALLEX 휴머노이드(48-DoF)**: 평균 성공률 86.8%로 π0.5(39.1%)·GR00T N1.6(44.8%)을 크게 앞선다. 장기 기억이 필요한 Object-in-Box Selection에서 RLDX-1은 91.7%, 두 베이스라인은 30%대에 머문다. Card Slide-and-Pick은 97.2%, Conveyor Pick-and-Place는 87.5%다.
+- **Franka Research 3(단일 팔)**: 평균 68.5%로 π0.5(34.4%)·GR00T N1.6(31.6%)을 앞선다. Spin Tracking 97.9%, Shell Game 91.7% 등 모션·기억·물리 감각이 결정적인 태스크에서 격차가 크다.
+- **시뮬레이션**: LIBERO, SIMPLER, RoboCasa Kitchen, GR-1 Tabletop 등 다양한 벤치마크에서 frontier VLA를 일관되게 앞선다.
+- **추론 최적화**: all-modality 모델 기준 per-step 지연 71.2ms → 43.7ms(1.63배), RTX 5090에서 약 22Hz 제어가 가능하다.
+
+<Figure src="./fig-16.png" caption="그림 16: ALLEX 휴머노이드 벤치마크 결과. RLDX-1은 motion awareness, long-term memory, physical sensing이 결정적인 네 태스크 모두에서 베이스라인을 크게 앞서며 평균 86.8%를 기록한다." number={16} />
+
+<Figure src="./fig-18.png" caption="그림 18: Franka Research 3 벤치마크 결과. RLDX-1은 여섯 태스크 전반에서 π0.5·GR00T N1.6을 앞서며 평균 68.5%를 기록한다." number={18} />
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- 모션·기억·물리 감각이라는 **기능적 역량을 아키텍처 차원에서 명시적으로 분리·통합**했다. 모달리티별 스트림 + joint attention(MSAT)으로 각 신호를 평균내지 않고 함께 쓴다.
+- 단일 모델이 휴머노이드와 단일 팔, 시뮬레이션과 실로봇, 그리고 접촉이 많은 동적 태스크까지 폭넓게 다룬다.
+- 합성 데이터 파이프라인(생성 + IDM 라벨링 + motion-consistency 필터링)으로 흔치 않은 조작 시나리오의 데이터 부족을 체계적으로 메운다.
+- CUDA Graph + 커널 융합으로 실시간 제어 가능한 추론 지연(43.7ms, ~22Hz)을 확보해, 한국 로봇 기업 RLWRLD가 자사 ALLEX 휴머노이드에서 frontier 수준 성능을 실증했다.
+
+### 한계점
+
+- **데이터 의존**: 기능적 역량은 토크·촉각이 담긴 인하우스 teleoperation과 합성 데이터로 주입된다. 즉 성능 재현에는 비공개 데이터와 대규모 로봇 fleet이 필요하다.
+- **평가 범위**: 가장 큰 격차는 저자들이 직접 설계한 ALLEX·FR3 벤치마크와 태스크에서 나온다. 다른 연구실의 셋업과 머리 맞댄 비교는 어렵다.
+- 🤖 **재현성·일반성 한계**: RECAP 스타일 RL과 test-time sampling이 일부 태스크에선 도움이 되지만 거의 수렴한 정책의 성능을 떨어뜨리기도 한다. 즉 이 레시피가 모든 태스크에 일관되게 이로운 것은 아니어서, 외부에서 어떤 조합이 언제 효과적인지 판단하기 어렵다.

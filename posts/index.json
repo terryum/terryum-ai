@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-08T12:03:11.253Z",
-  "total_posts": 66,
+  "generated_at": "2026-06-10T07:41:21.074Z",
+  "total_posts": 67,
   "posts": [
     {
       "post_number": 1,
@@ -4803,6 +4803,106 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 67,
+      "slug": "2605-rldx-1",
+      "content_type": "papers",
+      "title_en": "RLDX-1: A Multi-Stream VLA Unifying Motion, Memory, and Physical Sensing",
+      "title_ko": "RLDX-1: 모션·기억·물리 감각을 통합한 정교 조작 VLA",
+      "summary_ko": "RLDX-1은 모션·기억·물리 감각을 멀티스트림 트랜스포머로 융합해, 접촉이 많은 휴머노이드 조작에서 π0.5·GR00T N1.6을 크게 앞선 RLWRLD의 정교 조작 VLA다.",
+      "summary_en": "RLDX-1 is RLWRLD's dexterous-manipulation VLA that fuses motion, memory, and physical sensing in a multi-stream transformer, far outperforming π0.5 and GR00T N1.6 on contact-rich humanoid tasks.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "robotics",
+      "subfields": [
+        "foundation-model",
+        "vla",
+        "dexterous-manipulation",
+        "humanoid",
+        "tactile-sensing"
+      ],
+      "key_concepts": [
+        "VLA",
+        "multi-stream-action-transformer",
+        "motion-awareness",
+        "long-term-memory",
+        "physical-sensing",
+        "tactile-torque-sensing",
+        "synthetic-data",
+        "inference-optimization",
+        "dexterous-manipulation",
+        "humanoid-manipulation"
+      ],
+      "methodology": [
+        "flow-matching",
+        "multi-stream-action-transformer",
+        "mm-dit",
+        "memory-module",
+        "motion-module",
+        "physics-stream",
+        "synthetic-data-augmentation",
+        "inverse-dynamics-labeling",
+        "recap-reinforcement-learning",
+        "cuda-graph-kernel-fusion"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Foundation Model",
+        "Dexterous Manipulation",
+        "Humanoid",
+        "Tactile Sensing",
+        "RLWRLD"
+      ],
+      "source_author": "Dongyoung Kim et al. (RLWRLD)",
+      "source_date": "2026-05-05",
+      "published_at": "2026-06-10T07:40:00Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A general-purpose dexterous-manipulation VLA that unifies motion awareness, long-term memory, and physical (tactile/torque) sensing in a Multi-Stream Action Transformer, with synthetic data and inference optimizations for real-time humanoid deployment.",
+        "problem": "VLAs inherit broad scene understanding and language generalization from pre-trained VLMs but still fail on contact-rich real-world tasks that need motion awareness, long-term memory, and physical sensing — capabilities absent from standard vision-language pre-training.",
+        "solution": "RLDX-1 adds a Motion Module and Memory Module to the VLM and a Physics Stream for torque/tactile inputs, fusing all modalities through a Multi-Stream Action Transformer (MSAT) with cross-modal joint self-attention, then trains it with synthetic data, a 3-stage pre/mid/post-training recipe (with optional RECAP-style RL), and CUDA-graph + kernel-fusion inference optimization.",
+        "key_result": "On the ALLEX humanoid benchmark RLDX-1 reaches 86.8% average success vs ~40% for π0.5 (39.1%) and GR00T N1.6 (44.8%); on Franka Research 3 it reaches 68.5% average vs 34.4%/31.6%. Inference latency drops from 71.2 ms to 43.7 ms (1.63x speedup, ~22 Hz) on an RTX 5090.",
+        "limitations": [
+          "Functional capabilities are injected through in-house teleoperation and synthetic data, so reproducing the gains requires private data and a large robot fleet.",
+          "Reported gains are on the authors' own ALLEX/FR3 benchmarks and tasks, making head-to-head comparison with other labs' setups difficult.",
+          "RECAP-style RL and test-time sampling help on some tasks but can degrade near-converged policies, so the recipe is not uniformly beneficial."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "extends"
+        },
+        {
+          "target": "2511-pi0-6-recap",
+          "type": "extends"
+        },
+        {
+          "target": "2604-pi0-7-steerable-generalist-vla",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2505-forcevla-force-aware-moe",
+          "type": "sharesGoalWith"
+        },
+        {
+          "target": "2602-habilis-vla-on-device",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous",
+        "robotics/hand/tactile"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -5621,6 +5721,281 @@
         "from": "260608-jensen-hwang-new-wave",
         "to": "260608-jensen-huang-snu-speech",
         "type": "related"
+      },
+      {
+        "from": "2605-rldx-1",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "extends"
+      },
+      {
+        "from": "2605-rldx-1",
+        "to": "2511-pi0-6-recap",
+        "type": "extends"
+      },
+      {
+        "from": "2605-rldx-1",
+        "to": "2604-pi0-7-steerable-generalist-vla",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-rldx-1",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2605-rldx-1",
+        "to": "2602-habilis-vla-on-device",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2512-unitachand",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2602-robopaint",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2410-pi0-vla-flow-model",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2501-dexforce-force-informed-actions",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "compares_with"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "uses_method"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2506-exostart",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2511-gen0-embodied-foundation-model",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2511-gen0-embodied-foundation-model",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2511-pi0-6-recap",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "builds_on"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2512-unitachand",
+        "type": "compares_with"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2409-3dtactile-dex",
+        "type": "related"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2409-3dtactile-dex",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2506-exostart",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2509-dexop",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2603-capx-coding-agents-manipulation",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "compares_with"
+      },
+      {
+        "from": "2603-medical-ai-scientist",
+        "to": "2502-ai-co-scientist",
+        "type": "compares_with"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2603-capx-coding-agents-manipulation",
+        "type": "compares_with"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2511-gen0-embodied-foundation-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2604-harnessing-claude-intelligence",
+        "to": "2603-meta-harness-optimization",
+        "type": "related"
+      },
+      {
+        "from": "2604-harnessing-claude-intelligence",
+        "to": "2502-ai-co-scientist",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -5637,7 +6012,8 @@
           33,
           55,
           56,
-          62
+          62,
+          67
         ],
         "core_concepts": [
           "VLA",
@@ -5818,7 +6194,8 @@
           38,
           55,
           56,
-          62
+          62,
+          67
         ],
         "core_concepts": [
           "VLA"
@@ -5875,7 +6252,8 @@
           14,
           15,
           16,
-          38
+          38,
+          67
         ],
         "core_concepts": [
           "dexterous-manipulation"
@@ -5910,7 +6288,8 @@
       40,
       41,
       52,
-      57
+      57,
+      67
     ],
     "outlier_papers": [
       57
@@ -5929,7 +6308,8 @@
       38,
       55,
       56,
-      62
+      62,
+      67
     ],
     "flow-matching": [
       1,
@@ -6167,7 +6547,8 @@
       14,
       15,
       16,
-      38
+      38,
+      67
     ],
     "GraphMAE": [
       14
@@ -7077,10 +7458,34 @@
     ],
     "manufacturing-ai": [
       66
+    ],
+    "multi-stream-action-transformer": [
+      67
+    ],
+    "motion-awareness": [
+      67
+    ],
+    "long-term-memory": [
+      67
+    ],
+    "physical-sensing": [
+      67
+    ],
+    "tactile-torque-sensing": [
+      67
+    ],
+    "synthetic-data": [
+      67
+    ],
+    "inference-optimization": [
+      67
+    ],
+    "humanoid-manipulation": [
+      67
     ]
   },
   "domain_stats": {
-    "robotics": 34,
+    "robotics": 35,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7098,7 +7503,7 @@
     "AI": 2
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 10,
+    "robotics/brain/vla": 11,
     "robotics/arm:secondary": 11,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
@@ -7106,9 +7511,9 @@
     "robotics/hand:secondary": 1,
     "robotics/hand/dexterous": 3,
     "ai/agent": 8,
-    "robotics/hand/dexterous:secondary": 9,
+    "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 15,
+    "robotics/brain": 16,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -7140,9 +7545,10 @@
     "ai/robotics": 2,
     "ai-education/events:secondary": 1,
     "manufacturing/physical-ai:secondary": 1,
+    "robotics/hand/tactile:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 33,
+    "robotics": 34,
     "ai": 16
   }
 }

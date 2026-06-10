@@ -1,0 +1,105 @@
+---
+locale: "en"
+translation_of: "2605-rldx-1:ko"
+title: "RLDX-1: A Multi-Stream VLA Unifying Motion, Memory, and Physical Sensing"
+summary: "Korean robotics company RLWRLD released RLDX-1, a general-purpose VLA for dexterous manipulation. It adds the capabilities VLAs usually lack — motion awareness, long-term memory, and physical (torque/tactile) sensing — via Motion/Memory modules and a Physics Stream, fusing these heterogeneous modalities with a Multi-Stream Action Transformer (MSAT). On the ALLEX humanoid benchmark it reaches 86.8% average success vs π0.5 (39.1%) and GR00T N1.6 (44.8%), and cuts inference latency from 71.2 ms to 43.7 ms."
+card_summary: "RLDX-1 is RLWRLD's dexterous-manipulation VLA that fuses motion, memory, and physical sensing in a multi-stream transformer, far outperforming π0.5 and GR00T N1.6 on contact-rich humanoid tasks."
+terrys_memo: ""
+translated_to:
+  - ko
+references:
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "A canonical VLA pairing a flow-matching action expert with a VLM. RLDX-1 takes this standard flow-matching VLA as its starting point and adds modality-specific streams and functional modules."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+Vision-Language-Action+Flow+Model+General+Robot+Control"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "foundational"
+  - title: "GR00T N1: An Open Foundation Model for Generalist Humanoid Robots"
+    author: "NVIDIA, Johan Bjorck et al. (2025)"
+    description: "An open foundation model targeting generalist humanoid manipulation. RLDX-1 uses GR-1 humanoid data and treats GR00T N1.6 as a direct baseline."
+    arxiv_url: "https://arxiv.org/abs/2503.14734"
+    scholar_url: "https://scholar.google.com/scholar?q=GR00T+N1+Open+Foundation+Model+Generalist+Humanoid+Robots"
+    category: "foundational"
+  - title: "Scaling Rectified Flow Transformers for High-Resolution Image Synthesis (MM-DiT)"
+    author: "Patrick Esser et al. (2024)"
+    description: "The Multi-Modal Diffusion Transformer (MM-DiT) that gives each modality its own stream and couples them via joint attention. RLDX-1's MSAT extends this design to action modeling."
+    arxiv_url: "https://arxiv.org/abs/2403.03206"
+    scholar_url: "https://scholar.google.com/scholar?q=Scaling+Rectified+Flow+Transformers+High-Resolution+Image+Synthesis"
+    category: "foundational"
+  - title: "π₀.₅: a Vision-Language-Action Model with Open-World Generalization"
+    author: "Physical Intelligence (2025)"
+    description: "A frontier VLA emphasizing open-world generalization and RLDX-1's main baseline (π0.5). RLDX-1 reports substantially outperforming it on contact-rich and dynamic tasks."
+    arxiv_url: "https://arxiv.org/abs/2504.16054"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0.5+Vision-Language-Action+Model+Open-World+Generalization"
+    category: "recent"
+  - title: "π₀.₆: a VLA That Learns From Experience (RECAP)"
+    author: "Ali Amin et al. (2025)"
+    description: "RECAP improves VLAs from deployment experience and RL. RLDX-1 optionally applies RECAP-style RL to push success rates higher on the hardest tasks."
+    arxiv_url: "https://arxiv.org/abs/2511.14759"
+    scholar_url: "https://scholar.google.com/scholar?q=a+VLA+That+Learns+From+Experience"
+    post_slug: "2511-pi0-6-recap"
+    category: "recent"
+---
+
+## TL;DR
+
+VLAs inherit broad scene understanding and language generalization from pre-trained VLMs, but they remain weak on contact-rich real-world tasks that demand motion awareness, long-term memory, and physical sensing. RLDX-1 injects these three capabilities through Motion/Memory modules and a Physics Stream and fuses them with a Multi-Stream Action Transformer, substantially outperforming π0.5 and GR00T N1.6 on dexterous humanoid manipulation.
+
+## The Problem
+
+Thanks to web-scale VLM pre-training, VLAs inherit "versatile intelligence" — they understand scenes and follow language instructions well. But they struggle when a task requires catching a fast-moving object on a conveyor, remembering information from many steps earlier, or handling contact forces invisible to cameras. These abilities — what the authors group as motion awareness, long-term memory, and physical sensing (torque/tactile) — are barely present in vision-language pre-training data. Even recent frontier VLAs like π0.5 and GR00T N1.6 see success rates collapse on tasks where such fine-grained functional capabilities are decisive. Rather than "scale up with more data," RLDX-1 tackles the problem of explicitly injecting the missing capabilities at the architecture, data, training, and inference levels.
+
+## Core Idea
+
+The key is to add **three capabilities as dedicated pathways** on top of a standard flow-matching VLA, then bind these heterogeneous modalities into one transformer.
+
+- **Motion awareness**: a vision encoder coupled with a motion-learning module captures temporal dynamics, and past video frames are compressed into a single token in the VLM's intermediate layers for efficient temporal context.
+- **Long-term memory**: an explicit memory module maintains a queue of past observation features, enabling reasoning beyond short multi-frame windows.
+- **Physical sensing**: a Physics Stream feeds torque/tactile signals — which vision alone cannot capture — into the action module, trained to predict future physical signals.
+
+<Figure src="./fig-2.png" caption="Figure 2: Overview of RLDX-1. From video observations and a language instruction, the Motion Module (motion awareness), Memory Module (long-term memory), and Physics Stream taking torque/tactile inputs (physical sensing) feed a Multi-Stream Action Transformer that jointly denoises with the VLM's cognition representation to produce the final action." number={2} />
+
+Binding all of these is the **Multi-Stream Action Transformer (MSAT)**, an extension of the Multi-Modal Diffusion Transformer (MM-DiT) — used in image generation — to action modeling. It gives each modality its own stream while coupling them through cross-modal joint self-attention, so every modality keeps its representation yet contributes to action generation. The authors report that this design lets RLDX-1 exceed 87.5% success at catching fast-moving objects on a conveyor while π0.5 stays below 29.2%.
+
+<Collapsible title="Method details">
+
+RLDX-1 has two parts: a **VLM** that turns video into motion-aware vision-language representations, and an **action model** that augments the resulting cognition features with memory, physical signals, robot state, and previous actions to generate actions. Cognition features are augmented with past observation features via the memory module, and MSAT jointly denoises physics and action tokens to predict future physical signals and actions together.
+
+<Figure src="./fig-3.png" caption="Figure 3: RLDX-1 architecture. The VLM extracts cognition features from video and augments them via the memory module; the action model feeds these together with physical signals, robot state, and previous actions into MSAT to predict future physical signals and actions." number={3} />
+
+**Data.** Three sources are used together: (a) large-scale public robot datasets spanning single-arm, dual-arm, and humanoid robots; (b) in-house demonstrations carrying torque/tactile signals; and (c) synthetic data. The synthetic pipeline diversifies a source demonstration via scene/task augmentation, labels actions with an inverse dynamics model (IDM), then replays predicted actions in a simulator and keeps only motion-consistent samples — filling the data gap for rare manipulation scenarios.
+
+<Figure src="./fig-4.png" caption="Figure 4: Synthetic data framework. (1) scene/task augmentation diversifies a source demonstration and an IDM labels actions; (2) predicted actions are replayed in a simulator and a motion-consistency classifier keeps only consistent samples." number={4} />
+
+**Training.** Three stages: pre-training produces a general model; mid-training injects the capabilities absent from public data (motion, memory, physical sensing) and produces ALLEX-humanoid and FR3 variants; finally each variant is post-trained on task-specific data, optionally with RECAP-style reinforcement learning (using a VLM critic) to push success rates higher on the hardest tasks.
+
+**Inference.** On real robots, high latency lets the scene change between observation and execution, causing a mismatch. RLDX-1 cuts per-step latency from 71.2 ms (PyTorch Eager on an RTX 5090) to 43.7 ms — a ~1.63x speedup — by converting the model into a static graph captured as a single CUDA Graph (graph level) and designing custom kernels that fuse critical operator groups (kernel level).
+
+</Collapsible>
+
+## Key Results
+
+- **ALLEX humanoid (48-DoF)**: 86.8% average success, far above π0.5 (39.1%) and GR00T N1.6 (44.8%). On the memory-demanding Object-in-Box Selection, RLDX-1 hits 91.7% while both baselines sit in the 30s. Card Slide-and-Pick reaches 97.2% and Conveyor Pick-and-Place 87.5%.
+- **Franka Research 3 (single-arm)**: 68.5% average vs π0.5 (34.4%) and GR00T N1.6 (31.6%), with large gaps on Spin Tracking (97.9%) and Shell Game (91.7%) where motion, memory, and physical sensing are decisive.
+- **Simulation**: consistently ahead of frontier VLAs across LIBERO, SIMPLER, RoboCasa Kitchen, and GR-1 Tabletop.
+- **Inference optimization**: per-step latency for the all-modality model drops 71.2 ms → 43.7 ms (1.63x), enabling ~22 Hz control on an RTX 5090.
+
+<Figure src="./fig-16.png" caption="Figure 16: ALLEX humanoid benchmark results. RLDX-1 substantially outperforms baselines across all four tasks spanning motion awareness, long-term memory, and physical sensing, averaging 86.8%." number={16} />
+
+<Figure src="./fig-18.png" caption="Figure 18: Franka Research 3 benchmark results. RLDX-1 leads π0.5 and GR00T N1.6 across all six tasks, averaging 68.5%." number={18} />
+
+## Achievements and Limitations
+
+### What's new
+
+- It **explicitly separates and reintegrates functional capabilities** — motion, memory, physical sensing — at the architecture level, using modality-specific streams plus joint attention (MSAT) so signals are used together rather than averaged away.
+- A single model spans humanoid and single-arm, simulation and real robots, and contact-rich dynamic tasks.
+- A synthetic data pipeline (generation + IDM labeling + motion-consistency filtering) systematically fills data gaps for rare manipulation scenarios.
+- CUDA Graph plus kernel fusion secures real-time-capable latency (43.7 ms, ~22 Hz), letting Korean robotics company RLWRLD demonstrate frontier-level performance on its own ALLEX humanoid.
+
+### Limitations
+
+- **Data dependence**: the functional capabilities are injected via in-house teleoperation with torque/tactile signals and synthetic data, so reproducing the gains requires private data and a large robot fleet.
+- **Evaluation scope**: the largest gaps come from the authors' own ALLEX/FR3 benchmarks and tasks, making head-to-head comparison with other labs' setups hard.
+- 🤖 **Reproducibility/generality limit**: RECAP-style RL and test-time sampling help on some tasks but can degrade near-converged policies, so the recipe is not uniformly beneficial — it is hard for outsiders to know which combination works when.
