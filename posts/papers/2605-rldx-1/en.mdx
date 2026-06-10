@@ -64,7 +64,7 @@ Binding all of these is the **Multi-Stream Action Transformer (MSAT)**, an exten
 
 <Collapsible title="Method details">
 
-RLDX-1 has two parts: a **VLM** that turns video into motion-aware vision-language representations, and an **action model** that augments the resulting cognition features with memory, physical signals, robot state, and previous actions to generate actions. Cognition features are augmented with past observation features via the memory module, and MSAT jointly denoises physics and action tokens to predict future physical signals and actions together.
+RLDX-1 has two parts: a **VLM** that turns video into motion-aware vision-language representations, and an **action model** that augments the resulting cognition features with memory, physical signals, robot state, and previous actions to generate actions. The VLM is RLDX-1-VLM — an open-source Qwen3-VL 8B fine-tuned on a robot-scenario VQA dataset (end-effector–object spatial relations, intermediate subtasks, low-level actions), which lifts embodied grounding from 57.5% to 60.9% over vanilla Qwen3-VL 8B on RoboCasa Kitchen. Cognition features are augmented with past observation features via the memory module, and MSAT jointly denoises physics and action tokens to predict future physical signals and actions together.
 
 <Figure src="./fig-3.png" caption="Figure 3: RLDX-1 architecture. The VLM extracts cognition features from video and augments them via the memory module; the action model feeds these together with physical signals, robot state, and previous actions into MSAT to predict future physical signals and actions." number={3} />
 
@@ -72,7 +72,7 @@ RLDX-1 has two parts: a **VLM** that turns video into motion-aware vision-langua
 
 <Figure src="./fig-4.png" caption="Figure 4: Synthetic data framework. (1) scene/task augmentation diversifies a source demonstration and an IDM labels actions; (2) predicted actions are replayed in a simulator and a motion-consistency classifier keeps only consistent samples." number={4} />
 
-**Training.** Three stages: pre-training produces a general model; mid-training injects the capabilities absent from public data (motion, memory, physical sensing) and produces ALLEX-humanoid and FR3 variants; finally each variant is post-trained on task-specific data, optionally with RECAP-style reinforcement learning (using a VLM critic) to push success rates higher on the hardest tasks.
+**Training.** Three stages that progressively specialize a generalist backbone into a task specialist: pre-training produces a general model (scaling synthetic data from 0→25→50→100% lifts GR-1 Tabletop success monotonically, 41.0→50.1%); mid-training injects the capabilities absent from public data (motion, memory, physical sensing) and produces ALLEX-humanoid and FR3 variants; finally each variant is post-trained on task-specific data, optionally with RECAP-style reinforcement learning (using a VLM critic) to push success rates higher on the hardest tasks.
 
 **Inference.** On real robots, high latency lets the scene change between observation and execution, causing a mismatch. RLDX-1 cuts per-step latency from 71.2 ms (PyTorch Eager on an RTX 5090) to 43.7 ms — a ~1.63x speedup — by converting the model into a static graph captured as a single CUDA Graph (graph level) and designing custom kernels that fuse critical operator groups (kernel level).
 

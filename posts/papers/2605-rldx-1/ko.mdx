@@ -63,7 +63,7 @@ VLA는 웹 규모로 사전학습된 VLM 덕분에 장면을 이해하고 언어
 
 <Collapsible title="구체적 방법">
 
-RLDX-1은 두 부분으로 나뉜다: 비디오를 받아 motion-aware한 비전-언어 표현을 만드는 **VLM**과, 그 cognition feature에 memory·물리 신호·로봇 상태·이전 행동을 더해 행동을 생성하는 **action model**이다. cognition feature는 memory module을 통해 과거 관측 feature와 통합되어 memory-augmented cognition으로 보강된다. MSAT는 physics 토큰과 action 토큰을 함께 denoising하며 미래 물리 신호와 행동을 동시에 예측한다.
+RLDX-1은 두 부분으로 나뉜다: 비디오를 받아 motion-aware한 비전-언어 표현을 만드는 **VLM**과, 그 cognition feature에 memory·물리 신호·로봇 상태·이전 행동을 더해 행동을 생성하는 **action model**이다. 여기서 VLM은 오픈소스 Qwen3-VL 8B를 로봇 시나리오용 VQA 데이터셋(end-effector와 대상의 공간 관계, 중간 subtask, low-level action)으로 파인튜닝한 RLDX-1-VLM으로, 일반 Qwen3-VL 8B 대비 RoboCasa Kitchen에서 57.5%→60.9%로 embodied grounding이 향상된다. cognition feature는 memory module을 통해 과거 관측 feature와 통합되어 memory-augmented cognition으로 보강된다. MSAT는 physics 토큰과 action 토큰을 함께 denoising하며 미래 물리 신호와 행동을 동시에 예측한다.
 
 <Figure src="./fig-3.png" caption="그림 3: RLDX-1 아키텍처. VLM이 비디오에서 cognition feature를 추출하고 memory module로 보강하면, action model이 이를 물리 신호·로봇 상태·이전 행동과 함께 MSAT에 입력해 미래 물리 신호와 행동을 예측한다." number={3} />
 
@@ -71,7 +71,7 @@ RLDX-1은 두 부분으로 나뉜다: 비디오를 받아 motion-aware한 비전
 
 <Figure src="./fig-4.png" caption="그림 4: 합성 데이터 프레임워크. (1) scene·task augmentation으로 소스 시연을 다양화하고 IDM이 행동을 라벨링한 뒤, (2) 예측 행동을 시뮬레이터에서 재생해 motion-consistency 분류기로 일관된 샘플만 필터링한다." number={4} />
 
-**학습.** 3단계로 진행한다. 사전학습으로 범용 모델을 만들고, mid-training에서 공개 데이터에 없는 기능(모션·기억·물리 감각)을 주입하며 ALLEX 휴머노이드와 FR3용 변형을 만든다. 마지막으로 각 변형을 태스크별 데이터로 post-training하고, 어려운 태스크에서는 RECAP 스타일 강화학습(VLM critic 활용)을 선택적으로 적용해 성공률을 더 끌어올린다.
+**학습.** 범용 backbone을 점차 태스크 specialist로 특화하는 3단계로 진행한다. 사전학습으로 범용 모델을 만들고(합성 데이터 비율을 0→25→50→100%로 늘리면 GR-1 Tabletop 성공률이 41.0→50.1%로 단조 증가), mid-training에서 공개 데이터에 없는 기능(모션·기억·물리 감각)을 주입하며 ALLEX 휴머노이드와 FR3용 변형을 만든다. 마지막으로 각 변형을 태스크별 데이터로 post-training하고, 어려운 태스크에서는 RECAP 스타일 강화학습(VLM critic 활용)을 선택적으로 적용해 성공률을 더 끌어올린다.
 
 **추론.** 실로봇에서는 추론 지연이 길면 관측과 실행 사이에 장면이 바뀌어 mismatch가 생긴다. PyTorch Eager 기준 RTX 5090에서 71.2ms이던 per-step 지연을, 모델을 static graph로 변환해 forward pass 전체를 단일 CUDA Graph로 캡처하고(그래프 레벨) 핵심 연산 그룹을 융합하는 커스텀 커널(커널 레벨)을 설계해 43.7ms까지 줄였다 — 약 1.63배 가속.
 
