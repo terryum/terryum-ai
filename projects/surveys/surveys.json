@@ -9,8 +9,8 @@
         "en": "NVIDIA Physical AI for Manufacturing Robotics"
       },
       "description": {
-        "ko": "NVIDIA의 Physical AI 스택을 제조 수작업 자동화 관점에서 읽는 12장짜리 서베이 초안. Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, GEAR 연구를 공장 셀·촉각·검증·데이터 자산 전략으로 연결한다.",
-        "en": "A 12-chapter draft survey reading NVIDIA physical AI from the perspective of manual-work automation in manufacturing. Connects Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, and GEAR research to factory cells, touch, validation, and process-data strategy."
+        "ko": "NVIDIA의 Physical AI 스택을 제조 수작업 자동화 관점에서 읽는 12장짜리 학습형 서베이. Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, GEAR 연구를 공장 셀·촉각·검증·데이터 자산 전략으로 연결하고, 장별 학습 목표·체크포인트·다음 학습 경로를 함께 제공한다.",
+        "en": "A 12-chapter learning-oriented survey of NVIDIA physical AI for manufacturing robotics. Connects Isaac, Omniverse, Cosmos 3, GR00T N1.7, Jetson/Thor, and GEAR research to factory cells, touch, validation, and process-data strategy, with chapter-level learning goals, checkpoints, and next-step study paths."
       },
       "cover_image": "/images/projects/survey-nvidia-physical-ai-robotics-cover.webp",
       "tech_stack": [
@@ -89,7 +89,7 @@
       "featured": true,
       "order": 0,
       "published_at": "2026-06-08",
-      "updated_at": "2026-06-08"
+      "updated_at": "2026-06-11"
     },
     {
       "slug": "survey-llm-wiki-to-ai-scientist",
