@@ -1,0 +1,71 @@
+{
+  "post_id": "260613-mythos-sovereign-ai-growth-fund",
+  "slug": "260613-mythos-sovereign-ai-growth-fund",
+  "post_number": 68,
+  "published_at": "2026-06-13T00:00:00.000Z",
+  "updated_at": "2026-06-13T00:00:00.000Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "Mythos 수출금지와 소버린AI, 그리고 국민성장펀드의 명과 암",
+  "title_en": "The Mythos Export Ban, Sovereign AI, and the National Growth Fund",
+  "subtitle_ko": "소버린은 대마불사가 아니다",
+  "subtitle_en": "Sovereignty is not too-big-to-fail",
+  "summary_ko": "Anthropic Mythos와 Fable 수출금지는 AI가 국가 전략 자산의 좌표로 이동하고 있음을 보여준다. 한국의 소버린AI 방향은 맞지만, 그것이 몇몇 국가대표 기업에 거대 자금을 몰아주는 방식으로만 실행될 때 기술 검증과 스타트업 생태계가 왜곡될 수 있다.",
+  "summary_en": "The export ban on Anthropic Mythos and Fable shows that frontier AI is becoming a national strategic asset. Korea needs sovereign AI, but if that goal is reduced to pouring huge capital into a few national champions, technical validation and the startup ecosystem can be distorted.",
+  "card_summary_ko": "소버린AI는 필요하다. 그러나 소버린이라는 말이 특정 기업을 살리는 주문이 되어서는 안 된다.",
+  "card_summary_en": "Sovereign AI is necessary, but it must not become a spell for rescuing a few chosen companies.",
+  "tags": [
+    "Essays",
+    "AI",
+    "Robotics",
+    "Sovereign AI",
+    "Startup",
+    "Policy"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 13,
+  "domain": "AI Policy",
+  "subfields": [
+    "sovereign AI",
+    "robotics",
+    "startup financing",
+    "industrial policy"
+  ],
+  "key_concepts": [
+    "sovereign-ai",
+    "foundation-models",
+    "national-growth-fund",
+    "strategic-capital",
+    "robotics",
+    "startup-financing"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260608-jensen-hwang-new-wave"
+  ],
+  "taxonomy_primary": "ai/policy",
+  "taxonomy_secondary": [
+    "robotics/physical-ai",
+    "startup/financing"
+  ],
+  "relations": [
+    {
+      "target": "260608-jensen-hwang-new-wave",
+      "type": "related",
+      "note": "Both essays discuss sovereign capacity and physical AI as strategic national infrastructure."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "소버린AI는 필요하지만 국가대표 기업 몰아주기가 검증을 대체하면 주권 역량은 약해진다",
+    "problem": "AI와 로봇이 전략 자산이 되면서 한국도 독자 역량이 필요하지만 정책 자금이 몇몇 스타트업을 대마불사로 만들 위험이 있다",
+    "solution": "소버린 역량을 특정 기업 이름표가 아니라 통제해야 할 기술 레이어와 병목의 지도로 재정의한다",
+    "key_result": "국민성장펀드는 기업을 살리는 주문이 아니라 성능·고객·보안 기준을 통과하는 국가 작동 능력을 만드는 장치여야 한다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

@@ -43,7 +43,8 @@
   ],
   "idea_status": null,
   "related_posts": [
-    "260608-jensen-huang-snu-speech"
+    "260608-jensen-huang-snu-speech",
+    "260613-mythos-sovereign-ai-growth-fund"
   ],
   "related_surveys": [
     "survey-nvidia-physical-ai-robotics"
@@ -58,6 +59,10 @@
       "target": "260608-jensen-huang-snu-speech",
       "type": "related",
       "note": "This essay reflects on the Jensen Huang SNU talk and links to the full transcript."
+    },
+    {
+      "target": "260613-mythos-sovereign-ai-growth-fund",
+      "type": "related"
     }
   ],
   "ai_summary": {

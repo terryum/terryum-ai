@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-10T07:41:21.074Z",
-  "total_posts": 67,
+  "generated_at": "2026-06-13T07:25:57.031Z",
+  "total_posts": 68,
   "posts": [
     {
       "post_number": 1,
@@ -4790,11 +4790,16 @@
           "target": "260608-jensen-huang-snu-speech",
           "type": "related",
           "note": "This essay reflects on the Jensen Huang SNU talk and links to the full transcript."
+        },
+        {
+          "target": "260613-mythos-sovereign-ai-growth-fund",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
-        "260608-jensen-huang-snu-speech"
+        "260608-jensen-huang-snu-speech",
+        "260613-mythos-sovereign-ai-growth-fund"
       ],
       "taxonomy_primary": "ai/robotics",
       "taxonomy_secondary": [
@@ -4900,6 +4905,71 @@
       "taxonomy_secondary": [
         "robotics/hand/dexterous",
         "robotics/hand/tactile"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 68,
+      "slug": "260613-mythos-sovereign-ai-growth-fund",
+      "content_type": "essays",
+      "title_en": "The Mythos Export Ban, Sovereign AI, and the National Growth Fund",
+      "title_ko": "Mythos 수출금지와 소버린AI, 그리고 국민성장펀드의 명과 암",
+      "summary_ko": "소버린AI는 필요하다. 그러나 소버린이라는 말이 특정 기업을 살리는 주문이 되어서는 안 된다.",
+      "summary_en": "Sovereign AI is necessary, but it must not become a spell for rescuing a few chosen companies.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI Policy",
+      "subfields": [
+        "sovereign AI",
+        "robotics",
+        "startup financing",
+        "industrial policy"
+      ],
+      "key_concepts": [
+        "sovereign-ai",
+        "foundation-models",
+        "national-growth-fund",
+        "strategic-capital",
+        "robotics",
+        "startup-financing"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Robotics",
+        "Sovereign AI",
+        "Startup",
+        "Policy"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-13T00:00:00.000Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "소버린AI는 필요하지만 국가대표 기업 몰아주기가 검증을 대체하면 주권 역량은 약해진다",
+        "problem": "AI와 로봇이 전략 자산이 되면서 한국도 독자 역량이 필요하지만 정책 자금이 몇몇 스타트업을 대마불사로 만들 위험이 있다",
+        "solution": "소버린 역량을 특정 기업 이름표가 아니라 통제해야 할 기술 레이어와 병목의 지도로 재정의한다",
+        "key_result": "국민성장펀드는 기업을 살리는 주문이 아니라 성능·고객·보안 기준을 통과하는 국가 작동 능력을 만드는 장치여야 한다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260608-jensen-hwang-new-wave",
+          "type": "related",
+          "note": "Both essays discuss sovereign capacity and physical AI as strategic national infrastructure."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260608-jensen-hwang-new-wave"
+      ],
+      "taxonomy_primary": "ai/policy",
+      "taxonomy_secondary": [
+        "robotics/physical-ai",
+        "startup/financing"
       ],
       "visibility": "public",
       "allowed_groups": []
@@ -5723,6 +5793,11 @@
         "type": "related"
       },
       {
+        "from": "260608-jensen-hwang-new-wave",
+        "to": "260613-mythos-sovereign-ai-growth-fund",
+        "type": "related"
+      },
+      {
         "from": "2605-rldx-1",
         "to": "2410-pi0-vla-flow-model",
         "type": "extends"
@@ -5748,253 +5823,8 @@
         "type": "sharesTopicWith"
       },
       {
-        "from": "2201-mano-hand-model",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2201-mano-hand-model",
-        "to": "2512-unitachand",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2201-mano-hand-model",
-        "to": "2602-robopaint",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2410-pi0-vla-flow-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2501-dexforce-force-informed-actions",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "compares_with"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "uses_method"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2506-exostart",
-        "type": "compares_with"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2511-pi0-6-recap",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2512-unitachand",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2506-exostart",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2509-dexop",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2603-capx-coding-agents-manipulation",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-medical-ai-scientist",
-        "to": "2502-ai-co-scientist",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2603-capx-coding-agents-manipulation",
-        "type": "compares_with"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-gen0-embodied-foundation-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2603-meta-harness-optimization",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2502-ai-co-scientist",
+        "from": "260613-mythos-sovereign-ai-growth-fund",
+        "to": "260608-jensen-hwang-new-wave",
         "type": "related"
       }
     ],
@@ -7454,7 +7284,8 @@
       66
     ],
     "robotics": [
-      66
+      66,
+      68
     ],
     "manufacturing-ai": [
       66
@@ -7482,6 +7313,21 @@
     ],
     "humanoid-manipulation": [
       67
+    ],
+    "sovereign-ai": [
+      68
+    ],
+    "foundation-models": [
+      68
+    ],
+    "national-growth-fund": [
+      68
+    ],
+    "strategic-capital": [
+      68
+    ],
+    "startup-financing": [
+      68
     ]
   },
   "domain_stats": {
@@ -7500,7 +7346,8 @@
     "Startup": 1,
     "AI Organization": 1,
     "Leadership": 1,
-    "AI": 2
+    "AI": 2,
+    "AI Policy": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -7546,9 +7393,12 @@
     "ai-education/events:secondary": 1,
     "manufacturing/physical-ai:secondary": 1,
     "robotics/hand/tactile:secondary": 1,
+    "ai/policy": 1,
+    "robotics/physical-ai:secondary": 1,
+    "startup/financing:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
     "robotics": 34,
-    "ai": 16
+    "ai": 17
   }
 }
