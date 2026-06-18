@@ -25,7 +25,7 @@ export interface TabDefinition {
   order: number;       // display order in nav menu
 }
 
-// Header order: Essays · Surveys · Papers · Notes (depth/weight descending).
+// Header order: Surveys · Essays · Papers · Notes (matches home Latest sections).
 // Surveys is rendered separately (top-level route), not via TAB_CONFIG.
 export const TAB_CONFIG: TabDefinition[] = [
   { slug: 'essays', matchTags: ['essays'], order: 0 },

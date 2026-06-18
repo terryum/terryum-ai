@@ -191,7 +191,7 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
       .catch(() => {});
   }, []);
 
-  // Header order: Essays · Surveys · Papers · Notes  ·  About
+  // Header order: Surveys · Essays · Papers · Notes  ·  About
   // Surveys is a top-level route, the others are tabs of /posts.
   const tabBySlug = new Map(navTabs.map(t => [t.tabSlug, t]));
   const essaysTab = tabBySlug.get('essays');
@@ -202,8 +202,8 @@ function HeaderInner({ locale, dict, navTabs }: HeaderProps) {
   const aboutItem: NavItem = { href: `/${locale}/about`, label: dict.nav.about };
 
   const primaryItems: NavItem[] = [
-    essaysTab && { href: essaysTab.href, label: essaysTab.label, tabSlug: essaysTab.tabSlug },
     surveysItem,
+    essaysTab && { href: essaysTab.href, label: essaysTab.label, tabSlug: essaysTab.tabSlug },
     papersTab && { href: papersTab.href, label: papersTab.label, tabSlug: papersTab.tabSlug },
     notesTab && { href: notesTab.href, label: notesTab.label, tabSlug: notesTab.tabSlug },
   ].filter((x): x is NavItem => Boolean(x));
