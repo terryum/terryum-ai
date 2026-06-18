@@ -1,0 +1,234 @@
+{
+  "post_id": "2509-omniretarget-interaction-preserving-retargeting",
+  "slug": "2509-omniretarget-interaction-preserving-retargeting",
+  "post_number": 70,
+  "published_at": "2026-06-18T14:12:05+09:00",
+  "updated_at": "2026-06-18T14:12:05+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Humanoid",
+    "Retargeting",
+    "Loco-Manipulation",
+    "Reinforcement Learning",
+    "Sim-to-Real"
+  ],
+  "display_tags": [
+    "Humanoid",
+    "Retargeting",
+    "Loco-Manipulation",
+    "Sim-to-Real"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "OmniRetarget flagship demo: a Unitree G1 humanoid carries a chair, climbs a platform, leaps down, and rolls in a 30-second long-horizon loco-manipulation sequence. Video source: omniretarget.github.io",
+  "thumb_source": "./fig-4.png",
+  "thumb_position": "centre",
+  "reading_time_min": 10,
+  "source_date": "2026-06-15",
+  "source_url": "https://arxiv.org/abs/2509.26633",
+  "source_title": "OmniRetarget: Interaction-Preserving Data Generation for Humanoid Whole-Body Loco-Manipulation and Scene Interaction",
+  "source_author": "Lujie Yang et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://omniretarget.github.io/",
+  "source_venue": "ICRA 2026",
+  "arxiv_id": "2509.26633",
+  "doi": "10.48550/arXiv.2509.26633",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=omniretarget-interaction-preserving-data-generation",
+  "source_authors_full": [
+    {
+      "name": "Lujie Yang",
+      "affiliation": "Amazon FAR, MIT"
+    },
+    {
+      "name": "Xiaoyu Huang",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Zhen Wu",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Angjoo Kanazawa",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Pieter Abbeel",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Carmelo Sferrazza",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "C. Karen Liu",
+      "affiliation": "Amazon FAR, Stanford University"
+    },
+    {
+      "name": "Rocky Duan",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Guanya Shi",
+      "affiliation": "Amazon FAR, CMU"
+    }
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "OmniRetarget overview. Human demonstrations are retargeted to the robot via interaction-mesh-based constrained optimization. Each spatial and shape augmentation is solved as a new optimization, producing diverse trajectories that serve as references for RL training with minimal reward design and domain randomization, enabling zero-shot transfer to real-world humanoids.",
+      "caption_ko": "OmniRetarget 개요. 인간 시연을 interaction mesh 기반 constrained optimization으로 로봇에 retarget하고, 공간/형상 augmentation마다 새 최적화를 풀어 다양한 RL reference trajectory를 만든다. 이 데이터는 최소한의 reward design과 domain randomization만으로 실제 휴머노이드 zero-shot transfer를 가능하게 한다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "OmniRetarget generates systematic variations of (a) terrain height, (b) object initial pose, and (c) object shape from a single human demonstration, with optimized motions in simulation (top) transferring consistently to hardware (bottom).",
+      "caption_ko": "OmniRetarget은 하나의 인간 시연에서 terrain height, object initial pose, object shape 변형을 체계적으로 만들고, 시뮬레이션에서 최적화한 motion이 실제 하드웨어로 일관되게 전이되는 것을 보여준다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Additional hardware results showing diverse, agile and human-like behaviors.",
+      "caption_ko": "다양하고 민첩하며 인간적인 동작을 보여주는 추가 하드웨어 결과.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Hardware results showing a high-dynamic wall-flip motion. The robot reaches a maximum linear velocity of 3.5 m/s and a peak angular velocity of 15 rad/s.",
+      "caption_ko": "고동적 wall-flip motion의 하드웨어 결과. 로봇은 최대 선속도 3.5 m/s와 peak angular velocity 15 rad/s에 도달한다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Artifacts resulting from the retargeting baselines.",
+      "caption_ko": "기존 retargeting baseline에서 발생하는 artifact.",
+      "number": 6
+    }
+  ],
+  "tables": [
+    {
+      "src": "./tab-2.png",
+      "caption": "TABLE II: Quantitative comparison of kinematic retargeting quality and downstream RL performances.",
+      "caption_ko": "TABLE II: kinematic retargeting 품질과 downstream RL 성능의 정량 비교.",
+      "number": 2
+    }
+  ],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "humanoid-robotics",
+    "whole-body-control",
+    "motion-retargeting",
+    "loco-manipulation",
+    "reinforcement-learning",
+    "sim-to-real"
+  ],
+  "key_concepts": [
+    "interaction-preserving-retargeting",
+    "interaction-mesh",
+    "humanoid-loco-manipulation",
+    "whole-body-scene-interaction",
+    "kinematic-data-generation",
+    "hard-constraint-optimization",
+    "motion-retargeting",
+    "data-augmentation",
+    "minimal-reward-rl",
+    "zero-shot-sim-to-real",
+    "Unitree-G1"
+  ],
+  "methodology": [
+    "interaction-mesh",
+    "Delaunay-tetrahedralization",
+    "Laplacian-deformation-energy",
+    "sequential-quadratic-programming",
+    "hard-kinematic-constraints",
+    "collision-avoidance",
+    "foot-contact-stability",
+    "trajectory-augmentation",
+    "proprioceptive-rl",
+    "domain-randomization"
+  ],
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/arm/manipulation",
+    "robotics/dataset/cross-embodiment"
+  ],
+  "contribution_type": "method-and-system",
+  "relations": [
+    {
+      "target": "2512-osmo-tactile-glove",
+      "type": "sharesGoalWith"
+    },
+    {
+      "target": "2605-rldx-1",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2206-global-planning-contact",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "OmniRetarget turns a single human whole-body demonstration into interaction-preserving humanoid reference trajectories by optimizing an interaction mesh with hard physical constraints.",
+    "problem": "Humanoid whole-body loco-manipulation needs human-like references, but common retargeting pipelines lose object/terrain contact structure and produce penetration or foot-skating artifacts that make downstream RL brittle.",
+    "solution": "Build an interaction mesh over body, object, and terrain points, minimize Laplacian deformation while enforcing collision, joint, velocity, and foot-contact constraints, then re-solve the optimization under object, terrain, and embodiment augmentations.",
+    "key_result": "The method generates 8+ hours of retargeted trajectories and enables Unitree G1 policies to execute up to 30-second parkour/loco-manipulation skills with only five reward terms and simple domain randomization; Table II reports 82.20% robot-object and 94.73% robot-terrain downstream RL success.",
+    "limitations": [
+      "The current frame-by-frame optimization is effective but future work may need joint trajectory optimization for noisier motion sources such as video.",
+      "Some extremely difficult motions still expose limits of the simple RL formulation, motivating curriculum learning or richer policy training.",
+      "The paper reports strong Unitree G1 results, but cross-lab reproducibility depends on access to comparable mocap, simulation, robot, and evaluation infrastructure."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "Can interaction-preserving retargeting remain stable when the source motion is extracted from noisy monocular video rather than clean motion capture?",
+      "source": "author",
+      "relates_to": [
+        "motion-retargeting",
+        "video-to-humanoid"
+      ]
+    },
+    {
+      "question": "How should whole-trajectory optimization and RL curriculum be coupled for the remaining high-difficulty agile motions?",
+      "source": "author",
+      "relates_to": [
+        "trajectory-optimization",
+        "curriculum-learning"
+      ]
+    },
+    {
+      "question": "Can the interaction mesh abstraction generalize from rigid object/terrain contacts to deformable, multi-object, or tactile-rich manipulation?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "contact-rich-manipulation",
+        "tactile-manipulation"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Jointly optimize entire trajectories instead of solving only frame by frame, especially for noisy video-derived sources.",
+    "Combine interaction-preserving retargeting with curriculum or residual RL for motions that are too difficult for the current minimal policy formulation.",
+    "Standardize open benchmarks for humanoid object-terrain interaction so retargeting quality and downstream policy robustness can be compared across labs.",
+    "Extend the interaction mesh to richer contact modalities, including deformable objects and tactile feedback."
+  ],
+  "survey_hooks": [
+    "humanoid whole-body control",
+    "human-to-robot motion retargeting",
+    "loco-manipulation data generation",
+    "sim-to-real humanoid RL",
+    "physical AI data bottlenecks"
+  ],
+  "next_reading": [
+    "2605-rldx-1",
+    "2512-osmo-tactile-glove",
+    "2206-global-planning-contact"
+  ],
+  "citation_status": "unchecked",
+  "citation_updated_at": "2026-06-18T14:12:05+09:00",
+  "cover_figure_number": 4,
+  "ai_research_question": "What changes when humanoid robot learning treats interaction-preserving retargeted data as the core bottleneck, instead of trying to patch poor references with more reward engineering?"
+}

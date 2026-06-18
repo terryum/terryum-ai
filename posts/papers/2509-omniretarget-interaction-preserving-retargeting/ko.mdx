@@ -1,0 +1,170 @@
+---
+locale: "ko"
+title: "OmniRetarget: 상호작용을 보존하는 휴머노이드 리타겟팅"
+summary: "OmniRetarget은 인간 전신 시연을 휴머노이드 로봇의 object-terrain interaction까지 보존하는 reference trajectory로 바꾸는 data generation engine이다. Interaction mesh의 Laplacian deformation을 최소화하면서 충돌, 관절/속도 한계, stance foot 고정 같은 hard constraint를 걸어 penetration과 foot skating을 줄이고, 이 고품질 reference로 Unitree G1이 30초짜리 parkour/loco-manipulation sequence를 수행하도록 학습한다."
+card_summary: "인간 motion을 휴머노이드에 옮길 때 몸 동작만 맞추는 것이 아니라, 손-물체-지형의 공간/접촉 관계까지 interaction mesh로 보존하는 리타겟팅 엔진."
+seo_title: "OmniRetarget 논문 요약: interaction-preserving humanoid retargeting"
+seo_description: "OmniRetarget은 interaction mesh와 hard constraints로 인간 시연을 휴머노이드 whole-body loco-manipulation 데이터로 변환하고, minimal reward RL로 Unitree G1 sim-to-real을 보여준다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "Interaction mesh based motion adaptation for biped humanoid robots"
+    author: "Nakaoka and Komura (2012)"
+    description: "OmniRetarget이 직접 이어받는 interaction mesh 계열의 기반 연구. 인간/캐릭터 동작을 휴머노이드에 맞출 때 body-object-environment의 공간 관계를 보존한다는 문제의식을 제공한다."
+    scholar_url: "https://scholar.google.com/scholar?q=Interaction+mesh+based+motion+adaptation+for+biped+humanoid+robots"
+    category: "foundational"
+  - title: "HumanPlus: Humanoid Shadowing and Imitation from Humans"
+    author: "Zipeng Fu et al. (2024)"
+    description: "인간 데이터를 휴머노이드 정책 학습으로 옮기는 대표적인 전신 imitation 연구. OmniRetarget은 온라인 shadowing이 아니라 offline retargeted reference generation을 강화한다."
+    arxiv_url: "https://arxiv.org/abs/2406.10454"
+    project_url: "https://humanoid-ai.github.io/"
+    category: "recent"
+  - title: "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion"
+    author: "Liao et al. (2025)"
+    description: "고품질 reference가 있으면 minimal tracking formulation으로 강한 humanoid control이 가능하다는 배경을 제공한다. OmniRetarget은 그런 reference를 object/terrain interaction까지 포함해 생성하는 쪽에 초점을 둔다."
+    arxiv_url: "https://arxiv.org/abs/2508.08241"
+    project_url: "https://beyondmimic.github.io/"
+    category: "recent"
+  - title: "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills"
+    author: "Peng et al. (2018)"
+    description: "motion tracking reward 기반 전신 제어의 고전적 출발점. OmniRetarget의 downstream RL도 body/object tracking을 쓰지만, 핵심 차이는 더 깨끗하고 interaction-aware한 reference를 먼저 만든다는 점이다."
+    scholar_url: "https://scholar.google.com/scholar?q=DeepMimic+Example-Guided+Deep+Reinforcement+Learning+of+Physics-Based+Character+Skills"
+    category: "foundational"
+---
+
+## TL;DR
+
+OmniRetarget은 인간 전신 시연을 휴머노이드 로봇의 **scene/object interaction까지 보존한 reference motion**으로 바꾸는 리타겟팅 엔진이다. 기존 방식이 keypoint matching만 하다가 penetration, foot skating, contact loss를 만들었다면, 이 논문은 body-object-terrain을 하나의 interaction mesh로 묶고 hard constraint를 걸어 RL이 바로 따라갈 수 있는 데이터를 만든다.
+
+<Video src="https://www.youtube.com/watch?v=5ZYFTfGHH8Q" caption="OmniRetarget 공식 영상: Unitree G1이 object carrying, platform climbing, crawling, wall-flip 같은 전신 scene interaction을 수행한다." type="youtube" />
+
+## 문제
+
+휴머노이드가 사람처럼 물체를 들고, 지형을 오르고, 몸 전체를 써서 움직이려면 좋은 reference motion이 필요하다. 하지만 인간 motion을 로봇에 단순히 retarget하면 몸 비율과 관절 구조가 달라서 물체를 뚫고 지나가거나, 발이 미끄러지거나, 손-물체 접촉이 사라진다. 이런 artifact가 있는 reference는 downstream RL에서 더 많은 reward engineering과 post-processing을 요구한다. 결국 문제는 “RL을 더 세게 돌리자”가 아니라, **처음부터 interaction을 잃지 않는 humanoid data generation**을 만드는 것이다.
+
+## 핵심 아이디어
+
+핵심은 사람, 로봇, 물체, 지형을 따로 보지 않고 하나의 **interaction mesh**로 묶는 것이다. Mesh의 vertex는 인간/로봇의 주요 관절점과 물체/환경 표면에서 샘플링한 점들로 구성된다. 그런 다음 source human mesh와 target robot mesh 사이의 Laplacian deformation을 최소화하면서, 로봇이 실제로 만족해야 하는 constraints를 함께 건다.
+
+- **Interaction preservation**: 손-물체, 발-지형, 몸-환경의 상대적 공간 관계를 mesh deformation으로 보존한다.
+- **Hard constraints**: collision avoidance, joint limit, velocity limit, stance foot 고정을 optimization 안에 직접 넣는다.
+- **Systematic augmentation**: 하나의 시연에서 object pose, object size, terrain height, robot embodiment를 바꾼 새 trajectory를 다시 최적화한다.
+- **Minimal downstream RL**: reference가 깨끗하므로 policy는 proprioception 기반으로 5개 reward term과 간단한 domain randomization만 사용한다.
+
+<Figure src="./fig-1.png" caption="Figure 1: OmniRetarget은 인간 시연을 interaction-mesh 기반 constrained optimization으로 로봇 trajectory에 옮기고, augmentation마다 새 최적화를 풀어 RL reference를 만든다." number={1} />
+
+<Video src="https://omniretarget.github.io/static/website_videos/flagship.mp4" caption="대표 데모: G1 휴머노이드가 의자를 옮기고, 플랫폼을 오르고, 뛰어내린 뒤 구르는 30초 장기 loco-manipulation sequence." type="direct" />
+
+<Collapsible title="구체적 방법">
+
+Interaction mesh는 Delaunay tetrahedralization으로 만든다. Body keypoint만 넣는 것이 아니라, object와 environment surface point를 더 조밀하게 샘플링해서 contact 관계가 optimization objective에 실제로 들어오게 한다. 목적함수는 source와 target mesh의 Laplacian coordinate 차이를 줄이는 형태다.
+
+각 timestep에서 로봇 configuration $q_t$를 찾되, 단순 least-squares가 아니라 다음 제약을 함께 만족시킨다.
+
+- signed distance 기반 collision constraint
+- joint range와 joint velocity limit
+- stance foot position 유지
+- temporal smoothness
+
+최적화는 SQP-style solver로 frame-by-frame 풀고, 이전 frame의 해를 warm start로 사용한다. 이 구조의 장점은 robot embodiment가 바뀌어도 keypoint correspondence와 collision model만 바꾸면 Unitree G1, H1, Booster T1 같은 다른 휴머노이드에 같은 원리를 적용할 수 있다는 점이다.
+
+Augmentation은 단순 rigid transform으로 끝나지 않도록 설계되어 있다. 예를 들어 box pickup에서는 object initial pose를 바꾸되 lower body는 nominal trajectory에 anchor하고, upper body가 새로운 coordination을 찾도록 추가 cost를 넣는다. Terrain task에서는 platform height/depth를 바꾸고, elevated terrain에서도 안정적인 contact가 나오도록 ground surface point를 interaction mesh에 샘플링한다.
+
+<Figure src="./fig-3.png" caption="Figure 3: 하나의 시연에서 terrain height, object initial pose, object shape를 바꾼 augmentation을 만들고, simulation에서 최적화한 motion이 hardware로 일관되게 전이된다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- 데이터 규모: OMOMO box carrying 2.78시간, in-house MoCap 1시간, LAFAN1 4.6시간 등 총 **8시간 이상**의 retargeted trajectory를 만든다.
+- Hardware behavior: Unitree G1이 box carrying, platform climbing, slope crawling, wall-flip을 포함한 다양한 whole-body scene interaction을 수행한다.
+- 장기 sequence: 4.6kg chair를 들고 플랫폼으로 가져가 stepstone처럼 사용한 뒤 뛰어내리고 roll로 착지 충격을 흡수하는 **30초짜리 multi-stage task**를 보여준다.
+- Minimal RL: 정책은 reference motion, proprioception, previous action만 관측하고, body/object tracking, action rate, soft joint limit, self-collision의 **5개 reward term**만 쓴다.
+- Augmentation 효과: full augmented dataset으로 train/eval하면 **79.1% success rate**, nominal motion only 평가의 **82.2%**와 비슷해 coverage를 넓히면서 성능 저하를 크게 만들지 않는다.
+- Table II 기준 downstream RL success는 robot-object interaction에서 **82.20%**, robot-terrain interaction에서 **94.73%**로 baseline보다 높다.
+
+<Figure src="./tab-2.png" caption="TABLE II: kinematic retargeting 품질과 downstream RL 성능 비교. OmniRetarget은 penetration과 foot skating을 거의 0에 가깝게 줄이고, robot-object/terrain interaction에서 가장 높은 downstream success를 보인다." number={2} />
+
+<Figure src="./fig-6.png" caption="Figure 6: 기존 baseline은 penetration, contact loss, foot skating 같은 artifact를 만든다. OmniRetarget은 hard constraint와 interaction preservation으로 이 문제를 직접 줄인다." number={6} />
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- 휴머노이드 retargeting에서 몸 자세만이 아니라 **object/terrain contact geometry**를 보존해야 한다는 점을 명확히 시스템화했다.
+- 하나의 인간 시연을 object pose, object size, terrain height, embodiment variation으로 확장하는 data augmentation path를 제시했다.
+- 좋은 reference를 만들면 humanoid RL을 복잡한 reward engineering으로 때우지 않아도 된다는 것을 hardware 결과로 보여준다.
+- Code, dataset, trained policies를 공개한다고 명시해 후속 연구가 같은 retargeting/data bottleneck을 검증할 수 있는 발판을 만든다.
+
+한계점:
+
+- 저자 언급: 현재 frame-by-frame optimization은 효과적이지만, noisy video source처럼 더 거친 입력을 다루려면 whole-trajectory를 함께 최적화하는 방향이 필요할 수 있다.
+- 저자 언급: 남은 hard motion 중 일부는 현재의 simple RL formulation으로 한계가 있어 curriculum learning이 필요할 수 있다.
+- 🤖 재현성 한계: 결과는 Unitree G1, MoCap/OMOMO/LAFAN1, 시뮬레이션/하드웨어 파이프라인이 모두 맞물려 나온다. 다른 연구실이 동일한 hardware evaluation과 retargeting quality metric을 맞추기는 쉽지 않다.
+
+## KG enrichment
+
+```json
+{
+  "source_metadata": {
+    "slug": "2509-omniretarget-interaction-preserving-retargeting",
+    "arxiv_id": "2509.26633",
+    "source_url": "https://arxiv.org/abs/2509.26633",
+    "source_project_url": "https://omniretarget.github.io/"
+  },
+  "concepts": [
+    "interaction-preserving-retargeting",
+    "interaction-mesh",
+    "humanoid-loco-manipulation",
+    "whole-body-scene-interaction",
+    "hard-constraint-optimization",
+    "data-augmentation",
+    "minimal-reward-rl",
+    "zero-shot-sim-to-real"
+  ],
+  "methodology": [
+    "interaction-mesh",
+    "Laplacian-deformation-energy",
+    "sequential-quadratic-programming",
+    "hard-kinematic-constraints",
+    "trajectory-augmentation",
+    "proprioceptive-rl"
+  ],
+  "relation_candidates": [
+    {
+      "target": "2512-osmo-tactile-glove",
+      "type": "sharesGoalWith",
+      "evidence": "Both address human-to-robot skill transfer through retargeting, though OSMO focuses on tactile hand transfer and OmniRetarget focuses on humanoid whole-body object-terrain interaction.",
+      "confidence": "medium"
+    },
+    {
+      "target": "2605-rldx-1",
+      "type": "sharesTopicWith",
+      "evidence": "Both are about humanoid manipulation policies and physical AI data bottlenecks, but RLDX-1 is a VLA/model system while OmniRetarget is a kinematic data generation engine.",
+      "confidence": "medium"
+    },
+    {
+      "target": "2206-global-planning-contact",
+      "type": "sharesTopicWith",
+      "evidence": "Both treat contact-rich manipulation as a geometry/contact-constraint problem, but one is global planning and the other is humanoid motion retargeting.",
+      "confidence": "medium"
+    }
+  ],
+  "research_gaps": [
+    "Can interaction-preserving retargeting remain stable with noisy monocular video sources?",
+    "How should trajectory optimization and curriculum RL be coupled for the hardest agile motions?",
+    "Can interaction meshes extend to deformable objects and tactile-rich manipulation?"
+  ],
+  "future_directions": [
+    "Jointly optimize whole trajectories for noisier sources.",
+    "Combine retargeting with residual or curriculum RL.",
+    "Build open humanoid object-terrain interaction benchmarks."
+  ],
+  "next_reading": [
+    "2605-rldx-1",
+    "2512-osmo-tactile-glove",
+    "2206-global-planning-contact"
+  ]
+}
+```

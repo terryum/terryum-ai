@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T02:33:36.743Z",
-  "total_posts": 69,
+  "generated_at": "2026-06-18T05:16:41.529Z",
+  "total_posts": 70,
   "posts": [
     {
       "post_number": 1,
@@ -5066,6 +5066,99 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 70,
+      "slug": "2509-omniretarget-interaction-preserving-retargeting",
+      "content_type": "papers",
+      "title_en": "OmniRetarget: Interaction-Preserving Humanoid Retargeting",
+      "title_ko": "OmniRetarget: 상호작용을 보존하는 휴머노이드 리타겟팅",
+      "summary_ko": "인간 motion을 휴머노이드에 옮길 때 몸 동작만 맞추는 것이 아니라, 손-물체-지형의 공간/접촉 관계까지 interaction mesh로 보존하는 리타겟팅 엔진.",
+      "summary_en": "A retargeting engine that preserves not just human body motion, but the spatial and contact relationships among hands, objects, feet, and terrain.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "humanoid-robotics",
+        "whole-body-control",
+        "motion-retargeting",
+        "loco-manipulation",
+        "reinforcement-learning",
+        "sim-to-real"
+      ],
+      "key_concepts": [
+        "interaction-preserving-retargeting",
+        "interaction-mesh",
+        "humanoid-loco-manipulation",
+        "whole-body-scene-interaction",
+        "kinematic-data-generation",
+        "hard-constraint-optimization",
+        "motion-retargeting",
+        "data-augmentation",
+        "minimal-reward-rl",
+        "zero-shot-sim-to-real",
+        "Unitree-G1"
+      ],
+      "methodology": [
+        "interaction-mesh",
+        "Delaunay-tetrahedralization",
+        "Laplacian-deformation-energy",
+        "sequential-quadratic-programming",
+        "hard-kinematic-constraints",
+        "collision-avoidance",
+        "foot-contact-stability",
+        "trajectory-augmentation",
+        "proprioceptive-rl",
+        "domain-randomization"
+      ],
+      "contribution_type": "method-and-system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Humanoid",
+        "Retargeting",
+        "Loco-Manipulation",
+        "Reinforcement Learning",
+        "Sim-to-Real"
+      ],
+      "source_author": "Lujie Yang et al.",
+      "source_date": "2026-06-15",
+      "published_at": "2026-06-18T14:12:05+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "OmniRetarget turns a single human whole-body demonstration into interaction-preserving humanoid reference trajectories by optimizing an interaction mesh with hard physical constraints.",
+        "problem": "Humanoid whole-body loco-manipulation needs human-like references, but common retargeting pipelines lose object/terrain contact structure and produce penetration or foot-skating artifacts that make downstream RL brittle.",
+        "solution": "Build an interaction mesh over body, object, and terrain points, minimize Laplacian deformation while enforcing collision, joint, velocity, and foot-contact constraints, then re-solve the optimization under object, terrain, and embodiment augmentations.",
+        "key_result": "The method generates 8+ hours of retargeted trajectories and enables Unitree G1 policies to execute up to 30-second parkour/loco-manipulation skills with only five reward terms and simple domain randomization; Table II reports 82.20% robot-object and 94.73% robot-terrain downstream RL success.",
+        "limitations": [
+          "The current frame-by-frame optimization is effective but future work may need joint trajectory optimization for noisier motion sources such as video.",
+          "Some extremely difficult motions still expose limits of the simple RL formulation, motivating curriculum learning or richer policy training.",
+          "The paper reports strong Unitree G1 results, but cross-lab reproducibility depends on access to comparable mocap, simulation, robot, and evaluation infrastructure."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2512-osmo-tactile-glove",
+          "type": "sharesGoalWith"
+        },
+        {
+          "target": "2605-rldx-1",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2206-global-planning-contact",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/arm/manipulation",
+        "robotics/dataset/cross-embodiment"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -5939,6 +6032,21 @@
         "from": "2606-enpire-robot-policy-self-improvement",
         "to": "2604-self-driving-labs",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2509-omniretarget-interaction-preserving-retargeting",
+        "to": "2512-osmo-tactile-glove",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2509-omniretarget-interaction-preserving-retargeting",
+        "to": "2605-rldx-1",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2509-omniretarget-interaction-preserving-retargeting",
+        "to": "2206-global-planning-contact",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -6108,6 +6216,18 @@
         ]
       },
       {
+        "id": "robotics-brain/rl-policy",
+        "label": "robotics/brain/rl-policy",
+        "post_numbers": [
+          57,
+          70
+        ],
+        "core_concepts": [],
+        "taxonomy_nodes": [
+          "robotics/brain/rl-policy"
+        ]
+      },
+      {
         "id": "ai-robotics",
         "label": "ai/robotics",
         "post_numbers": [
@@ -6232,12 +6352,11 @@
       40,
       41,
       52,
+      55,
       57,
       67
     ],
-    "outlier_papers": [
-      57
-    ]
+    "outlier_papers": []
   },
   "concept_index": {
     "VLA": [
@@ -6510,7 +6629,8 @@
       15
     ],
     "data-augmentation": [
-      15
+      15,
+      70
     ],
     "cross-embodiment": [
       15,
@@ -7472,10 +7592,40 @@
     ],
     "real-world-policy-learning": [
       69
+    ],
+    "interaction-preserving-retargeting": [
+      70
+    ],
+    "interaction-mesh": [
+      70
+    ],
+    "humanoid-loco-manipulation": [
+      70
+    ],
+    "whole-body-scene-interaction": [
+      70
+    ],
+    "kinematic-data-generation": [
+      70
+    ],
+    "hard-constraint-optimization": [
+      70
+    ],
+    "motion-retargeting": [
+      70
+    ],
+    "minimal-reward-rl": [
+      70
+    ],
+    "zero-shot-sim-to-real": [
+      70
+    ],
+    "Unitree-G1": [
+      70
     ]
   },
   "domain_stats": {
-    "robotics": 36,
+    "robotics": 37,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7504,7 +7654,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 17,
+    "robotics/brain": 18,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -7521,13 +7671,13 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 1,
+    "robotics/brain/rl-policy": 2,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
     "startup/organization:secondary": 1,
-    "robotics/arm/manipulation:secondary": 1,
-    "robotics/dataset/cross-embodiment:secondary": 1,
+    "robotics/arm/manipulation:secondary": 2,
+    "robotics/dataset/cross-embodiment:secondary": 2,
     "ai-organization/hiring": 1,
     "startup/team:secondary": 1,
     "ai-tooling/agents:secondary": 2,
@@ -7543,7 +7693,7 @@
     "ai/agentic-research:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 35,
+    "robotics": 36,
     "ai": 17
   }
 }

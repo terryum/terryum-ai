@@ -1,0 +1,103 @@
+---
+locale: "en"
+translation_of: "2509-omniretarget-interaction-preserving-retargeting:ko"
+title: "OmniRetarget: Interaction-Preserving Humanoid Retargeting"
+summary: "OmniRetarget is a data generation engine that turns human whole-body demonstrations into humanoid reference trajectories while preserving object-terrain interaction. It minimizes interaction-mesh Laplacian deformation under hard constraints such as collision, joint/velocity limits, and stance-foot sticking, reducing penetration and foot skating so a Unitree G1 can learn 30-second parkour and loco-manipulation sequences with a minimal RL formulation."
+card_summary: "A retargeting engine that preserves not just human body motion, but the spatial and contact relationships among hands, objects, feet, and terrain."
+seo_title: "OmniRetarget paper summary: interaction-preserving humanoid retargeting"
+seo_description: "OmniRetarget uses interaction meshes and hard constraints to convert human demonstrations into humanoid whole-body loco-manipulation data, enabling Unitree G1 sim-to-real with minimal reward design."
+terrys_memo: ""
+references:
+  - title: "Interaction mesh based motion adaptation for biped humanoid robots"
+    author: "Nakaoka and Komura (2012)"
+    description: "A foundational interaction-mesh line that motivates preserving body-object-environment spatial relationships when adapting motion to biped humanoids."
+    scholar_url: "https://scholar.google.com/scholar?q=Interaction+mesh+based+motion+adaptation+for+biped+humanoid+robots"
+    category: "foundational"
+  - title: "HumanPlus: Humanoid Shadowing and Imitation from Humans"
+    author: "Zipeng Fu et al. (2024)"
+    description: "A representative full-body human-to-humanoid imitation system. OmniRetarget targets a different point in the pipeline: stronger offline reference generation rather than online shadowing."
+    arxiv_url: "https://arxiv.org/abs/2406.10454"
+    project_url: "https://humanoid-ai.github.io/"
+    category: "recent"
+  - title: "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion"
+    author: "Liao et al. (2025)"
+    description: "Shows the importance of high-quality references for minimal humanoid tracking formulations. OmniRetarget focuses on generating such references with object and terrain interactions included."
+    arxiv_url: "https://arxiv.org/abs/2508.08241"
+    project_url: "https://beyondmimic.github.io/"
+    category: "recent"
+  - title: "DeepMimic: Example-Guided Deep Reinforcement Learning of Physics-Based Character Skills"
+    author: "Peng et al. (2018)"
+    description: "The classic motion-tracking RL template. OmniRetarget still uses body/object tracking downstream, but the central contribution is producing cleaner interaction-aware references first."
+    scholar_url: "https://scholar.google.com/scholar?q=DeepMimic+Example-Guided+Deep+Reinforcement+Learning+of+Physics-Based+Character+Skills"
+    category: "foundational"
+---
+
+## TL;DR
+
+OmniRetarget converts human whole-body demonstrations into **scene- and object-interaction-preserving reference motions** for humanoid robots. Instead of merely matching keypoints and then patching penetration, foot skating, and lost contact in RL, it represents body-object-terrain relationships as an interaction mesh and optimizes retargeted trajectories under hard physical constraints.
+
+<Video src="https://www.youtube.com/watch?v=5ZYFTfGHH8Q" caption="Official OmniRetarget video: Unitree G1 performs object carrying, platform climbing, crawling, wall-flip, and other whole-body scene interactions." type="youtube" />
+
+## Problem
+
+Humanoids need high-quality reference motions to carry objects, climb terrain, and coordinate the whole body in human-like ways. Naive human-to-robot retargeting often breaks because human and robot morphology differ: hands penetrate objects, feet skate, and contact relationships disappear. Once references contain those artifacts, downstream RL needs more reward engineering and post-processing just to compensate. The core problem is therefore not simply “run RL harder,” but **generate humanoid data that preserves interaction from the start**.
+
+## Core Idea
+
+The key move is to represent the human, robot, object, and terrain as one **interaction mesh**. Mesh vertices include human or robot key joints plus sampled points from object and environment surfaces. OmniRetarget then minimizes the Laplacian deformation between the source human mesh and the target robot mesh while enforcing the constraints the robot must physically satisfy.
+
+- **Interaction preservation**: Preserve relative spatial relationships among hands, objects, feet, body, and terrain through mesh deformation.
+- **Hard constraints**: Put collision avoidance, joint limits, velocity limits, and stance-foot sticking directly into the optimization.
+- **Systematic augmentation**: Re-solve the optimization when object pose, object size, terrain height, or robot embodiment changes.
+- **Minimal downstream RL**: Because the references are clean, the policy uses proprioception with only five reward terms and simple domain randomization.
+
+<Figure src="./fig-1.png" caption="Figure 1: OmniRetarget transfers human demonstrations to robot trajectories with interaction-mesh-based constrained optimization, then re-solves the optimization for each spatial or shape augmentation." number={1} />
+
+<Video src="https://omniretarget.github.io/static/website_videos/flagship.mp4" caption="Flagship demo: a G1 humanoid carries a chair, uses it to climb a platform, jumps down, and rolls through a 30-second long-horizon loco-manipulation sequence." type="direct" />
+
+<Collapsible title="Method Details">
+
+The interaction mesh is built with Delaunay tetrahedralization. It does not only include body keypoints; object and environment surface points are sampled more densely so contact relationships enter the optimization objective.
+
+At each timestep, OmniRetarget solves for the robot configuration $q_t$. This is not a plain least-squares keypoint match. The optimizer jointly handles:
+
+- signed-distance collision constraints
+- joint range and joint velocity limits
+- stance-foot position preservation
+- temporal smoothness
+
+The solver is SQP-style and runs frame by frame, warm-starting each frame from the previous solution. The embodiment transfer story is practical: to move among Unitree G1, H1, and Booster T1, the system changes keypoint correspondences and the robot collision model while preserving the same interaction-mesh principle.
+
+Augmentation is also designed to avoid trivial rigid transforms. For a box pickup task, the object initial pose can change while the lower body is anchored to the nominal trajectory, forcing the upper body to find a new coordination pattern. For terrain tasks, platform height and depth can change, and additional ground-surface points are sampled into the mesh to maintain stable contact.
+
+<Figure src="./fig-3.png" caption="Figure 3: From one human demonstration, OmniRetarget generates systematic variations in terrain height, object initial pose, and object shape; optimized simulation motions transfer consistently to hardware." number={3} />
+
+</Collapsible>
+
+## Key Results
+
+- Data scale: the authors generate **8+ hours** of retargeted trajectories, including 2.78 hours of OMOMO box carrying, 1 hour of in-house MoCap, and 4.6 hours of LAFAN1.
+- Hardware behavior: Unitree G1 performs box carrying, platform climbing, slope crawling, and wall-flip behaviors.
+- Long-horizon sequence: the robot carries a 4.6 kg chair, uses it as a stepstone, jumps down, and rolls to absorb impact in a **30-second multi-stage task**.
+- Minimal RL: the policy observes only reference motion, proprioception, and previous action, and uses **five reward terms**: body tracking, object tracking, action rate, soft joint limit, and self-collision.
+- Augmentation effect: training and evaluating on the full augmented dataset reaches **79.1% success**, close to **82.2%** when evaluating on nominal motions only.
+- In Table II, downstream RL success reaches **82.20%** for robot-object interaction and **94.73%** for robot-terrain interaction, outperforming the baselines.
+
+<Figure src="./tab-2.png" caption="TABLE II: Quantitative comparison of kinematic retargeting quality and downstream RL performance. OmniRetarget nearly eliminates penetration and foot skating while achieving the strongest downstream success rates." number={2} />
+
+<Figure src="./fig-6.png" caption="Figure 6: Retargeting baselines produce artifacts such as penetration, lost interaction preservation, and foot skating. OmniRetarget directly reduces these errors through hard constraints and interaction preservation." number={6} />
+
+## Achievements and Limitations
+
+New achievements:
+
+- It makes a clear systems argument that humanoid retargeting must preserve **object and terrain contact geometry**, not only body pose.
+- It provides a path from one human demonstration to object pose, object size, terrain height, and embodiment variations.
+- It shows on hardware that cleaner references can reduce the need for heavy reward engineering.
+- The authors state that code, datasets, and trained policies will be released, giving the field a concrete target for testing the retargeting/data bottleneck.
+
+Limitations:
+
+- Author-mentioned: the current frame-by-frame optimization is effective, but noisier sources such as video may require joint whole-trajectory optimization.
+- Author-mentioned: some remaining hard motions expose limits of the simple RL formulation, suggesting curriculum learning may help.
+- 🤖 Reproducibility: the results depend on Unitree G1 hardware, motion sources, simulation, metrics, and deployment infrastructure working together. Matching the same hardware evaluation and retargeting quality across labs may be difficult.
