@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T05:16:41.529Z",
-  "total_posts": 70,
+  "generated_at": "2026-06-18T05:32:47.220Z",
+  "total_posts": 71,
   "posts": [
     {
       "post_number": 1,
@@ -5159,6 +5159,96 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 71,
+      "slug": "2602-perceptive-humanoid-parkour",
+      "content_type": "papers",
+      "title_en": "PHP: How Humanoids Chain Parkour Skills",
+      "title_ko": "PHP: 휴머노이드가 파쿠르 동작을 이어 붙이는 법",
+      "summary_ko": "인간 파쿠르 motion을 motion matching으로 이어 붙이고, DAgger+RL distillation으로 하나의 depth 기반 휴머노이드 policy에 넣은 RSS 2026 논문.",
+      "summary_en": "An RSS 2026 system that turns retargeted human parkour clips into long-horizon humanoid references with motion matching, then distills them into one depth-based G1 policy.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "humanoid-robotics",
+        "whole-body-control",
+        "parkour",
+        "motion-matching",
+        "reinforcement-learning",
+        "sim-to-real",
+        "vision-based-control"
+      ],
+      "key_concepts": [
+        "perceptive-humanoid-parkour",
+        "motion-matching",
+        "long-horizon-skill-composition",
+        "atomic-human-skills",
+        "teacher-student-distillation",
+        "DAgger-plus-RL",
+        "depth-based-policy",
+        "autonomous-skill-selection",
+        "Unitree-G1",
+        "zero-shot-sim-to-real"
+      ],
+      "methodology": [
+        "OmniRetarget",
+        "motion-matching",
+        "nearest-neighbor-search",
+        "kinematic-reference-synthesis",
+        "RL-motion-tracking",
+        "privileged-teacher-policy",
+        "DAgger",
+        "PPO",
+        "depth-rendering",
+        "domain-randomization",
+        "teacher-student-distillation"
+      ],
+      "contribution_type": "method-and-system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Humanoid",
+        "Parkour",
+        "Motion Matching",
+        "Reinforcement Learning",
+        "Sim-to-Real"
+      ],
+      "source_author": "Zhen Wu et al.",
+      "source_date": "2026-05-06",
+      "published_at": "2026-06-18T14:28:47+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "PHP composes retargeted human parkour skills with motion matching and distills privileged RL experts into one depth-based Unitree G1 policy for autonomous long-horizon humanoid parkour.",
+        "problem": "Humanoid parkour needs dynamic whole-body skills, perception-driven timing, and long-horizon skill transitions, but reward shaping alone struggles to discover arm-supported climbing and isolated human motion clips do not teach when and how to transition.",
+        "solution": "Retarget atomic human parkour skills with OmniRetarget, synthesize obstacle-adaptive long-horizon references via motion matching, train privileged single-skill motion-tracking teachers, then distill them into a single depth-conditioned student with DAgger plus PPO.",
+        "key_result": "On Unitree G1 hardware, PHP climbs a 1.25 m wall in 3.63 s, performs cat/speed vaults near 3 m/s, adapts to about 0.5 m real-time obstacle displacement, and in simulation reports 0.95-1.00 success across 36/58/76 cm obstacles at 1.0 m/s and 2.0 m/s.",
+        "limitations": [
+          "The pipeline currently lacks semantic scene understanding and richer conditioning such as language.",
+          "Real-world capability is constrained by a short-range, narrow-field-of-view depth camera at high running speed, causing perceptual ambiguity when obstacles appear too late.",
+          "The hardware lacks sufficiently strong hands or grippers for edge/bar interactions, so beyond-height climbing and hanging maneuvers are not tested."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2509-omniretarget-interaction-preserving-retargeting",
+          "type": "usesMethodIn"
+        },
+        {
+          "target": "2605-rldx-1",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/body/humanoid",
+        "robotics/perception/depth"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6047,6 +6137,16 @@
         "from": "2509-omniretarget-interaction-preserving-retargeting",
         "to": "2206-global-planning-contact",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2602-perceptive-humanoid-parkour",
+        "to": "2509-omniretarget-interaction-preserving-retargeting",
+        "type": "usesMethodIn"
+      },
+      {
+        "from": "2602-perceptive-humanoid-parkour",
+        "to": "2605-rldx-1",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -6220,9 +6320,13 @@
         "label": "robotics/brain/rl-policy",
         "post_numbers": [
           57,
-          70
+          70,
+          71
         ],
-        "core_concepts": [],
+        "core_concepts": [
+          "zero-shot-sim-to-real",
+          "Unitree-G1"
+        ],
         "taxonomy_nodes": [
           "robotics/brain/rl-policy"
         ]
@@ -6493,7 +6597,8 @@
       9
     ],
     "teacher-student-distillation": [
-      9
+      9,
+      71
     ],
     "zero-shot-transfer": [
       9,
@@ -7618,14 +7723,37 @@
       70
     ],
     "zero-shot-sim-to-real": [
-      70
+      70,
+      71
     ],
     "Unitree-G1": [
-      70
+      70,
+      71
+    ],
+    "perceptive-humanoid-parkour": [
+      71
+    ],
+    "motion-matching": [
+      71
+    ],
+    "long-horizon-skill-composition": [
+      71
+    ],
+    "atomic-human-skills": [
+      71
+    ],
+    "DAgger-plus-RL": [
+      71
+    ],
+    "depth-based-policy": [
+      71
+    ],
+    "autonomous-skill-selection": [
+      71
     ]
   },
   "domain_stats": {
-    "robotics": 37,
+    "robotics": 38,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7654,7 +7782,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 18,
+    "robotics/brain": 19,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -7671,7 +7799,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 2,
+    "robotics/brain/rl-policy": 3,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -7691,9 +7819,11 @@
     "robotics/physical-ai:secondary": 1,
     "startup/financing:secondary": 1,
     "ai/agentic-research:secondary": 1,
+    "robotics/body/humanoid:secondary": 1,
+    "robotics/perception/depth:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 36,
+    "robotics": 37,
     "ai": 17
   }
 }

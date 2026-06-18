@@ -1,0 +1,108 @@
+---
+locale: "en"
+title: "PHP: How Humanoids Chain Parkour Skills"
+summary: "Perceptive Humanoid Parkour (PHP) retargets human parkour skills to Unitree G1 with OmniRetarget, composes them into long-horizon reference trajectories through motion matching, and distills privileged teachers into one depth-based student policy with DAgger plus RL. The result is onboard-perception humanoid parkour: 1.25m wall climbing, vaults, rolls, and adaptation to real-time obstacle displacement."
+card_summary: "An RSS 2026 system that turns retargeted human parkour clips into long-horizon humanoid references with motion matching, then distills them into one depth-based G1 policy."
+seo_title: "Perceptive Humanoid Parkour paper summary: motion matching for humanoid parkour"
+seo_description: "PHP combines OmniRetarget, motion matching, teacher-student RL, and DAgger+PPO so a Unitree G1 humanoid can climb 1.25m walls and traverse long-horizon parkour courses."
+terrys_memo: ""
+translation_of: "2602-perceptive-humanoid-parkour:ko"
+references:
+  - title: "OmniRetarget: Interaction-Preserving Data Generation for Humanoid Whole-Body Loco-Manipulation and Scene Interaction"
+    author: "Lujie Yang et al. (2026)"
+    description: "The retargeting backbone PHP uses to convert atomic human skills into Unitree G1-compatible references."
+    arxiv_url: "https://arxiv.org/abs/2509.26633"
+    project_url: "https://omniretarget.github.io/"
+    category: "recent"
+  - title: "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion"
+    author: "Liao et al. (2025)"
+    description: "Related humanoid motion-tracking work that informs the tracking and motion-prior side of PHP."
+    arxiv_url: "https://arxiv.org/abs/2508.08241"
+    project_url: "https://beyondmimic.github.io/"
+    category: "recent"
+  - title: "Motion Matching and The Road to Next-Gen Animation"
+    author: "Clavet (2016)"
+    description: "A foundational motion matching reference. PHP repurposes this animation technique for humanoid parkour reference composition."
+    scholar_url: "https://scholar.google.com/scholar?q=Motion+Matching+and+The+Road+to+Next-Gen+Animation"
+    category: "foundational"
+---
+
+## TL;DR
+
+Perceptive Humanoid Parkour (PHP) reframes humanoid parkour away from “discover everything with reward shaping” and toward **compose human skill references, then distill them into a vision policy**. It retargets atomic human parkour skills to Unitree G1 with OmniRetarget, uses motion matching to synthesize long-horizon trajectories across approach distances and timings, then distills multiple privileged teachers into one depth-based student policy.
+
+<Video src="https://youtu.be/IjeBnbm9sto" caption="Official Perceptive Humanoid Parkour video. Unitree G1 performs wall climbing, vaults, rolls, and long-horizon traversal using onboard perception." type="youtube" />
+
+## Problem
+
+Humanoid parkour is harder than ordinary terrain traversal. The robot must use arms for support, preserve momentum, survive rapid contact switches, and produce brief high-torque actions at decisive moments. It also has to chain skills: a single vault or climb is not enough when the course has multiple obstacles and the robot must decide when to enter and exit each maneuver.
+
+Reward-shaped RL can solve low obstacles, but it struggles to discover whole-body arm-supported climbing. Isolated human motion clips help with individual skills, but they do not teach the policy the approach timing and transitions between skills. PHP’s core claim is that humanoid parkour needs **dense long-horizon references built from human skill priors**, then a perception policy trained on top of those references.
+
+## Core Idea
+
+The pipeline has three main parts.
+
+- **Retarget atomic human skills**: vaults, climbs, rolls, and steps are converted into 29-DOF Unitree G1 reference motions with OmniRetarget.
+- **Compose with motion matching**: the system searches a feature space of current pose, future root trajectory, foot state, and velocity to stitch motion fragments into obstacle-adaptive long-horizon references.
+- **Train and distill policies**: privileged single-skill teachers track these references in simulation, then DAgger plus PPO distills them into one student that uses proprioception, previous action, depth images, and discrete 2D velocity commands.
+
+<Figure src="./fig-2.png" caption="Figure 2: PHP composes atomic parkour skills into long-horizon references with motion matching, trains privileged RL teachers, and distills them into one depth-based student policy." number={2} />
+
+<Video src="https://php-parkour.github.io/static/videos/134.mp4" caption="Direct project video: Unitree G1 climbs a 1.25m wall and rolls down." type="direct" />
+
+<Collapsible title="Method details">
+
+Motion matching represents each frame by a feature vector and performs nearest-neighbor retrieval to choose the next motion fragment. PHP’s feature includes short-horizon future trajectory positions and facing directions, local foot joint positions and velocities, and root velocity. During locomotion, a velocity command defines the future root trajectory. Near obstacles, skill-specific queries enter climb, vault, step, or roll motions.
+
+Policy learning is two-stage. First, expert policies use privileged terrain information and reference motions with DeepMimic-style tracking rewards. Second, the student policy sees only proprioception, previous actions, depth images, and velocity commands. Depth images are rendered with Nvidia WARP for throughput, and the training includes camera extrinsic randomization, depth noise, and 60-80ms observation delay.
+
+The important detail is that PHP does not use pure DAgger. The authors find that DAgger alone underweights the brief, high-magnitude torque bursts needed for climbing and vaulting. They therefore use a curriculum that mixes DAgger with PPO. Imitation keeps the policy near the expert distribution; PPO adds an episode-success signal that encourages decisive actions.
+
+<Figure src="./fig-method.png" caption="Project-page method overview. Retargeted skill libraries are composed by motion matching, converted into teacher and depth-based student policies, then deployed on the real G1." number={3} />
+
+</Collapsible>
+
+## Results
+
+The hardware platform is a 1.3m, 29-DOF Unitree G1. Training uses a 3-layer CNN, a 5-layer MLP, 16,384 parallel environments, and 20K iterations each for expert and student policies.
+
+- **1.25m wall climb**: the robot climbs a wall that is 96% of its height in 3.63s from toe-off.
+- **Vaulting speed**: it clears a 0.4m-high, 0.5m-long obstacle in 0.8s while moving more than 2m forward. Peak forward speed is 3.41m/s; average speed is 2.53m/s.
+- **Long-horizon traversal**: although training uses only single-obstacle traversal, the real robot chains stepping, low wall climbs, and high wall climbs.
+- **Obstacle displacement adaptation**: when multiple obstacles are moved by about 0.5m during execution, the policy adjusts approach and maneuver timing online.
+
+<Figure src="./fig-5.png" caption="Figure 5: Hardware results: cat vault, drop landing from a 1.25m wall, and a 48-second traversal adapting to real-time obstacle displacement." number={5} />
+
+The simulation baseline table captures the paper’s main point.
+
+| Method | 1.0m/s 36cm | 1.0m/s 58cm | 1.0m/s 76cm | 2.0m/s 36cm | 2.0m/s 58cm | 2.0m/s 76cm |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Velocity Tracking | 1.00 | 0.00 | 0.00 | 1.00 | 0.00 | 0.00 |
+| Uncomposed Data | 0.06 | 0.02 | 0.00 | 0.37 | 0.27 | 0.07 |
+| End-to-end Depth | 0.95 | 0.07 | 0.08 | 0.78 | 0.19 | 0.14 |
+| Ours | 1.00 | 0.99 | 0.95 | 1.00 | 0.99 | 0.95 |
+
+Reward shaping alone fails on higher obstacles because it does not discover arm-supported climbing. Uncomposed data fails because isolated clips do not create the transition distribution. End-to-end depth learning handles low obstacles but suffers on harder tasks. PHP works because the reference distribution and the distillation recipe solve different parts of the problem.
+
+## Achievements And Limits
+
+What this paper adds:
+
+- It brings motion matching, a mature animation technique, into humanoid parkour reference synthesis.
+- It turns human-to-robot retargeting into the front end of a perception-driven control pipeline.
+- It shows why DAgger needs an RL success signal for high-torque decisive actions.
+- It demonstrates 1.25m climbs, near-3m/s vaulting, and adaptive 48-second traversal on real Unitree G1 hardware.
+
+Limitations:
+
+- The authors note that the pipeline lacks semantic scene understanding. Language or richer conditioning could provide finer route and style control.
+- Real-world performance is constrained by short-range, narrow-FOV depth sensing at high speed.
+- The robot lacks sufficiently strong hands or grippers for edge, bar, hanging, or beyond-height climbing tests.
+- From a reproducibility perspective, the reported numbers depend on Unitree G1, OmniRetarget, high-throughput simulation, large parallel rollouts, and real hardware tuning.
+
+## Terry Memo
+
+The most important part is not just that a humanoid did parkour. It is that the data interface for humanoid learning is changing. Reward design, motion tracking, and perception distillation used to feel like separate problems. PHP ties them into one pipeline: retarget human motion, densify it through motion matching, then distill it into a real robot policy.
+
+Motion matching is especially interesting here. It looks like an old animation trick, but in robot learning it becomes a way to turn sparse human skill clips into the approach and timing distribution a policy actually needs. In physical AI, good data is not just raw recording. It is a reference distribution that densely covers the transition boundaries where policies usually fail.

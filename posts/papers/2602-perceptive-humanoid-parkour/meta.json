@@ -1,0 +1,225 @@
+{
+  "post_id": "2602-perceptive-humanoid-parkour",
+  "slug": "2602-perceptive-humanoid-parkour",
+  "post_number": 71,
+  "published_at": "2026-06-18T14:28:47+09:00",
+  "updated_at": "2026-06-18T14:28:47+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Humanoid",
+    "Parkour",
+    "Motion Matching",
+    "Reinforcement Learning",
+    "Sim-to-Real"
+  ],
+  "display_tags": [
+    "Humanoid",
+    "Parkour",
+    "Motion Matching",
+    "Sim-to-Real"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Hardware results demonstrating agile, long-horizon parkour behaviors, including a cat vault, a drop landing from a 1.25 m wall, and a 48-second terrain traversal with online adaptation to real-time obstacle displacement.",
+  "thumb_source": "./fig-5.png",
+  "thumb_position": "centre",
+  "reading_time_min": 9,
+  "source_date": "2026-05-06",
+  "source_url": "https://arxiv.org/abs/2602.15827",
+  "source_title": "Perceptive Humanoid Parkour: Chaining Dynamic Human Skills via Motion Matching",
+  "source_author": "Zhen Wu et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://php-parkour.github.io/",
+  "source_venue": "RSS 2026",
+  "arxiv_id": "2602.15827",
+  "doi": "10.48550/arXiv.2602.15827",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Perceptive+Humanoid+Parkour+Chaining+Dynamic+Human+Skills+via+Motion+Matching",
+  "source_authors_full": [
+    {
+      "name": "Zhen Wu",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Xiaoyu Huang",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Lujie Yang",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Yuanhang Zhang",
+      "affiliation": "Amazon FAR, CMU"
+    },
+    {
+      "name": "Xi Chen",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Pieter Abbeel",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Rocky Duan",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Angjoo Kanazawa",
+      "affiliation": "Amazon FAR, UC Berkeley"
+    },
+    {
+      "name": "Carmelo Sferrazza",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Guanya Shi",
+      "affiliation": "Amazon FAR, CMU"
+    },
+    {
+      "name": "C. Karen Liu",
+      "affiliation": "Amazon FAR, Stanford University"
+    }
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Perceptive Humanoid Parkour enables a Unitree G1 humanoid robot to execute highly dynamic, long-horizon parkour behaviors using onboard perception. The examples include cat-vaulting and dash-vaulting at about 3 m/s, climbing onto a 1.25 m wall and rolling down, speed-vaulting, and a 60-second continuous traversal with autonomous skill selection.",
+      "caption_ko": "Figure 1: Perceptive Humanoid Parkour는 Unitree G1 휴머노이드가 onboard perception만으로 고동적 장기 parkour를 수행하게 한다. 예시는 약 3 m/s cat vault와 dash vault, 1.25 m wall climbing과 roll down, speed vault, autonomous skill selection이 들어간 60초 연속 traversal이다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Figure 2: PHP overview. Atomic parkour skills are composed into long-horizon kinematic references via motion matching, single-skill privileged teachers are trained with RL-based motion tracking, and multiple teachers are distilled into one depth-based student policy through DAgger plus RL.",
+      "caption_ko": "Figure 2: PHP 개요. Atomic parkour skill을 motion matching으로 long-horizon kinematic reference로 합성하고, privileged single-skill teacher를 RL motion tracking으로 학습한 뒤, 여러 teacher를 DAgger+RL로 하나의 depth-based student policy에 distill한다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Side-by-side high-climb comparison. The robot climbs onto a 1.25 m wall within 3.63 s.",
+      "caption_ko": "Figure 4: 고벽 오르기 side-by-side 비교. 로봇은 1.25 m 벽 위로 3.63초 안에 올라간다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Hardware results showing a cat vault, drop landing from a 1.25 m wall, and a 48-second terrain traversal with online adaptation to real-time obstacle displacement.",
+      "caption_ko": "Figure 5: cat vault, 1.25 m wall drop landing, 실시간 장애물 위치 변화에 online adaptation하는 48초 terrain traversal 하드웨어 결과.",
+      "number": 5
+    }
+  ],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "humanoid-robotics",
+    "whole-body-control",
+    "parkour",
+    "motion-matching",
+    "reinforcement-learning",
+    "sim-to-real",
+    "vision-based-control"
+  ],
+  "key_concepts": [
+    "perceptive-humanoid-parkour",
+    "motion-matching",
+    "long-horizon-skill-composition",
+    "atomic-human-skills",
+    "teacher-student-distillation",
+    "DAgger-plus-RL",
+    "depth-based-policy",
+    "autonomous-skill-selection",
+    "Unitree-G1",
+    "zero-shot-sim-to-real"
+  ],
+  "methodology": [
+    "OmniRetarget",
+    "motion-matching",
+    "nearest-neighbor-search",
+    "kinematic-reference-synthesis",
+    "RL-motion-tracking",
+    "privileged-teacher-policy",
+    "DAgger",
+    "PPO",
+    "depth-rendering",
+    "domain-randomization",
+    "teacher-student-distillation"
+  ],
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/body/humanoid",
+    "robotics/perception/depth"
+  ],
+  "contribution_type": "method-and-system",
+  "relations": [
+    {
+      "target": "2509-omniretarget-interaction-preserving-retargeting",
+      "type": "usesMethodIn"
+    },
+    {
+      "target": "2605-rldx-1",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "PHP composes retargeted human parkour skills with motion matching and distills privileged RL experts into one depth-based Unitree G1 policy for autonomous long-horizon humanoid parkour.",
+    "problem": "Humanoid parkour needs dynamic whole-body skills, perception-driven timing, and long-horizon skill transitions, but reward shaping alone struggles to discover arm-supported climbing and isolated human motion clips do not teach when and how to transition.",
+    "solution": "Retarget atomic human parkour skills with OmniRetarget, synthesize obstacle-adaptive long-horizon references via motion matching, train privileged single-skill motion-tracking teachers, then distill them into a single depth-conditioned student with DAgger plus PPO.",
+    "key_result": "On Unitree G1 hardware, PHP climbs a 1.25 m wall in 3.63 s, performs cat/speed vaults near 3 m/s, adapts to about 0.5 m real-time obstacle displacement, and in simulation reports 0.95-1.00 success across 36/58/76 cm obstacles at 1.0 m/s and 2.0 m/s.",
+    "limitations": [
+      "The pipeline currently lacks semantic scene understanding and richer conditioning such as language.",
+      "Real-world capability is constrained by a short-range, narrow-field-of-view depth camera at high running speed, causing perceptual ambiguity when obstacles appear too late.",
+      "The hardware lacks sufficiently strong hands or grippers for edge/bar interactions, so beyond-height climbing and hanging maneuvers are not tested."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "Can a humanoid parkour policy reason semantically about obstacle affordances instead of relying mainly on depth geometry and velocity commands?",
+      "source": "author",
+      "relates_to": [
+        "semantic-scene-understanding",
+        "humanoid-parkour"
+      ]
+    },
+    {
+      "question": "How much of PHP's success transfers to robots with different hand strength, camera placement, field of view, and actuation limits?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "sim-to-real",
+        "cross-embodiment"
+      ]
+    },
+    {
+      "question": "Can motion matching and interaction-preserving retargeting be combined with VLA-style task conditioning for user-directed parkour routes and style control?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "motion-matching",
+        "VLA",
+        "language-conditioned-control"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Add semantic scene understanding or language conditioning so the robot can choose among routes and styles beyond discrete velocity commands.",
+    "Improve depth sensing range, field of view, and latency robustness for high-speed approach decisions.",
+    "Test stronger hands or grippers for edge, rail, and bar interactions beyond wall climbing.",
+    "Benchmark cross-embodiment transfer of motion-matching reference libraries across humanoid platforms."
+  ],
+  "survey_hooks": [
+    "humanoid whole-body control",
+    "perceptive humanoid locomotion",
+    "human-motion priors for robot learning",
+    "motion matching for robotics",
+    "teacher-student sim-to-real RL"
+  ],
+  "next_reading": [
+    "2509-omniretarget-interaction-preserving-retargeting",
+    "2605-rldx-1"
+  ],
+  "citation_status": "unchecked",
+  "citation_updated_at": "2026-06-18T14:28:47+09:00",
+  "cover_figure_number": 5,
+  "ai_research_question": "What changes when humanoid parkour is framed as long-horizon composition of human skill references plus perception-driven policy distillation, rather than as pure reward-shaped terrain traversal?"
+}

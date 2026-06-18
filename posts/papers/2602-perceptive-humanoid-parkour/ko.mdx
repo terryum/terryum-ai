@@ -1,0 +1,163 @@
+---
+locale: "ko"
+title: "PHP: 휴머노이드가 파쿠르 동작을 이어 붙이는 법"
+summary: "Perceptive Humanoid Parkour(PHP)는 인간 파쿠르 skill을 OmniRetarget으로 Unitree G1에 맞게 옮긴 뒤, motion matching으로 long-horizon reference trajectory를 합성하고, privileged teacher들을 DAgger+RL로 하나의 depth-based student policy에 distill한다. 결과적으로 G1은 1.25m 벽 오르기, vault, roll, 실시간 장애물 이동에 대한 적응을 onboard depth sensing만으로 수행한다."
+card_summary: "인간 파쿠르 motion을 motion matching으로 이어 붙이고, DAgger+RL distillation으로 하나의 depth 기반 휴머노이드 policy에 넣은 RSS 2026 논문."
+seo_title: "Perceptive Humanoid Parkour 논문 요약: motion matching으로 휴머노이드 파쿠르를 잇다"
+seo_description: "PHP는 OmniRetarget, motion matching, teacher-student RL, DAgger+PPO를 결합해 Unitree G1 휴머노이드가 1.25m wall climbing과 장기 파쿠르 traversal을 수행하게 한다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "OmniRetarget: Interaction-Preserving Data Generation for Humanoid Whole-Body Loco-Manipulation and Scene Interaction"
+    author: "Lujie Yang et al. (2026)"
+    description: "PHP가 atomic human skill을 Unitree G1 reference로 옮길 때 사용하는 retargeting 기반. Interaction-preserving retargeting에서 perception-driven parkour policy로 이어지는 직접 전 단계다."
+    arxiv_url: "https://arxiv.org/abs/2509.26633"
+    project_url: "https://omniretarget.github.io/"
+    category: "recent"
+  - title: "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion"
+    author: "Liao et al. (2025)"
+    description: "PHP의 expert motion-tracking reward와 humanoid motion prior 배경을 제공하는 관련 연구. PHP는 여기에서 long-horizon parkour composition과 depth-based multi-skill distillation 쪽을 밀어붙인다."
+    arxiv_url: "https://arxiv.org/abs/2508.08241"
+    project_url: "https://beyondmimic.github.io/"
+    category: "recent"
+  - title: "Motion Matching and The Road to Next-Gen Animation"
+    author: "Clavet (2016)"
+    description: "Motion matching을 nearest-neighbor 기반 animation synthesis로 정식화한 계열. PHP는 이 mature animation technique을 humanoid parkour reference composition에 가져온다."
+    scholar_url: "https://scholar.google.com/scholar?q=Motion+Matching+and+The+Road+to+Next-Gen+Animation"
+    category: "foundational"
+---
+
+## TL;DR
+
+Perceptive Humanoid Parkour(PHP)는 휴머노이드 파쿠르를 “reward shaping으로 처음부터 발견하는 문제”가 아니라, **인간 동작 library를 길게 이어 붙이고 그 reference를 vision policy로 distill하는 문제**로 바꾼다. Atomic human parkour skill을 OmniRetarget으로 Unitree G1에 맞게 옮기고, motion matching으로 approach distance와 timing이 다른 long-horizon trajectory를 합성한 뒤, 여러 privileged teacher를 하나의 depth-based student policy로 합친다.
+
+<Video src="https://youtu.be/IjeBnbm9sto" caption="Perceptive Humanoid Parkour 공식 영상. Unitree G1이 wall climbing, vault, roll, long-horizon traversal을 onboard perception 기반으로 수행한다." type="youtube" />
+
+## 문제
+
+휴머노이드 파쿠르는 단순 terrain traversal보다 훨씬 어렵다. 로봇은 높은 장애물을 발만으로 넘는 것이 아니라 팔로 지지하고, 몸의 momentum을 살리고, 접촉이 바뀌는 짧은 순간에 큰 torque를 내야 한다. 게다가 한 번의 vault나 climb만 성공해서는 부족하다. 장애물이 여러 개 놓인 course에서는 어떤 skill을 언제 시작하고, 언제 locomotion으로 돌아올지까지 online으로 결정해야 한다.
+
+기존 reward-shaped RL은 낮은 장애물에는 작동할 수 있지만, high-dimensional humanoid가 arm-supported climbing이나 vaulting을 스스로 발견하기 어렵다. 반대로 인간 motion clip만 모아놓으면 isolated skill은 있어도 skill 사이의 transition과 approach timing이 비어 있다. PHP의 문제의식은 여기다. **좋은 atomic skill을 long-horizon parkour reference로 촘촘하게 합성하고, 그 위에서 perception policy를 학습해야 한다.**
+
+## 핵심 아이디어
+
+핵심은 세 단계다.
+
+- **Retarget atomic human skills**: vault, climb, roll, step 같은 인간 동작을 OmniRetarget으로 29-DOF Unitree G1에 맞는 reference motion으로 바꾼다.
+- **Motion matching composition**: animation에서 쓰던 motion matching을 가져와 현재 pose, 미래 root trajectory, foot state 같은 feature space에서 nearest-neighbor를 찾고 motion fragment를 이어 붙인다.
+- **Teacher-student control**: long-horizon kinematic reference를 따라가는 privileged single-skill teacher를 먼저 만들고, 여러 teacher를 DAgger와 PPO objective를 섞어 하나의 depth-based student policy로 distill한다.
+
+<Figure src="./fig-2.png" caption="Figure 2: PHP는 atomic parkour skill을 motion matching으로 long-horizon reference에 합성하고, privileged RL teacher들을 하나의 depth-based student policy로 distill한다." number={2} />
+
+<Video src="https://php-parkour.github.io/static/videos/134.mp4" caption="프로젝트 페이지 직접 영상: Unitree G1이 1.25m wall climbing 후 roll down을 수행한다." type="direct" />
+
+<Collapsible title="구체적 방법">
+
+Motion matching은 각 frame의 feature vector를 만들어 nearest-neighbor search로 다음 motion fragment를 고르는 방식이다. PHP의 feature는 short-horizon future trajectory position/facing direction, local foot joint position/velocity, root velocity를 포함한다. Locomotion 중에는 velocity command에서 future root trajectory를 만들고, obstacle 앞에서는 skill-specific query를 구성해 climb, vault, step 같은 atomic motion으로 들어간다.
+
+정책 학습은 두 단계다. 먼저 expert policy는 privileged terrain information과 reference motion을 보고 DeepMimic-style tracking reward로 학습된다. 그 다음 student policy는 proprioception, previous action, onboard depth image, discrete 2D velocity command만 사용한다. Vision training에서는 Nvidia WARP로 depth image를 빠르게 렌더링하고, camera extrinsic randomization, depth noise, 60-80ms observation delay를 넣어 sim-to-real gap을 줄인다.
+
+중요한 점은 DAgger만 쓰지 않는다는 것이다. 저자들은 DAgger가 climbing/vaulting에 필요한 짧고 강한 torque burst를 충분히 선호하지 못한다고 본다. 그래서 loss를 `PPO loss + DAgger loss`의 curriculum으로 섞는다. 초반에는 imitation이 policy를 expert distribution 근처에 붙잡고, 이후 PPO가 episode success 신호로 decisive action을 밀어준다.
+
+<Figure src="./fig-method.png" caption="프로젝트 페이지의 method overview. Retargeted skill library에서 motion matching으로 trajectory를 합성하고, expert teacher와 depth-based student를 거쳐 real-world G1 parkour로 배포한다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+실제 하드웨어는 Unitree G1, 1.3m, 29-DOF다. 학습은 3-layer CNN과 5-layer MLP, 16,384 parallel environments, expert/student 각각 20K iterations로 진행된다.
+
+- **1.25m wall climbing**: 로봇 키의 96%에 해당하는 1.25m 벽을 toe-off 기준 3.63초 안에 오른다.
+- **Vaulting speed**: 0.4m 높이, 0.5m 길이 장애물을 0.8초 안에 넘고, 2m 이상 전진한다. Peak forward speed는 3.41m/s, average speed는 2.53m/s다.
+- **Long-horizon traversal**: training에는 single-obstacle traversal만 들어갔지만, 실제 course에서는 stepping, low/high wall climb을 이어 붙인다.
+- **Real-time obstacle displacement**: 실행 중 여러 장애물을 약 0.5m 옮겨도 approach와 maneuver timing을 조정해 traversal을 계속한다.
+
+<Figure src="./fig-5.png" caption="Figure 5: cat vault, 1.25m wall drop landing, 실시간 장애물 displacement에 적응하는 48초 terrain traversal 하드웨어 결과." number={5} />
+
+시뮬레이션 baseline 비교는 이 논문의 메시지를 잘 보여준다.
+
+| Method | 1.0m/s 36cm | 1.0m/s 58cm | 1.0m/s 76cm | 2.0m/s 36cm | 2.0m/s 58cm | 2.0m/s 76cm |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Velocity Tracking | 1.00 | 0.00 | 0.00 | 1.00 | 0.00 | 0.00 |
+| Uncomposed Data | 0.06 | 0.02 | 0.00 | 0.37 | 0.27 | 0.07 |
+| End-to-end Depth | 0.95 | 0.07 | 0.08 | 0.78 | 0.19 | 0.14 |
+| Ours | 1.00 | 0.99 | 0.95 | 1.00 | 0.99 | 0.95 |
+
+Reward shaping만으로는 높은 장애물에서 arm-supported climbing을 찾지 못하고, uncomposed atomic clip만으로는 skill transition을 배우지 못한다. End-to-end depth policy도 낮은 장애물은 되지만 어려운 과제에서 exploration 문제가 드러난다. PHP는 motion matching reference와 teacher-student distillation을 같이 써서 이 병목을 우회한다.
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- Motion matching이라는 animation technique을 humanoid parkour의 long-horizon reference synthesis로 가져왔다.
+- OmniRetarget 같은 human-to-robot retargeting을 단발성 motion transfer가 아니라 perception policy training pipeline의 앞단으로 연결했다.
+- DAgger만으로는 놓치는 high-torque decisive action을 RL objective로 보완한다는 실용적인 distillation recipe를 제시했다.
+- Unitree G1에서 1.25m climb, 3m/s급 vault, 48초 adaptive traversal을 실제 하드웨어로 보여준다.
+
+한계점:
+
+- 저자 언급: 현재 pipeline에는 semantic scene understanding이 없다. 언어나 더 풍부한 conditioning이 들어가면 route와 style을 더 세밀하게 제어할 수 있다.
+- 저자 언급: high-speed 접근 중 short-range, narrow-FOV depth camera가 장애물을 충분히 일찍 보지 못하면 perceptual ambiguity가 생긴다.
+- 저자 언급: 로봇 손/그리퍼가 충분히 강하지 않아 edge, bar, hanging interaction이나 로봇 키를 넘는 climbing은 테스트하지 못했다.
+- 🤖 재현성 관점: 결과는 Unitree G1, OmniRetarget, 고속 simulation, 대규모 parallel rollout, real hardware tuning이 맞물린 system result다. 외부 연구실에서 같은 숫자를 재현하려면 motion library와 하드웨어 setup 차이를 함께 봐야 한다.
+
+## Terry memo
+
+이 논문은 “휴머노이드가 파쿠르를 했다”보다 “휴머노이드 동작 학습의 data interface가 바뀌고 있다”는 쪽이 더 중요하다. 예전에는 RL reward를 잘 깎거나, 모션을 잘 따라 하거나, perception policy를 잘 distill하는 각각의 문제가 따로 있었다. PHP는 이 셋을 하나의 파이프라인으로 묶는다. 인간 motion을 retarget하고, motion matching으로 필요한 context를 채우고, teacher-student RL로 real robot에 얹는다.
+
+특히 motion matching이 흥미롭다. 언뜻 보면 오래된 animation trick인데, robot learning에서는 “희소한 인간 skill clip을 policy가 배울 수 있는 approach/timing distribution으로 densify하는 장치”가 된다. 결국 physical AI에서 좋은 데이터란 raw recording이 아니라, policy가 실패하기 쉬운 transition boundary를 촘촘히 채운 reference distribution이라는 뜻이다.
+
+## KG enrichment
+
+```json
+{
+  "source_metadata": {
+    "slug": "2602-perceptive-humanoid-parkour",
+    "arxiv_id": "2602.15827",
+    "source_url": "https://arxiv.org/abs/2602.15827",
+    "source_project_url": "https://php-parkour.github.io/"
+  },
+  "concepts": [
+    "perceptive-humanoid-parkour",
+    "motion-matching",
+    "long-horizon-skill-composition",
+    "teacher-student-distillation",
+    "DAgger-plus-RL",
+    "depth-based-policy",
+    "zero-shot-sim-to-real"
+  ],
+  "methodology": [
+    "OmniRetarget",
+    "nearest-neighbor-motion-matching",
+    "RL-motion-tracking",
+    "privileged-teacher-policy",
+    "DAgger",
+    "PPO",
+    "domain-randomization"
+  ],
+  "relation_candidates": [
+    {
+      "target": "2509-omniretarget-interaction-preserving-retargeting",
+      "type": "usesMethodIn",
+      "evidence": "PHP explicitly retargets atomic motion clips to a 29-DOF Unitree G1 using OmniRetarget before motion matching and policy learning.",
+      "confidence": "high"
+    },
+    {
+      "target": "2605-rldx-1",
+      "type": "sharesTopicWith",
+      "evidence": "Both target humanoid policy learning and physical AI deployment, but PHP is a motion-reference and RL control system while RLDX-1 is a VLA-oriented manipulation model.",
+      "confidence": "medium"
+    }
+  ],
+  "research_gaps": [
+    "Can semantic scene understanding or language conditioning guide route and style choices?",
+    "How robust is the policy to camera FOV, latency, and hardware differences across humanoids?",
+    "Can stronger hands unlock edge, rail, and hanging maneuvers beyond body-height wall climbs?"
+  ],
+  "next_reading": [
+    "2509-omniretarget-interaction-preserving-retargeting",
+    "2605-rldx-1"
+  ]
+}
+```
