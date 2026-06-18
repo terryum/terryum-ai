@@ -1,0 +1,244 @@
+{
+  "post_id": "2606-enpire-robot-policy-self-improvement",
+  "slug": "2606-enpire-robot-policy-self-improvement",
+  "post_number": 69,
+  "published_at": "2026-06-18T11:21:22+09:00",
+  "updated_at": "2026-06-18T11:21:22+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "physical-autoresearch",
+    "coding-agent",
+    "robot-learning",
+    "dexterous-manipulation",
+    "robot-fleet",
+    "policy-improvement",
+    "real-world-rl"
+  ],
+  "display_tags": [
+    "Physical AI",
+    "Coding Agents",
+    "Robot Learning",
+    "Autoresearch"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Robot fleet for physical autoresearch. The fleet contains eight bimanual YAM robot stations. Each station owns its robot hardware, compute, and coding agent. Website: research.nvidia.com/labs/gear/enpire",
+  "reading_time_min": 8,
+  "source_date": "2026-06-16",
+  "source_url": "https://research.nvidia.com/labs/gear/enpire/",
+  "source_title": "ENPIRE: Agentic Robot Policy Self-Improvement in the Real World",
+  "source_author": "Wenli Xiao et al.",
+  "source_type": "Technical Report",
+  "source_project_url": "https://research.nvidia.com/labs/gear/enpire/",
+  "source_authors_full": [
+    {
+      "name": "Wenli Xiao",
+      "affiliation": "NVIDIA, CMU"
+    },
+    {
+      "name": "Jia Xie",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Tonghe Zhang",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Haotian Lin",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Letian \"Max\" Fu",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Haoru Xue",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Jalen Lu",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Yi Yang",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Cunxi Dai",
+      "affiliation": "CMU"
+    },
+    {
+      "name": "Zi Wang",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Jimmy Wu",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Guanzhi Wang",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "S. Shankar Sastry",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Ken Goldberg",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Linxi \"Jim\" Fan",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Yuke Zhu",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Guanya Shi",
+      "affiliation": "CMU"
+    }
+  ],
+  "google_scholar_url": null,
+  "figures": [
+    {
+      "src": "./fig-1.jpg",
+      "caption": "Robot fleet for physical autoresearch. The fleet contains eight bimanual YAM robot stations. Each station owns its robot hardware, compute, and coding agent. Website: research.nvidia.com/labs/gear/enpire",
+      "caption_ko": "Physical autoresearch를 위한 로봇 플릿. 여덟 개의 bimanual YAM robot station으로 구성되며, 각 station은 자체 로봇 하드웨어, compute, coding agent를 갖는다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Overview of physical autoresearch framework ENPIRE. To solve a dexterous task in the real world, ENPIRE first uses tool calls to construct an environment with automatic reset and verification mechanisms according to human feedback. Next, the coding agent calls environment APIs to conduct autoresearch and hill-climb the policy success rate from real-world reward signals. More results are available at research.nvidia.com/labs/gear/enpire.",
+      "caption_ko": "ENPIRE physical autoresearch framework 개요. 먼저 자동 reset과 verification을 갖춘 environment를 만들고, 이후 coding agent가 environment API를 호출해 real-world reward signal로 policy success rate를 hill-climb한다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Benchmarking coding agents for physical autoresearch. ENPIRE enables state-of-the-art coding agents to achieve autonomous policy improvement on Push-T and Pin Insertion tasks. ENPIRE also evaluates multi-agent scaling and analyzes robot, GPU, and token utilization.",
+      "caption_ko": "Physical autoresearch용 coding agent 벤치마크. ENPIRE는 Push-T와 Pin Insertion에서 state-of-the-art coding agent가 autonomous policy improvement를 수행하도록 한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Quantifying agent resource utilization. Scaling from 1 to 8 agents raises GPU utilization and token consumption but lowers per-robot utilization.",
+      "caption_ko": "Agent resource utilization 정량화. 1개에서 8개 agent로 확장하면 GPU utilization과 token consumption은 증가하지만 per-robot utilization은 낮아진다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "Idea tree and hill-climbing progress for the pin insertion task. Top: the agent’s idea tree, where each node is a proposed idea and each new lane is a new idea branch. Bottom: the team-average best success rate over research wall-clock time, sharing the time axis of the tree.",
+      "caption_ko": "Pin insertion 태스크의 idea tree와 hill-climbing 진행. 위쪽은 agent team의 idea tree, 아래쪽은 research wall-clock time에 따른 team-average best success rate를 보여준다.",
+      "number": 12
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "robot-learning",
+    "dexterous-manipulation",
+    "agentic-autoresearch",
+    "real-world-rl",
+    "robot-fleet"
+  ],
+  "key_concepts": [
+    "physical-autoresearch",
+    "coding-agent",
+    "automatic-reset",
+    "automatic-verification",
+    "policy-self-improvement",
+    "robot-fleet-scaling",
+    "mean-robot-utilization",
+    "mean-token-utilization",
+    "behavior-cloning-regularization",
+    "real-world-policy-learning"
+  ],
+  "methodology": [
+    "agentic-harness",
+    "environment-api-construction",
+    "parallel-rollout",
+    "evolutionary-hypothesis-selection",
+    "behavior-cloning",
+    "offline-to-online-rl",
+    "tool-calling",
+    "code-as-policy"
+  ],
+  "contribution_type": "system",
+  "relations": [
+    {
+      "target": "2603-autoresearch-autonomous-ml",
+      "type": "extends"
+    },
+    {
+      "target": "2603-capx-coding-agents-manipulation",
+      "type": "usesMethodIn"
+    },
+    {
+      "target": "2603-roboclaw-agentic-long-horizon",
+      "type": "sharesGoalWith"
+    },
+    {
+      "target": "2604-self-driving-labs",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "ENPIRE turns real-world dexterous robot policy improvement into a coding-agent-managed physical autoresearch loop over reset, rollout, verification, and evolution.",
+    "problem": "Real-world dexterous manipulation policy learning remains bottlenecked by human supervision for resets, success verification, experiment execution, and algorithmic tuning, while coding-agent autoresearch has mostly stayed in digital environments.",
+    "solution": "A four-module harness: Environment construction for automatic reset/verification, Policy Improvement for heuristic/BC/RL/tool-calling updates, Rollout for single- or multi-robot evaluation, and Evolution for log/literature analysis plus code and training-infrastructure changes.",
+    "key_result": "Frontier coding agents autonomously improve real robot policies up to 99% success; scaling from 1 to 8 agents cuts Push-T convergence from roughly 5h to 2h and pin insertion from over 1.5h to about 40min, at higher token cost.",
+    "limitations": [
+      "Robot and compute resources are underutilized while agents read logs, write code, debug, or wait for model responses.",
+      "Fleet scaling reduces wall-clock time but increases token consumption super-linearly.",
+      "Reproduction requires integrated robot stations, reset/verification APIs, logging, and agent sandbox infrastructure."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can physical autoresearch agents keep robot utilization high while they are reading logs, writing code, and waiting for LLM calls?",
+      "source": "author",
+      "relates_to": [
+        "robot-fleet-scaling",
+        "agent-orchestration"
+      ]
+    },
+    {
+      "question": "Can the ENPIRE loop be reproduced on heterogeneous robot platforms without NVIDIA-scale infrastructure and tightly integrated reset/verification APIs?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "reproducibility",
+        "robot-learning-infrastructure"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Design scheduling policies that decouple agent reasoning from robot execution so idle robot time is minimized.",
+    "Develop shared environment API standards for reset, verification, rollout logging, and safety boundaries in physical autoresearch.",
+    "Study when token-heavy multi-agent hypothesis search is worth the wall-clock speedup compared with more sample-efficient single-agent search."
+  ],
+  "survey_hooks": [
+    "physical-ai-agentic-research",
+    "robot-learning-infrastructure",
+    "coding-agents-for-robotics"
+  ],
+  "next_reading": [
+    "2603-autoresearch-autonomous-ml",
+    "2603-capx-coding-agents-manipulation",
+    "2603-roboclaw-agentic-long-horizon",
+    "2604-self-driving-labs"
+  ],
+  "taxonomy_primary": "robotics/brain",
+  "taxonomy_secondary": [
+    "robotics/arm",
+    "ai/agentic-research"
+  ],
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.jpg",
+  "thumb_position": "centre",
+  "video_url": "https://research.nvidia.com/labs/gear/enpire/videos/website-teaser.mp4"
+}

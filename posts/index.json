@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-13T07:25:57.031Z",
-  "total_posts": 68,
+  "generated_at": "2026-06-18T02:33:36.743Z",
+  "total_posts": 69,
   "posts": [
     {
       "post_number": 1,
@@ -4973,6 +4973,99 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 69,
+      "slug": "2606-enpire-robot-policy-self-improvement",
+      "content_type": "papers",
+      "title_en": "ENPIRE: Agentic Robot Policy Self-Improvement in the Real World",
+      "title_ko": "ENPIRE: 물리 세계에서 스스로 개선하는 로봇 정책",
+      "summary_ko": "coding agent의 자동 연구 루프를 디지털 실험에서 실제 로봇 정책 개선으로 옮긴 시스템. ENPIRE는 reset, verification, rollout, evolution을 묶어 로봇 플릿 위에서 정책을 스스로 hill-climb하게 만든다.",
+      "summary_en": "A system that ports coding-agent autoresearch from digital experiments into real robot policy improvement. ENPIRE turns reset, verification, rollout, and evolution into a harness for hill-climbing robot policies on a fleet.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-learning",
+        "dexterous-manipulation",
+        "agentic-autoresearch",
+        "real-world-rl",
+        "robot-fleet"
+      ],
+      "key_concepts": [
+        "physical-autoresearch",
+        "coding-agent",
+        "automatic-reset",
+        "automatic-verification",
+        "policy-self-improvement",
+        "robot-fleet-scaling",
+        "mean-robot-utilization",
+        "mean-token-utilization",
+        "behavior-cloning-regularization",
+        "real-world-policy-learning"
+      ],
+      "methodology": [
+        "agentic-harness",
+        "environment-api-construction",
+        "parallel-rollout",
+        "evolutionary-hypothesis-selection",
+        "behavior-cloning",
+        "offline-to-online-rl",
+        "tool-calling",
+        "code-as-policy"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "physical-autoresearch",
+        "coding-agent",
+        "robot-learning",
+        "dexterous-manipulation",
+        "robot-fleet",
+        "policy-improvement",
+        "real-world-rl"
+      ],
+      "source_author": "Wenli Xiao et al.",
+      "source_date": "2026-06-16",
+      "published_at": "2026-06-18T11:21:22+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "ENPIRE turns real-world dexterous robot policy improvement into a coding-agent-managed physical autoresearch loop over reset, rollout, verification, and evolution.",
+        "problem": "Real-world dexterous manipulation policy learning remains bottlenecked by human supervision for resets, success verification, experiment execution, and algorithmic tuning, while coding-agent autoresearch has mostly stayed in digital environments.",
+        "solution": "A four-module harness: Environment construction for automatic reset/verification, Policy Improvement for heuristic/BC/RL/tool-calling updates, Rollout for single- or multi-robot evaluation, and Evolution for log/literature analysis plus code and training-infrastructure changes.",
+        "key_result": "Frontier coding agents autonomously improve real robot policies up to 99% success; scaling from 1 to 8 agents cuts Push-T convergence from roughly 5h to 2h and pin insertion from over 1.5h to about 40min, at higher token cost.",
+        "limitations": [
+          "Robot and compute resources are underutilized while agents read logs, write code, debug, or wait for model responses.",
+          "Fleet scaling reduces wall-clock time but increases token consumption super-linearly.",
+          "Reproduction requires integrated robot stations, reset/verification APIs, logging, and agent sandbox infrastructure."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2603-autoresearch-autonomous-ml",
+          "type": "extends"
+        },
+        {
+          "target": "2603-capx-coding-agents-manipulation",
+          "type": "usesMethodIn"
+        },
+        {
+          "target": "2603-roboclaw-agentic-long-horizon",
+          "type": "sharesGoalWith"
+        },
+        {
+          "target": "2604-self-driving-labs",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm",
+        "ai/agentic-research"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -5826,6 +5919,26 @@
         "from": "260613-mythos-sovereign-ai-growth-fund",
         "to": "260608-jensen-hwang-new-wave",
         "type": "related"
+      },
+      {
+        "from": "2606-enpire-robot-policy-self-improvement",
+        "to": "2603-autoresearch-autonomous-ml",
+        "type": "extends"
+      },
+      {
+        "from": "2606-enpire-robot-policy-self-improvement",
+        "to": "2603-capx-coding-agents-manipulation",
+        "type": "usesMethodIn"
+      },
+      {
+        "from": "2606-enpire-robot-policy-self-improvement",
+        "to": "2603-roboclaw-agentic-long-horizon",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2606-enpire-robot-policy-self-improvement",
+        "to": "2604-self-driving-labs",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -5953,7 +6066,8 @@
           19,
           29,
           34,
-          35
+          35,
+          69
         ],
         "core_concepts": [
           "zero-shot-generalization",
@@ -7328,10 +7442,40 @@
     ],
     "startup-financing": [
       68
+    ],
+    "physical-autoresearch": [
+      69
+    ],
+    "coding-agent": [
+      69
+    ],
+    "automatic-reset": [
+      69
+    ],
+    "automatic-verification": [
+      69
+    ],
+    "policy-self-improvement": [
+      69
+    ],
+    "robot-fleet-scaling": [
+      69
+    ],
+    "mean-robot-utilization": [
+      69
+    ],
+    "mean-token-utilization": [
+      69
+    ],
+    "behavior-cloning-regularization": [
+      69
+    ],
+    "real-world-policy-learning": [
+      69
     ]
   },
   "domain_stats": {
-    "robotics": 35,
+    "robotics": 36,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7351,7 +7495,7 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 11,
+    "robotics/arm:secondary": 12,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -7360,7 +7504,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 16,
+    "robotics/brain": 17,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -7396,9 +7540,10 @@
     "ai/policy": 1,
     "robotics/physical-ai:secondary": 1,
     "startup/financing:secondary": 1,
+    "ai/agentic-research:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 34,
+    "robotics": 35,
     "ai": 17
   }
 }

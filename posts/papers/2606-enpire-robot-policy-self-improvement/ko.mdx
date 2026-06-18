@@ -1,0 +1,90 @@
+---
+locale: "ko"
+title: "ENPIRE: 물리 세계에서 스스로 개선하는 로봇 정책"
+summary: "ENPIRE는 coding agent가 실제 로봇 실험을 반복하며 정책을 개선할 수 있게 만드는 agentic robot policy self-improvement harness다. 자동 reset, 자동 검증, parallel rollout, evolution loop를 묶어 Push-T, pin insertion, GPU insertion, zip-tie cutting 같은 dexterous manipulation 태스크에서 인간 개입을 줄이고 정책 성공률을 끌어올린다."
+card_summary: "coding agent의 자동 연구 루프를 디지털 실험에서 실제 로봇 정책 개선으로 옮긴 시스템. ENPIRE는 reset, verification, rollout, evolution을 묶어 로봇 플릿 위에서 정책을 스스로 hill-climb하게 만든다."
+seo_title: "ENPIRE: 실제 로봇 정책을 스스로 개선하는 Agentic Harness"
+seo_description: "NVIDIA, CMU, UC Berkeley의 ENPIRE 논문 요약. coding agent가 실제 로봇 플릿에서 자동 reset, 검증, rollout, evolution loop를 통해 dexterous manipulation 정책을 개선하는 방법."
+terrys_memo: ""
+references:
+  - title: "autoresearch: AI agents running research on single-GPU nanochat training automatically"
+    author: "Andrej Karpathy (2025)"
+    description: "디지털 환경에서 coding agent가 실험 루프를 반복하며 ML 학습 레시피를 개선하는 출발점. ENPIRE는 이 아이디어를 실제 로봇 정책 개선 루프로 옮긴다."
+    project_url: "https://github.com/karpathy/autoresearch"
+    post_slug: "2603-autoresearch-autonomous-ml"
+    category: "foundational"
+  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
+    author: "Max Fu et al. (2026)"
+    description: "로봇 조작에서 coding agent가 perception/control API를 호출하는 능력을 벤치마크한 연구. ENPIRE는 CaP-X식 procedural tool call을 실제 정책 개선 루프 안에 넣는다."
+    arxiv_url: "https://arxiv.org/abs/2603.22435"
+    post_slug: "2603-capx-coding-agents-manipulation"
+    category: "recent"
+  - title: "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks"
+    author: "Ruiying Li et al. (2026)"
+    description: "VLM agent와 self-resetting policy loop로 장기 로봇 태스크를 다루는 연구. ENPIRE와 마찬가지로 agentic control loop를 로봇 시스템에 붙이지만, ENPIRE는 policy learning 자체의 autoresearch에 초점을 둔다."
+    arxiv_url: "https://arxiv.org/abs/2603.11558"
+    post_slug: "2603-roboclaw-agentic-long-horizon"
+    category: "recent"
+  - title: "Self-driving laboratories for chemistry and materials science"
+    author: "MacLeod et al. (2024)"
+    description: "AI와 로봇 플랫폼이 실험 설계, 실행, 분석을 닫힌 루프로 자동화하는 self-driving lab 흐름. ENPIRE는 유사한 자동 실험 루프를 dexterous robot policy 개선에 적용한다."
+    project_url: "https://www.nature.com/articles/s41586-024-07443-0"
+    post_slug: "2604-self-driving-labs"
+    category: "foundational"
+---
+
+## TL;DR
+
+ENPIRE는 coding agent가 실제 로봇 실험을 직접 돌리고, 실패 로그를 읽고, 정책 학습 코드를 수정하고, 다음 실험을 다시 배치하는 **physical autoresearch** harness다. 핵심은 로봇 정책 개선을 "reset -> execute -> verify -> refine"이라는 반복 가능한 최적화 루프로 바꾼다는 점이다.
+
+<Video src="https://research.nvidia.com/labs/gear/enpire/videos/website-teaser.mp4" caption="ENPIRE 데모: 여러 YAM bimanual robot station에서 agentic policy self-improvement 루프를 실행하는 모습" type="direct" />
+
+## 문제
+
+Dexterous manipulation은 아직도 사람의 supervision과 algorithmic engineering에 크게 의존한다. 데이터 수집, 실패 후 reset, 성공 여부 검증, 학습 코드 수정이 모두 사람 손을 타기 때문에 실제 로봇 정책을 빠르게 개선하기 어렵다. 최근 coding agent는 디지털 환경에서 실험 자동화를 잘하지만, 물리 세계에서는 로봇을 안전하게 reset하고, 실제 실행 결과를 검증하고, 여러 로봇에 실험을 분산하는 인터페이스가 부족하다. ENPIRE가 다루는 문제는 바로 이 간극이다.
+
+## 핵심 아이디어
+
+ENPIRE는 로봇 정책 개선을 coding agent가 다룰 수 있는 네 모듈로 분해한다.
+
+- **Environment (EN)**: 사람의 피드백을 받아 자동 reset, safety boundary, reward/verification API를 구성한다.
+- **Policy Improvement (PI)**: heuristic learning, behavior cloning, offline/online RL, tool calling 같은 정책 개선 루틴을 실행한다.
+- **Rollout (R)**: 한 대 또는 여러 대의 실제 로봇에서 policy를 평가하고 로그를 축적한다.
+- **Evolution (E)**: agent가 로그와 문헌을 분석하고, 학습 인프라와 알고리즘 코드를 수정하며, 실패 모드를 줄이는 다음 실험을 만든다.
+
+<Figure src="./fig-2.png" caption="Figure 2: ENPIRE의 physical autoresearch 루프. 먼저 automatic reset과 verification을 갖춘 environment API를 만들고, 이후 coding agent가 실제 reward signal을 이용해 policy success rate를 hill-climb한다." number={2} />
+
+<Collapsible title="구체적 방법">
+
+ENPIRE의 중요한 설계는 environment construction과 policy improvement를 분리한 것이다. 첫 단계에서는 coding agent가 사람의 feedback을 받아 task-specific environment API를 만든다. 이 API에는 reset, observation, step, reward, success verification이 들어가며, 한 번 안정화되면 이후 정책 개선 단계에서는 immutable interface로 사용된다.
+
+두 번째 단계에서는 agent가 이 environment API만 보고 정책 개선을 반복한다. agent는 behavior cloning의 regularization weight를 바꾸거나, online RL과 demo data mixing을 조정하거나, perception tool call과 motion planning을 결합하는 식으로 실험 branch를 만든다. 여러 로봇이 있을 때는 한 station당 하나의 coding agent를 붙여 hypothesis를 병렬로 테스트하고, Git/log summary를 통해 좋은 branch를 이어받는다.
+
+이 구조는 로봇 실험을 완전히 추상화하지 않는다. 오히려 실제 로봇의 비결정성, contact friction, perception failure, reset variability를 그대로 feedback으로 받아들이고, agent가 그 feedback 위에서 policy recipe를 개선하게 만든다.
+
+<Figure src="./fig-3.png" caption="Figure 3: ENPIRE는 Push-T와 Pin Insertion 같은 실제 조작 태스크에서 coding agent가 policy improvement를 자동으로 수행하도록 벤치마크한다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- Frontier coding agent가 ENPIRE 위에서 Push-T, pin insertion, GPU insertion, zip-tie cutting 같은 실제 dexterous manipulation 태스크를 다루며, 논문 초록 기준 최대 **99% success rate**까지 정책을 개선한다.
+- Pin insertion에서는 coding agent가 BC, iterative BC, online/offline/offline-to-online RL, BC regularization 등을 탐색하고, 50연속 성공을 목표로 policy를 개선한다.
+- 로봇 플릿 확장은 wall-clock time을 줄인다. Push-T에서는 1대에서 8대로 늘릴 때 normalized score 1.0 도달 시간이 약 5시간에서 2시간으로 줄고, pin insertion에서는 near-perfect success rate 도달 시간이 1.5시간 이상에서 약 40분으로 줄어든다.
+- 비용은 공짜가 아니다. 1대에서 8대로 늘리면 GPU utilization과 token consumption은 올라가지만 per-robot utilization은 낮아진다.
+
+<Figure src="./fig-7.png" caption="Figure 7: 로봇 수를 1대에서 8대로 늘리면 GPU utilization과 token consumption은 증가하지만, 개별 로봇이 실제 실험에 쓰이는 비율은 낮아진다." number={7} />
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- Coding agent 기반 autoresearch를 디지털 ML 실험이 아니라 실제 dexterous robot policy improvement로 옮겼다.
+- 자동 reset과 자동 verification을 갖춘 environment API를 먼저 만들고, 그 위에서 policy learning을 자동화하는 두 단계 구조를 제안했다.
+- 한 대의 로봇이 아니라 여러 robot station으로 hypothesis search를 병렬화하고, MRU와 MTU로 physical autoresearch의 자원 효율을 측정했다.
+
+한계점:
+
+- 저자들이 직접 지적하듯 robot resource와 compute resource가 완전히 포화되지 않는다. agent가 로그를 읽고 코드를 쓰고 LLM 응답을 기다리는 동안 로봇은 놀 수 있다.
+- 플릿을 키우면 wall-clock time은 줄지만 token cost가 비선형적으로 증가한다. 즉 더 빠른 연구 속도를 토큰 비용과 coordination overhead로 산다.
+- 🤖 실험 환경은 매우 강하게 수직 통합된 로봇 플릿과 내부 tool API를 전제한다. 다른 연구실이 같은 수준의 자동 reset, verification, data logging, agent sandbox를 재현하기는 쉽지 않다.

@@ -1,0 +1,91 @@
+---
+locale: "en"
+translation_of: "2606-enpire-robot-policy-self-improvement:ko"
+title: "ENPIRE: Agentic Robot Policy Self-Improvement in the Real World"
+summary: "ENPIRE is an agentic robot policy self-improvement harness that lets coding agents iteratively improve policies through real-world robot experiments. It combines automatic reset, automatic verification, parallel rollout, and an evolution loop to reduce human supervision on dexterous manipulation tasks such as Push-T, pin insertion, GPU insertion, and zip-tie cutting."
+card_summary: "A system that ports coding-agent autoresearch from digital experiments into real robot policy improvement. ENPIRE turns reset, verification, rollout, and evolution into a harness for hill-climbing robot policies on a fleet."
+seo_title: "ENPIRE: Agentic Robot Policy Self-Improvement on Real Robots"
+seo_description: "Summary of NVIDIA, CMU, and UC Berkeley's ENPIRE paper: a harness where coding agents improve real-world dexterous manipulation policies through reset, verification, rollout, and evolution loops."
+terrys_memo: ""
+references:
+  - title: "autoresearch: AI agents running research on single-GPU nanochat training automatically"
+    author: "Andrej Karpathy (2025)"
+    description: "A digital-environment starting point where coding agents repeatedly run experiments and improve ML training recipes. ENPIRE ports that idea into real-world robot policy improvement."
+    project_url: "https://github.com/karpathy/autoresearch"
+    post_slug: "2603-autoresearch-autonomous-ml"
+    category: "foundational"
+  - title: "CaP-X: A Framework for Benchmarking and Improving Coding Agents for Robot Manipulation"
+    author: "Max Fu et al. (2026)"
+    description: "Benchmarks coding agents that call perception and control APIs for robot manipulation. ENPIRE folds CaP-X-style procedural tool calls into a real policy-improvement loop."
+    arxiv_url: "https://arxiv.org/abs/2603.22435"
+    post_slug: "2603-capx-coding-agents-manipulation"
+    category: "recent"
+  - title: "RoboClaw: An Agentic Framework for Scalable Long-Horizon Robotic Tasks"
+    author: "Ruiying Li et al. (2026)"
+    description: "Uses a VLM agent and self-resetting policy loops for long-horizon robot tasks. ENPIRE shares the agentic robotics direction but focuses on autoresearch over policy learning itself."
+    arxiv_url: "https://arxiv.org/abs/2603.11558"
+    post_slug: "2603-roboclaw-agentic-long-horizon"
+    category: "recent"
+  - title: "Self-driving laboratories for chemistry and materials science"
+    author: "MacLeod et al. (2024)"
+    description: "A self-driving lab framing where AI and robotic platforms close the loop over experiment design, execution, and analysis. ENPIRE applies a similar loop to dexterous robot policy improvement."
+    project_url: "https://www.nature.com/articles/s41586-024-07443-0"
+    post_slug: "2604-self-driving-labs"
+    category: "foundational"
+---
+
+## TL;DR
+
+ENPIRE is a **physical autoresearch** harness: a coding agent runs real robot experiments, reads failure logs, edits policy-learning code, and launches the next experiment. The key move is to make robot policy improvement a repeatable optimization loop: reset, execute, verify, refine.
+
+<Video src="https://research.nvidia.com/labs/gear/enpire/videos/website-teaser.mp4" caption="ENPIRE demo: agentic policy self-improvement running across multiple YAM bimanual robot stations" type="direct" />
+
+## Problem
+
+Dexterous manipulation still depends heavily on human supervision and algorithmic engineering. Data collection, reset after failure, success verification, and training-code adjustment all require human involvement, making real-world policy improvement slow. Coding agents can already automate many digital experiments, but physical robotics lacks the interfaces needed for safe reset, real-world outcome verification, and parallel experimentation across a robot fleet. ENPIRE targets exactly this missing layer.
+
+## Core Idea
+
+ENPIRE decomposes robot policy improvement into four modules that coding agents can operate:
+
+- **Environment (EN)**: builds automatic reset, safety boundaries, reward, and verification APIs from human feedback.
+- **Policy Improvement (PI)**: launches policy-improvement regimes such as heuristic learning, behavior cloning, offline/online RL, and tool calling.
+- **Rollout (R)**: evaluates policies on one or more physical robots and collects logs.
+- **Evolution (E)**: analyzes logs and literature, modifies training infrastructure and algorithm code, and proposes the next experiment.
+
+<Figure src="./fig-2.png" caption="Figure 2: Overview of physical autoresearch framework ENPIRE. It first constructs environment APIs with automatic reset and verification, then lets coding agents hill-climb policy success rate from real-world reward signals." number={2} />
+
+<Collapsible title="Method Details">
+
+The important design choice is to separate environment construction from policy improvement. In the first phase, a coding agent uses human feedback to build task-specific environment APIs: reset, observation, step, reward, and success verification. Once stabilized, these APIs become immutable interfaces for the policy-improvement phase.
+
+In the second phase, the agent repeatedly improves policies through those APIs. It may tune behavior-cloning regularization, mix online RL with demonstration data, combine perception tool calls with motion planning, or create new experiment branches. With multiple robots, ENPIRE assigns one coding agent per station, tests hypotheses in parallel, and transfers successful ideas through Git and log summaries.
+
+This does not hide physical messiness. Robot dynamics, contact friction, perception failures, and reset variability remain part of the feedback loop, and the agent improves policy recipes against that real-world signal.
+
+<Figure src="./fig-3.png" caption="Figure 3: Benchmarking coding agents for physical autoresearch. ENPIRE enables coding agents to perform autonomous policy improvement on real manipulation tasks such as Push-T and Pin Insertion." number={3} />
+
+</Collapsible>
+
+## Key Results
+
+- On ENPIRE, frontier coding agents improve policies for real dexterous manipulation tasks including Push-T, pin insertion, GPU insertion, and zip-tie cutting; the abstract reports up to **99% success rate**.
+- For pin insertion, agents explore BC, iterative BC, online/offline/offline-to-online RL, and BC regularization while targeting 50 consecutive real-world successes.
+- Fleet scaling reduces wall-clock time. In Push-T, scaling from 1 to 8 agents reduces time to normalized score 1.0 from roughly 5 hours to 2 hours; in pin insertion, time to near-perfect success drops from more than 1.5 hours to about 40 minutes.
+- Scaling is not free: GPU utilization and token consumption increase, while per-robot utilization decreases.
+
+<Figure src="./fig-7.png" caption="Figure 7: Quantifying agent resource utilization. Scaling from 1 to 8 agents raises GPU utilization and token consumption but lowers per-robot utilization." number={7} />
+
+## Achievements and Limitations
+
+What it newly achieves:
+
+- Ports coding-agent autoresearch from digital ML experiments into real dexterous robot policy improvement.
+- Proposes a two-stage structure: first construct environment APIs with automatic reset and verification, then automate policy learning on top of them.
+- Parallelizes hypothesis search across robot stations and introduces MRU and MTU as resource-efficiency metrics for physical autoresearch.
+
+Limitations:
+
+- As the authors note, robot and compute resources are not fully saturated. While agents read logs, write code, debug, or wait for the language-model backbone, robots may sit idle.
+- Larger fleets reduce wall-clock time but increase token cost super-linearly, buying speed with coordination overhead.
+- 🤖 The system assumes a highly integrated robot fleet and internal tool API stack. Reproducing the same level of reset, verification, logging, and sandboxing in another lab will be nontrivial.
