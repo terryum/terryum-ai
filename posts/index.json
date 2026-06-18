@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T05:32:47.220Z",
-  "total_posts": 71,
+  "generated_at": "2026-06-18T06:27:19.285Z",
+  "total_posts": 72,
   "posts": [
     {
       "post_number": 1,
@@ -5249,6 +5249,104 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 72,
+      "slug": "2512-sim2real-humanoid-locomotion-15min",
+      "content_type": "papers",
+      "title_en": "FastSAC: Learning Humanoid Locomotion Policies in 15 Minutes",
+      "title_ko": "15분 만에 휴머노이드 보행 정책을 학습하기",
+      "summary_ko": "FastSAC/FastTD3로 Unitree G1과 Booster T1 휴머노이드 보행 정책을 15분 만에 학습하고 sim-to-real로 전이하는 실용적 off-policy RL recipe.",
+      "summary_en": "A practical off-policy RL recipe that trains Unitree G1 and Booster T1 humanoid locomotion policies in 15 minutes and transfers them sim-to-real.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "humanoid-robotics",
+        "reinforcement-learning",
+        "sim-to-real",
+        "locomotion",
+        "whole-body-control",
+        "parallel-simulation"
+      ],
+      "key_concepts": [
+        "FastSAC",
+        "FastTD3",
+        "off-policy-RL",
+        "humanoid-locomotion",
+        "sim-to-real",
+        "massively-parallel-simulation",
+        "domain-randomization",
+        "minimalist-reward-design",
+        "Unitree-G1",
+        "Booster-T1",
+        "whole-body-tracking",
+        "RTX-4090"
+      ],
+      "methodology": [
+        "FastSAC",
+        "FastTD3",
+        "off-policy-reinforcement-learning",
+        "massively-parallel-simulation",
+        "joint-limit-aware-action-bounds",
+        "observation-normalization",
+        "layer-normalization",
+        "domain-randomization",
+        "automatic-action-rate-curriculum",
+        "minimal-reward-design"
+      ],
+      "contribution_type": "method-and-system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Humanoid",
+        "Reinforcement Learning",
+        "Sim-to-Real",
+        "Locomotion",
+        "Off-Policy RL"
+      ],
+      "source_author": "Younggyo Seo et al.",
+      "source_date": "2025-12-01",
+      "published_at": "2026-06-18T15:23:09+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "FastSAC/FastTD3 make sim-to-real humanoid locomotion iteration a minutes-scale loop: 15-minute training on one RTX 4090 for Unitree G1 and Booster T1 locomotion under strong domain randomization.",
+        "problem": "Massively parallel simulation can train robot policies quickly, but humanoid sim-to-real remains slow because high-dimensional control, strong domain randomization, terrain variation, and reward tuning make exploration unstable and sample-inefficient.",
+        "solution": "Scale off-policy RL variants FastSAC and FastTD3 with carefully chosen normalization, critic/exploration hyperparameters, joint-limit-aware action bounds, simple rewards, domain randomization, and action-rate curriculum.",
+        "key_result": "The recipe trains full humanoid locomotion policies for Unitree G1 and Booster T1 in 15 minutes on a single RTX 4090, while whole-body tracking experiments with 4xL40s and 16,384 environments show FastSAC/FastTD3 reaching motion tracking performance faster than PPO.",
+        "limitations": [
+          "The reported fast locomotion recipe is focused on locomotion and whole-body tracking, not contact-rich manipulation.",
+          "Whole-body tracking speedups use 4xL40s GPUs rather than a single consumer GPU.",
+          "The approach still depends on careful implementation choices in simulation, domain randomization, and reward/curriculum design."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2602-perceptive-humanoid-parkour",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2509-omniretarget-interaction-preserving-retargeting",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2506-exostart",
+          "type": "sharesGoalWith"
+        },
+        {
+          "target": "2303-diffusion-policy",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/body/humanoid",
+        "robotics/simulation/sim-to-real"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6147,6 +6245,26 @@
         "from": "2602-perceptive-humanoid-parkour",
         "to": "2605-rldx-1",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2512-sim2real-humanoid-locomotion-15min",
+        "to": "2602-perceptive-humanoid-parkour",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2512-sim2real-humanoid-locomotion-15min",
+        "to": "2509-omniretarget-interaction-preserving-retargeting",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2512-sim2real-humanoid-locomotion-15min",
+        "to": "2506-exostart",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2512-sim2real-humanoid-locomotion-15min",
+        "to": "2303-diffusion-policy",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -6321,7 +6439,8 @@
         "post_numbers": [
           57,
           70,
-          71
+          71,
+          72
         ],
         "core_concepts": [
           "zero-shot-sim-to-real",
@@ -6685,7 +6804,8 @@
       13
     ],
     "sim-to-real": [
-      13
+      13,
+      72
     ],
     "in-hand-translation": [
       13
@@ -7728,7 +7848,8 @@
     ],
     "Unitree-G1": [
       70,
-      71
+      71,
+      72
     ],
     "perceptive-humanoid-parkour": [
       71
@@ -7750,10 +7871,40 @@
     ],
     "autonomous-skill-selection": [
       71
+    ],
+    "FastSAC": [
+      72
+    ],
+    "FastTD3": [
+      72
+    ],
+    "off-policy-RL": [
+      72
+    ],
+    "humanoid-locomotion": [
+      72
+    ],
+    "massively-parallel-simulation": [
+      72
+    ],
+    "domain-randomization": [
+      72
+    ],
+    "minimalist-reward-design": [
+      72
+    ],
+    "Booster-T1": [
+      72
+    ],
+    "whole-body-tracking": [
+      72
+    ],
+    "RTX-4090": [
+      72
     ]
   },
   "domain_stats": {
-    "robotics": 38,
+    "robotics": 39,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7782,7 +7933,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 19,
+    "robotics/brain": 20,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -7799,7 +7950,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 3,
+    "robotics/brain/rl-policy": 4,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -7819,11 +7970,12 @@
     "robotics/physical-ai:secondary": 1,
     "startup/financing:secondary": 1,
     "ai/agentic-research:secondary": 1,
-    "robotics/body/humanoid:secondary": 1,
+    "robotics/body/humanoid:secondary": 2,
     "robotics/perception/depth:secondary": 1,
+    "robotics/simulation/sim-to-real:secondary": 1,
     "robotics/arm": 5,
     "robotics/hand": 13,
-    "robotics": 37,
+    "robotics": 38,
     "ai": 17
   }
 }

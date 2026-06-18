@@ -1,0 +1,226 @@
+{
+  "post_id": "2512-sim2real-humanoid-locomotion-15min",
+  "slug": "2512-sim2real-humanoid-locomotion-15min",
+  "post_number": 72,
+  "published_at": "2026-06-18T15:23:09+09:00",
+  "updated_at": "2026-06-18T15:23:09+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Humanoid",
+    "Reinforcement Learning",
+    "Sim-to-Real",
+    "Locomotion",
+    "Off-Policy RL"
+  ],
+  "display_tags": [
+    "Humanoid",
+    "Sim-to-Real",
+    "Off-Policy RL",
+    "Locomotion"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 1: Summary of results. We introduce a simple recipe based on off-policy RL algorithms, i.e., FastSAC and FastTD3, that learns robust humanoid locomotion policies in 15 minutes on a single RTX 4090 GPU, with strong domain randomization including randomized dynamics, rough terrain, and push perturbations. We also show that our recipe based on off-policy RL algorithms is scalable and accelerates the training of whole-body tracking policies: trained with 4xL40s GPUs and 16384 parallel environments, FastSAC and FastTD3 learn to complete the full sequence of dancing motion much faster than PPO under the same condition. For sim-to-real deployment with Unitree G1 and Booster T1, we used the checkpoints saved at the points we marked as star.",
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "source_date": "2025-12-01",
+  "source_url": "https://arxiv.org/abs/2512.01996",
+  "source_title": "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes",
+  "source_author": "Younggyo Seo et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://younggyo.me/fastsac-humanoid/",
+  "code_url": "https://github.com/amazon-far/holosoma",
+  "demo_video_url": "https://younggyo.me/fastsac-humanoid/static/videos/teaser.mov",
+  "source_venue": "arXiv preprint",
+  "arxiv_id": "2512.01996",
+  "doi": "10.48550/arXiv.2512.01996",
+  "bibtex_key": "seo2025sim2real15min",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Learning+Sim-to-Real+Humanoid+Locomotion+in+15+Minutes",
+  "source_authors_full": [
+    {
+      "name": "Younggyo Seo",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Carmelo Sferrazza",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Juyue Chen",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Guanya Shi",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Rocky Duan",
+      "affiliation": "Amazon FAR"
+    },
+    {
+      "name": "Pieter Abbeel",
+      "affiliation": "Amazon FAR"
+    }
+  ],
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Summary of results. We introduce a simple recipe based on off-policy RL algorithms, i.e., FastSAC and FastTD3, that learns robust humanoid locomotion policies in 15 minutes on a single RTX 4090 GPU, with strong domain randomization including randomized dynamics, rough terrain, and push perturbations. We also show that our recipe based on off-policy RL algorithms is scalable and accelerates the training of whole-body tracking policies: trained with 4xL40s GPUs and 16384 parallel environments, FastSAC and FastTD3 learn to complete the full sequence of dancing motion much faster than PPO under the same condition. For sim-to-real deployment with Unitree G1 and Booster T1, we used the checkpoints saved at the points we marked as star.",
+      "caption_ko": "Figure 1: 결과 요약. 저자들은 FastSAC와 FastTD3 기반의 단순한 off-policy RL recipe로 단일 RTX 4090 GPU에서 15분 만에 robust humanoid locomotion policy를 학습한다. 학습에는 randomized dynamics, rough terrain, push perturbation 같은 강한 domain randomization이 포함된다. 또한 4xL40s GPU와 16,384 parallel environments로 whole-body tracking policy 학습을 가속하며, FastSAC와 FastTD3가 같은 조건의 PPO보다 dancing motion 전체 sequence를 훨씬 빠르게 완주하도록 학습함을 보인다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Project overview: FastSAC and FastTD3 are scaled to rapid sim-to-real humanoid control, with learning curves and real robot deployments on Unitree G1 and Booster T1.",
+      "caption_ko": "프로젝트 개요. FastSAC와 FastTD3를 빠른 sim-to-real humanoid control에 맞게 확장하고, Unitree G1과 Booster T1 실제 로봇 deployment를 보여준다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Locomotion (velocity tracking) results. FastSAC and FastTD3 enable fast training of G1 and T1 humanoid locomotion policies with strong domain randomization such as rough terrain or Push-Strong that applies push perturbations to humanoid robots every 1 to 3 seconds (max episode length is 20 seconds). For non-Push-Strong tasks, we apply push perturbations every 5 to 10 seconds. We use a single RTX 4090 GPU for all locomotion experiments.",
+      "caption_ko": "Figure 3: Locomotion velocity tracking 결과. FastSAC와 FastTD3는 rough terrain 또는 1-3초마다 push perturbation을 주는 Push-Strong 같은 강한 domain randomization 조건에서도 G1/T1 humanoid locomotion policy를 빠르게 학습한다. Push-Strong이 아닌 task에서는 5-10초마다 push perturbation을 적용한다. 모든 locomotion 실험에는 단일 RTX 4090 GPU를 사용한다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Whole-body tracking results. We show that FastSAC and FastTD3 are competitive or superior to PPO in whole-body motion tracking tasks. See Figure 6 for the sim-to-real deployment of FastSAC policies to real hardware. We use 4xL40s GPUs for all whole-body tracking experiments.",
+      "caption_ko": "Figure 5: Whole-body tracking 결과. FastSAC와 FastTD3가 whole-body motion tracking task에서 PPO와 경쟁 가능하거나 더 우수함을 보인다. FastSAC policy의 실제 하드웨어 sim-to-real deployment는 Figure 6에 있다. 모든 whole-body tracking 실험에는 4xL40s GPU를 사용한다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Whole-body tracking examples. We demonstrate the sim-to-real deployment of whole-body tracking controllers for Unitree G1 trained with FastSAC (Top: Dance, Middle: Box Lifting, Bottom: Push). Videos are available at https://younggyo.me/fastsac-humanoid.",
+      "caption_ko": "Figure 6: Whole-body tracking 예시. FastSAC로 학습한 Unitree G1 whole-body tracking controller의 sim-to-real deployment를 보여준다. 위는 Dance, 가운데는 Box Lifting, 아래는 Push다. 영상은 프로젝트 페이지에서 볼 수 있다.",
+      "number": 6
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "humanoid-robotics",
+    "reinforcement-learning",
+    "sim-to-real",
+    "locomotion",
+    "whole-body-control",
+    "parallel-simulation"
+  ],
+  "key_concepts": [
+    "FastSAC",
+    "FastTD3",
+    "off-policy-RL",
+    "humanoid-locomotion",
+    "sim-to-real",
+    "massively-parallel-simulation",
+    "domain-randomization",
+    "minimalist-reward-design",
+    "Unitree-G1",
+    "Booster-T1",
+    "whole-body-tracking",
+    "RTX-4090"
+  ],
+  "methodology": [
+    "FastSAC",
+    "FastTD3",
+    "off-policy-reinforcement-learning",
+    "massively-parallel-simulation",
+    "joint-limit-aware-action-bounds",
+    "observation-normalization",
+    "layer-normalization",
+    "domain-randomization",
+    "automatic-action-rate-curriculum",
+    "minimal-reward-design"
+  ],
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/body/humanoid",
+    "robotics/simulation/sim-to-real"
+  ],
+  "contribution_type": "method-and-system",
+  "relations": [
+    {
+      "target": "2602-perceptive-humanoid-parkour",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2509-omniretarget-interaction-preserving-retargeting",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2506-exostart",
+      "type": "sharesGoalWith"
+    },
+    {
+      "target": "2303-diffusion-policy",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "FastSAC/FastTD3 make sim-to-real humanoid locomotion iteration a minutes-scale loop: 15-minute training on one RTX 4090 for Unitree G1 and Booster T1 locomotion under strong domain randomization.",
+    "problem": "Massively parallel simulation can train robot policies quickly, but humanoid sim-to-real remains slow because high-dimensional control, strong domain randomization, terrain variation, and reward tuning make exploration unstable and sample-inefficient.",
+    "solution": "Scale off-policy RL variants FastSAC and FastTD3 with carefully chosen normalization, critic/exploration hyperparameters, joint-limit-aware action bounds, simple rewards, domain randomization, and action-rate curriculum.",
+    "key_result": "The recipe trains full humanoid locomotion policies for Unitree G1 and Booster T1 in 15 minutes on a single RTX 4090, while whole-body tracking experiments with 4xL40s and 16,384 environments show FastSAC/FastTD3 reaching motion tracking performance faster than PPO.",
+    "limitations": [
+      "The reported fast locomotion recipe is focused on locomotion and whole-body tracking, not contact-rich manipulation.",
+      "Whole-body tracking speedups use 4xL40s GPUs rather than a single consumer GPU.",
+      "The approach still depends on careful implementation choices in simulation, domain randomization, and reward/curriculum design."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "Can minutes-scale off-policy sim-to-real training extend from locomotion and whole-body tracking to contact-rich loco-manipulation?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "humanoid-loco-manipulation",
+        "sim-to-real",
+        "contact-rich-control"
+      ]
+    },
+    {
+      "question": "Which parts of the FastSAC/FastTD3 recipe are robust across humanoid morphologies, actuators, simulators, and onboard compute budgets?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "cross-embodiment",
+        "reproducibility",
+        "domain-randomization"
+      ]
+    },
+    {
+      "question": "Can off-policy humanoid RL be coupled with perception policies without losing the minutes-scale iteration loop?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "vision-based-control",
+        "off-policy-RL",
+        "whole-body-control"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Test the FastSAC/FastTD3 recipe on loco-manipulation tasks where hands, payloads, and contact changes dominate the failure modes.",
+    "Ablate how much of the sim-to-real success comes from off-policy data reuse versus normalization, action bounds, action-rate curriculum, and reward simplification.",
+    "Benchmark the recipe across Unitree G1, Booster T1, H1-class platforms, and different simulators to separate algorithmic generality from platform-specific tuning.",
+    "Integrate onboard perception and terrain-aware commands while preserving high-throughput training."
+  ],
+  "survey_hooks": [
+    "humanoid sim-to-real RL",
+    "off-policy RL for robot control",
+    "minutes-scale physical AI iteration",
+    "Unitree G1 locomotion",
+    "whole-body humanoid tracking"
+  ],
+  "next_reading": [
+    "2602-perceptive-humanoid-parkour",
+    "2509-omniretarget-interaction-preserving-retargeting",
+    "2506-exostart"
+  ],
+  "citation_status": "unchecked",
+  "citation_updated_at": "2026-06-18T15:23:09+09:00",
+  "cover_figure_number": 1,
+  "ai_research_question": "What changes if humanoid sim-to-real RL iteration becomes a 15-minute loop instead of an overnight training cycle?"
+}

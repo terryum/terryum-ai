@@ -1,0 +1,100 @@
+---
+locale: "ko"
+title: "15분 만에 휴머노이드 보행 정책을 학습하기"
+summary: "이 논문은 FastSAC와 FastTD3를 대규모 병렬 시뮬레이션에 맞게 안정화해, Unitree G1과 Booster T1 휴머노이드 보행 정책을 단일 RTX 4090에서 15분 만에 학습하고 실제 로봇으로 전이한다. 핵심은 off-policy RL의 데이터 재사용, 강한 domain randomization, 간결한 reward 설계, normalization/action-bound/curriculum 같은 구현 recipe를 한 덩어리로 맞춘 것이다."
+card_summary: "FastSAC/FastTD3로 Unitree G1과 Booster T1 휴머노이드 보행 정책을 15분 만에 학습하고 sim-to-real로 전이하는 실용적 off-policy RL recipe."
+seo_title: "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes 논문 요약"
+seo_description: "FastSAC와 FastTD3 기반 off-policy RL recipe가 단일 RTX 4090에서 15분 만에 Unitree G1/Booster T1 휴머노이드 locomotion policy를 학습하고 sim-to-real 전이를 수행하는 방법을 요약한다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "FastTD3: Simple, Fast, and Capable Reinforcement Learning for Humanoid Control"
+    author: "Seo et al. (2025)"
+    description: "이 논문의 직접 선행 연구. FastTD3가 humanoid control에서 PPO보다 빠르게 학습될 수 있음을 보였고, 이번 논문은 FastSAC 안정화와 full-body humanoid locomotion/whole-body tracking으로 확장한다."
+    arxiv_url: "https://arxiv.org/abs/2505.22642"
+    category: "recent"
+  - title: "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor"
+    author: "Haarnoja et al. (2018)"
+    description: "FastSAC의 기반이 되는 maximum entropy off-policy RL 계열. 이번 논문은 SAC 계열을 대규모 parallel simulation과 humanoid sim-to-real에 맞게 안정화한다."
+    arxiv_url: "https://arxiv.org/abs/1801.01290"
+    category: "foundational"
+  - title: "Addressing Function Approximation Error in Actor-Critic Methods"
+    author: "Fujimoto et al. (2018)"
+    description: "TD3의 원 논문. FastTD3는 TD3를 large-batch parallel simulation 환경에 맞춘 변형이고, 이번 논문은 FastTD3와 FastSAC를 같은 humanoid sim-to-real recipe 안에서 비교한다."
+    arxiv_url: "https://arxiv.org/abs/1802.09477"
+    category: "foundational"
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "Schulman et al. (2017)"
+    description: "Humanoid sim-to-real RL에서 널리 쓰인 on-policy baseline. 이 논문은 FastSAC/FastTD3가 PPO보다 wall-clock 기준으로 빠르게 locomotion과 whole-body tracking 성능에 도달함을 보인다."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    category: "foundational"
+---
+
+## TL;DR
+
+휴머노이드 sim-to-real RL의 병목은 “시뮬레이션이 느리다”가 아니라, **강한 domain randomization과 고차원 전신 제어를 넣는 순간 학습이 다시 불안정하고 오래 걸린다**는 데 있다. 이 논문은 FastSAC와 FastTD3를 humanoid control에 맞게 안정화해, Unitree G1과 Booster T1 보행 정책을 단일 RTX 4090에서 15분 만에 학습하고 실제 로봇으로 전이한다.
+
+<Video src="https://younggyo.me/fastsac-humanoid/static/videos/teaser.mov" caption="프로젝트 teaser: FastSAC/FastTD3로 학습한 Unitree G1과 Booster T1 보행 및 whole-body tracking 데모." type="direct" />
+
+## 문제
+
+대규모 병렬 시뮬레이션은 로봇 RL의 wall-clock time을 크게 줄였다. 하지만 휴머노이드에서는 상황이 다르다. 관절 수가 많고, 넘어짐이 잦고, domain randomization과 rough terrain, push perturbation을 넣으면 exploration이 어려워진다. 실제 로봇에 올리려면 시뮬레이터 설정을 바꾸고 다시 학습하는 반복이 필요한데, 이 반복이 몇 시간 단위로 길어지면 sim-to-real 개발 속도가 급격히 떨어진다.
+
+이 논문이 겨냥하는 문제는 명확하다. **휴머노이드 locomotion policy를 실험실에서 빠르게 반복할 수 있는 15분 단위의 sim-to-real loop로 만들 수 있는가?** 저자들은 PPO 중심의 on-policy 관성에서 벗어나, off-policy RL의 data reuse를 대규모 병렬 시뮬레이션과 결합하는 쪽으로 답을 낸다.
+
+## 핵심 아이디어
+
+핵심은 FastSAC와 FastTD3 자체보다, 이 둘을 humanoid sim-to-real에 쓸 수 있게 만드는 recipe다.
+
+- **Off-policy RL at scale**: PPO 대신 FastSAC/FastTD3를 써서 simulation rollout 데이터를 더 적극적으로 재사용한다.
+- **Strong domain randomization**: dynamics, rough terrain, push perturbation, action delay, PD gain, mass, friction, center of mass 등을 randomize한다.
+- **Minimalist reward design**: 20개가 넘는 복잡한 reward shaping 대신 velocity tracking, foot-height, action smoothness, alive reward 등 꼭 필요한 항목만 남긴다.
+- **Stability details**: joint-limit-aware action bounds, observation/layer normalization, critic update 설정, entropy/exploration hyperparameter를 humanoid task에 맞게 조정한다.
+
+<Figure src="./fig-2.png" caption="Project overview: FastSAC와 FastTD3를 rapid sim-to-real humanoid control에 맞게 확장하고, Unitree G1과 Booster T1 실제 로봇 deployment를 보여준다." number={2} />
+
+<Collapsible title="구체적 방법">
+
+FastSAC와 FastTD3는 각각 SAC와 TD3를 대규모 병렬 시뮬레이션에 맞게 빠르게 만든 off-policy RL 변형이다. 이 논문은 이 알고리즘을 humanoid full-body locomotion과 whole-body tracking에 맞게 조정한다.
+
+첫째, action bound를 관절 limit에 맞춰 잡는다. SAC/TD3의 tanh policy에서 action bound가 너무 좁으면 torque가 충분히 나오지 않고, 너무 넓으면 exploration이 불안정해진다. 저자들은 joint-limit-aware action bounds를 기본값으로 두되, 실패 케이스에서는 unbounded action space도 권장할 수 있다고 말한다.
+
+둘째, normalization을 적극적으로 쓴다. Observation normalization은 기본이고, high-dimensional task에서는 layer normalization이 안정화에 도움이 된다고 보고한다. Critic 쪽에서는 clipped double Q-learning의 minimum 대신 Q값 평균을 쓰는 설정이 FastSAC/FastTD3 성능을 개선했다.
+
+셋째, task별 discount와 entropy 설정을 분리한다. 간단한 velocity tracking에는 낮은 discount factor인 $\gamma=0.97$이 유리하고, 어려운 whole-body tracking에는 $\gamma=0.99$가 더 낫다. FastSAC에서는 fixed alpha보다 maximum entropy auto-tuning이 일관되게 좋았고, target entropy는 locomotion과 WBT에 다르게 설정한다.
+
+마지막으로 reward는 간결하게 유지한다. Locomotion은 linear/angular velocity tracking, foot-height, orientation/torque/action-rate penalty, alive reward 중심으로 구성된다. Penalty weight는 episode length가 늘어남에 따라 curriculum으로 키운다. 이런 간결함이 중요한 이유는 수치를 한 번 예쁘게 만들기 위해서가 아니라, sim-to-real 반복 중 하이퍼파라미터 sweep을 빠르게 하기 위해서다.
+
+</Collapsible>
+
+## 주요 결과
+
+가장 직접적인 결과는 제목 그대로다. 저자들은 **단일 RTX 4090 GPU에서 15분 학습한 checkpoint**를 Unitree G1과 Booster T1 실제 로봇에 배포한다. 학습 조건에는 rough terrain, randomized dynamics, push perturbation이 포함된다.
+
+<Figure src="./fig-3.png" caption="Figure 3: G1/T1 locomotion 결과. FastSAC와 FastTD3는 rough terrain과 Push-Strong 조건에서도 15분 안에 PPO보다 빠르게 velocity tracking 성능을 끌어올린다." number={3} />
+
+핵심 수치는 다음과 같다.
+
+- **15분 학습**: G1/T1 locomotion policy를 단일 RTX 4090에서 15분 만에 학습한다.
+- **강한 domain randomization**: Push-Strong 조건에서는 1-3초마다 push perturbation을 적용하고, 일반 조건에서도 5-10초마다 perturbation을 넣는다.
+- **Whole-body tracking 확장**: 4xL40s GPU와 16,384 parallel environments에서 FastSAC/FastTD3가 PPO보다 빠르게 Dance, Box Lifting, Push tracking 성능에 도달한다.
+- **실제 하드웨어 배포**: Unitree G1과 Booster T1 locomotion, G1 whole-body tracking을 프로젝트 페이지 영상으로 공개한다.
+
+<Figure src="./fig-5.png" caption="Figure 5: Whole-body tracking 결과. FastSAC와 FastTD3가 Dance, Box Lifting, Push task에서 PPO와 경쟁 가능하거나 더 빠르게 높은 tracking reward에 도달한다." number={5} />
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- Off-policy RL이 humanoid sim-to-real에서 “빠르지만 불안정한 후보”가 아니라, 실제 full-body locomotion과 WBT에 쓸 수 있는 recipe가 될 수 있음을 보였다.
+- 단일 RTX 4090 기준 15분이라는 숫자를 제시해, humanoid policy iteration을 실험실 단위에서 훨씬 더 짧은 loop로 만들었다.
+- FastSAC의 불안정성을 normalization, critic 설정, entropy tuning, reward/curriculum 설계로 줄였다.
+- Unitree G1과 Booster T1이라는 실제 휴머노이드 플랫폼에서 결과를 보여주고, Holosoma repository로 구현을 공개했다.
+
+한계점:
+
+- 저자 언급: whole-body tracking에서는 FastSAC와 FastTD3의 task별 성능 차이가 아직 충분히 설명되지 않았고, 더 다양한 task에서 추가 조사가 필요하다.
+- 저자 언급: future work로 더 최근의 off-policy RL 개선 기법을 결합해 성능과 안정성을 더 높일 수 있다고 본다.
+- 🤖 재현성 관점: “15분”은 알고리즘 하나의 속도가 아니라 simulator throughput, reward/curriculum, domain randomization, normalization, action bound, hardware setup이 모두 맞물린 system-level 숫자다. 다른 연구실이 같은 속도를 얻으려면 코드뿐 아니라 시뮬레이터와 로봇 파라미터까지 함께 맞춰야 한다.
+

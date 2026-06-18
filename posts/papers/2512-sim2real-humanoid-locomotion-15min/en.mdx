@@ -1,0 +1,99 @@
+---
+locale: "en"
+title: "FastSAC: Learning Humanoid Locomotion Policies in 15 Minutes"
+summary: "This paper stabilizes FastSAC and FastTD3 for massively parallel humanoid control, training Unitree G1 and Booster T1 locomotion policies in 15 minutes on a single RTX 4090 and transferring them to real robots. The core contribution is a practical off-policy RL recipe combining data reuse, strong domain randomization, minimalist rewards, normalization, action bounds, and curriculum details."
+card_summary: "A practical off-policy RL recipe that trains Unitree G1 and Booster T1 humanoid locomotion policies in 15 minutes and transfers them sim-to-real."
+seo_title: "Learning Sim-to-Real Humanoid Locomotion in 15 Minutes Paper Summary"
+seo_description: "A summary of how FastSAC and FastTD3 enable 15-minute sim-to-real humanoid locomotion learning on Unitree G1 and Booster T1 with a single RTX 4090."
+terrys_memo: ""
+translated_to:
+  - ko
+references:
+  - title: "FastTD3: Simple, Fast, and Capable Reinforcement Learning for Humanoid Control"
+    author: "Seo et al. (2025)"
+    description: "The direct predecessor of this work. FastTD3 showed that humanoid control can be learned faster than PPO; this paper extends the line by stabilizing FastSAC and scaling to full-body locomotion and whole-body tracking."
+    arxiv_url: "https://arxiv.org/abs/2505.22642"
+    category: "recent"
+  - title: "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor"
+    author: "Haarnoja et al. (2018)"
+    description: "The maximum-entropy off-policy RL foundation behind FastSAC. This paper adapts the SAC family to large-scale parallel simulation and humanoid sim-to-real deployment."
+    arxiv_url: "https://arxiv.org/abs/1801.01290"
+    category: "foundational"
+  - title: "Addressing Function Approximation Error in Actor-Critic Methods"
+    author: "Fujimoto et al. (2018)"
+    description: "The original TD3 paper. FastTD3 is a large-batch parallel-simulation variant, and this paper compares it with FastSAC inside the same humanoid sim-to-real recipe."
+    arxiv_url: "https://arxiv.org/abs/1802.09477"
+    category: "foundational"
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "Schulman et al. (2017)"
+    description: "A widely used on-policy baseline for humanoid sim-to-real RL. This paper shows FastSAC/FastTD3 reaching locomotion and whole-body tracking performance faster in wall-clock time than PPO."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    category: "foundational"
+---
+
+## TL;DR
+
+The bottleneck in humanoid sim-to-real RL is no longer only slow simulation. Once strong domain randomization and high-dimensional whole-body control enter the loop, training can still become unstable and time-consuming. This paper stabilizes FastSAC and FastTD3 for humanoid control, training Unitree G1 and Booster T1 locomotion policies in 15 minutes on a single RTX 4090 and deploying them to real robots.
+
+<Video src="https://younggyo.me/fastsac-humanoid/static/videos/teaser.mov" caption="Project teaser: Unitree G1 and Booster T1 locomotion and whole-body tracking demos trained with FastSAC/FastTD3." type="direct" />
+
+## Problem
+
+Massively parallel simulation has already reduced wall-clock training time for robot RL. Humanoids remain difficult because they are high-dimensional, unstable, and sensitive to modeling errors. Add rough terrain, push perturbations, action delays, randomized dynamics, and curriculum tuning, and exploration becomes hard again. In a real sim-to-real workflow, every hardware failure forces another simulation iteration, so hours-long training runs slow down the entire development loop.
+
+The paper asks a concrete question: **can humanoid locomotion policy learning become a 15-minute sim-to-real iteration loop?** The authors answer by moving away from the PPO-centered on-policy default and exploiting the data reuse of off-policy RL at massive simulation scale.
+
+## Core Idea
+
+The main contribution is less “FastSAC or FastTD3 alone” than the recipe that makes them usable for humanoid sim-to-real.
+
+- **Off-policy RL at scale**: use FastSAC/FastTD3 instead of PPO to reuse simulation rollout data more aggressively.
+- **Strong domain randomization**: randomize dynamics, rough terrain, push perturbations, action delays, PD gains, mass, friction, and center of mass.
+- **Minimalist reward design**: use essential terms such as velocity tracking, foot height, action smoothness, and alive reward instead of a heavily shaped 20-plus-term reward.
+- **Stability details**: tune joint-limit-aware action bounds, observation/layer normalization, critic updates, entropy, and exploration hyperparameters for humanoid tasks.
+
+<Figure src="./fig-2.png" caption="Project overview: FastSAC and FastTD3 are scaled to rapid sim-to-real humanoid control, with real robot deployments on Unitree G1 and Booster T1." number={2} />
+
+<Collapsible title="Method Details">
+
+FastSAC and FastTD3 are off-policy variants of SAC and TD3 optimized for large-scale parallel simulation. This paper adapts them to full-body humanoid locomotion and whole-body tracking.
+
+First, the action bounds are tied to joint limits. With tanh policies in SAC/TD3, bounds that are too narrow limit torque, while bounds that are too broad destabilize exploration. The paper uses joint-limit-aware action bounds as the default, while noting that unbounded action spaces can help in some failure cases.
+
+Second, normalization matters. Observation normalization is used, and layer normalization is especially helpful for high-dimensional tasks. On the critic side, the authors find that averaging Q-values can outperform clipped double Q-learning in this setup.
+
+Third, hyperparameters differ by task. A lower discount factor, $\gamma=0.97$, helps simple velocity tracking, while $\gamma=0.99$ is better for harder whole-body tracking. For FastSAC, automatic entropy tuning consistently beats fixed alpha values, with different target entropy choices for locomotion and WBT.
+
+Finally, rewards are intentionally simple. Locomotion uses linear/angular velocity tracking, foot-height tracking, orientation/torque/action-rate penalties, and an alive reward. Penalty weights are ramped by curriculum as episode length increases. The point is not just elegance: simpler rewards make hyperparameter sweeps and sim-to-real iteration faster.
+
+</Collapsible>
+
+## Results
+
+The headline result is literal: the authors train checkpoints for **15 minutes on a single RTX 4090 GPU** and deploy them to Unitree G1 and Booster T1 hardware. Training includes rough terrain, randomized dynamics, and push perturbations.
+
+<Figure src="./fig-3.png" caption="Figure 3: G1/T1 locomotion results. FastSAC and FastTD3 improve velocity tracking faster than PPO under rough terrain and Push-Strong settings." number={3} />
+
+Key results:
+
+- **15-minute training**: G1/T1 locomotion policies are trained in 15 minutes on a single RTX 4090.
+- **Strong domain randomization**: Push-Strong applies perturbations every 1-3 seconds, while non-Push-Strong tasks apply pushes every 5-10 seconds.
+- **Whole-body tracking**: with 4xL40s GPUs and 16,384 parallel environments, FastSAC/FastTD3 reach Dance, Box Lifting, and Push tracking performance faster than PPO.
+- **Real hardware deployment**: the project page shows Unitree G1 and Booster T1 locomotion, plus Unitree G1 whole-body tracking.
+
+<Figure src="./fig-5.png" caption="Figure 5: Whole-body tracking results. FastSAC and FastTD3 are competitive with or faster than PPO on Dance, Box Lifting, and Push tracking tasks." number={5} />
+
+## Achievements and Limitations
+
+What the paper newly achieves:
+
+- It shows that off-policy RL can be a practical recipe for humanoid sim-to-real, not just a fast but unstable alternative.
+- It turns humanoid policy iteration into a 15-minute loop on a single RTX 4090 for locomotion.
+- It stabilizes FastSAC through normalization, critic choices, entropy tuning, reward design, and curriculum.
+- It demonstrates the recipe on real Unitree G1 and Booster T1 robots and releases the Holosoma implementation.
+
+Limitations:
+
+- Author note: the performance differences between FastSAC and FastTD3 in whole-body tracking are not fully explained yet and require broader task studies.
+- Author note: future off-policy RL improvements may further improve performance and stability.
+- 🤖 Reproducibility: the 15-minute number is a system-level result, not just an algorithmic speed claim. Simulator throughput, reward/curriculum choices, domain randomization, normalization, action bounds, and hardware setup all have to line up for another lab to reproduce it.
