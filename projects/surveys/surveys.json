@@ -1,6 +1,94 @@
 {
-  "next_survey_number": 10,
+  "next_survey_number": 11,
   "surveys": [
+    {
+      "slug": "survey-large-data-manipulation",
+      "survey_number": 10,
+      "title": {
+        "ko": "대규모 데이터 기반 매니퓰레이션",
+        "en": "Large-Data Driven Manipulation"
+      },
+      "description": {
+        "ko": "제조 수작업 자동화를 대규모 데이터 전략으로 읽는 12장짜리 서베이. 2지 그리퍼 연구, 모바일 조작, 양팔·휴머노이드 제조 플랫폼, 데이터 flywheel, 제어·모방학습·촉각·회사 전략을 하나의 제조 관점으로 연결한다.",
+        "en": "A 12-chapter survey of large-data driven manipulation for manufacturing work automation. Connects tabletop grippers, mobile manipulation, bimanual and humanoid platforms, data flywheels, control, imitation learning, touch, and company strategy."
+      },
+      "cover_image": "/images/projects/survey-large-data-manipulation-cover.webp",
+      "tech_stack": [
+        "Robotics",
+        "Manipulation",
+        "Manufacturing",
+        "Physical AI",
+        "Robot Learning",
+        "Survey"
+      ],
+      "toc": [
+        {
+          "ko": "제조 데이터",
+          "en": "Factory Data"
+        },
+        {
+          "ko": "손의 선택",
+          "en": "Choosing Hands"
+        },
+        {
+          "ko": "Flywheel",
+          "en": "Data Flywheel"
+        },
+        {
+          "ko": "Tedrake 계보",
+          "en": "Tedrake Line"
+        },
+        {
+          "ko": "IL과 RL",
+          "en": "IL and RL"
+        },
+        {
+          "ko": "정책 구조",
+          "en": "Policy Stack"
+        },
+        {
+          "ko": "사람→로봇",
+          "en": "Human to Robot"
+        },
+        {
+          "ko": "접촉·촉각",
+          "en": "Touch & Force"
+        },
+        {
+          "ko": "FM 연구소",
+          "en": "FM Labs"
+        },
+        {
+          "ko": "생산 루프",
+          "en": "Production Loop"
+        },
+        {
+          "ko": "손 Co-design",
+          "en": "Hand Co-design"
+        },
+        {
+          "ko": "소유 전략",
+          "en": "Ownership"
+        }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://large-data-manipulation.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys"
+        }
+      ],
+      "embed_url": "https://large-data-manipulation.pages.dev/",
+      "status": "wip",
+      "featured": false,
+      "order": 0,
+      "published_at": "2026-06-18",
+      "updated_at": "2026-06-18"
+    },
     {
       "slug": "survey-nvidia-physical-ai-robotics",
       "survey_number": 9,
