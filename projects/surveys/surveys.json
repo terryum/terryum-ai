@@ -177,7 +177,7 @@
       "featured": true,
       "order": 0,
       "published_at": "2026-06-08",
-      "updated_at": "2026-06-11"
+      "updated_at": "2026-06-18"
     },
     {
       "slug": "survey-llm-wiki-to-ai-scientist",
@@ -438,7 +438,7 @@
       "featured": false,
       "order": 1,
       "published_at": "2026-04-28",
-      "updated_at": "2026-04-28"
+      "updated_at": "2026-06-11"
     },
     {
       "slug": "survey-humanoid-revolution",
@@ -538,7 +538,7 @@
       "featured": false,
       "order": 1,
       "published_at": "2026-04-24",
-      "updated_at": "2026-04-24"
+      "updated_at": "2026-06-18"
     },
     {
       "slug": "survey-snu-largescale-tactile-hand",
@@ -792,7 +792,7 @@
       "featured": false,
       "order": 1,
       "published_at": "2026-04-01",
-      "updated_at": "2026-06-10"
+      "updated_at": "2026-06-18"
     },
     {
       "slug": "physical-ai-manufacturing",
