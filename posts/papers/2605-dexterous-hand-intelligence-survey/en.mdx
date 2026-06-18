@@ -1,0 +1,101 @@
+---
+locale: "en"
+title: "Dexterous Hand Intelligence Survey: From Hand Hardware to VLA Policies"
+subtitle: "A system map across actuation, sensing, control, datasets, and evaluation"
+summary: "This survey connects dexterous hand research across hardware, transmission, perception, control and learning, datasets, and evaluation. Its central point is that dexterous manipulation results are hard to compare unless hand embodiment, sensors, task assumptions, data generation, and evaluation protocols are considered together."
+card_summary: "A survey that maps dexterous hand research from hardware and sensing to control, learning, datasets, evaluation, and VLA-style policies."
+seo_title: "Dexterous Hand Intelligence Survey: From Hand Hardware to VLA Policies"
+seo_description: "This survey connects dexterous hand research across hardware, transmission, perception, control and learning, datasets, and evaluation. Its central point is that dexterous manipulation results are hard to compare unless hand embodiment, sensors, task assumptions, data generation, and evaluation protocols are considered together."
+terrys_memo: ""
+translation_of: "2605-dexterous-hand-intelligence-survey:ko"
+references:
+  - title: "MANO: A Model with Articulated and Non-rigid Deformations"
+    author: "Javier Romero et al. (2017)"
+    description: "A representative articulated hand model for hand shape and pose. It is useful background for connecting hand representation and human-hand data to robotic dexterous hands."
+    arxiv_url: "https://arxiv.org/abs/2201.02610"
+    scholar_url: "https://scholar.google.com/scholar?&q=mano-model-articulated-non-rigid-deformations"
+    post_slug: "2201-mano-hand-model"
+    category: "foundational"
+  - title: "F-TAC Hand: A 15-DoF Dexterous Hand with Tactile Fingertips"
+    author: "BIGAI et al. (2024)"
+    description: "A representative system that co-designs dexterous hand hardware with tactile sensing. It is a concrete implementation axis for the survey’s hardware-sensing-policy co-design theme."
+    arxiv_url: "https://arxiv.org/abs/2412.15149"
+    scholar_url: "https://scholar.google.com/scholar?&q=f-tac-hand-dexterous-hand-tactile-fingertips"
+    post_slug: "2412-f-tac-hand"
+    category: "foundational"
+  - title: "DexUMI: Using Human Hand Motion for Dexterous Robot Manipulation"
+    author: "Yilin Wu et al. (2025)"
+    description: "A UMI-style dexterous manipulation approach that bridges human hand data and robotic hand control. It connects to the survey’s discussion of data acquisition, retargeting, and sim-to-real transfer."
+    arxiv_url: "https://arxiv.org/abs/2505.12020"
+    scholar_url: "https://scholar.google.com/scholar?&q=dexumi-human-hand-motion-dexterous-robot-manipulation"
+    post_slug: "2505-dexumi"
+    category: "recent"
+---
+
+## TL;DR
+
+Dexterous hand research is hard to compare because hand embodiment, sensors, task settings, data generation, and evaluation protocols differ across studies. This survey connects actuation, transmission, perception, control and learning, datasets, and evaluation into one system-level map, framing the next bottleneck as **hardware-sensing-policy co-design** plus standardized evaluation.
+
+## Questions and Scope
+
+Robotic dexterous hands are central to contact-rich manipulation, but different studies often assume different hardware, sensors, tasks, data sources, and benchmarks. The survey argues that prior reviews tend to focus on one layer: hardware, sensing, RL/IL, or application. Its goal is to reconnect those layers and show how hand design constrains policy assumptions, and how data and evaluation determine whether progress is actually comparable.
+
+## Landscape Taxonomy
+
+The paper organizes dexterous hand intelligence into four layers.
+
+- **Hardware anatomy**: actuation, transmission, perception, and representative hand design determine force, compliance, bandwidth, and integration complexity.
+- **Task/method taxonomy**: in-hand manipulation, grasp/pick-and-place, tool/device operation, human interaction, and bimanual manipulation impose different control demands.
+- **Learning and foundation models**: diffusion policies, RL/IL, and VLA-style models are entering dexterous control, but force grounding and sim-to-real robustness remain hard.
+- **Datasets/evaluation**: acquisition methods, modalities, and evaluation protocols shape how method progress should be interpreted.
+
+<Figure src="./fig-1.png" caption="Fig. 1: A system-level architecture of dexterous hands across actuation, transmission, and multimodal perception." number={1} />
+
+<Collapsible title="Synthesis by Comparison Axes">
+
+### Actuation and Transmission
+
+Electric, fluidic, smart-material, and hybrid actuation each trade off power density, compliance, response speed, and integration complexity. Tendon-driven systems are lightweight and anthropomorphic but suffer from hysteresis and tension regulation. Gear, linkage, and screw-based systems improve stiffness and precision but add mass and packaging constraints. Hardware is therefore not just a platform choice; it sets policy bandwidth and force-control assumptions.
+
+### Perception System
+
+Dexterous hand perception is moving toward proprioception, tactile sensing, and vision together. Proprioception tracks joint state and tendon tension, tactile sensing exposes contact force and texture, and vision provides object and scene context. The key challenge is not simply adding sensors, but fusing signals with different latency, resolution, and reliability into a policy-usable representation.
+
+### Task and Method Taxonomy
+
+In-hand manipulation is dominated by force-motion coupling and occlusion. Grasp and pick-and-place emphasize object geometry and stable contact. Tool and device operation requires functional affordance reasoning. Bimanual manipulation adds coordination and force allocation across two high-DoF hands. This task taxonomy clarifies why a single training paradigm is unlikely to dominate all dexterous manipulation.
+
+### Diffusion Policies and VLA
+
+Diffusion policies are attractive because they can model multimodal action distributions and generate smooth trajectories for fine-grained dexterous control. VLA models add language-conditioned flexibility and visual context, but closing the loop to stable force/torque execution on high-DoF hands remains a major open problem.
+
+<Figure src="./fig-3.png" caption="Fig. 3: A dexterous-hand research taxonomy across in-hand manipulation, grasping and pick-and-place, tool/device operation, human interaction, and bimanual manipulation." number={3} />
+
+</Collapsible>
+
+## Datasets and Evaluation Practices
+
+A major point of the survey is that method progress cannot be interpreted apart from data and evaluation. Data acquisition spans simulation optimization, learning-based simulation generation, and human capture. Modalities include geometry, RGB/RGB-D, tactile sensing, proprioception, and language. Evaluation remains fragmented, making it hard to tell whether a result comes from hand design, policy design, data assumptions, or benchmark choice. Standard task suites, cross-hand generalization tests, and tactile/force-aware metrics are key next steps.
+
+<Figure src="./fig-2.png" caption="Fig. 2: A dexterous-hand research workflow where task planning, policy training, deployment, and failure feedback form a closed loop." number={2} />
+
+## Open Problems and Future Directions
+
+- **Insufficient co-design**: optimizing hardware, tactile sensing, and policy learning separately leaves real-world dexterity bottlenecks unresolved.
+- **Lack of standard evaluation**: success rates are hard to compare when embodiment and sensor setup differ.
+- **Sim-to-real contact gap**: friction, compliance, and object dynamics are especially difficult for high-DoF hands.
+- **Multimodal latency**: vision, touch, and proprioception operate at different resolutions and delays, complicating real-time fusion.
+- **VLA grounding**: language-conditioned generality is appealing, but force-safe dexterous execution remains under-grounded.
+- 🤖 **AI analysis limit**: the survey includes recent 2026 hand platforms, but durability, failure rate, and maintenance cost are not knowable from paper tables alone.
+
+## Achievements and Limitations
+
+**What it adds**
+- It frames dexterous hands as systems that combine hardware, sensing, learning, datasets, and evaluation.
+- It pairs hand-platform anatomy with task taxonomy, making hardware assumptions easier to connect to manipulation methods.
+- It places diffusion policies and VLA-style models inside the longer trajectory of dexterous manipulation research.
+
+**Limitations**
+- The taxonomy is rich, but it is not a meta-analysis that reruns methods under a shared benchmark.
+- Public information about frontier industrial robot hands is limited, so comparisons of bandwidth, durability, and tactile quality remain incomplete.
+- The paper diagnoses dataset and evaluation fragmentation, but does not provide a concrete standard benchmark design.

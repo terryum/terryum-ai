@@ -1,0 +1,283 @@
+{
+  "post_id": "2501-humanoid-locomotion-manipulation-survey",
+  "slug": "2501-humanoid-locomotion-manipulation-survey",
+  "post_number": 73,
+  "published_at": "2026-06-18T15:55:00+09:00",
+  "updated_at": "2026-06-18T15:55:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "cover_image": "./cover.webp",
+  "reading_time_min": 14,
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Humanoids executing locomotion and manipulation tasks: (a) HRP-4 wipes a wood board while adapting to terrain [1]; (b-g) Object pick and place by Digit, Hector [2], Atlas, H1, TORO [3], and Apollo; (h) iCub pushes a cart [4]; (i) Nadia opens a door [5]; (j-k) Object manipulation by Figure 02 and Optimus; (l) MIT humanoid whole-body push recovery [6].",
+      "caption_ko": "휴머노이드가 보행과 조작을 결합해 수행하는 대표 태스크 모음. HRP-4, Digit, Hector, Atlas, H1, TORO, Apollo, iCub, Nadia, Figure 02, Optimus 등의 사례가 포함된다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Figure 2: This survey begins by defining relevant concepts of humanoid robots and their locomotion and manipulation capabilities. Centered around achieving humanoid loco-manipulation tasks, the core of this survey delves into two main categories of methods: the traditional planning and control approaches, such as contact planning, motion planning, and control, as well as the emerging learning-based approaches, including skill learning and foundation models. In addition, this survey highlights whole-body tactile sensing as a crucial modality to achieve contact-rich loco-manipulation.",
+      "caption_ko": "휴머노이드 loco-manipulation 서베이의 전체 로드맵. 모델 기반 계획/제어, 학습 기반 스킬 학습과 foundation model, 전신 촉각 sensing을 하나의 지형도로 묶는다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Figure 3: (a) Whole-body manipulation exemplified by human and humanoid Justin [78] interacting with objects using all surfaces. (c) Loco-manipulation involves simultaneous locomotion and manipulation, as shown in the collaborative tasks performed by humans and a humanoid [33]. (b) Whole-body loco-manipulation is an intersection of (a) and (c), as exemplified by a human and a humanoid HRP-4 [79] pushing heavy objects using their legs and arms.",
+      "caption_ko": "Whole-body manipulation, loco-manipulation, whole-body loco-manipulation의 관계를 설명하는 taxonomy figure.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Tactile sensing on humanoid robots, exemplified by (a) REEM-C fully covered with artificial skin [73] (image copyright: A. Eckert), which cover three body regions: hand, feet, and the whole body. (i) Hand tactile sensors demonstrated by (b) Shadow-Dexterous-Hand equipped with tactile sensors on palm and fingertips [111], (c) Allegro Hand equipped with DIGIT sensors [109], and (d) BioTac [123] tactile sensors for dexterous manipulation; (ii) Tactile sensors on foot soles for (e) obstacle recognition [120] and (f) terrain classification [121]; (iii) Whole-body tactile sensors for (g) whole-body manipulation by Punyo-1 [71] and whole-body human-robot interaction by (h) iCub [124] and (i) REEM-C [125, 126]",
+      "caption_ko": "손, 발바닥, 전신 tactile sensing이 humanoid loco-manipulation에서 어떤 역할을 하는지 보여주는 사례 모음.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 5: An illustration of a task sequence for loco-manipulation planning in humanoid robots, involving carrying and placing a box and pushing a cart. The planning techniques explored include (a) multi-contact trajectory planning and (b) whole-body pose planning, highlighting their contact and state planning strategies. Additionally, the pros and cons of categorized approaches in (i) sampling-based, (ii) optimization-based, and (iii) learning-based methods are summarized.",
+      "caption_ko": "상자 운반과 카트 밀기 시나리오를 통해 multi-contact trajectory planning과 whole-body pose planning의 차이를 설명한다.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Figure 6: An illustration of Contact-Implicit Trajectory Optimization (CITO) that simultaneously plans contact mode, contact position, contact force, and whole-body motion. However, solving CITO problems online for humanoid loco-manipulation tasks still poses a challenge.",
+      "caption_ko": "접촉 모드, 접촉 위치, 접촉력, 전신 움직임을 동시에 계획하는 CITO의 구조와 온라인 계산 병목.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Figure 7: An illustration of model predictive control in humanoid robotics, showcasing three primary categories of dynamics modeling in loco-manipulation: (i) simplified dynamics, (ii) nonlinear dynamics, and (iii) Mixed-fidelity dynamics. The figure also highlights the consideration of interactive dynamics modeling with environments and/or objects for loco-manipulation tasks. Additionally, four common approaches to speeding up/simplifying NMPC are summarized.",
+      "caption_ko": "loco-manipulation MPC에서 simplified, nonlinear, mixed-fidelity dynamics 모델과 NMPC 가속 전략을 비교한다.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "Figure 8: Loco-manipulation skills from model-based methods. (a) Getting up from a chair [140]. (b) Multi-contact balancing [3]. (c) Door traversal [5]. (d) Transporting a bulky beam [130]. (e) Collaborative carrying [33]. (f) Rolling a bobbin [91]. (g) Box loco-manipulation [217].",
+      "caption_ko": "모델 기반 방법으로 구현된 humanoid loco-manipulation skill 사례.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Figure 9: Whole-body control is categorized into closed-form approaches and optimization-based approaches. Both approaches can incorporate multiple dynamic tasks and resolve task conflicts.",
+      "caption_ko": "Whole-body control을 closed-form 접근과 optimization 기반 접근으로 나누는 분류.",
+      "number": 9
+    },
+    {
+      "src": "./fig-10.png",
+      "caption": "Figure 10: The organization of approaches for skill learning. RL does not require reference data in a standard setup. IL makes use of four different data sources for efficient learning. The larger the morphology gap or sim-to-real gap is, the more challenging it becomes to learn effectively from these data.",
+      "caption_ko": "RL과 imitation learning 기반 humanoid skill learning 접근의 조직도와 data source별 gap.",
+      "number": 10
+    },
+    {
+      "src": "./fig-11.png",
+      "caption": "Figure 11: Control flow for learning from teleoperated demonstrations. Expert data is created from teleoperated trajectories (dashed lines), which in turn is used to train and deploy an autonomous skill policy (solid lines).",
+      "caption_ko": "teleoperation demonstration에서 자율 policy를 학습하고 배포하는 control flow.",
+      "number": 11
+    },
+    {
+      "src": "./fig-12.png",
+      "caption": "Figure 12: A pipeline for learning from human data. The 3D human motion data can be recorded from motion capture systems or reconstructed from 2D human videos. Robot motion is retargeted from 3D human motion for imitation learning.",
+      "caption_ko": "모션캡처 또는 2D video에서 3D human motion을 얻고 humanoid motion으로 retargeting하는 pipeline.",
+      "number": 12
+    },
+    {
+      "src": "./fig-13.png",
+      "caption": "Figure 13: Motion capture of human data. (a) The human interacts with household items [177]. (b) The human interacts with items with whole-body manipulation [315].",
+      "caption_ko": "가정용 물체와 whole-body manipulation interaction에서 인간 motion capture를 수집하는 사례.",
+      "number": 13
+    },
+    {
+      "src": "./fig-14.png",
+      "caption": "Figure 14: The frameworks of combining model-based methods and model-free methods for skill learning.",
+      "caption_ko": "skill learning에서 model-based와 model-free 방법을 결합하는 framework.",
+      "number": 14
+    },
+    {
+      "src": "./fig-15.png",
+      "caption": "Figure 15: Implicit skill representations. (a) Represent motions in latent space. (b) Represent goals in latent space and instruct a goal-conditioned policy for execution. (c) Represent state transitions with a world model and then use the learned world model for sample efficient training.",
+      "caption_ko": "latent motion, latent goal, world model 기반 state transition 등 implicit skill representation.",
+      "number": 15
+    },
+    {
+      "src": "./fig-16.png",
+      "caption": "Figure 16: Learning-based methods for humanoid loco-manipulation skills. (a) Getting up and chasing a ball [282]. (b) Tying shoelace [268]. (c) Multi-contact box manipulation [344]. (d) Dancing with a human [266].",
+      "caption_ko": "학습 기반 humanoid loco-manipulation skill 사례.",
+      "number": 16
+    },
+    {
+      "src": "./fig-17.png",
+      "caption": "Figure 17: Sec. VIII-A details different approaches to applying LLMs and VLMs in robotics tasks. These approaches prompt pre-trained LLMs and VLMs to generate task-relevant intermediate representations that can be executed by low-level policies or controllers. Sec. VIII-B presents two approaches to building humanoid foundation models. The first approach uses robot data to train multi-skill policy, and the second approach fine-tunes an existing VLM. Both approaches directly output actions for low-level humanoid control.",
+      "caption_ko": "LLM/VLM을 humanoid task planning에 쓰는 접근과 humanoid foundation model을 직접 구축하는 접근을 비교한다.",
+      "number": 17
+    }
+  ],
+  "tables": [],
+  "cover_figure_number": 2,
+  "thumb_source": "./fig-2.png",
+  "thumb_position": "centre",
+  "newsletter_eligible": false,
+  "featured": false,
+  "citation_status": "unknown",
+  "citation_updated_at": "2026-06-18T15:55:00+09:00",
+  "tags": [
+    "Papers",
+    "Survey",
+    "Humanoid",
+    "Loco-Manipulation",
+    "Whole-Body Control",
+    "Foundation Models",
+    "Tactile Sensing"
+  ],
+  "display_tags": [
+    "Survey",
+    "Humanoid",
+    "Loco-Manipulation",
+    "Foundation Models"
+  ],
+  "cover_caption": "Figure 2: This survey begins by defining relevant concepts of humanoid robots and their locomotion and manipulation capabilities. Centered around achieving humanoid loco-manipulation tasks, the core of this survey delves into two main categories of methods: the traditional planning and control approaches, such as contact planning, motion planning, and control, as well as the emerging learning-based approaches, including skill learning and foundation models. In addition, this survey highlights whole-body tactile sensing as a crucial modality to achieve contact-rich loco-manipulation.",
+  "source_date": "2025-01-03T00:00:00Z",
+  "source_url": "https://arxiv.org/abs/2501.02116",
+  "source_title": "Humanoid Locomotion and Manipulation: Current Progress and Challenges in Control, Planning, and Learning",
+  "source_author": "Zhaoyuan Gu et al.",
+  "source_type": "arXiv",
+  "arxiv_id": "2501.02116",
+  "bibtex_key": "gu2025humanoidsurvey",
+  "source_authors_full": [
+    {
+      "name": "Zhaoyuan Gu"
+    },
+    {
+      "name": "Junheng Li"
+    },
+    {
+      "name": "Wenlan Shen"
+    },
+    {
+      "name": "Wenhao Yu"
+    },
+    {
+      "name": "Zhaoming Xie"
+    },
+    {
+      "name": "Stephen McCrory"
+    },
+    {
+      "name": "Xianyi Cheng"
+    },
+    {
+      "name": "Abdulaziz Shamsah"
+    },
+    {
+      "name": "Robert Griffin"
+    },
+    {
+      "name": "C. Karen Liu"
+    },
+    {
+      "name": "Abderrahmane Kheddar"
+    },
+    {
+      "name": "Xue Bin Peng"
+    },
+    {
+      "name": "Yuke Zhu"
+    },
+    {
+      "name": "Guanya Shi"
+    },
+    {
+      "name": "Quan Nguyen"
+    },
+    {
+      "name": "Gordon Cheng"
+    },
+    {
+      "name": "Huijun Gao"
+    },
+    {
+      "name": "Ye Zhao"
+    }
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=humanoid-locomotion-and-manipulation",
+  "domain": "robotics",
+  "subfields": [
+    "humanoid-robotics",
+    "loco-manipulation",
+    "whole-body-control",
+    "robot-learning",
+    "tactile-sensing"
+  ],
+  "key_concepts": [
+    "humanoid-locomotion",
+    "loco-manipulation",
+    "whole-body-control",
+    "multi-contact-planning",
+    "model-predictive-control",
+    "reinforcement-learning",
+    "imitation-learning",
+    "foundation-models",
+    "whole-body-tactile-sensing"
+  ],
+  "methodology": [
+    "survey",
+    "taxonomy",
+    "model-based-control-review",
+    "learning-based-control-review",
+    "foundation-model-analysis"
+  ],
+  "taxonomy_primary": "robotics/whole-body",
+  "taxonomy_secondary": [
+    "robotics/brain/vla",
+    "robotics/hand"
+  ],
+  "contribution_type": "survey",
+  "relations": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2303-diffusion-policy",
+      "type": "usesMethodIn"
+    },
+    {
+      "target": "2512-sim2real-humanoid-locomotion-15min",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2602-perceptive-humanoid-parkour",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A broad survey that unifies humanoid locomotion and manipulation around model-based planning/control, learning-based skill acquisition, foundation models, and whole-body tactile sensing.",
+    "problem": "Humanoid locomotion, manipulation, tactile sensing, and cognitive planning have advanced rapidly but often as separate subfields, making it hard to see how they combine into general humanoid loco-manipulation.",
+    "solution": "The survey organizes the field into model-based contact planning, MPC and whole-body control, learning-based RL/IL skill acquisition, foundation-model task planning, and whole-body tactile sensing, then compares their trade-offs.",
+    "key_result": "Its main output is a taxonomy and roadmap: model-based methods remain strong for stability and guarantees, learning methods improve versatility, foundation models help semantic task planning, and tactile sensing is a missing modality for contact-rich whole-body behavior.",
+    "limitations": [
+      "The survey is broad and method-centric, so individual system implementations and company stacks are covered unevenly.",
+      "The field moved quickly after the v2 cut-off, including newer humanoid foundation model and dexterous manipulation releases."
+    ]
+  },
+  "research_gaps": [
+    "Unified locomotion-manipulation policy evaluation remains weak.",
+    "Whole-body tactile sensing is still not integrated into most humanoid learning pipelines.",
+    "Foundation models need safer low-level grounding for unstable humanoid bodies."
+  ],
+  "future_directions": [
+    "Hybrid model-based and learning-based loco-manipulation stacks.",
+    "Large-scale humanoid data pipelines that bridge human motion and robot embodiment gaps.",
+    "Tactile-rich evaluation for physical interaction tasks."
+  ],
+  "survey_hooks": [
+    "humanoid-revolution",
+    "robot-hand-tactile-sensor"
+  ],
+  "cover_thumb": "./cover-thumb.webp"
+}

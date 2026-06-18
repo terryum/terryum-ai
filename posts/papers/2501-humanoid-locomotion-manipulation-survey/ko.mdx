@@ -1,0 +1,100 @@
+---
+locale: "ko"
+title: "Humanoid Loco-Manipulation Survey: 휴머노이드를 걷고 조작하는 하나의 시스템으로 보기"
+subtitle: "계획·제어·학습·foundation model·전신 촉각을 잇는 휴머노이드 로드맵"
+summary: "이 서베이는 휴머노이드의 locomotion과 manipulation을 따로 보지 않고, contact planning, MPC, whole-body control, RL/IL, foundation model, whole-body tactile sensing을 하나의 loco-manipulation 지형도로 묶는다. 핵심 메시지는 명확하다. 안정성과 보장은 여전히 모델 기반 계획/제어가 강하고, 범용성과 스킬 확장은 학습 기반 방법이 밀어붙이며, foundation model과 촉각 sensing은 다음 세대 generalist humanoid의 병목을 드러낸다."
+card_summary: "휴머노이드의 locomotion과 manipulation을 따로 보지 않고, contact planning, MPC, whole-body control, RL/IL, foundation model, whole-body tactile sensing을 하나의 loco-manipulation 지형도로 묶는 서베이다."
+seo_title: "Humanoid Loco-Manipulation Survey: 휴머노이드를 걷고 조작하는 하나의 시스템으로 보기"
+seo_description: "이 서베이는 휴머노이드의 locomotion과 manipulation을 따로 보지 않고, contact planning, MPC, whole-body control, RL/IL, foundation model, whole-body tactile sensing을 하나의 loco-manipulation 지형도로 묶는다. 핵심 메시지는 명확하다. 안정성과 보장은 여전히 모델 기반 계획/제어가 강하고, 범용성과 스킬 확장은 학습 기반 방법이 밀어붙이며, foundation model과 촉각 sensing은 다음 세대 generalist humanoid의 병목을 드러낸다."
+terrys_memo: ""
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Cheng Chi et al. (2023)"
+    description: "로봇 행동을 diffusion process로 생성하는 visuomotor policy. 이 휴머노이드 서베이에서는 imitation learning과 robot skill learning이 더 넓은 humanoid loco-manipulation으로 확장되는 배경으로 읽을 수 있다."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?&q=diffusion-policy-visuomotor-policy-learning"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "Octo: An Open-Source Generalist Robot Policy"
+    author: "Octo Model Team et al. (2024)"
+    description: "다양한 로봇과 태스크 데이터를 하나의 generalist policy로 학습하는 흐름. 휴머노이드 서베이의 foundation model/robot data scaling 논의와 직접 맞닿아 있다."
+    arxiv_url: "https://arxiv.org/abs/2405.12213"
+    scholar_url: "https://scholar.google.com/scholar?&q=octo-open-source-generalist-robot-policy"
+    post_slug: "2405-octo-generalist-policy"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "VLM과 action generation을 결합한 범용 로봇 제어 모델. 서베이가 말하는 humanoid foundation model과 semantic task planning의 구체적 구현 축이다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?&q=pi0-vision-language-action-flow-model"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "recent"
+translated_to:
+  - "en"
+---
+
+## TL;DR
+
+휴머노이드가 실세계에서 유용해지려면 걷기와 조작을 따로 푸는 두 스택이 아니라, 접촉·균형·도구 사용·이동을 동시에 다루는 **loco-manipulation 시스템**으로 봐야 한다. 이 서베이는 model-based planning/control, RL/IL 기반 skill learning, foundation model, whole-body tactile sensing을 하나의 로드맵으로 묶어 현재 병목이 어디에 있는지 보여준다.
+
+## 이 서베이가 다루는 질문
+
+휴머노이드 연구는 보행 제어, manipulation, tactile sensing, task planning, robot learning이 각자 빠르게 발전해 왔다. 하지만 문을 열고, 물체를 들고 이동하고, 사람과 함께 운반하고, 넘어지지 않으면서 전신 접촉을 쓰는 문제는 이들을 분리해서 풀기 어렵다. 이 서베이는 "현재 humanoid loco-manipulation을 가능하게 하는 모델 기반·학습 기반 방법은 무엇인가", "범용적이고 일반화 가능한 휴머노이드까지 어떤 gap이 남았는가", "그 gap을 줄이는 promising direction은 무엇인가"라는 세 질문을 중심으로 분야를 정리한다.
+
+## 전체 지형도
+
+저자들은 humanoid loco-manipulation을 네 개의 큰 축으로 나눈다.
+
+- **Model-based planning/control**: contact planning, motion planning, MPC, WBC가 안정성과 물리적 제약을 책임진다.
+- **Learning-based skill acquisition**: RL은 robust motor skill을, IL은 human/teleoperation/video data에서 효율적 skill acquisition을 밀어붙인다.
+- **Foundation models**: LLM/VLM은 task planning과 semantic reasoning에는 유망하지만, 아직 low-level sensorimotor control을 안정적으로 직접 해결하지는 못한다.
+- **Whole-body tactile sensing**: vision/proprioception만으로는 contact-rich interaction의 접촉 상태와 힘을 충분히 알기 어렵기 때문에 손·발·전신 촉각이 다음 병목으로 부상한다.
+
+<Figure src="./fig-2.png" caption="Fig. 2: 휴머노이드 loco-manipulation 서베이의 전체 로드맵. 전통적 planning/control, 학습 기반 skill learning, foundation model, whole-body tactile sensing을 하나의 지형도로 연결한다." number={2} />
+
+<Collapsible title="비교 축별 종합">
+
+### Model-based planning/control
+
+모델 기반 접근의 강점은 안정성, 해석 가능성, 제약 처리다. Multi-contact planning은 접촉 순서와 위치를 정하고, MPC는 robot dynamics와 환경 interaction을 시간축에서 최적화하며, whole-body control은 여러 task와 contact constraint 사이의 conflict를 풀어낸다. 다만 고차원 humanoid dynamics와 contact mode 조합 때문에 계산량이 커지고, online planning에서는 simplified dynamics와 mixed-fidelity 모델을 쓰는 절충이 반복된다.
+
+### RL/IL 기반 skill learning
+
+RL은 reference data 없이도 robust motor skill을 찾을 수 있지만, humanoid loco-manipulation에서는 sparse reward와 sim-to-real gap 때문에 reward design과 domain randomization 부담이 크다. IL은 teleoperation, human motion capture, video, generated motion 같은 데이터 소스를 활용해 sample efficiency를 높인다. 대신 morphology gap과 action-space gap 때문에 retargeting과 feasibility filtering이 핵심 병목이 된다.
+
+### Foundation model
+
+Foundation model은 long-horizon task planning, language-conditioned instruction following, semantic scene understanding에 강하다. 하지만 휴머노이드 몸은 불안정하고 action space가 고차원이며, 물리적 실패 비용이 크기 때문에 인터넷 규모 지식을 곧바로 low-level control로 내리는 것은 아직 위험하다. 현재는 LLM/VLM이 중간 표현이나 subtask를 만들고, 아래층의 policy/controller가 실행하는 hierarchy가 더 현실적이다.
+
+### Whole-body tactile sensing
+
+휴머노이드가 사람처럼 문, 카트, 박스, 바닥, 사람과 접촉하며 움직이려면 접촉 위치와 힘을 알아야 한다. 이 서베이는 tactile sensing을 손, 발바닥, 전신 skin으로 나누고, 각각 dexterous manipulation, terrain/contact estimation, safe human-robot interaction에 어떤 의미가 있는지 정리한다. tactile-rich humanoid는 아직 비용·내구성·배선·대역폭·policy integration에서 해결할 문제가 많다.
+
+<Figure src="./fig-7.png" caption="Fig. 7: humanoid loco-manipulation에서 MPC가 사용하는 dynamics model의 세 범주. simplified, nonlinear, mixed-fidelity dynamics와 NMPC 가속 전략을 함께 비교한다." number={7} />
+
+</Collapsible>
+
+## 데이터셋과 평가 관행
+
+이 논문은 별도의 benchmark paper라기보다, 데이터와 평가 문제를 각 방법론의 병목으로 배치한다. RL은 sim-to-real transfer를 위해 domain randomization과 reference trajectory를 자주 쓰고, IL은 teleoperation과 human motion data의 품질에 크게 좌우된다. 특히 humanoid는 인간과 형태가 비슷하다는 장점 때문에 human data를 활용할 수 있지만, body proportion, joint limit, mass distribution, contact dynamics가 달라 retargeting 이후에도 물리적으로 가능한지 확인해야 한다. 따라서 좋은 평가 관행은 단순 성공률이 아니라 balance stability, contact safety, task completion, robustness, generalization을 함께 봐야 한다.
+
+## 열린 문제와 다음 방향
+
+- **통합 프레임워크**: locomotion과 manipulation을 계층적으로 나눌지, 하나의 whole-body optimization/policy로 통합할지 아직 정답이 없다.
+- **Contact-rich generalization**: 문 열기, 카트 밀기, 사람과 운반하기처럼 접촉이 바뀌는 task에서 안정성과 적응성을 동시에 보장해야 한다.
+- **Human data 활용**: human video와 motion capture는 풍부하지만, humanoid embodiment로 옮길 때 morphology gap과 feasibility gap이 커진다.
+- **Foundation model grounding**: LLM/VLM의 semantic reasoning을 불안정한 humanoid body의 안전한 low-level action으로 연결하는 방법이 필요하다.
+- **Whole-body tactile integration**: tactile sensor 자체보다, tactile feedback을 planning/control/learning loop에 실시간으로 넣는 통합이 더 어려운 병목이다.
+- 🤖 **AI 분석 한계**: 이 서베이는 taxonomy와 방법론 비교가 강하지만, 빠르게 등장하는 frontier company stack과 실제 deployment cost를 같은 깊이로 비교하기는 어렵다.
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+- humanoid locomotion, manipulation, tactile sensing, foundation model을 loco-manipulation이라는 하나의 축으로 통합했다.
+- 모델 기반 방법과 학습 기반 방법을 경쟁 관계가 아니라 서로 다른 장단점을 가진 stack component로 비교한다.
+- whole-body tactile sensing을 부가 센서가 아니라 contact-rich humanoid skill의 핵심 modality로 격상한다.
+
+**한계점**
+- 너무 넓은 범위를 다루기 때문에 개별 시스템의 구현 detail이나 실험 결과 비교는 깊게 들어가지 않는다.
+- v2 기준 2025년 4월까지의 snapshot이라 이후 등장한 humanoid foundation model과 산업계 stack은 일부 빠져 있다.
+- company deployment 사례는 소개되지만, 비용 구조·데이터 규모·운영 reliability까지 체계적으로 비교하지는 않는다.

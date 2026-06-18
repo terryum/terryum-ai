@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T06:27:19.285Z",
-  "total_posts": 72,
+  "generated_at": "2026-06-18T07:06:22.988Z",
+  "total_posts": 74,
   "posts": [
     {
       "post_number": 1,
@@ -5347,6 +5347,194 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 73,
+      "slug": "2501-humanoid-locomotion-manipulation-survey",
+      "content_type": "papers",
+      "title_en": "Humanoid Loco-Manipulation Survey: Locomotion and Manipulation as One System",
+      "title_ko": "Humanoid Loco-Manipulation Survey: 휴머노이드를 걷고 조작하는 하나의 시스템으로 보기",
+      "summary_ko": "휴머노이드의 locomotion과 manipulation을 따로 보지 않고, contact planning, MPC, whole-body control, RL/IL, foundation model, whole-body tactile sensing을 하나의 loco-manipulation 지형도로 묶는 서베이다.",
+      "summary_en": "A survey that treats humanoid locomotion and manipulation as one coupled loco-manipulation problem, spanning contact planning, MPC, whole-body control, RL/IL, foundation models, and whole-body tactile sensing.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "humanoid-robotics",
+        "loco-manipulation",
+        "whole-body-control",
+        "robot-learning",
+        "tactile-sensing"
+      ],
+      "key_concepts": [
+        "humanoid-locomotion",
+        "loco-manipulation",
+        "whole-body-control",
+        "multi-contact-planning",
+        "model-predictive-control",
+        "reinforcement-learning",
+        "imitation-learning",
+        "foundation-models",
+        "whole-body-tactile-sensing"
+      ],
+      "methodology": [
+        "survey",
+        "taxonomy",
+        "model-based-control-review",
+        "learning-based-control-review",
+        "foundation-model-analysis"
+      ],
+      "contribution_type": "survey",
+      "tags": [
+        "Papers",
+        "Survey",
+        "Humanoid",
+        "Loco-Manipulation",
+        "Whole-Body Control",
+        "Foundation Models",
+        "Tactile Sensing"
+      ],
+      "source_author": "Zhaoyuan Gu et al.",
+      "source_date": "2025-01-03T00:00:00Z",
+      "published_at": "2026-06-18T15:55:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A broad survey that unifies humanoid locomotion and manipulation around model-based planning/control, learning-based skill acquisition, foundation models, and whole-body tactile sensing.",
+        "problem": "Humanoid locomotion, manipulation, tactile sensing, and cognitive planning have advanced rapidly but often as separate subfields, making it hard to see how they combine into general humanoid loco-manipulation.",
+        "solution": "The survey organizes the field into model-based contact planning, MPC and whole-body control, learning-based RL/IL skill acquisition, foundation-model task planning, and whole-body tactile sensing, then compares their trade-offs.",
+        "key_result": "Its main output is a taxonomy and roadmap: model-based methods remain strong for stability and guarantees, learning methods improve versatility, foundation models help semantic task planning, and tactile sensing is a missing modality for contact-rich whole-body behavior.",
+        "limitations": [
+          "The survey is broad and method-centric, so individual system implementations and company stacks are covered unevenly.",
+          "The field moved quickly after the v2 cut-off, including newer humanoid foundation model and dexterous manipulation releases."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2405-octo-generalist-policy",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2303-diffusion-policy",
+          "type": "usesMethodIn"
+        },
+        {
+          "target": "2512-sim2real-humanoid-locomotion-15min",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2602-perceptive-humanoid-parkour",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/whole-body",
+      "taxonomy_secondary": [
+        "robotics/brain/vla",
+        "robotics/hand"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 74,
+      "slug": "2605-dexterous-hand-intelligence-survey",
+      "content_type": "papers",
+      "title_en": "Dexterous Hand Intelligence Survey: From Hand Hardware to VLA Policies",
+      "title_ko": "Dexterous Hand Intelligence Survey: 손 하드웨어부터 VLA까지 한 장으로 보기",
+      "summary_ko": "dexterous hand 연구를 하드웨어, transmission, perception, control/learning, dataset, evaluation까지 하나의 system-level 지형도로 묶는 서베이다.",
+      "summary_en": "A survey that maps dexterous hand research from hardware and sensing to control, learning, datasets, evaluation, and VLA-style policies.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "robot-hand",
+        "tactile-sensing",
+        "robot-learning",
+        "evaluation"
+      ],
+      "key_concepts": [
+        "dexterous-hand",
+        "actuation",
+        "transmission",
+        "multimodal-perception",
+        "in-hand-manipulation",
+        "diffusion-policy",
+        "vision-language-action",
+        "datasets",
+        "evaluation-protocols"
+      ],
+      "methodology": [
+        "survey",
+        "hardware-taxonomy",
+        "method-taxonomy",
+        "dataset-review",
+        "evaluation-review"
+      ],
+      "contribution_type": "survey",
+      "tags": [
+        "Papers",
+        "Survey",
+        "Dexterous Hand",
+        "Manipulation",
+        "Tactile Sensing",
+        "Robot Learning",
+        "VLA"
+      ],
+      "source_author": "Weiguang Zhao et al.",
+      "source_date": "2026-05-13T00:00:00Z",
+      "published_at": "2026-06-18T15:55:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A holistic survey that connects dexterous hand hardware, sensing, control/learning methods, datasets, and evaluation into one developmental map.",
+        "problem": "Dexterous hand studies differ in embodiment, sensors, task assumptions, data sources, and evaluation protocols, making progress hard to compare systematically.",
+        "solution": "The survey analyzes actuation, transmission, perception, representative hands, task categories, policy-learning paradigms, datasets, modalities, and evaluation practice under one taxonomy.",
+        "key_result": "Its main output is a structured map of the field: hardware choices constrain policy assumptions, learning methods depend on data/evaluation design, and robust deployment requires closing gaps in sensing, sim-to-real transfer, benchmarks, and safety.",
+        "limitations": [
+          "The survey is taxonomy-heavy and does not provide a unified benchmark or meta-analysis across all cited methods.",
+          "Fast-moving 2026 dexterous-hand and humanoid-hand releases may outpace the static survey snapshot."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2201-mano-hand-model",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2407-stretchable-glove-hand-pose",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2504-pp-tac",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2505-dexumi",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2501-dexforce-force-informed-actions",
+          "type": "sharesTopicWith"
+        },
+        {
+          "target": "2512-unitachand",
+          "type": "sharesTopicWith"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand",
+      "taxonomy_secondary": [
+        "robotics/arm",
+        "robotics/brain/vla"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6265,6 +6453,61 @@
         "from": "2512-sim2real-humanoid-locomotion-15min",
         "to": "2303-diffusion-policy",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2501-humanoid-locomotion-manipulation-survey",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2501-humanoid-locomotion-manipulation-survey",
+        "to": "2405-octo-generalist-policy",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2501-humanoid-locomotion-manipulation-survey",
+        "to": "2303-diffusion-policy",
+        "type": "usesMethodIn"
+      },
+      {
+        "from": "2501-humanoid-locomotion-manipulation-survey",
+        "to": "2512-sim2real-humanoid-locomotion-15min",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2501-humanoid-locomotion-manipulation-survey",
+        "to": "2602-perceptive-humanoid-parkour",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2201-mano-hand-model",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2504-pp-tac",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2505-dexumi",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2605-dexterous-hand-intelligence-survey",
+        "to": "2512-unitachand",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -6518,6 +6761,19 @@
         "taxonomy_nodes": []
       },
       {
+        "id": "concept-dexterous-hand",
+        "label": "dexterous-hand",
+        "post_numbers": [
+          10,
+          12,
+          74
+        ],
+        "core_concepts": [
+          "dexterous-hand"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
         "id": "concept-diffusion-policy",
         "label": "diffusion-policy",
         "post_numbers": [
@@ -6525,7 +6781,8 @@
           14,
           34,
           35,
-          55
+          55,
+          74
         ],
         "core_concepts": [
           "diffusion-policy"
@@ -6577,9 +6834,13 @@
       52,
       55,
       57,
-      67
+      67,
+      73,
+      74
     ],
-    "outlier_papers": []
+    "outlier_papers": [
+      73
+    ]
   },
   "concept_index": {
     "VLA": [
@@ -6633,7 +6894,8 @@
       3
     ],
     "reinforcement-learning": [
-      4
+      4,
+      73
     ],
     "value-function": [
       4
@@ -6749,7 +7011,8 @@
     ],
     "dexterous-hand": [
       10,
-      12
+      12,
+      74
     ],
     "multi-agent-system": [
       11
@@ -6786,7 +7049,8 @@
       14,
       34,
       35,
-      55
+      55,
+      74
     ],
     "force-control": [
       12
@@ -7777,7 +8041,8 @@
       68
     ],
     "foundation-models": [
-      68
+      68,
+      73
     ],
     "national-growth-fund": [
       68
@@ -7882,7 +8147,8 @@
       72
     ],
     "humanoid-locomotion": [
-      72
+      72,
+      73
     ],
     "massively-parallel-simulation": [
       72
@@ -7901,10 +8167,49 @@
     ],
     "RTX-4090": [
       72
+    ],
+    "loco-manipulation": [
+      73
+    ],
+    "whole-body-control": [
+      73
+    ],
+    "multi-contact-planning": [
+      73
+    ],
+    "model-predictive-control": [
+      73
+    ],
+    "imitation-learning": [
+      73
+    ],
+    "whole-body-tactile-sensing": [
+      73
+    ],
+    "actuation": [
+      74
+    ],
+    "transmission": [
+      74
+    ],
+    "multimodal-perception": [
+      74
+    ],
+    "in-hand-manipulation": [
+      74
+    ],
+    "vision-language-action": [
+      74
+    ],
+    "datasets": [
+      74
+    ],
+    "evaluation-protocols": [
+      74
     ]
   },
   "domain_stats": {
-    "robotics": 39,
+    "robotics": 41,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -7924,11 +8229,11 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 12,
+    "robotics/arm:secondary": 13,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
-    "robotics/hand:secondary": 1,
+    "robotics/hand:secondary": 2,
     "robotics/hand/dexterous": 3,
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
@@ -7938,7 +8243,7 @@
     "ai/society": 6,
     "ai/agents:secondary": 2,
     "robotics/brain:secondary": 2,
-    "robotics/brain/vla:secondary": 1,
+    "robotics/brain/vla:secondary": 3,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
     "ai/productivity:secondary": 1,
@@ -7973,9 +8278,10 @@
     "robotics/body/humanoid:secondary": 2,
     "robotics/perception/depth:secondary": 1,
     "robotics/simulation/sim-to-real:secondary": 1,
+    "robotics/whole-body": 1,
+    "robotics/hand": 14,
     "robotics/arm": 5,
-    "robotics/hand": 13,
-    "robotics": 38,
+    "robotics": 40,
     "ai": 17
   }
 }

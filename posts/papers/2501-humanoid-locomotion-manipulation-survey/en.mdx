@@ -1,0 +1,99 @@
+---
+locale: "en"
+title: "Humanoid Loco-Manipulation Survey: Locomotion and Manipulation as One System"
+subtitle: "A roadmap across planning, control, learning, foundation models, and whole-body tactile sensing"
+summary: "This survey treats humanoid locomotion and manipulation as a coupled loco-manipulation problem rather than separate stacks. It organizes contact planning, MPC, whole-body control, RL/IL, foundation models, and whole-body tactile sensing into one roadmap, showing where model-based methods, learning-based methods, semantic models, and tactile feedback each matter."
+card_summary: "A survey that treats humanoid locomotion and manipulation as one coupled loco-manipulation problem, spanning contact planning, MPC, whole-body control, RL/IL, foundation models, and whole-body tactile sensing."
+seo_title: "Humanoid Loco-Manipulation Survey: Locomotion and Manipulation as One System"
+seo_description: "This survey treats humanoid locomotion and manipulation as a coupled loco-manipulation problem rather than separate stacks. It organizes contact planning, MPC, whole-body control, RL/IL, foundation models, and whole-body tactile sensing into one roadmap, showing where model-based methods, learning-based methods, semantic models, and tactile feedback each matter."
+terrys_memo: ""
+translation_of: "2501-humanoid-locomotion-manipulation-survey:ko"
+references:
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Cheng Chi et al. (2023)"
+    description: "A visuomotor policy that generates robot actions through a diffusion process. In this survey context, it is key background for imitation learning and robot skill learning moving toward humanoid loco-manipulation."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?&q=diffusion-policy-visuomotor-policy-learning"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "Octo: An Open-Source Generalist Robot Policy"
+    author: "Octo Model Team et al. (2024)"
+    description: "An open-source generalist robot policy trained across diverse robot and task data. It connects directly to the survey discussion of robot foundation models and data scaling for humanoids."
+    arxiv_url: "https://arxiv.org/abs/2405.12213"
+    scholar_url: "https://scholar.google.com/scholar?&q=octo-open-source-generalist-robot-policy"
+    post_slug: "2405-octo-generalist-policy"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al. (2024)"
+    description: "A general robot control model combining VLM representations with action generation. It is a concrete axis for the survey’s discussion of humanoid foundation models and semantic task planning."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?&q=pi0-vision-language-action-flow-model"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "recent"
+---
+
+## TL;DR
+
+Humanoid robots become useful only when locomotion and manipulation are treated as one coupled **loco-manipulation system**, not as two independent stacks. This survey connects model-based planning/control, RL/IL skill learning, foundation models, and whole-body tactile sensing into one roadmap for where humanoid robotics is bottlenecked today.
+
+## Questions and Scope
+
+Humanoid research has advanced quickly across walking control, manipulation, tactile sensing, task planning, and robot learning, but real tasks such as opening doors, carrying objects, collaborating with people, and using whole-body contact do not respect those boundaries. The survey asks what model-based and learning-based methods currently enable humanoid loco-manipulation, what gaps remain before versatile generalist humanoids are possible, and which directions look promising for closing those gaps.
+
+## Landscape Taxonomy
+
+The paper organizes humanoid loco-manipulation around four major axes.
+
+- **Model-based planning/control**: contact planning, motion planning, MPC, and WBC handle stability and physical constraints.
+- **Learning-based skill acquisition**: RL improves robust motor skills, while IL uses human, teleoperation, and video data for more efficient skill acquisition.
+- **Foundation models**: LLMs/VLMs are promising for task planning and semantic reasoning, but not yet reliable as direct low-level sensorimotor controllers.
+- **Whole-body tactile sensing**: hands, feet, and robot skin expose contact information that vision and proprioception alone cannot provide in contact-rich interaction.
+
+<Figure src="./fig-2.png" caption="Fig. 2: The roadmap of the humanoid loco-manipulation survey, connecting planning/control, skill learning, foundation models, and whole-body tactile sensing." number={2} />
+
+<Collapsible title="Synthesis by Comparison Axes">
+
+### Model-Based Planning and Control
+
+Model-based methods remain strong where stability, constraints, and interpretability matter. Multi-contact planning reasons over contact sequences and positions, MPC optimizes robot and environment dynamics over time, and whole-body control resolves conflicts between simultaneous tasks and contacts. The recurring trade-off is computation: high-dimensional humanoid dynamics and combinatorial contact modes push online systems toward simplified or mixed-fidelity dynamics.
+
+### RL/IL Skill Learning
+
+RL can discover robust motor skills without reference data, but humanoid loco-manipulation usually suffers from sparse rewards, difficult reward engineering, and sim-to-real gaps. IL improves sample efficiency by using teleoperation, human motion capture, video, and generated motion. Its bottleneck is transferring those motions across embodiment gaps while preserving physical feasibility.
+
+### Foundation Models
+
+Foundation models are useful for long-horizon task planning, language-conditioned instruction following, and semantic scene understanding. The hard part is grounding that reasoning in a high-DoF, unstable humanoid body where unsafe low-level actions can cause physical failure. The practical pattern today is hierarchical: foundation models produce intermediate plans or representations, while policies and controllers execute them.
+
+### Whole-Body Tactile Sensing
+
+A humanoid that pushes, carries, opens, and collaborates needs contact location and force information. The survey divides tactile sensing into hands, feet, and whole-body skin, then connects each to dexterous manipulation, terrain/contact estimation, and safe human-robot interaction. Cost, durability, wiring, bandwidth, and policy integration remain major barriers.
+
+<Figure src="./fig-7.png" caption="Fig. 7: Three dynamics modeling regimes for MPC in humanoid loco-manipulation: simplified, nonlinear, and mixed-fidelity dynamics, plus common NMPC acceleration strategies." number={7} />
+
+</Collapsible>
+
+## Datasets and Evaluation Practices
+
+This paper is not primarily a benchmark paper, but it repeatedly frames data and evaluation as method-level bottlenecks. RL relies heavily on domain randomization and reference trajectories for sim-to-real transfer. IL depends on the quality of teleoperation and human-motion data. Humanoids can exploit abundant human data because of morphological similarity, but retargeting must still account for body proportions, joint limits, mass distribution, and contact dynamics. Good evaluation therefore needs more than success rate: balance stability, contact safety, task completion, robustness, and generalization all matter.
+
+## Open Problems and Future Directions
+
+- **Unified framework**: it remains unclear when locomotion and manipulation should be separated hierarchically versus optimized or learned as one whole-body behavior.
+- **Contact-rich generalization**: tasks such as door opening, cart pushing, and collaborative carrying require stability and adaptation under changing contacts.
+- **Human data transfer**: human video and motion capture are abundant, but morphology and feasibility gaps make retargeting difficult.
+- **Foundation-model grounding**: semantic reasoning must be converted into safe low-level control for an unstable physical body.
+- **Whole-body tactile integration**: integrating tactile feedback into planning, control, and learning loops is harder than adding tactile sensors alone.
+- 🤖 **AI analysis limit**: the survey is strong as a taxonomy, but it cannot compare fast-moving frontier-company stacks and deployment costs with equal depth.
+
+## Achievements and Limitations
+
+**What it adds**
+- It integrates humanoid locomotion, manipulation, tactile sensing, and foundation models under the single lens of loco-manipulation.
+- It compares model-based and learning-based methods as complementary stack components rather than mutually exclusive alternatives.
+- It elevates whole-body tactile sensing from an accessory modality to a core requirement for contact-rich humanoid skills.
+
+**Limitations**
+- The scope is broad, so individual system implementations and experimental comparisons are necessarily shallow.
+- Version 2 is a snapshot up to April 2025, so newer humanoid foundation-model and industry-stack releases are not fully covered.
+- Company deployment examples are discussed, but cost structure, data scale, and operational reliability are not systematically compared.

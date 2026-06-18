@@ -1,0 +1,202 @@
+{
+  "post_id": "2605-dexterous-hand-intelligence-survey",
+  "slug": "2605-dexterous-hand-intelligence-survey",
+  "post_number": 74,
+  "published_at": "2026-06-18T15:55:00+09:00",
+  "updated_at": "2026-06-18T15:55:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "cover_image": "./cover.webp",
+  "reading_time_min": 12,
+  "figures": [
+    {
+      "src": "./fig-1.png",
+      "caption": "Figure 1: System-Level Architecture of Dexterous Hands: Actuation, Transmission, and Multimodal Perception",
+      "caption_ko": "Dexterous hand를 actuation, transmission, multimodal perception의 system-level architecture로 분해한다.",
+      "number": 1
+    },
+    {
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Research Workflow on Dexterous Hand",
+      "caption_ko": "dexterous hand 연구를 task planning, policy training, deployment feedback loop로 정리한 workflow.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Research on Dexterous Hand",
+      "caption_ko": "in-hand manipulation, grasp/pick-and-place, tool operation, human interaction, bimanual manipulation으로 dexterous hand 연구를 나누는 지형도.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Figure 4: In-Hand Manipulation Timeline",
+      "caption_ko": "in-hand manipulation 연구의 시간축.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Grasp & Pick-and-Place Timeline",
+      "caption_ko": "grasp 및 pick-and-place 연구의 시간축.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Overview of diffusion policies connecting multimodal perception to diverse dexterous manipulation tasks. The generative policy denoises action states into smooth control trajectories for varying task requirements.",
+      "caption_ko": "multimodal perception을 diffusion policy로 dexterous manipulation trajectory에 연결하는 구조.",
+      "number": 6
+    },
+    {
+      "src": "./fig-7.png",
+      "caption": "Figure 7: General architecture of a Vision-Language-Action (VLA) foundation model. Multimodal inputs (RGB/Depth and natural language instructions) are processed through a central Transformer model, which outputs low-level joint angle and torque commands for dexterous execution.",
+      "caption_ko": "RGB/Depth와 자연어 지시를 Transformer 기반 VLA가 joint angle/torque command로 변환하는 일반 구조.",
+      "number": 7
+    },
+    {
+      "src": "./fig-8.png",
+      "caption": "Figure 8: Tool Use & Device Operation Timeline",
+      "caption_ko": "tool use 및 device operation 연구의 시간축.",
+      "number": 8
+    },
+    {
+      "src": "./fig-9.png",
+      "caption": "Figure 9: Bimanual Manipulation Timeline",
+      "caption_ko": "bimanual manipulation 연구의 시간축.",
+      "number": 9
+    }
+  ],
+  "tables": [],
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "newsletter_eligible": false,
+  "featured": false,
+  "citation_status": "unknown",
+  "citation_updated_at": "2026-06-18T15:55:00+09:00",
+  "tags": [
+    "Papers",
+    "Survey",
+    "Dexterous Hand",
+    "Manipulation",
+    "Tactile Sensing",
+    "Robot Learning",
+    "VLA"
+  ],
+  "display_tags": [
+    "Survey",
+    "Dexterous Hand",
+    "Manipulation",
+    "VLA"
+  ],
+  "cover_caption": "Figure 1: System-Level Architecture of Dexterous Hands: Actuation, Transmission, and Multimodal Perception",
+  "source_date": "2026-05-13T00:00:00Z",
+  "source_url": "https://arxiv.org/abs/2605.13925",
+  "source_title": "Towards Robotic Dexterous Hand Intelligence: A Survey",
+  "source_author": "Weiguang Zhao et al.",
+  "source_type": "arXiv",
+  "arxiv_id": "2605.13925",
+  "source_authors_full": [
+    {
+      "name": "Weiguang Zhao"
+    },
+    {
+      "name": "Tian Liang"
+    },
+    {
+      "name": "Xihao Guo"
+    },
+    {
+      "name": "Rui Zhang"
+    },
+    {
+      "name": "Irwin King"
+    },
+    {
+      "name": "Kaizhu Huang"
+    }
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=towards-robotic-dexterous-hand",
+  "domain": "robotics",
+  "subfields": [
+    "dexterous-manipulation",
+    "robot-hand",
+    "tactile-sensing",
+    "robot-learning",
+    "evaluation"
+  ],
+  "key_concepts": [
+    "dexterous-hand",
+    "actuation",
+    "transmission",
+    "multimodal-perception",
+    "in-hand-manipulation",
+    "diffusion-policy",
+    "vision-language-action",
+    "datasets",
+    "evaluation-protocols"
+  ],
+  "methodology": [
+    "survey",
+    "hardware-taxonomy",
+    "method-taxonomy",
+    "dataset-review",
+    "evaluation-review"
+  ],
+  "taxonomy_primary": "robotics/hand",
+  "taxonomy_secondary": [
+    "robotics/arm",
+    "robotics/brain/vla"
+  ],
+  "contribution_type": "survey",
+  "relations": [
+    {
+      "target": "2201-mano-hand-model",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2407-stretchable-glove-hand-pose",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2504-pp-tac",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2505-dexumi",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2501-dexforce-force-informed-actions",
+      "type": "sharesTopicWith"
+    },
+    {
+      "target": "2512-unitachand",
+      "type": "sharesTopicWith"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A holistic survey that connects dexterous hand hardware, sensing, control/learning methods, datasets, and evaluation into one developmental map.",
+    "problem": "Dexterous hand studies differ in embodiment, sensors, task assumptions, data sources, and evaluation protocols, making progress hard to compare systematically.",
+    "solution": "The survey analyzes actuation, transmission, perception, representative hands, task categories, policy-learning paradigms, datasets, modalities, and evaluation practice under one taxonomy.",
+    "key_result": "Its main output is a structured map of the field: hardware choices constrain policy assumptions, learning methods depend on data/evaluation design, and robust deployment requires closing gaps in sensing, sim-to-real transfer, benchmarks, and safety.",
+    "limitations": [
+      "The survey is taxonomy-heavy and does not provide a unified benchmark or meta-analysis across all cited methods.",
+      "Fast-moving 2026 dexterous-hand and humanoid-hand releases may outpace the static survey snapshot."
+    ]
+  },
+  "research_gaps": [
+    "Cross-hand evaluation protocols remain fragmented.",
+    "Hardware, tactile sensing, and policy learning are often optimized separately.",
+    "General dexterous VLA systems still need reliable real-time force and safety grounding."
+  ],
+  "future_directions": [
+    "Co-design of hand hardware, tactile sensing, and policy learning.",
+    "Standardized dexterous manipulation datasets and evaluation protocols.",
+    "Robust sim-to-real pipelines for high-DoF contact-rich hands."
+  ],
+  "survey_hooks": [
+    "robot-hand-tactile-sensor",
+    "humanoid-revolution"
+  ],
+  "cover_thumb": "./cover-thumb.webp"
+}
