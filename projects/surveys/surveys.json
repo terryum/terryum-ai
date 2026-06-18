@@ -83,8 +83,8 @@
         }
       ],
       "embed_url": "https://large-data-manipulation.pages.dev/",
-      "status": "wip",
-      "featured": false,
+      "status": "active",
+      "featured": true,
       "order": 0,
       "published_at": "2026-06-18",
       "updated_at": "2026-06-18"
