@@ -100,9 +100,3 @@ Limitations:
 - Real-world performance is constrained by short-range, narrow-FOV depth sensing at high speed.
 - The robot lacks sufficiently strong hands or grippers for edge, bar, hanging, or beyond-height climbing tests.
 - From a reproducibility perspective, the reported numbers depend on Unitree G1, OmniRetarget, high-throughput simulation, large parallel rollouts, and real hardware tuning.
-
-## Terry Memo
-
-The most important part is not just that a humanoid did parkour. It is that the data interface for humanoid learning is changing. Reward design, motion tracking, and perception distillation used to feel like separate problems. PHP ties them into one pipeline: retarget human motion, densify it through motion matching, then distill it into a real robot policy.
-
-Motion matching is especially interesting here. It looks like an old animation trick, but in robot learning it becomes a way to turn sparse human skill clips into the approach and timing distribution a policy actually needs. In physical AI, good data is not just raw recording. It is a reference distribution that densely covers the transition boundaries where policies usually fail.
