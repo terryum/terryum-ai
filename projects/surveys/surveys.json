@@ -190,7 +190,7 @@
         "ko": "Karpathy의 파일 기반 LLM 위키에서 폐쇄루프 AI 사이언티스트까지, AI 에이전트 기반 연구방법론을 12장으로 정리한 서베이. 4-레이어 분류(LLM Wiki / Paper-to-Agent / Research Associate / AI Scientist) × 6-Level 성숙도 로드맵, 2026-04 LLM Wiki 폭발의 OSS 매트릭스, Sakana 2408에서 Anthropic AAR·Karpathy autoresearch·Google Co-Scientist까지의 계보, 그리고 자체 LLM 없이 Claude Code/Codex + Obsidian만으로 외장두뇌를 짓는 튜토리얼.",
         "en": "A 12-chapter survey of AI-agent-driven research methodology, from Karpathy's file-based LLM Wiki to closed-loop AI Scientist systems. Covers the four-layer taxonomy (LLM Wiki / Paper-to-Agent / Research Associate / AI Scientist) × six-level maturity roadmap, the April-2026 LLM Wiki OSS explosion matrix, the lineage from Sakana 2408 through Anthropic AAR, Karpathy autoresearch, and Google Co-Scientist, and a tutorial for building an external brain with just Claude Code/Codex + Obsidian."
       },
-      "cover_image": "/images/projects/llm-wiki-to-ai-scientist-cover.webp",
+      "cover_image": "/images/projects/survey-llm-wiki-to-ai-scientist-cover.webp",
       "tech_stack": [
         "LLM Wiki",
         "AI Scientist",
