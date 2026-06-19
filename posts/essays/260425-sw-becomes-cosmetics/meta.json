@@ -40,9 +40,10 @@
   ],
   "idea_status": null,
   "related_posts": [
-    "260415-democratization-of-research",
     "260413-new-leverage",
-    "260420-debt-changes-hands"
+    "260415-democratization-of-research",
+    "260420-debt-changes-hands",
+    "260618-value-from-finite-resources"
   ],
   "taxonomy_primary": "ai/society",
   "taxonomy_secondary": [
@@ -50,15 +51,19 @@
   ],
   "relations": [
     {
-      "target": "260415-democratization-of-research",
-      "type": "extends"
-    },
-    {
       "target": "260413-new-leverage",
       "type": "related"
     },
     {
+      "target": "260415-democratization-of-research",
+      "type": "extends"
+    },
+    {
       "target": "260420-debt-changes-hands",
+      "type": "related"
+    },
+    {
+      "target": "260618-value-from-finite-resources",
       "type": "related"
     }
   ],

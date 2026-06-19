@@ -1,0 +1,79 @@
+{
+  "post_id": "260618-value-from-finite-resources",
+  "slug": "260618-value-from-finite-resources",
+  "post_number": 75,
+  "published_at": "2026-06-19T00:00:00.000Z",
+  "updated_at": "2026-06-19T00:00:00.000Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "가치는 유한한 곳에서 나온다",
+  "title_en": "Value Comes From Finite Resources",
+  "subtitle_ko": "토큰보다 비싼 것은 사람이다",
+  "subtitle_en": "People remain the scarce layer",
+  "summary_ko": "AI는 글과 코드와 SW의 생산비를 낮추며 전기처럼 기본 인프라가 되고 있다. 풍부해진 산출물 자체보다 사람의 시간, 고객과 동료의 관계, 그리고 신뢰자본이 더 선명한 시장가치의 병목으로 남는다.",
+  "summary_en": "AI is becoming infrastructure like electricity, driving down the cost of writing, code, and software. As outputs become abundant, the scarce sources of market value become human time, customer and collaborator relationships, and trust capital.",
+  "card_summary_ko": "AI가 전기처럼 흔해질수록, 값은 토큰이 아니라 사람의 시간과 관계에 붙는다.",
+  "card_summary_en": "As AI becomes electricity, value moves from tokens to human time and trust.",
+  "tags": [
+    "Essays",
+    "AI",
+    "AI Tooling",
+    "Software",
+    "Business Strategy",
+    "Trust Capital"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 13,
+  "domain": "AI Business",
+  "subfields": [
+    "ai tooling",
+    "software economics",
+    "trust capital",
+    "marketing"
+  ],
+  "key_concepts": [
+    "ai-tokens",
+    "scarcity",
+    "productivity",
+    "trust-capital",
+    "human-time"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260425-sw-becomes-cosmetics",
+    "260514-ai-superpower-time-lag",
+    "260522-ai-agent-outcome-operations"
+  ],
+  "taxonomy_primary": "ai/business",
+  "taxonomy_secondary": [
+    "software/economics",
+    "career/trust-capital"
+  ],
+  "relations": [
+    {
+      "target": "260425-sw-becomes-cosmetics",
+      "type": "related"
+    },
+    {
+      "target": "260514-ai-superpower-time-lag",
+      "type": "related"
+    },
+    {
+      "target": "260522-ai-agent-outcome-operations",
+      "type": "related"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "AI가 글과 코드의 생산비를 낮출수록 가치는 사람의 시간과 관계, 신뢰자본으로 이동한다",
+    "problem": "AI 도구로 산출량은 늘어나지만 그 산출물이 그대로 시장가치 상승으로 이어진다는 착각이 생긴다",
+    "solution": "계산기와 전기, 화장품 ODM 비유를 통해 풍부해진 산출물과 유한한 인간 자원의 가격을 구분한다",
+    "key_result": "토큰이 만든 SW 대부분은 토큰값에 수렴하고, 고객·동료의 시간을 모아 책임지는 사람이 더 비싸진다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

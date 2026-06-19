@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-18T07:06:22.988Z",
-  "total_posts": 74,
+  "generated_at": "2026-06-19T01:18:41.004Z",
+  "total_posts": 75,
   "posts": [
     {
       "post_number": 1,
@@ -3548,23 +3548,28 @@
       },
       "relations": [
         {
-          "target": "260415-democratization-of-research",
-          "type": "extends"
-        },
-        {
           "target": "260413-new-leverage",
           "type": "related"
         },
         {
+          "target": "260415-democratization-of-research",
+          "type": "extends"
+        },
+        {
           "target": "260420-debt-changes-hands",
+          "type": "related"
+        },
+        {
+          "target": "260618-value-from-finite-resources",
           "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
-        "260415-democratization-of-research",
         "260413-new-leverage",
-        "260420-debt-changes-hands"
+        "260415-democratization-of-research",
+        "260420-debt-changes-hands",
+        "260618-value-from-finite-resources"
       ],
       "taxonomy_primary": "ai/society",
       "taxonomy_secondary": [
@@ -4272,6 +4277,10 @@
         {
           "target": "260515-how-fast-should-we-adopt",
           "type": "related"
+        },
+        {
+          "target": "260618-value-from-finite-resources",
+          "type": "related"
         }
       ],
       "idea_status": null,
@@ -4279,7 +4288,8 @@
         "260413-new-leverage",
         "260415-democratization-of-research",
         "260422-work-that-isnt",
-        "260515-how-fast-should-we-adopt"
+        "260515-how-fast-should-we-adopt",
+        "260618-value-from-finite-resources"
       ],
       "taxonomy_primary": "ai/society",
       "taxonomy_secondary": [
@@ -4394,9 +4404,16 @@
           "대화 안의 외부 출처 수치와 인용은 별도 fact-check 필요"
         ]
       },
-      "relations": [],
+      "relations": [
+        {
+          "target": "260618-value-from-finite-resources",
+          "type": "related"
+        }
+      ],
       "idea_status": null,
-      "related_posts": [],
+      "related_posts": [
+        "260618-value-from-finite-resources"
+      ],
       "taxonomy_primary": null,
       "taxonomy_secondary": [],
       "visibility": "public",
@@ -5535,6 +5552,79 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 75,
+      "slug": "260618-value-from-finite-resources",
+      "content_type": "essays",
+      "title_en": "Value Comes From Finite Resources",
+      "title_ko": "가치는 유한한 곳에서 나온다",
+      "summary_ko": "AI가 전기처럼 흔해질수록, 값은 토큰이 아니라 사람의 시간과 관계에 붙는다.",
+      "summary_en": "As AI becomes electricity, value moves from tokens to human time and trust.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "AI Business",
+      "subfields": [
+        "ai tooling",
+        "software economics",
+        "trust capital",
+        "marketing"
+      ],
+      "key_concepts": [
+        "ai-tokens",
+        "scarcity",
+        "productivity",
+        "trust-capital",
+        "human-time"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "AI Tooling",
+        "Software",
+        "Business Strategy",
+        "Trust Capital"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-19T00:00:00.000Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI가 글과 코드의 생산비를 낮출수록 가치는 사람의 시간과 관계, 신뢰자본으로 이동한다",
+        "problem": "AI 도구로 산출량은 늘어나지만 그 산출물이 그대로 시장가치 상승으로 이어진다는 착각이 생긴다",
+        "solution": "계산기와 전기, 화장품 ODM 비유를 통해 풍부해진 산출물과 유한한 인간 자원의 가격을 구분한다",
+        "key_result": "토큰이 만든 SW 대부분은 토큰값에 수렴하고, 고객·동료의 시간을 모아 책임지는 사람이 더 비싸진다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260425-sw-becomes-cosmetics",
+          "type": "related"
+        },
+        {
+          "target": "260514-ai-superpower-time-lag",
+          "type": "related"
+        },
+        {
+          "target": "260522-ai-agent-outcome-operations",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260425-sw-becomes-cosmetics",
+        "260514-ai-superpower-time-lag",
+        "260522-ai-agent-outcome-operations"
+      ],
+      "taxonomy_primary": "ai/business",
+      "taxonomy_secondary": [
+        "software/economics",
+        "career/trust-capital"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6181,17 +6271,22 @@
       },
       {
         "from": "260425-sw-becomes-cosmetics",
-        "to": "260415-democratization-of-research",
-        "type": "extends"
-      },
-      {
-        "from": "260425-sw-becomes-cosmetics",
         "to": "260413-new-leverage",
         "type": "related"
       },
       {
         "from": "260425-sw-becomes-cosmetics",
+        "to": "260415-democratization-of-research",
+        "type": "extends"
+      },
+      {
+        "from": "260425-sw-becomes-cosmetics",
         "to": "260420-debt-changes-hands",
+        "type": "related"
+      },
+      {
+        "from": "260425-sw-becomes-cosmetics",
+        "to": "260618-value-from-finite-resources",
         "type": "related"
       },
       {
@@ -6300,8 +6395,18 @@
         "type": "related"
       },
       {
+        "from": "260514-ai-superpower-time-lag",
+        "to": "260618-value-from-finite-resources",
+        "type": "related"
+      },
+      {
         "from": "260515-how-fast-should-we-adopt",
         "to": "260514-ai-superpower-time-lag",
+        "type": "related"
+      },
+      {
+        "from": "260522-ai-agent-outcome-operations",
+        "to": "260618-value-from-finite-resources",
         "type": "related"
       },
       {
@@ -6508,6 +6613,21 @@
         "from": "2605-dexterous-hand-intelligence-survey",
         "to": "2512-unitachand",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "260618-value-from-finite-resources",
+        "to": "260425-sw-becomes-cosmetics",
+        "type": "related"
+      },
+      {
+        "from": "260618-value-from-finite-resources",
+        "to": "260514-ai-superpower-time-lag",
+        "type": "related"
+      },
+      {
+        "from": "260618-value-from-finite-resources",
+        "to": "260522-ai-agent-outcome-operations",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -8206,6 +8326,21 @@
     ],
     "evaluation-protocols": [
       74
+    ],
+    "ai-tokens": [
+      75
+    ],
+    "scarcity": [
+      75
+    ],
+    "productivity": [
+      75
+    ],
+    "trust-capital": [
+      75
+    ],
+    "human-time": [
+      75
     ]
   },
   "domain_stats": {
@@ -8225,7 +8360,8 @@
     "AI Organization": 1,
     "Leadership": 1,
     "AI": 2,
-    "AI Policy": 1
+    "AI Policy": 1,
+    "AI Business": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -8280,8 +8416,11 @@
     "robotics/simulation/sim-to-real:secondary": 1,
     "robotics/whole-body": 1,
     "robotics/hand": 14,
+    "ai/business": 1,
+    "software/economics:secondary": 1,
+    "career/trust-capital:secondary": 1,
     "robotics/arm": 5,
     "robotics": 40,
-    "ai": 17
+    "ai": 18
   }
 }

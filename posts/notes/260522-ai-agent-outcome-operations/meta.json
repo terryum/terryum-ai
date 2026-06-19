@@ -34,7 +34,9 @@
     "workflow-automation",
     "governance"
   ],
-  "related_posts": [],
+  "related_posts": [
+    "260618-value-from-finite-resources"
+  ],
   "ai_summary": {
     "one_liner": "AI agent 시대의 장기 수익은 도구 사용 능력이 아니라 업무 결과를 검증 가능하게 끝내는 운영 책임에서 나온다.",
     "problem": "AI agent가 코딩과 사무 자동화를 싸게 만들면, 단순 대행·교육·vertical SaaS 중 어디에 오래가는 사업 기회가 생기는가.",
@@ -48,5 +50,11 @@
   "figures": [],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "relations": [
+    {
+      "target": "260618-value-from-finite-resources",
+      "type": "related"
+    }
+  ]
 }

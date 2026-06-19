@@ -40,7 +40,8 @@
     "260413-new-leverage",
     "260415-democratization-of-research",
     "260422-work-that-isnt",
-    "260515-how-fast-should-we-adopt"
+    "260515-how-fast-should-we-adopt",
+    "260618-value-from-finite-resources"
   ],
   "taxonomy_primary": "ai/society",
   "taxonomy_secondary": [
@@ -61,6 +62,10 @@
     },
     {
       "target": "260515-how-fast-should-we-adopt",
+      "type": "related"
+    },
+    {
+      "target": "260618-value-from-finite-resources",
       "type": "related"
     }
   ],
