@@ -1,0 +1,220 @@
+{
+  "post_id": "2505-egodex-egocentric-dexterous-video",
+  "slug": "2505-egodex-egocentric-dexterous-video",
+  "post_number": 76,
+  "published_at": "2026-06-19T12:21:12+09:00",
+  "updated_at": "2026-06-19T12:21:12+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "robotics",
+    "dexterous-manipulation",
+    "egocentric-video",
+    "human-video",
+    "imitation-learning",
+    "robot-data",
+    "hand-pose",
+    "apple-vision-pro",
+    "benchmark",
+    "physical-ai"
+  ],
+  "display_tags": [
+    "Physical AI",
+    "Robot Data",
+    "Dexterous Manipulation",
+    "Egocentric Video"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 2: Left: Joints captured by EgoDex. Right: Examples of dexterous manipulation behaviors. Tracked fingertips are highlighted in distinct colors and show 0.5 seconds of motion before the current frame. From left to right, top to bottom, the tasks are: unzipping a Ziploc bag, removing a book from a bookshelf, removing a screw from a fixture, folding a t-shirt, decluttering, opening a case, unscrewing a bottle cap, tying shoelaces, and washing a cup.",
+  "reading_time_min": 7,
+  "source_date": "2025-05-16",
+  "source_url": "https://arxiv.org/abs/2505.11709",
+  "source_original_url": "https://arxiv.org/html/2505.11709v1",
+  "source_html_url": "https://arxiv.org/html/2505.11709v3",
+  "source_pdf_url": "https://arxiv.org/pdf/2505.11709",
+  "source_title": "EgoDex: Learning Dexterous Manipulation from Large-Scale Egocentric Video",
+  "source_author": "Ryan Hoque et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://github.com/apple/ml-egodex",
+  "code_url": "https://github.com/apple/ml-egodex",
+  "arxiv_id": "2505.11709",
+  "source_version": "v3",
+  "source_latest_revision_date": "2026-03-09",
+  "source_authors_full": [
+    {
+      "name": "Ryan Hoque",
+      "affiliation": "Apple"
+    },
+    {
+      "name": "Peide Huang",
+      "affiliation": "Apple"
+    },
+    {
+      "name": "David J. Yoon",
+      "affiliation": "Apple"
+    },
+    {
+      "name": "Mouli Sivapurapu",
+      "affiliation": "Apple"
+    },
+    {
+      "name": "Jian Zhang",
+      "affiliation": "Apple"
+    }
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=egodex-learning-dexterous-manipulation",
+  "figures": [
+    {
+      "src": "./fig-2.jpg",
+      "caption": "Figure 2: Left: Joints captured by EgoDex. Right: Examples of dexterous manipulation behaviors. Tracked fingertips are highlighted in distinct colors and show 0.5 seconds of motion before the current frame. From left to right, top to bottom, the tasks are: unzipping a Ziploc bag, removing a book from a bookshelf, removing a screw from a fixture, folding a t-shirt, decluttering, opening a case, unscrewing a bottle cap, tying shoelaces, and washing a cup.",
+      "caption_ko": "Figure 2: 왼쪽은 EgoDex가 캡처하는 관절, 오른쪽은 dexterous manipulation 행동 예시다. 추적된 fingertip은 서로 다른 색으로 표시되며 현재 프레임 이전 0.5초의 움직임을 보여준다. 왼쪽에서 오른쪽, 위에서 아래 순서로 Ziploc bag 열기, 책장에서 책 꺼내기, fixture에서 나사 빼기, 티셔츠 접기, 정리하기, 케이스 열기, 병뚜껑 풀기, 신발끈 묶기, 컵 씻기 태스크다.",
+      "number": 2
+    },
+    {
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Model prediction visualizations for Dec + BC on test set images with a 2 second horizon. Blue trajectories are ground truth and red trajectories are predictions, where darker colors and closer to the current frame and lighter colors are further in the future. The points shown are the wrist and fingertip positions projected into the camera frame (a total of 12 trajectories).",
+      "caption_ko": "Figure 3: 2초 horizon의 test set 이미지에 대한 Dec + BC 모델 예측 시각화. 파란 trajectory는 ground truth, 빨간 trajectory는 prediction이며, 더 진한 색은 현재 프레임에 가깝고 더 옅은 색은 더 먼 미래를 나타낸다. 표시된 점은 camera frame에 투영된 wrist와 fingertip 위치이며 총 12개 trajectory다.",
+      "number": 3
+    },
+    {
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Distance metrics w.r.t. training dataset size, where size is plotted on a log-scale. Performance improves as the dataset gets larger.",
+      "caption_ko": "Figure 4: Training dataset size에 따른 distance metric. 데이터셋 크기는 log-scale로 표시되며, 데이터가 커질수록 성능이 개선된다.",
+      "number": 4
+    },
+    {
+      "src": "./fig-5.jpg",
+      "caption": "Figure 5: Some of the objects used in the various manipulation tasks.",
+      "caption_ko": "Figure 5: 다양한 manipulation task에 사용된 일부 물체.",
+      "number": 5
+    },
+    {
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Model architectures.",
+      "caption_ko": "Figure 6: 모델 아키텍처.",
+      "number": 6
+    }
+  ],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "dexterous-manipulation",
+    "egocentric-video",
+    "imitation-learning",
+    "robot-learning-datasets",
+    "hand-pose-tracking"
+  ],
+  "key_concepts": [
+    "egodex",
+    "egocentric-human-video",
+    "dexterous-manipulation",
+    "apple-vision-pro",
+    "3d-hand-pose",
+    "language-annotation",
+    "camera-extrinsics",
+    "trajectory-prediction",
+    "inverse-dynamics",
+    "visual-goal-conditioning",
+    "best-of-k-evaluation",
+    "robot-data-scaling"
+  ],
+  "methodology": [
+    "vision-pro-data-collection",
+    "arkit-hand-tracking",
+    "bimanual-skeletal-action-representation",
+    "transformer-imitation-learning",
+    "behavior-cloning",
+    "denoising-diffusion-policy",
+    "flow-matching-policy",
+    "held-out-test-benchmark"
+  ],
+  "contribution_type": "benchmark",
+  "relations": [
+    {
+      "target": "2602-humanplus-humanoid-shadowing",
+      "type": "sharesTopicWith",
+      "note": "Both use large-scale egocentric human video as a path toward dexterous robot learning."
+    },
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "sharesTopicWith",
+      "note": "Both center robot policy pretraining on large heterogeneous manipulation data, though EgoDex uses human egocentric video rather than robot trajectories."
+    },
+    {
+      "target": "2303-diffusion-policy",
+      "type": "usesMethodIn",
+      "note": "EgoDex benchmarks evaluate denoising diffusion and flow-matching policy representations for trajectory prediction."
+    },
+    {
+      "target": "2402-umi-universal-manipulation-interface",
+      "type": "sharesGoalWith",
+      "note": "Both target scalable manipulation data collection beyond direct robot teleoperation."
+    },
+    {
+      "target": "2605-dexterous-hand-intelligence-survey",
+      "type": "sharesTopicWith",
+      "note": "EgoDex is a large dataset/benchmark contribution for the dexterous hand intelligence landscape."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "EgoDex uses Apple Vision Pro to collect 829 hours of egocentric dexterous manipulation video with 3D hand-pose, language, and camera annotations, then turns it into trajectory-prediction and inverse-dynamics benchmarks.",
+    "problem": "Dexterous manipulation lacks Internet-scale, action-labeled data: robot teleoperation is expensive and raw egocentric video usually lacks precise 3D hand/action annotations.",
+    "solution": "Collect bare-hand Vision Pro demonstrations across 194 tabletop tasks with synchronized video, ARKit hand/body pose, camera calibration, language annotations, and benchmark models for 48D bimanual hand trajectory prediction.",
+    "key_result": "EgoDex contains 338k episodes, 829 hours, and 90M frames; visual goal-conditioning reduces average trajectory distance by 22% and final distance by 53%, while performance improves with dataset size.",
+    "limitations": [
+      "Scene diversity is limited to tabletop environments and can require later background or scene randomization.",
+      "Dexterous annotations are still model predictions and can be imperfect during occlusion or fast motion.",
+      "A robot must still bridge the embodiment gap from human hands and first-person video to deployable robot actions."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can large egocentric human-video datasets be aligned with robot embodiments without losing dexterous contact and hand-object interaction detail?",
+      "source": "author",
+      "relates_to": [
+        "human-to-robot-transfer",
+        "embodiment-gap",
+        "dexterous-manipulation"
+      ]
+    },
+    {
+      "question": "Can Vision Pro-style passive data collection generalize beyond tabletop household tasks to cluttered, mobile, and multi-room manipulation?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "scene-diversity",
+        "data-scaling",
+        "robot-learning-datasets"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Combine EgoDex-scale human video with smaller robot datasets to learn embodiment-aligned dexterous policies.",
+    "Study retargeting and representation learning methods that preserve object contact and fingertip-level dexterity.",
+    "Use EgoDex as a source for egocentric world models and goal-conditioned manipulation priors.",
+    "Expand passive data collection beyond tabletop scenes and evaluate how much scene diversity matters relative to behavior diversity."
+  ],
+  "survey_hooks": [
+    "dexterous-hand-datasets",
+    "egocentric-video-for-robot-learning",
+    "human-to-robot-transfer",
+    "robot-data-scaling"
+  ],
+  "next_reading": [
+    "2602-humanplus-humanoid-shadowing",
+    "2405-octo-generalist-policy",
+    "2303-diffusion-policy",
+    "2402-umi-universal-manipulation-interface",
+    "2605-dexterous-hand-intelligence-survey"
+  ],
+  "taxonomy_primary": "robotics/hand/dexterous",
+  "taxonomy_secondary": [
+    "robotics/brain"
+  ],
+  "cover_figure_number": 2,
+  "thumb_source": "./fig-2.jpg",
+  "thumb_position": "centre"
+}

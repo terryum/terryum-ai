@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-19T01:18:41.004Z",
-  "total_posts": 75,
+  "generated_at": "2026-06-19T03:48:49.699Z",
+  "total_posts": 76,
   "posts": [
     {
       "post_number": 1,
@@ -5625,6 +5625,112 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 76,
+      "slug": "2505-egodex-egocentric-dexterous-video",
+      "content_type": "papers",
+      "title_en": "EgoDex: 829 hours of egocentric dexterous manipulation",
+      "title_ko": "EgoDex: 829시간 egocentric dexterous manipulation 데이터셋",
+      "summary_ko": "Apple Vision Pro로 수집한 829시간 규모의 egocentric dexterous manipulation 데이터셋. EgoDex는 3D hand pose, language, camera calibration을 묶어 인간 영상이 로봇 조작 학습 데이터가 될 수 있는지를 benchmark로 묻는다.",
+      "summary_en": "A large-scale egocentric dexterous manipulation dataset collected with Apple Vision Pro. EgoDex asks whether human first-person video, when paired with 3D hand pose and calibration, can become a scalable source of robot manipulation data.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "egocentric-video",
+        "imitation-learning",
+        "robot-learning-datasets",
+        "hand-pose-tracking"
+      ],
+      "key_concepts": [
+        "egodex",
+        "egocentric-human-video",
+        "dexterous-manipulation",
+        "apple-vision-pro",
+        "3d-hand-pose",
+        "language-annotation",
+        "camera-extrinsics",
+        "trajectory-prediction",
+        "inverse-dynamics",
+        "visual-goal-conditioning",
+        "best-of-k-evaluation",
+        "robot-data-scaling"
+      ],
+      "methodology": [
+        "vision-pro-data-collection",
+        "arkit-hand-tracking",
+        "bimanual-skeletal-action-representation",
+        "transformer-imitation-learning",
+        "behavior-cloning",
+        "denoising-diffusion-policy",
+        "flow-matching-policy",
+        "held-out-test-benchmark"
+      ],
+      "contribution_type": "benchmark",
+      "tags": [
+        "robotics",
+        "dexterous-manipulation",
+        "egocentric-video",
+        "human-video",
+        "imitation-learning",
+        "robot-data",
+        "hand-pose",
+        "apple-vision-pro",
+        "benchmark",
+        "physical-ai"
+      ],
+      "source_author": "Ryan Hoque et al.",
+      "source_date": "2025-05-16",
+      "published_at": "2026-06-19T12:21:12+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "EgoDex uses Apple Vision Pro to collect 829 hours of egocentric dexterous manipulation video with 3D hand-pose, language, and camera annotations, then turns it into trajectory-prediction and inverse-dynamics benchmarks.",
+        "problem": "Dexterous manipulation lacks Internet-scale, action-labeled data: robot teleoperation is expensive and raw egocentric video usually lacks precise 3D hand/action annotations.",
+        "solution": "Collect bare-hand Vision Pro demonstrations across 194 tabletop tasks with synchronized video, ARKit hand/body pose, camera calibration, language annotations, and benchmark models for 48D bimanual hand trajectory prediction.",
+        "key_result": "EgoDex contains 338k episodes, 829 hours, and 90M frames; visual goal-conditioning reduces average trajectory distance by 22% and final distance by 53%, while performance improves with dataset size.",
+        "limitations": [
+          "Scene diversity is limited to tabletop environments and can require later background or scene randomization.",
+          "Dexterous annotations are still model predictions and can be imperfect during occlusion or fast motion.",
+          "A robot must still bridge the embodiment gap from human hands and first-person video to deployable robot actions."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2602-humanplus-humanoid-shadowing",
+          "type": "sharesTopicWith",
+          "note": "Both use large-scale egocentric human video as a path toward dexterous robot learning."
+        },
+        {
+          "target": "2405-octo-generalist-policy",
+          "type": "sharesTopicWith",
+          "note": "Both center robot policy pretraining on large heterogeneous manipulation data, though EgoDex uses human egocentric video rather than robot trajectories."
+        },
+        {
+          "target": "2303-diffusion-policy",
+          "type": "usesMethodIn",
+          "note": "EgoDex benchmarks evaluate denoising diffusion and flow-matching policy representations for trajectory prediction."
+        },
+        {
+          "target": "2402-umi-universal-manipulation-interface",
+          "type": "sharesGoalWith",
+          "note": "Both target scalable manipulation data collection beyond direct robot teleoperation."
+        },
+        {
+          "target": "2605-dexterous-hand-intelligence-survey",
+          "type": "sharesTopicWith",
+          "note": "EgoDex is a large dataset/benchmark contribution for the dexterous hand intelligence landscape."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/dexterous",
+      "taxonomy_secondary": [
+        "robotics/brain"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6628,6 +6734,31 @@
         "from": "260618-value-from-finite-resources",
         "to": "260522-ai-agent-outcome-operations",
         "type": "related"
+      },
+      {
+        "from": "2505-egodex-egocentric-dexterous-video",
+        "to": "2602-humanplus-humanoid-shadowing",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2505-egodex-egocentric-dexterous-video",
+        "to": "2405-octo-generalist-policy",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2505-egodex-egocentric-dexterous-video",
+        "to": "2303-diffusion-policy",
+        "type": "usesMethodIn"
+      },
+      {
+        "from": "2505-egodex-egocentric-dexterous-video",
+        "to": "2402-umi-universal-manipulation-interface",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2505-egodex-egocentric-dexterous-video",
+        "to": "2605-dexterous-hand-intelligence-survey",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -6720,9 +6851,12 @@
         "post_numbers": [
           10,
           17,
-          38
+          38,
+          76
         ],
-        "core_concepts": [],
+        "core_concepts": [
+          "dexterous-manipulation"
+        ],
         "taxonomy_nodes": [
           "robotics/hand/dexterous"
         ]
@@ -6917,7 +7051,8 @@
           15,
           16,
           38,
-          67
+          67,
+          76
         ],
         "core_concepts": [
           "dexterous-manipulation"
@@ -6956,7 +7091,8 @@
       57,
       67,
       73,
-      74
+      74,
+      76
     ],
     "outlier_papers": [
       73
@@ -7220,7 +7356,8 @@
       15,
       16,
       38,
-      67
+      67,
+      76
     ],
     "GraphMAE": [
       14
@@ -8341,10 +8478,43 @@
     ],
     "human-time": [
       75
+    ],
+    "egodex": [
+      76
+    ],
+    "egocentric-human-video": [
+      76
+    ],
+    "apple-vision-pro": [
+      76
+    ],
+    "3d-hand-pose": [
+      76
+    ],
+    "language-annotation": [
+      76
+    ],
+    "camera-extrinsics": [
+      76
+    ],
+    "trajectory-prediction": [
+      76
+    ],
+    "inverse-dynamics": [
+      76
+    ],
+    "visual-goal-conditioning": [
+      76
+    ],
+    "best-of-k-evaluation": [
+      76
+    ],
+    "robot-data-scaling": [
+      76
     ]
   },
   "domain_stats": {
-    "robotics": 41,
+    "robotics": 42,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -8370,7 +8540,7 @@
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 2,
-    "robotics/hand/dexterous": 3,
+    "robotics/hand/dexterous": 4,
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 10,
     "robotics/arm/exoskeleton:secondary": 1,
@@ -8378,7 +8548,7 @@
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
-    "robotics/brain:secondary": 2,
+    "robotics/brain:secondary": 3,
     "robotics/brain/vla:secondary": 3,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
@@ -8415,12 +8585,12 @@
     "robotics/perception/depth:secondary": 1,
     "robotics/simulation/sim-to-real:secondary": 1,
     "robotics/whole-body": 1,
-    "robotics/hand": 14,
+    "robotics/hand": 15,
     "ai/business": 1,
     "software/economics:secondary": 1,
     "career/trust-capital:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 40,
+    "robotics": 41,
     "ai": 18
   }
 }

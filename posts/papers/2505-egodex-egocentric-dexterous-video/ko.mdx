@@ -1,0 +1,85 @@
+---
+locale: "ko"
+title: "EgoDex: 829시간 egocentric dexterous manipulation 데이터셋"
+summary: "EgoDex는 Apple Vision Pro로 수집한 829시간, 338k episode, 90M frame 규모의 egocentric dexterous manipulation 데이터셋이다. 3D hand pose, camera extrinsics, language annotation을 함께 제공하고, trajectory prediction과 inverse dynamics benchmark로 인간 egocentric video를 로봇 조작 학습 데이터로 쓰는 길을 연다."
+card_summary: "Apple Vision Pro로 수집한 829시간 규모의 egocentric dexterous manipulation 데이터셋. EgoDex는 3D hand pose, language, camera calibration을 묶어 인간 영상이 로봇 조작 학습 데이터가 될 수 있는지를 benchmark로 묻는다."
+seo_title: "EgoDex: 대규모 egocentric video로 배우는 dexterous manipulation"
+seo_description: "Apple의 EgoDex 논문 요약. 829시간 egocentric video, 338k episode, 194 task, 3D hand pose annotation을 통해 dexterous manipulation 데이터 부족 문제를 다룬다."
+references:
+  - title: "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset"
+    author: "Khazatsky et al. (2024)"
+    description: "대규모 실제 로봇 teleoperation 데이터셋의 대표 기준점. EgoDex는 DROID보다 더 많은 trajectory와 frame을 제공하지만, 수집 방식은 robot teleoperation이 아니라 egocentric human video다."
+    arxiv_url: "https://arxiv.org/abs/2403.12945"
+    category: "foundational"
+  - title: "EgoMimic: Scaling Imitation Learning via Egocentric Video"
+    author: "Kareer et al. (2025)"
+    description: "Egocentric human video와 3D hand tracking을 manipulation imitation learning에 쓰는 가장 가까운 선행 연구. EgoDex는 같은 방향을 훨씬 큰 규모와 더 조밀한 hand annotation으로 확장한다."
+    arxiv_url: "https://arxiv.org/abs/2410.24221"
+    category: "recent"
+  - title: "X-IL: Exploring the Design Space of Imitation Learning Policies"
+    author: "Jia et al. (2025)"
+    description: "EgoDex benchmark에서 사용하는 imitation learning policy 설계 공간의 기반. EgoDex는 encoder-decoder, decoder-only, behavior cloning, diffusion, flow matching 조합을 이 프레임워크 위에서 평가한다."
+    arxiv_url: "https://arxiv.org/abs/2502.12330"
+    category: "recent"
+  - title: "Open X-Embodiment: Robotic Learning Datasets and RT-X Models"
+    author: "Padalkar et al. (2024)"
+    description: "여러 로봇 embodiment의 조작 데이터를 표준화한 대규모 robot learning dataset 흐름. EgoDex는 로봇 데이터 통합 대신 passive human egocentric data가 얼마나 scale할 수 있는지를 보여준다."
+    arxiv_url: "https://arxiv.org/abs/2310.08864"
+    category: "foundational"
+---
+
+## TL;DR
+
+EgoDex는 dexterous manipulation의 데이터 부족 문제를 "로봇을 더 많이 teleoperate하자"가 아니라 "사람이 1인칭으로 조작하는 장면을 정밀하게 기록하자"로 우회한다. Apple Vision Pro로 829시간의 egocentric video와 3D hand pose를 동시에 수집해, 인간 영상이 로봇 조작 학습의 대규모 원천이 될 수 있는지를 benchmark로 만든다.
+
+## 문제
+
+로봇 조작, 특히 dexterous manipulation은 아직 language나 vision처럼 인터넷 규모의 학습 데이터를 갖지 못했다. DROID나 Open X-Embodiment처럼 실제 로봇 demonstration을 모으는 방법은 중요하지만, 로봇 hardware, operator, safety, scene setup이 모두 병목이 된다. 반대로 인터넷 video는 크지만 손가락 관절, wrist pose, camera calibration, action label이 없어서 policy learning에 바로 쓰기 어렵다. EgoDex가 겨냥하는 지점은 이 중간이다.
+
+## 핵심 아이디어
+
+EgoDex의 핵심은 Apple Vision Pro를 "passive-scale dexterous manipulation recorder"로 쓰는 것이다.
+
+- **데이터 규모**: 829시간, 338k episode, 90M frame, 194 tabletop task.
+- **센서/annotation**: 1080p 30Hz egocentric video, 3D head/arm/wrist/finger joint pose, camera extrinsics, language annotation.
+- **행동 다양성**: pick-and-place를 넘어 zipper 열기, 나사 빼기, 빨래 접기, 병뚜껑 열기, 신발끈 묶기 같은 손가락 중심 행동을 포함한다.
+- **benchmark화**: 단순 dataset release가 아니라 trajectory prediction과 inverse dynamics task를 정의해 imitation learning model을 평가한다.
+
+<Figure src="./fig-2.jpg" caption="Figure 2: EgoDex가 추적하는 hand/body joint와 다양한 dexterous manipulation 행동 예시. tracked fingertip은 색으로 표시되며 현재 프레임 이전 0.5초 움직임을 보여준다." number={2} />
+
+<Collapsible title="구체적 방법">
+
+EgoDex는 visionOS 2가 실행되는 Apple Vision Pro로 데이터를 수집한다. 참가자는 추가 glove나 marker 없이 맨손으로 tabletop object를 조작하고, Vision Pro의 passthrough camera와 ARKit tracking이 egocentric RGB video와 hand/body pose를 동시에 기록한다. 논문은 이를 통해 "수집 시점에 이미 3D pose annotation이 붙은 egocentric video"를 얻는다는 점을 강조한다. 사후에 monocular hand pose estimator를 돌리는 방식보다 camera intrinsics/extrinsics와 multi-camera signal을 더 잘 활용할 수 있기 때문이다.
+
+Action representation은 양손의 wrist position, wrist 6D orientation, 다섯 fingertip의 3D position을 묶은 48D trajectory다. Benchmark는 두 가지다. 첫째, 과거 egocentric image, skeletal pose, language description으로 미래 hand trajectory를 예측하는 dexterous trajectory prediction. 둘째, 끝 상태의 goal image까지 주고 중간 hand trajectory를 맞추는 inverse dynamics다. 평가 metric은 자연스러운 사람 동작의 multimodality를 고려해 best-of-K distance를 쓴다.
+
+모델 평가는 X-IL framework 위에서 진행된다. 저자들은 encoder-decoder와 decoder-only Transformer, behavior cloning, denoising diffusion, flow matching을 조합해 14개 모델을 학습한다. 모든 모델은 50,000 gradient step, batch size 2048, 8개 NVIDIA A100 GPU에서 학습되며, 각 task의 1%를 held-out test set으로 고정한다.
+
+<Figure src="./fig-3.png" caption="Figure 3: 2초 horizon에서 Dec + BC 모델이 예측한 wrist/fingertip trajectory. 파란색은 ground truth, 빨간색은 prediction이다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- EgoDex는 기존 대규모 manipulation dataset과 비교해 scale이 크다. Table 1 기준 DROID는 76k trajectory, 86 task, 19M frame이고, EgoDex는 338k trajectory, 194 task, 90M frame이다.
+- Encoder-decoder architecture는 decoder-only보다 일관되게 조금 더 좋다. 2초 horizon trajectory prediction에서 EncDec + FM은 best-of-10 기준 average distance 0.038m, final distance 0.041m까지 내려간다.
+- Policy representation은 setting에 따라 달라진다. K=1에서는 deterministic BC가 diffusion/flow matching보다 약 15% 좋지만, K=5 또는 K=10에서는 stochastic method, 특히 flow matching이 더 좋은 sample을 낸다.
+- Horizon이 길수록 어렵다. Dec + BC에서 2초 horizon을 1초로 줄이면 average distance가 31%, final distance가 21% 개선되고, 3초로 늘리면 각각 18%, 11% 나빠진다.
+- Visual goal-conditioning은 inverse dynamics에서 강하게 작동한다. Dec + BC에 goal image를 추가하면 average distance는 0.045m에서 0.035m로 22%, final distance는 0.062m에서 0.029m로 53% 줄어든다.
+- 데이터 크기가 커질수록 distance metric이 개선된다. 논문의 Figure 4는 EgoDex 같은 대규모 egocentric dataset이 단순 수집물이 아니라 scaling axis라는 점을 보여준다.
+
+<Figure src="./fig-4.png" caption="Figure 4: Training dataset size가 커질수록 distance metric이 개선된다. EgoDex는 dexterous manipulation에서도 data scale이 성능 축이 될 수 있음을 보여준다." number={4} />
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- Robot teleoperation 없이도 829시간 규모의 dexterous manipulation action-labeled dataset을 만들 수 있음을 보였다.
+- Egocentric video, 3D hand pose, camera extrinsics, language annotation을 함께 제공해 raw human video와 robot policy learning 사이의 정보 간극을 줄였다.
+- Dataset release에 그치지 않고 trajectory prediction, inverse dynamics, best-of-K evaluation을 포함한 benchmark를 정의했다.
+
+한계점:
+
+- Human hand trajectory가 바로 robot action은 아니다. 실제 로봇 적용에는 embodiment gap, retargeting, contact dynamics, robot-specific fine-tuning이 여전히 필요하다.
+- **저자 언급**: EgoDex의 scene diversity는 tabletop environment에 제한되어 있고, dexterous annotation은 Vision Pro/ARKit 기반 model prediction이므로 occlusion이나 매우 빠른 motion에서 불완전할 수 있다.
+- 🤖 EgoDex는 data scale의 병목을 크게 줄이지만, "사람의 손이 할 수 있는 것"과 "현재 로봇 손이 안정적으로 실행할 수 있는 것" 사이의 capability gap을 해결하지는 않는다.

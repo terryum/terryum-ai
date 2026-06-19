@@ -1,0 +1,86 @@
+---
+locale: "en"
+translation_of: "2505-egodex-egocentric-dexterous-video:ko"
+title: "EgoDex: 829 hours of egocentric dexterous manipulation"
+summary: "EgoDex is an egocentric dexterous manipulation dataset collected with Apple Vision Pro: 829 hours, 338k episodes, 90M frames, and 194 tabletop tasks. It pairs video with 3D hand pose, camera extrinsics, and language annotations, then defines trajectory-prediction and inverse-dynamics benchmarks for learning manipulation from human video."
+card_summary: "A large-scale egocentric dexterous manipulation dataset collected with Apple Vision Pro. EgoDex asks whether human first-person video, when paired with 3D hand pose and calibration, can become a scalable source of robot manipulation data."
+seo_title: "EgoDex: Learning Dexterous Manipulation from Large-Scale Egocentric Video"
+seo_description: "Summary of Apple's EgoDex paper: 829 hours of egocentric video, 338k episodes, 194 tasks, and 3D hand-pose annotations for dexterous manipulation learning."
+references:
+  - title: "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset"
+    author: "Khazatsky et al. (2024)"
+    description: "A key baseline for large-scale real-robot teleoperation data. EgoDex is larger in trajectories and frames, but its collection path is egocentric human video rather than direct robot teleoperation."
+    arxiv_url: "https://arxiv.org/abs/2403.12945"
+    category: "foundational"
+  - title: "EgoMimic: Scaling Imitation Learning via Egocentric Video"
+    author: "Kareer et al. (2025)"
+    description: "The closest predecessor for using egocentric human video and 3D hand tracking in manipulation imitation learning. EgoDex pushes the same direction to a much larger scale with denser hand annotations."
+    arxiv_url: "https://arxiv.org/abs/2410.24221"
+    category: "recent"
+  - title: "X-IL: Exploring the Design Space of Imitation Learning Policies"
+    author: "Jia et al. (2025)"
+    description: "The imitation-learning design-space framework used by EgoDex for benchmark models. EgoDex evaluates encoder-decoder, decoder-only, behavior cloning, diffusion, and flow-matching variants through this lens."
+    arxiv_url: "https://arxiv.org/abs/2502.12330"
+    category: "recent"
+  - title: "Open X-Embodiment: Robotic Learning Datasets and RT-X Models"
+    author: "Padalkar et al. (2024)"
+    description: "A major thread in standardizing large multi-embodiment robot datasets. EgoDex explores a complementary path: passive-scale human egocentric data rather than merged robot trajectories."
+    arxiv_url: "https://arxiv.org/abs/2310.08864"
+    category: "foundational"
+---
+
+## TL;DR
+
+EgoDex routes around the dexterous-manipulation data bottleneck by recording what humans already do well: first-person hand-object interaction. Using Apple Vision Pro, it collects 829 hours of egocentric video with synchronized 3D hand pose, making human manipulation video a benchmarkable source of action-labeled data.
+
+## Problem
+
+Dexterous robot manipulation does not yet have the Internet-scale data substrate that language and vision enjoy. Robot datasets such as DROID and Open X-Embodiment are important, but direct teleoperation is limited by robot hardware, human operators, safety, and physical setup. Raw Internet video is abundant, but it lacks wrist/finger trajectories, camera calibration, and action labels. EgoDex targets the middle ground: human egocentric video with dense hand and camera annotations captured at collection time.
+
+## Core Idea
+
+EgoDex uses Apple Vision Pro as a passive-scale recorder for dexterous manipulation.
+
+- **Scale**: 829 hours, 338k episodes, 90M frames, and 194 tabletop tasks.
+- **Annotations**: 1080p 30Hz egocentric video, 3D head/arm/wrist/finger pose, camera extrinsics, and language annotations.
+- **Behavioral diversity**: Beyond pick-and-place, it includes zipper opening, screw removal, laundry folding, bottle-cap unscrewing, shoelace tying, and other finger-heavy behaviors.
+- **Benchmark framing**: It is not only a dataset release; it defines trajectory-prediction and inverse-dynamics tasks for imitation-learning evaluation.
+
+<Figure src="./fig-2.jpg" caption="Figure 2: The joints captured by EgoDex and examples of dexterous manipulation behaviors. Tracked fingertips are highlighted in distinct colors and show 0.5 seconds of motion before the current frame." number={2} />
+
+<Collapsible title="Method Details">
+
+EgoDex is collected with Apple Vision Pro running visionOS 2. Participants manipulate tabletop objects with bare hands, while passthrough cameras and ARKit tracking record egocentric RGB video and body/hand pose together. The key point is that the dataset has 3D pose annotations at the time of recording, instead of relying only on post-hoc monocular hand-pose estimation. This lets the dataset use camera intrinsics, extrinsics, and multi-camera signals that raw Internet video usually lacks.
+
+The action representation is a 48D bimanual trajectory: each hand contributes wrist position, wrist 6D orientation, and the 3D position of five fingertips. EgoDex defines two benchmark tasks. The first is dexterous trajectory prediction: predict future hand trajectories from past egocentric images, skeletal poses, and language. The second is inverse dynamics: add a future goal image and predict the intermediate hand trajectory. Because human motion is multimodal, the benchmark evaluates best-of-K distance.
+
+The models are trained through the X-IL framework. The paper evaluates encoder-decoder and decoder-only Transformers, plus behavior cloning, denoising diffusion, and flow matching, for a total of 14 models. Training uses 50,000 gradient steps, batch size 2048, and 8 NVIDIA A100 GPUs. A fixed 1% subset of each task is held out for testing.
+
+<Figure src="./fig-3.png" caption="Figure 3: Wrist and fingertip trajectory predictions from the Dec + BC model at a 2-second horizon. Blue trajectories are ground truth and red trajectories are predictions." number={3} />
+
+</Collapsible>
+
+## Key Results
+
+- EgoDex is large compared with prior manipulation datasets. In Table 1, DROID has 76k trajectories, 86 tasks, and 19M frames; EgoDex has 338k trajectories, 194 tasks, and 90M frames.
+- Encoder-decoder architectures consistently beat decoder-only variants by a small margin. At a 2-second horizon, EncDec + FM reaches 0.038m average distance and 0.041m final distance under best-of-10 evaluation.
+- Policy representations differ by sampling setting. With K=1, deterministic behavior cloning beats diffusion and flow matching by about 15%; at K=5 or K=10, stochastic methods, especially flow matching, find better samples.
+- Longer horizons are harder. For Dec + BC, reducing the horizon from 2 seconds to 1 second improves average distance by 31% and final distance by 21%, while increasing it to 3 seconds worsens them by 18% and 11%.
+- Visual goal-conditioning is strong for inverse dynamics. Adding a goal image to Dec + BC reduces average distance from 0.045m to 0.035m, a 22% improvement, and final distance from 0.062m to 0.029m, a 53% improvement.
+- Performance improves with dataset size, making EgoDex not just a static dataset but a scaling axis for dexterous manipulation learning.
+
+<Figure src="./fig-4.png" caption="Figure 4: Distance metrics improve as the training dataset size increases, suggesting that data scale itself is a useful axis for dexterous manipulation." number={4} />
+
+## Achievements and Limitations
+
+What this paper newly achieves:
+
+- It shows that robot teleoperation is not the only path to hundreds of hours of action-labeled dexterous manipulation data.
+- It combines egocentric video, 3D hand pose, camera extrinsics, and language annotations, narrowing the information gap between raw human video and robot policy learning.
+- It defines benchmark tasks, metrics, and model baselines rather than releasing only a dataset.
+
+Limitations:
+
+- Human hand trajectories are not robot actions. Real deployment still requires handling the embodiment gap, retargeting, contact dynamics, and robot-specific fine-tuning.
+- **Author-noted**: EgoDex is limited to tabletop scene diversity, and its dexterous annotations are still model predictions that can be imperfect under occlusion or very fast motion.
+- 🤖 EgoDex reduces the data-scale bottleneck, but it does not solve the capability gap between what human hands can do and what current robot hands can execute reliably.
