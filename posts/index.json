@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-19T04:55:11.409Z",
-  "total_posts": 76,
+  "generated_at": "2026-06-21T23:33:51.343Z",
+  "total_posts": 77,
   "posts": [
     {
       "post_number": 1,
@@ -5610,13 +5610,18 @@
         {
           "target": "260522-ai-agent-outcome-operations",
           "type": "related"
+        },
+        {
+          "target": "260622-slump-tiny-experiment",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
         "260425-sw-becomes-cosmetics",
         "260514-ai-superpower-time-lag",
-        "260522-ai-agent-outcome-operations"
+        "260522-ai-agent-outcome-operations",
+        "260622-slump-tiny-experiment"
       ],
       "taxonomy_primary": "ai/business",
       "taxonomy_secondary": [
@@ -5728,6 +5733,68 @@
       "taxonomy_primary": "robotics/hand/dexterous",
       "taxonomy_secondary": [
         "robotics/brain"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 77,
+      "slug": "260622-slump-tiny-experiment",
+      "content_type": "essays",
+      "title_en": "Escaping a Slump (feat. Tiny Experiment)",
+      "title_ko": "슬럼프를 탈출하는 법(feat. Tiny Experiment)",
+      "summary_ko": "결과가 보장될 때까지 기다리면 슬럼프는 길어진다. 작은 실험이 먼저다.",
+      "summary_en": "Waiting for guaranteed meaning lengthens the slump. Tiny experiments move first.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "Life Strategy",
+      "subfields": [
+        "productivity",
+        "self-discovery",
+        "physical-ai"
+      ],
+      "key_concepts": [
+        "tiny-experiments",
+        "slump",
+        "agency",
+        "liminal-space",
+        "token-burning",
+        "physical-ai"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "Productivity",
+        "Self Discovery",
+        "Tiny Experiments",
+        "Physical AI"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-06-22T08:28:50+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "슬럼프는 의미 있는 결과를 기다리는 동안 실행이 멈출 때 오며, 작은 실험은 성과보다 발견을 먼저 보게 한다.",
+        "problem": "로봇과 팀원이 들어오기 전의 중간지대에서 지금 하는 일이 의미 있는지 확신할 수 없어 실행과 의욕이 함께 줄어든다.",
+        "solution": "Tiny Experiments처럼 정해진 기간의 작은 행동을 선언하고, 결과가 아니라 나와 일에 대해 무엇을 배웠는지 읽는다.",
+        "key_result": "토큰을 태우는 것도 무의미한 것도 아니며, 중요한 것은 매일의 실행과 발견을 통해 자기효능감을 회복하는 것이다.",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260618-value-from-finite-resources",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260618-value-from-finite-resources"
+      ],
+      "taxonomy_primary": "life-strategy/productivity",
+      "taxonomy_secondary": [
+        "ai/workflow",
+        "robotics/physical-ai"
       ],
       "visibility": "public",
       "allowed_groups": []
@@ -6736,6 +6803,11 @@
         "type": "related"
       },
       {
+        "from": "260618-value-from-finite-resources",
+        "to": "260622-slump-tiny-experiment",
+        "type": "related"
+      },
+      {
         "from": "2505-egodex-egocentric-dexterous-video",
         "to": "2602-humanplus-humanoid-shadowing",
         "type": "sharesTopicWith"
@@ -6759,6 +6831,11 @@
         "from": "2505-egodex-egocentric-dexterous-video",
         "to": "2605-dexterous-hand-intelligence-survey",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "260622-slump-tiny-experiment",
+        "to": "260618-value-from-finite-resources",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -7069,6 +7146,19 @@
         ],
         "core_concepts": [
           "human-to-robot-transfer"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
+        "id": "concept-physical-ai",
+        "label": "physical-ai",
+        "post_numbers": [
+          65,
+          66,
+          77
+        ],
+        "core_concepts": [
+          "physical-ai"
         ],
         "taxonomy_nodes": []
       }
@@ -8041,7 +8131,8 @@
       53
     ],
     "token-burning": [
-      53
+      53,
+      77
     ],
     "intentionality": [
       53
@@ -8258,7 +8349,8 @@
     ],
     "physical-ai": [
       65,
-      66
+      66,
+      77
     ],
     "agentic-computer": [
       66
@@ -8511,6 +8603,18 @@
     ],
     "robot-data-scaling": [
       76
+    ],
+    "tiny-experiments": [
+      77
+    ],
+    "slump": [
+      77
+    ],
+    "agency": [
+      77
+    ],
+    "liminal-space": [
+      77
     ]
   },
   "domain_stats": {
@@ -8531,7 +8635,8 @@
     "Leadership": 1,
     "AI": 2,
     "AI Policy": 1,
-    "AI Business": 1
+    "AI Business": 1,
+    "Life Strategy": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -8578,7 +8683,7 @@
     "manufacturing/physical-ai:secondary": 1,
     "robotics/hand/tactile:secondary": 1,
     "ai/policy": 1,
-    "robotics/physical-ai:secondary": 1,
+    "robotics/physical-ai:secondary": 2,
     "startup/financing:secondary": 1,
     "ai/agentic-research:secondary": 1,
     "robotics/body/humanoid:secondary": 2,
@@ -8589,6 +8694,8 @@
     "ai/business": 1,
     "software/economics:secondary": 1,
     "career/trust-capital:secondary": 1,
+    "life-strategy/productivity": 1,
+    "ai/workflow:secondary": 1,
     "robotics/arm": 5,
     "robotics": 41,
     "ai": 18

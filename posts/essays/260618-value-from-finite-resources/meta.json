@@ -44,7 +44,8 @@
   "related_posts": [
     "260425-sw-becomes-cosmetics",
     "260514-ai-superpower-time-lag",
-    "260522-ai-agent-outcome-operations"
+    "260522-ai-agent-outcome-operations",
+    "260622-slump-tiny-experiment"
   ],
   "taxonomy_primary": "ai/business",
   "taxonomy_secondary": [
@@ -62,6 +63,10 @@
     },
     {
       "target": "260522-ai-agent-outcome-operations",
+      "type": "related"
+    },
+    {
+      "target": "260622-slump-tiny-experiment",
       "type": "related"
     }
   ],
