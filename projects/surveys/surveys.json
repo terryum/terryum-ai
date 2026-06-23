@@ -173,11 +173,11 @@
         }
       ],
       "embed_url": "https://nvidia-physical-ai-robotics.pages.dev/",
-      "status": "active",
+      "status": "wip",
       "featured": true,
       "order": 0,
       "published_at": "2026-06-08",
-      "updated_at": "2026-06-18"
+      "updated_at": "2026-06-24"
     },
     {
       "slug": "survey-llm-wiki-to-ai-scientist",
