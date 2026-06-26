@@ -1,0 +1,171 @@
+{
+  "post_id": "2106-skin-acute-stress-exposome",
+  "slug": "2106-skin-acute-stress-exposome",
+  "post_number": 79,
+  "published_at": "2026-06-26T11:16:00+09:00",
+  "updated_at": "2026-06-26T11:16:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "cover_image": "./cover.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.jpg",
+  "thumb_position": "centre",
+  "reading_time_min": 7,
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.jpg",
+      "caption": "Figure 1. Acute stressors affect six adult skin functions: physical barrier, pigmentation, defences, structure, neuroendocrine signaling, and thermoregulation.",
+      "caption_ko": "Figure 1. 급성 stressor가 성인 피부의 physical barrier, pigmentation, defences, structure, neuroendocrine signaling, thermoregulation 기능에 영향을 준다는 개요도."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1. Summary of acute exposome stressors by affected skin function, biological mechanism, and clinical manifestation; the original table continues onto the next page for procedures and mask-related exposures.",
+      "caption_ko": "Table 1. 급성 exposome stressor를 affected skin function, biological mechanism, clinical manifestation으로 정리한 표. 원문 표는 procedures와 mask-related exposure 항목까지 다음 페이지로 이어진다."
+    }
+  ],
+  "cover_caption": "Figure 1. Acute stressors affect six adult skin functions: physical barrier, pigmentation, defences, structure, neuroendocrine signaling, and thermoregulation.",
+  "newsletter_eligible": false,
+  "featured": false,
+  "citation_status": "unknown",
+  "citation_updated_at": "2026-06-26T11:16:00+09:00",
+  "tags": [
+    "Papers",
+    "Review",
+    "Dermatology",
+    "Skin Biology",
+    "Exposome",
+    "Stress Biology"
+  ],
+  "display_tags": [
+    "Review",
+    "Dermatology",
+    "Skin Biology",
+    "Exposome"
+  ],
+  "source_date": "2021-06-24T00:00:00Z",
+  "source_url": "https://pubmed.ncbi.nlm.nih.gov/34077579/",
+  "source_title": "Adult skin acute stress responses to short-term environmental and internal aggression from exposome factors",
+  "source_author": "T. Passeron et al.",
+  "source_type": "JEADV",
+  "source_authors_full": [
+    {
+      "name": "T. Passeron"
+    },
+    {
+      "name": "C.C. Zouboulis"
+    },
+    {
+      "name": "J. Tan"
+    },
+    {
+      "name": "M.L. Andersen"
+    },
+    {
+      "name": "R. Katta"
+    },
+    {
+      "name": "X. Lyu"
+    },
+    {
+      "name": "L. Aguilar"
+    },
+    {
+      "name": "D. Kerob"
+    },
+    {
+      "name": "A. Morita"
+    },
+    {
+      "name": "J. Krutmann"
+    },
+    {
+      "name": "E.M.J. Peters"
+    }
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=adult-skin-acute-stress-responses",
+  "doi": "10.1111/jdv.17432",
+  "pmid": "34077579",
+  "pmcid": "PMC8519049",
+  "domain": "biology",
+  "subfields": [
+    "dermatology",
+    "skin-biology",
+    "exposome",
+    "stress-biology",
+    "environmental-health"
+  ],
+  "key_concepts": [
+    "skin-exposome",
+    "acute-stress-response",
+    "skin-barrier",
+    "trans-epidermal-water-loss",
+    "pigmentation",
+    "oxidative-stress",
+    "neuroendocrine-immune-axis",
+    "skin-microbiome",
+    "photoimmunosuppression",
+    "psychosocial-stress",
+    "sleep-deprivation",
+    "inflammaging"
+  ],
+  "methodology": [
+    "review",
+    "narrative-synthesis",
+    "mechanistic-synthesis",
+    "stressor-taxonomy",
+    "clinical-manifestation-map"
+  ],
+  "taxonomy_primary": "biology/dermatology",
+  "taxonomy_secondary": [
+    "biology/cell-biology",
+    "biology/aging"
+  ],
+  "contribution_type": "survey",
+  "relations": [
+    {
+      "target": "1306-hallmarks-aging",
+      "type": "sharesTopicWith",
+      "note": "Both reviews connect stress, damage responses, inflammation, tissue homeostasis, and aging-related biological decline, with this paper focusing specifically on acute skin exposome stress."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A JEADV review that maps short-term exposome stressors onto six adult skin functions and their biological and clinical consequences.",
+    "problem": "The chronic skin exposome and skin aging literature had been reviewed extensively, but short-term acute exposures were scattered across dermatology, immunology, neuroendocrinology, and cosmetic science.",
+    "solution": "The review organizes acute stress responses by six skin functions and then synthesizes individual environmental, internal, procedural, and pandemic-related stressors.",
+    "key_result": "The paper provides a practical stressor-to-function-to-manifestation map, with Table 1 linking solar radiation, pollution, weather, psychosocial stress, sleep deprivation, nutrition, hormonal variation, procedures, and mask use to mechanisms and clinical signs.",
+    "limitations": [
+      "The review is narrative rather than a systematic review or meta-analysis.",
+      "Evidence types vary widely across stressors, from human exposure studies to mouse models and ex vivo skin experiments.",
+      "Several acute manifestations overlap with delayed flares or chronic exposure backgrounds, making causal attribution difficult."
+    ]
+  },
+  "research_gaps": [
+    "Separate the effects of simultaneous acute stressors such as UV, pollution, humidity, sleep deprivation, and psychosocial stress.",
+    "Define when protective acute stress responses transition into chronic inflammation, skin aging, or disease flare.",
+    "Standardize acute skin-response biomarkers across TEWL, erythema, sebum, cytokines, ROS, microbiome state, neuropeptides, and cortisol.",
+    "Model individual differences from phototype, genome, chronic exposome background, skin disease history, and microbiome state."
+  ],
+  "future_directions": [
+    "Design controlled multi-stressor human studies with shared barrier, immune, pigmentary, neuroendocrine, and microbiome endpoints.",
+    "Build acute-to-chronic exposome models that connect transient homeostatic responses to inflammaging and visible skin aging.",
+    "Test prevention strategies such as photoprotection, sleep improvement, stress management, moisturizers, antioxidants, anti-pollution products, and probiotics against acute-response biomarkers.",
+    "Use longitudinal wearable and environmental exposure data to connect real-world exposome bursts to skin symptoms."
+  ],
+  "survey_hooks": [
+    "skin-exposome",
+    "acute-stress-response",
+    "dermatology-systems-biology",
+    "skin-aging-exposome"
+  ],
+  "next_reading": [
+    "Clinical and biological impact of the exposome on the skin",
+    "The skin aging exposome",
+    "Photoimmunology: how ultraviolet radiation affects the immune system",
+    "Stress-Induced Changes in Skin Barrier Function in Healthy Women"
+  ]
+}

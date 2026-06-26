@@ -63,7 +63,7 @@
     },
     "biology": {
       "label": { "ko": "생물학", "en": "Biology" },
-      "children": ["biology/aging", "biology/cell-biology"]
+      "children": ["biology/aging", "biology/cell-biology", "biology/dermatology"]
     },
     "biology/aging": {
       "label": { "ko": "노화 생물학", "en": "Aging Biology" },
@@ -71,6 +71,10 @@
     },
     "biology/cell-biology": {
       "label": { "ko": "세포 생물학", "en": "Cell Biology" },
+      "children": []
+    },
+    "biology/dermatology": {
+      "label": { "ko": "피부 생물학", "en": "Dermatology / Skin Biology" },
       "children": []
     }
   }

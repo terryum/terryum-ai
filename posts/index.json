@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-26T01:43:42.708Z",
-  "total_posts": 78,
+  "generated_at": "2026-06-26T03:45:55.012Z",
+  "total_posts": 79,
   "posts": [
     {
       "post_number": 1,
@@ -5870,6 +5870,86 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 79,
+      "slug": "2106-skin-acute-stress-exposome",
+      "content_type": "papers",
+      "title_en": "Adult Skin Acute Stress Responses: How the Skin Reacts to Short-Term Exposome Stress",
+      "title_ko": "Adult skin acute stress responses: 피부가 급성 exposome 스트레스에 반응하는 방식",
+      "summary_ko": "성인 피부가 급성 exposome 스트레스에 반응하는 방식을 여섯 가지 기능과 여러 stressor 축으로 정리한 피부 생물학 리뷰다.",
+      "summary_en": "A dermatology review that maps short-term exposome stress onto six adult skin functions and the clinical signs that follow.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "biology",
+      "subfields": [
+        "dermatology",
+        "skin-biology",
+        "exposome",
+        "stress-biology",
+        "environmental-health"
+      ],
+      "key_concepts": [
+        "skin-exposome",
+        "acute-stress-response",
+        "skin-barrier",
+        "trans-epidermal-water-loss",
+        "pigmentation",
+        "oxidative-stress",
+        "neuroendocrine-immune-axis",
+        "skin-microbiome",
+        "photoimmunosuppression",
+        "psychosocial-stress",
+        "sleep-deprivation",
+        "inflammaging"
+      ],
+      "methodology": [
+        "review",
+        "narrative-synthesis",
+        "mechanistic-synthesis",
+        "stressor-taxonomy",
+        "clinical-manifestation-map"
+      ],
+      "contribution_type": "survey",
+      "tags": [
+        "Papers",
+        "Review",
+        "Dermatology",
+        "Skin Biology",
+        "Exposome",
+        "Stress Biology"
+      ],
+      "source_author": "T. Passeron et al.",
+      "source_date": "2021-06-24T00:00:00Z",
+      "published_at": "2026-06-26T11:16:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A JEADV review that maps short-term exposome stressors onto six adult skin functions and their biological and clinical consequences.",
+        "problem": "The chronic skin exposome and skin aging literature had been reviewed extensively, but short-term acute exposures were scattered across dermatology, immunology, neuroendocrinology, and cosmetic science.",
+        "solution": "The review organizes acute stress responses by six skin functions and then synthesizes individual environmental, internal, procedural, and pandemic-related stressors.",
+        "key_result": "The paper provides a practical stressor-to-function-to-manifestation map, with Table 1 linking solar radiation, pollution, weather, psychosocial stress, sleep deprivation, nutrition, hormonal variation, procedures, and mask use to mechanisms and clinical signs.",
+        "limitations": [
+          "The review is narrative rather than a systematic review or meta-analysis.",
+          "Evidence types vary widely across stressors, from human exposure studies to mouse models and ex vivo skin experiments.",
+          "Several acute manifestations overlap with delayed flares or chronic exposure backgrounds, making causal attribution difficult."
+        ]
+      },
+      "relations": [
+        {
+          "target": "1306-hallmarks-aging",
+          "type": "sharesTopicWith",
+          "note": "Both reviews connect stress, damage responses, inflammation, tissue homeostasis, and aging-related biological decline, with this paper focusing specifically on acute skin exposome stress."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "biology/dermatology",
+      "taxonomy_secondary": [
+        "biology/cell-biology",
+        "biology/aging"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6908,6 +6988,11 @@
         "from": "260622-slump-tiny-experiment",
         "to": "260618-value-from-finite-resources",
         "type": "related"
+      },
+      {
+        "from": "2106-skin-acute-stress-exposome",
+        "to": "1306-hallmarks-aging",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7258,7 +7343,8 @@
     ],
     "outlier_papers": [
       73,
-      78
+      78,
+      79
     ]
   },
   "concept_index": {
@@ -8720,13 +8806,47 @@
       78
     ],
     "inflammaging": [
-      78
+      78,
+      79
     ],
     "mTOR": [
       78
     ],
     "sirtuins": [
       78
+    ],
+    "skin-exposome": [
+      79
+    ],
+    "acute-stress-response": [
+      79
+    ],
+    "skin-barrier": [
+      79
+    ],
+    "trans-epidermal-water-loss": [
+      79
+    ],
+    "pigmentation": [
+      79
+    ],
+    "oxidative-stress": [
+      79
+    ],
+    "neuroendocrine-immune-axis": [
+      79
+    ],
+    "skin-microbiome": [
+      79
+    ],
+    "photoimmunosuppression": [
+      79
+    ],
+    "psychosocial-stress": [
+      79
+    ],
+    "sleep-deprivation": [
+      79
     ]
   },
   "domain_stats": {
@@ -8749,7 +8869,7 @@
     "AI Policy": 1,
     "AI Business": 1,
     "Life Strategy": 1,
-    "biology": 1
+    "biology": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -8810,10 +8930,12 @@
     "life-strategy/productivity": 1,
     "ai/workflow:secondary": 1,
     "biology/aging": 1,
-    "biology/cell-biology:secondary": 1,
+    "biology/cell-biology:secondary": 2,
+    "biology/dermatology": 1,
+    "biology/aging:secondary": 1,
     "robotics/arm": 5,
     "robotics": 41,
     "ai": 18,
-    "biology": 1
+    "biology": 2
   }
 }
