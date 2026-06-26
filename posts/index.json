@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-21T23:33:51.343Z",
-  "total_posts": 77,
+  "generated_at": "2026-06-26T01:43:42.708Z",
+  "total_posts": 78,
   "posts": [
     {
       "post_number": 1,
@@ -5798,6 +5798,78 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 78,
+      "slug": "1306-hallmarks-aging",
+      "content_type": "papers",
+      "title_en": "The Hallmarks of Aging: A Classic Map of Molecular Aging",
+      "title_ko": "The Hallmarks of Aging: 노화를 하나의 분자 지도로 정리한 고전",
+      "summary_ko": "노화를 하나의 원인으로 설명하지 않고, 아홉 가지 hallmark와 세 개의 기능적 layer로 정리해 healthspan 개입의 지도를 만든 Cell 고전 리뷰다.",
+      "summary_en": "A classic Cell review that turns aging into a map of nine hallmarks and three functional layers, making healthspan intervention a mechanistic research program.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": null,
+      "domain": "biology",
+      "subfields": [
+        "aging-biology",
+        "cell-biology",
+        "geroscience",
+        "molecular-medicine"
+      ],
+      "key_concepts": [
+        "genomic-instability",
+        "telomere-attrition",
+        "epigenetic-alterations",
+        "loss-of-proteostasis",
+        "deregulated-nutrient-sensing",
+        "mitochondrial-dysfunction",
+        "cellular-senescence",
+        "stem-cell-exhaustion",
+        "altered-intercellular-communication",
+        "healthspan",
+        "inflammaging",
+        "mTOR",
+        "sirtuins"
+      ],
+      "methodology": [
+        "review",
+        "taxonomy",
+        "mechanistic-synthesis",
+        "intervention-map"
+      ],
+      "contribution_type": "survey",
+      "tags": [
+        "Papers",
+        "Review",
+        "Aging",
+        "Cell Biology",
+        "Geroscience",
+        "Healthspan"
+      ],
+      "source_author": "Carlos López-Otín et al.",
+      "source_date": "2013-06-06T00:00:00Z",
+      "published_at": "2026-06-26T10:19:18+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A canonical Cell review that organizes mammalian aging into nine mechanistic hallmarks and three functional layers to guide healthspan interventions.",
+        "problem": "Aging research had many candidate mechanisms, but lacked a compact framework for distinguishing recurring causal damage, compensatory responses, and organism-level decline.",
+        "solution": "The review proposes nine hallmarks of aging, evaluates them with three criteria, and groups them into primary, antagonistic, and integrative categories.",
+        "key_result": "The paper defines aging around nine hallmarks and maps proof-of-principle interventions in mice, shifting the field toward healthspan-oriented mechanistic targets rather than single-cause theories.",
+        "limitations": [
+          "The framework is explicitly tentative and not every hallmark had full intervention evidence in 2013.",
+          "Most therapeutic proof-of-principle came from model organisms or mice, not human healthspan trials.",
+          "Because hallmarks are interconnected, the review does not establish a complete causal network or relative contribution of each mechanism."
+        ]
+      },
+      "relations": [],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "biology/aging",
+      "taxonomy_secondary": [
+        "biology/cell-biology"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7185,7 +7257,8 @@
       76
     ],
     "outlier_papers": [
-      73
+      73,
+      78
     ]
   },
   "concept_index": {
@@ -8615,6 +8688,45 @@
     ],
     "liminal-space": [
       77
+    ],
+    "genomic-instability": [
+      78
+    ],
+    "telomere-attrition": [
+      78
+    ],
+    "epigenetic-alterations": [
+      78
+    ],
+    "loss-of-proteostasis": [
+      78
+    ],
+    "deregulated-nutrient-sensing": [
+      78
+    ],
+    "mitochondrial-dysfunction": [
+      78
+    ],
+    "cellular-senescence": [
+      78
+    ],
+    "stem-cell-exhaustion": [
+      78
+    ],
+    "altered-intercellular-communication": [
+      78
+    ],
+    "healthspan": [
+      78
+    ],
+    "inflammaging": [
+      78
+    ],
+    "mTOR": [
+      78
+    ],
+    "sirtuins": [
+      78
     ]
   },
   "domain_stats": {
@@ -8636,7 +8748,8 @@
     "AI": 2,
     "AI Policy": 1,
     "AI Business": 1,
-    "Life Strategy": 1
+    "Life Strategy": 1,
+    "biology": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -8696,8 +8809,11 @@
     "career/trust-capital:secondary": 1,
     "life-strategy/productivity": 1,
     "ai/workflow:secondary": 1,
+    "biology/aging": 1,
+    "biology/cell-biology:secondary": 1,
     "robotics/arm": 5,
     "robotics": 41,
-    "ai": 18
+    "ai": 18,
+    "biology": 1
   }
 }

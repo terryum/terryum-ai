@@ -1,0 +1,168 @@
+{
+  "post_id": "1306-hallmarks-aging",
+  "slug": "1306-hallmarks-aging",
+  "post_number": 78,
+  "published_at": "2026-06-26T10:19:18+09:00",
+  "updated_at": "2026-06-26T10:19:18+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "cover_image": "./cover.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1. The Hallmarks of Aging. The scheme enumerates the nine hallmarks described in this Review: genomic instability, telomere attrition, epigenetic alterations, loss of proteostasis, deregulated nutrient sensing, mitochondrial dysfunction, cellular senescence, stem cell exhaustion, and altered intercellular communication.",
+      "caption_ko": "Figure 1. 노화의 아홉 가지 hallmark. Genomic instability, telomere attrition, epigenetic alterations, loss of proteostasis, deregulated nutrient sensing, mitochondrial dysfunction, cellular senescence, stem cell exhaustion, altered intercellular communication을 하나의 지도에 배치한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2. Genomic and Epigenomic Alterations. (A) Genomic instability and telomere attrition. Endogenous or exogenous agents can stimulate a variety of DNA lesions that are schematically represented on one single chromosome. Such lesions can be repaired by a variety of mechanisms. Excessive DNA damage or insufficient DNA repair favors the aging process. Note that both nuclear DNA and mitochondrial DNA (not represented here) are subjected to age-associated genomic alterations. BER, base excision repair; HR, homologous recombination; NER, nucleotide excision repair; NHEJ, nonhomologous end-joining; MMR, mismatch repair; ROS, reactive oxygen species; TLS, translesion synthesis; SAC, spindle assembly checkpoint (Vijg, 2007). (B) Epigenetic alterations. Alterations in the methylation of DNA or acetylation and methylation of histones, as well as of other chromatin-associated proteins, can induce epigenetic changes that contribute to the aging process.",
+      "caption_ko": "Figure 2. 유전체와 후성유전체 변화. DNA 손상, DNA repair, telomere attrition, DNA/histone modification 변화가 노화 과정에 어떻게 연결되는지 요약한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3. Loss of Proteostasis. Endogenous and exogenous stress causes the unfolding of proteins (or impairs proper folding during protein synthesis). Unfolded proteins are usually refolded by heat-shock proteins (HSP) or are targeted to destruction by the ubiquitin-proteasome or lysosomal (autophagic) pathways. The autophagic pathways include recognition of unfolded proteins by the chaperone Hsc70 and their subsequent import into lysosomes (chaperone-mediated autophagy) or sequestration of damaged proteins and organelles in autophagosomes that later fuse with lysosomes (macroautophagy). Failure to refold or degrade unfolded proteins can lead to their accumulation and aggregation, resulting in proteotoxic effects.",
+      "caption_ko": "Figure 3. Proteostasis 붕괴. 접힘이 깨진 단백질을 heat-shock protein, ubiquitin-proteasome, lysosomal/autophagy 경로가 처리하지 못하면 단백질 응집과 proteotoxicity가 누적된다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4. Metabolic Alterations. (A) Deregulated nutrient sensing. Overview of the somatroph axis involving growth hormone (GH) and the insulin/insulin growth factor 1 (IGF-1) signaling pathway and its relationship to dietary restriction and aging. Molecules that favor aging are shown in orange, and molecules with anti-aging properties are shown in light green. (B) Mitochondrial dysfunction. Mitochondrial function becomes perturbed by aging-associated mtDNA mutations, reduced mitochondriogenesis, destabilization of the electron transport chain (ETC) complexes, altered mitochondrial dynamics, or defective quality control by mitophagy. Stress signals and defective mitochondrial function generate ROS that, below a certain threshold, induce survival signals to restore cellular homeostasis but, at higher or continued levels, can contribute to aging. Similarly, mild mitochondrial damage can induce a hormetic response (mitohormesis) that triggers adaptive compensatory processes.",
+      "caption_ko": "Figure 4. 대사 변화. IIS/GH/IGF-1, mTOR, AMPK, sirtuin 같은 nutrient-sensing 축과 mitochondria dysfunction, ROS, mitohormesis가 노화 조절에 어떻게 관여하는지 설명한다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5. Cellular Senescence, Stem Cell Exhaustion, and Altered Intercellular Communication. (A) Cellular senescence. In young organisms, cellular senescence prevents the proliferation of damaged cells, thus protecting from cancer and contributing to tissue homeostasis. In old organisms, the pervasive damage and the deficient clearance of senescent cells result in their accumulation, and this has a number of deleterious effects on tissue homeostasis that contribute to aging. (B) Stem cell exhaustion. Consequences of the exhaustion of hematopoietic stem cells (HSCs), mesenchymal stem cells (MSCs), satellite cells, and intestinal epithelial stem cells (IESCs) are exemplified. (C) Altered intercellular communication. Examples of altered intercellular communication associated with aging.",
+      "caption_ko": "Figure 5. Cellular senescence, stem cell exhaustion, altered intercellular communication. 젊은 개체에서는 손상 세포의 증식을 막는 보상 반응이지만, 노화된 조직에서는 senescent cell 축적, stem cell 기능 저하, 세포 간 communication 변화가 조직 homeostasis를 무너뜨린다."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6. Functional Interconnections between the Hallmarks of Aging. The proposed nine hallmarks of aging are grouped into three categories. (Top) Those hallmarks considered to be the primary causes of cellular damage. (Middle) Those considered to be part of compensatory or antagonistic responses to the damage. These responses initially mitigate the damage, but eventually, if chronic or exacerbated, they become deleterious themselves. (Bottom) Integrative hallmarks that are the end result of the previous two groups of hallmarks and are ultimately responsible for the functional decline associated with aging.",
+      "caption_ko": "Figure 6. 노화 hallmark의 기능적 연결. Primary hallmarks는 손상의 원인, antagonistic hallmarks는 손상에 대한 보상 반응, integrative hallmarks는 조직 기능 저하로 이어지는 최종 공통 경로로 배치된다."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Figure 7. Interventions that Might Extend Human Healthspan. The nine hallmarks of aging are shown together with those therapeutic strategies for which there is proof of principle in mice.",
+      "caption_ko": "Figure 7. 인간 healthspan 연장을 겨냥할 수 있는 개입 지도. 아홉 가지 hallmark와 마우스에서 proof of principle이 있는 치료 전략을 함께 보여준다."
+    }
+  ],
+  "tables": [],
+  "cover_caption": "Figure 1. The Hallmarks of Aging. The scheme enumerates the nine hallmarks described in this Review: genomic instability, telomere attrition, epigenetic alterations, loss of proteostasis, deregulated nutrient sensing, mitochondrial dysfunction, cellular senescence, stem cell exhaustion, and altered intercellular communication.",
+  "newsletter_eligible": false,
+  "featured": false,
+  "citation_status": "unknown",
+  "citation_updated_at": "2026-06-26T10:19:18+09:00",
+  "tags": [
+    "Papers",
+    "Review",
+    "Aging",
+    "Cell Biology",
+    "Geroscience",
+    "Healthspan"
+  ],
+  "display_tags": [
+    "Review",
+    "Aging",
+    "Cell Biology",
+    "Healthspan"
+  ],
+  "source_date": "2013-06-06T00:00:00Z",
+  "source_url": "https://www.cell.com/cell/fulltext/S0092-8674(13)00645-4",
+  "source_title": "The Hallmarks of Aging",
+  "source_author": "Carlos López-Otín et al.",
+  "source_type": "Cell",
+  "source_authors_full": [
+    {
+      "name": "Carlos López-Otín"
+    },
+    {
+      "name": "Maria A. Blasco"
+    },
+    {
+      "name": "Linda Partridge"
+    },
+    {
+      "name": "Manuel Serrano"
+    },
+    {
+      "name": "Guido Kroemer"
+    }
+  ],
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=the-hallmarks-of-aging",
+  "doi": "10.1016/j.cell.2013.05.039",
+  "domain": "biology",
+  "subfields": [
+    "aging-biology",
+    "cell-biology",
+    "geroscience",
+    "molecular-medicine"
+  ],
+  "key_concepts": [
+    "genomic-instability",
+    "telomere-attrition",
+    "epigenetic-alterations",
+    "loss-of-proteostasis",
+    "deregulated-nutrient-sensing",
+    "mitochondrial-dysfunction",
+    "cellular-senescence",
+    "stem-cell-exhaustion",
+    "altered-intercellular-communication",
+    "healthspan",
+    "inflammaging",
+    "mTOR",
+    "sirtuins"
+  ],
+  "methodology": [
+    "review",
+    "taxonomy",
+    "mechanistic-synthesis",
+    "intervention-map"
+  ],
+  "taxonomy_primary": "biology/aging",
+  "taxonomy_secondary": [
+    "biology/cell-biology"
+  ],
+  "contribution_type": "survey",
+  "relations": [],
+  "ai_summary": {
+    "one_liner": "A canonical Cell review that organizes mammalian aging into nine mechanistic hallmarks and three functional layers to guide healthspan interventions.",
+    "problem": "Aging research had many candidate mechanisms, but lacked a compact framework for distinguishing recurring causal damage, compensatory responses, and organism-level decline.",
+    "solution": "The review proposes nine hallmarks of aging, evaluates them with three criteria, and groups them into primary, antagonistic, and integrative categories.",
+    "key_result": "The paper defines aging around nine hallmarks and maps proof-of-principle interventions in mice, shifting the field toward healthspan-oriented mechanistic targets rather than single-cause theories.",
+    "limitations": [
+      "The framework is explicitly tentative and not every hallmark had full intervention evidence in 2013.",
+      "Most therapeutic proof-of-principle came from model organisms or mice, not human healthspan trials.",
+      "Because hallmarks are interconnected, the review does not establish a complete causal network or relative contribution of each mechanism."
+    ]
+  },
+  "research_gaps": [
+    "Disentangle the causal network among the nine hallmarks instead of treating them as independent mechanisms.",
+    "Translate mouse proof-of-principle interventions into human healthspan endpoints with acceptable side effects.",
+    "Separate beneficial acute stress responses from chronic pro-aging versions of the same pathways, especially senescence, ROS, and nutrient sensing."
+  ],
+  "future_directions": [
+    "Use single-cell genomic and epigenomic profiling to map damage accumulation across aging tissues.",
+    "Combine gain- and loss-of-function animal models with systems biology to infer causal hierarchy.",
+    "Design multi-target interventions that improve healthspan without amplifying cancer, immune, or metabolic risk."
+  ],
+  "survey_hooks": [
+    "aging-hallmark-taxonomy",
+    "geroscience-interventions",
+    "healthspan-targets"
+  ],
+  "next_reading": [
+    "Hallmarks of Cancer: The Next Generation",
+    "The Genetics of Ageing",
+    "Interventions that target senescent cells and nutrient-sensing pathways"
+  ]
+}

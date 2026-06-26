@@ -60,6 +60,18 @@
     "ai/agent": {
       "label": { "ko": "AI 에이전트", "en": "AI Agent" },
       "children": []
+    },
+    "biology": {
+      "label": { "ko": "생물학", "en": "Biology" },
+      "children": ["biology/aging", "biology/cell-biology"]
+    },
+    "biology/aging": {
+      "label": { "ko": "노화 생물학", "en": "Aging Biology" },
+      "children": []
+    },
+    "biology/cell-biology": {
+      "label": { "ko": "세포 생물학", "en": "Cell Biology" },
+      "children": []
     }
   }
 }
