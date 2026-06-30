@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-26T03:45:55.012Z",
-  "total_posts": 79,
+  "generated_at": "2026-06-30T04:55:37.415Z",
+  "total_posts": 80,
   "posts": [
     {
       "post_number": 1,
@@ -5950,6 +5950,93 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 80,
+      "slug": "2305-dexpbt",
+      "content_type": "papers",
+      "title_en": "DexPBT: Scaling Hand-Arm Dexterity with Population Based Training",
+      "title_ko": "DexPBT: Population Based Training으로 손-팔 덱스터리티 스케일링",
+      "summary_ko": "고자유도 덱스터러스 조작에서 PPO만으로는 탐색과 reward tuning이 병목이 된다. DexPBT는 분산 PBT로 하이퍼파라미터와 reward 계수를 동시에 진화시켜, 단일 팔/양팔 손-팔 regrasping, throwing, reorientation을 스케일한다.",
+      "summary_en": "Dexterous hand-arm RL often fails because exploration, reward shaping, and PPO hyperparameters are brittle. DexPBT evolves reward coefficients and RL hyperparameters through decentralized PBT, scaling single-arm and dual-arm regrasping, throwing, and object reorientation.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "dexterous-manipulation",
+        "reinforcement-learning",
+        "simulated-robotics",
+        "population-based-training"
+      ],
+      "key_concepts": [
+        "decentralized-PBT",
+        "Isaac-Gym",
+        "PPO",
+        "LSTM-policy",
+        "Allegro-Hand",
+        "Kuka-arm",
+        "dual-arm-manipulation",
+        "object-reposing",
+        "sim-to-real-gap"
+      ],
+      "methodology": [
+        "deep-reinforcement-learning",
+        "population-based-training",
+        "GPU-parallel-simulation",
+        "reward-shaping",
+        "asymmetric-actor-critic",
+        "simulation-study"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Dexterous Manipulation",
+        "Reinforcement Learning",
+        "Population Based Training"
+      ],
+      "source_author": "Aleksei Petrenko et al.",
+      "source_date": "2023-05-20T00:00:00Z",
+      "published_at": "2026-06-30T10:21:00+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "Decentralized PBT on Isaac Gym scales PPO to Allegro hand-arm regrasping, throwing, and reorientation, enabling simulated 46-DoF dual-arm policies.",
+        "problem": "Dexterous manipulation with multi-fingered hands is hard because contact-rich high-DoF control creates unstable RL training, sparse exploration, and heavy reward/hyperparameter tuning burden.",
+        "solution": "Train Allegro Hand + Kuka arm policies in Isaac Gym with PPO/LSTM, staged rewards, adaptive success tolerance, and a decentralized Population-Based Training outer loop that mutates both RL hyperparameters and reward coefficients through a shared-checkpoint directory.",
+        "key_result": "The system runs 8192 environments per V100 GPU, reaches about 5e4 samples/s for single-arm and 3.5e4 samples/s for dual-arm tasks, trains 5e9 transitions in roughly 30/40 hours, improves over no-PBT PPO in all scenarios, reaches nearly 40/50 successes in dual-arm reorientation, and with |P|=32 reaches Nsucc > 42 on single-arm reorientation.",
+        "limitations": [
+          "Simulation-only evaluation; no direct real-hardware deployment is shown.",
+          "Learned policies use aggressive motions near hardware limits, raising safety and equipment-damage concerns for real robots.",
+          "Scenario coverage is narrow: regrasping, throwing, and reorientation are important but not the full dexterity domain.",
+          "Scaling relies on many V100-class GPU workers and a shared-checkpoint infrastructure, which affects reproducibility for smaller labs."
+        ]
+      },
+      "relations": [
+        {
+          "type": "sharesGoalWith",
+          "target": "2509-tactile-sensing-distribution",
+          "note": "Both use Isaac Gym + PPO/LSTM-style policies to study dexterous in-hand reorientation, though DexPBT focuses on PBT scaling and the later work focuses on tactile placement."
+        },
+        {
+          "type": "sharesTopicWith",
+          "target": "2407-tactile-skin-inhand-translation",
+          "note": "Both address learned dexterous in-hand manipulation under sim-to-real concerns, with different sensing assumptions."
+        },
+        {
+          "type": "sharesTopicWith",
+          "target": "2605-dexterous-hand-intelligence-survey",
+          "note": "DexPBT is a concrete RL/PBT point in the dexterous hand intelligence landscape covered by the survey."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/hand/dexterous",
+        "robotics/arm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6993,6 +7080,21 @@
         "from": "2106-skin-acute-stress-exposome",
         "to": "1306-hallmarks-aging",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2305-dexpbt",
+        "to": "2509-tactile-sensing-distribution",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2305-dexpbt",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2305-dexpbt",
+        "to": "2605-dexterous-hand-intelligence-survey",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7171,7 +7273,8 @@
           57,
           70,
           71,
-          72
+          72,
+          80
         ],
         "core_concepts": [
           "zero-shot-sim-to-real",
@@ -7339,7 +7442,8 @@
       67,
       73,
       74,
-      76
+      76,
+      80
     ],
     "outlier_papers": [
       73,
@@ -8063,13 +8167,16 @@
       41
     ],
     "PPO": [
-      41
+      41,
+      80
     ],
     "LSTM-policy": [
-      41
+      41,
+      80
     ],
     "Isaac-Gym": [
-      41
+      41,
+      80
     ],
     "in-hand-reorientation": [
       41
@@ -8847,10 +8954,28 @@
     ],
     "sleep-deprivation": [
       79
+    ],
+    "decentralized-PBT": [
+      80
+    ],
+    "Allegro-Hand": [
+      80
+    ],
+    "Kuka-arm": [
+      80
+    ],
+    "dual-arm-manipulation": [
+      80
+    ],
+    "object-reposing": [
+      80
+    ],
+    "sim-to-real-gap": [
+      80
     ]
   },
   "domain_stats": {
-    "robotics": 42,
+    "robotics": 43,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -8873,16 +8998,16 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 13,
+    "robotics/arm:secondary": 14,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 2,
     "robotics/hand/dexterous": 4,
     "ai/agent": 8,
-    "robotics/hand/dexterous:secondary": 10,
+    "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 20,
+    "robotics/brain": 21,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 2,
@@ -8899,7 +9024,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 4,
+    "robotics/brain/rl-policy": 5,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -8934,7 +9059,7 @@
     "biology/dermatology": 1,
     "biology/aging:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 41,
+    "robotics": 42,
     "ai": 18,
     "biology": 2
   }

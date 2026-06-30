@@ -1,0 +1,124 @@
+---
+locale: "en"
+title: "DexPBT: Scaling Hand-Arm Dexterity with Population Based Training"
+subtitle: "Distributed PBT pushes Isaac Gym + PPO to 46-DoF bimanual manipulation"
+summary: "DexPBT puts a decentralized Population-Based Training loop around PPO/LSTM policies for Allegro Hand + Kuka arm manipulation in Isaac Gym. It runs 8192 simulated environments per V100 GPU, reaches about 5e4 samples/s for single-arm tasks and 3.5e4 samples/s for dual-arm tasks, and makes PBT the enabling factor for several high-DoF regrasping, throwing, and reorientation tasks."
+card_summary: "Dexterous hand-arm RL often fails because exploration, reward shaping, and PPO hyperparameters are brittle. DexPBT evolves reward coefficients and RL hyperparameters through decentralized PBT, scaling single-arm and dual-arm regrasping, throwing, and object reorientation."
+cover_caption: "Fig. 1: Tasks trained with DexPBT. Left-to-right: regrasping, throwing, single-handed reorientation, two-handed reorientation."
+published_at: "2026-06-30T10:21:00+09:00"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2305.12127"
+source_date: "2023-05-20T00:00:00Z"
+display_tags:
+  - "Robotics"
+  - "Dexterous Manipulation"
+  - "Reinforcement Learning"
+  - "PBT"
+terrys_memo: ""
+references:
+  - title: "DeXtreme: Transfer of Agile In-hand Manipulation from Simulation to Reality"
+    author: "Ankur Handa et al."
+    description: "The closest direct predecessor. It shares the Allegro Hand, Isaac Gym, and large-scale sim-to-real in-hand reorientation lineage; DexPBT adds the PBT outer loop and hand-arm / dual-arm tasks."
+    arxiv_url: "https://arxiv.org/abs/2210.13702"
+    scholar_url: "https://scholar.google.com/scholar?q=DeXtreme+Transfer+of+Agile+In-Hand+Manipulation"
+    category: "foundational"
+  - title: "Population Based Training of Neural Networks"
+    author: "Max Jaderberg et al."
+    description: "The original PBT paper. DexPBT adapts this idea into a decentralized robotic RL outer loop that mutates both reward coefficients and PPO hyperparameters."
+    arxiv_url: "https://arxiv.org/abs/1711.09846"
+    scholar_url: "https://scholar.google.com/scholar?q=Population+Based+Training+of+Neural+Networks"
+    category: "foundational"
+  - title: "Learning Dexterous In-Hand Manipulation"
+    author: "OpenAI et al."
+    description: "A Dactyl-lineage baseline for large-scale simulation-trained dexterous manipulation. It frames the sim-to-real and domain-randomization context that DexPBT extends."
+    arxiv_url: "https://arxiv.org/abs/1808.00177"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+Dexterous+In-Hand+Manipulation"
+    category: "foundational"
+  - title: "Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning"
+    author: "Viktor Makoviychuk et al."
+    description: "The GPU physics infrastructure behind DexPBT's large-scale parallel training, including thousands of environments per GPU and high sample throughput."
+    arxiv_url: "https://arxiv.org/abs/2108.10470"
+    scholar_url: "https://scholar.google.com/scholar?q=Isaac+Gym+High+Performance+GPU-Based+Physics+Simulation+For+Robot+Learning"
+    category: "foundational"
+translated_to:
+  - "ko"
+---
+
+## TL;DR
+
+DexPBT addresses exploration failure and reward-tuning brittleness in high-DoF dexterous hand-arm RL with a **decentralized Population-Based Training loop**. In Isaac Gym, it trains Allegro Hand + Kuka arm policies and extends to a 46-DoF dual-arm setup; PBT outperforms plain PPO across all scenarios and reaches nearly **40/50 consecutive successes** on dual-arm reorientation.
+
+## Problem
+
+Dexterous manipulation is hard because the controller must deal with many contacts and many degrees of freedom at once. GPU simulation makes billions of training steps feasible, but tasks such as regrasping, throwing, and object reorientation still depend heavily on reward coefficients, PPO settings, and lucky exploration. Dual-arm manipulation makes this worse: one policy must coordinate two hand-arm systems with 46 combined DoF. This paper asks whether a population of parallel learners can continuously copy, mutate, and reallocate compute toward promising behaviors so that high-DoF hand manipulation scales more reliably.
+
+## Core Idea
+
+The core idea is to **keep PPO as the inner policy-learning algorithm and put PBT around it as the outer exploration/tuning loop**. Each agent trains a PPO/LSTM policy in Isaac Gym with 8192 parallel environments. Periodically, the population is ranked by task success: weak agents are replaced by checkpoints from strong agents, mid-ranked agents mutate their hyperparameters, and top agents continue training.
+
+<Figure src="./fig-1.png" caption="Example regrasping task trained by DexPBT. The original Figure 1 shows four tasks: regrasping, throwing, single-handed reorientation, and two-handed reorientation." />
+
+PBT does not only tune a learning rate. It mutates the discount factor, adaptive learning-rate KL threshold, PPO clip value, critic loss coefficient, and reward coefficients such as $\alpha_{reach}, \alpha_{pick}, \alpha_{targ}, r_{picked}, r_{success}$. The inner RL loop follows dense staged rewards, while the outer PBT loop selects for the final sparse objective: consecutive successes under a tightening tolerance.
+
+<Collapsible title="Detailed Method">
+
+### Robot and Tasks
+
+The base embodiment is a **16-DoF Allegro Hand mounted on a 7-DoF Kuka arm**. Single-arm tasks include regrasping, grasp-and-throw, and single-handed reorientation. The larger setup doubles the hand-arm system and trains a **46-DoF dual-arm** policy.
+
+Success is measured by the number of consecutive successful manipulations $N_{succ}$. When the object reaches the target state, the target is reset and the same episode continues up to $N_{max}=50$. In reorientation tasks, object and target pose are represented with keypoints, and success tolerance is annealed during training.
+
+<Figure src="./fig-4.png" caption="Object and target pose are represented with keypoints. Yellow keypoints represent the observed object, green keypoints represent the target pose, and blue markers show observed fingertip locations." />
+
+### Policy and Reward
+
+The policy is an LSTM followed by a 3-layer MLP, trained with PPO. The actor can use observation subsets that would plausibly be available on a robot, while the critic can use richer simulator state in an asymmetric actor-critic setup. Actions are interpreted as target joint angles, which a PD controller converts to joint torques.
+
+The reward is staged instead of all-at-once:
+
+- $r_{reach}$: move the hand toward the object
+- $r_{pick}$: lift the object
+- $r_{targ}$: move the object to the target pose or location
+- $r_{vel}$: penalize joint velocity
+
+The stages are designed not to interfere with each other. For example, the target reward does not encourage sliding the object toward a target before picking it up, and proximity alone is not rewarded unless the agent improves the best distance achieved so far.
+
+### Decentralized PBT
+
+The population uses 8, 16, or 32 agents. Each agent is an independent 1-GPU worker, and there is no central orchestrator. Agents communicate only through a shared checkpoint directory. Every $N_{iter}=20,000,000$ environment steps, agents are ranked and split into top 30%, middle 40%, and bottom 30%.
+
+- Top 30%: keep training
+- Middle 40%: mutate their own hyperparameters
+- Bottom 30%: replace themselves with a top agent checkpoint and mutated hyperparameters
+
+PBT starts after $N_{start}=200,000,000$ steps to preserve population diversity, and mutated agents receive $N_{adapt}=50,000,000$ steps before further PBT updates. The shared-directory design makes the same code usable on Slurm, NGC, AWS/S3, or a local multi-GPU server.
+
+</Collapsible>
+
+## Main Results
+
+- **Throughput**: one V100 GPU runs 8192 parallel environments. Single-arm tasks reach about **5e4 samples/s**, and dual-arm tasks reach about **3.5e4 samples/s**.
+- **Training time**: at 5e9 environment transitions, successful policies take about **30 hours** for single-arm tasks and **40 hours** for dual-arm tasks.
+- **PBT effect**: with matched compute, 8-agent PBT outperforms 8 independent PPO seeds in every scenario. In three scenarios, PBT is the enabling factor that reaches non-trivial performance.
+- **Dual-arm reorientation**: the policy must repeatedly pass the object between hands; the PBT agent reaches nearly **40/50 consecutive successes**.
+- **Population scaling**: on single-arm reorientation, increasing the population to $|P|=16$ and $|P|=32$ and training each agent for 1e10 steps improves convergence speed and final performance. The best $|P|=32$ agent reaches $N_{succ} > 42$.
+
+<Figure src="./fig-5.png" caption="Training curves with and without PBT for single-arm + hand tasks. In reorientation, non-PBT PPO does not reach the target tolerance, while PBT breaks through the exploration barrier." />
+
+<Figure src="./fig-6.png" caption="Extended PBT scaling experiment for single-arm reorientation. Larger populations converge faster and higher, while PBT also discovers schedules for KL threshold, discount factor, and PPO epochs." />
+
+## Achievements and Limitations
+
+**What this paper achieves**
+
+- **Turns PBT into a practical outer loop for dexterous hand-arm RL**: reward coefficients and PPO hyperparameters are optimized together, reducing hand-tuning and exploration fragility.
+- **Implements a decentralized checkpoint-based population**: no central controller is required, so the system can tolerate delayed or disconnected workers in cluster environments.
+- **Scales to 46-DoF dual-arm manipulation**: the framework moves beyond isolated in-hand manipulation and learns object handoff/reorientation behavior across two hand-arm systems.
+
+**Limitations**
+
+- The results are simulation-only. The authors explicitly identify closing the sim-to-real gap as the most important future direction.
+- The learned policies can be aggressive near hardware limits, creating equipment-damage risk on real robots. The authors point to Riemannian Motion Policies and Geometric Fabrics as possible safety priors.
+- The task set is narrow: regrasping, throwing, and reorientation are important, but they do not cover the full dexterity domain.
+- The result depends on 8/16/32 V100-class workers and shared filesystem infrastructure, so reproduction cost is non-trivial for smaller labs.
+- 🤖 PBT improves simulation training, but it remains untested whether the same discovered reward/hyperparameter schedules survive domain randomization, tactile sensing, and vision-only real-robot observation constraints.

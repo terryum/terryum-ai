@@ -1,0 +1,198 @@
+{
+  "post_id": "2305-dexpbt",
+  "slug": "2305-dexpbt",
+  "post_number": 80,
+  "published_at": "2026-06-30T10:21:00+09:00",
+  "updated_at": "2026-06-30T10:21:00+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Dexterous Manipulation",
+    "Reinforcement Learning",
+    "Population Based Training"
+  ],
+  "display_tags": [
+    "Robotics",
+    "Dexterous Manipulation",
+    "Reinforcement Learning",
+    "PBT"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Fig. 1: Tasks trained with DexPBT. Left-to-right: regrasping, throwing, single-handed reorientation, two-handed reorientation.",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "source_type": "arXiv",
+  "source_title": "DexPBT: Scaling up Dexterous Manipulation for Hand-Arm Systems with Population Based Training",
+  "source_author": "Aleksei Petrenko et al.",
+  "source_authors_full": [
+    {
+      "name": "Aleksei Petrenko"
+    },
+    {
+      "name": "Arthur Allshire"
+    },
+    {
+      "name": "Gavriel State"
+    },
+    {
+      "name": "Ankur Handa"
+    },
+    {
+      "name": "Viktor Makoviychuk"
+    }
+  ],
+  "source_url": "https://arxiv.org/abs/2305.12127",
+  "source_project_url": "https://sites.google.com/view/dexpbt",
+  "source_date": "2023-05-20T00:00:00Z",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=dexpbt-scaling-up-dexterous",
+  "arxiv_id": "2305.12127",
+  "doi": "10.48550/arXiv.2305.12127",
+  "domain": "robotics",
+  "subfields": [
+    "dexterous-manipulation",
+    "reinforcement-learning",
+    "simulated-robotics",
+    "population-based-training"
+  ],
+  "key_concepts": [
+    "decentralized-PBT",
+    "Isaac-Gym",
+    "PPO",
+    "LSTM-policy",
+    "Allegro-Hand",
+    "Kuka-arm",
+    "dual-arm-manipulation",
+    "object-reposing",
+    "sim-to-real-gap"
+  ],
+  "methodology": [
+    "deep-reinforcement-learning",
+    "population-based-training",
+    "GPU-parallel-simulation",
+    "reward-shaping",
+    "asymmetric-actor-critic",
+    "simulation-study"
+  ],
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous",
+    "robotics/arm"
+  ],
+  "contribution_type": "method",
+  "relations": [
+    {
+      "type": "sharesGoalWith",
+      "target": "2509-tactile-sensing-distribution",
+      "note": "Both use Isaac Gym + PPO/LSTM-style policies to study dexterous in-hand reorientation, though DexPBT focuses on PBT scaling and the later work focuses on tactile placement."
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2407-tactile-skin-inhand-translation",
+      "note": "Both address learned dexterous in-hand manipulation under sim-to-real concerns, with different sensing assumptions."
+    },
+    {
+      "type": "sharesTopicWith",
+      "target": "2605-dexterous-hand-intelligence-survey",
+      "note": "DexPBT is a concrete RL/PBT point in the dexterous hand intelligence landscape covered by the survey."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "Decentralized PBT on Isaac Gym scales PPO to Allegro hand-arm regrasping, throwing, and reorientation, enabling simulated 46-DoF dual-arm policies.",
+    "problem": "Dexterous manipulation with multi-fingered hands is hard because contact-rich high-DoF control creates unstable RL training, sparse exploration, and heavy reward/hyperparameter tuning burden.",
+    "solution": "Train Allegro Hand + Kuka arm policies in Isaac Gym with PPO/LSTM, staged rewards, adaptive success tolerance, and a decentralized Population-Based Training outer loop that mutates both RL hyperparameters and reward coefficients through a shared-checkpoint directory.",
+    "key_result": "The system runs 8192 environments per V100 GPU, reaches about 5e4 samples/s for single-arm and 3.5e4 samples/s for dual-arm tasks, trains 5e9 transitions in roughly 30/40 hours, improves over no-PBT PPO in all scenarios, reaches nearly 40/50 successes in dual-arm reorientation, and with |P|=32 reaches Nsucc > 42 on single-arm reorientation.",
+    "limitations": [
+      "Simulation-only evaluation; no direct real-hardware deployment is shown.",
+      "Learned policies use aggressive motions near hardware limits, raising safety and equipment-damage concerns for real robots.",
+      "Scenario coverage is narrow: regrasping, throwing, and reorientation are important but not the full dexterity domain.",
+      "Scaling relies on many V100-class GPU workers and a shared-checkpoint infrastructure, which affects reproducibility for smaller labs."
+    ]
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Fig. 1 (regrasping panel): Tasks trained with DexPBT. Left-to-right in the original figure: regrasping, throwing, single-handed reorientation, two-handed reorientation.",
+      "caption_ko": "그림 1(재파지 패널): DexPBT가 학습한 과제. 원래 그림은 왼쪽부터 재파지, 던지기, 한 손 재방향화, 양손 재방향화를 보여준다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Fig. 1 (throwing panel): The grasp-and-throw task asks the hand-arm policy to pick up an object and throw it into a target container.",
+      "caption_ko": "그림 1(던지기 패널): grasp-and-throw 과제는 손-팔 정책이 물체를 집어 목표 용기 안으로 던지도록 요구한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Fig. 1 (single-handed reorientation panel): Single-arm reorientation requires stable grasping, target pose matching, and occasional in-hand rotation.",
+      "caption_ko": "그림 1(한 손 재방향화 패널): 한 손 재방향화는 안정적 파지, 목표 자세 맞춤, 때때로 필요한 인핸드 회전을 요구한다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Fig. 3: We use object keypoints (yellow) to represent both observed object position xkp in R3Nkp and object shape. In reorientation tasks keypoints are also used to represent the desired object pose xtarg in R3Nkp (green). Observed fingertip locations are additionally rendered in blue.",
+      "caption_ko": "그림 3: 노란색 물체 키포인트는 관측된 물체 위치와 형상을 표현한다. 재방향화 과제에서는 녹색 키포인트로 목표 물체 자세도 표현하며, 관측된 손끝 위치는 파란색으로 렌더링된다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Fig. 4: Training curves with and without PBT for single-arm + hand tasks. Shaded area is between the best and the worst policy among 8 agents in P or 8 seeds in non-PBT experiments.",
+      "caption_ko": "그림 4: 한 팔+손 과제에서 PBT 사용 여부에 따른 학습 곡선. 음영 영역은 PBT 모집단 8개 에이전트 또는 비-PBT 8개 seed 중 최고와 최저 정책 사이를 나타낸다."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Fig. 6: Extended PBT experiments on Single-Arm Reorientation task with |P| = 16 and |P| = 32 agents, trained on 10 billion environment steps. 8-agent PBT run and non-PBT PPO trained to 5 billion steps are superimposed for comparison; additional plots show hyperparameter schedules discovered by PBT.",
+      "caption_ko": "그림 6: 단일 팔 재방향화 과제에서 모집단 크기 |P|=16 및 |P|=32로 100억 환경 step을 학습한 확장 PBT 실험. 비교를 위해 8-agent PBT와 비-PBT PPO 곡선을 함께 표시하며, 나머지 플롯은 PBT가 발견한 하이퍼파라미터 스케줄을 보여준다."
+    }
+  ],
+  "tables": [],
+  "research_gaps": [
+    "Aggressive simulated hand-arm policies still need safe real-robot priors before deployment.",
+    "The sim-to-real gap for high-DoF dual-arm dexterous manipulation remains open, especially with domain randomization added.",
+    "Dexterous RL results remain hard to compare across hands, sensors, task definitions, and compute budgets."
+  ],
+  "future_directions": [
+    "Combine decentralized PBT with domain randomization and tactile/vision sensing for real-hardware transfer.",
+    "Add Riemannian Motion Policies or Geometric Fabrics as safety priors for aggressive dexterous policies.",
+    "Use PBT-style outer loops to tune reward schedules and curricula for broader bimanual dexterity benchmarks."
+  ],
+  "survey_hooks": [
+    "dexterous-hand-rl",
+    "sim-to-real-dexterous-manipulation",
+    "gpu-parallel-robot-learning"
+  ],
+  "next_reading": [
+    {
+      "title": "DeXtreme: Transfer of Agile In-hand Manipulation from Simulation to Reality",
+      "url": "https://arxiv.org/abs/2210.13702",
+      "reason": "Closest direct predecessor: Allegro Hand, Isaac Gym, sim-to-real reorientation, and shared authorship."
+    },
+    {
+      "title": "Population Based Training of Neural Networks",
+      "url": "https://arxiv.org/abs/1711.09846",
+      "reason": "Foundational PBT method that DexPBT adapts into a decentralized robotic RL outer loop."
+    },
+    {
+      "title": "Learning Dexterous In-Hand Manipulation",
+      "url": "https://arxiv.org/abs/1808.00177",
+      "reason": "Dactyl baseline lineage for large-scale simulation-trained dexterous manipulation."
+    },
+    {
+      "title": "Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning",
+      "url": "https://arxiv.org/abs/2108.10470",
+      "reason": "Simulation infrastructure that enables DexPBT's high-throughput policy training."
+    }
+  ],
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false,
+  "citation_status": "unknown",
+  "citation_updated_at": "2026-06-30T10:21:00+09:00"
+}
