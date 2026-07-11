@@ -44,7 +44,8 @@
   "idea_status": null,
   "related_posts": [
     "260608-jensen-huang-snu-speech",
-    "260613-mythos-sovereign-ai-growth-fund"
+    "260613-mythos-sovereign-ai-growth-fund",
+    "260711-icml-10-years-model-to-verification"
   ],
   "related_surveys": [
     "survey-nvidia-physical-ai-robotics"
@@ -62,6 +63,10 @@
     },
     {
       "target": "260613-mythos-sovereign-ai-growth-fund",
+      "type": "related"
+    },
+    {
+      "target": "260711-icml-10-years-model-to-verification",
       "type": "related"
     }
   ],

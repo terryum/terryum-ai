@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-30T04:55:37.415Z",
-  "total_posts": 80,
+  "generated_at": "2026-07-11T10:06:03.213Z",
+  "total_posts": 81,
   "posts": [
     {
       "post_number": 1,
@@ -421,10 +421,20 @@
           "No concrete implementation details"
         ]
       },
-      "relations": [],
+      "relations": [
+        {
+          "target": "260310-on-the-manifold-first-post",
+          "type": "related"
+        },
+        {
+          "target": "260711-icml-10-years-model-to-verification",
+          "type": "related"
+        }
+      ],
       "idea_status": "exploring",
       "related_posts": [
-        "260310-on-the-manifold-first-post"
+        "260310-on-the-manifold-first-post",
+        "260711-icml-10-years-model-to-verification"
       ],
       "taxonomy_primary": null,
       "taxonomy_secondary": [],
@@ -2317,6 +2327,10 @@
         {
           "target": "260420-debt-changes-hands",
           "type": "related"
+        },
+        {
+          "target": "260711-icml-10-years-model-to-verification",
+          "type": "related"
         }
       ],
       "idea_status": null,
@@ -2326,7 +2340,8 @@
         "2604-automated-alignment-researchers",
         "2604-self-driving-labs",
         "260413-new-leverage",
-        "260420-debt-changes-hands"
+        "260420-debt-changes-hands",
+        "260711-icml-10-years-model-to-verification"
       ],
       "taxonomy_primary": "ai/society",
       "taxonomy_secondary": [
@@ -4811,12 +4826,17 @@
         {
           "target": "260613-mythos-sovereign-ai-growth-fund",
           "type": "related"
+        },
+        {
+          "target": "260711-icml-10-years-model-to-verification",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
         "260608-jensen-huang-snu-speech",
-        "260613-mythos-sovereign-ai-growth-fund"
+        "260613-mythos-sovereign-ai-growth-fund",
+        "260711-icml-10-years-model-to-verification"
       ],
       "taxonomy_primary": "ai/robotics",
       "taxonomy_secondary": [
@@ -6037,6 +6057,81 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 81,
+      "slug": "260711-icml-10-years-model-to-verification",
+      "content_type": "essays",
+      "title_en": "ICML: Ten Years of Change",
+      "title_ko": "ICML, 10년의 변화",
+      "summary_ko": "ICML의 중심은 모델에서 Agent로, 생성에서 현실의 피드백과 검증으로 이동했다.",
+      "summary_en": "ICML's center has shifted from models to agents, and from generation to real-world feedback and verification.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "Machine Learning",
+      "subfields": [
+        "agentic systems",
+        "AI evaluation",
+        "scientific discovery"
+      ],
+      "key_concepts": [
+        "ICML",
+        "agentic AI",
+        "world feedback",
+        "verification loop",
+        "outer loop",
+        "foundation models"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "AI",
+        "Machine Learning",
+        "Agentic AI",
+        "Scientific Discovery",
+        "Verification"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-07-11T19:01:10+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "10년 만에 다시 찾은 ICML에서 모델 연구가 Agent, world feedback, verification loop로 확장되는 변화를 읽는다",
+        "problem": "생성 능력이 빠르게 커진 뒤 AI의 병목은 현실에 행동하고 결과를 검증하며 다시 적응하는 바깥 루프로 이동했다",
+        "solution": "ICML 2016과 2026의 문제의식을 모델, outer loop, 검증, world feedback, epistemic intelligence의 일곱 축으로 비교한다",
+        "key_result": "AI는 머신러닝 연구자만의 모델을 넘어 과학자, 엔지니어, 철학자와 함께 현실의 문제를 푸는 동반자로 이동하고 있다",
+        "limitations": [
+          "ICML 2026 전체가 아니라 이틀간 참여한 워크숍에서 얻은 관찰이다"
+        ]
+      },
+      "relations": [
+        {
+          "target": "260310-brain-augmentation",
+          "type": "extends"
+        },
+        {
+          "target": "260415-democratization-of-research",
+          "type": "related"
+        },
+        {
+          "target": "260608-jensen-hwang-new-wave",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260310-brain-augmentation",
+        "260415-democratization-of-research",
+        "260608-jensen-hwang-new-wave"
+      ],
+      "taxonomy_primary": "ai/research",
+      "taxonomy_secondary": [
+        "ai/agents",
+        "ai/evaluation"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -6065,6 +6160,16 @@
         "from": "2511-pi0-6-recap",
         "to": "2410-pi0-vla-flow-model",
         "type": "extends"
+      },
+      {
+        "from": "260310-brain-augmentation",
+        "to": "260310-on-the-manifold-first-post",
+        "type": "related"
+      },
+      {
+        "from": "260310-brain-augmentation",
+        "to": "260711-icml-10-years-model-to-verification",
+        "type": "related"
       },
       {
         "from": "2505-dexumi",
@@ -6419,6 +6524,11 @@
       {
         "from": "260415-democratization-of-research",
         "to": "260420-debt-changes-hands",
+        "type": "related"
+      },
+      {
+        "from": "260415-democratization-of-research",
+        "to": "260711-icml-10-years-model-to-verification",
         "type": "related"
       },
       {
@@ -6877,6 +6987,11 @@
         "type": "related"
       },
       {
+        "from": "260608-jensen-hwang-new-wave",
+        "to": "260711-icml-10-years-model-to-verification",
+        "type": "related"
+      },
+      {
         "from": "2605-rldx-1",
         "to": "2410-pi0-vla-flow-model",
         "type": "extends"
@@ -7095,6 +7210,21 @@
         "from": "2305-dexpbt",
         "to": "2605-dexterous-hand-intelligence-survey",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "260711-icml-10-years-model-to-verification",
+        "to": "260310-brain-augmentation",
+        "type": "extends"
+      },
+      {
+        "from": "260711-icml-10-years-model-to-verification",
+        "to": "260415-democratization-of-research",
+        "type": "related"
+      },
+      {
+        "from": "260711-icml-10-years-model-to-verification",
+        "to": "260608-jensen-hwang-new-wave",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -8972,6 +9102,24 @@
     ],
     "sim-to-real-gap": [
       80
+    ],
+    "ICML": [
+      81
+    ],
+    "agentic AI": [
+      81
+    ],
+    "world feedback": [
+      81
+    ],
+    "verification loop": [
+      81
+    ],
+    "outer loop": [
+      81
+    ],
+    "foundation models": [
+      81
     ]
   },
   "domain_stats": {
@@ -8994,7 +9142,8 @@
     "AI Policy": 1,
     "AI Business": 1,
     "Life Strategy": 1,
-    "biology": 2
+    "biology": 2,
+    "Machine Learning": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -9010,7 +9159,7 @@
     "robotics/brain": 21,
     "ai/llm:secondary": 6,
     "ai/society": 6,
-    "ai/agents:secondary": 2,
+    "ai/agents:secondary": 3,
     "robotics/brain:secondary": 3,
     "robotics/brain/vla:secondary": 3,
     "infra/serverless": 2,
@@ -9058,9 +9207,11 @@
     "biology/cell-biology:secondary": 2,
     "biology/dermatology": 1,
     "biology/aging:secondary": 1,
+    "ai/research": 1,
+    "ai/evaluation:secondary": 1,
     "robotics/arm": 5,
     "robotics": 42,
-    "ai": 18,
+    "ai": 19,
     "biology": 2
   }
 }

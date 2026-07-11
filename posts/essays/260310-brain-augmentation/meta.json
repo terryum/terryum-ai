@@ -28,7 +28,8 @@
   ],
   "idea_status": "exploring",
   "related_posts": [
-    "260310-on-the-manifold-first-post"
+    "260310-on-the-manifold-first-post",
+    "260711-icml-10-years-model-to-verification"
   ],
   "ai_summary": {
     "one_liner": "AI-centered research: building environments where AI scientists can sustain self-improving knowledge creation",
@@ -43,5 +44,15 @@
   "figures": [],
   "tables": [],
   "newsletter_eligible": false,
-  "featured": false
+  "featured": false,
+  "relations": [
+    {
+      "target": "260310-on-the-manifold-first-post",
+      "type": "related"
+    },
+    {
+      "target": "260711-icml-10-years-model-to-verification",
+      "type": "related"
+    }
+  ]
 }

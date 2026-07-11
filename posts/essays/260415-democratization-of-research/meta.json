@@ -33,7 +33,8 @@
     "2604-automated-alignment-researchers",
     "2604-self-driving-labs",
     "260413-new-leverage",
-    "260420-debt-changes-hands"
+    "260420-debt-changes-hands",
+    "260711-icml-10-years-model-to-verification"
   ],
   "taxonomy_primary": "ai/society",
   "taxonomy_secondary": [
@@ -63,6 +64,10 @@
     },
     {
       "target": "260420-debt-changes-hands",
+      "type": "related"
+    },
+    {
+      "target": "260711-icml-10-years-model-to-verification",
       "type": "related"
     }
   ],

@@ -1,0 +1,73 @@
+{
+  "post_id": "260711-icml-10-years-model-to-verification",
+  "slug": "260711-icml-10-years-model-to-verification",
+  "post_number": 81,
+  "published_at": "2026-07-11T19:01:10+09:00",
+  "updated_at": "2026-07-11T19:01:10+09:00",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "tags": [
+    "Essays",
+    "AI",
+    "Machine Learning",
+    "Agentic AI",
+    "Scientific Discovery",
+    "Verification"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 12,
+  "domain": "Machine Learning",
+  "subfields": [
+    "agentic systems",
+    "AI evaluation",
+    "scientific discovery"
+  ],
+  "key_concepts": [
+    "ICML",
+    "agentic AI",
+    "world feedback",
+    "verification loop",
+    "outer loop",
+    "foundation models"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260310-brain-augmentation",
+    "260415-democratization-of-research",
+    "260608-jensen-hwang-new-wave"
+  ],
+  "taxonomy_primary": "ai/research",
+  "taxonomy_secondary": [
+    "ai/agents",
+    "ai/evaluation"
+  ],
+  "relations": [
+    {
+      "target": "260310-brain-augmentation",
+      "type": "extends"
+    },
+    {
+      "target": "260415-democratization-of-research",
+      "type": "related"
+    },
+    {
+      "target": "260608-jensen-hwang-new-wave",
+      "type": "related"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "10년 만에 다시 찾은 ICML에서 모델 연구가 Agent, world feedback, verification loop로 확장되는 변화를 읽는다",
+    "problem": "생성 능력이 빠르게 커진 뒤 AI의 병목은 현실에 행동하고 결과를 검증하며 다시 적응하는 바깥 루프로 이동했다",
+    "solution": "ICML 2016과 2026의 문제의식을 모델, outer loop, 검증, world feedback, epistemic intelligence의 일곱 축으로 비교한다",
+    "key_result": "AI는 머신러닝 연구자만의 모델을 넘어 과학자, 엔지니어, 철학자와 함께 현실의 문제를 푸는 동반자로 이동하고 있다",
+    "limitations": [
+      "ICML 2026 전체가 아니라 이틀간 참여한 워크숍에서 얻은 관찰이다"
+    ]
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

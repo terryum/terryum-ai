@@ -1,0 +1,55 @@
+---
+locale: "en"
+translation_of: "260711-icml-10-years-model-to-verification:ko"
+title: "ICML: Ten Years of Change"
+subtitle: "From models to feedback"
+summary: "Returning to ICML after ten years, I found that the unit of research had expanded from models to agents. Once generation became abundant, the bottleneck moved toward world feedback, verification, and the ability to recognize one's own ignorance."
+card_summary: "ICML's center has shifted from models to agents, and from generation to real-world feedback and verification."
+terrys_memo: ""
+---
+The last time I attended ICML was probably ICML 2016 in New York, ten years ago. A decade later, I attended ICML 2026 in Seoul. During those ten years, I stepped away from research and went through many changes: founding a company, making an exit, and becoming an executive. AI went through just as many. Although I could only attend two days of workshops this time, the change in workshop themes alone made the scale of the decade's transformation clear.
+
+In summary, the basic structure of machine learning discussed at ICML in 2016 looked like this:
+> Fixed Data → Representation → Optimization → Prediction
+
+By 2026, however, the center of AI had moved toward agents and entered a practical phase of confronting real-world problems:
+> Goal → Plan → Action → World Feedback → Verification → Adaptation
+
+The more important question is no longer what a model can generate. It is how we verify that output, test it in reality, and connect the result back to learning and action to create a loop of self-improvement. These are the changes I felt when I returned to ICML after ten years.
+
+1. From Model to Agent
+
+In 2016, the unit of research was the learning algorithm or predictive model. The main tasks were learning better representations, optimizing fixed objectives reliably, and achieving efficient generalization from limited data.
+By 2026, that unit had evolved from the model to the agent. An agent plans, uses tools, and intervenes in the real world across multiple steps. The goal of AI is no longer merely to calculate the answer of a static function. It has advanced toward achieving human goals along a trajectory through time.
+
+2. From improving the inner loop to completing the outer loop
+
+Here, the inner loop means training and inference within existing data and a fixed objective. Data-Efficient Machine Learning and the Theory of Deep Learning in 2016 sought either to make this inner loop more efficient or to explain why it worked.
+In 2026, research is moving toward the outer loop: AI creates new evidence through actions or experiments and feeds the result into its next action. The ambition is no longer to remain confined to existing data, but to interact actively with the real world and pursue new discoveries through self-directed hypotheses and experiments.
+
+3. From imitating humans to surpassing human limits
+
+In 2016, the focus was on questions such as how to achieve human-level judgment in image classification, speech recognition, translation, and medical decisions. In 2026, imitating human ability is no longer enough. Discussions around AI for Math and AI Scientist assume that synthesizing and combining what humans have already studied is only the beginning. Tireless hypothesis search, experiment design by coding agents, and automated result generation now aim beyond the limits of human research. AI scientists are beginning to take on great problems that humans have not solved.
+
+4. From a shortage of generation to a shortage of verification
+
+In 2016, producing good candidates and hypotheses was expensive. Generative AI can now produce code, experiment plans, molecular candidates, and mathematical approaches almost without pause. The cost of generation has fallen sharply.
+The central bottleneck in 2026 is verification. What should be tested first? How much evidence should be required? When should a hypothesis be discarded? Where should expensive physical experiments be allocated, and how should their results shape the next round of generation? Probabilistic inference, uncertainty estimation, and sequential testing are no longer ornaments from an older theoretical age. They are filters for an age of excessive generation.
+
+5. From static benchmarks to dynamic verifiers
+
+The standard evaluation in 2016 split training and test data, then compared final performance. But the agents dominating 2026 call tools across multiple steps and revise their plans in response to the environment. A static score at a single moment cannot adequately evaluate them.
+A verifier is no longer an exam administered at the end. It becomes a process that runs continuously during action, deciding whether to gather more evidence, halt execution, hand control to a human, or use the current result as a learning signal for the next action. The performance of the verifier now defines the performance ceiling an AI system can reach.
+
+6. From human feedback to world feedback
+
+How to provide feedback has always been one of the hardest questions. When the primary goal was to imitate human ability, human feedback was effective. But people provide less accurate feedback than we often assume, and in an AI world driven by scale, human intervention becomes a major bottleneck.
+AI is therefore trying to obtain feedback directly from its interactions with the world. What to measure, how to combine multiple rewards and costs, and how to assign delayed outcomes to prior actions have all become problems that agentic AI must solve. When this feedback loop is solved, AI will make another major leap.
+
+7. From detecting errors to knowing its own ignorance
+
+Anomaly Detection in 2016 focused on finding samples outside the data distribution. Epistemic Intelligence in 2026 asks a question one level deeper: can AI recognize when its knowledge is insufficient, when an input lies outside its training distribution, or when its objective is incomplete or changing? Safety is one of the most important questions in an age when we live alongside AI, and danger comes from the territory where the system does not know what it does not know. Only when safety is secured can we push AI's capabilities forcefully beyond the human frontier.
+
+At these workshops, it was surprisingly difficult to find the words "machine learning" or "deep learning." Instead, "AI" had become the general term, acknowledging it as a powerful companion already beside us and as a major participant in society. Some sessions wrestled with how to improve AI's still-limited capabilities. Others were already using powerful AI agents to transform scientific methodology and attack problems humanity has not solved. Still others debated systems that had become biased, dangerous, or potentially threatening to humanity. Those discussions drew participants not only from machine learning, but also from philosophy, art, and many other fields.
+
+AI now belongs to all of us. I do not know whether the next great work will be done by AI researchers, by mechanical engineers who realize physical AI, as Jensen Huang suggests, or by scientists tackling humanity's fundamental questions, such as life itself. What is clear is that all of these fields are accelerating with AI. Far more will change over the next ten years. Will the conference hall then be filled with AI scientists and robots? I look forward to ICML 2036, ten years from now, advanced to a degree we cannot yet imagine.
