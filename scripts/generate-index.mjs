@@ -439,6 +439,12 @@ async function main() {
     if (existingIds.has(p.post_number)) {
       // Update existing entry
       const idx = globalIndex.entries.findIndex(e => e.id === p.post_number);
+      if (idx !== -1 && globalIndex.entries[idx].slug !== p.slug) {
+        throw new Error(
+          `Public ID collision: ${p.post_number} belongs to both ` +
+          `${globalIndex.entries[idx].slug} and ${p.slug}`
+        );
+      }
       if (idx !== -1) globalIndex.entries[idx] = entry;
     } else {
       // Add new entry

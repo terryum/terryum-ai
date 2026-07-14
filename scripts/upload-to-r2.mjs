@@ -8,6 +8,7 @@
  *   node scripts/upload-to-r2.mjs                # upload all posts
  *   node scripts/upload-to-r2.mjs --slug=xxx     # upload single post
  *   node scripts/upload-to-r2.mjs --dry-run      # preview only
+ *   node scripts/upload-to-r2.mjs --concurrency=6
  */
 
 import fs from 'fs/promises';
@@ -27,6 +28,10 @@ const args = process.argv.slice(2);
 const slugArg = args.find(a => a.startsWith('--slug='))?.split('=')[1];
 const dryRun = args.includes('--dry-run');
 const force = args.includes('--force');
+const requestedConcurrency = Number(args.find(a => a.startsWith('--concurrency='))?.split('=')[1] || 6);
+const concurrency = Number.isInteger(requestedConcurrency) && requestedConcurrency > 0
+  ? Math.min(requestedConcurrency, 16)
+  : 6;
 
 // Content directories to scan
 const CONTENT_DIRS = await getContentDirs();
@@ -85,66 +90,52 @@ async function getPostSlugs() {
 
 async function uploadPost(post) {
   const { slug, path: postDir } = post;
-  let uploaded = 0;
-  let skipped = 0;
+  const candidates = new Map();
 
-  // 1. Upload images from posts/<type>/<slug>/
+  // Build one key-deduplicated inventory first. process-content-images keeps
+  // OG/thumb copies in both source and public directories.
   const entries = await fs.readdir(postDir);
   for (const file of entries) {
     const ext = path.extname(file).toLowerCase();
     if (!IMAGE_EXTS.has(ext)) continue;
-
-    const localPath = path.join(postDir, file);
-    const key = `posts/${slug}/${file}`;
-
-    if (!force && await exists(key)) {
-      skipped++;
-      continue;
-    }
-
-    if (dryRun) {
-      console.log(`  [dry-run] ${key}`);
-      uploaded++;
-      continue;
-    }
-
-    await upload(localPath, key);
-    uploaded++;
+    candidates.set(`posts/${slug}/${file}`, path.join(postDir, file));
   }
 
-  // 2. Upload OG image from public/posts/<slug>/og.png
+  // Prefer public mirrors for generated OG/thumb keys when present.
   const ogPath = path.join(PUBLIC_POSTS_DIR, slug, 'og.png');
-  try {
-    await fs.access(ogPath);
-    const ogKey = `posts/${slug}/og.png`;
-    if (force || !(await exists(ogKey))) {
-      if (dryRun) {
-        console.log(`  [dry-run] ${ogKey} (OG)`);
-      } else {
-        await upload(ogPath, ogKey);
-      }
-      uploaded++;
-    } else {
-      skipped++;
-    }
-  } catch { /* no OG image */ }
+  try { await fs.access(ogPath); candidates.set(`posts/${slug}/og.png`, ogPath); } catch {}
 
-  // 3. Upload cover-thumb from public/posts/<slug>/cover-thumb.webp
   const thumbPath = path.join(PUBLIC_POSTS_DIR, slug, 'cover-thumb.webp');
-  try {
-    await fs.access(thumbPath);
-    const thumbKey = `posts/${slug}/cover-thumb.webp`;
-    if (force || !(await exists(thumbKey))) {
-      if (dryRun) {
-        console.log(`  [dry-run] ${thumbKey} (thumb)`);
-      } else {
-        await upload(thumbPath, thumbKey);
+  try { await fs.access(thumbPath); candidates.set(`posts/${slug}/cover-thumb.webp`, thumbPath); } catch {}
+
+  const queue = [...candidates.entries()];
+  let cursor = 0;
+  async function worker() {
+    const result = { uploaded: 0, skipped: 0 };
+    while (cursor < queue.length) {
+      const current = cursor++;
+      const [key, localPath] = queue[current];
+      if (!force && await exists(key)) {
+        result.skipped++;
+        continue;
       }
-      uploaded++;
-    } else {
-      skipped++;
+      if (dryRun) {
+        console.log(`  [dry-run] ${key}`);
+      } else {
+        await upload(localPath, key);
+      }
+      result.uploaded++;
     }
-  } catch { /* no thumb */ }
+    return result;
+  }
+
+  const workers = Array.from(
+    { length: Math.min(concurrency, Math.max(1, queue.length)) },
+    () => worker(),
+  );
+  const results = await Promise.all(workers);
+  const uploaded = results.reduce((sum, result) => sum + result.uploaded, 0);
+  const skipped = results.reduce((sum, result) => sum + result.skipped, 0);
 
   return { uploaded, skipped };
 }
@@ -154,6 +145,7 @@ async function main() {
   console.log(`   Public URL: ${R2_PUBLIC_URL}`);
   if (dryRun) console.log('   (dry-run mode)');
   if (force) console.log('   (force re-upload)');
+  console.log(`   Concurrency: ${concurrency}`);
 
   let posts = await getPostSlugs();
   if (slugArg) {

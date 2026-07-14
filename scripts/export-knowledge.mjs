@@ -6,7 +6,7 @@
  * and writes them as paper-level JSON + an aggregated index into the
  * terry-papers repo (top-level `papers/` and `knowledge-index.json`).
  *
- * Usage: node scripts/export-knowledge.mjs [--out=/path/to/repo]
+ * Usage: node scripts/export-knowledge.mjs [--out=/path/to/repo] [--with-embeddings]
  *
  * Default output path resolution:
  *   1. --out=<path> CLI flag
@@ -25,6 +25,7 @@ const args = process.argv.slice(2);
 const outDir = args.find(a => a.startsWith('--out='))?.split('=')[1]
   || process.env.RESEARCH_KB_PATH
   || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+const withEmbeddings = args.includes('--with-embeddings');
 
 // ── Parse Terry's memo from MDX ──
 function parseTerryMemo(mdxContent) {
@@ -88,6 +89,19 @@ function parseResearchGaps(mdxContent) {
   }
 
   return gaps;
+}
+
+function structuredResearchGaps(meta) {
+  if (!Array.isArray(meta.research_gaps)) return null;
+  return meta.research_gaps
+    .map(gap => typeof gap === 'string'
+      ? { question: gap, source: 'ai_analysis', relates_to: [] }
+      : {
+          question: gap?.question || '',
+          source: gap?.source || 'ai_analysis',
+          relates_to: Array.isArray(gap?.relates_to) ? gap.relates_to : [],
+        })
+    .filter(gap => gap.question);
 }
 
 // ── Extract memo topics from text ──
@@ -173,9 +187,9 @@ async function main() {
       koMdx = await fs.readFile(path.join(PAPERS_DIR, slug, 'ko.mdx'), 'utf-8');
     } catch {}
 
-    // Parse memo and gaps
+    // Structured meta is authoritative. Legacy MDX parsing is only a fallback.
     const terryMemos = parseTerryMemo(koMdx);
-    const researchGaps = parseResearchGaps(koMdx);
+    const researchGaps = structuredResearchGaps(meta) ?? parseResearchGaps(koMdx);
 
     // Extract memo topics
     const allConcepts = [
@@ -189,9 +203,11 @@ async function main() {
 
     // Assign gap relations
     for (const gap of researchGaps) {
-      gap.relates_to = allConcepts.filter(c =>
-        gap.question.toLowerCase().includes(c.toLowerCase().replace(/-/g, ' '))
-      );
+      if (gap.relates_to.length === 0) {
+        gap.relates_to = allConcepts.filter(c =>
+          gap.question.toLowerCase().includes(c.toLowerCase().replace(/-/g, ' '))
+        );
+      }
     }
 
     // Enrich relations with strength. Some legacy meta.json files use
@@ -221,6 +237,9 @@ async function main() {
       terry_memos: terryMemos,
       terry_memo_topics: memoTopics,
       research_gaps: researchGaps,
+      future_directions: Array.isArray(meta.future_directions) ? meta.future_directions : [],
+      next_reading: Array.isArray(meta.next_reading) ? meta.next_reading : [],
+      survey_hooks: Array.isArray(meta.survey_hooks) ? meta.survey_hooks : [],
       relations: enrichedRelations,
       source_author: meta.source_author || null,
       source_date: meta.source_date || null,
@@ -340,19 +359,23 @@ async function main() {
   console.log(`   🔬 ${knowledgeIndex.papers_with_gaps} papers with research gaps`);
   console.log(`   🔗 ${allEdges.length} edges (including reverse)`);
 
-  // Sync paper_embeddings (incremental — only stale rows are re-embedded).
-  // Soft-fail: missing OPENAI_API_KEY or Supabase shouldn't block KB export.
-  try {
-    const { spawnSync } = await import('child_process');
-    const here = path.dirname(new URL(import.meta.url).pathname);
-    const r = spawnSync('node', [path.join(here, 'sync-embeddings.mjs')], {
-      stdio: 'inherit',
-    });
-    if (r.status !== 0) {
-      console.warn('⚠ sync-embeddings exited non-zero (continuing)');
+  // Embeddings are optional network work and must never delay the default
+  // knowledge export or production publish path.
+  if (withEmbeddings) {
+    try {
+      const { spawnSync } = await import('child_process');
+      const here = path.dirname(new URL(import.meta.url).pathname);
+      const r = spawnSync('node', [path.join(here, 'sync-embeddings.mjs')], {
+        stdio: 'inherit',
+      });
+      if (r.status !== 0) {
+        console.warn('⚠ sync-embeddings exited non-zero (continuing)');
+      }
+    } catch (err) {
+      console.warn(`⚠ sync-embeddings skipped: ${err.message}`);
     }
-  } catch (err) {
-    console.warn(`⚠ sync-embeddings skipped: ${err.message}`);
+  } else {
+    console.log('   ⏭ embeddings skipped (pass --with-embeddings to refresh)');
   }
 }
 
