@@ -1,0 +1,139 @@
+---
+locale: "en"
+title: "LLM-as-a-Verifier: Scaling verification beyond discrete judges"
+subtitle: "Use the full score-token distribution as a continuous signal"
+summary: "LLM-as-a-Verifier replaces the coarse token emitted by an LLM judge with the expectation over its scoring-token logit distribution. It scales score granularity, repeated evaluation, and criteria decomposition, then ranks candidates with a Probabilistic Pivot Tournament, reaching 86.5% on Terminal-Bench V2, 78.2% on SWE-Bench Verified, 87.4% on RoboRewardBench, and 73.3% on MedAgentBench."
+card_summary: "Turn score-token distributions into fine-grained trajectory rewards and make verification compute a new scaling axis for agents."
+seo_title: "LLM-as-a-Verifier paper summary — verification as a scaling axis"
+seo_description: "LLM-as-a-Verifier unifies continuous logprob scoring, criteria decomposition, repeated evaluation, probabilistic candidate ranking, progress tracking, and dense RL rewards."
+terrys_memo: ""
+translation_of: "2607-llm-as-verifier:ko"
+references:
+  - title: "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"
+    author: "Zheng et al. (2023)"
+    description: "The representative foundation for using LLMs as automatic evaluators. LLM-as-a-Verifier starts from the information lost when this discrete judge collapses a scoring distribution into one token, producing ties and poor calibration."
+    arxiv_url: "https://arxiv.org/abs/2306.05685"
+    scholar_url: "https://scholar.google.com/scholar?q=Judging+LLM-as-a-Judge+with+MT-Bench+and+Chatbot+Arena"
+    category: "foundational"
+  - title: "Let's Verify Step by Step"
+    author: "Lightman et al. (2023)"
+    description: "A key result showing that process supervision over intermediate reasoning can outperform outcome-only supervision. The present work extends this lineage with a training-free trajectory verifier rather than a learned process reward model."
+    arxiv_url: "https://arxiv.org/abs/2305.20050"
+    scholar_url: "https://scholar.google.com/scholar?q=Let%27s+Verify+Step+by+Step"
+    category: "foundational"
+  - title: "Generative Verifiers: Reward Modeling as Next-Token Prediction"
+    author: "Zhang et al. (2025)"
+    description: "Recasts reward modeling as next-token prediction. Unlike this trained generative-verifier approach, LLM-as-a-Verifier reads an existing model's score-token distribution directly and targets plug-and-play transfer across domains."
+    arxiv_url: "https://arxiv.org/abs/2408.15240"
+    scholar_url: "https://scholar.google.com/scholar?q=Generative+Verifiers+Reward+Modeling+as+Next-Token+Prediction"
+    category: "foundational"
+  - title: "V1: Unifying Generation and Self-Verification for Parallel Reasoners"
+    author: "Singh et al. (2026)"
+    description: "A recent method combining parallel generation and self-verification. Probabilistic Pivot Tournament concentrates comparisons around leading candidates rather than using a fixed schedule, outperforming V1 under comparable verification budgets."
+    arxiv_url: "https://arxiv.org/abs/2603.04304"
+    scholar_url: "https://scholar.google.com/scholar?q=V1+Unifying+Generation+and+Self-Verification+for+Parallel+Reasoners"
+    category: "recent"
+  - title: "RoboReward: General-Purpose Vision-Language Reward Models for Robotics"
+    author: "Lee et al. (2026)"
+    description: "A vision-language reward model for progress in robot rollout videos. Without reward-model training, LLM-as-a-Verifier reaches 87.4% preference accuracy and 0.966 VOC on the same robotics evaluation setting."
+    arxiv_url: "https://arxiv.org/abs/2601.00675"
+    scholar_url: "https://scholar.google.com/scholar?q=RoboReward+General-Purpose+Vision-Language+Reward+Models+for+Robotics"
+    category: "recent"
+---
+
+## TL;DR
+
+Agents have become much better at generating candidate solutions, but deciding which candidate is correct still relies on coarse integer judgments. **LLM-as-a-Verifier takes the expectation over the full score-token logit distribution, then scales verification along score granularity, repeated evaluation, and criteria decomposition.** Without training a new verifier, the same framework reaches state of the art across coding, robotics, and medical agent benchmarks, while its continuous signal also tracks progress and supplies dense rewards for reinforcement learning.
+
+## Problem
+
+A standard LLM-as-a-Judge reads a trajectory and emits one score on a scale such as 1–5 or 1–10. The model internally has a distribution over several scores, but selecting only the most likely token collapses nearby beliefs into the same integer. On Terminal-Bench V2, a single judge evaluation ties **26.7%** of trajectory pairs; in the `query-optimize` case study, a 1–5 judge returns a tie in 88 of 100 trials.
+
+Learned reward models avoid some of this quantization but remain constrained by their training distribution and annotations. A verifier trained for code may not transfer to robot video or medical agents. Exhaustive pairwise ranking also requires $O(N^2)$ verifier calls, making candidate scaling expensive. The paper therefore asks whether an existing LLM can become a finer verifier without additional training, whether verification compute scales predictably, and whether one continuous signal can support selection, monitoring, and learning.
+
+## Core idea
+
+Instead of using the single emitted score, the method reads probabilities over the entire ordered score vocabulary $V_{\text{score}}=\{v_1,\ldots,v_G\}$. For task $x$, criterion $c$, and trajectory $\tau$, it computes
+
+$$
+R(x,\tau)=\frac{1}{CK}\sum_{c=1}^{C}\sum_{k=1}^{K}\sum_{g=1}^{G}p_\theta(v_g\mid x,c,\tau)\,\phi(v_g).
+$$
+
+The three scaling axes target different errors:
+
+- **Score granularity** gives the decoder a finer space in which to express its belief instead of rounding nearby candidates to the same integer.
+- **Repeated evaluation** averages independent passes, reducing estimator variance as $O(1/K)$.
+- **Criteria decomposition** replaces one compound rubric with simpler factors such as Specification, Output, and Errors, reducing prompt salience bias.
+
+<Figure src="./fig-2.png" caption="One framework spans multiple modalities and applications. A continuous signal extracted from score-token logits supports test-time candidate selection, progress tracking, and reinforcement learning." number={2} />
+
+<Collapsible title="Method details">
+
+### Continuous pairwise preferences
+
+The continuous rewards for two trajectories are converted into a Bradley–Terry preference:
+
+$$
+P(\tau_i \succ \tau_j)=\frac{\exp(R_i)}{\exp(R_i)+\exp(R_j)}.
+$$
+
+Unlike a hard winner token, a probability near 0.5 preserves uncertainty. Comparisons can therefore be aggregated as probabilistic win mass without creating artificial ties.
+
+### Three verification-scaling axes
+
+- Increasing $G$ from 1 to 20 raises Terminal-Bench pairwise accuracy from **73.1% to 77.5%** and SNR from 0.775 to 0.799.
+- Increasing $K$ from 1 to 16 raises accuracy from **74.7% to 77.4%**, with diminishing returns as correlated bias begins to dominate.
+- A single code criterion reaches 75.2–76.4%; the three-criterion ensemble reaches **78.3%**.
+
+### Probabilistic Pivot Tournament
+
+A full round-robin scores every pair. PPT first runs a random Hamiltonian ring so each candidate appears once in the A position and once in B, canceling positional bias. It selects the top $k$ candidates as pivots and spends the remaining budget on non-pivot–pivot and pivot–pivot comparisons.
+
+$$
+N+k(N-k)+\binom{k}{2}=O(Nk),\qquad k\ll N.
+$$
+
+This directs verifier compute toward uncertain leaders rather than wasting comparisons among weak candidates.
+
+<Figure src="./fig-6.png" caption="Probabilistic Pivot Tournament uses a balanced ring pass to select pivots, then concentrates comparisons around the leading candidates, reducing full round-robin cost from O(N²) to O(Nk)." number={6} />
+
+</Collapsible>
+
+## Main results
+
+The same training-free framework is evaluated across coding, robotics, and medical domains.
+
+- **Terminal-Bench V2:** **86.5%**, compared with Pass@1 83.1% and oracle Pass@5 92.1% on the same candidate pool.
+- **SWE-Bench Verified:** **78.2%**, compared with Pass@1 76.1% and oracle 84.4%.
+- **MedAgentBench:** **73.3%**, compared with Pass@1 70.2% and oracle 75.0%.
+- **RoboRewardBench:** **87.4% trajectory-preference accuracy**, versus 70.8% for LLM-as-a-Judge and 81.4% for RoboReward-8B.
+- **Harness transfer:** Terminus-2 rises from 62.9% to **71.2%**, and Terminus-Kira from 74.7% to **79.4%**, indicating that the signal is not tied to one agent scaffold.
+
+<Figure src="./tab-3.png" caption="Pass@1, oracle Pass@N, and LLM-as-a-Verifier on the same candidate pools. Verification recovers a substantial portion of the oracle headroom across all benchmarks." number={3} />
+
+The score also tracks **trajectory progress**. Successful Terminal-Bench rollouts have step-to-score Spearman VOC 0.848, versus 0.769 for failed rollouts. On 500 RoboRewardBench trajectories, the verifier reaches **VOC 0.966**, ahead of RoboReward-8B at 0.877 and Robometer-4B at 0.780.
+
+Finally, the progress score acts as a dense RL reward. For DSRL-SAC fine-tuning of $\pi_0$ on the LIBERO ketchup task, it reaches the same success rate with approximately **1.8x fewer environment steps** and improves final success from 0.69 to 0.76. GRPO fine-tuning of Qwen3-8B on MATH obtains an approximately 1.1x sample-efficiency gain.
+
+<Figure src="./fig-9.png" caption="Verifier-derived dense rewards improve RL sample efficiency by about 1.8x on LIBERO and 1.1x on MATH." number={9} />
+
+## Achievements and limitations
+
+**What it achieves**
+
+- Establishes **verification as an independent scaling axis**, complementing larger generators and more candidate sampling.
+- Provides a **training-free cross-domain verifier** for terminal actions, code patches, robot video, and medical trajectories.
+- Connects **selection, monitoring, and learning** through one continuous trajectory signal.
+- Introduces a budget-aware ranking algorithm that avoids quadratic growth in candidate comparisons.
+
+**Author-noted**:
+
+- The direct formulation assumes access to scoring-token log probabilities. Several closed frontier APIs require a two-stage workaround that routes closed-model reasoning through an open logprob-accessible verifier.
+- Criteria are still manually designed for each domain, and repeated evaluations allocate compute uniformly rather than according to verifier uncertainty.
+- Dense-reward experiments are limited to single-turn settings; stability in multi-turn RL over interdependent actions remains untested.
+- Repetition reduces variance but does not remove bias, and gains saturate on hard examples with correlated errors.
+- 🤖 If generator and verifier share model families or training data, they may confidently repeat the same blind spots. Continuous scoring still needs direct evaluation against adversarial trajectories and reward hacking.
+
+## Next directions
+
+The next step is not merely to spend more verification compute, but to allocate it **adaptively to uncertain candidates, criteria, and time steps**. Criteria could be generated automatically, repetition and pivot counts could follow uncertainty, and closed APIs need calibrated continuous interfaces. For long-horizon deployment, evaluation must also measure verifier independence, adversarial robustness, cross-family calibration, and whether agents learn to game the dense reward.

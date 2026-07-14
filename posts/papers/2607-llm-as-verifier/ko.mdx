@@ -1,0 +1,146 @@
+---
+locale: "ko"
+title: "LLM-as-a-Verifier: 생성보다 검증을 스케일링하는 법"
+subtitle: "Discrete judge 대신 score-token 확률분포 전체를 연속 신호로 쓴다"
+summary: "LLM-as-a-Verifier는 LLM judge가 하나의 정수 점수만 출력하면서 생기는 tie와 정보 손실을, scoring-token logit 분포의 기대값으로 해결한다. Score granularity·반복 평가·criteria decomposition을 확장하고 Probabilistic Pivot Tournament로 후보를 효율적으로 순위화해 Terminal-Bench V2 86.5%, SWE-Bench Verified 78.2%, RoboRewardBench 87.4%, MedAgentBench 73.3%를 달성했다."
+card_summary: "Score-token 확률분포의 기대값으로 agent trajectory를 세밀하게 검증하고, 검증 compute를 새로운 scaling 축으로 만든다."
+seo_title: "LLM-as-a-Verifier 논문 요약: 검증을 새로운 scaling 축으로"
+seo_description: "연속 logprob score, criteria decomposition, repeated evaluation, Probabilistic Pivot Tournament로 agent trajectory 검증과 dense RL reward를 통합한 LLM-as-a-Verifier를 정리한다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena"
+    author: "Zheng et al. (2023)"
+    description: "LLM을 자동 평가자로 사용하는 대표적 기반 연구. LLM-as-a-Verifier는 이 discrete judge가 score distribution을 하나의 token으로 접으면서 tie와 calibration 손실을 만든다는 지점에서 출발한다."
+    arxiv_url: "https://arxiv.org/abs/2306.05685"
+    scholar_url: "https://scholar.google.com/scholar?q=Judging+LLM-as-a-Judge+with+MT-Bench+and+Chatbot+Arena"
+    category: "foundational"
+  - title: "Let's Verify Step by Step"
+    author: "Lightman et al. (2023)"
+    description: "최종 결과만 평가하는 outcome supervision보다 중간 reasoning step을 검증하는 process supervision이 강할 수 있음을 보인 핵심 연구. 현재 논문은 학습된 PRM 대신 training-free trajectory verifier로 이 계보를 확장한다."
+    arxiv_url: "https://arxiv.org/abs/2305.20050"
+    scholar_url: "https://scholar.google.com/scholar?q=Let%27s+Verify+Step+by+Step"
+    category: "foundational"
+  - title: "Generative Verifiers: Reward Modeling as Next-Token Prediction"
+    author: "Zhang et al. (2025)"
+    description: "Reward modeling을 next-token prediction으로 재정식화한 generative verifier 계열. 별도 verifier training에 의존하는 이 접근과 달리, LLM-as-a-Verifier는 기존 LLM의 score-token 확률분포를 직접 읽어 domain 간 plug-and-play 검증을 노린다."
+    arxiv_url: "https://arxiv.org/abs/2408.15240"
+    scholar_url: "https://scholar.google.com/scholar?q=Generative+Verifiers+Reward+Modeling+as+Next-Token+Prediction"
+    category: "foundational"
+  - title: "V1: Unifying Generation and Self-Verification for Parallel Reasoners"
+    author: "Singh et al. (2026)"
+    description: "병렬 생성과 self-verification을 결합한 최근 비교 대상. Probabilistic Pivot Tournament는 고정된 pairwise schedule 대신 상위 후보에 비교 예산을 집중해 더 낮은 비용으로 V1을 능가한다."
+    arxiv_url: "https://arxiv.org/abs/2603.04304"
+    scholar_url: "https://scholar.google.com/scholar?q=V1+Unifying+Generation+and+Self-Verification+for+Parallel+Reasoners"
+    category: "recent"
+  - title: "RoboReward: General-Purpose Vision-Language Reward Models for Robotics"
+    author: "Lee et al. (2026)"
+    description: "Robot rollout video의 progress를 평가하는 vision-language reward model. LLM-as-a-Verifier는 별도 reward-model training 없이 같은 RoboRewardBench에서 87.4% preference accuracy와 0.966 VOC를 달성해 범용 verifier의 robotics 전이를 검증한다."
+    arxiv_url: "https://arxiv.org/abs/2601.00675"
+    scholar_url: "https://scholar.google.com/scholar?q=RoboReward+General-Purpose+Vision-Language+Reward+Models+for+Robotics"
+    category: "recent"
+---
+
+## TL;DR
+
+Agent가 답을 생성하는 능력은 빠르게 커졌지만, 여러 후보 중 무엇이 맞는지 고르는 verification은 여전히 coarse한 정수 점수에 머물러 있다. **LLM-as-a-Verifier는 score-token logit 분포 전체의 기대값을 연속 reward로 사용하고, granularity·반복 평가·criteria decomposition을 함께 스케일링해 검증 자체를 새로운 compute 축으로 만든다.** 별도 verifier training 없이 coding, robotics, medical agent benchmark에서 최고 성능을 기록하고, 같은 신호를 progress monitor와 dense RL reward로도 재사용한다.
+
+## 문제
+
+표준 LLM-as-a-Judge는 후보 trajectory를 보고 1–5 또는 1–10 같은 discrete score 하나를 출력한다. 모델 내부에는 여러 점수에 대한 불확실한 확률분포가 있지만, 최빈 token 하나만 고르는 순간 가까운 후보들이 같은 점수로 뭉친다. Terminal-Bench V2에서는 single evaluation의 **26.7%가 tie**였고, `query-optimize` 사례에서는 100번 중 88번이 5 대 5였다.
+
+반대로 학습된 reward model은 training distribution과 annotation에 묶여 coding에서 배운 판단이 robotics나 medicine으로 그대로 옮겨가기 어렵다. 후보를 모두 pairwise comparison하면 $O(N^2)$ verifier call이 필요해 test-time scaling 비용도 급증한다. 이 논문은 세 질문을 한꺼번에 묻는다.
+
+1. 기존 LLM을 추가 학습하지 않고 더 세밀한 verifier로 바꿀 수 있는가?
+2. Verification compute를 늘리면 generation compute처럼 성능이 일관되게 향상되는가?
+3. 같은 continuous signal을 후보 선택뿐 아니라 progress tracking과 RL reward로 재사용할 수 있는가?
+
+## 핵심 아이디어
+
+핵심은 모델이 출력한 score token 하나가 아니라 **score token 전체의 확률분포**를 읽는 것이다. Task $x$, criterion $c$, trajectory $\tau$에 대해 score vocabulary $V_{\text{score}}=\{v_1,\ldots,v_G\}$의 logprob를 얻고, 각 token을 scalar로 매핑한 뒤 기대값을 계산한다.
+
+$$
+R(x,\tau)=\frac{1}{CK}\sum_{c=1}^{C}\sum_{k=1}^{K}\sum_{g=1}^{G}p_\theta(v_g\mid x,c,\tau)\,\phi(v_g)
+$$
+
+여기서 $G$는 score granularity, $K$는 repeated evaluation 횟수, $C$는 criteria 수다. 세 축은 서로 다른 오류를 줄인다.
+
+- **Score granularity**: 1–20처럼 token vocabulary를 세밀하게 만들어 가까운 belief가 같은 정수로 반올림되는 것을 줄인다.
+- **Repeated evaluation**: 독립 평가를 평균해 single-pass variance를 $O(1/K)$로 낮춘다.
+- **Criteria decomposition**: “이 trajectory가 맞는가?”라는 하나의 복합 질문을 Specification, Output, Errors처럼 더 쉬운 하위 기준으로 나눠 prompt bias를 줄인다.
+
+<Figure src="./fig-2.png" caption="여러 modality와 application을 하나의 framework로 통합한다. Score-token logit 분포에서 얻은 연속 신호를 test-time candidate selection, progress tracking, reinforcement learning에 함께 사용한다." number={2} />
+
+<Collapsible title="구체적 방법">
+
+### Pairwise continuous preference
+
+두 trajectory $\tau_i,\tau_j$의 continuous reward를 계산한 뒤 Bradley–Terry model로 soft preference probability를 만든다.
+
+$$
+P(\tau_i \succ \tau_j)=\frac{\exp(R_i)}{\exp(R_i)+\exp(R_j)}
+$$
+
+Winner 하나만 반환하는 hard judgment와 달리 0.5에 가까운 비교는 불확실함을 그대로 남긴다. 이 때문에 tie가 사라지고 여러 비교 결과를 probabilistic win mass로 누적할 수 있다.
+
+### 세 가지 verification scaling axis
+
+- $G=1\rightarrow20$: Terminal-Bench pairwise accuracy가 **73.1%에서 77.5%**로 증가하고 SNR은 0.775에서 0.799로 높아진다.
+- $K=1\rightarrow16$: accuracy가 **74.7%에서 77.4%**로 증가한다. 다만 hard example의 correlated bias 때문에 후반 이득은 줄어든다.
+- $C=1\rightarrow3$: Specification, Output, Errors 중 하나만 쓰면 75.2–76.4%지만 ensemble은 **78.3%**다.
+
+### Probabilistic Pivot Tournament
+
+Full round-robin은 모든 $\binom{N}{2}$ pair를 평가한다. PPT는 먼저 random Hamiltonian cycle의 ring pass로 모든 후보를 A/B 위치에 한 번씩 놓아 positional bias를 상쇄한다. 여기서 상위 $k$개 pivot을 고르고, 나머지는 pivot과만 비교한다.
+
+총 비교 수는
+
+$$
+N+k(N-k)+\binom{k}{2}=O(Nk),\qquad k\ll N
+$$
+
+로 줄어든다. 약한 후보끼리 비교 예산을 낭비하지 않고 불확실한 상위권에 compute를 집중하는 방식이다.
+
+<Figure src="./fig-6.png" caption="Probabilistic Pivot Tournament. Ring pass로 positional bias를 줄이고 상위 pivot을 선택한 뒤, 후보–pivot 비교에 예산을 집중해 full round-robin의 O(N²) 비용을 O(Nk)로 줄인다." number={6} />
+
+</Collapsible>
+
+## 주요 결과
+
+훈련 없이 같은 framework를 coding, robotics, medical domain에 적용했다.
+
+- **Terminal-Bench V2**: Pass@1 83.1%, oracle 92.1%인 candidate pool에서 **86.5%**. GPT-5.5 leaderboard baseline 84.7%도 넘어선다.
+- **SWE-Bench Verified**: Pass@1 76.1%, oracle 84.4%에서 **78.2%**.
+- **MedAgentBench**: Pass@1 70.2%, oracle 75.0%에서 **73.3%**.
+- **RoboRewardBench**: LLM-as-a-Judge 70.8%, RoboReward-8B 81.4% 대비 **87.4% trajectory preference accuracy**.
+- **Harness generalization**: Terminal-Bench의 Terminus-2는 62.9%에서 **71.2%**, Terminus-Kira는 74.7%에서 **79.4%**로 올라 특정 scaffold에만 맞춘 신호가 아님을 보인다.
+
+<Figure src="./tab-3.png" caption="같은 candidate pool에서 Pass@1, oracle Pass@N, LLM-as-a-Verifier를 비교한다. 네 domain benchmark에서 oracle headroom의 상당 부분을 회수한다." number={3} />
+
+Continuous score는 final answer 선택을 넘어 trajectory의 **진행도**도 추적한다. 성공한 Terminal-Bench rollout의 step index–score Spearman VOC는 0.848, 실패 rollout은 0.769다. RoboRewardBench 500개 trajectory에서는 **VOC 0.966**으로 RoboReward-8B 0.877, Robometer-4B 0.780을 앞선다.
+
+마지막으로 progress score를 dense reward로 사용한다. LIBERO ketchup task에서 $\pi_0$를 DSRL-SAC로 fine-tuning할 때 같은 성공률에 약 **1.8배 적은 environment step**이 들고, 최종 성공률도 0.69에서 0.76으로 높아진다. MATH의 Qwen3-8B GRPO에서는 약 1.1배의 sample-efficiency 향상이 나온다.
+
+<Figure src="./fig-9.png" caption="Verifier progress signal을 dense RL reward로 사용하면 LIBERO에서 약 1.8배, MATH에서 약 1.1배 sample efficiency가 향상된다." number={9} />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+
+- **Verification을 독립적인 scaling axis로 제시**했다. 더 큰 generator를 호출하는 것 외에 score granularity, repetition, rubric decomposition에 compute를 배분하는 선택지를 정량화했다.
+- **Training-free cross-domain verifier**를 만들었다. 동일한 probabilistic scoring recipe가 terminal command, GitHub patch, robot video, medical trajectory에 적용된다.
+- **Selection–monitoring–learning을 하나의 signal로 연결**했다. Candidate ranking에 사용한 continuous score가 agent progress와 dense RL reward까지 이어진다.
+- **비용을 고려한 ranking algorithm**을 제안했다. PPT는 candidate 수가 커질 때 verification cost가 quadratic하게 커지는 문제를 완화한다.
+
+**저자 언급**:
+
+- Direct formulation은 scoring-token logprob 접근을 가정한다. 일부 closed frontier API는 이를 제공하지 않아 closed-model reasoning을 open verifier로 전달하는 two-stage workaround가 필요하다.
+- Criteria decomposition은 아직 사람이 domain별 rubric을 설계하며, repeated evaluation도 verifier uncertainty와 관계없이 균일하게 compute를 사용한다.
+- Dense-reward 실험은 single-turn 설정에 제한된다. 여러 action이 상호 의존하는 multi-turn RL에서 per-step reward가 안정적인지는 아직 검증되지 않았다.
+- 반복 평가는 variance를 낮추지만 bias 자체는 바꾸지 않는다. Hard example에서 이득이 포화하는 것도 correlated bias가 남기 때문이다.
+- 🤖 Generator와 verifier가 비슷한 model family나 training data를 공유하면 같은 blind spot을 확신 있게 반복할 수 있다. Adversarial trajectory와 reward hacking 상황에서 continuous score가 discrete judge보다 실제로 더 안전한지는 별도 평가가 필요하다.
+
+## 다음 방향
+
+다음 단계는 verification compute를 무작정 늘리는 것이 아니라 **불확실한 후보·criterion·시점에 적응적으로 배분하는 것**이다. Criteria를 자동 생성하고, verifier uncertainty로 repetition과 pivot 수를 조절하며, closed API에서도 calibrated distribution을 복원해야 한다. 더 장기적으로는 multi-turn agent가 자기 verifier를 gaming하지 못하도록 독립성·adversarial robustness·cross-model calibration을 함께 측정해야 한다.

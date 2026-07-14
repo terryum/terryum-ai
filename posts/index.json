@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-14T03:16:17.008Z",
-  "total_posts": 82,
+  "generated_at": "2026-07-14T03:58:12.861Z",
+  "total_posts": 83,
   "posts": [
     {
       "post_number": 1,
@@ -6229,6 +6229,105 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 83,
+      "slug": "2607-llm-as-verifier",
+      "content_type": "papers",
+      "title_en": "LLM-as-a-Verifier: Scaling verification beyond discrete judges",
+      "title_ko": "LLM-as-a-Verifier: 생성보다 검증을 스케일링하는 법",
+      "summary_ko": "Score-token 확률분포의 기대값으로 agent trajectory를 세밀하게 검증하고, 검증 compute를 새로운 scaling 축으로 만든다.",
+      "summary_en": "Turn score-token distributions into fine-grained trajectory rewards and make verification compute a new scaling axis for agents.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "ai",
+      "subfields": [
+        "large-language-models",
+        "agent-evaluation",
+        "reward-modeling",
+        "test-time-scaling",
+        "reinforcement-learning"
+      ],
+      "key_concepts": [
+        "LLM-as-a-Verifier",
+        "probabilistic-verification",
+        "scoring-token-logits",
+        "verification-scaling",
+        "criteria-decomposition",
+        "repeated-evaluation",
+        "probabilistic-pivot-tournament",
+        "trajectory-reward-model",
+        "progress-tracking",
+        "dense-reward"
+      ],
+      "methodology": [
+        "logprob-expectation-scoring",
+        "pairwise-preference-modeling",
+        "Bradley-Terry-model",
+        "Monte-Carlo-ensembling",
+        "rubric-decomposition",
+        "pivot-based-ranking",
+        "cross-domain-benchmarking",
+        "dense-reward-shaping"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "AI",
+        "LLM",
+        "Verification",
+        "Agent Evaluation",
+        "Test-Time Scaling",
+        "Reward Modeling",
+        "Reinforcement Learning"
+      ],
+      "source_author": "Jacky Kwok et al.",
+      "source_date": "2026-07-06",
+      "published_at": "2026-07-14T12:43:23+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "LLM-as-a-Verifier turns scoring-token logit distributions into continuous trajectory scores and scales verification through granularity, repetition, and criteria decomposition, reaching state of the art across coding, robotics, and medical agent benchmarks without verifier training.",
+        "problem": "Discrete LLM judges collapse uncertain scoring distributions into coarse tokens, causing ties and weak discrimination, while trained reward models often fail to generalize across domains and exhaustive candidate comparison is costly.",
+        "solution": "Compute the expected value over score-token probabilities, average across repeated evaluations and decomposed criteria, convert continuous rewards into Bradley-Terry preferences, and rank candidates with an O(Nk) Probabilistic Pivot Tournament.",
+        "key_result": "The framework reaches 86.5% on Terminal-Bench V2, 78.2% on SWE-Bench Verified, 87.4% on RoboRewardBench, and 73.3% on MedAgentBench; it also yields VOC 0.966 on robot trajectories and improves LIBERO RL sample efficiency by about 1.8x.",
+        "limitations": [
+          "Direct continuous scoring requires access to scoring-token log probabilities, which several closed frontier APIs do not expose.",
+          "Criteria are manually designed and repeated evaluations allocate compute uniformly rather than according to uncertainty.",
+          "Dense-reward experiments are limited to single-turn settings rather than long-horizon multi-turn reinforcement learning.",
+          "Repeated sampling reduces variance but cannot remove correlated verifier bias or systematic model-family blind spots."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2604-automated-alignment-researchers",
+          "type": "sharesGoalWith",
+          "note": "Both address scalable oversight of increasingly capable agent systems; this paper supplies a general-purpose fine-grained verifier rather than an automated research organization."
+        },
+        {
+          "target": "2512-conductor-llm-orchestration",
+          "type": "sharesTopicWith",
+          "note": "Both treat test-time computation over multiple candidate agent behaviors as a scaling axis, with verification and orchestration as complementary selection mechanisms."
+        },
+        {
+          "target": "2606-enpire-robot-policy-self-improvement",
+          "type": "sharesTopicWith",
+          "note": "ENPIRE depends on automatic verification in physical policy-improvement loops, while LLM-as-a-Verifier provides a transferable continuous progress and reward signal."
+        },
+        {
+          "target": "2502-ai-co-scientist",
+          "type": "sharesTopicWith",
+          "note": "Both rank candidate agent outputs through tournaments; the AI co-scientist uses Elo debate while this work uses probabilistic pairwise scores and pivots."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "ai/agent",
+      "taxonomy_secondary": [
+        "ai/evaluation",
+        "ml/reinforcement-learning"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7337,6 +7436,26 @@
         "from": "2509-pace-sim2real-legged-robots",
         "to": "2501-humanoid-locomotion-manipulation-survey",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2607-llm-as-verifier",
+        "to": "2604-automated-alignment-researchers",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2607-llm-as-verifier",
+        "to": "2512-conductor-llm-orchestration",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2607-llm-as-verifier",
+        "to": "2606-enpire-robot-policy-self-improvement",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2607-llm-as-verifier",
+        "to": "2502-ai-co-scientist",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7450,7 +7569,8 @@
           28,
           30,
           31,
-          54
+          54,
+          83
         ],
         "core_concepts": [
           "autonomous-research",
@@ -9292,12 +9412,42 @@
     ],
     "cross-platform-validation": [
       82
+    ],
+    "LLM-as-a-Verifier": [
+      83
+    ],
+    "probabilistic-verification": [
+      83
+    ],
+    "scoring-token-logits": [
+      83
+    ],
+    "verification-scaling": [
+      83
+    ],
+    "criteria-decomposition": [
+      83
+    ],
+    "repeated-evaluation": [
+      83
+    ],
+    "probabilistic-pivot-tournament": [
+      83
+    ],
+    "trajectory-reward-model": [
+      83
+    ],
+    "progress-tracking": [
+      83
+    ],
+    "dense-reward": [
+      83
     ]
   },
   "domain_stats": {
     "robotics": 44,
     "ml": 3,
-    "ai": 6,
+    "ai": 7,
     "philosophy": 2,
     "AI & Society": 6,
     "Infra & Cost": 1,
@@ -9325,7 +9475,7 @@
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 2,
     "robotics/hand/dexterous": 4,
-    "ai/agent": 8,
+    "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
     "robotics/brain": 22,
@@ -9380,12 +9530,13 @@
     "biology/dermatology": 1,
     "biology/aging:secondary": 1,
     "ai/research": 1,
-    "ai/evaluation:secondary": 1,
+    "ai/evaluation:secondary": 2,
     "robotics/body/legged:secondary": 1,
     "robotics/control/system-identification:secondary": 1,
+    "ml/reinforcement-learning:secondary": 1,
     "robotics/arm": 5,
     "robotics": 43,
-    "ai": 19,
+    "ai": 20,
     "biology": 2
   }
 }
