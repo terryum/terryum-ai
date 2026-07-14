@@ -114,12 +114,14 @@ Reward는 네 묶음만 둔다.
 - **Transfer fidelity와 energy efficiency를 연결**했다. 정확히 맞춘 simulator가 straight-knee gait처럼 실제 machine dynamics를 더 적극적으로 활용하게 하며, 그 효과를 full-battery endurance와 CoT로 검증했다.
 - **간결한 네 항 reward**로 다양한 locomotion을 학습해, 수십 개 heuristic term이 반드시 필요한 것은 아니라는 실증을 제공했다.
 
-**한계점**
+**저자 언급**:
 
 - 저자들이 명시하듯 suspended setup의 excitation bandwidth는 유한하다. 구조 유연성이나 firmware filter가 해당 범위 안에서 강하게 나타나면 식별이 깨질 수 있다.
 - Temperature, wear, aging, firmware update, simulator change는 fitted parameter를 이동시킨다. 현재 방식은 이를 online으로 추적하지 않는다.
 - Contact compliance, series elasticity, bus-voltage/current limit, inverter switching을 아직 fit에 명시적으로 넣지 않았다.
 - PACE는 correct kinematics, high-bandwidth current control 또는 LTI에 가까운 drive, mild temperature dependence, 충분한 stiffness를 가정한다. 이 가정이 무너지면 fully online 또는 model-free adaptation이 더 적합할 수 있다.
 - 🤖 세 주요 플랫폼이 모두 point-foot PMSM 기반 quadruped이고, 핵심 policy는 blind locomotion이다. Humanoid, wheeled-legged robot, deformable contact, perception-heavy navigation까지 같은 $4n+1$ parameterization이 충분한지는 아직 독립적으로 검증되지 않았다.
+
+## 다음 방향
 
 다음 단계는 mechanical fit에 electrical constraint와 compliance를 더하고, temperature와 wear를 따라가는 lightweight online adaptation을 결합하는 것이다. 이 방향이 성공하면 sim-to-real은 “무작위화로 오차를 견디기”에서 “필요한 물리만 빠르게 식별해 hardware capability를 적극적으로 쓰기”로 이동할 수 있다.
