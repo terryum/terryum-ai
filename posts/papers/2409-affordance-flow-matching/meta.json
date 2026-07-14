@@ -1,0 +1,275 @@
+{
+  "post_id": "2409-affordance-flow-matching",
+  "slug": "2409-affordance-flow-matching",
+  "post_number": 84,
+  "published_at": "2026-07-14T13:48:48+09:00",
+  "updated_at": "2026-07-14T13:48:48+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "node_type": "paper",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Robot Manipulation",
+    "Flow Matching",
+    "Affordance Learning",
+    "Prompt Tuning",
+    "Imitation Learning",
+    "Vision-Language Models"
+  ],
+  "display_tags": [
+    "Flow Matching",
+    "Affordance Learning",
+    "Robot Manipulation",
+    "Prompt Tuning"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 1: The proposed framework of unifying affordance map learning and action generation for robot manipulation. Given the same visual scene with different language instructions, the model first extracts instruction-relevant manipulation affordances. This is achieved through a prompt tuning method that prepends learnable text-conditioned prompts in a frozen vision foundation model. Then, a flow matching policy is proposed to transform the random waypoints to the desired action trajectories, guided by task-relevant affordance maps.",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "centre",
+  "reading_time_min": 10,
+  "source_date": "2024-09-02",
+  "source_url": "https://arxiv.org/abs/2409.01083",
+  "source_title": "Affordance-based Robot Manipulation with Flow Matching",
+  "source_author": "Fan Zhang and Michael Gienger",
+  "source_type": "arXiv",
+  "source_venue": "arXiv preprint",
+  "arxiv_id": "2409.01083",
+  "doi": "10.48550/arXiv.2409.01083",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Affordance-based+Robot+Manipulation+with+Flow+Matching",
+  "source_project_url": "https://hri-eu.github.io/flow-matching-policy/",
+  "code_url": "https://github.com/HRI-EU/flow_matching",
+  "source_authors_full": [
+    {
+      "name": "Fan Zhang",
+      "affiliation": "Honda Research Institute Europe"
+    },
+    {
+      "name": "Michael Gienger",
+      "affiliation": "Honda Research Institute Europe"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: The proposed framework of unifying affordance map learning and action generation for robot manipulation. Given the same visual scene with different language instructions, the model first extracts instruction-relevant manipulation affordances. This is achieved through a prompt tuning method that prepends learnable text-conditioned prompts in a frozen vision foundation model. Then, a flow matching policy is proposed to transform the random waypoints to the desired action trajectories, guided by task-relevant affordance maps.",
+      "caption_ko": "Figure 1: 로봇 조작을 위한 affordance map 학습과 action generation을 통합한 제안 framework. 같은 장면이라도 서로 다른 language instruction이 주어지면 먼저 instruction과 관련된 manipulation affordance를 추출한다. Frozen vision foundation model에 학습 가능한 text-conditioned prompt를 prepend하는 prompt tuning으로 이를 구현한다. 이어서 flow matching policy가 task-relevant affordance map의 안내를 받아 random waypoint를 원하는 action trajectory로 변환한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Overview of prompt tuning structures used for affordance learning. (Left) For the shallow structure, text-conditioned prompts are prepended to the first vision transformer layer. (Right) For the deep structure, prompts are inserted into every vision layer. Only the prompt-related layers and the decoder are being updated during the training, while the vision transformer remains frozen.",
+      "caption_ko": "Figure 2: Affordance learning에 사용하는 prompt tuning 구조. 왼쪽 shallow 구조는 첫 vision transformer layer에 text-conditioned prompt를 prepend한다. 오른쪽 deep 구조는 모든 vision layer에 prompt를 삽입한다. 학습 중에는 prompt 관련 layer와 decoder만 갱신하고 vision transformer는 frozen 상태로 유지한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Framework of flow matching policy. (a) General formulation. At each time step, flow matching takes visual observation \\bm{o} (e. g., state-based inputs, RGB-D images, visual affordances) as input, and outputs robot actions (e. g., 6D robot end-effector trajectories, robot joint actions, gripper actions). (b-d) Visualization of the inference process of transforming random waypoints to target actions over time from 0 (green) to 1 (purple). Red lines in (b) denote the flow paths. Vector fields are shown in (c).",
+      "caption_ko": "Figure 3: Flow matching policy framework. (a) 일반식. 각 time step에서 flow matching은 state input, RGB-D image, visual affordance 같은 visual observation을 입력받아 6D end-effector trajectory, robot joint action, gripper action 같은 robot action을 출력한다. (b-d) 시간 0(초록)에서 1(보라)까지 random waypoint를 target action으로 바꾸는 inference 과정을 시각화한다. (b)의 빨간 선은 flow path이고 (c)는 vector field다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: t-SNE visualizations of the embeddings before the decoder. The points of the same color denote the tasks with same language prompts, which are embedded together. The prompt tuning method could produce instruction-relevant features without updating vision backbone parameters.",
+      "caption_ko": "Figure 4: Decoder 이전 embedding의 t-SNE 시각화. 같은 색 점은 같은 language prompt를 가진 task이며 서로 가까이 embedding된다. Prompt tuning은 vision backbone parameter를 갱신하지 않고도 instruction-relevant feature를 만들 수 있다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Ablation studies of prompt tuning. We investigate the effect of various design choices on affordance learning performance, including pretrained weights, decoder input, dataset size and prompt location.",
+      "caption_ko": "Figure 5: Prompt tuning ablation. Pretrained weight, decoder input, dataset size, prompt location을 포함한 여러 설계 선택이 affordance learning 성능에 미치는 영향을 조사한다."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Training and testing loss throughout the training process. Flow matching exhibits greater stability on both training and evaluation than diffusion policy.",
+      "caption_ko": "Figure 6: 학습 과정 전체의 training loss와 testing loss. Flow matching은 diffusion policy보다 training과 evaluation 모두에서 더 안정적이다."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Figure 7: Ablations of using RGB images with/without affordances for policy training. Visual affordance guides the flow matching policy to generate a trajectory closely aligned with the truth. The policy without affordances might generate a trajectory detached from the ground truth, but still a reasonable solution. This reinforces the argument that flow matching policy could handle multimodal robot action distributions.",
+      "caption_ko": "Figure 7: Policy 학습에서 RGB image에 affordance를 포함하거나 제외한 ablation. Visual affordance는 flow matching policy가 ground truth와 밀접하게 정렬된 trajectory를 생성하도록 안내한다. Affordance가 없는 policy는 ground truth와 떨어진 trajectory를 만들 수 있지만 여전히 합리적인 해일 수 있다. 이는 flow matching policy가 multimodal robot action distribution을 다룰 수 있음을 보여준다."
+    },
+    {
+      "number": 8,
+      "src": "./fig-8.png",
+      "caption": "Figure 8: Generation quality (solid line) and inference time (dotted line, we use frequency here) comparison of flow matching and diffusion policy for varying values of inference steps.",
+      "caption_ko": "Figure 8: Inference step 수를 바꾸며 flow matching과 diffusion policy의 generation quality(실선)와 inference time(점선, 여기서는 frequency)을 비교한다."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "TABLE I: Results of prompt tuning baseline and ablation studies. We report the number of learnable parameters, the heatmap estimation error (the fourth column) and the heatmap center error (the fifth column). Our method outshines other baselines except for the full finetuning.",
+      "caption_ko": "Table I: Prompt tuning baseline과 ablation 결과. 학습 가능한 parameter 수, heatmap estimation error(네 번째 열), heatmap center error(다섯 번째 열)를 보고한다. 제안 방법은 full fine-tuning을 제외한 다른 baseline보다 우수하다."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "TABLE II: Results of flow matching policy against baselines and ablations. We report the average error of 2D and 3D trajectory estimation and the inference time. Our flow matching method achieves the best trajectory estimation accuracy. We also investigate the effect of various design choices on flow matching performance, including network structures, training, and inference steps.",
+      "caption_ko": "Table II: Flow matching policy의 baseline 비교와 ablation 결과. 2D·3D trajectory estimation 평균 오차와 inference time을 보고한다. Flow matching이 가장 높은 trajectory estimation 정확도를 얻었으며 network 구조, training 및 inference step 같은 설계 선택의 영향도 조사한다."
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "TABLE III: Real-world robot experimental results.",
+      "caption_ko": "Table III: 실제 로봇 실험 결과."
+    },
+    {
+      "number": 4,
+      "src": "./tab-4.png",
+      "caption": "TABLE IV: We present the robot evaluation performance in the format of (max performance) / (average of last checkpoint with 10 trials of replications), with each averaged across 500 different environment initial conditions. The metric used here is success rate, except for the Push-T task which uses target area coverage. We have used various sampling ranges (end-effector position, T-block position and orientation) for Push-T environment initialization. For Robomimic benchmark, we specifically report results on the Transport task.",
+      "caption_ko": "Table IV: Robot evaluation 성능을 최대 성능과 마지막 checkpoint의 10회 반복 평균 형식으로 제시하며, 각각 500개의 서로 다른 environment initialization에 대해 평균한다. Push-T는 target area coverage를, 나머지는 success rate를 사용한다. Push-T 초기화를 위해 end-effector 위치와 T-block 위치·방향의 여러 sampling range를 사용했고, Robomimic은 Transport task 결과를 보고한다."
+    },
+    {
+      "number": 5,
+      "src": "./tab-5.png",
+      "caption": "TABLE V: Hyperparameters for flow matching and diffusion policy. Ta: action horizon. Tp: action prediction horizon. ObsRes: environment observation resolution. D-Net: diffusion/flow matching network. D-Par: diffusion/flow matching network number of parameters in millions. V-Enc: vision encoder. V-Par: vision encoder number of parameters in millions. Lr: learning rate. WDe: weight decay. Iters Train: number of training diffusion iterations. Iters Eval: number of inference iterations.",
+      "caption_ko": "Table V: Flow matching과 diffusion policy의 hyperparameter. Ta는 action horizon, Tp는 action prediction horizon, ObsRes는 environment observation resolution, D-Net은 diffusion/flow matching network, D-Par는 해당 network의 백만 단위 parameter 수, V-Enc는 vision encoder, V-Par는 vision encoder의 백만 단위 parameter 수, Lr은 learning rate, WDe는 weight decay, Iters Train은 training diffusion iteration 수, Iters Eval은 inference iteration 수다."
+    },
+    {
+      "number": 6,
+      "src": "./tab-6.png",
+      "caption": "TABLE VI: Tasks Summary. Rob: number of robots. Obj: number of objects. ActD: action dimension. PH: proficient-human demonstration. Steps: max number of rollout steps. Franka Kitchen and Robomimic involve 6D robot and gripper actions in the joint space. ADLs and Push-T focus on robot end-effector trajectories. For clarity, we further explain that for our ADLs tasks, as no closed-loop motion is considered here, we assume that the gripper closes when the first waypoint has arrived, and the low-level actions are executed between waypoints using a standard proportional-derivative (PD) controller.",
+      "caption_ko": "Table VI: Task 요약. Rob는 robot 수, Obj는 object 수, ActD는 action dimension, PH는 proficient-human demonstration, Steps는 최대 rollout step 수다. Franka Kitchen과 Robomimic은 joint space의 6D robot 및 gripper action을 포함하고, ADL과 Push-T는 robot end-effector trajectory에 초점을 둔다. ADL은 closed-loop motion을 고려하지 않으므로 첫 waypoint에 도달하면 gripper가 닫히고 waypoint 사이의 low-level action은 표준 PD controller로 실행된다고 가정한다."
+    }
+  ],
+  "domain": "robotics",
+  "subfields": [
+    "robot-manipulation",
+    "visuomotor-policy",
+    "affordance-learning",
+    "imitation-learning",
+    "vision-language-models"
+  ],
+  "key_concepts": [
+    "affordance-based-manipulation",
+    "flow-matching-policy",
+    "text-conditioned-prompt-tuning",
+    "parameter-efficient-finetuning",
+    "visual-affordance-heatmap",
+    "multimodal-action-distribution",
+    "activities-of-daily-living",
+    "few-step-inference"
+  ],
+  "methodology": [
+    "deep-visual-prompt-tuning",
+    "frozen-vision-transformer",
+    "conditional-flow-matching",
+    "behavior-cloning",
+    "FiLM-conditioning",
+    "receding-horizon-control",
+    "real-robot-evaluation",
+    "cross-benchmark-comparison"
+  ],
+  "taxonomy_primary": "robotics/brain",
+  "taxonomy_secondary": [
+    "robotics/arm",
+    "robotics/brain/vla"
+  ],
+  "contribution_type": "method",
+  "relations": [
+    {
+      "target": "2303-diffusion-policy",
+      "type": "cites",
+      "note": "The paper directly uses Diffusion Policy with DDPM and DDIM as its principal generative behavior-cloning baseline and frames flow matching as a faster few-step alternative."
+    },
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "cites",
+      "note": "The latest revision discusses pi_0 as an end-to-end VLA flow model, contrasting that route with an explicit affordance intermediate representation and low-level flow policy."
+    },
+    {
+      "target": "2405-octo-generalist-policy",
+      "type": "sharesGoalWith",
+      "note": "Both learn language-conditioned multi-task robot policies, while this work uses task-specific affordance heatmaps and Octo relies on broad transformer pretraining with a diffusion action head."
+    },
+    {
+      "target": "2505-forcevla-force-aware-moe",
+      "type": "sharesTopicWith",
+      "note": "Both combine vision-language conditioning with flow-based robot action generation; ForceVLA adds force-torque sensing whereas this work emphasizes visual affordances and parameter-efficient prompt tuning."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "The framework freezes a vision transformer, learns language-conditioned affordance prompts, and uses those heatmaps to condition a few-step flow-matching robot policy, reaching 0.82 real-world ADL success and 13.228 ms one-step trajectory inference.",
+    "problem": "Assistive manipulation needs instruction-aware scene affordances and multimodal robot trajectories, but full VLM finetuning is data- and parameter-heavy while diffusion policies require iterative denoising.",
+    "solution": "Insert learnable text prompts into a frozen ViT to predict relational affordance heatmaps, then condition a supervised flow-matching vector field that transports random waypoints into robot action trajectories.",
+    "key_result": "Deep prompt tuning uses 42.1M learnable parameters versus 153.8M for full finetuning, while a one-step CNN flow policy reaches 1.031 cm trajectory error in 13.228 ms and the full affordance-based system reaches 0.82 real-world ADL success versus 0.76 for Diffusion Policy.",
+    "limitations": [
+      "Background and camera-view shifts cause out-of-distribution failures in real-world experiments.",
+      "The real-robot evaluation is open-loop, so an initial failed grasp cannot be recovered.",
+      "Deterministic flow matching may underrepresent rare outcomes in stochastic or biased datasets.",
+      "The learned trajectories do not explicitly enforce second-order smoothness, torque feasibility, or minimum transport cost."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can an affordance-conditioned flow policy remain robust to background changes, camera shifts, and unseen object layouts without collecting substantially more labeled real-world data?",
+      "source": "author",
+      "relates_to": [
+        "out-of-distribution-generalization",
+        "visual-affordance-heatmap",
+        "data-diversity"
+      ]
+    },
+    {
+      "question": "Can the full affordance-to-action system operate in closed loop and recover online from missed grasps or inaccurate early waypoints?",
+      "source": "author",
+      "relates_to": [
+        "closed-loop-control",
+        "error-recovery",
+        "receding-horizon-control"
+      ]
+    },
+    {
+      "question": "How should flow-matching policies incorporate stochastic outcomes, explicit dynamic feasibility, and optimal-transport objectives without losing few-step inference speed?",
+      "source": "author",
+      "relates_to": [
+        "stochastic-manipulation",
+        "trajectory-smoothness",
+        "optimal-transport"
+      ]
+    },
+    {
+      "question": "Does the two-stage affordance bottleneck still help across unseen tasks and robot embodiments, or does it constrain transfer compared with end-to-end VLA pretraining?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "cross-embodiment-transfer",
+        "unseen-task-generalization",
+        "vision-language-action"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Train on more diverse viewpoints, backgrounds, objects, and failure trajectories to improve out-of-distribution robustness.",
+    "Move the real-world ADL system from open-loop execution to closed-loop replanning with grasp recovery.",
+    "Add velocity, acceleration, torque, or geometric constraints directly to the flow objective.",
+    "Evaluate rectified-flow and optimal-transport variants that may preserve speed while reducing transport cost.",
+    "Test whether explicit affordance intermediates improve or limit cross-task and cross-embodiment scaling relative to end-to-end VLA models."
+  ],
+  "survey_hooks": [
+    "flow matching for robot policies",
+    "affordance-based robot manipulation",
+    "parameter-efficient VLM adaptation",
+    "generative behavior cloning",
+    "assistive robotics datasets",
+    "diffusion versus flow policies"
+  ],
+  "next_reading": [
+    "2303-diffusion-policy",
+    "2410-pi0-vla-flow-model",
+    "2505-forcevla-force-aware-moe"
+  ],
+  "terrys_memo": "",
+  "citation_status": "unchecked",
+  "citation_updated_at": "2026-07-14T13:48:48+09:00",
+  "newsletter_eligible": false,
+  "featured": false,
+  "ai_research_question": "Can an explicit affordance bottleneck make flow-matching robot policies both data-efficient and transferable without sacrificing the robustness of end-to-end VLA learning?"
+}

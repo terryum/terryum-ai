@@ -1,0 +1,121 @@
+---
+locale: "en"
+title: "Affordance Flow Matching: Parameter-efficient perception and fast robot trajectories"
+subtitle: "Separate where to act from how to move for parameter-efficient perception and fast trajectory generation"
+summary: "The paper learns manipulation affordances by updating only text-conditioned prompts around a frozen vision transformer, then conditions a flow-matching policy that transports random waypoints into robot trajectories. Deep prompt tuning approaches full-finetuning affordance error with 42.1M rather than 153.8M trainable parameters, while a one-step flow policy reaches 1.031 cm error in 13.228 ms and the real ADL system reaches 0.82 success."
+card_summary: "Find instruction-aware affordances with a frozen vision model, then generate multimodal robot trajectories with few-step flow matching."
+seo_title: "Affordance-based Robot Manipulation — prompt tuning and flow matching"
+seo_description: "A paper summary of language-conditioned affordance prompt tuning and few-step flow matching for assistive robot manipulation, including results and limitations."
+terrys_memo: ""
+translation_of: "2409-affordance-flow-matching:ko"
+references:
+  - title: "Flow Matching for Generative Modeling"
+    author: "Lipman et al. (2022)"
+    description: "The theoretical basis for directly regressing vector fields along conditional probability paths. This paper transfers the generative principle from images to observation-conditioned robot action trajectories."
+    arxiv_url: "https://arxiv.org/abs/2210.02747"
+    scholar_url: "https://scholar.google.com/scholar?q=Flow+Matching+for+Generative+Modeling"
+    category: "foundational"
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al. (2023)"
+    description: "The representative formulation of robot visuomotor policies as conditional diffusion processes. It is the primary generative behavior-cloning baseline here, while flow matching targets comparable quality in fewer inference steps."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?q=Diffusion+Policy+Visuomotor+Policy+Learning+via+Action+Diffusion"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "Visual Prompt Tuning"
+    author: "Jia et al. (2022)"
+    description: "A parameter-efficient method that adapts a frozen vision transformer by inserting a small set of trainable prompt tokens. The present work extends the idea to language-conditioned manipulation-affordance learning."
+    arxiv_url: "https://arxiv.org/abs/2203.12119"
+    scholar_url: "https://scholar.google.com/scholar?q=Visual+Prompt+Tuning"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Black et al. (2024)"
+    description: "A large end-to-end VLA combining a pretrained VLM with a flow-matching action expert. The latest revision contrasts that lineage with its explicit intermediate affordance representation and separate low-level flow policy."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+Vision+Language+Action+Flow+Model+General+Robot+Control"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "recent"
+---
+
+## TL;DR
+
+Assistive manipulation must understand **where to interact** under a language instruction and generate **how the robot should move** through a multimodal action space. This paper learns only text-conditioned prompts around a frozen vision transformer, then feeds the resulting 2D affordance heatmaps into a few-step flow-matching policy. The split yields parameter-efficient affordance learning and trajectory quality comparable to or better than diffusion policy at substantially lower inference latency.
+
+## Problem
+
+End-to-end learning for daily-living assistance demands large multi-task datasets that jointly cover people, objects, language instructions, and 6D actions. Such demonstrations and affordance labels are expensive, while fully fine-tuning a large vision-language model also incurs substantial parameter and storage cost. An explicit affordance representation can reduce the learning burden, but the downstream policy still has to capture multimodal demonstration trajectories. Diffusion policies handle multimodality well, yet their iterative denoising introduces latency in closed-loop control. The paper therefore connects **parameter-efficient affordance perception** with **few-step generative action learning**.
+
+## Core idea
+
+The system explicitly separates high-level perception from low-level action generation.
+
+- **Instruction-aware affordances**: The same scene produces different object–person interaction heatmaps for instructions such as `feed the human` and `comb the hair`.
+- **Text-conditioned prompt tuning**: The vision transformer stays frozen; only language-derived prompts and a lightweight decoder are trained.
+- **Affordance-conditioned flow policy**: RGB-D and affordance embeddings condition a vector field that transports Gaussian random waypoints into demonstrated action trajectories.
+- **Multi-task ADL policy**: One framework covers ten Activities of Daily Living, including feeding, combing, wiping, and passing water.
+
+<Figure src="./fig-1.png" caption="Figure 1: The proposed framework of unifying affordance map learning and action generation for robot manipulation. Given the same visual scene with different language instructions, the model first extracts instruction-relevant manipulation affordances. This is achieved through a prompt tuning method that prepends learnable text-conditioned prompts in a frozen vision foundation model. Then, a flow matching policy is proposed to transform the random waypoints to the desired action trajectories, guided by task-relevant affordance maps." number={1} />
+
+<Collapsible title="Method details">
+
+### Affordance maps through prompt tuning
+
+The shallow variant prepends a text-conditioned prompt to the first vision-transformer layer; the deep variant injects the corresponding language feature at every layer. The vision backbone remains fixed while prompt-related layers and a single transformer decoder are updated. Ground-truth affordances are 2D Gaussian heatmaps centered on object pixels touched by demonstrated actions, and training minimizes their L2 error.
+
+Deep prompting conditions later layers where high-level semantics emerge and performs more reliably than the shallow design. With scarce downstream data, prompt tuning also adapts better than full finetuning. A t-SNE analysis shows that examples sharing a language instruction cluster in the final visual representation.
+
+### Conditional flow-matching policy
+
+Let $x_1$ be a demonstrated action trajectory and $x_0$ Gaussian random waypoints. The method forms a linear probability path at $t\in[0,1]$:
+
+$$
+x_t=(1-t)x_0+t x_1.
+$$
+
+The policy $v_\theta$ regresses the target vector field conditioned on observation $o$ and the current waypoint state:
+
+$$
+\mathcal{L}_{\mathrm{FM}}=\mathbb{E}_{x_0,x_1,t}\left[\left\|v_\theta(x_t,t,o)-(x_1-x_0)\right\|_2^2\right].
+$$
+
+Observations may be state, RGB-D, or affordance inputs. ResNet visual embeddings condition a U-Net through FiLM. During inference, one or a few vector-field integration steps transform random waypoints into 6D end-effector, joint, or gripper trajectories. The hypothesis is that these nearly straight paths admit useful samples with fewer steps than stochastic diffusion denoising.
+
+<Figure src="./fig-3.png" caption="Figure 3: Framework of flow matching policy. (a) General formulation. At each time step, flow matching takes visual observation (e.g., state-based inputs, RGB-D images, visual affordances) as input, and outputs robot actions (e.g., 6D robot end-effector trajectories, robot joint actions, gripper actions). (b-d) Visualization of the inference process of transforming random waypoints to target actions over time from 0 (green) to 1 (purple). Red lines in (b) denote the flow paths. Vector fields are shown in (c)." number={3} />
+
+</Collapsible>
+
+## Results
+
+- **Parameter efficiency**: Deep prompt tuning uses **42.1M trainable parameters** and reaches heatmap error 0.80 and center error 2.93 pixels. Full finetuning reaches 0.76/1.15 with 153.8M parameters, so the prompt method uses about 27% as many trainable parameters while outperforming the other PEFT baselines.
+- **Trajectory quality**: A 16-step CNN flow policy reaches **0.840-pixel 2D and 1.009-cm 3D error** on the ADL test set, below DDPM-16 at 0.882 pixels/2.398 cm and DDIM-16 at 0.874 pixels/2.266 cm.
+- **Few-step inference**: One-step CNN flow matching reaches **1.031 cm in 13.228 ms**, lower 3D error than 16-step DDIM at 2.266 cm and 98.680 ms while reducing latency by about 86.6%.
+- **Real robot**: Across ten ADL tasks on a KINOVA Gen3, affordance-conditioned flow matching reaches **0.82 success**, compared with 0.76 for Diffusion Policy, 0.44 for transformer BC, and 0.74 for end-to-end flow matching without affordances.
+- **Cross-benchmark behavior**: On Push-T, Franka Kitchen, and Robomimic, flow matching is generally comparable to or marginally better than diffusion/score baselines on average and retains its few-step latency advantage.
+
+<Figure src="./tab-2.png" caption="TABLE II: Results of flow matching policy against baselines and ablations. We report the average error of 2D and 3D trajectory estimation and the inference time. Our flow matching method achieves the best trajectory estimation accuracy. We also investigate the effect of various design choices on flow matching performance, including network structures, training, and inference steps." number={2} />
+
+The point is not a dramatic quality win over every diffusion model—the authors explicitly characterize most differences as marginal. The practical distinction is that **one or two flow steps already produce useful trajectories and the training/evaluation curves are more stable**. Combining 18.340 ms for affordance perception with 13.228 ms for one-step flow inference lets the complete system run at roughly 30 Hz.
+
+## Achievements and limitations
+
+**What the paper achieves**
+
+- Connects parameter-efficient VLM adaptation and a generative robot policy through an **interpretable affordance bottleneck**.
+- Systematically evaluates flow matching across state, RGB-D, affordance, Cartesian, joint, and gripper representations as an alternative to Diffusion Policy.
+- Carries few-step inference, stable training, and multimodal trajectory modeling into real assistive-manipulation tasks.
+
+**Author-noted limitations**
+
+- Background changes and large camera-view shifts are major out-of-distribution causes of 3D-policy failure; broader data diversity is required.
+- The real ADL evaluation is open loop, so the system cannot recover from an initial missed grasp; closed-loop replanning is needed.
+- Flow matching is more deterministic than diffusion and may miss rare plausible outcomes in deformable or dynamic environments when data are limited or biased.
+- Trajectories do not explicitly enforce second-order smoothness, velocity/acceleration limits, torque feasibility, or minimum transport cost.
+- 🤖 Evidence for the complete two-stage system is concentrated on one robot and ten ADL tasks. It remains unclear whether the explicit affordance bottleneck transfers better than end-to-end VLA pretraining to unseen tasks and embodiments.
+
+## Next directions
+
+The next iteration should jointly improve **viewpoint/background/failure diversity**, **closed-loop correction**, and **dynamic feasibility** instead of merely collecting more clean affordance labels. Rectified-flow and optimal-transport variants may reduce path cost without sacrificing few-step speed. Finally, cross-task and cross-embodiment evaluations should determine whether explicit affordances remain a useful interface or should become a latent representation inside a larger end-to-end VLA.
+
+## Terry's Memo
+
+- *(None)*

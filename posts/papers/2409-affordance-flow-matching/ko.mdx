@@ -1,0 +1,122 @@
+---
+locale: "ko"
+title: "Affordance-based Robot Manipulation: Prompt Tuning과 Flow Matching의 결합"
+subtitle: "어디를 조작할지와 어떻게 움직일지를 분리해, 더 적은 parameter와 더 빠른 trajectory generation을 얻는다"
+summary: "이 논문은 frozen vision transformer에 text-conditioned prompt만 학습해 manipulation affordance를 찾고, 그 heatmap을 조건으로 random waypoint를 action trajectory로 운반하는 flow matching policy를 결합한다. Deep prompt tuning은 42.1M learnable parameter로 full fine-tuning 153.8M에 가까운 affordance 오차를 보이며, 1-step flow policy는 13.228ms에 1.031cm 오차를, 실제 ADL 로봇 실험에서는 0.82 성공률을 기록했다."
+card_summary: "Frozen vision model에서 instruction-aware affordance를 찾고, few-step flow matching으로 multimodal robot trajectory를 빠르게 생성한다."
+seo_title: "Affordance-based Robot Manipulation 논문 요약: Prompt Tuning과 Flow Matching"
+seo_description: "Instruction-aware affordance prompt tuning과 few-step flow matching policy를 연결해 assistive robot manipulation을 학습하는 방법, 성능, 한계를 정리한다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "Flow Matching for Generative Modeling"
+    author: "Lipman et al. (2022)"
+    description: "Conditional probability path의 vector field를 직접 회귀하는 flow matching의 이론적 기반. 현재 논문은 이 생성 원리를 image가 아니라 robot action trajectory에 조건부로 적용한다."
+    arxiv_url: "https://arxiv.org/abs/2210.02747"
+    scholar_url: "https://scholar.google.com/scholar?q=Flow+Matching+for+Generative+Modeling"
+    category: "foundational"
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al. (2023)"
+    description: "Robot visuomotor policy를 conditional diffusion process로 표현한 대표 연구. 현재 논문의 핵심 baseline이며, flow matching은 비슷한 generation quality를 더 적은 inference step으로 얻는 것을 목표로 한다."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?q=Diffusion+Policy+Visuomotor+Policy+Learning+via+Action+Diffusion"
+    post_slug: "2303-diffusion-policy"
+    category: "foundational"
+  - title: "Visual Prompt Tuning"
+    author: "Jia et al. (2022)"
+    description: "Frozen vision transformer에 소수의 학습 가능한 prompt token을 삽입해 downstream task에 적응하는 parameter-efficient 방법. 이 논문은 prompt를 language-conditioned affordance learning으로 확장한다."
+    arxiv_url: "https://arxiv.org/abs/2203.12119"
+    scholar_url: "https://scholar.google.com/scholar?q=Visual+Prompt+Tuning"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Black et al. (2024)"
+    description: "Pretrained VLM과 flow matching action expert를 결합한 대규모 end-to-end VLA. 현재 논문의 최신 revision은 명시적 affordance intermediate representation을 쓰는 두 단계 접근과 이 계열을 대비한다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=pi0+Vision+Language+Action+Flow+Model+General+Robot+Control"
+    post_slug: "2410-pi0-vla-flow-model"
+    category: "recent"
+---
+
+## TL;DR
+
+Assistive manipulation은 instruction에 맞는 물체·사람의 **어디를 조작할지** 이해하는 문제와, 그 affordance를 따라 **어떻게 움직일지** 생성하는 문제를 동시에 풀어야 한다. 이 논문은 frozen vision transformer에는 text-conditioned prompt만 학습하고, 얻어진 2D affordance heatmap을 few-step flow matching policy의 조건으로 사용한다. 그 결과 full fine-tuning보다 훨씬 적은 학습 parameter로 시각 affordance를 얻고, diffusion policy와 비슷하거나 더 나은 trajectory quality를 훨씬 빠르게 생성한다.
+
+## 문제
+
+일상생활 지원 로봇을 end-to-end로 학습하려면 사람, 물체, 언어 instruction, 6D action이 함께 들어간 대규모 multi-task demonstration이 필요하다. 하지만 이런 데이터는 수집과 labeling이 특히 비싸고, 큰 vision-language model 전체를 fine-tuning하면 parameter와 storage 비용도 커진다. 반대로 affordance를 중간 표현으로 쓰더라도, multimodal demonstration trajectory를 생성하는 diffusion policy는 여러 denoising step 때문에 closed-loop control에서 latency가 생긴다. 논문은 **parameter-efficient affordance learning**과 **few-step multimodal action generation**을 한 pipeline으로 잇는 문제를 다룬다.
+
+## 핵심 아이디어
+
+Pipeline은 high-level perception과 low-level action을 명시적으로 분리한다.
+
+- **Instruction-aware affordance**: 같은 장면에서도 `feed the human`과 `comb the hair`가 서로 다른 object–person interaction heatmap을 만든다.
+- **Text-conditioned prompt tuning**: Vision transformer는 frozen 상태로 두고, language feature에서 만든 prompt와 lightweight decoder만 학습한다.
+- **Affordance-conditioned flow policy**: RGB-D와 affordance embedding을 조건으로, Gaussian random waypoint를 demonstration action trajectory로 연속 운반하는 vector field를 학습한다.
+- **Multi-task ADL policy**: Feeding, combing, wiping, passing water 등 10개 Activities of Daily Living task를 하나의 framework에서 처리한다.
+
+<Figure src="./fig-1.png" caption="Figure 1: The proposed framework of unifying affordance map learning and action generation for robot manipulation. Given the same visual scene with different language instructions, the model first extracts instruction-relevant manipulation affordances. This is achieved through a prompt tuning method that prepends learnable text-conditioned prompts in a frozen vision foundation model. Then, a flow matching policy is proposed to transform the random waypoints to the desired action trajectories, guided by task-relevant affordance maps." number={1} />
+
+<Collapsible title="구체적 방법">
+
+### Prompt tuning으로 affordance map 학습
+
+Shallow variant는 첫 vision transformer layer에 text-conditioned prompt를 삽입하고, deep variant는 각 layer에 해당 language feature를 넣는다. Vision backbone은 고정한 채 prompt 관련 layer와 single transformer decoder만 업데이트한다. Ground-truth affordance는 demonstration action이 접촉하는 object pixel을 중심으로 한 2D Gaussian heatmap이며, 예측 heatmap과의 L2 loss로 학습한다.
+
+Deep prompt tuning은 high-level semantic information이 형성되는 뒤쪽 vision layer까지 language condition을 주기 때문에 shallow variant보다 안정적이었다. Dataset이 작을 때는 full fine-tuning보다 prompt tuning의 적응성이 높았고, 같은 language instruction의 embedding이 t-SNE 공간에서 군집을 형성했다.
+
+### Conditional flow matching policy
+
+Target demonstration trajectory를 $x_1$, Gaussian random waypoint를 $x_0$라 두고, 시간 $t\in[0,1]$에서 linear probability path를 만든다.
+
+$$
+x_t=(1-t)x_0+t x_1
+$$
+
+Policy $v_\theta$는 observation $o$와 현재 waypoint $x_t$를 조건으로 target vector field를 회귀한다.
+
+$$
+\mathcal{L}_{\mathrm{FM}}=\mathbb{E}_{x_0,x_1,t}\left[\left\|v_\theta(x_t,t,o)-(x_1-x_0)\right\|_2^2\right]
+$$
+
+Observation은 state, RGB-D, affordance가 될 수 있고, ResNet visual embedding을 FiLM으로 conditional U-Net에 넣는다. Inference에서는 이 vector field를 한 번 또는 몇 번 적분해 random waypoint를 6D end-effector, joint, gripper trajectory로 바꾼다. Diffusion의 stochastic denoising chain보다 path가 직선에 가까워 few-step generation에 유리하다는 가설이다.
+
+<Figure src="./fig-3.png" caption="Figure 3: Framework of flow matching policy. (a) General formulation. At each time step, flow matching takes visual observation (e.g., state-based inputs, RGB-D images, visual affordances) as input, and outputs robot actions (e.g., 6D robot end-effector trajectories, robot joint actions, gripper actions). (b-d) Visualization of the inference process of transforming random waypoints to target actions over time from 0 (green) to 1 (purple). Red lines in (b) denote the flow paths. Vector fields are shown in (c)." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- **Parameter efficiency**: Deep prompt tuning은 **42.1M learnable parameter**로 heatmap error 0.80, center error 2.93 pixel을 기록했다. Full fine-tuning은 153.8M parameter로 0.76/1.15였으므로 절대 오차는 더 낮지만, prompt tuning은 약 27%의 학습 parameter로 다른 PEFT baseline을 앞선다.
+- **Trajectory quality**: CNN flow matching 16-step은 ADL test에서 **2D 0.840 pixel, 3D 1.009cm** 오차로 DDPM 16-step의 0.882 pixel/2.398cm, DDIM 16-step의 0.874 pixel/2.266cm보다 낮았다.
+- **Few-step inference**: CNN flow matching 1-step은 **1.031cm, 13.228ms**로 DDIM 16-step의 2.266cm, 98.680ms보다 3D 오차가 낮으면서 latency는 약 86.6% 줄었다.
+- **Real robot**: KINOVA Gen3의 10개 ADL task에서 affordance-conditioned flow matching의 성공률은 **0.82**, diffusion policy 0.76, transformer BC 0.44, affordance 없는 end-to-end flow matching 0.74였다.
+- **Cross-benchmark**: Push-T, Franka Kitchen, Robomimic에서도 flow matching은 diffusion/score baseline과 대체로 비슷하거나 평균 성능이 조금 높았고, 적은 inference step에서 더 빠른 경향을 유지했다.
+
+<Figure src="./tab-2.png" caption="TABLE II: Results of flow matching policy against baselines and ablations. We report the average error of 2D and 3D trajectory estimation and the inference time. Our flow matching method achieves the best trajectory estimation accuracy. We also investigate the effect of various design choices on flow matching performance, including network structures, training, and inference steps." number={2} />
+
+성능의 의미는 단순히 diffusion을 크게 이겼다는 데 있지 않다. 저자도 generation quality 차이는 대체로 marginal하다고 인정한다. 중요한 차이는 **1–2 step만으로도 usable한 trajectory가 나오고 training/evaluation loss가 더 안정적**이라는 점이다. Affordance learning 18.340ms와 1-step flow inference 13.228ms를 합치면 전체 system은 약 30Hz로 동작할 수 있다.
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+
+- Parameter-efficient VLM adaptation과 generative robot policy를 **affordance라는 해석 가능한 bottleneck**으로 연결했다.
+- Flow matching을 state, RGB-D, affordance, Cartesian/joint/gripper action에 걸쳐 체계적으로 비교해 diffusion policy의 대안으로 검증했다.
+- Few-step inference, stable training, multimodal trajectory modeling을 실제 assistive manipulation task까지 연결했다.
+
+**저자 언급**
+
+- Background 변화와 큰 camera-view shift 같은 out-of-distribution factor가 3D policy failure의 주요 원인이었다. 더 크고 다양한 dataset이 필요하다.
+- 실제 로봇 ADL 평가는 open-loop여서 첫 grasp가 실패하면 회복하지 못한다. Closed-loop replanning과 recovery가 필요하다.
+- Flow matching의 determinism은 deformable object나 dynamic environment처럼 같은 action이 다른 outcome을 만드는 task에서 rare but plausible mode를 놓칠 수 있다.
+- Trajectory에 second-order smoothness, velocity/acceleration, torque feasibility를 직접 강제하지 않으며, basic flow는 minimum transport cost도 최적화하지 않는다.
+- 🤖 전체 두 단계 system의 핵심 근거가 한 robot과 10개 ADL task에 집중돼 있다. Explicit affordance bottleneck이 unseen task·새 embodiment로 갈 때 end-to-end VLA보다 실제로 더 잘 transfer하는지는 아직 분리해서 검증되지 않았다.
+
+## 다음 방향
+
+다음 단계는 affordance label을 더 많이 만드는 것만이 아니라, **viewpoint·background·failure trajectory 다양성**, **closed-loop correction**, **dynamic feasibility constraint**를 함께 넣는 것이다. Rectified flow나 optimal-transport flow가 few-step speed를 유지하면서 더 짧고 물리적인 trajectory를 만들 수 있는지도 비교해야 한다. 마지막으로 explicit affordance를 유지할지, 대규모 end-to-end VLA 안의 latent representation으로 흡수할지를 cross-task·cross-embodiment benchmark에서 검증할 필요가 있다.
+
+## Terry's Memo
+
+- *(None)*

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-14T03:58:12.861Z",
-  "total_posts": 83,
+  "generated_at": "2026-07-14T05:11:27.433Z",
+  "total_posts": 84,
   "posts": [
     {
       "post_number": 1,
@@ -6328,6 +6328,103 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 84,
+      "slug": "2409-affordance-flow-matching",
+      "content_type": "papers",
+      "title_en": "Affordance Flow Matching: Parameter-efficient perception and fast robot trajectories",
+      "title_ko": "Affordance-based Robot Manipulation: Prompt Tuning과 Flow Matching의 결합",
+      "summary_ko": "Frozen vision model에서 instruction-aware affordance를 찾고, few-step flow matching으로 multimodal robot trajectory를 빠르게 생성한다.",
+      "summary_en": "Find instruction-aware affordances with a frozen vision model, then generate multimodal robot trajectories with few-step flow matching.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-manipulation",
+        "visuomotor-policy",
+        "affordance-learning",
+        "imitation-learning",
+        "vision-language-models"
+      ],
+      "key_concepts": [
+        "affordance-based-manipulation",
+        "flow-matching-policy",
+        "text-conditioned-prompt-tuning",
+        "parameter-efficient-finetuning",
+        "visual-affordance-heatmap",
+        "multimodal-action-distribution",
+        "activities-of-daily-living",
+        "few-step-inference"
+      ],
+      "methodology": [
+        "deep-visual-prompt-tuning",
+        "frozen-vision-transformer",
+        "conditional-flow-matching",
+        "behavior-cloning",
+        "FiLM-conditioning",
+        "receding-horizon-control",
+        "real-robot-evaluation",
+        "cross-benchmark-comparison"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Robot Manipulation",
+        "Flow Matching",
+        "Affordance Learning",
+        "Prompt Tuning",
+        "Imitation Learning",
+        "Vision-Language Models"
+      ],
+      "source_author": "Fan Zhang and Michael Gienger",
+      "source_date": "2024-09-02",
+      "published_at": "2026-07-14T13:48:48+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "The framework freezes a vision transformer, learns language-conditioned affordance prompts, and uses those heatmaps to condition a few-step flow-matching robot policy, reaching 0.82 real-world ADL success and 13.228 ms one-step trajectory inference.",
+        "problem": "Assistive manipulation needs instruction-aware scene affordances and multimodal robot trajectories, but full VLM finetuning is data- and parameter-heavy while diffusion policies require iterative denoising.",
+        "solution": "Insert learnable text prompts into a frozen ViT to predict relational affordance heatmaps, then condition a supervised flow-matching vector field that transports random waypoints into robot action trajectories.",
+        "key_result": "Deep prompt tuning uses 42.1M learnable parameters versus 153.8M for full finetuning, while a one-step CNN flow policy reaches 1.031 cm trajectory error in 13.228 ms and the full affordance-based system reaches 0.82 real-world ADL success versus 0.76 for Diffusion Policy.",
+        "limitations": [
+          "Background and camera-view shifts cause out-of-distribution failures in real-world experiments.",
+          "The real-robot evaluation is open-loop, so an initial failed grasp cannot be recovered.",
+          "Deterministic flow matching may underrepresent rare outcomes in stochastic or biased datasets.",
+          "The learned trajectories do not explicitly enforce second-order smoothness, torque feasibility, or minimum transport cost."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2303-diffusion-policy",
+          "type": "cites",
+          "note": "The paper directly uses Diffusion Policy with DDPM and DDIM as its principal generative behavior-cloning baseline and frames flow matching as a faster few-step alternative."
+        },
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "cites",
+          "note": "The latest revision discusses pi_0 as an end-to-end VLA flow model, contrasting that route with an explicit affordance intermediate representation and low-level flow policy."
+        },
+        {
+          "target": "2405-octo-generalist-policy",
+          "type": "sharesGoalWith",
+          "note": "Both learn language-conditioned multi-task robot policies, while this work uses task-specific affordance heatmaps and Octo relies on broad transformer pretraining with a diffusion action head."
+        },
+        {
+          "target": "2505-forcevla-force-aware-moe",
+          "type": "sharesTopicWith",
+          "note": "Both combine vision-language conditioning with flow-based robot action generation; ForceVLA adds force-torque sensing whereas this work emphasizes visual affordances and parameter-efficient prompt tuning."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/arm",
+        "robotics/brain/vla"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7456,6 +7553,26 @@
         "from": "2607-llm-as-verifier",
         "to": "2502-ai-co-scientist",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2409-affordance-flow-matching",
+        "to": "2303-diffusion-policy",
+        "type": "cites"
+      },
+      {
+        "from": "2409-affordance-flow-matching",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "cites"
+      },
+      {
+        "from": "2409-affordance-flow-matching",
+        "to": "2405-octo-generalist-policy",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2409-affordance-flow-matching",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7588,11 +7705,13 @@
           29,
           34,
           35,
-          69
+          69,
+          84
         ],
         "core_concepts": [
           "zero-shot-generalization",
-          "diffusion-policy"
+          "diffusion-policy",
+          "multimodal-action-distribution"
         ],
         "taxonomy_nodes": [
           "robotics/brain"
@@ -7833,7 +7952,8 @@
       73,
       74,
       76,
-      80
+      80,
+      84
     ],
     "outlier_papers": [
       73,
@@ -8446,7 +8566,8 @@
       34
     ],
     "multimodal-action-distribution": [
-      34
+      34,
+      84
     ],
     "hand-held-gripper": [
       35
@@ -9442,10 +9563,31 @@
     ],
     "dense-reward": [
       83
+    ],
+    "affordance-based-manipulation": [
+      84
+    ],
+    "flow-matching-policy": [
+      84
+    ],
+    "text-conditioned-prompt-tuning": [
+      84
+    ],
+    "parameter-efficient-finetuning": [
+      84
+    ],
+    "visual-affordance-heatmap": [
+      84
+    ],
+    "activities-of-daily-living": [
+      84
+    ],
+    "few-step-inference": [
+      84
     ]
   },
   "domain_stats": {
-    "robotics": 44,
+    "robotics": 45,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -9469,7 +9611,7 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 14,
+    "robotics/arm:secondary": 15,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -9478,12 +9620,12 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 22,
+    "robotics/brain": 23,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 3,
     "robotics/brain:secondary": 3,
-    "robotics/brain/vla:secondary": 3,
+    "robotics/brain/vla:secondary": 4,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
     "ai/productivity:secondary": 1,
@@ -9535,7 +9677,7 @@
     "robotics/control/system-identification:secondary": 1,
     "ml/reinforcement-learning:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 43,
+    "robotics": 44,
     "ai": 20,
     "biology": 2
   }
