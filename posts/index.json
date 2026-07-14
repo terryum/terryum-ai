@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-11T10:16:16.234Z",
-  "total_posts": 81,
+  "generated_at": "2026-07-14T03:16:17.008Z",
+  "total_posts": 82,
   "posts": [
     {
       "post_number": 1,
@@ -6132,6 +6132,103 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 82,
+      "slug": "2509-pace-sim2real-legged-robots",
+      "content_type": "papers",
+      "title_en": "PACE: Bridging sim-to-real for diverse legged robots with 20 seconds of data",
+      "title_ko": "PACE: 20초 데이터로 다족 로봇의 sim-to-real 간극 줄이기",
+      "summary_ko": "약 20초의 encoder-only in-air 데이터로 관절 dynamics를 식별해, dynamics randomization 없이 여러 다족 로봇에 보행 policy를 zero-shot 전이하고 ANYmal의 CoT를 32% 낮춘다.",
+      "summary_en": "Fit joint dynamics from about 20 seconds of encoder-only in-air data, transfer locomotion without dynamics randomization, and cut ANYmal's full Cost of Transport by 32%.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "legged-robotics",
+        "reinforcement-learning",
+        "sim-to-real",
+        "system-identification",
+        "actuator-modeling",
+        "energy-efficient-locomotion"
+      ],
+      "key_concepts": [
+        "PACE",
+        "sim-to-real",
+        "joint-space-dynamics",
+        "system-identification",
+        "CMA-ES",
+        "PMSM-energy-model",
+        "blind-locomotion",
+        "zero-shot-transfer",
+        "quadrupedal-locomotion",
+        "Cost-of-Transport",
+        "dynamics-randomization-free",
+        "cross-platform-validation"
+      ],
+      "methodology": [
+        "fixed-base-in-air-chirp-data-collection",
+        "compact-joint-dynamics-parameterization",
+        "massively-parallel-CMA-ES",
+        "asymmetric-PPO",
+        "four-term-reward",
+        "physics-grounded-PMSM-loss-model",
+        "zero-shot-hardware-deployment",
+        "bottom-up-dynamic-validation"
+      ],
+      "contribution_type": "method-and-system",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "Legged Robots",
+        "Sim-to-Real",
+        "Reinforcement Learning",
+        "System Identification",
+        "Energy Efficiency"
+      ],
+      "source_author": "Filip Bjelonic et al.",
+      "source_date": "2025-09-08",
+      "published_at": "2026-07-14T11:52:09+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "PACE fits a 4n+1 physically interpretable joint-dynamics model from about 20 seconds of encoder-only in-air data, enabling dynamics-randomization-free zero-shot locomotion across diverse robots while reducing ANYmal's full Cost of Transport by 32%.",
+        "problem": "Sim-trained legged locomotion policies often fail or waste energy on hardware because actuator and system dynamics are mismatched; common fixes require broad dynamics randomization, torque sensors, black-box actuator networks, or complex hand-tuned rewards.",
+        "solution": "Collect fixed-base chirp trajectories, fit per-joint armature, viscous damping, Coulomb friction, joint bias, and one global delay with massively parallel CMA-ES, then train an asymmetric PPO policy with four reward terms including a physics-grounded PMSM energy loss.",
+        "key_result": "Using about 20 seconds of encoder-only data, PACE transfers without dynamics randomization across three primary and more than ten additional robots; ANYmal D reaches CoT 1.27 versus 1.86 for the prior ANYmal C baseline (32% reduction), while Tytan reaches CoT 0.97 and 6.10 km per charge.",
+        "limitations": [
+          "The fixed-base identification has finite excitation bandwidth and assumes sufficiently rigid structures, correct kinematics, consistent firmware compensation, and modest nonlinearities.",
+          "Effective parameters drift with temperature, wear, aging, filters, firmware, and simulator changes.",
+          "Contact compliance, electrical bus/current limits, inverter switching, and higher-order dynamics are not yet explicitly identified.",
+          "Parameter optimization still takes roughly 10–24 hours per robot on a single GPU despite requiring little real data."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2512-sim2real-humanoid-locomotion-15min",
+          "type": "sharesGoalWith",
+          "note": "Both target fast, reliable zero-shot sim-to-real locomotion with compact rewards; PACE replaces dynamics randomization with identified actuator/system dynamics, whereas the humanoid recipe relies on strong randomization and fast off-policy RL."
+        },
+        {
+          "target": "2602-perceptive-humanoid-parkour",
+          "type": "sharesTopicWith",
+          "note": "Both study learned legged locomotion transferred from simulation to hardware, but PACE focuses on actuator/system alignment and energy while the parkour work focuses on perception and long-horizon skill composition."
+        },
+        {
+          "target": "2501-humanoid-locomotion-manipulation-survey",
+          "type": "sharesTopicWith",
+          "note": "PACE supplies a concrete system-identification and energy-modeling point in the broader learned legged and whole-body control landscape covered by the survey."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/body/legged",
+        "robotics/simulation/sim-to-real",
+        "robotics/control/system-identification"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7225,6 +7322,21 @@
         "from": "260711-icml-10-years-model-to-verification",
         "to": "260608-jensen-hwang-new-wave",
         "type": "related"
+      },
+      {
+        "from": "2509-pace-sim2real-legged-robots",
+        "to": "2512-sim2real-humanoid-locomotion-15min",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2509-pace-sim2real-legged-robots",
+        "to": "2602-perceptive-humanoid-parkour",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2509-pace-sim2real-legged-robots",
+        "to": "2501-humanoid-locomotion-manipulation-survey",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7404,11 +7516,13 @@
           70,
           71,
           72,
-          80
+          80,
+          82
         ],
         "core_concepts": [
           "zero-shot-sim-to-real",
-          "Unitree-G1"
+          "Unitree-G1",
+          "sim-to-real"
         ],
         "taxonomy_nodes": [
           "robotics/brain/rl-policy"
@@ -7482,6 +7596,19 @@
         "taxonomy_nodes": []
       },
       {
+        "id": "concept-zero-shot-transfer",
+        "label": "zero-shot-transfer",
+        "post_numbers": [
+          9,
+          16,
+          82
+        ],
+        "core_concepts": [
+          "zero-shot-transfer"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
         "id": "concept-dexterous-hand",
         "label": "dexterous-hand",
         "post_numbers": [
@@ -7507,6 +7634,19 @@
         ],
         "core_concepts": [
           "diffusion-policy"
+        ],
+        "taxonomy_nodes": []
+      },
+      {
+        "id": "concept-sim-to-real",
+        "label": "sim-to-real",
+        "post_numbers": [
+          13,
+          72,
+          82
+        ],
+        "core_concepts": [
+          "sim-to-real"
         ],
         "taxonomy_nodes": []
       },
@@ -7722,7 +7862,8 @@
     ],
     "zero-shot-transfer": [
       9,
-      16
+      16,
+      82
     ],
     "trajectory-optimization": [
       9
@@ -7808,7 +7949,8 @@
     ],
     "sim-to-real": [
       13,
-      72
+      72,
+      82
     ],
     "in-hand-translation": [
       13
@@ -9120,10 +9262,40 @@
     ],
     "foundation models": [
       81
+    ],
+    "PACE": [
+      82
+    ],
+    "joint-space-dynamics": [
+      82
+    ],
+    "system-identification": [
+      82
+    ],
+    "CMA-ES": [
+      82
+    ],
+    "PMSM-energy-model": [
+      82
+    ],
+    "blind-locomotion": [
+      82
+    ],
+    "quadrupedal-locomotion": [
+      82
+    ],
+    "Cost-of-Transport": [
+      82
+    ],
+    "dynamics-randomization-free": [
+      82
+    ],
+    "cross-platform-validation": [
+      82
     ]
   },
   "domain_stats": {
-    "robotics": 43,
+    "robotics": 44,
     "ml": 3,
     "ai": 6,
     "philosophy": 2,
@@ -9156,7 +9328,7 @@
     "ai/agent": 8,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 21,
+    "robotics/brain": 22,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 3,
@@ -9173,7 +9345,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 5,
+    "robotics/brain/rl-policy": 6,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -9195,7 +9367,7 @@
     "ai/agentic-research:secondary": 1,
     "robotics/body/humanoid:secondary": 2,
     "robotics/perception/depth:secondary": 1,
-    "robotics/simulation/sim-to-real:secondary": 1,
+    "robotics/simulation/sim-to-real:secondary": 2,
     "robotics/whole-body": 1,
     "robotics/hand": 15,
     "ai/business": 1,
@@ -9209,8 +9381,10 @@
     "biology/aging:secondary": 1,
     "ai/research": 1,
     "ai/evaluation:secondary": 1,
+    "robotics/body/legged:secondary": 1,
+    "robotics/control/system-identification:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 42,
+    "robotics": 43,
     "ai": 19,
     "biology": 2
   }

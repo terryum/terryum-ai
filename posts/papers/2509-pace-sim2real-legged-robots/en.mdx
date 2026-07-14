@@ -1,0 +1,124 @@
+---
+locale: "en"
+title: "PACE: Bridging sim-to-real for diverse legged robots with 20 seconds of data"
+subtitle: "Fit interpretable joint dynamics instead of randomizing them away"
+summary: "PACE identifies per-joint inertia, damping, friction, bias, and a global delay from about 20 seconds of encoder-only in-air trajectories, then transfers blind locomotion policies zero-shot without dynamics randomization. It reduces ANYmal D's full Cost of Transport from 1.86 to 1.27 (32%) and enables Tytan to travel 6.10 km per charge at CoT 0.97."
+card_summary: "Fit joint dynamics from about 20 seconds of encoder-only in-air data, transfer locomotion without dynamics randomization, and cut ANYmal's full Cost of Transport by 32%."
+seo_title: "PACE systematic sim-to-real transfer for legged robots — paper summary"
+seo_description: "A summary of PACE: encoder-only system identification, CMA-ES, and a PMSM energy model for dynamics-randomization-free legged locomotion transfer and a 32% CoT reduction."
+terrys_memo: ""
+translation_of: "2509-pace-sim2real-legged-robots:ko"
+references:
+  - title: "Learning agile and dynamic motor skills for legged robots"
+    author: "Hwangbo et al. (2019)"
+    description: "The key learned-actuator-network predecessor for ANYmal sim-to-real locomotion. PACE directly compares against this lineage and obtains comparable or better trajectory fidelity from less, encoder-only data."
+    arxiv_url: "https://arxiv.org/abs/1901.08652"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+agile+and+dynamic+motor+skills+for+legged+robots"
+    category: "foundational"
+  - title: "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning"
+    author: "Rudin et al. (2022)"
+    description: "The massively parallel PPO recipe that reduced ANYmal policy training to minutes. PACE follows this training lineage while aligning the simulator dynamics themselves to hardware."
+    arxiv_url: "https://arxiv.org/abs/2109.11978"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+to+Walk+in+Minutes+Using+Massively+Parallel+Deep+Reinforcement+Learning"
+    category: "foundational"
+  - title: "Learning Quadrupedal Locomotion over Challenging Terrain"
+    author: "Lee et al. (2020)"
+    description: "Established robust zero-shot ANYmal locomotion on difficult natural terrain with proprioceptive policies and teacher–student learning. It provides the control lineage for PACE's asymmetric PPO and tracking objective."
+    arxiv_url: "https://arxiv.org/abs/2010.11251"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+Quadrupedal+Locomotion+over+Challenging+Terrain"
+    category: "foundational"
+  - title: "Bridging the Sim-to-Real Gap for Athletic Loco-Manipulation"
+    author: "Fey et al. (2025)"
+    description: "A recent torque-sensor-free learned actuator-discrepancy approach. PACE addresses the same modeling frontier with a compact physical parameterization and evolutionary fitting instead."
+    arxiv_url: "https://arxiv.org/abs/2502.10894"
+    scholar_url: "https://scholar.google.com/scholar?q=Bridging+the+Sim-to-Real+Gap+for+Athletic+Loco-Manipulation"
+    category: "recent"
+---
+
+## TL;DR
+
+Legged-robot sim-to-real is commonly handled by widening dynamics randomization, which can make policies conservative and reward tuning complicated. **PACE takes the opposite route: it first fits real joint dynamics from about 20 seconds of encoder-only in-air data**, then trains without dynamics randomization, transfers zero-shot across diverse robots, and improves energy efficiency.
+
+## Problem
+
+A policy that walks in simulation can fail on hardware for reasons deeper than sensor noise. Motor and gearbox inertia, viscous damping, Coulomb friction, firmware compensation, and command delay change the trajectory produced by the same joint target. Existing pipelines cover this mismatch with broad dynamics randomization, learned actuator networks that may require torque sensors, or repeated reward adjustment after hardware tests. These techniques can transfer, but they move the engineering burden into parameter ranges, data collection, and high-dimensional reward shaping.
+
+The paper asks a more specific question: **if a small, physical joint-space model aligns hardware and simulation well enough, can a locomotion policy transfer robustly and efficiently without dynamics randomization?**
+
+## Core idea
+
+PACE does not treat the reality gap as one large black box. For every joint it fits armature/inertia $I_a$, viscous damping $d$, Coulomb friction $\tau_f$, and joint bias $\tilde q_b$, plus one global command delay $T_d$. A robot with $n$ actuated joints therefore has only $4n+1$ fitted parameters.
+
+- **Isolated data collection:** Suspend the base, remove contacts and base motion, and excite all joints with chirp targets for 20–60 seconds.
+- **Massively parallel fitting:** Replay the targets in thousands of simulated environments and use CMA-ES to minimize joint-position error.
+- **Randomization-free policy learning:** Let the fitted model handle actuator dynamics; randomize task variables such as terrain, ground friction, and pushes rather than the identified dynamics.
+- **Physics-grounded energy reward:** Model PMSM Joule heating, mechanical power, and regenerative behavior rather than relying on a torque-squared proxy alone.
+
+<Figure src="./fig-4.png" caption="Robots using the PACE fit. Beyond the three primary platforms—ANYmal, Tytan, and Minimal—the same parameterization was applied to Aibo, NAO, ALMA, Spacehopper, LEVA, Magnecko, GR-1, and other systems." number={4} />
+
+<Collapsible title="Method details">
+
+### 1. In-air system identification
+
+Suspending the body removes contact forces and prevents base inertia from masking leg and drive dynamics. The authors excite the expected policy bandwidth with chirp targets and send identical commands to the real robot and simulator. Each simulation environment carries a different parameter candidate, and fitting minimizes mean-squared joint-position error:
+
+$$
+\mathcal{L}(\theta)=\frac{1}{Tn}\sum_{t=1}^{T}\left\|q_t^{\mathrm{sim}}(\theta)-q_t^{\mathrm{real}}\right\|_2^2,
+$$
+
+where $\theta=\{\mathbf I_a,\mathbf d,\boldsymbol\tau_f,\tilde{\mathbf q}_b,T_d\}$. PD gains are held fixed because co-optimizing them with dynamics creates non-identifiable parameter scalings that produce the same trajectory.
+
+### 2. Blind locomotion policy
+
+The controller is an asymmetric PPO policy. The actor receives proprioception—estimated base motion and gravity, commands, joint states, and previous actions—while the critic also sees privileged contacts, friction, external wrench, and a terrain height scan. Actions are joint-position offsets around a default posture, with target saturation that prevents commanded torque toward hard joint limits.
+
+The reward has only four groups:
+
+- commanded linear and angular velocity tracking;
+- a PMSM-loss-based energy objective;
+- foot-touchdown velocity;
+- collision and joint-limit penalties.
+
+Energy and touchdown penalties are scheduled gradually so that they do not stop gait discovery early in training, while policy entropy is annealed later for precision.
+
+### 3. Bottom-up validation
+
+Validation proceeds from a single drive, to a suspended full robot, to on-ground locomotion. The Tytan drive exposes current and mechanical dynamics directly; ANYmal provides a comparison against a URDF-only simulator and a learned actuator-network baseline. The fitted simulator then trains policies for Tytan, ANYmal, and Minimal that deploy zero-shot on hardware.
+
+<Figure src="./fig-3.png" caption="The PACE pipeline: collect real in-air trajectories, fit compact dynamics parameters with CMA-ES, train a blind policy in the aligned simulator, and deploy zero-shot." number={3} />
+
+</Collapsible>
+
+## Results
+
+The notable result is the combination of **little real data, broad platform coverage, and measured energy savings**.
+
+- **About 20 seconds of encoder-only data:** In the ANYmal comparison, PACE used roughly 20 seconds of in-air data. The 2019 actuator network used about four minutes of torque-instrumented data, and the deployed vendor LSTM was likely trained on a larger dataset.
+- **Zero-shot transfer without dynamics randomization:** Fitted and real trajectories align closely on the three primary platforms, and the same fitting procedure has been deployed on more than ten additional robots.
+- **32% lower ANYmal energy cost:** On a 400 m track, ANYmal D's full CoT falls from the prior ANYmal C baseline of 1.86 to **1.27**. Range rises from 2.64 km to **4.12 km** per charge.
+- **Tytan reaches CoT 0.97 and 6.10 km:** Tytan averages 0.978 m/s, travels 6.10 km per charge, and records full CoT 0.97.
+- **Transfer near dynamic limits:** ANYmal runs at about 3 m/s on hardware, limited by a 32 A battery-current ceiling rather than the fitted model. The 4 kg Minimal climbs twenty 18 cm steps continuously in 46 seconds.
+- **Identification accuracy and compute:** Single-drive inertia fits are within 2–15% of analytic targets depending on the condition. End-to-end fitting with 4,096 environments takes 10–24 hours per robot on one GPU.
+
+<Figure src="./fig-8.png" caption="The 400 m track endurance study, combining battery state of charge, CoT decomposition, a Tytan knee limit cycle, and its frequency spectrum." number={8} />
+
+<Figure src="./tab-4.png" caption="Cost-of-Transport decomposition. ANYmal D reaches total CoT 1.27 and Tytan 0.97; locomotion itself consumes less than half the total energy on both robots." number={4} />
+
+## Achievements and limitations
+
+**What it achieves**
+
+- **Makes system identification the center of the sim-to-real RL pipeline.** A compact $4n+1$ parameter set becomes a practical alternative to black-box actuator models and broad dynamics randomization.
+- **Works across open and closed hardware.** It operates on transparent Tytan/Minimal systems and on ANYmal with limited low-level access, without requiring joint-torque sensors.
+- **Connects transfer fidelity to energy efficiency.** Better simulator alignment lets policies exploit machine dynamics, including straighter-knee gaits, and validates the benefit with full-battery endurance and CoT rather than proxies alone.
+- **Uses a compact four-term reward.** The result is evidence that robust locomotion does not always require dozens of hand-shaped reward terms.
+
+**Limitations**
+
+- The authors explicitly note that a suspended setup has finite excitation bandwidth. Structural flexibility or firmware filters within the relevant band can invalidate the fit.
+- Temperature, wear, aging, firmware updates, and simulator changes shift effective parameters; PACE does not yet track them online.
+- Contact compliance, series elasticity, bus-voltage and current limits, and inverter switching are not explicitly identified.
+- The method assumes correct kinematics, sufficiently high-bandwidth or approximately LTI drive behavior, mild temperature drift, and enough structural stiffness. Fully online or model-free adaptation may be better when these assumptions fail.
+- 🤖 The primary platforms are point-foot, PMSM-driven quadrupeds and the central policies are blind locomotion controllers. Whether the same $4n+1$ parameterization remains sufficient for humanoids, deformable contacts, wheeled-legged robots, or perception-heavy navigation is not independently established.
+
+The next step is to add electrical constraints and compliance to the mechanical fit, then combine it with lightweight online adaptation for temperature and wear. If that works, sim-to-real can move from “survive model error through randomization” toward “identify the physics that matters and deliberately exploit hardware capability.”

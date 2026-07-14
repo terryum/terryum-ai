@@ -1,0 +1,381 @@
+{
+  "post_id": "2509-pace-sim2real-legged-robots",
+  "slug": "2509-pace-sim2real-legged-robots",
+  "post_number": 82,
+  "published_at": "2026-07-14T11:52:09+09:00",
+  "updated_at": "2026-07-14T11:52:09+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "node_type": "paper",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Legged Robots",
+    "Sim-to-Real",
+    "Reinforcement Learning",
+    "System Identification",
+    "Energy Efficiency"
+  ],
+  "display_tags": [
+    "Legged Robots",
+    "Sim-to-Real",
+    "System Identification",
+    "Energy Efficiency"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 3: Overview of the proposed PACE pipeline with policy training. (i) Collection of real in-air data on a fixed-base setup (top left). (ii) Evolutionary parameter fitting of joint dynamics to align simulated and measured trajectories (top right). (iii) Blind policy training in simulation with zero-shot deployment on hardware (bottom).",
+  "cover_figure_number": 3,
+  "thumb_source": "./fig-4.png",
+  "thumb_position": "centre",
+  "reading_time_min": 10,
+  "source_date": "2025-09-08",
+  "source_url": "https://arxiv.org/abs/2509.06342",
+  "source_title": "Towards bridging the gap: Systematic sim-to-real transfer for diverse legged robots",
+  "source_author": "Filip Bjelonic et al.",
+  "source_type": "arXiv",
+  "source_venue": "Accepted for publication in The International Journal of Robotics Research (IJRR)",
+  "arxiv_id": "2509.06342",
+  "doi": "10.48550/arXiv.2509.06342",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=Towards+bridging+the+gap+Systematic+sim-to-real+transfer+for+diverse+legged+robots",
+  "source_project_url": "https://pace.filipbjelonic.com",
+  "code_url": "https://github.com/leggedrobotics/pace-sim2real",
+  "data_url": "http://hdl.handle.net/20.500.11850/783505",
+  "source_authors_full": [
+    {
+      "name": "Filip Bjelonic",
+      "affiliation": "Robotic Systems Lab, ETH Zurich"
+    },
+    {
+      "name": "Fabian Tischhauser",
+      "affiliation": "Robotic Systems Lab, ETH Zurich"
+    },
+    {
+      "name": "Marco Hutter",
+      "affiliation": "Robotic Systems Lab, ETH Zurich"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Comparison of real and simulated robot trajectories under a 0.1–2.0 Hz chirp input. (a) Picture of the real robot with an overlaid trace showing its motion sequence from experiment. (b) Equivalent view in simulation using our modeling approach. In both (a) and (b), the robot's base is suspended so that its legs swing freely. (c) Phase portrait of the “delta” joint state—i.e., at each timestep, the real joint position minus the simulated joint position (x-axis) and the real joint velocity minus the simulated joint velocity (y-axis)—plotted separately for three modeling approaches: no model (light gray), state-of-the-art actuator network (blue), and our proposed method (orange). Points nearer to (0, 0) indicate that the simulated trajectory more closely matches the real trajectory.",
+      "caption_ko": "Figure 1: 0.1–2.0 Hz chirp 입력에서 실제 로봇과 시뮬레이션 궤적을 비교한다. (a)는 실제 로봇의 동작 trace, (b)는 제안한 모델링 방식의 동등한 시뮬레이션이며 두 경우 모두 몸체를 매달아 다리가 자유롭게 움직인다. (c)는 무모델, 최신 actuator network, 제안 방법의 관절 위치·속도 오차 phase portrait다. 점이 (0, 0)에 가까울수록 실제 궤적과 시뮬레이션이 더 잘 일치한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Representative legged robots with explicitly documented use of permanent magnet synchronous motors for actuation.",
+      "caption_ko": "Figure 2: 구동기에 permanent magnet synchronous motor를 사용한다고 명시된 대표적 다족 로봇들."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Overview of the proposed PACE pipeline with policy training. (i) Collection of real in-air data on a fixed-base setup (top left). (ii) Evolutionary parameter fitting of joint dynamics to align simulated and measured trajectories (top right). (iii) Blind policy training in simulation with zero-shot deployment on hardware (bottom).",
+      "caption_ko": "Figure 3: 제안한 PACE pipeline과 policy training 개요. (i) 고정된 몸체에서 실제 in-air 데이터를 수집하고, (ii) 진화적 탐색으로 관절 dynamics parameter를 맞춰 simulation과 측정 궤적을 정렬한 뒤, (iii) simulation에서 blind policy를 학습해 hardware에 zero-shot 배포한다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Primary robotic platforms evaluated in this study. Top row (left to right): ANYmal, Tytan, and Minimal. Additional systems include Sony's Aibo, Softbank's NAO, ALMA, Spacehopper, LEVA, Magnecko v2 and v1, and Fourier's GR-1. All robots are depicted in operation using the proposed PACE parameter fitting.",
+      "caption_ko": "Figure 4: 이 연구의 주요 평가 플랫폼. 위쪽은 ANYmal, Tytan, Minimal이며, 그 밖에 Sony Aibo, Softbank NAO, ALMA, Spacehopper, LEVA, Magnecko v2/v1, Fourier GR-1에도 PACE parameter fitting을 적용했다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Experimental setups and representative evaluation across abstraction levels.",
+      "caption_ko": "Figure 5: 단일 구동기부터 전체 로봇까지 abstraction level별 실험 setup과 대표 평가."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Sim-to-real evaluation of Tytan using the proposed PACE framework.",
+      "caption_ko": "Figure 6: 제안한 PACE framework를 사용한 Tytan의 sim-to-real 평가."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Figure 7: Sim-to-real evaluation on ANYmal. Panels (a–c) illustrate real-world deployments. Panel (d) shows the corresponding phase portraits. Panel (e) presents commanded and measured forward velocities (left) and steady-state velocity error distributions across methods (right).",
+      "caption_ko": "Figure 7: ANYmal sim-to-real 평가. (a–c)는 실제 배포, (d)는 대응하는 phase portrait, (e)는 명령·측정 전진 속도와 방법별 정상상태 속도 오차 분포를 보여준다."
+    },
+    {
+      "number": 8,
+      "src": "./fig-8.png",
+      "caption": "Figure 8: Running-track evaluations across robotic platforms. (a) Representative stills from one step cycle. (b) Battery consumption over distance (SoC). (c) Cost of transport (CoT) with contributions from electronics (CoE, diagonal hatching) and drives' inverter switching (CoD, horizontal hatching). (d) Limit cycle of the Tytan knee joint over a 10-second window. (e) Frequency spectrum of the LF HFE joint during steady locomotion.",
+      "caption_ko": "Figure 8: 여러 로봇 플랫폼의 track 주행 평가. (a) 한 보행 cycle의 장면, (b) 거리별 battery SoC, (c) electronics와 inverter switching 기여를 분해한 CoT, (d) Tytan 무릎 관절의 10초 limit cycle, (e) 정상 보행 중 LF HFE 관절의 frequency spectrum."
+    },
+    {
+      "number": 9,
+      "src": "./fig-9.png",
+      "caption": "Figure 9: CMA-ES optimization score as a function of iteration (logarithmic scale) for the three main robotic platforms.",
+      "caption_ko": "Figure 9: 세 주요 로봇 플랫폼에서 iteration에 따른 CMA-ES optimization score(로그 스케일)."
+    },
+    {
+      "number": 10,
+      "src": "./fig-10.png",
+      "caption": "Figure 10: In-air LF–HFE joint trajectory of ANYmal (zoomed view). Dashed gray: target trajectory. Dashed green: measured trajectory. Blue: no actuator model. Red: actuator network baseline. Orange: proposed method (PACE).",
+      "caption_ko": "Figure 10: ANYmal LF–HFE 관절의 in-air 궤적 확대. 회색 점선은 목표, 녹색 점선은 측정값, 파랑은 actuator model 없음, 빨강은 actuator network baseline, 주황은 PACE다."
+    },
+    {
+      "number": 11,
+      "src": "./fig-11.png",
+      "caption": "Figure 11: Dynamic-limit demonstrations. Top: two-legged balance with ANYmal. Center: running with ANYmal. Bottom: stair climbing with Minimal.",
+      "caption_ko": "Figure 11: 동역학 한계 demonstration. 위는 ANYmal의 두 다리 균형, 가운데는 ANYmal 달리기, 아래는 Minimal의 계단 오르기다."
+    },
+    {
+      "number": 12,
+      "src": "./fig-12.png",
+      "caption": "Figure 12: Running experiments with ANYmal. Top: commanded forward velocity versus measured base velocity (state estimation). Bottom: battery current profile during the same run, including measured current and the saturated peak limit of 32 A imposed by the battery.",
+      "caption_ko": "Figure 12: ANYmal 달리기 실험. 위는 명령 전진 속도와 state estimation으로 측정한 몸체 속도, 아래는 같은 주행 중 측정 전류와 battery가 부과한 32 A 포화 한계다."
+    },
+    {
+      "number": 13,
+      "src": "./fig-13.png",
+      "caption": "Figure 13: Idealized PMSM saturation envelope for the Tytan hip motor, showing motor velocity ω (x-axis) versus torque τ (y-axis). The solid blue curve indicates the enforced torque limits in simulation: commanded torques inside the envelope are applied directly, while those outside are saturated to the boundary. This boundary is determined by two constraints: the maximum torque limit (dot-dashed gray), representing effects such as magnet demagnetization, and the back-EMF-limited torque (dashed gray). Orange dots mark experimental measurements from Section 3.2.1.",
+      "caption_ko": "Figure 13: Tytan hip motor의 이상화된 PMSM saturation envelope. 파란 실선은 simulation에서 강제한 torque limit이며 maximum torque와 back-EMF 한계가 경계를 결정한다. 주황 점은 단일 구동기 실험 측정값이다."
+    },
+    {
+      "number": 14,
+      "src": "./fig-14.png",
+      "caption": "Figure 14: Simplified block diagram of the motor-driven joint actuator, illustrating the electronics (left, yellow) and rigid-body dynamics (right, red) subsystems. In the electronics path, a PD position controller with gains Pτ and Dτ drives a PI current loop—comprised of integrator Iu and feedforward Pu—to regulate the torque-producing quadrature current iq. This path is subject to disturbances from the load current, nonlinear battery dynamics, temperature variations, and unknown feed-forward compensations. In the mechanical path, iq is converted to torque through the motor constant ki and gear ratio n, then transmitted to the inertia Ia, friction torque τf, and viscous transmission damping d, yielding joint acceleration q̈ and position q. The two subsystems interact via the back-EMF constant kω.",
+      "caption_ko": "Figure 14: motor-driven joint actuator의 electronics와 rigid-body dynamics subsystem을 나타낸 단순화 block diagram. PD position controller와 PI current loop가 quadrature current를 조절하고, motor constant와 gear ratio가 이를 torque로 바꿔 inertia·friction·viscous damping을 거쳐 관절을 구동한다. 두 subsystem은 back-EMF constant로 상호작용한다."
+    },
+    {
+      "number": 15,
+      "src": "./fig-15.png",
+      "caption": "Figure 15: Validation of Tytan on the HFE joint using proportional–derivative (PD) gains of 145/5. Shown are commanded trajectories, real measurements and the response under the near-optimal identified model.",
+      "caption_ko": "Figure 15: PD gain 145/5를 사용한 Tytan HFE 관절 validation. 명령 궤적, 실제 측정값, near-optimal 식별 모델의 응답을 비교한다."
+    },
+    {
+      "number": 16,
+      "src": "./fig-16.png",
+      "caption": "Figure 16: Current tracking performance for the inner-loop transfer function Hi: τ̂m → τm, mapping commanded motor torque τ̂m to measured torque τm.",
+      "caption_ko": "Figure 16: 명령 motor torque를 측정 torque로 매핑하는 inner-loop transfer function의 current tracking 성능."
+    },
+    {
+      "number": 17,
+      "src": "./fig-17.png",
+      "caption": "Figure 17: Identified versus target inertia as a function of lever arm radius, with drive compensations disabled.",
+      "caption_ko": "Figure 17: drive compensation을 끈 상태에서 lever arm radius에 따른 식별 inertia와 target inertia 비교."
+    },
+    {
+      "number": 18,
+      "src": "./fig-18.png",
+      "caption": "Figure 18: An example Bode plot from the single-drive experiment for the closed-loop transfer function Hq: q̂j → qj, mapping commanded joint position q̂j to measured joint position qj.",
+      "caption_ko": "Figure 18: 명령 관절 위치를 측정 관절 위치로 매핑하는 closed-loop transfer function의 단일 구동기 실험 Bode plot 예시."
+    },
+    {
+      "number": 19,
+      "src": "./fig-19.png",
+      "caption": "Figure 19: An example Bode plot from the single-drive experiment for the closed-loop transfer function Hq: q̂j → qj, mapping commanded joint position q̂j to measured joint position qj. The hatched region indicates the 2σ confidence interval from analytic estimation (Appendix: Link Inertia Estimation).",
+      "caption_ko": "Figure 19: 명령 관절 위치를 측정 관절 위치로 매핑하는 closed-loop transfer function의 Bode plot. 빗금 영역은 해석적 추정에서 얻은 2σ confidence interval이다."
+    },
+    {
+      "number": 20,
+      "src": "./fig-20.png",
+      "caption": "Figure 20: Minimal trajectories, LF KFE.",
+      "caption_ko": "Figure 20: Minimal의 LF KFE 궤적. (a)는 학습 chirp 궤적에서 명령·측정 관절 위치를 비교하고, (b)는 random test trajectory에서 validation한다."
+    },
+    {
+      "number": 21,
+      "src": "./fig-21.png",
+      "caption": "Figure 21: Additional sim-to-real evaluation of ANYmal. (a) Sideways velocity tracking. (b) Yaw angular velocity tracking. Both panels compare commanded and measured base velocities over time (left) and summarize steady-state errors across methods (right).",
+      "caption_ko": "Figure 21: ANYmal의 추가 sim-to-real 평가. (a)는 측면 속도 tracking, (b)는 yaw angular velocity tracking이다. 두 panel 모두 왼쪽에서 명령·측정 몸체 속도를, 오른쪽에서 방법별 정상상태 오차를 요약한다."
+    },
+    {
+      "number": 22,
+      "src": "./fig-22.png",
+      "caption": "Figure 22: Joule heating constants of different robots, derived from motor parameters over body weight. These values offer a first-order estimate for black-box robotic systems.",
+      "caption_ko": "Figure 22: motor parameter와 body weight에서 유도한 로봇별 Joule heating constant. black-box 로봇 시스템의 1차 근사치를 제공한다."
+    },
+    {
+      "number": 23,
+      "src": "./fig-23.png",
+      "caption": "Figure 23: Reduced inertia comparison for ANYmal with and without ground contact. Panel (a) shows the agile stance used for evaluation. Panels (b) and (c) depict the reduced inertia at the KFE and HFE joint respectively as a function of base position during vertical and horizontal base motion, respectively.",
+      "caption_ko": "Figure 23: ground contact 유무에 따른 ANYmal reduced inertia 비교. (a)는 평가 stance, (b)는 수직 몸체 운동 중 KFE의 reduced inertia, (c)는 수평 몸체 운동 중 HFE의 reduced inertia를 몸체 위치에 따라 보여준다."
+    },
+    {
+      "number": 24,
+      "src": "./fig-24.png",
+      "caption": "Figure 24: Breakdown of reduced inertia contributions for the full robot configuration for Tytan in Section 3.2. The bar plot shows the distribution of components shaping the fitted joint inertia estimate Ia (dotted black line) obtained with PACE. The solid line denotes the ±1σ confidence interval from analytic measurements in Appendix: Link Inertia Estimation.",
+      "caption_ko": "Figure 24: Tytan 전체 로봇 구성에서 reduced inertia 기여를 분해한다. 막대는 PACE가 얻은 관절 inertia 추정치를 구성하는 요소를 보여주고, 실선은 해석적 측정의 ±1σ confidence interval이다."
+    },
+    {
+      "number": 25,
+      "src": "./fig-25.png",
+      "caption": "Figure 25: Full battery depletion time of ANYmal (Top) and Tytan (bottom) at walking in blue, resting (Electronics & drives) in orange, and lying on the ground in green (Electronics).",
+      "caption_ko": "Figure 25: ANYmal(위)과 Tytan(아래)의 battery 완전 방전 시간. 파랑은 보행, 주황은 electronics와 drive를 켠 rest, 초록은 바닥에 누워 electronics만 켠 상태다."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Main robot characteristics.",
+      "caption_ko": "Table 1: 주요 로봇 특성."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 2: Reward scales and PD gains used for locomotion.",
+      "caption_ko": "Table 2: locomotion에 사용한 reward scale과 PD gain."
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Running-track performance per full battery charge.",
+      "caption_ko": "Table 3: battery 완전 충전 1회당 track 주행 성능."
+    },
+    {
+      "number": 4,
+      "src": "./tab-4.png",
+      "caption": "Table 4: CoT decomposition on the track.",
+      "caption_ko": "Table 4: track 주행의 Cost of Transport 분해."
+    },
+    {
+      "number": 5,
+      "src": "./tab-5.png",
+      "caption": "Table 5: PACE parameters found per robot.",
+      "caption_ko": "Table 5: 로봇별로 식별된 PACE parameter."
+    },
+    {
+      "number": 6,
+      "src": "./tab-6.png",
+      "caption": "Table 6: Dynamics properties for the leg from CAD, measurements, and absolute error margins.",
+      "caption_ko": "Table 6: CAD와 측정으로 얻은 leg dynamics property 및 absolute error margin."
+    },
+    {
+      "number": 7,
+      "src": "./tab-7.png",
+      "caption": "Table 7: PPO hyperparameters for the reinforcement learning pipeline.",
+      "caption_ko": "Table 7: reinforcement learning pipeline의 PPO hyperparameter."
+    }
+  ],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "legged-robotics",
+    "reinforcement-learning",
+    "sim-to-real",
+    "system-identification",
+    "actuator-modeling",
+    "energy-efficient-locomotion"
+  ],
+  "key_concepts": [
+    "PACE",
+    "sim-to-real",
+    "joint-space-dynamics",
+    "system-identification",
+    "CMA-ES",
+    "PMSM-energy-model",
+    "blind-locomotion",
+    "zero-shot-transfer",
+    "quadrupedal-locomotion",
+    "Cost-of-Transport",
+    "dynamics-randomization-free",
+    "cross-platform-validation"
+  ],
+  "methodology": [
+    "fixed-base-in-air-chirp-data-collection",
+    "compact-joint-dynamics-parameterization",
+    "massively-parallel-CMA-ES",
+    "asymmetric-PPO",
+    "four-term-reward",
+    "physics-grounded-PMSM-loss-model",
+    "zero-shot-hardware-deployment",
+    "bottom-up-dynamic-validation"
+  ],
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/body/legged",
+    "robotics/simulation/sim-to-real",
+    "robotics/control/system-identification"
+  ],
+  "contribution_type": "method-and-system",
+  "relations": [
+    {
+      "target": "2512-sim2real-humanoid-locomotion-15min",
+      "type": "sharesGoalWith",
+      "note": "Both target fast, reliable zero-shot sim-to-real locomotion with compact rewards; PACE replaces dynamics randomization with identified actuator/system dynamics, whereas the humanoid recipe relies on strong randomization and fast off-policy RL."
+    },
+    {
+      "target": "2602-perceptive-humanoid-parkour",
+      "type": "sharesTopicWith",
+      "note": "Both study learned legged locomotion transferred from simulation to hardware, but PACE focuses on actuator/system alignment and energy while the parkour work focuses on perception and long-horizon skill composition."
+    },
+    {
+      "target": "2501-humanoid-locomotion-manipulation-survey",
+      "type": "sharesTopicWith",
+      "note": "PACE supplies a concrete system-identification and energy-modeling point in the broader learned legged and whole-body control landscape covered by the survey."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "PACE fits a 4n+1 physically interpretable joint-dynamics model from about 20 seconds of encoder-only in-air data, enabling dynamics-randomization-free zero-shot locomotion across diverse robots while reducing ANYmal's full Cost of Transport by 32%.",
+    "problem": "Sim-trained legged locomotion policies often fail or waste energy on hardware because actuator and system dynamics are mismatched; common fixes require broad dynamics randomization, torque sensors, black-box actuator networks, or complex hand-tuned rewards.",
+    "solution": "Collect fixed-base chirp trajectories, fit per-joint armature, viscous damping, Coulomb friction, joint bias, and one global delay with massively parallel CMA-ES, then train an asymmetric PPO policy with four reward terms including a physics-grounded PMSM energy loss.",
+    "key_result": "Using about 20 seconds of encoder-only data, PACE transfers without dynamics randomization across three primary and more than ten additional robots; ANYmal D reaches CoT 1.27 versus 1.86 for the prior ANYmal C baseline (32% reduction), while Tytan reaches CoT 0.97 and 6.10 km per charge.",
+    "limitations": [
+      "The fixed-base identification has finite excitation bandwidth and assumes sufficiently rigid structures, correct kinematics, consistent firmware compensation, and modest nonlinearities.",
+      "Effective parameters drift with temperature, wear, aging, filters, firmware, and simulator changes.",
+      "Contact compliance, electrical bus/current limits, inverter switching, and higher-order dynamics are not yet explicitly identified.",
+      "Parameter optimization still takes roughly 10–24 hours per robot on a single GPU despite requiring little real data."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "Can compact joint-space identification remain sufficient for highly compliant, contact-rich, or deformable-terrain locomotion?",
+      "source": "author_and_ai_analysis",
+      "relates_to": [
+        "contact-compliance",
+        "series-elasticity",
+        "deformable-terrain"
+      ]
+    },
+    {
+      "question": "How should electrical constraints and power-electronics losses be co-identified with mechanical dynamics so that high-speed policies exploit the true hardware envelope safely?",
+      "source": "author",
+      "relates_to": [
+        "bus-voltage",
+        "current-limits",
+        "inverter-switching",
+        "energy-efficiency"
+      ]
+    },
+    {
+      "question": "Can lightweight online adaptation track temperature, wear, aging, and firmware drift without sacrificing the interpretability and stability of the fitted model?",
+      "source": "author",
+      "relates_to": [
+        "online-adaptation",
+        "hardware-drift",
+        "system-identification"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Combine CMA-ES with local gradient refinement in differentiable physics.",
+    "Add contact-parameter refinement using force sensing or force plates.",
+    "Fit bus-voltage, current-limit, and inverter-switching behavior jointly with mechanical parameters.",
+    "Model joint and foot compliance, link flexibility, and series elasticity explicitly.",
+    "Use lightweight online adaptation to track wear and temperature drift.",
+    "Extend the model with higher-order motion terms to capture bandwidth limits and smooth high-frequency locomotion."
+  ],
+  "survey_hooks": [
+    "legged robot sim-to-real",
+    "actuator-aware reinforcement learning",
+    "physics-grounded reward design",
+    "energy-efficient locomotion",
+    "robot system identification",
+    "dynamics randomization alternatives"
+  ],
+  "next_reading": [
+    "2512-sim2real-humanoid-locomotion-15min",
+    "2602-perceptive-humanoid-parkour",
+    "2501-humanoid-locomotion-manipulation-survey"
+  ],
+  "terrys_memo": "",
+  "citation_status": "unchecked",
+  "citation_updated_at": "2026-07-14T11:52:09+09:00",
+  "ai_research_question": "When is a small physically identified actuator model a better sim-to-real strategy than broad dynamics randomization or learned residual dynamics?"
+}

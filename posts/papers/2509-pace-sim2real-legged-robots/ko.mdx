@@ -1,0 +1,125 @@
+---
+locale: "ko"
+title: "PACE: 20초 데이터로 다족 로봇의 sim-to-real 간극 줄이기"
+subtitle: "Dynamics randomization 대신 물리적으로 해석 가능한 관절 모델을 맞춘다"
+summary: "PACE는 약 20초의 encoder-only in-air 궤적으로 관절별 inertia·damping·friction·bias와 global delay를 식별하고, dynamics randomization 없이 blind locomotion policy를 여러 로봇에 zero-shot 전이한다. ANYmal D의 full Cost of Transport를 기존 1.86에서 1.27로 32% 줄이고, Tytan은 충전당 6.10 km와 CoT 0.97을 기록했다."
+card_summary: "약 20초의 encoder-only in-air 데이터로 관절 dynamics를 식별해, dynamics randomization 없이 여러 다족 로봇에 보행 policy를 zero-shot 전이하고 ANYmal의 CoT를 32% 낮춘다."
+seo_title: "PACE 다족 로봇 sim-to-real 논문 요약"
+seo_description: "PACE가 encoder-only system identification, CMA-ES, PMSM energy model로 dynamics-randomization-free 다족 로봇 locomotion transfer와 32% CoT 절감을 달성하는 방법을 정리한다."
+terrys_memo: ""
+translated_to:
+  - en
+references:
+  - title: "Learning agile and dynamic motor skills for legged robots"
+    author: "Hwangbo et al. (2019)"
+    description: "ANYmal sim-to-real locomotion에서 learned actuator network를 사용한 핵심 선행 연구. PACE는 이 black-box baseline과 직접 비교해 더 적은 encoder-only 데이터로 비슷하거나 더 나은 trajectory fidelity를 보인다."
+    arxiv_url: "https://arxiv.org/abs/1901.08652"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+agile+and+dynamic+motor+skills+for+legged+robots"
+    category: "foundational"
+  - title: "Learning to Walk in Minutes Using Massively Parallel Deep Reinforcement Learning"
+    author: "Rudin et al. (2022)"
+    description: "대규모 GPU 병렬 PPO로 ANYmal policy 학습을 수분 단위로 줄인 기반 연구. PACE는 이 학습 관행을 따르면서 simulator dynamics 자체를 실제 hardware에 정렬한다."
+    arxiv_url: "https://arxiv.org/abs/2109.11978"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+to+Walk+in+Minutes+Using+Massively+Parallel+Deep+Reinforcement+Learning"
+    category: "foundational"
+  - title: "Learning Quadrupedal Locomotion over Challenging Terrain"
+    author: "Lee et al. (2020)"
+    description: "proprioceptive policy와 teacher–student 계열로 ANYmal의 어려운 자연 지형 zero-shot locomotion을 확립한 연구. PACE의 asymmetric PPO와 velocity-tracking reward 설계가 놓인 계보다."
+    arxiv_url: "https://arxiv.org/abs/2010.11251"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+Quadrupedal+Locomotion+over+Challenging+Terrain"
+    category: "foundational"
+  - title: "Bridging the Sim-to-Real Gap for Athletic Loco-Manipulation"
+    author: "Fey et al. (2025)"
+    description: "torque sensor 없이 actuator discrepancy를 학습하는 최근 접근. PACE가 직접 비교하는 learned actuator modeling 계열과 맞닿지만, PACE는 작은 물리 parameter set과 evolutionary fitting을 택한다."
+    arxiv_url: "https://arxiv.org/abs/2502.10894"
+    scholar_url: "https://scholar.google.com/scholar?q=Bridging+the+Sim-to-Real+Gap+for+Athletic+Loco-Manipulation"
+    category: "recent"
+---
+
+## TL;DR
+
+Legged robot의 sim-to-real을 흔히 더 넓은 dynamics randomization으로 해결하지만, 그만큼 policy가 보수적이 되고 reward tuning도 복잡해진다. **PACE는 반대로 약 20초의 encoder-only in-air 데이터에서 실제 관절 dynamics를 먼저 맞춘 뒤**, randomization 없이 policy를 학습해 다양한 robot에 zero-shot 전이하고 에너지 효율까지 높인다.
+
+## 문제
+
+Simulation에서 잘 걷는 policy가 실제 로봇에서 실패하는 이유는 단순한 sensor noise만이 아니다. Motor와 gearbox의 inertia, viscous damping, Coulomb friction, firmware compensation, command delay가 simulation과 다르면 같은 joint target도 다른 궤적을 만든다. 이 오차를 덮기 위해 기존 연구는 dynamics randomization 범위를 넓히거나, torque sensor가 필요한 actuator network를 학습하거나, 실제 결과를 보고 reward를 반복적으로 손본다. 이런 접근은 transfer를 가능하게 하지만 parameter search와 reward shaping을 다시 전문가의 시행착오로 돌려놓는다.
+
+이 논문이 묻는 질문은 더 구체적이다. **실제 hardware의 joint-space dynamics를 작은 물리 parameter set으로 충분히 정렬하면, dynamics randomization 없이도 강건하고 에너지 효율적인 locomotion policy를 전이할 수 있는가?**
+
+## 핵심 아이디어
+
+PACE의 핵심은 현실 간극을 하나의 거대한 black box로 배우지 않는 것이다. 저자들은 각 관절에 armature/inertia $I_a$, viscous damping $d$, Coulomb friction $\tau_f$, joint bias $\tilde q_b$를 두고 전체 robot에 global command delay $T_d$ 하나를 둔다. $n$개 관절이면 총 $4n+1$개 parameter다.
+
+- **격리된 data collection**: 몸체를 고정해 contact와 base motion을 제거한 뒤, 모든 관절에 chirp signal을 주어 20–60초의 in-air 궤적을 기록한다.
+- **Massively parallel fitting**: 실제 joint target을 수천 개 simulation environment에서 replay하고, CMA-ES로 position error가 가장 작은 parameter를 찾는다.
+- **Randomization-free policy learning**: fitted dynamics가 actuator gap을 담당하므로 mass·damping 같은 dynamics randomization은 쓰지 않는다. 대신 terrain, ground friction, external push처럼 task uncertainty만 randomize한다.
+- **Physics-grounded energy reward**: torque-square proxy 하나가 아니라 PMSM의 Joule heating과 mechanical power, regenerative behavior를 함께 반영한다.
+
+<Figure src="./fig-4.png" caption="PACE를 적용한 robot들. 주요 검증 플랫폼인 ANYmal, Tytan, Minimal뿐 아니라 Aibo, NAO, ALMA, Spacehopper, LEVA, Magnecko, GR-1 등 다양한 morphology에 같은 parameterization을 적용했다." number={4} />
+
+<Collapsible title="구체적 방법">
+
+### 1. In-air system identification
+
+고정된 몸체에서 다리를 자유롭게 흔들면 contact force와 base inertia가 관절 식별을 방해하지 않는다. 저자들은 예상 policy motion보다 충분히 높은 frequency까지 chirp input을 주고, 실제 robot과 simulation에 같은 joint target을 입력한다. 각 simulation environment는 서로 다른 parameter 후보를 갖고, 다음 mean-squared position error를 최소화한다.
+
+$$
+\mathcal{L}(\theta)=\frac{1}{Tn}\sum_{t=1}^{T}\left\|q_t^{\mathrm{sim}}(\theta)-q_t^{\mathrm{real}}\right\|_2^2
+$$
+
+여기서 $\theta=\{\mathbf I_a,\mathbf d,\boldsymbol\tau_f,\tilde{\mathbf q}_b,T_d\}$다. PD gain까지 동시에 맞추면 여러 parameter scaling이 같은 궤적을 만드는 non-identifiability가 생기므로, gain은 알려진 값으로 고정한다.
+
+### 2. Blind locomotion policy
+
+Policy는 proprioception만 받는 asymmetric PPO다. Actor는 base velocity와 gravity estimate, command, joint state, previous action을 받고, critic은 contact·friction·height scan 같은 privileged state를 추가로 본다. Action은 default posture에 대한 joint-position offset이며, hard limit 방향으로 torque가 생기지 않도록 target saturation을 적용한다.
+
+Reward는 네 묶음만 둔다.
+
+- commanded linear/angular velocity tracking
+- PMSM loss에 기반한 energy cost
+- foot touchdown velocity penalty
+- self-collision과 joint-limit collision penalty
+
+초기부터 energy와 touchdown penalty를 세게 주면 gait discovery가 멈추므로, penalty를 exponential schedule로 점진적으로 올린다. Exploration entropy도 후반으로 갈수록 줄인다.
+
+### 3. Bottom-up validation
+
+검증은 single drive → suspended full robot → on-ground locomotion 순서로 진행한다. Tytan 단일 drive에서는 current loop와 mechanical model을 직접 측정하고, ANYmal에서는 URDF-only와 learned actuator network를 비교한다. 이후 같은 fitted simulator로 Tytan, ANYmal, Minimal policy를 학습해 실제 hardware에 zero-shot 배포한다.
+
+<Figure src="./fig-3.png" caption="PACE pipeline. 실제 in-air trajectory를 수집하고 CMA-ES로 compact dynamics parameter를 맞춘 뒤, fitted simulation에서 blind policy를 학습해 hardware에 zero-shot 배포한다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+가장 중요한 결과는 **적은 실제 데이터, 넓은 platform coverage, 실제 에너지 절감**이 동시에 나온다는 점이다.
+
+- **약 20초의 encoder-only 데이터**: ANYmal 비교에서 PACE는 약 20초의 in-air data만 썼다. 2019 actuator network는 약 4분의 torque-instrumented data를 사용했고, 실제 vendor LSTM은 더 큰 dataset으로 학습됐을 가능성이 높다.
+- **Dynamics randomization 없이 zero-shot transfer**: 세 주요 platform에서 fitted simulation과 실제 trajectory가 잘 맞았고, 10개가 넘는 추가 robot에도 같은 fitting을 적용했다.
+- **ANYmal energy 32% 절감**: 400 m track에서 ANYmal D의 full CoT는 기존 ANYmal C의 1.86에서 **1.27**로 줄었다. 주행 거리는 충전당 2.64 km에서 **4.12 km**로 늘었다.
+- **Tytan CoT 0.97, 6.10 km**: Tytan은 평균 0.978 m/s로 6.10 km를 주행했고, full CoT 0.97을 기록했다.
+- **동역학 한계까지 전이**: ANYmal은 실제에서 약 3 m/s까지 달렸고, 더 높은 속도는 model error보다 32 A battery current limit에 막혔다. 4 kg Minimal은 18 cm 계단 20개를 46초 동안 연속으로 올랐다.
+- **식별 정확도와 compute**: 단일 drive의 inertia fit은 실험 조건에 따라 analytic target 대비 2–15% 범위였고, 4,096개 parallel environment에서 robot 하나의 전체 fitting은 single GPU로 10–24시간 걸렸다.
+
+<Figure src="./fig-8.png" caption="400 m track endurance 평가. battery SoC, CoT decomposition, Tytan knee limit cycle과 frequency spectrum을 함께 비교한다." number={8} />
+
+<Figure src="./tab-4.png" caption="CoT decomposition. ANYmal D는 total CoT 1.27, Tytan은 0.97이며 두 robot 모두 locomotion 자체가 전체 energy의 절반보다 적다." number={4} />
+
+## 달성점과 한계점
+
+**새롭게 달성한 점**
+
+- **System identification을 sim-to-real RL pipeline의 중심에 배치**했다. 작은 $4n+1$ parameter set이 black-box actuator model이나 broad dynamics randomization의 실용적 대안이 될 수 있음을 보였다.
+- **Open/closed hardware를 같은 방식으로 다뤘다.** Low-level 정보가 충분한 Tytan/Minimal뿐 아니라 제한된 access의 ANYmal에서도 torque sensor 없이 작동한다.
+- **Transfer fidelity와 energy efficiency를 연결**했다. 정확히 맞춘 simulator가 straight-knee gait처럼 실제 machine dynamics를 더 적극적으로 활용하게 하며, 그 효과를 full-battery endurance와 CoT로 검증했다.
+- **간결한 네 항 reward**로 다양한 locomotion을 학습해, 수십 개 heuristic term이 반드시 필요한 것은 아니라는 실증을 제공했다.
+
+**한계점**
+
+- 저자들이 명시하듯 suspended setup의 excitation bandwidth는 유한하다. 구조 유연성이나 firmware filter가 해당 범위 안에서 강하게 나타나면 식별이 깨질 수 있다.
+- Temperature, wear, aging, firmware update, simulator change는 fitted parameter를 이동시킨다. 현재 방식은 이를 online으로 추적하지 않는다.
+- Contact compliance, series elasticity, bus-voltage/current limit, inverter switching을 아직 fit에 명시적으로 넣지 않았다.
+- PACE는 correct kinematics, high-bandwidth current control 또는 LTI에 가까운 drive, mild temperature dependence, 충분한 stiffness를 가정한다. 이 가정이 무너지면 fully online 또는 model-free adaptation이 더 적합할 수 있다.
+- 🤖 세 주요 플랫폼이 모두 point-foot PMSM 기반 quadruped이고, 핵심 policy는 blind locomotion이다. Humanoid, wheeled-legged robot, deformable contact, perception-heavy navigation까지 같은 $4n+1$ parameterization이 충분한지는 아직 독립적으로 검증되지 않았다.
+
+다음 단계는 mechanical fit에 electrical constraint와 compliance를 더하고, temperature와 wear를 따라가는 lightweight online adaptation을 결합하는 것이다. 이 방향이 성공하면 sim-to-real은 “무작위화로 오차를 견디기”에서 “필요한 물리만 빠르게 식별해 hardware capability를 적극적으로 쓰기”로 이동할 수 있다.
