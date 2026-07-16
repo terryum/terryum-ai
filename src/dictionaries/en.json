@@ -81,7 +81,7 @@
   },
   "fallback_banner": "The English version of this article is not available yet.",
   "not_found": {
-    "title": "Page Not Found",
+    "title": "Requested Page Unavailable",
     "description": "The page you requested does not exist.",
     "back_home": "Back to Home"
   },
