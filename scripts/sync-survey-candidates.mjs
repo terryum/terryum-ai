@@ -498,6 +498,86 @@ async function main() {
     }
   }
 
+  // refs_index intentionally deduplicates title variants, so a merged record
+  // can retain several primary IDs while exposing only one canonical candidate.
+  // Preserve every independently verified arXiv/DOI identity from each
+  // survey's fact-check ledger as a candidate/backref. This makes release
+  // coverage auditable without guessing which merged title variant supplied
+  // the first ID.
+  for (const survey of fs.readdirSync(SURVEYS_ROOT)) {
+    const refsPath = path.join(SURVEYS_ROOT, survey, '_refs_extracted.json');
+    const loaded = loadJson(refsPath);
+    const verifiedRefs = Array.isArray(loaded) ? loaded : (Array.isArray(loaded?.references) ? loaded.references : []);
+    for (const ref of verifiedRefs) {
+      const arxiv = normalizeArxiv(ref?.arxiv_id);
+      const doi = normalizeDoi(ref?.doi);
+      if (!arxiv && !doi) continue;
+      const canonicalId = arxiv ? `arxiv:${arxiv}` : `doi:${doi}`;
+      const idScheme = arxiv ? 'arxiv' : 'doi';
+      const bibtexKey = ref.bibtex_key || null;
+      const rich = bibtexKey ? research.byKey.get(bibtexKey) : null;
+      const bib = bibtexKey ? bibLookup.byKey.get(bibtexKey) : null;
+      const linkedTitle = String(ref.text || '').match(/\[([^\]]+)\]\(/)?.[1] || null;
+      const chapter = parseInt(ref.ch, 10);
+      const chapterList = Number.isNaN(chapter) ? [] : [chapter];
+      const backref = {
+        survey,
+        chapters_cited: chapterList,
+        ch: chapterList[0] ?? null,
+        chapter_hint: rich?._survey === survey ? (rich.chapter_hint || null) : null,
+        verification_status: ref.verification_status || null,
+        factcheck_notes: ref.factcheck_notes || null,
+        bibtex_key: bibtexKey,
+      };
+      const existing = candidatesMap.get(canonicalId);
+      if (existing) {
+        const current = existing.survey_backrefs.find(item => item.survey === survey);
+        if (!current) {
+          existing.survey_backrefs.push(backref);
+          bySurvey[survey] = (bySurvey[survey] || 0) + 1;
+        } else {
+          current.chapters_cited = [...new Set([...(current.chapters_cited || []), ...chapterList])].sort((a, b) => a - b);
+          current.ch = current.chapters_cited[0] ?? current.ch;
+          if (!current.verification_status && backref.verification_status) current.verification_status = backref.verification_status;
+          if (!current.factcheck_notes && backref.factcheck_notes) current.factcheck_notes = backref.factcheck_notes;
+          if (!current.bibtex_key && bibtexKey) current.bibtex_key = bibtexKey;
+        }
+        continue;
+      }
+      const title = rich?.title || bib?.title || linkedTitle || canonicalId;
+      const yearMatch = String(ref.text || '').match(/\b(19|20)\d{2}\b/);
+      const metadataQuality = (rich && rich.provenance !== 'bibtex_backfill' && (rich.method_summary || (rich.tags || []).length > 0))
+        ? 'rich' : 'skeleton';
+      candidatesMap.set(canonicalId, {
+        canonical_id: canonicalId,
+        id_scheme: idScheme,
+        title,
+        authors: rich?.authors || [],
+        first_author: null,
+        year: rich?.year || (yearMatch ? parseInt(yearMatch[0], 10) : null),
+        venue: rich?.venue || bib?.journal || null,
+        arxiv_id: arxiv || null,
+        doi: doi || null,
+        bibtex_key: bibtexKey,
+        bibtex_keys: bibtexKey ? [bibtexKey] : [],
+        aliases: [],
+        url: rich?.url || bib?.url || (arxiv ? `https://arxiv.org/abs/${arxiv}` : `https://doi.org/${doi}`),
+        method_summary: rich?.method_summary || null,
+        limitations: rich?.limitations || [],
+        tags: rich?.tags || [],
+        group: rich?.group || null,
+        metadata_quality: metadataQuality,
+        survey_backrefs: [backref],
+        graph_proximity: null,
+        matches_gaps: [],
+        promoted_to_slug: null,
+        first_seen_at: now,
+        last_seen_at: now,
+      });
+      bySurvey[survey] = (bySurvey[survey] || 0) + 1;
+    }
+  }
+
   // Promotion stamp — try every known identifier (arxiv, doi, every bibtex
   // key in the merged set, then title) so dedup'd variants find their match.
   for (const cand of candidatesMap.values()) {
