@@ -1,5 +1,5 @@
 {
-  "next_survey_number": 11,
+  "next_survey_number": 14,
   "surveys": [
     {
       "slug": "survey-large-data-manipulation",
@@ -867,6 +867,80 @@
       "allowed_groups": [
         "snu"
       ]
+    },
+    {
+      "slug": "robot-motion-101-part-3",
+      "survey_number": 13,
+      "title": {
+        "ko": "로봇 움직이기 101 (3/3)",
+        "en": "Robot Motion 101 (3/3)"
+      },
+      "description": {
+        "ko": "로봇 파운데이션 데이터에서 VLA·세계 모델·에이전트까지 연결하는 3부 9장 실전 서베이. 탁상형 조립 과제를 관통 사례로 삼아 상위 지능을 검증된 실행·안전 계약 안에 배치한다.",
+        "en": "A nine-chapter survey connecting robot foundation data, VLA, world models, and agents. A tabletop assembly task anchors every layer to verifiable execution and independent safety authority."
+      },
+      "cover_image": "/images/projects/survey-robot-motion-101-part-3-cover.webp",
+      "tech_stack": [
+        "Robotics",
+        "Vision-Language-Action",
+        "World Models",
+        "Robot Agents"
+      ],
+      "toc": [
+        {
+          "ko": "연결 계약",
+          "en": "Execution Contract"
+        },
+        {
+          "ko": "데이터와 행동",
+          "en": "Data and Actions"
+        },
+        {
+          "ko": "VLA 행동 생성",
+          "en": "How VLA Acts"
+        },
+        {
+          "ko": "새 로봇 적응",
+          "en": "Robot Adaptation"
+        },
+        {
+          "ko": "언어·장면 연결",
+          "en": "Grounding Scenes"
+        },
+        {
+          "ko": "세계 모델 계획",
+          "en": "World-Model Plans"
+        },
+        {
+          "ko": "로봇 에이전트",
+          "en": "Robot Agents"
+        },
+        {
+          "ko": "범용성 검증",
+          "en": "Testing Generality"
+        },
+        {
+          "ko": "통합 실행 검증",
+          "en": "Verified Execution"
+        }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://robot-motion-101-part-3.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys/tree/main/surveys/robot-motion-101-part-3"
+        }
+      ],
+      "embed_url": "https://robot-motion-101-part-3.pages.dev/",
+      "status": "active",
+      "featured": true,
+      "order": 0,
+      "published_at": "2026-07-16",
+      "updated_at": "2026-07-16"
     }
   ]
 }
