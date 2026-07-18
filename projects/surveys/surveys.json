@@ -869,6 +869,100 @@
       ]
     },
     {
+      "slug": "robot-motion-101",
+      "survey_number": 11,
+      "title": {
+        "ko": "로봇 움직이기 101 (1/3)",
+        "en": "Robot Motion 101 (1/3)"
+      },
+      "description": {
+        "ko": "하드웨어 선택과 ROS 2·시뮬레이터부터 첫 동작·원격 조작·보정까지 잇는 3부 9장 실전 서베이. 현재 수동 QA용 WIP 프리뷰다.",
+        "en": "A nine-chapter practical survey from hardware selection, ROS 2, and simulation to first motion, teleoperation, and calibration. WIP preview for manual QA."
+      },
+      "cover_image": "/images/projects/survey-robot-motion-101-cover.webp",
+      "tech_stack": [
+        "Robotics",
+        "ROS 2",
+        "Motion Planning",
+        "Simulation"
+      ],
+      "toc": [
+        { "ko": "과제와 안전", "en": "Task and Safety" },
+        { "ko": "팔과 손", "en": "Arm and Hand" },
+        { "ko": "센서와 컴퓨팅", "en": "Sensors and Compute" },
+        { "ko": "ROS 2 스택", "en": "ROS 2 Stack" },
+        { "ko": "동작 계획·제어", "en": "Planning & Control" },
+        { "ko": "시뮬레이터", "en": "Simulators" },
+        { "ko": "첫 동작", "en": "First Motion" },
+        { "ko": "원격 조작·학습", "en": "Teleop and Learning" },
+        { "ko": "맞춤 로봇 검증", "en": "Custom Robot QA" }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://robot-motion-101.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys/tree/main/surveys/robot-motion-101"
+        }
+      ],
+      "embed_url": "https://robot-motion-101.pages.dev/",
+      "status": "wip",
+      "featured": false,
+      "order": 2,
+      "published_at": "2026-07-15",
+      "updated_at": "2026-07-18"
+    },
+    {
+      "slug": "robot-motion-101-part-2",
+      "survey_number": 12,
+      "title": {
+        "ko": "로봇 움직이기 101 (2/3)",
+        "en": "Robot Motion 101 (2/3)"
+      },
+      "description": {
+        "ko": "고전적 계획·접촉 제어에서 BC·ACT·확산 정책·RL·혼합 배포까지 잇는 3부 9장 실전 서베이. 현재 수동 QA용 WIP 프리뷰다.",
+        "en": "A nine-chapter practical survey from classical planning and contact control to BC, ACT, diffusion, RL, and hybrid deployment. WIP preview for manual QA."
+      },
+      "cover_image": "/images/projects/survey-robot-motion-101-part-2-cover.webp",
+      "tech_stack": [
+        "Robot Learning",
+        "Imitation Learning",
+        "Diffusion Policy",
+        "Reinforcement Learning"
+      ],
+      "toc": [
+        { "ko": "실행 스택", "en": "Execution Stack" },
+        { "ko": "고전적 계획", "en": "Classical Planning" },
+        { "ko": "접촉 제어", "en": "Contact Control" },
+        { "ko": "데이터셋 공학", "en": "Dataset Engineering" },
+        { "ko": "BC에서 ACT", "en": "BC to ACT" },
+        { "ko": "확산·흐름 정책", "en": "Diffusion and Flow" },
+        { "ko": "강화학습", "en": "RL" },
+        { "ko": "혼합 스택", "en": "Hybrid Stack" },
+        { "ko": "배포 실행", "en": "Deployment Runbook" }
+      ],
+      "links": [
+        {
+          "type": "demo",
+          "url": "https://robot-motion-101-part-2.pages.dev/",
+          "label": "Read"
+        },
+        {
+          "type": "github",
+          "url": "https://github.com/terryum/terry-surveys/tree/main/surveys/robot-motion-101-part-2"
+        }
+      ],
+      "embed_url": "https://robot-motion-101-part-2.pages.dev/",
+      "status": "wip",
+      "featured": false,
+      "order": 1,
+      "published_at": "2026-07-15",
+      "updated_at": "2026-07-18"
+    },
+    {
       "slug": "robot-motion-101-part-3",
       "survey_number": 13,
       "title": {
