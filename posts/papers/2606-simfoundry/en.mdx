@@ -1,0 +1,93 @@
+---
+locale: "en"
+translation_of: "2606-simfoundry:ko"
+title: "SimFoundry: Turning One Video into a Factory for Robot Simulation"
+summary: "SimFoundry automatically turns a single video of a real scene into a physically interactive digital twin and augments it with object, scene, and task cousins. Across 7 manipulation tasks and 5 policy architectures, simulation evaluation reaches mean Pearson correlation 0.911 with real performance, while cousin data improves average zero-shot real success by 17%, 21%, and 40%."
+card_summary: "A single real-world video becomes a sim-ready digital twin, then a distribution of object, scene, and task cousins for both policy evaluation and sim-to-real training."
+seo_title: "SimFoundry: Automated Real-to-Sim Scenes and Digital Cousins"
+seo_description: "Summary of SimFoundry from NVIDIA, Stanford, Georgia Tech, UT Austin, and Toronto: one video becomes interactive simulation for scalable policy evaluation and sim-to-real learning."
+terrys_memo: ""
+references:
+  - title: "Automated Creation of Digital Cousins for Robust Policy Learning"
+    author: "Tianyuan Dai et al. (2024)"
+    description: "Introduces digital cousins that preserve geometric and semantic affordances without exactly copying a real scene. SimFoundry extends the idea across object, scene, and task axes and closes the evaluation loop."
+    arxiv_url: "https://arxiv.org/abs/2410.07408"
+    scholar_url: "https://scholar.google.com/scholar?q=Automated+Creation+of+Digital+Cousins+for+Robust+Policy+Learning"
+    category: "foundational"
+  - title: "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations"
+    author: "Ajay Mandlekar et al. (2023)"
+    description: "Expands a few human demonstrations into many trajectories under new contexts. SimFoundry uses this mechanism to scale demonstrations inside generated cousin scenes and tasks."
+    arxiv_url: "https://arxiv.org/abs/2310.17596"
+    scholar_url: "https://scholar.google.com/scholar?q=MimicGen+A+Data+Generation+System+for+Scalable+Robot+Learning"
+    category: "foundational"
+  - title: "Reconciling Reality through Simulation: A Real-to-Sim-to-Real Approach for Robust Manipulation"
+    author: "Marcel Torne et al. (2024)"
+    description: "RialTo robustifies imitation policies with RL inside digital twins of real scenes. SimFoundry targets more automated construction, more complex manipulation, and diversity through cousins."
+    arxiv_url: "https://arxiv.org/abs/2403.03949"
+    scholar_url: "https://scholar.google.com/scholar?q=Reconciling+Reality+through+Simulation+RialTo"
+    category: "recent"
+  - title: "PolaRiS: Scalable Real-to-Sim Evaluations for Generalist Robot Policies"
+    author: "Arhan Jain et al. (2025)"
+    description: "A direct baseline for evaluating generalist policies in reconstructed simulation. SimFoundry evaluates the same policies zero-shot, without simulator-specific finetuning, and raises mean Pearson correlation by more than 0.59."
+    arxiv_url: "https://arxiv.org/abs/2512.16881"
+    scholar_url: "https://scholar.google.com/scholar?q=PolaRiS+Scalable+Real-to-Sim+Evaluations+for+Generalist+Robot+Policies"
+    category: "recent"
+---
+
+## TL;DR
+
+SimFoundry turns **one smartphone video into an interactive simulation**, then grows that scene into object, scene, and task **digital cousins**. Its distinctive move is to use the same generated environments as both a predictive testbed for real policies and a data factory for zero-shot sim-to-real learning.
+
+<Video src="https://research.nvidia.com/labs/gear/simfoundry/videos/Simfoundry_Teaser.mp4" caption="SimFoundry: the full real-to-sim-to-real loop from a single video to a sim-ready digital twin and object, scene, and task cousins" type="direct" />
+
+## Problem
+
+Training and evaluating robot policies in the real world requires repeated hardware rollouts, resets, safety management, and scene construction. Simulation scales more easily, but matching the visuals, geometry, and dynamics of a real scene still takes substantial manual work. Recent real-to-sim systems often specialize in only scene reconstruction, policy evaluation, or sim-to-real training, and many stop at rigid, single-step manipulation. SimFoundry aims to close all three functions in one automated, modular loop for substantially more complex tasks.
+
+## Core Idea
+
+The pipeline has three stages:
+
+- **Extraction** converts video into a representative RGB-D observation and repeatedly decomposes foreground objects using a scene-understanding VLM and segmentation.
+- **Generation** turns object crops into aligned, articulated, sim-ready meshes, infers physical properties, and checks stability in a physics simulator.
+- **Augmentation** varies object instances, spatial layouts, and feasible interactions while preserving affordances, producing object, scene, and task cousins.
+
+<Figure src="./fig-2.png" caption="Figure 2: SimFoundry extracts RGB-D objects from video, generates sim-ready meshes and physical properties, and expands the result into object, scene, and task cousins." number={2} />
+
+<Collapsible title="Method Details">
+
+From raw RGB video, SimFoundry combines a representative frame, metric depth, and camera intrinsics into a scene point cloud. A scene-understanding VLM identifies objects; segmentation extracts each mask and RGB-D crop; inpainting removes the extracted object before the process repeats. Image upsampling and 2D-to-3D generation produce a visual mesh, while pose-estimation modules align it to the scene. Articulated objects receive a separate pass for movable parts and joint type, location, and range.
+
+The pipeline adds collision geometry, mass, and friction, then settles objects in PyBullet to obtain a physically stable initial state. For the background, it can remove foreground objects, recover depth and camera poses, and train a depth-supervised 3D Gaussian Splat, or align a separately captured background-only scan.
+
+Digital cousins are more structured than generic domain randomization. Object cousins perturb appearance, shape, and topology before regenerating meshes. Scene cousins use semantic spatial predicates such as `OnTop` and `RightOf` to create meaningful layouts. Task cousins propose feasible manipulation goals from the available objects and affordances, then connect them to simulation goals and demonstration generation.
+
+<Figure src="./fig-4.png" caption="Figure 4: Multi-step, articulated-object, and bimanual tasks on single-arm DROID and bimanual YAM setups. SimFoundry preserves real policy rankings without simulator-specific finetuning." number={4} />
+
+</Collapsible>
+
+## Key Results
+
+- **Policy evaluation**: across 7 manipulation tasks and 5 policy architectures, mean Pearson correlation with real performance is **0.911**, with **0.018 MMRV**.
+- **Strong baseline comparison**: when evaluating the same real policies zero-shot, mean Pearson correlation is **more than 0.59 higher** than PolaRiS. Sub-task evaluation raises mean Pearson from **0.90 to 0.95**.
+- **Cousin gains**: the v2 abstract reports average zero-shot real task-success improvements of **17%, 21%, and 40%** from object, scene, and task cousins.
+- **Reconstruction quality and throughput**: fully automated F1 ranges from **0.81–0.92**, compared with **0.66–0.71** for SAM3D. Roughly three minutes of tuning per object lifts F1 to **0.93–0.99**, while average automatic reconstruction takes about five minutes per object.
+
+<Figure src="./fig-5.png" caption="Figure 5: Object cousins improve transfer to unseen objects, scene cousins improve layout generalization, and task cousins improve related downstream tasks." number={5} />
+
+<Figure src="./tab-2.png" caption="Table 2: Multi-task policy success rates over 13 generated tasks and 7 held-out tasks in simulation and the real world." number={2} />
+
+## Achievements and Limitations
+
+What it newly achieves:
+
+- Unifies scene reconstruction, policy evaluation, and sim-to-real training in one modular real-to-sim system.
+- Demonstrates zero-shot evaluation and training beyond rigid pick-and-place, including multi-step, articulated-object, and bimanual manipulation.
+- Expands one twin into object, scene, and task cousin distributions and isolates how each diversity axis contributes to real-world generalization.
+
+Limitations:
+
+- As the authors note, the pipeline inherits non-determinism and failure modes from its VLM, inpainting, depth, segmentation, and image-to-mesh components.
+- Physics stabilization assumes a single flat support surface, restricting the current system to tabletop-style layouts rather than multi-level or non-planar environments.
+- The automatic 3DGS background pipeline needs roughly 90 minutes of two-pass video inpainting per scene on one GPU, with remaining artifact and near-field clipping issues.
+- 🤖 The evidence is concentrated on seven tabletop manipulation tasks using DROID and YAM. Whether the same correlations and cousin gains hold for mobile manipulation, deformable objects, and broader contact regimes remains untested.

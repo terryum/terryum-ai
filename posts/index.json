@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-14T05:11:27.433Z",
-  "total_posts": 84,
+  "generated_at": "2026-07-21T22:22:33.127Z",
+  "total_posts": 85,
   "posts": [
     {
       "post_number": 1,
@@ -6425,6 +6425,102 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 85,
+      "slug": "2606-simfoundry",
+      "content_type": "papers",
+      "title_en": "SimFoundry: Turning One Video into a Factory for Robot Simulation",
+      "title_ko": "SimFoundry: 영상 하나로 로봇 시뮬레이션 공장을 만든다",
+      "summary_ko": "단일 실제 영상에서 sim-ready digital twin을 만들고 object·scene·task cousin으로 확장해, 정책 평가와 sim-to-real 학습을 하나의 자동 파이프라인으로 잇는다.",
+      "summary_en": "A single real-world video becomes a sim-ready digital twin, then a distribution of object, scene, and task cousins for both policy evaluation and sim-to-real training.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-learning",
+        "real-to-sim",
+        "sim-to-real",
+        "scene-reconstruction",
+        "policy-evaluation",
+        "synthetic-data"
+      ],
+      "key_concepts": [
+        "SimFoundry",
+        "digital-twins",
+        "digital-cousins",
+        "object-cousins",
+        "scene-cousins",
+        "task-cousins",
+        "real-to-sim-policy-evaluation",
+        "zero-shot-sim-to-real",
+        "automated-scene-generation",
+        "3D-Gaussian-Splatting"
+      ],
+      "methodology": [
+        "video-to-simulation",
+        "RGB-D-scene-decomposition",
+        "2D-to-3D-mesh-generation",
+        "VLM-physics-annotation",
+        "articulated-object-generation",
+        "physics-stability-checking",
+        "digital-cousin-augmentation",
+        "MimicGen-demonstration-synthesis",
+        "paired-sim-real-evaluation"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "real-to-sim",
+        "sim-to-real",
+        "scene-generation",
+        "digital-cousins",
+        "robot-policy-evaluation",
+        "robot-learning",
+        "3d-reconstruction"
+      ],
+      "source_author": "Nadun Ranawaka et al.",
+      "source_date": "2026-06-25",
+      "published_at": "2026-07-22T07:14:11+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "SimFoundry turns one real-world video into an interactive digital twin, expands it into object, scene, and task cousins, and uses the resulting simulations for both predictive policy evaluation and zero-shot sim-to-real training.",
+        "problem": "Real-world robot policy training and evaluation are expensive, while prior real-to-sim systems often automate only scene reconstruction, policy evaluation, or sim-to-real training rather than closing the full loop for complex manipulation.",
+        "solution": "A modular Extraction-Generation-Augmentation pipeline decomposes a video into RGB-D objects, generates and aligns sim-ready articulated meshes with physical properties, stabilizes the scene, and produces affordance-preserving object, scene, and task cousins for evaluation and data generation.",
+        "key_result": "Across 7 tasks and 5 policy architectures, simulation evaluation reaches mean Pearson correlation 0.911 and MMRV 0.018; object, scene, and task cousins improve average zero-shot real-world task success by 17%, 21%, and 40%, respectively.",
+        "limitations": [
+          "The pipeline inherits non-determinism and failure modes from remote VLM, inpainting, depth, segmentation, and image-to-mesh components.",
+          "Physics stabilization assumes a single flat support surface, restricting current use to tabletop-style layouts.",
+          "Automatic 3DGS background reconstruction requires roughly 90 minutes per scene on one GPU and may introduce inpainting or near-field artifacts.",
+          "Evidence is concentrated on seven manipulation tasks across DROID and YAM, so broader transfer to mobile, non-planar, and contact-diverse environments remains unverified."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2602-robopaint",
+          "type": "sharesGoalWith",
+          "note": "Both use reconstructed simulation to scale manipulation data and transfer policies to the real world; RoboPaint retargets human demonstrations across embodiments and views, while SimFoundry reconstructs interactive scenes and diversifies objects, layouts, and tasks."
+        },
+        {
+          "target": "2509-pace-sim2real-legged-robots",
+          "type": "sharesTopicWith",
+          "note": "Both target reliable zero-shot sim-to-real transfer, but SimFoundry focuses on manipulation scene generation and policy evaluation while PACE focuses on identified legged-robot dynamics."
+        },
+        {
+          "target": "2512-sim2real-humanoid-locomotion-15min",
+          "type": "sharesTopicWith",
+          "note": "Both scale robot learning in simulation for zero-shot hardware deployment, with different task domains and approaches to closing the simulation gap."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/arm",
+        "robotics/simulation",
+        "computer-vision/3d-reconstruction"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7573,6 +7669,21 @@
         "from": "2409-affordance-flow-matching",
         "to": "2505-forcevla-force-aware-moe",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2606-simfoundry",
+        "to": "2602-robopaint",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2606-simfoundry",
+        "to": "2509-pace-sim2real-legged-robots",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "2606-simfoundry",
+        "to": "2512-sim2real-humanoid-locomotion-15min",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -7756,7 +7867,8 @@
           71,
           72,
           80,
-          82
+          82,
+          85
         ],
         "core_concepts": [
           "zero-shot-sim-to-real",
@@ -8234,7 +8346,8 @@
       15
     ],
     "3D-Gaussian-Splatting": [
-      15
+      15,
+      85
     ],
     "tactile-retargeting": [
       15
@@ -9237,7 +9350,8 @@
     ],
     "zero-shot-sim-to-real": [
       70,
-      71
+      71,
+      85
     ],
     "Unitree-G1": [
       70,
@@ -9584,10 +9698,34 @@
     ],
     "few-step-inference": [
       84
+    ],
+    "SimFoundry": [
+      85
+    ],
+    "digital-twins": [
+      85
+    ],
+    "digital-cousins": [
+      85
+    ],
+    "object-cousins": [
+      85
+    ],
+    "scene-cousins": [
+      85
+    ],
+    "task-cousins": [
+      85
+    ],
+    "real-to-sim-policy-evaluation": [
+      85
+    ],
+    "automated-scene-generation": [
+      85
     ]
   },
   "domain_stats": {
-    "robotics": 45,
+    "robotics": 46,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -9611,7 +9749,7 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 15,
+    "robotics/arm:secondary": 16,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -9620,7 +9758,7 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 23,
+    "robotics/brain": 24,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 3,
@@ -9637,7 +9775,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 6,
+    "robotics/brain/rl-policy": 7,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -9676,8 +9814,10 @@
     "robotics/body/legged:secondary": 1,
     "robotics/control/system-identification:secondary": 1,
     "ml/reinforcement-learning:secondary": 1,
+    "robotics/simulation:secondary": 1,
+    "computer-vision/3d-reconstruction:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 44,
+    "robotics": 45,
     "ai": 20,
     "biology": 2
   }

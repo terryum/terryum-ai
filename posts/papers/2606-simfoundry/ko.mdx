@@ -1,0 +1,92 @@
+---
+locale: "ko"
+title: "SimFoundry: 영상 하나로 로봇 시뮬레이션 공장을 만든다"
+summary: "SimFoundry는 실제 장면의 단일 영상에서 물리적으로 상호작용 가능한 digital twin을 만들고, 이를 object·scene·task cousin으로 증강하는 자동 real-to-sim 시스템이다. 7개 조작 태스크와 5개 정책 아키텍처에서 시뮬레이션 평가가 실제 성능과 평균 Pearson 0.911의 상관관계를 보였고, cousin 데이터는 zero-shot 실제 성공률을 평균 17%, 21%, 40% 높였다."
+card_summary: "단일 실제 영상에서 sim-ready digital twin을 만들고 object·scene·task cousin으로 확장해, 정책 평가와 sim-to-real 학습을 하나의 자동 파이프라인으로 잇는다."
+seo_title: "SimFoundry: 자동 Real-to-Sim 장면 생성과 Digital Cousins"
+seo_description: "NVIDIA·Stanford·Georgia Tech·UT Austin·Toronto의 SimFoundry 논문 요약. 영상 하나로 interactive simulation을 만들고 digital cousins로 정책 평가와 sim-to-real 학습을 확장한다."
+terrys_memo: ""
+references:
+  - title: "Automated Creation of Digital Cousins for Robust Policy Learning"
+    author: "Tianyuan Dai et al. (2024)"
+    description: "Digital twin을 정확히 복제하는 대신 기하·의미적 affordance를 유지하는 digital cousin 개념을 제안한 직접 기반 연구. SimFoundry는 이를 object뿐 아니라 scene과 task 축으로 확장하고 평가까지 닫는다."
+    arxiv_url: "https://arxiv.org/abs/2410.07408"
+    scholar_url: "https://scholar.google.com/scholar?q=Automated+Creation+of+Digital+Cousins+for+Robust+Policy+Learning"
+    category: "foundational"
+  - title: "MimicGen: A Data Generation System for Scalable Robot Learning using Human Demonstrations"
+    author: "Ajay Mandlekar et al. (2023)"
+    description: "소수 인간 시연을 새 맥락에 재배치해 대규모 궤적으로 늘리는 데이터 생성 시스템. SimFoundry는 생성한 cousin 장면과 task에서 demonstration을 확장하는 핵심 도구로 사용한다."
+    arxiv_url: "https://arxiv.org/abs/2310.17596"
+    scholar_url: "https://scholar.google.com/scholar?q=MimicGen+A+Data+Generation+System+for+Scalable+Robot+Learning"
+    category: "foundational"
+  - title: "Reconciling Reality through Simulation: A Real-to-Sim-to-Real Approach for Robust Manipulation"
+    author: "Marcel Torne et al. (2024)"
+    description: "현실 장면의 digital twin에서 RL로 imitation policy를 강건화하는 RialTo 시스템. SimFoundry는 더 자동화된 scene construction과 더 복잡한 조작 및 cousin 다양화를 목표로 삼는다."
+    arxiv_url: "https://arxiv.org/abs/2403.03949"
+    scholar_url: "https://scholar.google.com/scholar?q=Reconciling+Reality+through+Simulation+RialTo"
+    category: "recent"
+  - title: "PolaRiS: Scalable Real-to-Sim Evaluations for Generalist Robot Policies"
+    author: "Arhan Jain et al. (2025)"
+    description: "재구성된 시뮬레이션에서 generalist policy를 평가하는 직접 baseline. SimFoundry는 simulator-specific finetuning 없이 같은 정책을 zero-shot 평가해 평균 Pearson 상관관계를 0.59 이상 높였다."
+    arxiv_url: "https://arxiv.org/abs/2512.16881"
+    scholar_url: "https://scholar.google.com/scholar?q=PolaRiS+Scalable+Real-to-Sim+Evaluations+for+Generalist+Robot+Policies"
+    category: "recent"
+---
+
+## TL;DR
+
+SimFoundry는 스마트폰으로 찍은 **영상 하나를 interactive simulation으로 바꾸고**, 그 장면을 object·scene·task 수준의 **digital cousins**로 증식시키는 real-to-sim 시스템이다. 중요한 점은 장면 생성에서 끝나지 않고, 같은 시뮬레이션을 실제 정책의 예측 가능한 평가장과 zero-shot sim-to-real 학습 데이터 공장으로 함께 쓴다는 것이다.
+
+<Video src="https://research.nvidia.com/labs/gear/simfoundry/videos/Simfoundry_Teaser.mp4" caption="SimFoundry: 단일 실제 영상에서 sim-ready digital twin과 object, scene, task cousins를 생성하는 전체 real-to-sim-to-real 흐름" type="direct" />
+
+## 문제
+
+실제 로봇 정책을 훈련하고 평가하려면 반복적인 하드웨어 rollout, reset, 안전 관리, 장면 재구성이 필요해 비용이 크다. 시뮬레이션은 확장성이 좋지만 실제 장면의 시각·기하·동역학을 맞추려면 여전히 많은 수작업이 든다. 최근 real-to-sim 연구도 장면 재구성, 정책 평가, sim-to-real 학습 중 하나에 집중하거나 rigid한 single-step 태스크에 머무르는 경우가 많았다. SimFoundry가 겨냥하는 문제는 이 세 기능을 복잡한 조작에서도 하나의 자동·모듈형 루프로 닫는 것이다.
+
+## 핵심 아이디어
+
+파이프라인은 세 단계다.
+
+- **Extraction**: 영상에서 대표 RGB frame과 depth를 만들고, VLM과 segmentation을 이용해 foreground 객체를 반복적으로 분리한다.
+- **Generation**: 객체 crop을 2D-to-3D mesh로 바꾸고 pose, scale, articulation, collision geometry, mass와 friction을 추론한 뒤 PyBullet에서 안정성을 검사한다.
+- **Augmentation**: 원래 affordance를 유지하면서 객체 instance, 공간 배치, 가능한 태스크를 바꾼 object·scene·task cousins를 만든다.
+
+<Figure src="./fig-2.png" caption="Figure 2: 영상에서 RGB-D 객체를 추출하고, sim-ready mesh와 물리 속성을 생성한 뒤, object·scene·task cousin으로 확장하는 SimFoundry의 전체 파이프라인." number={2} />
+
+<Collapsible title="구체적 방법">
+
+먼저 raw RGB video에서 representative frame, metric depth, camera intrinsics를 결합해 scene point cloud를 만든다. Scene-understanding VLM이 객체를 찾고, mask와 RGB-D crop을 얻을 때마다 해당 객체를 inpainting으로 제거하면서 장면을 분해한다. 각 crop은 image upsampling과 2D-to-3D generation을 거쳐 visual mesh가 되며, FoundationPose 계열 모듈로 pose를 맞춘다. 관절형 객체는 movable part와 joint type·location·range를 별도로 추론한다.
+
+생성한 객체에는 collision geometry, mass, friction을 붙이고 PyBullet에서 settle시켜 물리적으로 안정한 초기 상태를 얻는다. 배경은 foreground를 제거한 영상에서 depth와 camera pose를 복구해 depth-supervised 3D Gaussian Splatting으로 재구성하거나, 별도 background-only scan을 수동 정렬할 수 있다.
+
+Digital cousin은 단순 domain randomization보다 구조적이다. Object cousin은 이미지 공간에서 모양·재질·topology를 바꾼 뒤 mesh를 다시 만들고, scene cousin은 `OnTop`, `RightOf` 같은 semantic spatial predicate로 의미 있는 배치를 생성한다. Task cousin은 현재 객체와 affordance로 가능한 새 조작 목표를 제안하고, 이를 simulation goal과 demonstration generation으로 연결한다.
+
+<Figure src="./fig-4.png" caption="Figure 4: DROID 단일 팔과 YAM 양팔에서 평가한 multi-step, articulated-object, bimanual 태스크. SimFoundry 평가는 simulator-specific finetuning 없이 실제 정책 순위를 강하게 보존한다." number={4} />
+
+</Collapsible>
+
+## 주요 결과
+
+- **정책 평가**: 7개 manipulation task와 5개 policy architecture에서 실제 성능과의 평균 Pearson correlation은 **0.911**, MMRV는 **0.018**이다.
+- **강한 baseline 비교**: 같은 real policy를 zero-shot으로 평가했을 때 SimFoundry의 평균 Pearson은 PolaRiS보다 **0.59 이상** 높았다. Sub-task 평가를 사용하면 평균 Pearson이 **0.90 → 0.95**로 올라간다.
+- **Cousin 효과**: v2 초록 기준 object, scene, task cousin은 zero-shot 실제 task success를 평균 **17%, 21%, 40%** 높였다.
+- **재구성 품질과 속도**: 완전 자동 설정의 F1은 난이도별 **0.81–0.92**로 SAM3D의 **0.66–0.71**보다 높고, 객체당 약 3분의 수동 tuning을 더하면 **0.93–0.99**까지 올라간다. 평균 처리 시간은 객체당 약 5분이다.
+
+<Figure src="./fig-5.png" caption="Figure 5: Object cousin은 미관측 객체, scene cousin은 새로운 배치, task cousin은 관련 downstream task로의 일반화를 각각 개선한다." number={5} />
+
+<Figure src="./tab-2.png" caption="Table 2: 13개 생성 태스크와 7개 held-out 태스크에서 multi-task policy를 시뮬레이션과 실제 환경에 걸쳐 평가한 성공률." number={2} />
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- 장면 reconstruction, policy evaluation, sim-to-real training을 하나의 modular real-to-sim 시스템에 통합했다.
+- Rigid pick-and-place를 넘어 multi-step, articulated-object interaction, bimanual coordination에서 zero-shot 평가와 학습을 검증했다.
+- 하나의 twin을 object·scene·task cousin distribution으로 확장해 실제 일반화에 어떤 다양성이 기여하는지 분리해 보였다.
+
+한계점:
+
+- 저자들이 지적하듯 VLM, inpainting, depth, segmentation, image-to-mesh 모듈의 비결정성과 실패를 그대로 상속한다.
+- Physics stability가 단일 평면 위 tabletop layout을 가정해 multi-level 또는 non-planar 환경을 아직 다루지 못한다.
+- 자동 3DGS background pipeline의 two-pass video inpainting은 단일 GPU에서 장면당 약 90분이 걸리며 artifact와 near-field clipping 문제가 남는다.
+- 🤖 실험 근거가 DROID와 YAM의 7개 tabletop manipulation task에 집중되어 있다. Mobile manipulation, deformable object, 더 다양한 contact regime에서도 같은 상관관계와 cousin 효과가 유지되는지는 검증되지 않았다.
