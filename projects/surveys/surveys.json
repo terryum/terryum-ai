@@ -2,7 +2,7 @@
   "next_survey_number": 14,
   "surveys": [
     {
-      "slug": "survey-large-data-manipulation",
+      "slug": "large-data-manipulation",
       "survey_number": 10,
       "title": {
         "ko": "대규모 데이터 기반 매니퓰레이션",
