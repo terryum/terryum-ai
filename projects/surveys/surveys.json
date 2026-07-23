@@ -9,8 +9,8 @@
         "en": "Large-Data Driven Manipulation"
       },
       "description": {
-        "ko": "제조 수작업 자동화를 대규모 데이터 전략으로 읽는 12장짜리 서베이. 2지 그리퍼 연구, 모바일 조작, 양팔·휴머노이드 제조 플랫폼, 데이터 flywheel, 제어·모방학습·촉각·회사 전략을 하나의 제조 관점으로 연결한다.",
-        "en": "A 12-chapter survey of large-data driven manipulation for manufacturing work automation. Connects tabletop grippers, mobile manipulation, bimanual and humanoid platforms, data flywheels, control, imitation learning, touch, and company strategy."
+        "ko": "245편 연구 코퍼스를 바탕으로 제조 조작의 데이터·제어·배포 전략을 엮는 12장 서베이. 원격조작과 사람 시연, 접촉·촉각 학습, VLA, NVIDIA Omniverse·Isaac·Cosmos 책임 체인, 생산 데이터 순환과 제조 데이터 주권을 연결한다.",
+        "en": "A 12-chapter survey grounded in a 245-work research corpus, connecting data, control, and deployment for manufacturing manipulation. It covers teleoperation and human demonstrations, contact and tactile learning, VLAs, the NVIDIA Omniverse–Isaac–Cosmos responsibility chain, production data flywheels, and manufacturing data sovereignty."
       },
       "cover_image": "/images/projects/survey-large-data-manipulation-cover.webp",
       "tech_stack": [
@@ -23,52 +23,52 @@
       ],
       "toc": [
         {
-          "ko": "제조 데이터",
-          "en": "Factory Data"
+          "ko": "데이터 규모",
+          "en": "Data Scale"
         },
         {
-          "ko": "손의 선택",
-          "en": "Choosing Hands"
+          "ko": "말단장치",
+          "en": "End Effectors"
         },
         {
-          "ko": "Flywheel",
-          "en": "Data Flywheel"
+          "ko": "데이터 순환",
+          "en": "Data Flywheels"
         },
         {
-          "ko": "Tedrake 계보",
-          "en": "Tedrake Line"
+          "ko": "접촉 모델링",
+          "en": "Contact Models"
         },
         {
-          "ko": "IL과 RL",
-          "en": "IL and RL"
+          "ko": "모방과 강화학습",
+          "en": "Imitation and RL"
         },
         {
-          "ko": "정책 구조",
-          "en": "Policy Stack"
+          "ko": "정책 아키텍처",
+          "en": "Policy Architectures"
         },
         {
-          "ko": "사람→로봇",
-          "en": "Human to Robot"
+          "ko": "사람 시연",
+          "en": "Human Demonstrations"
         },
         {
-          "ko": "접촉·촉각",
-          "en": "Touch & Force"
+          "ko": "접촉 학습",
+          "en": "Contact Learning"
         },
         {
-          "ko": "FM 연구소",
-          "en": "FM Labs"
+          "ko": "파운데이션 모델",
+          "en": "Foundation Models"
         },
         {
-          "ko": "생산 루프",
-          "en": "Production Loop"
+          "ko": "생산 데이터",
+          "en": "Production Data"
         },
         {
-          "ko": "손 Co-design",
-          "en": "Hand Co-design"
+          "ko": "하드웨어 공동설계",
+          "en": "Hardware Co-Design"
         },
         {
-          "ko": "소유 전략",
-          "en": "Ownership"
+          "ko": "제조 데이터 주권",
+          "en": "Data Sovereignty"
         }
       ],
       "links": [
@@ -83,7 +83,7 @@
       "featured": true,
       "order": 0,
       "published_at": "2026-06-18",
-      "updated_at": "2026-06-18"
+      "updated_at": "2026-07-23"
     },
     {
       "slug": "survey-nvidia-physical-ai-robotics",
