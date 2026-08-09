@@ -45,7 +45,8 @@
     "260425-sw-becomes-cosmetics",
     "260514-ai-superpower-time-lag",
     "260522-ai-agent-outcome-operations",
-    "260622-slump-tiny-experiment"
+    "260622-slump-tiny-experiment",
+    "260810-human-workers-first-condition-trust"
   ],
   "taxonomy_primary": "ai/business",
   "taxonomy_secondary": [
@@ -67,6 +68,10 @@
     },
     {
       "target": "260622-slump-tiny-experiment",
+      "type": "related"
+    },
+    {
+      "target": "260810-human-workers-first-condition-trust",
       "type": "related"
     }
   ],

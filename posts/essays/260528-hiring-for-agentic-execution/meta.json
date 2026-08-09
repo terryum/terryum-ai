@@ -41,7 +41,8 @@
   "idea_status": null,
   "related_posts": [
     "260523-why-work-at-early-startups",
-    "260603-age-of-virtue-generals"
+    "260603-age-of-virtue-generals",
+    "260810-human-workers-first-condition-trust"
   ],
   "taxonomy_primary": "ai-organization/hiring",
   "taxonomy_secondary": [
@@ -56,6 +57,10 @@
     },
     {
       "target": "260603-age-of-virtue-generals",
+      "type": "related"
+    },
+    {
+      "target": "260810-human-workers-first-condition-trust",
       "type": "related"
     }
   ],

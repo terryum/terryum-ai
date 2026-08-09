@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-21T22:22:33.127Z",
-  "total_posts": 85,
+  "generated_at": "2026-08-09T23:45:15.041Z",
+  "total_posts": 86,
   "posts": [
     {
       "post_number": 1,
@@ -4476,9 +4476,16 @@
         "key_result": "스펙 몇 줄보다 함께 압력을 통과한 동료들의 책임의 증언이 장기 커리어의 이름표가 된다",
         "limitations": []
       },
-      "relations": [],
+      "relations": [
+        {
+          "target": "260810-human-workers-first-condition-trust",
+          "type": "related"
+        }
+      ],
       "idea_status": null,
-      "related_posts": [],
+      "related_posts": [
+        "260810-human-workers-first-condition-trust"
+      ],
       "taxonomy_primary": "startup/career",
       "taxonomy_secondary": [
         "startup/organization"
@@ -4635,12 +4642,17 @@
         {
           "target": "260603-age-of-virtue-generals",
           "type": "related"
+        },
+        {
+          "target": "260810-human-workers-first-condition-trust",
+          "type": "related"
         }
       ],
       "idea_status": null,
       "related_posts": [
         "260523-why-work-at-early-startups",
-        "260603-age-of-virtue-generals"
+        "260603-age-of-virtue-generals",
+        "260810-human-workers-first-condition-trust"
       ],
       "taxonomy_primary": "ai-organization/hiring",
       "taxonomy_secondary": [
@@ -5634,6 +5646,10 @@
         {
           "target": "260622-slump-tiny-experiment",
           "type": "related"
+        },
+        {
+          "target": "260810-human-workers-first-condition-trust",
+          "type": "related"
         }
       ],
       "idea_status": null,
@@ -5641,7 +5657,8 @@
         "260425-sw-becomes-cosmetics",
         "260514-ai-superpower-time-lag",
         "260522-ai-agent-outcome-operations",
-        "260622-slump-tiny-experiment"
+        "260622-slump-tiny-experiment",
+        "260810-human-workers-first-condition-trust"
       ],
       "taxonomy_primary": "ai/business",
       "taxonomy_secondary": [
@@ -6521,6 +6538,77 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 86,
+      "slug": "260810-human-workers-first-condition-trust",
+      "content_type": "essays",
+      "title_en": "The First Condition for Human Workers: Enduring Trust",
+      "title_ko": "사람 일꾼의 첫째 조건: 오랜 신뢰",
+      "summary_ko": "AI가 기능을 가져갈수록 경력의 핵심은 이름이 아니라, 어려운 일을 함께 끝내며 쌓은 오랜 신뢰가 된다.",
+      "summary_en": "As AI takes over functions, careers compound through trust earned by finishing hard work together.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "Career",
+      "subfields": [
+        "ai-native work",
+        "career capital",
+        "high-trust networks"
+      ],
+      "key_concepts": [
+        "ai-native-work",
+        "entrepreneurial-ownership",
+        "trust-capital",
+        "high-trust-network",
+        "career-growth"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "Career",
+        "AI",
+        "Trust",
+        "Organization"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-08-10T08:41:27+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI가 기능적인 일을 가져갈수록 사람의 경력은 회사 이름보다 함께 어려운 일을 끝내며 쌓은 오랜 신뢰에서 복리로 성장한다",
+        "problem": "주니어가 회사 이름과 단기 연봉 상승을 좇아 자주 이동하면 실제 결과와 깊은 평판을 증명할 시간이 사라진다",
+        "solution": "믿을 만한 리더와 중요한 문제를 맡아 기대를 넘는 결과를 만들고 동료와 고객의 신뢰를 장기적인 경력 자본으로 쌓는다",
+        "key_result": "AI 시대의 수퍼 개인은 혼자 강한 사람이 아니라 서로 다시 큰일을 맡길 수 있는 고신뢰 네트워크 안에서 증명된 사람이다",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260523-why-work-at-early-startups",
+          "type": "related"
+        },
+        {
+          "target": "260528-hiring-for-agentic-execution",
+          "type": "related"
+        },
+        {
+          "target": "260618-value-from-finite-resources",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260523-why-work-at-early-startups",
+        "260528-hiring-for-agentic-execution",
+        "260618-value-from-finite-resources"
+      ],
+      "taxonomy_primary": "career/trust-capital",
+      "taxonomy_secondary": [
+        "startup/career",
+        "ai-organization/work"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7321,6 +7409,11 @@
         "type": "related"
       },
       {
+        "from": "260523-why-work-at-early-startups",
+        "to": "260810-human-workers-first-condition-trust",
+        "type": "related"
+      },
+      {
         "from": "2604-pi0-7-steerable-generalist-vla",
         "to": "2410-pi0-vla-flow-model",
         "type": "extends"
@@ -7353,6 +7446,11 @@
       {
         "from": "260528-hiring-for-agentic-execution",
         "to": "260603-age-of-virtue-generals",
+        "type": "related"
+      },
+      {
+        "from": "260528-hiring-for-agentic-execution",
+        "to": "260810-human-workers-first-condition-trust",
         "type": "related"
       },
       {
@@ -7551,6 +7649,11 @@
         "type": "related"
       },
       {
+        "from": "260618-value-from-finite-resources",
+        "to": "260810-human-workers-first-condition-trust",
+        "type": "related"
+      },
+      {
         "from": "2505-egodex-egocentric-dexterous-video",
         "to": "2602-humanplus-humanoid-shadowing",
         "type": "sharesTopicWith"
@@ -7684,6 +7787,21 @@
         "from": "2606-simfoundry",
         "to": "2512-sim2real-humanoid-locomotion-15min",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "260810-human-workers-first-condition-trust",
+        "to": "260523-why-work-at-early-startups",
+        "type": "related"
+      },
+      {
+        "from": "260810-human-workers-first-condition-trust",
+        "to": "260528-hiring-for-agentic-execution",
+        "type": "related"
+      },
+      {
+        "from": "260810-human-workers-first-condition-trust",
+        "to": "260618-value-from-finite-resources",
+        "type": "related"
       }
     ],
     "clusters": [
@@ -9205,7 +9323,8 @@
       63
     ],
     "entrepreneurial-ownership": [
-      63
+      63,
+      86
     ],
     "startup-team": [
       63
@@ -9459,7 +9578,8 @@
       75
     ],
     "trust-capital": [
-      75
+      75,
+      86
     ],
     "human-time": [
       75
@@ -9722,6 +9842,15 @@
     ],
     "automated-scene-generation": [
       85
+    ],
+    "ai-native-work": [
+      86
+    ],
+    "high-trust-network": [
+      86
+    ],
+    "career-growth": [
+      86
     ]
   },
   "domain_stats": {
@@ -9745,7 +9874,8 @@
     "AI Business": 1,
     "Life Strategy": 1,
     "biology": 2,
-    "Machine Learning": 1
+    "Machine Learning": 1,
+    "Career": 1
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
@@ -9816,6 +9946,9 @@
     "ml/reinforcement-learning:secondary": 1,
     "robotics/simulation:secondary": 1,
     "computer-vision/3d-reconstruction:secondary": 1,
+    "career/trust-capital": 1,
+    "startup/career:secondary": 1,
+    "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
     "robotics": 45,
     "ai": 20,

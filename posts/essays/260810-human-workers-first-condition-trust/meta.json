@@ -1,0 +1,77 @@
+{
+  "post_id": "260810-human-workers-first-condition-trust",
+  "slug": "260810-human-workers-first-condition-trust",
+  "post_number": 86,
+  "published_at": "2026-08-10T08:41:27+09:00",
+  "updated_at": "2026-08-10T08:41:27+09:00",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "title_ko": "사람 일꾼의 첫째 조건: 오랜 신뢰",
+  "title_en": "The First Condition for Human Workers: Enduring Trust",
+  "subtitle_ko": "AI 시대, 경력은 이름보다 관계에 남는다",
+  "subtitle_en": "Trust compounds careers",
+  "summary_ko": "AI agent가 기능적인 일을 빠르게 가져갈수록 사람의 가치는 창업가적 오너십과 오랜 신뢰에서 나온다. 회사 이름과 연봉을 좇기보다 좋은 리더와 어려운 문제를 함께 통과하며 쌓은 평판이 다음 기회의 사다리가 된다.",
+  "summary_en": "As AI agents take over functional work, human value rests increasingly on entrepreneurial ownership and trust earned over time. A reputation built by solving hard problems with strong leaders and teammates compounds into opportunities more reliably than company names or short-term salary gains.",
+  "card_summary_ko": "AI가 기능을 가져갈수록 경력의 핵심은 이름이 아니라, 어려운 일을 함께 끝내며 쌓은 오랜 신뢰가 된다.",
+  "card_summary_en": "As AI takes over functions, careers compound through trust earned by finishing hard work together.",
+  "tags": [
+    "Essays",
+    "Career",
+    "AI",
+    "Trust",
+    "Organization"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 28,
+  "domain": "Career",
+  "subfields": [
+    "ai-native work",
+    "career capital",
+    "high-trust networks"
+  ],
+  "key_concepts": [
+    "ai-native-work",
+    "entrepreneurial-ownership",
+    "trust-capital",
+    "high-trust-network",
+    "career-growth"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260523-why-work-at-early-startups",
+    "260528-hiring-for-agentic-execution",
+    "260618-value-from-finite-resources"
+  ],
+  "taxonomy_primary": "career/trust-capital",
+  "taxonomy_secondary": [
+    "startup/career",
+    "ai-organization/work"
+  ],
+  "relations": [
+    {
+      "target": "260523-why-work-at-early-startups",
+      "type": "related"
+    },
+    {
+      "target": "260528-hiring-for-agentic-execution",
+      "type": "related"
+    },
+    {
+      "target": "260618-value-from-finite-resources",
+      "type": "related"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "AI가 기능적인 일을 가져갈수록 사람의 경력은 회사 이름보다 함께 어려운 일을 끝내며 쌓은 오랜 신뢰에서 복리로 성장한다",
+    "problem": "주니어가 회사 이름과 단기 연봉 상승을 좇아 자주 이동하면 실제 결과와 깊은 평판을 증명할 시간이 사라진다",
+    "solution": "믿을 만한 리더와 중요한 문제를 맡아 기대를 넘는 결과를 만들고 동료와 고객의 신뢰를 장기적인 경력 자본으로 쌓는다",
+    "key_result": "AI 시대의 수퍼 개인은 혼자 강한 사람이 아니라 서로 다시 큰일을 맡길 수 있는 고신뢰 네트워크 안에서 증명된 사람이다",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}
