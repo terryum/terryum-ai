@@ -161,6 +161,15 @@
 - 잔여 14일 이하: 경고 출력
 - 만료: 해당 플랫폼 건너뜀
 
+### Terry용 간단 재발급 안내 (우선 사용)
+
+향후 토큰 갱신 방법을 설명할 때는 복잡한 Developer Portal 탐색보다 아래 두 직접 링크와 짧은 절차를 먼저 안내한다.
+
+- **LinkedIn**: [LinkedIn OAuth Token Generator](https://www.linkedin.com/developers/tools/oauth/token-generator)에서 기존 앱을 선택하고 `w_member_social` 권한으로 새 토큰을 발급한다. 이후 `.env.local`의 `LINKEDIN_ACCESS_TOKEN`과 `LINKEDIN_TOKEN_CREATED`를 함께 갱신한다.
+- **Threads**: [Meta Graph API Explorer](https://developers.facebook.com/tools/explorer/)의 Graph API Generator에서 Threads 단기 토큰을 발급한 뒤, `grant_type=th_exchange_token` 흐름으로 60일 장기 토큰으로 교환한다. 이후 `.env.local`의 `THREADS_ACCESS_TOKEN`과 `THREADS_TOKEN_CREATED`를 함께 갱신한다.
+
+사용자가 상세 절차를 요청한 경우에만 앱 설정, 권한, 토큰 교환 명령을 추가로 설명한다. 토큰이나 App Secret을 채팅·문서·Git에 붙이지 않도록 항상 경고한다.
+
 ---
 
 ## 6. 체크리스트
