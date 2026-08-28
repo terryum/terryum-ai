@@ -24,13 +24,16 @@ function sanitizeRestrictedSurvey(s: SurveyMeta): SurveyMeta {
   return { ...s, embed_url: undefined, links: [] };
 }
 
-export async function loadPublicSurveys(): Promise<SurveyMeta[]> {
+export async function loadSurveysForListing(): Promise<SurveyMeta[]> {
   return loadSurveysRaw().map(sanitizeRestrictedSurvey);
 }
 
+/** @deprecated Prefer loadSurveysForListing. */
+export const loadPublicSurveys = loadSurveysForListing;
+
 /** All surveys (public + private/group) with private URLs redacted. */
 export async function getAllSurveys(): Promise<SurveyMeta[]> {
-  const surveys = (await loadPublicSurveys()).slice();
+  const surveys = (await loadSurveysForListing()).slice();
   return surveys.sort(byUpdatedDesc);
 }
 

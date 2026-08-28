@@ -1,5 +1,6 @@
 import BaseCard from './cards/BaseCard';
 import LockBadge from './cards/LockBadge';
+import type { Visibility } from '@/types/visibility';
 
 interface CompactCardProps {
   href: string;
@@ -10,7 +11,7 @@ interface CompactCardProps {
   date?: string;
   tags?: string[];
   external?: boolean;
-  visibility?: 'public' | 'private' | 'group';
+  visibility?: Visibility;
   allowedGroups?: string[];
   locale?: string;
 }
@@ -28,23 +29,21 @@ export default function CompactCard({
   allowedGroups,
   locale,
 }: CompactCardProps) {
-  const isRestricted = Boolean(visibility && visibility !== 'public');
   return (
     <BaseCard href={href} external={external} thumbnailSrc={image} thumbnailAlt={title}>
-      {(number || isRestricted) && (
+      {number && (
         <div className="text-xs text-text-muted">
-          {number && <span className="font-mono">{number}</span>}
-          <LockBadge
-            visibility={visibility}
-            allowedGroups={allowedGroups}
-            locale={locale}
-            className="ml-1.5 text-accent/70"
-            prefix={number ? '· ' : ''}
-          />
+          <span className="font-mono">{number}</span>
         </div>
       )}
-      <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-        {title}
+      <h3 className="flex items-start gap-1.5 text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+        <span>{title}</span>
+        <LockBadge
+          visibility={visibility}
+          allowedGroups={allowedGroups}
+          locale={locale}
+          className="inline-flex mt-1 text-accent/70 flex-shrink-0"
+        />
       </h3>
       <p className="text-sm text-text-muted mt-1 line-clamp-2 sm:line-clamp-3">{description}</p>
       <div className="flex items-center gap-2 mt-2 flex-wrap">

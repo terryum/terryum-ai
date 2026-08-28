@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { LOCALES, DEFAULT_LOCALE, type Locale } from '@/lib/i18n';
 import indexJson from '../posts/index.json';
+import surveysJson from '../projects/surveys/surveys.json';
 
 interface VisibilityEntry {
   visibility: 'private' | 'group';
@@ -13,16 +14,26 @@ const VISIBILITY_MAP: Record<string, VisibilityEntry> = (() => {
   for (const p of posts) {
     const visibility = (p.visibility as string) ?? 'public';
     if (visibility === 'private' || visibility === 'group') {
-      map[p.slug as string] = {
+      map[`posts:${p.slug as string}`] = {
         visibility,
         allowed_groups: (p.allowed_groups as string[]) ?? [],
+      };
+    }
+  }
+  const surveys = (surveysJson as { surveys?: Array<Record<string, unknown>> }).surveys ?? [];
+  for (const survey of surveys) {
+    const visibility = (survey.visibility as string) ?? 'public';
+    if (visibility === 'private' || visibility === 'group') {
+      map[`surveys:${survey.slug as string}`] = {
+        visibility,
+        allowed_groups: (survey.allowed_groups as string[]) ?? [],
       };
     }
   }
   return map;
 })();
 
-const POST_DETAIL_RE = /^\/(ko|en)\/posts\/([^/]+)\/?$/;
+const CONTENT_DETAIL_RE = /^\/(?:(ko|en)\/)?(posts|surveys)\/([^/]+)\/?$/;
 const ID_SESSION_MAX_AGE_MS = 60 * 60 * 24 * 30 * 1000; // mirror identity.ts (30 days)
 const TEXT_ENCODER = new TextEncoder();
 
@@ -78,11 +89,12 @@ async function verifyIdentity(
   return { role, group };
 }
 
-async function gatePostDetail(request: NextRequest): Promise<NextResponse | undefined> {
-  const match = POST_DETAIL_RE.exec(request.nextUrl.pathname);
+async function gateContentDetail(request: NextRequest): Promise<NextResponse | undefined> {
+  const match = CONTENT_DETAIL_RE.exec(request.nextUrl.pathname);
   if (!match) return undefined;
-  const slug = match[2];
-  const entry = VISIBILITY_MAP[slug];
+  const kind = match[2];
+  const slug = match[3];
+  const entry = VISIBILITY_MAP[`${kind}:${slug}`];
   if (!entry) return undefined;
 
   const sessionSecret = process.env.SESSION_SECRET;
@@ -147,10 +159,8 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 308 });
   }
 
-  // Visibility gate for private/group post detail pages. The page itself is
-  // SSG-prerendered (so MDX compiles at build time on Node, not under
-  // Workers' eval ban), so the access check has to happen here at the edge.
-  const gateResponse = await gatePostDetail(request);
+  // Visibility gate for every canonical and legacy post/survey detail URL.
+  const gateResponse = await gateContentDetail(request);
   if (gateResponse) return gateResponse;
 
   // Skip if path already has locale prefix

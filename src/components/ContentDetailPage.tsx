@@ -10,6 +10,7 @@ import RelatedPapers from './RelatedPapers';
 import ScrollDepthTracker from './ScrollDepthTracker';
 import SubstackSubscribe from './SubstackSubscribe';
 import PostInteractions from './posts/PostInteractions';
+import LockBadge from './cards/LockBadge';
 import { localizeGalleryItems } from '@/lib/localize';
 import { FigureGroupProvider } from '@/contexts/FigureGroupContext';
 import { formatPostDate } from '@/lib/display';
@@ -108,8 +109,14 @@ export default function ContentDetailPage({
         {meta.post_number != null && (
           <span className="font-mono text-xs text-text-muted">#{meta.post_number}</span>
         )}
-        <h1 className="text-2xl md:text-3xl font-bold text-text-primary tracking-tight leading-snug">
-          {meta.title}
+        <h1 className="flex items-start gap-2 text-2xl md:text-3xl font-bold text-text-primary tracking-tight leading-snug">
+          <span>{meta.title}</span>
+          <LockBadge
+            visibility={meta.visibility}
+            allowedGroups={meta.allowed_groups}
+            locale={locale}
+            className="inline-flex mt-1.5 text-accent/70 flex-shrink-0"
+          />
         </h1>
         <div className="flex items-center gap-3 mt-3">
           <time className="text-sm text-text-muted whitespace-nowrap">{dateStr}</time>

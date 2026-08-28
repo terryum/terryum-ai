@@ -1,7 +1,7 @@
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import { getDictionary } from '@/lib/dictionaries';
 import { getAllPostsFromIndex } from '@/lib/posts';
-import { loadPublicSurveys } from '@/lib/surveys';
+import { loadSurveysForListing } from '@/lib/surveys';
 import { getAudience, filterByAudience } from '@/lib/audience';
 import { sortByUpdatedDesc } from '@/lib/sort';
 import { formatSurveyNumber } from '@/lib/numbering';
@@ -44,7 +44,7 @@ export default async function HomePage({
     getDictionary(lang),
     getBioContent(lang),
     getAllPostsFromIndex(lang),
-    loadPublicSurveys(),
+    loadSurveysForListing(),
   ]);
 
   const l = lang as 'ko' | 'en';
@@ -69,9 +69,9 @@ export default async function HomePage({
           emptyText={dict.home.no_posts_yet}
         >
           {surveys.map((survey) => {
-            // Group-restricted surveys have embed_url stripped for privacy,
-            // but route internally so the auth gate can redirect.
-            const isInternal = Boolean(survey.embed_url) || survey.visibility === 'group';
+            // Restricted URLs are redacted from list payloads, but their cards
+            // still route through the authenticated terryum.ai detail route.
+            const isInternal = Boolean(survey.embed_url) || survey.visibility !== 'public';
             const href = isInternal
               ? `/${lang}/surveys/${survey.slug}`
               : survey.links[0]?.url || '#';

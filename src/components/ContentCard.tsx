@@ -75,25 +75,24 @@ export default function ContentCard({ post, locale, showTabTag, hidePubDate, sta
       thumbnailAlt={post.title}
       thumbnailFit={post.thumb_fit === 'contain' ? 'contain' : 'cover'}
     >
-      {(post.post_number != null || (post.visibility && post.visibility !== 'public')) && (
+      {post.post_number != null && (
         <div className="text-xs text-text-muted">
-          {post.post_number != null && (
-            <span className="font-mono">#{post.post_number}</span>
-          )}
-          <LockBadge
-            visibility={post.visibility}
-            allowedGroups={post.allowed_groups}
-            locale={locale}
-            className="ml-1.5 text-accent/70"
-            prefix={post.post_number != null ? '· ' : ''}
-          />
+          <span className="font-mono">#{post.post_number}</span>
         </div>
       )}
-      <h3 className="text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-        {post.starred && (
-          <span className="inline-block mr-1 text-amber-400" title="Seminal Paper">★</span>
-        )}
-        {post.title}
+      <h3 className="flex items-start gap-1.5 text-base font-[480] text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+        <span>
+          {post.starred && (
+            <span className="inline-block mr-1 text-amber-400" title="Seminal Paper">★</span>
+          )}
+          {post.title}
+        </span>
+        <LockBadge
+          visibility={post.visibility}
+          allowedGroups={post.allowed_groups}
+          locale={locale}
+          className="inline-flex mt-1 text-accent/70 flex-shrink-0"
+        />
       </h3>
       {isReading && post.source_author && (
         <p className="text-xs text-text-muted mt-0.5">

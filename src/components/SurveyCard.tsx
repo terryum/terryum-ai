@@ -62,16 +62,15 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
             <div>
               <span className="text-xs text-text-muted">
                 {formatSurveyNumber(survey.survey_number)}
+              </span>
+              <h3 className="flex items-start gap-1.5 text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+                <span>{title}</span>
                 <LockBadge
                   visibility={survey.visibility}
                   allowedGroups={survey.allowed_groups}
                   locale={locale}
-                  className="ml-1.5 text-accent/70"
-                  prefix="· "
+                  className="inline-flex mt-1 text-accent/70 flex-shrink-0"
                 />
-              </span>
-              <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-                {title}
               </h3>
             </div>
             <span className="text-xs text-text-muted whitespace-nowrap flex-shrink-0 mt-0.5">{updated}</span>
@@ -121,16 +120,15 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
             <div>
               <span className="text-xs text-text-muted">
                 {formatSurveyNumber(survey.survey_number)}
+              </span>
+              <h3 className="flex items-start gap-1.5 text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
+                <span>{title}</span>
                 <LockBadge
                   visibility={survey.visibility}
                   allowedGroups={survey.allowed_groups}
                   locale={locale}
-                  className="ml-1.5 text-accent/70"
-                  prefix="· "
+                  className="inline-flex mt-1 text-accent/70 flex-shrink-0"
                 />
-              </span>
-              <h3 className="text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
-                {title}
               </h3>
             </div>
             <span className="text-xs text-text-muted whitespace-nowrap flex-shrink-0 mt-0.5">{updated}</span>

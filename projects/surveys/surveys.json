@@ -49,7 +49,7 @@
       "order": 0,
       "published_at": "2026-08-18",
       "updated_at": "2026-08-18",
-      "visibility": "public"
+      "visibility": "private"
     },
     {
       "slug": "large-data-manipulation",
@@ -931,7 +931,8 @@
       "featured": false,
       "order": 2,
       "published_at": "2026-07-15",
-      "updated_at": "2026-07-18"
+      "updated_at": "2026-07-18",
+      "visibility": "private"
     },
     {
       "slug": "robot-motion-101-part-2",
@@ -974,7 +975,8 @@
       "featured": false,
       "order": 1,
       "published_at": "2026-07-15",
-      "updated_at": "2026-07-18"
+      "updated_at": "2026-07-18",
+      "visibility": "private"
     },
     {
       "slug": "robot-motion-101-part-3",
@@ -1044,7 +1046,8 @@
       "featured": true,
       "order": 0,
       "published_at": "2026-07-16",
-      "updated_at": "2026-07-16"
+      "updated_at": "2026-07-16",
+      "visibility": "private"
     }
   ]
 }

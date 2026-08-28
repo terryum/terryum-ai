@@ -44,7 +44,9 @@ export interface AISummary {
   limitations: string[];
 }
 
-export interface PostMeta {
+import type { AccessFields } from './visibility';
+
+export interface PostMeta extends AccessFields {
   post_id: string;
   locale: string;
   title: string;
@@ -106,9 +108,6 @@ export interface PostMeta {
   // Essay status (used by essays meta.json)
   idea_status?: 'hypothesis' | 'exploring' | 'validated' | 'abandoned' | 'incorporated';
   related_posts?: string[];
-  // ACL
-  visibility?: 'public' | 'private' | 'group';
-  allowed_groups?: string[];
   /** 'repo' (default): MDX lives in this git repo. 'r2': fetch from R2 private/ prefix. */
   body_source?: 'repo' | 'r2';
 }

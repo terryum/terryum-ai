@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
 /**
- * Walks posts/<type>/<slug>/{ko,en}.mdx and emits src/data/post-bodies.ts —
- * a static module that statically imports every public MDX body via the
- * webpack ?raw loader (registered in next.config.ts).
+ * Emits src/data/post-bodies.ts with public MDX as static ?raw imports and,
+ * during a production build, restricted MDX read from the non-public R2
+ * bucket as server-only string literals.
  *
  * Why: getPostInner() in src/lib/posts.ts used to call fs.readFile() at
  * runtime, which fails on Cloudflare Workers ("no such file or directory
  * /bundle/posts/..."). Webpack ?raw imports are bundled as inline strings
  * at build time, so the runtime path is fs-free and Workers-safe — which
- * lets us re-enable dynamicParams=true and serve private slugs (which
- * fall through to R2) on-demand.
+ * lets private slugs be prerendered into the authenticated server bundle
+ * without shipping their source files in the public repository.
  *
  * The output file is generated, not committed (see .gitignore).
  */
@@ -18,11 +18,21 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { loadEnv } from './lib/env.mjs';
+import { getR2Client } from './lib/r2-config.mjs';
+
+await loadEnv();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 const POSTS_DIR = path.join(ROOT, 'posts');
 const OUT = path.join(ROOT, 'src', 'data', 'post-bodies.ts');
+const index = JSON.parse(await fs.readFile(path.join(ROOT, 'posts', 'index.json'), 'utf-8'));
+const visibilityBySlug = new Map(
+  (index.posts ?? []).map((post) => [post.slug, post.visibility ?? 'public']),
+);
+const requirePrivate = process.argv.includes('--require-private');
 
 const cfg = JSON.parse(await fs.readFile(path.join(ROOT, 'content.config.json'), 'utf-8'));
 const TYPES = cfg.allContentDirs;
@@ -42,6 +52,9 @@ for (const type of TYPES) {
   for (const d of dirs) {
     if (!d.isDirectory()) continue;
     const slug = d.name;
+    // Restricted bodies must never become static imports in the public Worker
+    // bundle. They are served from the private R2 binding after auth instead.
+    if ((visibilityBySlug.get(slug) ?? 'public') !== 'public') continue;
     const slugDir = path.join(typeDir, slug);
     const langs = {};
     for (const lang of ['ko', 'en']) {
@@ -58,6 +71,48 @@ for (const type of TYPES) {
     if (langs.ko) fields.push(`ko: ${langs.ko}`);
     if (langs.en) fields.push(`en: ${langs.en}`);
     entries.push(`  ${JSON.stringify(slug)}: { ${fields.join(', ')} },`);
+  }
+}
+
+const restrictedPosts = (index.posts ?? []).filter(
+  (post) => (post.visibility ?? 'public') !== 'public',
+);
+if (restrictedPosts.length > 0) {
+  const bucket = process.env.PRIVATE_R2_BUCKET_NAME;
+  const hasCredentials = Boolean(
+    process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY,
+  );
+  if (!bucket || !hasCredentials) {
+    if (requirePrivate) {
+      throw new Error('Restricted posts exist but private R2 build credentials are missing');
+    }
+    console.warn('⚠ Restricted post bodies omitted (private R2 build credentials unavailable)');
+  } else {
+    const { s3 } = getR2Client();
+    for (const post of restrictedPosts) {
+      const langs = {};
+      for (const lang of ['ko', 'en']) {
+        const key = `private/posts/${post.content_type}/${post.slug}/${lang}.mdx`;
+        try {
+          const object = await s3.send(new GetObjectCommand({ Bucket: bucket, Key: key }));
+          if (!object.Body) throw new Error('empty object body');
+          langs[lang] = await object.Body.transformToString('utf-8');
+        } catch (error) {
+          if (requirePrivate) {
+            throw new Error(`Unable to load ${key}: ${error?.message ?? error}`);
+          }
+        }
+      }
+      if (requirePrivate && Object.keys(langs).length === 0) {
+        throw new Error(`No private MDX body found for ${post.slug}`);
+      }
+      if (Object.keys(langs).length > 0) {
+        const fields = [`type: ${JSON.stringify(post.content_type)}`];
+        if (langs.ko) fields.push(`ko: ${JSON.stringify(langs.ko)}`);
+        if (langs.en) fields.push(`en: ${JSON.stringify(langs.en)}`);
+        entries.push(`  ${JSON.stringify(post.slug)}: { ${fields.join(', ')} },`);
+      }
+    }
   }
 }
 

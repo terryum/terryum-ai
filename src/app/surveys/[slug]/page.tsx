@@ -23,7 +23,9 @@ export async function generateMetadata({
   return {
     title,
     description,
-    ...(survey.visibility === 'group' ? { robots: { index: false, follow: false } } : {}),
+    ...(survey.visibility === 'group' || survey.visibility === 'private'
+      ? { robots: { index: false, follow: false } }
+      : {}),
     openGraph: {
       title,
       description,

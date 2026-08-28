@@ -54,6 +54,12 @@ jobs:
           NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ secrets.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
           # Turnstile sitekey is public by design — read by the client to mount the widget.
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: 0x4AAAAAADD6Jt6VjEQHSG6F
+          # Build-time only: private MDX is compiled into the authenticated
+          # server bundle and never fetched through a public r2.dev URL.
+          R2_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          PRIVATE_R2_BUCKET_NAME: terryum-ai-private-content
         run: npm run build:cf
 
       - name: Verify prerender manifest covers all public posts

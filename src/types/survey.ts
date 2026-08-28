@@ -1,6 +1,7 @@
 import type { ResourceLink, BilingualText } from './common';
+import type { AccessFields } from './visibility';
 
-export interface SurveyMeta {
+export interface SurveyMeta extends AccessFields {
   slug: string;
   survey_number: number;
   title: BilingualText;
@@ -15,7 +16,4 @@ export interface SurveyMeta {
   order: number;
   published_at: string;
   updated_at?: string;
-  // ACL
-  visibility?: 'public' | 'private' | 'group';
-  allowed_groups?: string[];
 }

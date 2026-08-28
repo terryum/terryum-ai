@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { isValidLocale } from '@/lib/i18n';
 import { getSurvey, loadPublicSurveys } from '@/lib/surveys';
 import { requireReadAccess } from '@/lib/access-guard';
@@ -62,6 +62,12 @@ export default async function SurveyDetailPage({
 
   // List/metadata can be public (per user policy); only the iframe content is gated.
   await requireReadAccess(survey, `/${lang}/surveys/${slug}`);
+
+  // A top-level navigation lets Cloudflare Access set a first-party cookie;
+  // Access-protected pages.dev content is unreliable inside an iframe.
+  if (survey.visibility === 'private') {
+    redirect(`${survey.embed_url}${lang}/`);
+  }
 
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
 

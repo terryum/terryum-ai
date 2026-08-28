@@ -2,6 +2,7 @@ import 'server-only';
 import { cache } from 'react';
 import { getCurrentIdentity } from '@/lib/identity';
 import indexJson from '../../posts/index.json';
+import { normalizedVisibility, type AccessFields } from '@/types/visibility';
 
 export interface Audience {
   isAdmin: boolean;
@@ -14,14 +15,9 @@ export const getAudience = cache(async (): Promise<Audience> => {
   return { isAdmin: id.role === 'admin', group: id.group };
 });
 
-export interface AccessFields {
-  visibility?: 'public' | 'private' | 'group';
-  allowed_groups?: string[];
-}
-
 function isVisibleTo(access: AccessFields, audience: Audience): boolean {
   if (audience.isAdmin) return true;
-  const v = access.visibility ?? 'public';
+  const v = normalizedVisibility(access.visibility);
   if (v === 'public') return true;
   if (v === 'group' && audience.group) {
     return access.allowed_groups?.includes(audience.group) ?? false;

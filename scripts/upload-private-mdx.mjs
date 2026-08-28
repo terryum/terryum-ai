@@ -33,7 +33,7 @@ import {
   HeadObjectCommand,
 } from '@aws-sdk/client-s3';
 import { loadEnv } from './lib/env.mjs';
-import { getR2PublicUrl, getR2Client } from './lib/r2-config.mjs';
+import { getR2Client } from './lib/r2-config.mjs';
 
 await loadEnv();
 
@@ -62,13 +62,13 @@ if (!VALID_TYPES.has(type)) {
   process.exit(1);
 }
 
-const R2_PUBLIC_URL = getR2PublicUrl();
-if (!R2_PUBLIC_URL) {
-  console.error('❌ R2_PUBLIC_URL or NEXT_PUBLIC_R2_URL not set — needed for HEAD verification');
+const PRIVATE_R2_BUCKET_NAME = process.env.PRIVATE_R2_BUCKET_NAME;
+if (!PRIVATE_R2_BUCKET_NAME) {
+  console.error('❌ PRIVATE_R2_BUCKET_NAME is not set');
   process.exit(1);
 }
 
-const { s3, bucket: R2_BUCKET_NAME } = getR2Client({ requireBucket: true });
+const { s3 } = getR2Client();
 
 const sourceDir = source.startsWith('~')
   ? path.join(process.env.HOME || '', source.slice(1))
@@ -113,7 +113,7 @@ async function discoverTargets() {
 async function putOnce(item) {
   const body = await fs.readFile(item.local);
   await s3.send(new PutObjectCommand({
-    Bucket: R2_BUCKET_NAME,
+    Bucket: PRIVATE_R2_BUCKET_NAME,
     Key: item.key,
     Body: body,
     ContentType: item.contentType,
@@ -123,7 +123,7 @@ async function putOnce(item) {
 }
 
 async function headOnce(key) {
-  await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET_NAME, Key: key }));
+  await s3.send(new HeadObjectCommand({ Bucket: PRIVATE_R2_BUCKET_NAME, Key: key }));
 }
 
 async function uploadWithRetry(item) {
@@ -159,7 +159,7 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`🔐 Upload private MDX → r2://${R2_BUCKET_NAME}/${PREFIX}/`);
+  console.log(`🔐 Upload private MDX → r2://${PRIVATE_R2_BUCKET_NAME}/${PREFIX}/`);
   console.log(`   source: ${sourceDir}`);
   if (dryRun) console.log('   (dry-run — no PUT/HEAD calls)');
 
@@ -180,11 +180,7 @@ async function main() {
 
   if (dryRun) return;
 
-  console.log('\nVerify with:');
-  for (const item of targets.filter((t) => t.required)) {
-    console.log(`  curl -sI "${R2_PUBLIC_URL}/${item.key}" | head -1`);
-  }
-  console.log('\n✅ Done');
+  console.log('\n✅ Upload and private-bucket HEAD verification complete');
 }
 
 main().catch((err) => {

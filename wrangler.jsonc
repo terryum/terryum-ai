@@ -33,6 +33,10 @@
     {
       "binding": "NEXT_INC_CACHE_R2_BUCKET",
       "bucket_name": "terryum-ai-cache"
+    },
+    {
+      "binding": "PRIVATE_CONTENT_R2",
+      "bucket_name": "terryum-ai-private-content"
     }
   ],
   "observability": {

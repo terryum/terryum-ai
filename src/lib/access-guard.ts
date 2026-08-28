@@ -1,13 +1,9 @@
 import 'server-only';
 import { redirect } from 'next/navigation';
 import { getCurrentIdentity } from '@/lib/identity';
+import { normalizedVisibility, type AccessFields } from '@/types/visibility';
 
-export type Visibility = 'public' | 'private' | 'group';
-
-export interface AccessMeta {
-  visibility?: Visibility;
-  allowed_groups?: string[];
-}
+export type AccessMeta = AccessFields;
 
 /**
  * Enforce read access for a piece of content.
@@ -20,7 +16,7 @@ export async function requireReadAccess(
   meta: AccessMeta,
   currentPath: string,
 ): Promise<void> {
-  const visibility = meta.visibility ?? 'public';
+  const visibility = normalizedVisibility(meta.visibility);
   if (visibility === 'public') return;
 
   const id = await getCurrentIdentity();
@@ -36,7 +32,7 @@ export async function requireReadAccess(
 
 /** Pure predicate: does the current session have read access to this meta? */
 export async function canReadContent(meta: AccessMeta): Promise<boolean> {
-  const visibility = meta.visibility ?? 'public';
+  const visibility = normalizedVisibility(meta.visibility);
   if (visibility === 'public') return true;
   const id = await getCurrentIdentity();
   if (id?.role === 'admin') return true;

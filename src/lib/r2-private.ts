@@ -1,7 +1,5 @@
 import 'server-only';
-import { getR2PublicUrl } from './r2-config';
-
-const R2_URL = getR2PublicUrl();
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export type PrivateDomain = 'posts' | 'projects';
 
@@ -39,18 +37,26 @@ export function privateMetaKey(
   return `private/projects/${slug}/meta.json`;
 }
 
-async function fetchR2(key: string): Promise<Response | null> {
-  if (!R2_URL) return null;
+interface PrivateR2Object {
+  text(): Promise<string>;
+  json<T>(): Promise<T>;
+}
+
+interface PrivateR2Binding {
+  get(key: string): Promise<PrivateR2Object | null>;
+}
+
+async function getPrivateObject(key: string): Promise<PrivateR2Object | null> {
   try {
-    // Use plain fetch with no cache hint: `cache:'no-store'` flips the page
-    // to dynamic and throws "static to dynamic" on Workers; `next.revalidate`
-    // also triggers the dynamic-rendering path in some OpenNext code paths.
-    // Default fetch on Workers is uncached per-request, which is fine here.
-    const res = await fetch(`${R2_URL}/${key}`);
-    if (!res.ok) return null;
-    return res;
+    const { env } = await getCloudflareContext({ async: true });
+    const bucket = (env as CloudflareEnv & { PRIVATE_CONTENT_R2?: PrivateR2Binding }).PRIVATE_CONTENT_R2;
+    if (!bucket) {
+      console.error('[r2-private] PRIVATE_CONTENT_R2 binding is missing');
+      return null;
+    }
+    return await bucket.get(key);
   } catch (e) {
-    console.error(`[r2-private] fetch failed for ${key}:`, e instanceof Error ? `${e.name}: ${e.message}` : e);
+    console.error(`[r2-private] R2 read failed for ${key}:`, e instanceof Error ? `${e.name}: ${e.message}` : e);
     return null;
   }
 }
@@ -58,7 +64,7 @@ async function fetchR2(key: string): Promise<Response | null> {
 /**
  * Fetch a private MDX body from R2 and return it as a string.
  * Returns null if the object is missing or R2 is not configured.
- * Server-side only — the URL must never be exposed to the client.
+ * Server-side only. The bucket has no public r2.dev URL.
  */
 export async function fetchPrivateMdx(
   domain: PrivateDomain,
@@ -66,8 +72,8 @@ export async function fetchPrivateMdx(
   slug: string,
   lang: string
 ): Promise<string | null> {
-  const res = await fetchR2(privateBodyKey(domain, type, slug, lang));
-  return res ? await res.text() : null;
+  const object = await getPrivateObject(privateBodyKey(domain, type, slug, lang));
+  return object ? await object.text() : null;
 }
 
 /**
@@ -78,10 +84,10 @@ export async function fetchPrivateMeta<T = unknown>(
   type: string | null,
   slug: string
 ): Promise<T | null> {
-  const res = await fetchR2(privateMetaKey(domain, type, slug));
-  if (!res) return null;
+  const object = await getPrivateObject(privateMetaKey(domain, type, slug));
+  if (!object) return null;
   try {
-    return (await res.json()) as T;
+    return await object.json<T>();
   } catch {
     return null;
   }
@@ -96,6 +102,5 @@ export async function privateBodyExists(
   slug: string,
   lang: string
 ): Promise<boolean> {
-  const res = await fetchR2(privateBodyKey(domain, type, slug, lang));
-  return !!res;
+  return !!(await getPrivateObject(privateBodyKey(domain, type, slug, lang)));
 }
