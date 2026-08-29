@@ -178,6 +178,19 @@ npx opennextjs-cloudflare deploy   # Deploy via wrangler
 
 Runtime env vars go in `wrangler.jsonc` (`vars` for public, `secrets` via `wrangler secret put` for sensitive). See `.env.production` for the set of `NEXT_PUBLIC_*` vars that Next.js inlines into the bundle at build time.
 
+#### Private survey proxy (S11-S14)
+
+Private survey pages remain protected by their existing Cloudflare Access applications. The Worker serves them to an authenticated admin through the isolated `private-surveys.terryum.ai` iframe origin and `/api/private-surveys/{slug}/{path...}` proxy. The proxy derives every upstream URL from the registered private survey `embed_url`; anonymous users, members, public/group surveys, and unknown slugs receive an empty 404.
+
+Create the non-expiring `terryum-ai-private-surveys` Cloudflare Access Service Token, add a Service Auth (`non_identity`) policy that allows only that token to the production Access application containing all four S11-S14 destinations, and retain the existing Terry email policy for emergency direct access. Store the token credentials only as encrypted Worker secrets:
+
+```bash
+wrangler secret put CF_ACCESS_CLIENT_ID
+wrangler secret put CF_ACCESS_CLIENT_SECRET
+```
+
+Deploy only after both secrets and the `private-surveys.terryum.ai` custom domain are configured. Never add either credential to `wrangler.jsonc`, a `NEXT_PUBLIC_*` variable, logs, or committed files.
+
 ---
 
 ### Access Control (Inline Visibility)

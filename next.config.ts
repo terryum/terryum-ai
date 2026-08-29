@@ -2,6 +2,10 @@ import type { NextConfig } from 'next';
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 
 const nextConfig: NextConfig = {
+  // Preserve directory-style private survey paths (for example `/ko/`) so
+  // relative assets resolve beneath the proxied directory instead of through
+  // Next.js's automatic trailing-slash redirect.
+  skipTrailingSlashRedirect: true,
   serverExternalPackages: ['katex'],
   outputFileTracingIncludes: {
     // mdx/md entries dropped: posts MDX is bundled via post-bodies.ts ?raw,

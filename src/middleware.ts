@@ -106,18 +106,38 @@ async function gateContentDetail(request: NextRequest): Promise<NextResponse | u
       if (entry.visibility === 'group' && id.group && entry.allowed_groups.includes(id.group)) {
         return undefined;
       }
+
+      // An authenticated user without permission cannot gain access by signing
+      // in again. Hide private survey existence/content behind the same 404 as
+      // the proxy instead of creating a login loop.
+      if (kind === 'surveys' && entry.visibility === 'private') {
+        return new NextResponse(null, { status: 404 });
+      }
     }
   }
 
   const url = request.nextUrl.clone();
   url.pathname = '/login';
-  url.search = `?redirect=${encodeURIComponent(request.nextUrl.pathname)}`;
+  const returnTo = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+  url.search = `?redirect=${encodeURIComponent(returnTo)}`;
   return NextResponse.redirect(url, { status: 307 });
 }
 
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host') || '';
   const { pathname } = request.nextUrl;
+
+  // The private-surveys custom domain exists solely as an isolated iframe
+  // origin. Do not expose the main site's pages on this hostname.
+  if (host === 'private-surveys.terryum.ai' && !pathname.startsWith('/api/private-surveys/')) {
+    return new NextResponse(null, {
+      status: 404,
+      headers: {
+        'Cache-Control': 'private, no-store',
+        'X-Robots-Tag': 'noindex, noarchive',
+      },
+    });
+  }
 
   // Apex terryum.ai → www.terryum.ai (308 permanent redirect, path preserved).
   if (host === 'terryum.ai') {

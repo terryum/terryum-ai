@@ -13,7 +13,8 @@
   },
   "routes": [
     { "pattern": "www.terryum.ai", "custom_domain": true },
-    { "pattern": "terryum.ai", "custom_domain": true }
+    { "pattern": "terryum.ai", "custom_domain": true },
+    { "pattern": "private-surveys.terryum.ai", "custom_domain": true }
   ],
   // NEXT_PUBLIC_* values are baked into the client JS bundle at build time.
   // They are public by design (RLS-protected anon keys, public GA IDs, public CDN URLs).

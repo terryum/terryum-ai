@@ -1,11 +1,24 @@
+import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import { isValidLocale } from '@/lib/i18n';
 import { getSurvey, loadPublicSurveys } from '@/lib/surveys';
 import { requireReadAccess } from '@/lib/access-guard';
+import { getCurrentIdentity } from '@/lib/identity';
 import ProjectEmbed from '@/components/ProjectEmbed';
 import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
+
+async function privateSurveyEmbedUrl(slug: string): Promise<string> {
+  const requestHeaders = await headers();
+  const host = requestHeaders.get('host') ?? '';
+  const isTerryumHost = host === 'terryum.ai' || host.endsWith('.terryum.ai');
+  const protocol = requestHeaders.get('x-forwarded-proto') ?? 'http';
+  const origin = isTerryumHost
+    ? 'https://private-surveys.terryum.ai'
+    : `${protocol}://${host || 'localhost:3040'}`;
+  return `${origin}/api/private-surveys/${encodeURIComponent(slug)}/`;
+}
 
 export async function generateStaticParams() {
   const surveys = await loadPublicSurveys();
@@ -60,22 +73,26 @@ export default async function SurveyDetailPage({
   const survey = await getSurvey(slug);
   if (!survey || !survey.embed_url) notFound();
 
-  // List/metadata can be public (per user policy); only the iframe content is gated.
-  await requireReadAccess(survey, `/${lang}/surveys/${slug}`);
-
-  // A top-level navigation lets Cloudflare Access set a first-party cookie;
-  // Access-protected pages.dev content is unreliable inside an iframe.
   if (survey.visibility === 'private') {
-    redirect(`${survey.embed_url}${lang}/`);
+    const id = await getCurrentIdentity();
+    if (!id) {
+      redirect(`/login?redirect=${encodeURIComponent(`/${lang}/surveys/${slug}`)}`);
+    }
+    if (id.role !== 'admin') notFound();
+  } else {
+    await requireReadAccess(survey, `/${lang}/surveys/${slug}`);
   }
 
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
+  const embedUrl = survey.visibility === 'private'
+    ? await privateSurveyEmbedUrl(survey.slug)
+    : survey.embed_url;
 
   return (
     <ProjectEmbed
       slug={survey.slug}
       title={title}
-      embedUrl={survey.embed_url}
+      embedUrl={embedUrl}
       locale={lang}
     />
   );

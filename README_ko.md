@@ -177,6 +177,19 @@ npx opennextjs-cloudflare deploy   # wrangler로 배포
 
 런타임 환경변수는 `wrangler.jsonc`에 설정합니다 (공개값은 `vars`, 민감값은 `wrangler secret put`). 빌드 시점에 번들에 인라인되는 `NEXT_PUBLIC_*` 값들은 `.env.production` 참고.
 
+#### 비공개 설문 프록시 (S11-S14)
+
+비공개 설문 원본은 기존 Cloudflare Access 앱으로 계속 보호합니다. Worker는 로그인한 관리자에게만 `private-surveys.terryum.ai` 격리 iframe origin과 `/api/private-surveys/{slug}/{path...}` 프록시를 통해 원본을 제공합니다. 모든 원본 URL은 등록된 비공개 설문의 `embed_url`에서만 만들며, 익명·일반 member·public/group 설문·알 수 없는 slug에는 본문 없는 404를 반환합니다.
+
+Cloudflare Access에 무기한 Service Token `terryum-ai-private-surveys`를 만들고, S11-S14 네 destination을 포함하는 production Access 앱에 이 토큰만 허용하는 Service Auth(`non_identity`) 정책을 추가합니다. 기존 Terry 이메일 정책은 비상시 직접 접근용으로 유지합니다. Client ID와 Secret은 아래처럼 Worker 암호화 secret으로만 저장합니다.
+
+```bash
+wrangler secret put CF_ACCESS_CLIENT_ID
+wrangler secret put CF_ACCESS_CLIENT_SECRET
+```
+
+두 secret과 `private-surveys.terryum.ai` custom domain을 준비한 뒤 배포합니다. 자격증명을 `wrangler.jsonc`, `NEXT_PUBLIC_*`, 로그, 커밋 파일에 넣지 않습니다.
+
 ---
 
 ### 접근 제어 (인라인 Visibility)
