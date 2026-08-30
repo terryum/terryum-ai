@@ -196,13 +196,9 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-**AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가이다.** 새로운 기술을 소개하는 데 그치지 않는다. 직접 연구하고 실험해 실제 능력과 한계를 이해하고, 사람들의 필요와 연결해 제품·시스템·조직으로 구현한다.
+서울대, 워털루대, KIST에서 AI·로보틱스를 연구했다. 2019년 ART Lab을 창업해 AI가 일상의 경험을 바꾸는 방법을 뷰티 산업에서 실험했고, ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 제조현장에서 실제로 작동할 조건을 만들고 있다. 서울대학교 기계공학부 겸직교수로 연구와 인재 양성도 이어가고 있다.
 
-서울대, 워털루대, KIST에서 AI·로보틱스를 연구했고, 대학원생 대상 강연과 글을 통해 연구자의 삶과 창업의 가능성을 나눠 왔다. 2019년에는 ART Lab을 창업해 AI가 사람들의 일상적 경험을 바꾸는 방법을 뷰티 산업에서 실험했다. ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 실제 제조현장에서 작동하는 조건을 만들고 있다. 서울대학교 기계공학부 겸직교수로 연구와 인재 양성도 이어가고 있다.
-
-뷰티와 제조는 최종 목적이 아니라, 미래 기술을 현실로 옮기는 방법을 배우고 증명해 온 구체적인 현장이다. 연구자, 창업가, 기업 임원, 교수, 작가 가운데 하나의 직함이나 특정 산업으로 정체성을 한정하지 않는다. **중요한 문제를 스스로 선택하고, 좋은 사람들과 깊이 탐구해, 세상에 없던 것을 실제로 존재하게 하는 삶**을 지향한다. 그 과정에서 배운 것은 글과 강연으로 나눈다.
-
-“어떤 삶을 살아야 하는가” 같은 질문을 오래 붙들고, 가족과 함께하는 소소한 행복을 소중히 여긴다. 자유롭게 질문하고 깊이 이해하되, 선택한 중요한 문제는 끝까지 현실에 남기는 삶을 지향한다.
+연구자, 창업가, 기업 임원, 교수, 작가라는 여러 역할을 통해 미래 기술을 현실로 옮겨 왔다. 그 과정에서 배운 것은 글과 강연으로 나눈다. “어떤 삶을 살아야 하는가”라는 질문과 가족과 함께하는 소소한 행복을 소중히 여긴다.
 ```
 
 ## 4.4 `content/about/en.mdx`
@@ -210,13 +206,9 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-**Terry is an AI & Robotics researcher-entrepreneur who turns frontier capabilities into everyday reality.** Rather than merely explaining emerging technologies, he studies and tests them firsthand, understands their actual capabilities and limits, and turns them into products, systems, and organizations built around real human needs.
+Terry studied AI and robotics at Seoul National University, the University of Waterloo, and KIST. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. He also serves as an adjunct professor in Mechanical Engineering at Seoul National University.
 
-His path has included AI and robotics research at Seoul National University, the University of Waterloo, and KIST, as well as talks and writing on research life and entrepreneurship for graduate students. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. He also serves as an adjunct professor in Mechanical Engineering at Seoul National University, continuing his work in research and education.
-
-Beauty and manufacturing are not the mission itself. They are concrete fields in which he has learned and demonstrated how frontier technology becomes reality. His work is not confined to a single title—researcher, founder, executive, professor, or writer—or to a single industry. It is guided by an effort to **choose consequential problems, explore them deeply with people he respects, and bring something genuinely new into the world**. What he learns is shared through writing and talks.
-
-Beyond work, he tends to stay with questions such as how to live well and values the small joys of life with his family. The aim is to question freely and understand deeply, while carrying consequential work through until it leaves something real behind.
+Across his work as a researcher, founder, executive, professor, and writer, he has focused on moving future technologies into reality. He shares what he learns through writing and talks. Beyond work, he stays with questions about how to live well and values the small joys of life with his family.
 ```
 
 ---
