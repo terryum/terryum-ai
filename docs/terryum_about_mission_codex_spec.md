@@ -174,9 +174,9 @@ Study and test frontier technologies firsthand, identify consequential needs in 
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가.<br className="hidden sm:block" />
-미래 기술을 깊이 이해하고 현실의 필요와 연결해,<br className="hidden sm:block" />
-사람들이 실제로 쓰는 제품·시스템·조직을 만든다.
+From Lab to Life.<br className="hidden sm:block" />
+기술의 진보를 삶의 진보로 바꿉니다.<br className="hidden sm:block" />
+AI & Robotics를 연구하고, 만들고, 나눕니다.
 ```
 
 ## 4.2 `content/bio/en.mdx`
@@ -184,9 +184,9 @@ AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-AI & Robotics researcher-entrepreneur turning frontier capabilities into everyday reality.<br className="hidden sm:block" />
-Deeply studying emerging technologies, connecting them with real human needs,<br className="hidden sm:block" />
-and building products, systems, and organizations people can actually use.
+From Lab to Life.<br className="hidden sm:block" />
+Turning advances in technology into advances in how we live.<br className="hidden sm:block" />
+Researching, building, and sharing AI & Robotics.
 ```
 
 ---
