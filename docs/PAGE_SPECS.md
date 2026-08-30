@@ -80,11 +80,22 @@
 
 ## 5) About
 ### 섹션 구성
-1. Bio (짧은 소개)
-2. 상세 Bio / Career Highlights (선택)
-3. Contact (이메일/소셜)
-4. 프로필 사진
-5. Around the Web (Books / 대표 Papers (Research 섹션) / Code)
+1. 프로필 사진 + Bio + Social Links
+2. About 로컬 내비게이션 (`소개` / `미션과 원칙`)
+3. 상세 Bio / Career Highlights
+4. Mission & Principles CTA
+5. Currently
+6. Around the Web (Books / 대표 Papers (Research 섹션) / Code)
+7. Contact (이메일/소셜)
+
+### Mission & Principles (`/about/mission`)
+1. About 로컬 내비게이션
+2. 브랜드 미션 Hero
+3. Purpose / Vision / Mission 에디토리얼 3열 요약 (모바일 1열)
+4. 미션·일하는 방식·활동 현장·핵심 가치·Authored Impact 장문 본문
+5. About 복귀 링크
+
+글로벌 내비게이션에는 Mission 메뉴를 추가하지 않는다. About은 간결한 프로필 허브로 유지하고 Mission 페이지를 날짜 없는 영구 하위 페이지로 운영한다.
 
 ## 공통 컴포넌트 사양 (v1)
 - Header/Nav

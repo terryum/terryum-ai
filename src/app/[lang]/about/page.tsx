@@ -5,6 +5,8 @@ import ProfileImage from '@/components/ProfileImage';
 import SocialIcons from '@/components/SocialIcons';
 import AroundTheWeb from '@/components/about/AroundTheWeb';
 import ContactEmail from '@/components/about/ContactEmail';
+import AboutLocalNav from '@/components/about/AboutLocalNav';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export function generateStaticParams() {
@@ -57,10 +59,38 @@ export default async function AboutPage({
         <SocialIcons className="mt-3" />
       </div>
 
+      <AboutLocalNav
+        locale={lang}
+        active="profile"
+        labels={{
+          profile: aboutLabels.profile_nav,
+          mission: aboutLabels.mission_nav,
+        }}
+      />
+
       {/* Detailed bio from MDX — kept plain on purpose */}
-      <div className="prose prose-neutral dark:prose-invert max-w-none">
+      <div className="prose prose-neutral dark:prose-invert max-w-none mt-8">
         {aboutContent}
       </div>
+
+      <Link
+        href={`/${lang}/about/mission`}
+        className="group mt-10 block rounded-sm border border-line-default bg-bg-surface p-5 transition-colors hover:border-line-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
+      >
+        <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-accent">
+          {aboutLabels.mission_cta_eyebrow}
+        </span>
+        <span className="mt-2 block text-lg font-[540] leading-snug text-text-primary">
+          {aboutLabels.mission_cta_title}
+        </span>
+        <span className="mt-2 block text-sm leading-relaxed text-text-secondary">
+          {aboutLabels.mission_cta_description}
+        </span>
+        <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-text-primary transition-colors group-hover:text-accent">
+          {aboutLabels.mission_cta_link}
+          <span aria-hidden="true">→</span>
+        </span>
+      </Link>
 
       {/* Currently — one-liner about active focus */}
       {media.currently && (

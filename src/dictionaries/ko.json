@@ -6,7 +6,7 @@
   },
   "hero": {
     "name": "Terry Taewoong Um",
-    "tagline": "AI & Robotics 연구자 · Physical AI로 제조업을 혁신합니다"
+    "tagline": "AI & Robotics 연구자·창업가 · 최전선의 기술을 일상의 현실로"
   },
   "about": {
     "title": "About",
@@ -23,7 +23,30 @@
     "research": "Research",
     "code": "Code",
     "contact": "Contact",
-    "email_label": "Email"
+    "email_label": "Email",
+    "profile_nav": "소개",
+    "mission_nav": "미션과 원칙",
+    "mission_cta_eyebrow": "FRONTIER TO LIFE",
+    "mission_cta_title": "AI와 Robotics의 최전선을, 일상의 현실로.",
+    "mission_cta_description": "제가 무엇을 만들고 왜 이 일을 하는지, 그리고 어떤 원칙으로 삶과 일을 선택하는지 정리했습니다.",
+    "mission_cta_link": "미션과 원칙 읽기"
+  },
+  "mission_page": {
+    "meta_title": "미션과 원칙",
+    "meta_description": "AI와 Robotics의 최전선을 깊이 이해하고 현실의 필요와 연결해 일상의 변화로 만드는 Terry의 미션과 원칙",
+    "eyebrow": "AI & ROBOTICS RESEARCHER–ENTREPRENEUR",
+    "title": "AI와 Robotics의 최전선을, 일상의 현실로.",
+    "lead": "미래 기술을 깊이 이해하고 현실의 필요와 연결해, 사람들이 실제로 쓰는 제품·시스템·조직으로 만듭니다.",
+    "descriptor": "Frontier-to-Life Builder · Founding Architect",
+    "purpose_label": "PURPOSE",
+    "purpose_title": "기술의 진보를 삶의 진보로 바꿉니다.",
+    "purpose_body": "AI & Robotics의 성취가 연구자와 기업의 성과에 머물지 않고 사람들의 삶과 일의 실제 변화로 이어지게 합니다.",
+    "vision_label": "VISION",
+    "vision_title": "최전선의 기술이 일상의 능력이 되는 세상.",
+    "vision_body": "AI & Robotics의 가장 앞선 능력을 사람들이 일상과 일터에서 자연스럽고 유용하게 사용하는 세상을 지향합니다.",
+    "mission_label": "MISSION",
+    "mission_title": "미래 기술과 현실의 필요 사이에 빠진 것을 만듭니다.",
+    "mission_body": "기술을 직접 연구하고 실험해 이해하고, 중요한 현실의 문제를 찾아, 둘을 연결하는 제품·시스템·조직을 만듭니다."
   },
   "posts_index": {
     "title": "Posts",

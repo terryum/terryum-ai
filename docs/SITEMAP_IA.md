@@ -26,6 +26,7 @@
 - Notes: `/ko/posts?tab=notes`, `/en/posts?tab=notes` (`content_type: "notes"`)
 - Surveys: `/ko/surveys`, `/en/surveys`
 - About: `/ko/about`, `/en/about`
+- Mission & Principles: `/ko/about/mission`, `/en/about/mission`
 
 ### 상세 포스트 경로
 - 모든 포스트 공통: `/ko/posts/[slug]`, `/en/posts/[slug]`
@@ -42,6 +43,7 @@
     - `/{locale}/surveys`
       - `/{locale}/surveys/[slug]`
     - `/{locale}/about`
+      - `/{locale}/about/mission`
 
 ## 페이지별 IA
 
@@ -81,9 +83,18 @@
 ### 4) About
 - 프로필 사진
 - 상세 Bio
+- About 로컬 내비게이션 (`소개` / `미션과 원칙`)
+- Mission & Principles 페이지 CTA
 - Contact (이메일/소셜 링크)
 - Around the Web (Books, Papers 대표작, Code 등)
 - (향후 v2에서) 뉴스레터 구독
+
+### 4-1) Mission & Principles
+- About 로컬 내비게이션
+- 브랜드 미션 Hero
+- Purpose / Vision / Mission 요약
+- Frontier-to-Life Loop, 활동 현장, 핵심 가치, Authored Impact와 개인 규율을 담은 영구 본문
+- About 복귀 링크
 
 ## 공통 IA 규칙
 - 모든 페이지에 동일한 상단 내비게이션 유지

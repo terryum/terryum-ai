@@ -6,7 +6,7 @@
   },
   "hero": {
     "name": "Terry Taewoong Um",
-    "tagline": "AI & Robotics Researcher · Innovating Manufacturing with Physical AI"
+    "tagline": "AI & Robotics Researcher–Entrepreneur · Turning frontier technology into everyday reality"
   },
   "about": {
     "title": "About",
@@ -23,7 +23,30 @@
     "research": "Research",
     "code": "Code",
     "contact": "Contact",
-    "email_label": "Email"
+    "email_label": "Email",
+    "profile_nav": "About",
+    "mission_nav": "Mission & Principles",
+    "mission_cta_eyebrow": "FRONTIER TO LIFE",
+    "mission_cta_title": "Turning frontier AI & Robotics into everyday reality.",
+    "mission_cta_description": "Why I build, what I aim to change, and the principles I use to choose my work and life.",
+    "mission_cta_link": "Read my mission and principles"
+  },
+  "mission_page": {
+    "meta_title": "Mission & Principles",
+    "meta_description": "Terry's mission and principles for understanding frontier AI & Robotics deeply and turning them into meaningful change in everyday life",
+    "eyebrow": "AI & ROBOTICS RESEARCHER–ENTREPRENEUR",
+    "title": "Turning frontier AI & Robotics into everyday reality.",
+    "lead": "I understand emerging technologies deeply, connect them with real human needs, and build products, systems, and organizations people can actually use.",
+    "descriptor": "Frontier-to-Life Builder · Founding Architect",
+    "purpose_label": "PURPOSE",
+    "purpose_title": "Turn technological progress into lived progress.",
+    "purpose_body": "Move the achievements of AI & Robotics beyond papers and corporate milestones into meaningful changes in how people live and work.",
+    "vision_label": "VISION",
+    "vision_title": "A world where frontier technology becomes an everyday capability.",
+    "vision_body": "The most advanced capabilities in AI & Robotics become useful, trusted, and ordinary parts of everyday life and work.",
+    "mission_label": "MISSION",
+    "mission_title": "Build what is missing between frontier technology and real needs.",
+    "mission_body": "Study and test the technology firsthand, identify consequential real-world problems, and build the products, systems, and organizations that connect the two."
   },
   "posts_index": {
     "title": "Posts",

@@ -4,6 +4,8 @@ import type { Locale } from '@/lib/i18n';
 
 import aboutKoRaw from '../../content/about/ko.mdx?raw';
 import aboutEnRaw from '../../content/about/en.mdx?raw';
+import missionKoRaw from '../../content/about/mission/ko.mdx?raw';
+import missionEnRaw from '../../content/about/mission/en.mdx?raw';
 import bioKoRaw from '../../content/bio/ko.mdx?raw';
 import bioEnRaw from '../../content/bio/en.mdx?raw';
 import mediaJson from '../../content/about/media.json';
@@ -62,9 +64,12 @@ export interface LocalizedAboutMedia {
   hasAnyMedia: boolean;
 }
 
-const SOURCES: Record<'about' | 'bio', Record<Locale, string>> = {
+type AboutSource = 'about' | 'bio' | 'mission';
+
+const SOURCES: Record<AboutSource, Record<Locale, string>> = {
   about: { ko: aboutKoRaw, en: aboutEnRaw },
   bio: { ko: bioKoRaw, en: bioEnRaw },
+  mission: { ko: missionKoRaw, en: missionEnRaw },
 };
 
 // Convert JSX-style attributes (className="...") to HTML (class="...") so rehype-raw
@@ -73,7 +78,7 @@ function normalizeMdxForHtml(src: string): string {
   return src.replace(/className=/g, 'class=');
 }
 
-function renderMarkdown(dir: 'about' | 'bio', locale: Locale) {
+function renderMarkdown(dir: AboutSource, locale: Locale) {
   const source = normalizeMdxForHtml(SOURCES[dir][locale]);
   return (
     <ReactMarkdown rehypePlugins={[rehypeRaw]}>
@@ -82,8 +87,13 @@ function renderMarkdown(dir: 'about' | 'bio', locale: Locale) {
   );
 }
 
-function readPlainText(dir: 'about' | 'bio', locale: Locale) {
-  return SOURCES[dir][locale].trim();
+function readPlainText(dir: AboutSource, locale: Locale) {
+  return SOURCES[dir][locale]
+    .replace(/<br\b[^>]*>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/[\*_`#>]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 export async function getAboutContent(locale: Locale) {
@@ -92,6 +102,10 @@ export async function getAboutContent(locale: Locale) {
 
 export async function getBioContent(locale: Locale) {
   return renderMarkdown('bio', locale);
+}
+
+export async function getMissionContent(locale: Locale) {
+  return renderMarkdown('mission', locale);
 }
 
 export async function getBioPlainText(locale: Locale) {

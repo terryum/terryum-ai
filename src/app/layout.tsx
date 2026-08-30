@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s | Terry on the Manifold',
     default: 'Terry on the Manifold',
   },
-  description: 'AI & Robotics researcher, startup founder — exploring Physical AI for manufacturing innovation.',
+  description: 'AI & Robotics researcher-entrepreneur turning frontier technology into everyday reality.',
   robots: {
     index: true,
     follow: true,
