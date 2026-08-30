@@ -199,7 +199,7 @@ Researching, building, and sharing AI & Robotics.
 ```mdx
 AI와 Robotics의 최전선을 일상의 현실로 가져오는 연구자이자 창업가.
 
-Terry는 서울대학교와 워털루대학교에서 로봇 모션 플래닝과 딥러닝을 연구했다. [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ) 그는 LIG넥스원과 KIST를 거쳐 2019년 뷰티 AI 스타트업 ART Lab을 창업해, 디지털 불모지였던 뷰티 산업에서 데이터의 흐름을 만들고 AI 제품을 선보였다. ART Lab은 2024년 글로벌 1위 화장품 제조사인 코스맥스에 인수되었으며, 현재 Terry는 코스맥스에서 Physical AI를 총괄하며 AI와 Robotics의 혁신을 이끌고 있다. [LinkedIn](https://www.linkedin.com/in/terryum/)
+Terry는 서울대학교와 워털루대학교에서 로봇 모션 플래닝과 딥러닝을 연구했다. 그는 LIG넥스원과 KIST를 거쳐 2019년 뷰티 AI 스타트업 ART Lab을 창업해, 디지털 불모지였던 뷰티 산업에서 데이터의 흐름을 만들고 AI 제품을 선보였다. ART Lab은 2024년 글로벌 1위 화장품 제조사인 코스맥스에 인수되었으며, 현재 Terry는 코스맥스에서 Physical AI를 총괄하며 AI와 Robotics의 혁신을 이끌고 있다. [LinkedIn](https://www.linkedin.com/in/terryum/) [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ)
 
 Terry는 일반 대중과의 교류에도 적극적이다. 서울대학교 기계공학부 겸임교수로 학생들의 창업과 피지컬 AI 연구를 돕고 있으며, 『대학원생 때 알았더라면 좋았을 것들』의 저자로서 강연을 통해 30개 대학에서 2,000명 이상의 학생을 만나기도 했다. 또한 과실연 AI미래포럼의 공동의장으로 시민의 AI 소양을 높이는 데에도 힘쓰고 있으며, 정부의 Agentic AI 산업분과 위원으로 정책 자문도 맡고 있다. 과거에는 ‘로봇공학을 위한 열린 모임’, ‘텐서플로우 코리아’, ‘PR12: AI 논문 읽기 모임’, ‘[테리의 딥러닝 토크](https://www.youtube.com/@TerryUm)’ 등 다양한 오픈 커뮤니티에서 AI & Robotics 분야의 오피니언 리더로 활동했다.
 
@@ -213,7 +213,7 @@ Terry는 “내가 중요하다고 믿는 문제를 / 내가 좋아하는 사람
 ```mdx
 An AI & Robotics researcher-entrepreneur bringing the frontier into everyday reality.
 
-Terry studied robot motion planning and deep learning at Seoul National University and the University of Waterloo. [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ) After working at LIG Nex1 and KIST, he founded the beauty AI startup ART Lab in 2019, building data flows and bringing AI products to market in a beauty industry that had remained largely undigitized. ART Lab was acquired in 2024 by COSMAX, the world’s leading cosmetics manufacturer. Terry now leads Physical AI at COSMAX, driving innovation in AI and robotics. [LinkedIn](https://www.linkedin.com/in/terryum/)
+Terry studied robot motion planning and deep learning at Seoul National University and the University of Waterloo. After working at LIG Nex1 and KIST, he founded the beauty AI startup ART Lab in 2019, building data flows and bringing AI products to market in a beauty industry that had remained largely undigitized. ART Lab was acquired in 2024 by COSMAX, the world’s leading cosmetics manufacturer. Terry now leads Physical AI at COSMAX, driving innovation in AI and robotics. [LinkedIn](https://www.linkedin.com/in/terryum/) [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ)
 
 Terry also actively engages with the public. As an adjunct professor in Mechanical Engineering at Seoul National University, he supports student entrepreneurship and research in Physical AI. As the author of *Things I Wish I’d Known in Grad School*, he has spoken to more than 2,000 students across 30 universities. He also serves as co-chair of the AI Future Forum, helping improve public AI literacy, and as a member of the government’s Agentic AI Industry Subcommittee, advising on policy. Previously, he took part in open communities including Open Robotics Meetup, TensorFlow Korea, PR12: AI Paper Reading Group, and [Terry’s Deep Learning Talk](https://www.youtube.com/@TerryUm), serving as a public voice in AI & Robotics.
 
