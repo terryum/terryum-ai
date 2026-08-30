@@ -173,9 +173,9 @@ Study and test frontier technologies firsthand, identify consequential needs in 
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-AI와 Robotics의 최전선을, 일상의 현실로.<br className="hidden sm:block" />
+AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가.<br className="hidden sm:block" />
 미래 기술을 깊이 이해하고 현실의 필요와 연결해,<br className="hidden sm:block" />
-사람들이 실제로 쓰는 제품·시스템·조직을 만드는 연구자·창업가이자 글 쓰는 사람입니다.
+사람들이 실제로 쓰는 제품·시스템·조직을 만든다.
 ```
 
 ## 4.2 `content/bio/en.mdx`
@@ -183,9 +183,9 @@ AI와 Robotics의 최전선을, 일상의 현실로.<br className="hidden sm:blo
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-Turning frontier AI & Robotics into everyday reality.<br className="hidden sm:block" />
-I study emerging capabilities deeply, connect them with real human needs,<br className="hidden sm:block" />
-and build products, systems, and organizations people can actually use—as a researcher, entrepreneur, and writer.
+AI & Robotics researcher-entrepreneur turning frontier capabilities into everyday reality.<br className="hidden sm:block" />
+Deeply studying emerging technologies, connecting them with real human needs,<br className="hidden sm:block" />
+and building products, systems, and organizations people can actually use.
 ```
 
 ---
@@ -195,13 +195,13 @@ and build products, systems, and organizations people can actually use—as a re
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-저는 **AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가**입니다. 새로운 기술을 소개하는 데 그치지 않고, 직접 연구하고 실험해 가능성과 한계를 이해한 뒤, 사람들의 실제 필요와 연결해 제품·시스템·조직으로 구현하는 일에 관심이 있습니다.
+**AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가이다.** 새로운 기술을 소개하는 데 그치지 않는다. 직접 연구하고 실험해 실제 능력과 한계를 이해하고, 사람들의 필요와 연결해 제품·시스템·조직으로 구현한다.
 
-서울대, 워털루대, KIST에서 AI·로보틱스를 연구했고, 대학원생 대상 강연과 글을 통해 연구자의 삶과 창업의 가능성을 나눠 왔습니다. 2019년에는 ART Lab을 창업해 AI가 사람들의 일상적 경험을 바꾸는 방법을 뷰티 산업에서 실험했습니다. ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 실제 제조현장에서 작동하는 조건을 만들고 있습니다. 서울대학교 기계공학부 겸직교수로 연구와 인재 양성도 이어가고 있습니다.
+서울대, 워털루대, KIST에서 AI·로보틱스를 연구했고, 대학원생 대상 강연과 글을 통해 연구자의 삶과 창업의 가능성을 나눠 왔다. 2019년에는 ART Lab을 창업해 AI가 사람들의 일상적 경험을 바꾸는 방법을 뷰티 산업에서 실험했다. ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 실제 제조현장에서 작동하는 조건을 만들고 있다. 서울대학교 기계공학부 겸직교수로 연구와 인재 양성도 이어가고 있다.
 
-뷰티와 제조는 저의 최종 목적이라기보다, 미래 기술을 현실로 옮기는 방법을 배우고 증명해 온 구체적인 현장입니다. 저는 연구자, 창업가, 기업 임원, 교수, 작가 가운데 하나로 저를 한정하지 않습니다. **중요한 문제를 스스로 선택하고, 좋은 사람들과 깊이 탐구해, 세상에 없던 것을 실제로 존재하게 하는 삶**을 지향합니다. 그리고 그 과정에서 배운 것을 글과 강연으로 나눕니다.
+뷰티와 제조는 최종 목적이 아니라, 미래 기술을 현실로 옮기는 방법을 배우고 증명해 온 구체적인 현장이다. 연구자, 창업가, 기업 임원, 교수, 작가 가운데 하나의 직함이나 특정 산업으로 정체성을 한정하지 않는다. **중요한 문제를 스스로 선택하고, 좋은 사람들과 깊이 탐구해, 세상에 없던 것을 실제로 존재하게 하는 삶**을 지향한다. 그 과정에서 배운 것은 글과 강연으로 나눈다.
 
-개인적으로는 “어떤 삶을 살아야 하는가” 같은 질문을 오래 붙잡고, 가족과 함께하는 소소한 행복을 소중히 여깁니다. 자유롭게 질문하고 깊이 이해하되, 선택한 중요한 문제는 끝까지 현실에 남기는 삶을 지향합니다.
+“어떤 삶을 살아야 하는가” 같은 질문을 오래 붙들고, 가족과 함께하는 소소한 행복을 소중히 여긴다. 자유롭게 질문하고 깊이 이해하되, 선택한 중요한 문제는 끝까지 현실에 남기는 삶을 지향한다.
 ```
 
 ## 4.4 `content/about/en.mdx`
@@ -209,13 +209,13 @@ and build products, systems, and organizations people can actually use—as a re
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-I am an **AI & Robotics researcher-entrepreneur focused on bringing frontier capabilities into everyday life**. Rather than simply explaining new technology, I study and test it firsthand, understand its actual capabilities and limits, and turn it into products, systems, and organizations built around real human needs.
+**Terry is an AI & Robotics researcher-entrepreneur who turns frontier capabilities into everyday reality.** Rather than merely explaining emerging technologies, he studies and tests them firsthand, understands their actual capabilities and limits, and turns them into products, systems, and organizations built around real human needs.
 
-I have researched AI and robotics at Seoul National University, the University of Waterloo, and KIST, and have shared what I learned through talks and writing for graduate students. In 2019, I founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, I began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. I also serve as an adjunct professor in Mechanical Engineering at Seoul National University, continuing my work in research and education.
+His path has included AI and robotics research at Seoul National University, the University of Waterloo, and KIST, as well as talks and writing on research life and entrepreneurship for graduate students. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. He also serves as an adjunct professor in Mechanical Engineering at Seoul National University, continuing his work in research and education.
 
-Beauty and manufacturing are not the mission itself. They are concrete fields in which I have learned and proved how frontier technology becomes reality. I do not define myself solely as a researcher, founder, executive, professor, or writer. I aim to **choose consequential problems, explore them deeply with people I respect, and bring something genuinely new into the world**. I share what I learn through writing and talks.
+Beauty and manufacturing are not the mission itself. They are concrete fields in which he has learned and demonstrated how frontier technology becomes reality. His work is not confined to a single title—researcher, founder, executive, professor, or writer—or to a single industry. It is guided by an effort to **choose consequential problems, explore them deeply with people he respects, and bring something genuinely new into the world**. What he learns is shared through writing and talks.
 
-On a personal level, I tend to stay with questions such as how to live well, and I value the small joys of life with my family. I want to question freely and understand deeply, while carrying consequential work through until it leaves something real behind.
+Beyond work, he tends to stay with questions such as how to live well and values the small joys of life with his family. The aim is to question freely and understand deeply, while carrying consequential work through until it leaves something real behind.
 ```
 
 ---
@@ -490,7 +490,7 @@ Titles are platforms, not identities. Content should amplify experience earned t
 "mission_nav": "미션과 원칙",
 "mission_cta_eyebrow": "FRONTIER TO LIFE",
 "mission_cta_title": "AI와 Robotics의 최전선을, 일상의 현실로.",
-"mission_cta_description": "제가 무엇을 만들고 왜 이 일을 하는지, 그리고 어떤 원칙으로 삶과 일을 선택하는지 정리했습니다.",
+"mission_cta_description": "무엇을 만들고 왜 이 일을 하는지, 그리고 어떤 원칙으로 삶과 일을 선택하는지를 정리한 글입니다.",
 "mission_cta_link": "미션과 원칙 읽기"
 ```
 
@@ -531,7 +531,7 @@ Titles are platforms, not identities. Content should amplify experience earned t
 "mission_nav": "Mission & Principles",
 "mission_cta_eyebrow": "FRONTIER TO LIFE",
 "mission_cta_title": "Turning frontier AI & Robotics into everyday reality.",
-"mission_cta_description": "Why I build, what I aim to change, and the principles I use to choose my work and life.",
+"mission_cta_description": "The mission behind the work, the change it seeks, and the principles for choosing how to live and build.",
 "mission_cta_link": "Read my mission and principles"
 ```
 
@@ -759,6 +759,13 @@ description: 'AI & Robotics researcher-entrepreneur bringing frontier technology
 - Korean/English에서 레이아웃이 크게 달라지지 않아야 한다.
 - essential content는 접지 않는다.
 - About 페이지와 Mission 페이지는 별개의 사이트처럼 보이지 않아야 한다.
+
+## Bio 문체 원칙
+
+- Home의 짧은 한국어 Bio는 이름 아래 놓이는 헤드라인이므로 주어를 생략하고 `-이다/-한다` 평서체를 사용한다.
+- 한국어 About은 `저는`, `제가`, `저의`를 반복하지 않고 무주어 평서체로 정체성 → 경력 → 현재 활동 → 삶의 관점을 서술한다.
+- 영문 Home Bio는 이름과 함께 읽히는 간결한 noun phrase로 구성하고, 영문 About은 공식 professional bio의 관례에 따라 `Terry is ...`로 시작하는 3인칭 서술을 사용한다.
+- Mission & Principles의 장문 본문은 개인의 신념과 규율을 직접 선언하는 문서이므로 한·영 모두 1인칭을 유지한다.
 
 ---
 

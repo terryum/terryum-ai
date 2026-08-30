@@ -16,6 +16,8 @@
 - 장문 미션과 원칙은 날짜 없는 영구 하위 페이지 `/ko/about/mission`, `/en/about/mission`으로 분리
 - Purpose / Vision / Mission은 카드가 아닌 구분선 중심의 에디토리얼 정보 블록으로 표현
 - Featured Elsewhere와 Contact 데이터·구조는 유지하고 `currently` 문구만 현재의 Physical AI 연구·실증 활동으로 갱신
+- Bio 문체는 한국어 Home/About에서 무주어 `-이다/-한다` 평서체, 영어 Home에서 간결한 noun phrase, 영어 About에서 3인칭 professional bio를 사용
+- Mission & Principles 장문은 개인의 신념을 직접 선언하는 문서이므로 1인칭을 유지
 
 ## 3) 구현 내용
 
@@ -25,6 +27,7 @@
 - Mission 콘텐츠 로더와 metadata용 plain-text 정리 추가
 - sitemap, `SITEMAP_IA`, `PAGE_SPECS`, root description 갱신
 - 브랜드 헌장과 수정된 개발 명세를 `docs/`에 저장
+- 공식 연구자·창업가 Bio 관례를 검토해 Home/About의 1인칭 자기소개서 문체를 에디토리얼 Bio 문체로 수정
 
 ## 4) 검증 상태
 
