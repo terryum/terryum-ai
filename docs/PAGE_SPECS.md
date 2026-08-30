@@ -89,11 +89,14 @@
 7. Contact (이메일/소셜)
 
 ### Mission & Principles (`/about/mission`)
-1. About 로컬 내비게이션
-2. 브랜드 미션 Hero
-3. Purpose / Vision / Mission 에디토리얼 3열 요약 (모바일 1열)
-4. 미션·일하는 방식·활동 현장·핵심 가치·Authored Impact 장문 본문
-5. About 복귀 링크
+1. About과 동일한 프로필 사진 + Short Bio + Social Links
+2. About 로컬 내비게이션 (`소개` / `미션과 원칙`)
+3. 브랜드 미션 Hero
+4. Purpose / Vision / Mission 에디토리얼 3열 요약 (모바일 1열)
+5. 미션·일하는 방식·활동 현장·핵심 가치·Authored Impact 장문 본문
+6. About 복귀 링크
+
+프로필 영역과 로컬 내비게이션은 두 페이지에서 같은 공통 컴포넌트를 사용한다. 탭 아래의 본문만 달라져야 한다.
 
 글로벌 내비게이션에는 Mission 메뉴를 추가하지 않는다. About은 간결한 프로필 허브로 유지하고 Mission 페이지를 날짜 없는 영구 하위 페이지로 운영한다.
 

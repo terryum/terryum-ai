@@ -14,6 +14,7 @@
 - 공식 브랜드 문구: **AI와 Robotics의 최전선을, 일상의 현실로.** / **Turning frontier AI & Robotics into everyday reality.**
 - `/ko/about`, `/en/about`는 프로필·현재 역할·Featured Elsewhere·연락처를 빠르게 파악하는 허브로 유지
 - 장문 미션과 원칙은 날짜 없는 영구 하위 페이지 `/ko/about/mission`, `/en/about/mission`으로 분리
+- 프로필 사진·Short Bio·소셜 링크·로컬 내비게이션은 두 About 경로의 공통 셸로 유지하고 탭 아래 본문만 전환
 - Purpose / Vision / Mission은 카드가 아닌 구분선 중심의 에디토리얼 정보 블록으로 표현
 - Featured Elsewhere와 Contact 데이터·구조는 유지하고 `currently` 문구만 현재의 Physical AI 연구·실증 활동으로 갱신
 - Bio 문체는 한국어 Home/About에서 무주어 `-이다/-한다` 평서체, 영어 Home에서 간결한 noun phrase, 영어 About에서 3인칭 professional bio를 사용
@@ -23,6 +24,7 @@
 
 - 한·영 Home bio와 About 소개를 제조 중심에서 상위 AI & Robotics 미션 중심으로 재작성
 - About 로컬 내비게이션과 Mission CTA 추가
+- About과 Mission이 같은 프로필 헤더를 공유하도록 컴포넌트화
 - 한·영 Mission & Principles 장문 MDX, route, metadata, canonical, language alternates 추가
 - Mission 콘텐츠 로더와 metadata용 plain-text 정리 추가
 - sitemap, `SITEMAP_IA`, `PAGE_SPECS`, root description 갱신

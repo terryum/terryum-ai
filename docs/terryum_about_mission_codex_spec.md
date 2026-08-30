@@ -136,6 +136,7 @@ Study and test frontier technologies firsthand, identify consequential needs in 
 - `content/about/mission/en.mdx`
 - `src/app/[lang]/about/mission/page.tsx`
 - `src/components/about/AboutLocalNav.tsx`
+- `src/components/about/AboutProfileHeader.tsx`
 
 ## 수정할 파일
 
@@ -563,6 +564,15 @@ JSON 문법과 trailing comma를 반드시 검증한다.
 
 # 7. UI/UX 구현 명세
 
+## 7.0 공통 프로필 헤더
+
+`src/components/about/AboutProfileHeader.tsx`로 프로필 사진, 이름, Short Bio, SocialIcons를 하나의 공통 영역으로 관리한다.
+
+- `/about`과 `/about/mission`에서 완전히 같은 콘텐츠와 시각적 스타일을 사용한다.
+- 공통 프로필 헤더 아래에 `AboutLocalNav`를 둔다.
+- 탭 전환 시 사용자가 인지하는 변화는 로컬 내비게이션 아래의 본문에만 생겨야 한다.
+- 페이지당 H1은 하나만 유지한다. `/about`에서는 프로필 이름이 H1이고, `/about/mission`에서는 미션 Hero 제목이 H1이다. 미션 페이지의 프로필 이름은 같은 시각 스타일을 유지하되 heading으로 중복 선언하지 않는다.
+
 ## 7.1 `AboutLocalNav`
 
 `src/components/about/AboutLocalNav.tsx`를 만든다.
@@ -596,7 +606,7 @@ type AboutLocalNavProps = {
 
 `src/app/[lang]/about/page.tsx`에서 다음만 변경한다.
 
-1. 프로필 영역과 상세 About 본문 사이에 `AboutLocalNav`를 추가한다.
+1. 공통 `AboutProfileHeader`와 상세 About 본문 사이에 `AboutLocalNav`를 추가한다.
 2. `aboutContent` 아래, `Currently` 위에 절제된 Mission CTA를 추가한다.
 3. CTA 전체가 링크이되 키보드 focus가 명확해야 한다.
 4. CTA 스타일:
@@ -620,7 +630,7 @@ About 페이지는 여전히 프로필 허브여야 한다. 새 CTA가 AroundThe
 - 잘못된 locale은 현재 About 패턴과 동일하게 처리
 - `getDictionary()`와 새 `getMissionContent()` 사용
 - 레이아웃은 기존 About과 같은 `max-w-3xl mx-auto px-4 md:px-6 lg:px-8 py-10`
-- 페이지 상단에 `AboutLocalNav active="mission"`
+- 페이지 상단에 공통 `AboutProfileHeader`를 렌더링하고, 바로 아래에 `AboutLocalNav active="mission"`을 둔다.
 
 ### Hero
 

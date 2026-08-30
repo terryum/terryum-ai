@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getDictionary } from '@/lib/dictionaries';
-import { getMissionContent } from '@/lib/about';
+import { getBioContent, getMissionContent } from '@/lib/about';
 import { isValidLocale, type Locale } from '@/lib/i18n';
 import AboutLocalNav from '@/components/about/AboutLocalNav';
+import AboutProfileHeader from '@/components/about/AboutProfileHeader';
 
 export function generateStaticParams() {
   return [{ lang: 'ko' }, { lang: 'en' }];
@@ -46,8 +47,9 @@ export default async function MissionPage({
   const { lang } = await params;
   if (!isValidLocale(lang)) return null;
 
-  const [dict, missionContent] = await Promise.all([
+  const [dict, bioContent, missionContent] = await Promise.all([
     getDictionary(lang),
+    getBioContent(lang),
     getMissionContent(lang),
   ]);
   const labels = dict.mission_page;
@@ -71,6 +73,8 @@ export default async function MissionPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 md:px-6 lg:px-8">
+      <AboutProfileHeader name={dict.hero.name} bio={bioContent} />
+
       <AboutLocalNav
         locale={lang}
         active="mission"
