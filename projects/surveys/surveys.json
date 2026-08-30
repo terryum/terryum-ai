@@ -898,8 +898,8 @@
         "en": "Robot Motion 101 (1/3)"
       },
       "description": {
-        "ko": "하드웨어 선택과 ROS 2·시뮬레이터부터 첫 동작·원격 조작·보정까지 잇는 3부 9장 실전 서베이. 현재 수동 QA용 WIP 프리뷰다.",
-        "en": "A nine-chapter practical survey from hardware selection, ROS 2, and simulation to first motion, teleoperation, and calibration. WIP preview for manual QA."
+        "ko": "하드웨어 선택과 ROS 2·시뮬레이터부터 첫 동작·원격 조작·보정까지 잇는 3부 9장 실전 서베이.",
+        "en": "A nine-chapter practical survey from hardware selection, ROS 2, and simulation to first motion, teleoperation, and calibration."
       },
       "cover_image": "/images/projects/survey-robot-motion-101-cover.webp",
       "tech_stack": [
@@ -927,11 +927,11 @@
         }
       ],
       "embed_url": "https://robot-motion-101.pages.dev/",
-      "status": "wip",
+      "status": "active",
       "featured": false,
       "order": 2,
       "published_at": "2026-07-15",
-      "updated_at": "2026-07-18",
+      "updated_at": "2026-08-31",
       "visibility": "private"
     },
     {
