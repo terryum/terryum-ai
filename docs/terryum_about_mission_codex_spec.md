@@ -196,11 +196,13 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-**AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가이다.** 새로운 기술을 소개하는 데 그치지 않는다. 직접 연구하고 실험해 실제 능력과 한계를 이해하고, 사람들의 필요와 연결해 제품·시스템·조직으로 구현한다.
+AI와 Robotics의 최전선을 일상의 현실로 가져오는 연구자이자 창업가.
 
-서울대, 워털루대, KIST에서 AI·로보틱스를 연구했고, 대학원생 대상 강연과 글을 통해 연구자의 삶과 창업의 가능성을 나눠 왔다. 2019년에는 ART Lab을 창업해 AI가 사람들의 일상적 경험을 바꾸는 방법을 뷰티 산업에서 실험했다. ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 실제 제조현장에서 작동하는 조건을 만들고 있다. 최신 기술을 더 가까이에서 탐구하며 학계와 산업을 잇고, 학생들의 연구가 산업 적용과 기술 창업으로 이어지도록 돕기 위해 서울대학교 기계공학부 겸임교수도 맡고 있다.
+Terry는 서울대학교와 워털루대학교에서 로봇 모션 플래닝과 딥러닝을 연구했다. [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ) 그는 LIG넥스원과 KIST를 거쳐 2019년 뷰티 AI 스타트업 ART Lab을 창업해, 디지털 불모지였던 뷰티 산업에서 데이터의 흐름을 만들고 AI 제품을 선보였다. ART Lab은 2024년 글로벌 1위 화장품 제조사인 코스맥스에 인수되었으며, 현재 Terry는 코스맥스에서 Physical AI를 총괄하며 AI와 Robotics의 혁신을 이끌고 있다. [LinkedIn](https://www.linkedin.com/in/terryum/)
 
-“어떤 삶을 살아야 하는가” 같은 질문을 오래 붙들고, 가족과 함께하는 소소한 행복을 소중히 여긴다. 눈에 띄는 성취만큼 평범한 하루를 잘 살아가는 일도 중요하게 생각한다.
+Terry는 일반 대중과의 교류에도 적극적이다. 서울대학교 기계공학부 겸임교수로 학생들의 창업과 피지컬 AI 연구를 돕고 있으며, 『대학원생 때 알았더라면 좋았을 것들』의 저자로서 강연을 통해 30개 대학에서 2,000명 이상의 학생을 만나기도 했다. 또한 과실연 AI미래포럼의 공동의장으로 시민의 AI 소양을 높이는 데에도 힘쓰고 있으며, 정부의 Agentic AI 산업분과 위원으로 정책 자문도 맡고 있다. 과거에는 ‘로봇공학을 위한 열린 모임’, ‘텐서플로우 코리아’, ‘PR12: AI 논문 읽기 모임’, ‘[테리의 딥러닝 토크](https://www.youtube.com/@TerryUm)’ 등 다양한 오픈 커뮤니티에서 AI & Robotics 분야의 오피니언 리더로 활동했다.
+
+Terry는 “내가 중요하다고 믿는 문제를 / 내가 좋아하는 사람들과 / 충분한 자율성을 가지고 / 깊이 이해하고 직접 만들어 / 누군가의 삶과 일이 실제로 달라지게 하는 삶”을 추구한다. 더 자세한 미션과 원칙은 아래에서 확인할 수 있다.
 ```
 
 ## 4.4 `content/about/en.mdx`
@@ -208,11 +210,13 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-**Terry is an AI & Robotics researcher-entrepreneur who turns frontier capabilities into everyday reality.** Rather than merely explaining emerging technologies, he studies and tests them firsthand, understands their actual capabilities and limits, and turns them into products, systems, and organizations built around real human needs.
+An AI & Robotics researcher-entrepreneur bringing the frontier into everyday reality.
 
-His path has included AI and robotics research at Seoul National University, the University of Waterloo, and KIST, as well as talks and writing on research life and entrepreneurship for graduate students. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. To stay close to emerging technologies, connect academia and industry, and help students apply their research in industry and pursue technology entrepreneurship, he also serves as an adjunct professor in Mechanical Engineering at Seoul National University.
+Terry studied robot motion planning and deep learning at Seoul National University and the University of Waterloo. [Google Scholar](https://scholar.google.com/citations?user=9Zgeg14AAAAJ) After working at LIG Nex1 and KIST, he founded the beauty AI startup ART Lab in 2019, building data flows and bringing AI products to market in a beauty industry that had remained largely undigitized. ART Lab was acquired in 2024 by COSMAX, the world’s leading cosmetics manufacturer. Terry now leads Physical AI at COSMAX, driving innovation in AI and robotics. [LinkedIn](https://www.linkedin.com/in/terryum/)
 
-Beyond work, he stays with questions such as how to live well and values the small joys of life with his family. He considers living an ordinary day well just as important as any visible achievement.
+Terry also actively engages with the public. As an adjunct professor in Mechanical Engineering at Seoul National University, he supports student entrepreneurship and research in Physical AI. As the author of *Things I Wish I’d Known in Grad School*, he has spoken to more than 2,000 students across 30 universities. He also serves as co-chair of the AI Future Forum, helping improve public AI literacy, and as a member of the government’s Agentic AI Industry Subcommittee, advising on policy. Previously, he took part in open communities including Open Robotics Meetup, TensorFlow Korea, PR12: AI Paper Reading Group, and [Terry’s Deep Learning Talk](https://www.youtube.com/@TerryUm), serving as a public voice in AI & Robotics.
+
+Terry seeks “a life where I choose problems I believe matter / work with people I like / have enough autonomy / understand deeply and build directly / and make a real difference in how someone lives and works.” More about his mission and principles can be found below.
 ```
 
 ---
