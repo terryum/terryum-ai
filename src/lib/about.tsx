@@ -1,6 +1,8 @@
 import ReactMarkdown from 'react-markdown';
+import type { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import type { Locale } from '@/lib/i18n';
+import { GoogleScholarIcon, LinkedInIcon } from '@/components/SocialIconGlyphs';
 
 import aboutKoRaw from '../../content/about/ko.mdx?raw';
 import aboutEnRaw from '../../content/about/en.mdx?raw';
@@ -78,10 +80,61 @@ function normalizeMdxForHtml(src: string): string {
   return src.replace(/className=/g, 'class=');
 }
 
+const ICON_LINKS = {
+  'scholar.google.com': {
+    label: 'Google Scholar',
+    icon: GoogleScholarIcon,
+  },
+  'linkedin.com': {
+    label: 'LinkedIn',
+    icon: LinkedInIcon,
+  },
+} as const;
+
+function createMarkdownComponents(locale: Locale): Components {
+  return {
+    a({ href, children }) {
+      const isExternal = href?.startsWith('http') ?? false;
+      const iconLink = Object.entries(ICON_LINKS).find(([host]) => href?.includes(host))?.[1];
+
+      if (href && iconLink) {
+        const Icon = iconLink.icon;
+        return (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${iconLink.label}${locale === 'ko' ? ' — 새 탭에서 열림' : ' — opens in a new tab'}`}
+            title={iconLink.label}
+            className="not-prose mx-1 inline-flex align-[-0.15em] text-text-muted transition-colors hover:text-accent focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-base"
+          >
+            <Icon className="h-[1.05em] w-[1.05em]" />
+          </a>
+        );
+      }
+
+      return (
+        <a
+          href={href}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
+          {children}
+          {isExternal && (
+            <span className="sr-only">
+              {locale === 'ko' ? ' (새 탭에서 열림)' : ' (opens in a new tab)'}
+            </span>
+          )}
+        </a>
+      );
+    },
+  };
+}
+
 function renderMarkdown(dir: AboutSource, locale: Locale) {
   const source = normalizeMdxForHtml(SOURCES[dir][locale]);
   return (
-    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+    <ReactMarkdown rehypePlugins={[rehypeRaw]} components={createMarkdownComponents(locale)}>
       {source}
     </ReactMarkdown>
   );

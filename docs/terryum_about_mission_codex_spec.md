@@ -137,6 +137,7 @@ Study and test frontier technologies firsthand, identify consequential needs in 
 - `src/app/[lang]/about/mission/page.tsx`
 - `src/components/about/AboutLocalNav.tsx`
 - `src/components/about/AboutProfileHeader.tsx`
+- `src/components/SocialIconGlyphs.tsx`
 
 ## 수정할 파일
 
@@ -572,6 +573,13 @@ JSON 문법과 trailing comma를 반드시 검증한다.
 - 공통 프로필 헤더 아래에 `AboutLocalNav`를 둔다.
 - 탭 전환 시 사용자가 인지하는 변화는 로컬 내비게이션 아래의 본문에만 생겨야 한다.
 - 페이지당 H1은 하나만 유지한다. `/about`에서는 프로필 이름이 H1이고, `/about/mission`에서는 미션 Hero 제목이 H1이다. 미션 페이지의 프로필 이름은 같은 시각 스타일을 유지하되 heading으로 중복 선언하지 않는다.
+
+## 7.0.1 About 본문 외부 링크
+
+- Google Scholar와 LinkedIn은 본문에서 텍스트 대신 상단 소셜 영역과 같은 공용 아이콘 glyph로 표시한다.
+- 아이콘 링크에는 서비스 이름을 `aria-label`과 `title`로 제공한다.
+- 테리의 딥러닝 토크를 포함해 About Markdown의 모든 외부 링크는 `target="_blank"`와 `rel="noopener noreferrer"`를 사용한다.
+- 텍스트 외부 링크에는 화면 낭독기용 새 탭 안내를 제공한다.
 
 ## 7.1 `AboutLocalNav`
 
