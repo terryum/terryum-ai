@@ -196,9 +196,11 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-서울대, 워털루대, KIST에서 AI·로보틱스를 연구했다. 2019년 ART Lab을 창업해 AI가 일상의 경험을 바꾸는 방법을 뷰티 산업에서 실험했고, ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 제조현장에서 실제로 작동할 조건을 만들고 있다. 서울대학교 기계공학부 겸직교수로 연구와 인재 양성도 이어가고 있다.
+**AI와 Robotics의 최전선을 일상의 현실로 바꾸는 연구자이자 창업가이다.** 새로운 기술을 소개하는 데 그치지 않는다. 직접 연구하고 실험해 실제 능력과 한계를 이해하고, 사람들의 필요와 연결해 제품·시스템·조직으로 구현한다.
 
-연구자, 창업가, 기업 임원, 교수, 작가라는 여러 역할을 통해 미래 기술을 현실로 옮겨 왔다. 그 과정에서 배운 것은 글과 강연으로 나눈다. “어떤 삶을 살아야 하는가”라는 질문과 가족과 함께하는 소소한 행복을 소중히 여긴다.
+서울대, 워털루대, KIST에서 AI·로보틱스를 연구했고, 대학원생 대상 강연과 글을 통해 연구자의 삶과 창업의 가능성을 나눠 왔다. 2019년에는 ART Lab을 창업해 AI가 사람들의 일상적 경험을 바꾸는 방법을 뷰티 산업에서 실험했다. ART Lab이 코스맥스에 합류한 뒤에는 AI & Robotics를 총괄하며 Physical AI가 실제 제조현장에서 작동하는 조건을 만들고 있다. 최신 기술을 더 가까이에서 탐구하며 학계와 산업을 잇고, 학생들의 연구가 산업 적용과 기술 창업으로 이어지도록 돕기 위해 서울대학교 기계공학부 겸임교수도 맡고 있다.
+
+“어떤 삶을 살아야 하는가” 같은 질문을 오래 붙들고, 가족과 함께하는 소소한 행복을 소중히 여긴다. 눈에 띄는 성취만큼 평범한 하루를 잘 살아가는 일도 중요하게 생각한다.
 ```
 
 ## 4.4 `content/about/en.mdx`
@@ -206,9 +208,11 @@ Researching, building, and sharing AI & Robotics.
 파일 전체를 아래 내용으로 교체한다.
 
 ```mdx
-Terry studied AI and robotics at Seoul National University, the University of Waterloo, and KIST. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. He also serves as an adjunct professor in Mechanical Engineering at Seoul National University.
+**Terry is an AI & Robotics researcher-entrepreneur who turns frontier capabilities into everyday reality.** Rather than merely explaining emerging technologies, he studies and tests them firsthand, understands their actual capabilities and limits, and turns them into products, systems, and organizations built around real human needs.
 
-Across his work as a researcher, founder, executive, professor, and writer, he has focused on moving future technologies into reality. He shares what he learns through writing and talks. Beyond work, he stays with questions about how to live well and values the small joys of life with his family.
+His path has included AI and robotics research at Seoul National University, the University of Waterloo, and KIST, as well as talks and writing on research life and entrepreneurship for graduate students. In 2019, he founded ART Lab to explore how AI could reshape everyday experiences in the beauty industry. After ART Lab joined COSMAX, he began leading AI & Robotics and building the conditions for Physical AI to work in real manufacturing environments. To stay close to emerging technologies, connect academia and industry, and help students apply their research in industry and pursue technology entrepreneurship, he also serves as an adjunct professor in Mechanical Engineering at Seoul National University.
+
+Beyond work, he stays with questions such as how to live well and values the small joys of life with his family. He considers living an ordinary day well just as important as any visible achievement.
 ```
 
 ---
@@ -219,12 +223,12 @@ Across his work as a researcher, founder, executive, professor, and writer, he h
 
 ```json
 "currently": {
-  "ko": "현재는 제조 Physical AI를 위한 연구·실증 체계를 만들고, 대학·스타트업·로봇기업·제조현장을 연결하는 일에 집중하고 있습니다.",
-  "en": "Currently focused on building research and deployment systems for Physical AI, connecting universities, startups, robotics companies, and real manufacturing sites."
+  "ko": "현재는 코스맥스에서 AI & Robotics를 총괄하며 제조 Physical AI의 연구·실증 체계를 만드는 일에 집중하고 있다. 이와 함께 서울대학교 기계공학부 겸임교수와 AI미래포럼 공동의장을 맡아 학계와 산업을 연결하고 있다.",
+  "en": "Currently focused on leading AI & Robotics at COSMAX and building research and deployment systems for Physical AI in manufacturing. Also serves as an adjunct professor in Mechanical Engineering at Seoul National University and co-chair of the AI Future Forum, connecting academia and industry."
 }
 ```
 
-이 문장은 상위 미션을 제조에 한정하지 않되, 현재의 구체적 전장을 명확히 보여주는 역할을 한다.
+첫 문장은 코스맥스에서 AI & Robotics를 총괄하는 역할을 주업으로 제시한다. 두 번째 문장은 서울대 겸임교수와 AI미래포럼 공동의장을 보조 역할로 구분해 학계·산업 연결의 맥락을 보여준다.
 
 ---
 
