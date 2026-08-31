@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import LockBadge from './cards/LockBadge';
 import { isUnoptimizedImage } from '@/lib/card-utils';
-import { formatSurveyNumber } from '@/lib/numbering';
+import { formatSurveyLabel } from '@/lib/numbering';
 import type { SurveyMeta } from '@/types/survey';
 
 interface SurveyCardProps {
@@ -61,7 +61,8 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
           <div className="flex items-start justify-between gap-2">
             <div>
               <span className="text-xs text-text-muted">
-                {formatSurveyNumber(survey.survey_number)}
+                {formatSurveyLabel(survey)}
+                {survey.content_type === 'tutorial' && <span className="ml-1.5 text-accent">Tutorial</span>}
               </span>
               <h3 className="flex items-start gap-1.5 text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
                 <span>{title}</span>
@@ -93,7 +94,10 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
             </span>
             <ol className="mt-1.5 space-y-0.5 list-decimal list-inside">
               {survey.toc.map((ch, i) => (
-                <li key={i} className="text-xs text-text-muted truncate">{ch[lang] || ch.en}</li>
+                <li key={i} className={`text-xs truncate ${ch.status === 'planned' ? 'text-text-muted/50' : 'text-text-muted'}`}>
+                  {ch.status === 'planned' && <span aria-label={locale === 'ko' ? '준비 중' : 'Coming soon'} className="mr-1">🔒</span>}
+                  {ch[lang] || ch.en}
+                </li>
               ))}
             </ol>
           </div>
@@ -119,7 +123,8 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
           <div className="flex items-start justify-between gap-2">
             <div>
               <span className="text-xs text-text-muted">
-                {formatSurveyNumber(survey.survey_number)}
+                {formatSurveyLabel(survey)}
+                {survey.content_type === 'tutorial' && <span className="ml-1.5 text-accent">Tutorial</span>}
               </span>
               <h3 className="flex items-start gap-1.5 text-base font-semibold text-text-primary group-hover:text-accent transition-colors leading-snug mt-0.5">
                 <span>{title}</span>
@@ -142,7 +147,10 @@ export default function SurveyCard({ survey, locale }: SurveyCardProps) {
               </span>
               <ol className="mt-1.5 space-y-0.5 list-decimal list-inside">
                 {survey.toc.slice(0, 5).map((ch, i) => (
-                  <li key={i} className="text-xs text-text-muted truncate">{ch[lang] || ch.en}</li>
+                  <li key={i} className={`text-xs truncate ${ch.status === 'planned' ? 'text-text-muted/50' : 'text-text-muted'}`}>
+                    {ch.status === 'planned' && <span aria-label={locale === 'ko' ? '준비 중' : 'Coming soon'} className="mr-1">🔒</span>}
+                    {ch[lang] || ch.en}
+                  </li>
                 ))}
                 {survey.toc.length > 5 && (
                   <li className="text-xs text-text-muted">...+{survey.toc.length - 5} more</li>

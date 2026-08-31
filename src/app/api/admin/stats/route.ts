@@ -7,7 +7,7 @@ import {
   fetchPropertyCreateDate,
 } from '@/lib/ga4-stats';
 import { getSupabaseAdmin } from '@/lib/supabase';
-import { formatPostNumber, formatSurveyNumber, formatProjectNumber } from '@/lib/numbering';
+import { formatPostNumber, formatSurveyLabel, formatProjectNumber } from '@/lib/numbering';
 import postsIndex from '../../../../../posts/index.json';
 import surveysBundle from '../../../../../projects/surveys/surveys.json';
 import projectsBundle from '../../../../../projects/gallery/projects.json';
@@ -25,8 +25,8 @@ const POST_ENTRIES = new Map<string, TitleEntry>(
     .map((p) => [p.slug, { number: formatPostNumber(p.post_number), title_ko: p.title_ko ?? p.slug, title_en: p.title_en ?? p.slug }]),
 );
 const SURVEY_ENTRIES = new Map<string, TitleEntry>(
-  (surveysBundle as { surveys: Array<{ slug: string; survey_number: number; title?: { ko?: string; en?: string } }> }).surveys
-    .map((s) => [s.slug, { number: formatSurveyNumber(s.survey_number), title_ko: s.title?.ko ?? s.slug, title_en: s.title?.en ?? s.slug }]),
+  (surveysBundle as { surveys: Array<{ slug: string; survey_number?: number | null; tutorial_number?: number; content_type?: string; title?: { ko?: string; en?: string } }> }).surveys
+    .map((s) => [s.slug, { number: formatSurveyLabel(s), title_ko: s.title?.ko ?? s.slug, title_en: s.title?.en ?? s.slug }]),
 );
 const PROJECT_ENTRIES = new Map<string, TitleEntry>(
   (projectsBundle as { projects: Array<{ slug: string; project_number?: number; title?: { ko?: string; en?: string } }> }).projects

@@ -4,7 +4,7 @@ import { getAllPostsFromIndex } from '@/lib/posts';
 import { loadSurveysForListing } from '@/lib/surveys';
 import { getAudience, filterByAudience } from '@/lib/audience';
 import { sortByUpdatedDesc } from '@/lib/sort';
-import { formatSurveyNumber } from '@/lib/numbering';
+import { formatSurveyLabel } from '@/lib/numbering';
 import { getBioContent, getBioPlainText } from '@/lib/about';
 import { getPostsForTab } from '@/lib/tabs';
 import HeroSection from '@/components/HeroSection';
@@ -83,7 +83,7 @@ export default async function HomePage({
                 image={thumb || survey.cover_image}
                 title={survey.title[l] || survey.title.en}
                 description={survey.description[l] || survey.description.en}
-                number={formatSurveyNumber(survey.survey_number)}
+                number={formatSurveyLabel(survey)}
                 date={`last updated: ${new Date(survey.updated_at || survey.published_at).toISOString().slice(0, 10)}`}
                 tags={survey.tech_stack.slice(0, 3)}
                 external={!isInternal}

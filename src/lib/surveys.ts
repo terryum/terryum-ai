@@ -21,7 +21,7 @@ function loadSurveysRaw(): SurveyMeta[] {
 function sanitizeRestrictedSurvey(s: SurveyMeta): SurveyMeta {
   const visibility = s.visibility ?? 'public';
   if (visibility === 'public') return s;
-  return { ...s, embed_url: undefined, links: [] };
+  return { ...s, embed_url: undefined, preview_embed_url: undefined, links: [] };
 }
 
 export async function loadSurveysForListing(): Promise<SurveyMeta[]> {

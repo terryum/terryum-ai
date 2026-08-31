@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 
 export const dynamic = 'force-dynamic';
 
-async function privateSurveyEmbedUrl(slug: string): Promise<string> {
+async function privateSurveyEmbedUrl(slug: string, preview = false): Promise<string> {
   const requestHeaders = await headers();
   const host = requestHeaders.get('host') ?? '';
   const isTerryumHost = host === 'terryum.ai' || host.endsWith('.terryum.ai');
@@ -17,7 +17,7 @@ async function privateSurveyEmbedUrl(slug: string): Promise<string> {
   const origin = isTerryumHost
     ? 'https://private-surveys.terryum.ai'
     : `${protocol}://${host || 'localhost:3040'}`;
-  return `${origin}/api/private-surveys/${encodeURIComponent(slug)}/`;
+  return `${origin}/api/private-surveys/${encodeURIComponent(slug)}/${preview ? '__preview/' : ''}`;
 }
 
 export async function generateStaticParams() {
@@ -42,7 +42,7 @@ export async function generateMetadata({
   // notFound() in generateMetadata so the framework sets HTTP 404 before
   // the page render; otherwise the response commits at 200 even with the
   // not-found tree rendered.
-  if (!survey || !survey.embed_url) notFound();
+  if (!survey || (!survey.embed_url && !survey.preview_embed_url)) notFound();
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
   const description = survey.description[lang as 'ko' | 'en'] || survey.description.en;
   const ogImage = survey.cover_image?.replace(/-cover\.webp$/, '-og.png');
@@ -71,7 +71,7 @@ export default async function SurveyDetailPage({
   if (!isValidLocale(lang)) return null;
 
   const survey = await getSurvey(slug);
-  if (!survey || !survey.embed_url) notFound();
+  if (!survey || (!survey.embed_url && !survey.preview_embed_url)) notFound();
 
   if (survey.visibility === 'private') {
     const id = await getCurrentIdentity();
@@ -85,8 +85,9 @@ export default async function SurveyDetailPage({
 
   const title = survey.title[lang as 'ko' | 'en'] || survey.title.en;
   const embedUrl = survey.visibility === 'private'
-    ? await privateSurveyEmbedUrl(survey.slug)
+    ? await privateSurveyEmbedUrl(survey.slug, Boolean(survey.preview_embed_url))
     : survey.embed_url;
+  if (!embedUrl) notFound();
 
   return (
     <ProjectEmbed
