@@ -1,0 +1,90 @@
+---
+locale: "en"
+translation_of: "2403-rialto:ko"
+title: "RialTo: Robust Manipulation through a Digital Twin of the Real Scene"
+summary: "A real-to-sim-to-real system combining scene reconstruction, inverse distillation, demonstration-guided PPO, and real-data co-training. Reported disturbance success rises from 5% for BC to 75% for RialTo; the main comparison combines simulator and real demonstrations."
+card_summary: "RialTo strengthens a demonstration-trained manipulation policy by practicing recovery inside a digital twin of its deployment scene. Inverse distillation connects visual demonstrations to simulator states, and real-data co-training helps the final policy return to hardware."
+seo_title: "RialTo: Robust Manipulation through a Digital Twin of the Real Scene"
+seo_description: "A real-to-sim-to-real system combining scene reconstruction, inverse distillation, demonstration-guided PPO, and real-data co-training. Reported disturbance success rises from 5% for BC to 75% for RialTo; the main comparison combines simulator and real demonstrations."
+terrys_memo: ""
+references:
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "John Schulman et al. (2017)"
+    description: "The PPO algorithm used for state-policy optimization, augmented in RialTo with demonstration supervision."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    scholar_url: "https://scholar.google.com/scholar?q=Proximal+Policy+Optimization+Algorithms"
+    category: "foundational"
+  - title: "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations"
+    author: "Aravind Rajeswaran et al. (2018)"
+    description: "A foundation for combining demonstrations and RL in difficult manipulation; cited in the demonstration-augmented learning discussion."
+    arxiv_url: "https://arxiv.org/abs/1709.10087"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+Complex+Dexterous+Manipulation+with+Deep+Reinforcement+Learning+and+Demonstrations"
+    category: "foundational"
+  - title: "Robot Fine-Tuning Made Easy: Pre-Training Rewards and Policies for Autonomous Real-World Reinforcement Learning"
+    author: "Jingyun Yang et al. (2023)"
+    description: "A related approach to autonomous real-world RL adaptation. It provides context, rather than a directly evaluated baseline in RialTo."
+    arxiv_url: "https://arxiv.org/abs/2310.15145"
+    scholar_url: "https://scholar.google.com/scholar?q=Robot+Fine-Tuning+Made+Easy:+Pre-Training+Rewards+and+Policies+for+Autonomous+Real-World+Reinforcement+Learning"
+    category: "recent"
+---
+
+## TL;DR
+
+RialTo strengthens a demonstration-trained manipulation policy by practicing recovery inside a digital twin of its deployment scene. Inverse distillation connects visual demonstrations to simulator states, and real-data co-training helps the final policy return to hardware.
+
+[Paper v3](https://arxiv.org/html/2403.03949v3) · [Project and videos](https://real-to-sim-to-real.github.io/RialTo/) · [Code](https://github.com/real-to-sim-to-real/RialToPolicyLearning)
+
+## Problem
+
+Behavior cloning cannot readily recover from mistakes absent from its demonstrations. Real-robot RL adds costly exploration and repeated hardware interaction. RialTo targets dependable manipulation in a particular deployment environment. It asks whether reconstructing that environment can supply the extra experience needed for recovery.
+
+## Core Idea
+
+- **Transfer the scene**: scan geometry, separate objects, and annotate joints through a GUI.
+- **Transfer demonstrations**: run the real-data visual policy in simulation and attach simulator states to successful trajectories. This is inverse distillation.
+- **Improve and deploy**: train a state-based RL policy, then teach a point-cloud student while retaining real demonstrations.
+
+<Figure src="./fig-1.png" caption="Figure 1: Scene reconstruction, demonstration transfer, simulation RL, and deployment form a single adaptation loop." number={1} />
+
+<Collapsible title="Method Details">
+
+A scan does not identify accurate physics. Users organize objects and joints; mass and friction use shared defaults. The twin provides task geometry and interaction structure without claiming complete physical identification.
+
+Inverse distillation does not estimate ground-truth states from recorded real observations. It acquires states during successful simulator executions of the visual policy. Direct human demonstrations in simulation can replace this initialization route.
+
+PPO combines sparse task-success rewards with demonstration supervision. Demonstrations aid exploration and discourage exploiting inaccurate simulated physics. DAgger then transfers the state teacher to a point-cloud student, incorporating real demonstrations and visual distractors. [Method: III-B–D](https://arxiv.org/html/2403.03949v3#S3)
+
+<Figure src="./fig-3.png" caption="Figure 3: Successful simulated rollouts of the visual policy supply privileged states for demonstration-guided RL." number={3} />
+
+</Collapsible>
+
+## Key Results
+
+- **Six-task averages** under pose randomization / distractors / physical disturbances: BC **25 / 11 / 5% → RialTo 91 / 77 / 75%**, or **+66 / +66 / +70 percentage points**, using the averages reported in IV-A.
+- **Book placement**, Table I: 50-demo BC achieves **40 / 30 / 20%**, versus **90 / 70 / 60%** for RialTo. The main RialTo comparison uses **15 simulator demos plus 15 real demos during distillation**. Initialization using real demonstrations alone is assessed separately in IV-C2 and Figure 6.
+- **Target-scene reconstruction**, Figure 7: success on the real target drawer is **90%** after training on its twin, versus **10%** after training with four Objaverse drawers. This small asset comparison cannot establish superiority over large-scale generalist training.
+
+<Figure src="./fig-5.png" caption="Figure 5: Task-level real-world success under pose changes, clutter, and physical interventions; orange denotes RialTo." number={5} />
+
+<Figure src="./tab-1.png" caption="Table 1: Book placement: success percentages with bootstrap standard deviations for BC and RialTo." number={1} />
+
+Hardware evaluation uses at least ten rollouts per condition and bootstrap standard deviations, selecting each method's best policy. Figure 5 covers six core tasks; v3 describes eight overall, including additional everyday environments. [Experiments: IV](https://arxiv.org/html/2403.03949v3#S4)
+
+## Achievements and Limitations
+
+Achievements:
+
+- Connects reconstructed scenes to further policy learning for physical manipulation.
+- Provides a practical route to recovery behaviors such as regrasping and realignment beyond the demonstrations.
+
+Limitations:
+
+- Authors identify depth sensing on thin, transparent, or reflective objects, deformables, and faster dynamic tasks as remaining challenges.
+- End-to-end training takes approximately **two days per task**. The GUI study's **14 minutes 40 seconds** of average active work is not total policy-training time.
+- 🤖 **Evaluation scope**: few repetitions and best-policy selection do not establish long-term unattended reliability. Seed-averaged, repeated evaluation in new locations remains necessary.
+
+[Author limitations: VII](https://arxiv.org/html/2403.03949v3#S7) · [User study: VI](https://arxiv.org/html/2403.03949v3#S6)
+
+## Terry's memo
+
+- *(None)*

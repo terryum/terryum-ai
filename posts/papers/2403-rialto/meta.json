@@ -1,0 +1,258 @@
+{
+  "post_id": "2403-rialto",
+  "slug": "2403-rialto",
+  "post_number": 87,
+  "published_at": "2026-09-21T13:00:28+09:00",
+  "updated_at": "2026-09-21T13:00:28+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "node_type": "paper",
+  "tags": [
+    "robot-learning",
+    "real-to-sim-to-real",
+    "digital-twins",
+    "reinforcement-learning",
+    "imitation-learning",
+    "robust-manipulation"
+  ],
+  "display_tags": [
+    "RialTo",
+    "Digital Twins",
+    "Sim-to-Real",
+    "Robot Learning"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-4.png",
+  "thumb_position": "northwest",
+  "reading_time_min": 7,
+  "source_date": "2024-03-06",
+  "source_version": "2403.03949v3",
+  "source_version_date": "2024-11-24",
+  "source_url": "https://arxiv.org/abs/2403.03949",
+  "arxiv_id": "2403.03949",
+  "doi": "10.15607/RSS.2024.XX.015",
+  "source_title": "Reconciling Reality through Simulation: A Real-to-Sim-to-Real Approach for Robust Manipulation",
+  "source_author": "Marcel Torne et al.",
+  "source_type": "Research Paper",
+  "venue": "Robotics: Science and Systems 2024",
+  "source_project_url": "https://real-to-sim-to-real.github.io/RialTo/",
+  "source_code_url": "https://github.com/real-to-sim-to-real/RialToPolicyLearning",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=reconciling-reality-through-simulation",
+  "source_authors_full": [
+    {
+      "name": "Marcel Torne",
+      "affiliation": "Massachusetts Institute of Technology"
+    },
+    {
+      "name": "Anthony Simeonov",
+      "affiliation": "Massachusetts Institute of Technology"
+    },
+    {
+      "name": "Zechu Li",
+      "affiliation": "Massachusetts Institute of Technology; TU Darmstadt"
+    },
+    {
+      "name": "April Chan",
+      "affiliation": "Massachusetts Institute of Technology"
+    },
+    {
+      "name": "Tao Chen",
+      "affiliation": "Massachusetts Institute of Technology"
+    },
+    {
+      "name": "Abhishek Gupta",
+      "affiliation": "University of Washington"
+    },
+    {
+      "name": "Pulkit Agrawal",
+      "affiliation": "Massachusetts Institute of Technology"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Scene reconstruction, demonstration transfer, simulation RL, and deployment form a single adaptation loop.",
+      "caption_ko": "Figure 1: 장면 재구성, 시연 전이, 시뮬레이션 RL, 실제 배포를 하나의 적응 과정으로 연결한다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Successful simulated rollouts of the visual policy supply privileged states for demonstration-guided RL.",
+      "caption_ko": "Figure 3: 시각 정책의 성공한 시뮬레이션 실행에서 특권 상태를 수집해 시연 기반 RL에 활용한다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Six core tasks, their digital twins, evaluation scenes, and pose-randomization regions.",
+      "caption_ko": "Figure 4: 핵심 과제 6개의 실제 장면, 디지털 트윈, 평가 장면, 자세 무작위화 범위.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Task-level real-world success under pose changes, clutter, and physical interventions; orange denotes RialTo.",
+      "caption_ko": "Figure 5: 자세 변화, 주변 물체, 물리적 개입 조건의 과제별 실제 성공률. 주황색은 RialTo이다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Figure 7: Target-drawer reconstruction versus training with four alternative drawer assets.",
+      "caption_ko": "Figure 7: 목표 서랍을 재구성한 학습과 다른 서랍 에셋 4개를 사용한 학습의 비교.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Book placement: success percentages with bootstrap standard deviations for BC and RialTo.",
+      "caption_ko": "Table 1: 책 배치 과제의 BC와 RialTo 성공률 및 부트스트랩 표준편차.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Simulation success after RL with no demonstrations, real-derived demonstrations, or simulator demonstrations.",
+      "caption_ko": "Table 3: 시연 없이, 실제 시연에서 전이한 데이터로, 또는 시뮬레이터 시연으로 RL을 학습한 뒤의 시뮬레이션 성공률.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/html/2403.03949v3"
+    }
+  ],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "robot-learning",
+    "robot-manipulation",
+    "sim-to-real",
+    "3d-reconstruction"
+  ],
+  "key_concepts": [
+    "RialTo",
+    "real-to-sim-to-real",
+    "digital-twins",
+    "inverse-distillation",
+    "privileged-state",
+    "sparse-reward-RL",
+    "real-data-co-training",
+    "robust-manipulation"
+  ],
+  "methodology": [
+    "3D-scene-reconstruction",
+    "interactive-articulation-annotation",
+    "point-cloud-behavior-cloning",
+    "successful-rollout-filtering",
+    "demonstration-augmented-PPO",
+    "teacher-student-DAgger",
+    "domain-randomization",
+    "real-world-co-training"
+  ],
+  "contribution_type": "system",
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/arm",
+    "robotics/simulation",
+    "computer-vision/3d-reconstruction"
+  ],
+  "relations": [
+    {
+      "target": "2606-simfoundry",
+      "type": "sharesGoalWith",
+      "note": "Both turn real scenes into interactive simulation for manipulation learning. This is a retrospective topical connection: RialTo predates SimFoundry and does not cite it. SimFoundry expands automation and scene diversity."
+    },
+    {
+      "target": "2506-exostart",
+      "type": "sharesGoalWith",
+      "note": "Both combine few real demonstrations, simulation RL, and a visual student for deployment. ExoStart uses an exoskeleton and dynamics filtering; RialTo uses visual-policy rollouts in a scene twin. This is not a citation claim."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "RialTo uses reconstructed deployment scenes to turn demonstration-trained manipulation into disturbance-tolerant behavior through simulation RL.",
+    "problem": "A small behavior-cloning dataset rarely covers recovery from unexpected object motion or clutter.",
+    "solution": "Reconstruct the scene, obtain successful simulator trajectories with privileged states, train a state policy with demonstration-augmented PPO, and distill to point-cloud observations while retaining real demonstrations.",
+    "key_result": "Section IV-A reports 91/77/75% success for pose randomization/distractors/disturbances versus BC at 25/11/5%. The main comparison uses 15 simulator demos plus 15 real demos for co-training; the real-only initialization route is tested separately.",
+    "limitations": [
+      "Depth-sensor failures on thin, transparent, or reflective objects.",
+      "Evidence focuses on rigid and articulated objects in relatively quasistatic tasks.",
+      "Approximately two days of end-to-end training per task.",
+      "Best-policy evaluation and at least ten real rollouts per condition leave deployment reliability uncertain."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can the policy support thin, reflective, and transparent objects when depth reconstruction is unreliable?",
+      "source": "author",
+      "relates_to": [
+        "perception",
+        "sim-to-real"
+      ]
+    },
+    {
+      "question": "Can the pipeline handle deformable objects and faster interactions that require accurate physical parameters?",
+      "source": "author",
+      "relates_to": [
+        "deformable-manipulation",
+        "system-identification"
+      ]
+    },
+    {
+      "question": "How can end-to-end task learning be reduced from about two days to a practical continual-adaptation cycle?",
+      "source": "author",
+      "relates_to": [
+        "training-efficiency",
+        "continual-learning"
+      ]
+    },
+    {
+      "question": "Do robustness gains persist under seed-averaged evaluation, many more trials, and genuinely unseen deployment scenes?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "external-validity",
+        "evaluation"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Investigate RGB or RGB-D students to reduce dependence on reliable depth alone.",
+    "Extend interactive reconstruction and simulation to deformables and identify physical parameters for dynamic tasks.",
+    "Accelerate point-cloud learning and parallelization to shorten the adaptation loop.",
+    "Evaluate many seeds and repeated hardware trials before extrapolating to unattended deployment."
+  ],
+  "next_reading": [
+    "2606-simfoundry",
+    "2506-exostart"
+  ],
+  "survey_hooks": [
+    "real-to-sim-to-real-robot-learning",
+    "demonstration-guided-reinforcement-learning",
+    "digital-twins-for-manipulation"
+  ],
+  "video_url": "https://www.youtube.com/watch?v=H0TQCbTSGVY",
+  "evidence_notes": [
+    "Latest arXiv v3 is authoritative for results; the project abstract retains the earlier six-task wording.",
+    "Figure 5 covers six core tasks; the paper describes eight tasks overall including in-the-wild additions.",
+    "Section IV-A rounded averages are quoted as reported; Figure 5 labels are individually rounded.",
+    "Table III reports simulation results and is not a real-world success table.",
+    "Public captions are original explanatory paraphrases; source figure/table numbering is retained."
+  ],
+  "cover_caption": "Figure 1: Scene reconstruction, demonstration transfer, simulation RL, and deployment form a single adaptation loop.",
+  "thumb_extract": {
+    "left": 411,
+    "top": 40,
+    "width": 163,
+    "height": 160
+  }
+}
