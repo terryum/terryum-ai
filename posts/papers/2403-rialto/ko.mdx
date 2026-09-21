@@ -1,0 +1,90 @@
+---
+locale: "ko"
+translation_of: "2403-rialto:en"
+title: "RialTo: 실제 장면을 시뮬레이션으로 옮겨 조작 정책을 강건하게 만들기"
+summary: "실제 장면 재구성, inverse distillation, 시연 기반 PPO, 실제 데이터 공동 학습을 연결한 real-to-sim-to-real 시스템이다. 주요 비교에서 외란 조건 성공률은 BC 5%에서 RialTo 75%로 높아지며, 대표 실험의 시뮬레이션·실제 시연 사용 조건을 구분해 읽어야 한다."
+card_summary: "RialTo는 실제 작업 공간의 디지털 트윈에서 RL로 실패 복구를 연습해, 적은 시연으로 만든 조작 정책을 외란에 강하게 만든다. 핵심은 시각 정책을 시뮬레이터의 상태 정보로 연결하는 inverse distillation과 실제 시연을 유지하는 공동 학습이다."
+seo_title: "RialTo: 실제 장면을 시뮬레이션으로 옮겨 조작 정책을 강건하게 만들기"
+seo_description: "실제 장면 재구성, inverse distillation, 시연 기반 PPO, 실제 데이터 공동 학습을 연결한 real-to-sim-to-real 시스템이다. 주요 비교에서 외란 조건 성공률은 BC 5%에서 RialTo 75%로 높아지며, 대표 실험의 시뮬레이션·실제 시연 사용 조건을 구분해 읽어야 한다."
+terrys_memo: ""
+references:
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "John Schulman et al. (2017)"
+    description: "RialTo의 상태 기반 RL에 사용되는 PPO 알고리즘. RialTo는 여기에 시연을 따르는 학습 항을 더한다."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    scholar_url: "https://scholar.google.com/scholar?q=Proximal+Policy+Optimization+Algorithms"
+    category: "foundational"
+  - title: "Learning Complex Dexterous Manipulation with Deep Reinforcement Learning and Demonstrations"
+    author: "Aravind Rajeswaran et al. (2018)"
+    description: "시연과 RL의 결합으로 복잡한 조작의 탐색을 돕는 선행 연구. RialTo의 demonstration-augmented RL 배경에 해당한다."
+    arxiv_url: "https://arxiv.org/abs/1709.10087"
+    scholar_url: "https://scholar.google.com/scholar?q=Learning+Complex+Dexterous+Manipulation+with+Deep+Reinforcement+Learning+and+Demonstrations"
+    category: "foundational"
+  - title: "Robot Fine-Tuning Made Easy: Pre-Training Rewards and Policies for Autonomous Real-World Reinforcement Learning"
+    author: "Jingyun Yang et al. (2023)"
+    description: "실제 환경의 자율 RL 미세조정을 다룬다. RialTo 관련 연구에서 언급되며, 주요 실험의 직접 baseline은 아니다."
+    arxiv_url: "https://arxiv.org/abs/2310.15145"
+    scholar_url: "https://scholar.google.com/scholar?q=Robot+Fine-Tuning+Made+Easy:+Pre-Training+Rewards+and+Policies+for+Autonomous+Real-World+Reinforcement+Learning"
+    category: "recent"
+---
+
+## TL;DR
+
+RialTo는 실제 작업 공간의 디지털 트윈에서 RL로 실패 복구를 연습해, 적은 시연으로 만든 조작 정책을 외란에 강하게 만든다. 핵심은 시각 정책을 시뮬레이터의 상태 정보로 연결하는 inverse distillation과 실제 시연을 유지하는 공동 학습이다.
+
+[논문 v3](https://arxiv.org/html/2403.03949v3) · [프로젝트와 영상](https://real-to-sim-to-real.github.io/RialTo/) · [코드](https://github.com/real-to-sim-to-real/RialToPolicyLearning)
+
+## 문제
+
+Behavior cloning(BC)은 시연에 없는 실수에서 회복하는 행동을 배우기 어렵다. 실제 로봇으로 RL을 수행하면 탐색과 반복 실행에 많은 시간과 관리가 든다. RialTo가 겨냥하는 것은 특정 배포 장소에서 안정적으로 일하는 조작 정책이다. 그 장소를 시뮬레이션으로 옮겨 추가 경험을 만들 수 있는지가 출발점이다.
+
+## 핵심 아이디어
+
+- **장면의 전이**: 스캔한 메시를 GUI에서 분리하고 관절을 지정해 상호작용 가능한 디지털 트윈을 만든다.
+- **시연의 전이**: 실제 시연으로 학습한 시각 정책을 시뮬레이터에서 실행한다. 성공 궤적에 객체 자세 등 상태 정보를 붙이는 과정이 inverse distillation이다.
+- **행동의 개선과 귀환**: 상태 기반 RL로 정책을 개선하고, point cloud를 입력받는 학생 정책으로 증류한다. 실제 시연도 함께 학습한다.
+
+<Figure src="./fig-1.png" caption="Figure 1: 장면 재구성, 시연 전이, 시뮬레이션 RL, 실제 배포를 하나의 적응 과정으로 연결한다." number={1} />
+
+<Collapsible title="구체적 방법">
+
+스캔만으로 물리적으로 정확한 모델이 완성되지는 않는다. 사용자가 객체와 관절을 정리하며, 질량과 마찰에는 공통 기본값을 쓴다. 따라서 디지털 트윈의 역할은 모든 물성을 완벽하게 복제하는 데 있지 않다.
+
+Inverse distillation은 실제 관측에서 정답 상태를 직접 추정하는 절차가 아니다. 시각 정책이 시뮬레이터에서도 성공한 실행만 골라, 그곳에서 접근 가능한 상태를 학습 데이터로 얻는다. 시뮬레이터에서 사람이 직접 시연할 수 있으면 이 단계를 대체할 수도 있다.
+
+이후 PPO에 시연 학습 항을 더하고 목표 도달 여부를 나타내는 희소 보상을 사용한다. 시연은 탐색을 돕고 비현실적인 시뮬레이터 공략 행동을 억제한다. 마지막에는 DAgger 방식으로 상태 교사의 행동을 point-cloud 학생에게 전달하면서 실제 시연과 시각적 방해물도 활용한다. [방법: III-B–D](https://arxiv.org/html/2403.03949v3#S3)
+
+<Figure src="./fig-3.png" caption="Figure 3: 시각 정책의 성공한 시뮬레이션 실행에서 특권 상태를 수집해 시연 기반 RL에 활용한다." number={3} />
+
+</Collapsible>
+
+## 주요 결과
+
+- **핵심 6개 과제의 평균 성공률**: 자세 무작위화 / 시각적 방해물 / 물리적 외란에서 BC **25 / 11 / 5% → RialTo 91 / 77 / 75%**. 절대 차이는 각각 **+66 / +66 / +70%p**다. 논문 IV-A가 보고한 평균을 사용했다.
+- **책을 선반에 놓기**: 시연 50개의 BC는 세 조건에서 **40 / 30 / 20%**, RialTo는 **90 / 70 / 60%**다(Table I). 대표 RialTo 비교는 **시뮬레이션 시연 15개 + 증류 때 실제 시연 15개**를 사용한다. 실제 시연만으로 초기화하는 경로의 비교는 IV-C2와 Figure 6에 별도로 있다.
+- **목표 장면의 가치**: 목표 서랍의 디지털 트윈으로 학습하면 실제 목표 서랍에서 **90%**, Objaverse 서랍 4개로 학습한 비교군은 **10%**다(Figure 7). 작은 에셋 집합과 비교한 결과이므로 대규모 일반 정책 전체에 대한 우위로 확대할 수는 없다.
+
+<Figure src="./fig-5.png" caption="Figure 5: 자세 변화, 주변 물체, 물리적 개입 조건의 과제별 실제 성공률. 주황색은 RialTo이다." number={5} />
+
+<Figure src="./tab-1.png" caption="Table 1: 책 배치 과제의 BC와 RialTo 성공률 및 부트스트랩 표준편차." number={1} />
+
+실제 평가는 조건당 최소 10회 실행과 부트스트랩 표준편차를 사용하며, 각 방법의 가장 좋은 정책을 평가한다. Figure 5는 핵심 6개 과제의 비교이고, v3 전체 실험 범위는 추가 생활 공간 과제를 포함한 8개다. [실험: IV](https://arxiv.org/html/2403.03949v3#S4)
+
+## 달성점과 한계점
+
+새롭게 달성한 점:
+
+- 실제 장면 재구성을 조작 정책의 추가 학습까지 연결했다.
+- 재파지와 재정렬처럼 시연만으로 부족한 복구 행동을 시뮬레이션에서 익히는 실용적인 경로를 제시했다.
+
+한계점:
+
+- 저자는 깊이 센서의 취약 대상인 얇고 투명하거나 반사하는 물체, 변형체, 빠른 동작으로의 확장을 남은 과제로 꼽는다.
+- 과제당 전체 학습에 약 **2일**이 걸린다. GUI의 평균 능동 작업 시간 **14분 40초**는 전체 정책 학습 시간이 아니다.
+- 🤖 **평가 범위**: 제한된 반복 횟수와 최고 정책 선택만으로는 장기간 무인 운용의 실패율을 판단하기 어렵다. 여러 seed와 새 장소에서 반복 검증할 필요가 있다.
+
+[저자 한계: VII](https://arxiv.org/html/2403.03949v3#S7) · [사용성 평가: VI](https://arxiv.org/html/2403.03949v3#S6)
+
+## Terry's memo
+
+- *(None)*

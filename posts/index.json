@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-09T23:45:15.041Z",
-  "total_posts": 86,
+  "generated_at": "2026-09-21T04:01:03.377Z",
+  "total_posts": 87,
   "posts": [
     {
       "post_number": 1,
@@ -6609,6 +6609,91 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 87,
+      "slug": "2403-rialto",
+      "content_type": "papers",
+      "title_en": "RialTo: Robust Manipulation through a Digital Twin of the Real Scene",
+      "title_ko": "RialTo: 실제 장면을 시뮬레이션으로 옮겨 조작 정책을 강건하게 만들기",
+      "summary_ko": "RialTo는 실제 작업 공간의 디지털 트윈에서 RL로 실패 복구를 연습해, 적은 시연으로 만든 조작 정책을 외란에 강하게 만든다. 핵심은 시각 정책을 시뮬레이터의 상태 정보로 연결하는 inverse distillation과 실제 시연을 유지하는 공동 학습이다.",
+      "summary_en": "RialTo strengthens a demonstration-trained manipulation policy by practicing recovery inside a digital twin of its deployment scene. Inverse distillation connects visual demonstrations to simulator states, and real-data co-training helps the final policy return to hardware.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-learning",
+        "robot-manipulation",
+        "sim-to-real",
+        "3d-reconstruction"
+      ],
+      "key_concepts": [
+        "RialTo",
+        "real-to-sim-to-real",
+        "digital-twins",
+        "inverse-distillation",
+        "privileged-state",
+        "sparse-reward-RL",
+        "real-data-co-training",
+        "robust-manipulation"
+      ],
+      "methodology": [
+        "3D-scene-reconstruction",
+        "interactive-articulation-annotation",
+        "point-cloud-behavior-cloning",
+        "successful-rollout-filtering",
+        "demonstration-augmented-PPO",
+        "teacher-student-DAgger",
+        "domain-randomization",
+        "real-world-co-training"
+      ],
+      "contribution_type": "system",
+      "tags": [
+        "robot-learning",
+        "real-to-sim-to-real",
+        "digital-twins",
+        "reinforcement-learning",
+        "imitation-learning",
+        "robust-manipulation"
+      ],
+      "source_author": "Marcel Torne et al.",
+      "source_date": "2024-03-06",
+      "published_at": "2026-09-21T13:00:28+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "RialTo uses reconstructed deployment scenes to turn demonstration-trained manipulation into disturbance-tolerant behavior through simulation RL.",
+        "problem": "A small behavior-cloning dataset rarely covers recovery from unexpected object motion or clutter.",
+        "solution": "Reconstruct the scene, obtain successful simulator trajectories with privileged states, train a state policy with demonstration-augmented PPO, and distill to point-cloud observations while retaining real demonstrations.",
+        "key_result": "Section IV-A reports 91/77/75% success for pose randomization/distractors/disturbances versus BC at 25/11/5%. The main comparison uses 15 simulator demos plus 15 real demos for co-training; the real-only initialization route is tested separately.",
+        "limitations": [
+          "Depth-sensor failures on thin, transparent, or reflective objects.",
+          "Evidence focuses on rigid and articulated objects in relatively quasistatic tasks.",
+          "Approximately two days of end-to-end training per task.",
+          "Best-policy evaluation and at least ten real rollouts per condition leave deployment reliability uncertain."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2606-simfoundry",
+          "type": "sharesGoalWith",
+          "note": "Both turn real scenes into interactive simulation for manipulation learning. This is a retrospective topical connection: RialTo predates SimFoundry and does not cite it. SimFoundry expands automation and scene diversity."
+        },
+        {
+          "target": "2506-exostart",
+          "type": "sharesGoalWith",
+          "note": "Both combine few real demonstrations, simulation RL, and a visual student for deployment. ExoStart uses an exoskeleton and dynamics filtering; RialTo uses visual-policy rollouts in a scene twin. This is not a citation claim."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/rl-policy",
+      "taxonomy_secondary": [
+        "robotics/arm",
+        "robotics/simulation",
+        "computer-vision/3d-reconstruction"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7802,6 +7887,16 @@
         "from": "260810-human-workers-first-condition-trust",
         "to": "260618-value-from-finite-resources",
         "type": "related"
+      },
+      {
+        "from": "2403-rialto",
+        "to": "2606-simfoundry",
+        "type": "sharesGoalWith"
+      },
+      {
+        "from": "2403-rialto",
+        "to": "2506-exostart",
+        "type": "sharesGoalWith"
       }
     ],
     "clusters": [
@@ -7986,12 +8081,14 @@
           72,
           80,
           82,
-          85
+          85,
+          87
         ],
         "core_concepts": [
           "zero-shot-sim-to-real",
           "Unitree-G1",
-          "sim-to-real"
+          "sim-to-real",
+          "digital-twins"
         ],
         "taxonomy_nodes": [
           "robotics/brain/rl-policy"
@@ -9823,7 +9920,8 @@
       85
     ],
     "digital-twins": [
-      85
+      85,
+      87
     ],
     "digital-cousins": [
       85
@@ -9851,10 +9949,31 @@
     ],
     "career-growth": [
       86
+    ],
+    "RialTo": [
+      87
+    ],
+    "real-to-sim-to-real": [
+      87
+    ],
+    "inverse-distillation": [
+      87
+    ],
+    "privileged-state": [
+      87
+    ],
+    "sparse-reward-RL": [
+      87
+    ],
+    "real-data-co-training": [
+      87
+    ],
+    "robust-manipulation": [
+      87
     ]
   },
   "domain_stats": {
-    "robotics": 46,
+    "robotics": 47,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -9879,7 +9998,7 @@
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 16,
+    "robotics/arm:secondary": 17,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -9888,7 +10007,7 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 24,
+    "robotics/brain": 25,
     "ai/llm:secondary": 6,
     "ai/society": 6,
     "ai/agents:secondary": 3,
@@ -9905,7 +10024,7 @@
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
     "robotics/brain/rl-policy:secondary": 1,
-    "robotics/brain/rl-policy": 7,
+    "robotics/brain/rl-policy": 8,
     "robotics/arm/force-control:secondary": 1,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
@@ -9944,13 +10063,13 @@
     "robotics/body/legged:secondary": 1,
     "robotics/control/system-identification:secondary": 1,
     "ml/reinforcement-learning:secondary": 1,
-    "robotics/simulation:secondary": 1,
-    "computer-vision/3d-reconstruction:secondary": 1,
+    "robotics/simulation:secondary": 2,
+    "computer-vision/3d-reconstruction:secondary": 2,
     "career/trust-capital": 1,
     "startup/career:secondary": 1,
     "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 45,
+    "robotics": 46,
     "ai": 20,
     "biology": 2
   }
