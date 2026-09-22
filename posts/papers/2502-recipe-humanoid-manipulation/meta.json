@@ -1,0 +1,294 @@
+{
+  "post_id": "2502-recipe-humanoid-manipulation",
+  "slug": "2502-recipe-humanoid-manipulation",
+  "post_number": 88,
+  "published_at": "2026-09-22T13:30:55+09:00",
+  "updated_at": "2026-09-22T13:30:55+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "node_type": "paper",
+  "tags": [
+    "sim-to-real",
+    "humanoid",
+    "dexterous-manipulation",
+    "reinforcement-learning",
+    "system-identification",
+    "diffusion-policy"
+  ],
+  "display_tags": [
+    "RECIPE",
+    "Sim-to-Real",
+    "Humanoid",
+    "Dexterous Manipulation"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_figure_number": 1,
+  "thumb_source": "./fig-1.png",
+  "thumb_position": "northwest",
+  "reading_time_min": 8,
+  "source_url": "https://arxiv.org/abs/2502.20396",
+  "arxiv_id": "2502.20396",
+  "source_date": "2025-02-27",
+  "source_version": "2502.20396v1",
+  "source_version_date": "2025-02-27",
+  "source_title": "Sim-to-Real Reinforcement Learning for Vision-Based Dexterous Manipulation on Humanoids",
+  "source_author": "Toru Lin et al.",
+  "source_type": "Research Paper",
+  "venue": "CoRL 2025",
+  "source_project_url": "https://toruowo.github.io/recipe/",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=sim-to-real-reinforcement-learning-for",
+  "source_authors_full": [
+    {
+      "name": "Toru Lin",
+      "affiliation": "UC Berkeley; NVIDIA"
+    },
+    {
+      "name": "Kartik Sachdev",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Linxi Fan",
+      "affiliation": "NVIDIA"
+    },
+    {
+      "name": "Jitendra Malik",
+      "affiliation": "UC Berkeley"
+    },
+    {
+      "name": "Yuke Zhu",
+      "affiliation": "NVIDIA; UT Austin"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Hardware, manipulation tasks, test objects, and hand variants used in the study.",
+      "caption_ko": "Figure 1: 연구에 사용한 로봇 구성, 조작 과제, 평가 물체, 손 종류.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1",
+      "asset_source_url": "https://toruowo.github.io/recipe/figures/fig1.png"
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Four components of the recipe: model calibration, contact/object rewards, specialist training and distillation, and hybrid visual observations.",
+      "caption_ko": "Figure 2: 모델 보정, 접촉·물체 목표 보상, 전문 정책 학습과 증류, 혼합 시각 관측으로 구성된 학습 절차.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Simulated grasping, box lifting, and two directions of handover.",
+      "caption_ko": "Figure 3: 시뮬레이션에서 학습한 파지, 상자 들기, 양방향 물체 건네기.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Learning curves for primitive versus complex objects and alternative object groupings; ten seeds contribute to each curve.",
+      "caption_ko": "Figure 4: 단순 도형과 복잡한 물체, 서로 다른 물체 그룹 구성의 학습 곡선. 각 곡선은 10개 seed의 통계다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Changing the assigned contact markers changes the grasping configuration learned by the policy.",
+      "caption_ko": "Figure 5: 지정한 접촉 마커 위치에 따라 정책이 학습하는 파지 형태가 달라진다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Qualitative examples of robot behavior under external physical disturbances.",
+      "caption_ko": "Figure 6: 외부 물리적 방해가 가해졌을 때 나타나는 로봇 행동의 정성적 예시.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Autotune error versus hardware transfer: ten independently trained checkpoints are tested for each model-parameter setting.",
+      "caption_ko": "Table 1: Autotune 오차와 실제 전이 성능. 각 모델 파라미터 설정에서 독립적으로 학습한 체크포인트 10개를 평가한다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 2: Fraction of ten training seeds producing policies above 60% episodic success, with or without human initialization states.",
+      "caption_ko": "Table 2: 사람의 초기화 상태 사용 여부에 따라, 10개 학습 seed 중 에피소드 성공률 60%를 넘는 정책이 만들어진 비율.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Depth plus object position versus depth alone. Pickup and completed-task counts are distinct; handover is reported as A and B.",
+      "caption_ko": "Table 3: 깊이와 물체 위치를 함께 쓰는 정책과 깊이만 쓰는 정책의 비교. 물체 집기와 과제 완료 횟수는 별도이며 handover는 A와 B로 나뉜다.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    },
+    {
+      "number": 4,
+      "src": "./tab-4.png",
+      "caption": "Table 4: Physical, observation, action, timing, and camera perturbations used for domain randomization.",
+      "caption_ko": "Table 4: Domain randomization에 사용한 물리, 관측, 행동, 지연, 카메라 변동 설정.",
+      "caption_type": "paraphrase",
+      "source_url": "https://arxiv.org/pdf/2502.20396v1"
+    }
+  ],
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "humanoid-manipulation",
+    "dexterous-manipulation",
+    "sim-to-real",
+    "robot-learning"
+  ],
+  "key_concepts": [
+    "RECIPE",
+    "Fourier-GR1",
+    "real-to-sim-autotuning",
+    "contact-goals",
+    "object-goals",
+    "task-aware-initialization",
+    "divide-and-conquer-distillation",
+    "sparse-dense-object-representations",
+    "bimanual-manipulation"
+  ],
+  "methodology": [
+    "parallel-parameter-search",
+    "joint-tracking-error-calibration",
+    "contact-marker-reward",
+    "asymmetric-actor-critic-PPO",
+    "task-aware-human-play-initialization",
+    "specialist-policy-training",
+    "success-filtered-trajectory-distillation",
+    "Diffusion-Policy",
+    "SAM2-object-tracking",
+    "depth-position-fusion",
+    "domain-randomization"
+  ],
+  "contribution_type": "system",
+  "taxonomy_primary": "robotics/brain/rl-policy",
+  "taxonomy_secondary": [
+    "robotics/hand/dexterous",
+    "robotics/arm",
+    "robotics/body/humanoid",
+    "robotics/simulation/sim-to-real"
+  ],
+  "relations": [
+    {
+      "target": "2303-diffusion-policy",
+      "type": "usesMethodIn",
+      "note": "Appendix D trains a generalist with Diffusion Policy on success-filtered trajectories generated by the RL specialists."
+    },
+    {
+      "target": "2403-rialto",
+      "type": "cites",
+      "note": "RialTo is explicitly cited as reference [55] in the supplied v1 paper. Both study manipulation transfer through simulation, using different supervision and scene-modeling strategies."
+    },
+    {
+      "target": "2606-simfoundry",
+      "type": "sharesTopicWith",
+      "note": "A retrospective reading connection requested alongside this paper: both address real/sim alignment for manipulation, but this recipe calibrates humanoid hardware and learns skills while SimFoundry automates scene generation and policy evaluation. No citation or direct benchmark claim."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A four-part recipe combines robot-model autotuning, contact/object rewards, specialist-to-generalist learning, and depth-position perception for real humanoid dexterous manipulation.",
+    "problem": "High-dimensional contact control is difficult to explore, while robot modeling and visual distribution gaps obstruct transfer to hardware.",
+    "solution": "Calibrate simulator parameters against joint tracking, initialize with brief human play states, train PPO specialists, and distill successful trajectories into a depth-and-position Diffusion Policy.",
+    "key_result": "The best task policies achieve 62.3% grasp-and-reach, 80% box lift, and 52.5% bimanual handover across test objects, with ten trials per object. Separate ten-trial modality ablations are not these overall rates.",
+    "limitations": [
+      "Full success demonstrations are avoided, but task-aware initialization still uses under 30 seconds of human play data per task.",
+      "Dynamic transfer relies on conventional domain randomization; handover remains weaker.",
+      "Hardware reliability and limited active hand degrees of freedom constrain dexterity.",
+      "Three task families and best-policy evaluation provide limited evidence for broadly general manipulation."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can dynamic contact behavior transfer more reliably than with conventional domain randomization, especially for bimanual handover?",
+      "source": "author",
+      "relates_to": [
+        "sim-to-real",
+        "contact-dynamics"
+      ]
+    },
+    {
+      "question": "How can reward construction incorporate stronger human priors while preserving the efficiency of simulation learning?",
+      "source": "author",
+      "relates_to": [
+        "reward-design",
+        "human-priors"
+      ]
+    },
+    {
+      "question": "Can the framework exploit more reliable hands with richer active degrees of freedom?",
+      "source": "author",
+      "relates_to": [
+        "dexterous-hardware",
+        "embodiment"
+      ]
+    },
+    {
+      "question": "How stable are the gains across unseen task families, camera placements, and seeds when the total human setup effort is included?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "external-validity",
+        "evaluation",
+        "human-effort"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Improve contact-dynamics identification and adaptation for faster coordinated handovers.",
+    "Study demonstrations or other human priors as structured reward-design inputs.",
+    "Evaluate more capable and reliable multi-fingered hands.",
+    "Measure seed-averaged transfer and total setup effort across broader tasks and sensing arrangements."
+  ],
+  "next_reading": [
+    "2303-diffusion-policy",
+    "2403-rialto",
+    "2606-simfoundry"
+  ],
+  "survey_hooks": [
+    "sim-to-real-humanoid-manipulation",
+    "dexterous-reinforcement-learning",
+    "robot-system-identification"
+  ],
+  "bibtex_key": "various2025simtoreal",
+  "video_url": "https://www.youtube.com/watch?v=qP_uL2l1aWc",
+  "supporting_sources": [
+    "https://arxiv.org/html/2502.20396v1",
+    "https://arxiv.org/pdf/2502.20396v1",
+    "https://toruowo.github.io/recipe/",
+    "https://research.nvidia.com/labs/gear/simfoundry/"
+  ],
+  "evidence_notes": [
+    "Summary and result numbers follow the user-supplied v1. The canonical abstract lists v2 dated 2025-09-01 and CoRL 2025 publication.",
+    "HTML v1 omits PDF Figure 1 and shifts subsequent figure numbers down by one. All published figure numbering follows the PDF, visually verified.",
+    "Table II is a training-success fraction over ten random seeds, with success defined as greater than 60% episodic success. It is not hardware task success.",
+    "Table III modality comparisons and Section IV-G across-object best-policy results are distinct evaluations.",
+    "Section IV-E reports mix 90.0%, shape 63.3%, single 40.0%, all 23.3% over thirty trials; a following sentence describing mix as low-performing contradicts this ordering and is not propagated.",
+    "The existing survey candidate uses placeholder authors and Isaac Lab tags. This confirmed node is grounded in the paper: Toru Lin et al., Isaac Gym, and the three specified tasks.",
+    "Public captions are original explanatory paraphrases."
+  ],
+  "cover_caption": "Figure 1: Hardware, manipulation tasks, test objects, and hand variants used in the study.",
+  "thumb_extract": {
+    "left": 150,
+    "top": 20,
+    "width": 1850,
+    "height": 1850
+  }
+}

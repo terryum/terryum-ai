@@ -1,0 +1,100 @@
+---
+locale: "en"
+translation_of: "2502-recipe-humanoid-manipulation:ko"
+title: "RECIPE: Four Ingredients for Sim-to-Real Dexterous Humanoid Manipulation"
+summary: "A practical sim-to-real RL pipeline for the Fourier GR1 arms and multi-fingered hands. The supplied v1 reports 62.3% grasp-and-reach, 80% box lift, and 52.5% handover, with human initialization and ablation protocols kept explicit."
+card_summary: "RECIPE combines model calibration, contact-and-object rewards, specialist distillation, and depth-position observations to transfer humanoid manipulation from simulation. Brief human initialization states guide exploration; successful RL experience then trains the deployed visual policy."
+seo_title: "RECIPE: Four Ingredients for Sim-to-Real Dexterous Humanoid Manipulation"
+seo_description: "A practical sim-to-real RL pipeline for the Fourier GR1 arms and multi-fingered hands. The supplied v1 reports 62.3% grasp-and-reach, 80% box lift, and 52.5% handover, with human initialization and ablation protocols kept explicit."
+terrys_memo: ""
+references:
+  - title: "Proximal Policy Optimization Algorithms"
+    author: "John Schulman et al. (2017)"
+    description: "The PPO algorithm used to train specialists with an asymmetric actor-critic."
+    arxiv_url: "https://arxiv.org/abs/1707.06347"
+    scholar_url: "https://scholar.google.com/scholar?q=Proximal+Policy+Optimization+Algorithms"
+    category: "foundational"
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Cheng Chi et al. (2023)"
+    description: "Generates actions with a conditional diffusion process; Appendix D directly uses it to distill successful specialist trajectories."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    scholar_url: "https://scholar.google.com/scholar?q=Diffusion+Policy:+Visuomotor+Policy+Learning+via+Action+Diffusion"
+    category: "foundational"
+  - title: "Twisting Lids Off with Two Hands"
+    author: "Toru Lin et al. (2024)"
+    description: "Earlier bimanual sim-to-real RL for lid twisting, cited for object-position perception and primitive-based object modeling."
+    arxiv_url: "https://arxiv.org/abs/2403.02338"
+    scholar_url: "https://scholar.google.com/scholar?q=Twisting+Lids+Off+with+Two+Hands"
+    category: "recent"
+  - title: "DextrAH-G: Pixels-to-Action Dexterous Arm-Hand Grasping with Geometric Fabrics"
+    author: "Tyler Ga Wei Lum et al. (2024)"
+    description: "Depth-based arm-hand grasping, discussed as context for visual representations rather than evaluated as a matched baseline."
+    arxiv_url: "https://arxiv.org/abs/2407.02274"
+    scholar_url: "https://scholar.google.com/scholar?q=DextrAH-G:+Pixels-to-Action+Dexterous+Arm-Hand+Grasping+with+Geometric+Fabrics"
+    category: "recent"
+---
+
+## TL;DR
+
+RECIPE combines model calibration, contact-and-object rewards, specialist distillation, and depth-position observations to transfer humanoid manipulation from simulation. Brief human initialization states guide exploration; successful RL experience then trains the deployed visual policy.
+
+[Supplied paper v1](https://arxiv.org/pdf/2502.20396v1) · [Project and videos](https://toruowo.github.io/recipe/)
+
+## Problem
+
+Dexterous manipulation combines inaccurate robot models, complex contacts, difficult exploration, and visual domain shift. Success on a single skill does not establish a reusable pipeline for bimanual tasks. This work addresses those four bottlenecks together. Evaluation uses the Fourier GR1 arms and hands for grasp-and-reach, box lifting, and handover.
+
+## Core Idea
+
+- **Calibrate the model** by comparing hardware joint tracking with candidate simulated physics and URDF parameters.
+- **Structure rewards** around finger contact locations and target object states.
+- **Simplify exploration and distill** using brief human initialization states and successful trajectories from object-group specialists.
+- **Combine perception** from an egocentric depth camera and externally observed 3D object position.
+
+<Figure src="./fig-2.png" caption="Figure 2: Four components of the recipe: model calibration, contact/object rewards, specialist training and distillation, and hybrid visual observations." number={2} />
+
+<Collapsible title="Method Details">
+
+**Autotune.** Sample parameter candidates around the manufacturer model, execute matching joint targets in hardware and parallel simulation, and select the lowest tracking-error MSE. Objects use randomized geometric primitives. This calibrates robot behavior; RialTo and SimFoundry place greater emphasis on reconstructing deployment scenes.
+
+**Contact and object goals.** Surface markers specify desired fingertip contacts, while object-position targets specify movement. Handover switches the active hand and goal by task stage. Human task structure therefore remains part of the reward.
+
+**PPO specialists → Diffusion Policy.** An asymmetric actor-critic trains specialists with PPO. Successful specialist trajectories are filtered and used to train a deployable Diffusion Policy. Smaller object groups ease exploration, but the fastest simulation learner is not necessarily the best hardware transfer policy.
+
+**Perception and supervision.** SAM2 tracks the object in the external view, with depth providing approximate 3D position; egocentric depth adds shape information. Perception and policy control run at 5 Hz. Full successful demonstrations are unnecessary, but each task still uses under 30 seconds of human play states for initialization. [Method and appendix](https://arxiv.org/pdf/2502.20396v1)
+
+<Figure src="./fig-4.png" caption="Figure 4: Learning curves for primitive versus complex objects and alternative object groupings; ten seeds contribute to each curve." number={4} />
+
+</Collapsible>
+
+## Key Results
+
+- **Across-object evaluation**, IV-G: best-performing task policies achieve **62.3% grasp-and-reach**, **80% box lift**, and **52.5% bimanual handover**, averaging ten trials per test object.
+- **Perception ablation**, Table III: depth-only grasping and lifting achieve **2/10** and **0/10**, versus **10/10** and **10/10** with depth plus position. Completed handover A/B changes from **0/10 and 0/10 to 9/10 and 5/10**. These ten-trial comparisons are separate from the overall rates above.
+- **Initialization ablation**, Table II: human initialization raises the fraction of successful training seeds from **0% to 30% for handover**, and **60% to 80% for grasping**. Success means a learned policy exceeds 60% episodic success, assessed over ten seeds. This is a training-success fraction, not a hardware task-success rate.
+
+<Figure src="./tab-3.png" caption="Table 3: Depth plus object position versus depth alone. Pickup and completed-task counts are distinct; handover is reported as A and B." number={3} />
+
+Model calibration also matters: Table I reports **8/10 grasp and 7/10 reach** with the lowest-MSE model, versus **0/10 for both** with the highest-MSE model. Each setting evaluates ten independently trained checkpoints. [Experiments: IV-C–G](https://arxiv.org/html/2502.20396v1#S4)
+
+## Achievements and Limitations
+
+Achievements:
+
+- Validates a connected modeling, reward, learning, and perception pipeline on real humanoid manipulation hardware.
+- Uses short initialization data and simulated RL experience to reduce dependence on complete human success trajectories.
+- Demonstrates examples of unseen-object and alternative-hand transfer, disturbance tolerance, and regrasping.
+
+Limitations:
+
+- The authors identify conventional dynamics randomization as insufficient for more dynamic interactions, potentially contributing to weaker handover results.
+- Better integration of human priors into rewards and more reliable hands with richer active degrees of freedom remain open directions.
+- 🤖 **Evaluation scope**: three task families and best-policy results leave general-purpose manipulation unproven. New tasks and camera arrangements need seed-averaged evaluation that also accounts for total human setup effort.
+
+[Author limitations: V](https://arxiv.org/html/2502.20396v1#S5). Numbers and figure numbering here follow the supplied v1 PDF.
+
+Related reading: [RialTo #87](/en/posts/2403-rialto) improves demonstration policies inside deployment-scene twins; [SimFoundry #85](/en/posts/2606-simfoundry) automates scene construction and variation. Together they distinguish hardware calibration, scene-specific adaptation, and environment expansion as separate research problems.
+
+## Terry's memo
+
+- *(None)*
