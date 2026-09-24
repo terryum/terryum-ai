@@ -1,0 +1,415 @@
+{
+  "post_id": "2606-t-rex-tactile-reactive-dexterous",
+  "slug": "2606-t-rex-tactile-reactive-dexterous",
+  "post_number": 89,
+  "content_type": "papers",
+  "node_type": "paper",
+  "status": "published",
+  "visibility": "public",
+  "source_date": "2026-06-15T00:00:00Z",
+  "source_version": "2606.17055v2",
+  "source_updated_at": "2026-06-18T00:00:00Z",
+  "published_at": "2026-09-24T13:25:10Z",
+  "updated_at": "2026-09-24T13:25:10Z",
+  "source_url": "https://arxiv.org/abs/2606.17055",
+  "arxiv_id": "2606.17055",
+  "source_title": "T-Rex: Tactile-Reactive Dexterous Manipulation",
+  "source_author": "Dantong Niu et al.",
+  "source_authors_full": [
+    {
+      "name": "Dantong Niu"
+    },
+    {
+      "name": "Zhuoyang Liu"
+    },
+    {
+      "name": "Zekai Wang"
+    },
+    {
+      "name": "Boning Shao"
+    },
+    {
+      "name": "Zhao-Heng Yin"
+    },
+    {
+      "name": "Anirudh Pai"
+    },
+    {
+      "name": "Yuvan Sharma"
+    },
+    {
+      "name": "Stefano Saravalle"
+    },
+    {
+      "name": "Ruijie Zheng"
+    },
+    {
+      "name": "Jing Wang"
+    },
+    {
+      "name": "Ryan Punamiya"
+    },
+    {
+      "name": "Mengda Xu"
+    },
+    {
+      "name": "Yuqi Xie"
+    },
+    {
+      "name": "Yunfan Jiang"
+    },
+    {
+      "name": "Letian Fu"
+    },
+    {
+      "name": "Konstantinos Kallidromitis"
+    },
+    {
+      "name": "Matteo Gioia"
+    },
+    {
+      "name": "Junyi Zhang"
+    },
+    {
+      "name": "Jiaxin Ge"
+    },
+    {
+      "name": "Haiwen Feng"
+    },
+    {
+      "name": "Fabio Galasso"
+    },
+    {
+      "name": "Wei Zhan"
+    },
+    {
+      "name": "David M. Chan"
+    },
+    {
+      "name": "Yutong Bai"
+    },
+    {
+      "name": "Roei Herzig"
+    },
+    {
+      "name": "Jiahui Lei"
+    },
+    {
+      "name": "Li Fei-Fei"
+    },
+    {
+      "name": "Ken Goldberg"
+    },
+    {
+      "name": "Jitendra Malik"
+    },
+    {
+      "name": "Pieter Abbeel"
+    },
+    {
+      "name": "Yuke Zhu"
+    },
+    {
+      "name": "Danfei Xu"
+    },
+    {
+      "name": "Linxi Fan"
+    },
+    {
+      "name": "Trevor Darrell"
+    }
+  ],
+  "source_type": "arXiv",
+  "source_project_url": "https://tactile-reactive-dexterous.github.io/",
+  "source_code_url": "https://github.com/ZhuoyangLiu2005/T-Rex",
+  "source_dataset_url": "https://huggingface.co/datasets/zekaiwang/trex_dataset",
+  "google_scholar_url": "https://scholar.google.com/citations?user=AzlUrvUAAAAJ&hl=en",
+  "source_license": "CC BY 4.0",
+  "source_license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "domain": "robotics",
+  "subfields": [
+    "dexterous-manipulation",
+    "tactile-sensing",
+    "contact-rich-manipulation"
+  ],
+  "key_concepts": [
+    "VLA",
+    "tactile-sensing",
+    "flow-matching",
+    "VQ-VAE",
+    "asynchronous-control",
+    "human-to-robot-transfer"
+  ],
+  "methodology": [
+    "imitation-learning",
+    "mixture-of-experts",
+    "representation-learning",
+    "multi-stage-training"
+  ],
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "robotics/hand"
+  ],
+  "contribution_type": "method",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "Dexterous Manipulation",
+    "Tactile Sensing",
+    "VLA"
+  ],
+  "reading_time_min": 8,
+  "newsletter_eligible": false,
+  "featured": false,
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_figure_number": 1,
+  "cover_caption": "Figure 1: Overview . T-Rex is a tactile-reactive dexterous manipulation framework that combines large-scale human egocentric pre-training with tactile-grounded robot mid-training. Built on a Mixture-of-Transformer-Experts (MoT) architecture, the T-Rex Model integrates low-frequency visuomotor planning with high-frequency tactile refinement and employs a spatial-temporal tactile encoder. The T-Rex Dataset introduces 100 hours of real robot data containing diverse motor primitives and object interactions with synchronized tactile signals as well as 12 manipulation tasks.",
+  "thumb_source": "./fig-7.png",
+  "thumb_extract": {
+    "left": 570,
+    "top": 91,
+    "width": 680,
+    "height": 650
+  },
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Overview . T-Rex is a tactile-reactive dexterous manipulation framework that combines large-scale human egocentric pre-training with tactile-grounded robot mid-training. Built on a Mixture-of-Transformer-Experts (MoT) architecture, the T-Rex Model integrates low-frequency visuomotor planning with high-frequency tactile refinement and employs a spatial-temporal tactile encoder. The T-Rex Dataset introduces 100 hours of real robot data containing diverse motor primitives and object interactions with synchronized tactile signals as well as 12 manipulation tasks.",
+      "caption_ko": "그림 1: 개요. T-Rex는 대규모 인간 1인칭 시점 사전학습과 촉각에 기반한 로봇 중간학습을 결합하는 촉각 반응형 정교한 조작 프레임워크다. Mixture-of-Transformer-Experts(MoT) 아키텍처를 바탕으로, T-Rex 모델은 저주파 시각·운동 계획과 고주파 촉각 보정을 통합하고 시공간 촉각 인코더를 사용한다. T-Rex 데이터셋은 동기화된 촉각 신호를 포함하는 다양한 기본 동작과 물체 상호작용의 실제 로봇 데이터 100시간 및 12가지 조작 과제를 제공한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: Statistics of the T-Rex Dataset. Top-left: distribution of object categories. Top-right: distribution of motor primitives. Bottom: long-tail distribution of individual objects. T-Rex dataset contains 100 hours of tactile-synchronized bimanual manipulation mid-training data spanning 200+ daily objects and 22 motor primitives, designed for broad coverage of contact-rich interactions.",
+      "caption_ko": "그림 2: T-Rex 데이터셋 통계. 왼쪽 위: 물체 범주 분포. 오른쪽 위: 기본 동작 분포. 아래: 개별 물체의 롱테일 분포. T-Rex 데이터셋은 접촉이 많은 상호작용을 폭넓게 포괄하도록 설계되었으며, 200개 이상의 일상 물체와 22가지 기본 동작을 아우르는 촉각 동기화 양손 조작 중간학습 데이터 100시간을 포함한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: T-Rex Model Architecture. T-Rex uses a Mixture-of-Transformer-Experts (MoT) backbone with three experts: a latent expert for future visual prediction, an action expert for low-frequency action denoising, and a tactile expert for high-frequency tactile refinement. During inference, the tactile expert reuses cached visual-language context to asynchronously refine intermediate actions using spatial-temporal tactile features, enabling fast tactile-reactive closed-loop control.",
+      "caption_ko": "그림 3: T-Rex 모델 아키텍처. T-Rex는 세 전문가로 구성된 Mixture-of-Transformer-Experts(MoT) 백본을 사용한다. 미래 시각 예측을 위한 잠재 전문가, 저주파 행동 노이즈 제거를 위한 행동 전문가, 고주파 촉각 보정을 위한 촉각 전문가다. 추론 중 촉각 전문가는 캐시된 시각·언어 문맥을 재사용하며 시공간 촉각 특징으로 중간 행동을 비동기적으로 보정하여 빠른 촉각 반응형 폐루프 제어를 가능하게 한다."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Ablation Studies on Cascaded Denoising Split Steps K_{\\mathrm{slow}} . We show the success rate curve of different split steps.",
+      "caption_ko": "그림 4: 연쇄 노이즈 제거의 분할 단계 K_slow에 대한 절제 실험. 서로 다른 분할 단계에 따른 성공률 곡선을 제시한다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Data Efficiency of T-Rex. We show the success rate curve of different numbers of demonstrations. Blue: with our tactile-grounded T-Rex mid-training data; Green: without mid-training.",
+      "caption_ko": "그림 5: T-Rex의 데이터 효율. 시연 수에 따른 성공률 곡선을 제시한다. 파란색: 촉각에 기반한 T-Rex 중간학습 데이터를 사용한 경우. 초록색: 중간학습을 하지 않은 경우."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Ablation Studies on Mid-training Datasets. We select 6 representative tasks for post training evaluation and 4 easier tasks for zero-shot evaluation, including motor primitives of pick, slide, press and wipe in T-Rex dataset.",
+      "caption_ko": "그림 6: 중간학습 데이터셋에 대한 절제 실험. 후속학습 평가를 위해 대표 과제 6개를, 제로샷 평가를 위해 더 쉬운 과제 4개를 선택했다. 후자는 T-Rex 데이터셋의 집기, 밀기, 누르기, 닦기 기본 동작을 포함한다."
+    },
+    {
+      "number": 7,
+      "src": "./fig-7.png",
+      "caption": "Figure 7: Robot system setup on the Dexmate Vega-1 bimanual robot and the Sharpa Wave dexterous hands. Two ZED X One S (wide view) cameras are mounted at the wrists, and one ZED X Mini camera is mounted on the head. For teleoperation we use Manus gloves to retrieve hand target gesture and VIVE trackers for wrist target pose.",
+      "caption_ko": "그림 7: Dexmate Vega-1 양팔 로봇과 Sharpa Wave 다지 손의 로봇 시스템 구성. ZED X One S 광각 카메라 두 대를 손목에, ZED X Mini 카메라 한 대를 머리에 장착했다. 원격조작에는 손의 목표 자세를 얻기 위한 Manus 장갑과 손목의 목표 위치·자세를 얻기 위한 VIVE 트래커를 사용한다."
+    },
+    {
+      "number": 8,
+      "src": "./fig-8.png",
+      "caption": "Figure 8: Key stages of Task I: Flip Page.",
+      "caption_ko": "그림 8: 과제 I, 페이지 넘기기의 주요 단계."
+    },
+    {
+      "number": 9,
+      "src": "./fig-9.png",
+      "caption": "Figure 9: Key stages of Task II: Transfer Egg.",
+      "caption_ko": "그림 9: 과제 II, 달걀 옮기기의 주요 단계."
+    },
+    {
+      "number": 10,
+      "src": "./fig-10.png",
+      "caption": "Figure 10: Key stages of Task III: Wipe Plate.",
+      "caption_ko": "그림 10: 과제 III, 접시 닦기의 주요 단계."
+    },
+    {
+      "number": 11,
+      "src": "./fig-11.png",
+      "caption": "Figure 11: Key stages of Task IV: Apply Toothpaste.",
+      "caption_ko": "그림 11: 과제 IV, 치약 짜기의 주요 단계."
+    },
+    {
+      "number": 12,
+      "src": "./fig-12.png",
+      "caption": "Figure 12: Key stages of Task V: Split Cup.",
+      "caption_ko": "그림 12: 과제 V, 컵 분리하기의 주요 단계."
+    },
+    {
+      "number": 13,
+      "src": "./fig-13.png",
+      "caption": "Figure 13: Key stages of Task VI: Sort Mahjong.",
+      "caption_ko": "그림 13: 과제 VI, 마작 패 분류하기의 주요 단계."
+    },
+    {
+      "number": 14,
+      "src": "./fig-14.png",
+      "caption": "Figure 14: Key stages of Task VII: Open Lock.",
+      "caption_ko": "그림 14: 과제 VII, 자물쇠 열기의 주요 단계."
+    },
+    {
+      "number": 15,
+      "src": "./fig-15.png",
+      "caption": "Figure 15: Key stages of Task VIII: Refill Tablet.",
+      "caption_ko": "그림 15: 과제 VIII, 알약 채우기의 주요 단계."
+    },
+    {
+      "number": 16,
+      "src": "./fig-16.png",
+      "caption": "Figure 16: Key stages of Task IX: Acid-Base Neutralization.",
+      "caption_ko": "그림 16: 과제 IX, 산·염기 중화의 주요 단계."
+    },
+    {
+      "number": 17,
+      "src": "./fig-17.png",
+      "caption": "Figure 17: Key stages of Task X: Extract Card.",
+      "caption_ko": "그림 17: 과제 X, 카드 꺼내기의 주요 단계."
+    },
+    {
+      "number": 18,
+      "src": "./fig-18.png",
+      "caption": "Figure 18: Key stages of Task XI: Deal Poker.",
+      "caption_ko": "그림 18: 과제 XI, 카드 나눠주기의 주요 단계."
+    },
+    {
+      "number": 19,
+      "src": "./fig-19.png",
+      "caption": "Figure 19: Key stages of Task XII: Screw Lightbulb.",
+      "caption_ko": "그림 19: 과제 XII, 전구 돌려 끼우기의 주요 단계."
+    },
+    {
+      "number": 20,
+      "src": "./fig-20.png",
+      "caption": "Figure 20: Failure Case Analysis. The order from left to right indicates the execution progress of the tasks, while the final column illustrates the specific failure scenarios.",
+      "caption_ko": "그림 20: 실패 사례 분석. 왼쪽에서 오른쪽 순서로 과제의 실행 진행을 나타내며, 마지막 열은 구체적인 실패 상황을 보여준다."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Comparison of T-Rex and Baseline Methods Across 12 Tactile-reactive Manipulation Tasks. Success rates (%) are computed over 16 evaluation rollouts per task then across tasks.",
+      "caption_ko": "표 1: 12가지 촉각 반응형 조작 과제에서 T-Rex와 베이스라인 방법 비교. 성공률(%)은 과제당 평가 실행 16회를 기준으로 계산한 뒤 과제 전체에 걸쳐 평균한다."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 2: Ablation Studies on Tactile Modality and Architectural Design. Results are reported on six representative tactile-reactive manipulation tasks, with the final column showing the average.",
+      "caption_ko": "표 2: 촉각 모달리티와 아키텍처 설계에 대한 절제 실험. 대표적인 촉각 반응형 조작 과제 6개의 결과를 보고하며, 마지막 열은 평균을 나타낸다."
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Effectiveness of the Training Recipe of T-Rex. We selected six representative tasks and report the success rates and compare the success rate (%) on different training recipes.",
+      "caption_ko": "표 3: T-Rex 학습 구성의 효과. 대표 과제 6개를 선택하여 성공률을 보고하고, 서로 다른 학습 구성의 성공률(%)을 비교한다."
+    },
+    {
+      "number": 4,
+      "src": "./tab-4.png",
+      "caption": "Table 4: Model and Training Configurations for T-Rex.",
+      "caption_ko": "표 4: T-Rex의 모델 및 학습 설정."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A variable-rate three-expert VLA combines human-video priors with tactile mid-training and fast tactile action refinement.",
+    "problem": "Vision-dominated action chunks react too slowly to contact changes, while tactile encoders and training datasets often lack temporal and interaction diversity.",
+    "solution": "100 hours of synchronized tactile robot mid-training, temporal force VQ-VAE plus deformation encoding, and asynchronous cascaded flow matching with cached visual-language context.",
+    "key_result": "Table 1 reports a 65% average progress-based task score across 12 tasks versus 35% for EgoScale (+30 percentage points); each task uses 16 evaluation rollouts.",
+    "limitations": [
+      "Long-horizon tasks with tight tolerances remain difficult to demonstrate and execute.",
+      "Sensor distortion, calibration drift, and missing dense palm sensing constrain transfer.",
+      "Evaluation is concentrated on one robot/sensor platform and awards partial task completion."
+    ]
+  },
+  "relations": [
+    {
+      "target": "2602-humanplus-humanoid-shadowing",
+      "type": "usesMethodIn",
+      "note": "Section 4.3 follows the EgoScale human-video pretraining and robot adaptation recipe."
+    },
+    {
+      "target": "2505-forcevla-force-aware-moe",
+      "type": "cites",
+      "note": "Cited prior force-aware VLA work; T-Rex adds temporal fingertip sensing and asynchronous refinement."
+    },
+    {
+      "target": "2409-3dtactile-dex",
+      "type": "sharesGoalWith",
+      "note": "Both learn tactile representations for contact-rich dexterous control; this edge is a thematic comparison."
+    },
+    {
+      "target": "2504-pp-tac",
+      "type": "sharesGoalWith",
+      "note": "Both address tactile control of thin objects, including paper; this is not a claim of methodological inheritance."
+    },
+    {
+      "target": "2512-unitachand",
+      "type": "sharesTopicWith",
+      "note": "Human-to-robot skill transfer and tactile representation provide complementary perspectives on sensor generalization."
+    }
+  ],
+  "research_gaps": [
+    {
+      "question": "How can online correction or reinforcement learning improve long-horizon, tight-tolerance manipulation beyond teleoperated behavior cloning?",
+      "source": "author",
+      "relates_to": [
+        "dexterous-manipulation",
+        "imitation-learning"
+      ]
+    },
+    {
+      "question": "How can tactile representations transfer across sensor calibration, hardware, and fingertip-versus-palm coverage?",
+      "source": "author",
+      "relates_to": [
+        "tactile-sensing",
+        "representation-learning"
+      ]
+    },
+    {
+      "question": "Does the improvement persist across robot embodiments and longer runs when full completion is reported separately from partial progress?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "dexterous-manipulation",
+        "human-to-robot-transfer"
+      ]
+    }
+  ],
+  "future_directions": [
+    {
+      "direction": "Combine imitation learning with reinforcement learning or online corrective feedback for difficult contact transitions.",
+      "source": "author"
+    },
+    {
+      "direction": "Develop unified tactile representations for heterogeneous sensors and extend sensing coverage to the palm.",
+      "source": "author"
+    },
+    {
+      "direction": "Evaluate across embodiments with full-completion rates, partial-progress scores, and uncertainty reported separately.",
+      "source": "ai_analysis"
+    }
+  ],
+  "next_reading": [
+    {
+      "slug": "2602-humanplus-humanoid-shadowing",
+      "reason": "EgoScale provides the human-video pretraining and robot-transfer basis used by T-Rex."
+    },
+    {
+      "slug": "2505-forcevla-force-aware-moe",
+      "reason": "Compare force-aware VLA fusion with T-Rex’s temporal tactile representation and fast refinement."
+    },
+    {
+      "slug": "2512-unitachand",
+      "reason": "Study cross-sensor tactile alignment as a possible route toward the transfer limitation identified by T-Rex."
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+---
+locale: "en"
+translation_of: "2606-t-rex-tactile-reactive-dexterous:ko"
+title: "T-Rex: Tactile-Reactive Dexterous Manipulation"
+subtitle: "Human-video priors, tactile mid-training, and asynchronous action refinement"
+summary: "T-Rex addresses slow contact responses in vision-dominated VLAs through tactile mid-training and low-rate planning with high-rate refinement. Its average progress-based score across 12 tasks is 65%, versus 35% for EgoScale, a gain of 30 percentage points."
+card_summary: "A fast tactile expert reads recent force history and fingertip deformation to refine actions between visual planning updates. Tactile robot mid-training connects this feedback to priors learned from human video."
+published_at: "2026-09-24T13:25:10Z"
+terrys_memo: ""
+references:
+  - title: "EgoScale: Scaling Dexterous Manipulation with Diverse Egocentric Human Data"
+    author: "Ruijie Zheng et al."
+    description: "Large-scale egocentric human pretraining and robot adaptation. T-Rex follows its training recipe and evaluates EgoScale as its strongest baseline."
+    arxiv_url: "https://arxiv.org/abs/2602.16710"
+    category: "foundational"
+    post_slug: "2602-humanplus-humanoid-shadowing"
+  - title: "Reactive Diffusion Policy: Slow-Fast Visual-Tactile Policy Learning for Contact-Rich Manipulation"
+    author: "Han Xue et al."
+    description: "Separates slow visual planning from fast tactile feedback. T-Rex compares against RDP while integrating tactile refinement into a pretrained dexterous VLA."
+    arxiv_url: "https://arxiv.org/abs/2503.02881"
+    category: "foundational"
+  - title: "Neural Discrete Representation Learning"
+    author: "Aaron van den Oord et al."
+    description: "Introduces VQ-VAE discrete latent learning. T-Rex applies this idea to short force histories to encode changing contact dynamics."
+    arxiv_url: "https://arxiv.org/abs/1711.00937"
+    category: "foundational"
+  - title: "ViTacFormer: Learning Cross-Modal Representation for Visuo-Tactile Dexterous Manipulation"
+    author: "Liang Heng et al."
+    description: "Learns cross-modal vision-touch representations and tactile prediction for dexterous manipulation. T-Rex includes it as a tactile-policy baseline in the 12-task evaluation."
+    arxiv_url: "https://arxiv.org/abs/2506.15953"
+    category: "recent"
+  - title: "ForceVLA: Enhancing VLA Models with a Force-aware MoE for Contact-rich Manipulation"
+    author: "Jiawen Yu et al."
+    description: "Fuses force information into VLA with a mixture of experts. T-Rex cites this line of force-aware modeling; ForceVLA is not a row in its main comparison table."
+    arxiv_url: "https://arxiv.org/abs/2505.22159"
+    category: "recent"
+    post_slug: "2505-forcevla-force-aware-moe"
+---
+
+## TL;DR
+
+A fast tactile expert reads recent force history and fingertip deformation to refine actions between visual planning updates. Tactile robot mid-training connects this feedback to priors learned from human video.
+
+## Problem
+
+Turning a key or separating a thin sheet requires rapid responses to slip, contact force, and deformation, beyond estimating visible object positions. Vision-dominated VLAs often predict chunks of actions, leaving contact changes between planning updates insufficiently addressed. Adding touch does not fully solve this if the encoder only captures static cues or must wait for the slower visual backbone. T-Rex addresses tactile data diversity, temporal representations, and different policy update rates together.
+
+## Key Idea
+
+**Vision plans the broad motion; touch repeatedly refines its execution.** A Mixture-of-Transformer-Experts (MoT) architecture exchanges context and intermediate actions between the two processes.
+
+- **Three expert roles**: A latent expert predicts future visual representations, an action expert generates actions at a low rate, and a tactile expert refines them at a higher rate using current contact information.
+- **Temporal tactile representation**: Short force/torque histories complement spatial fingertip deformation features, capturing changes in contact.
+- **Tactile mid-training**: A reported 100 hours of robot data spanning diverse objects and motor primitives connects human-video priors to tactile interaction.
+
+<Figure src="./fig-3.png" caption="Figure 3: T-Rex Model Architecture. T-Rex uses a Mixture-of-Transformer-Experts (MoT) backbone with three experts: a latent expert for future visual prediction, an action expert for low-frequency action denoising, and a tactile expert for high-frequency tactile refinement. During inference, the tactile expert reuses cached visual-language context to asynchronously refine intermediate actions using spatial-temporal tactile features, enabling fast tactile-reactive closed-loop control." />
+
+<Collapsible title="Detailed Methods">
+
+### Encoding touch
+
+A temporal VQ-VAE encodes a 16-frame history of each finger’s six-dimensional force/torque signal. It uses a 256-dimensional representation and a 64-entry codebook, alongside a direct projection of the current force signal. A separately pretrained ResNet-18-based encoder processes fingertip deformation maps. The combined features describe both temporal force changes and spatial contact deformation.
+
+### Asynchronous cascaded flow matching
+
+At inference, ten action-denoising steps are split between experts. The action expert performs the first six steps to produce intermediate actions, and the tactile expert completes the remaining four using updated tactile observations. The split occurs at $\tau_{\mathrm{split}}=0.4$. Reusing cached visual-language context lets tactile refinement proceed without rerunning the full visual computation at every update.
+
+Figure 1 illustrates roughly 5 Hz action-expert updates and 20 Hz tactile-expert updates. The appendix’s 300 Hz rate belongs to the separate low-level robot controller, not full VLA inference. Training includes delay augmentation with different action-chunk offsets to account for the time gap between cached context and fresh touch.
+
+The training loss combines action generation, tactile refinement, and future visual prediction (Equation 7):
+
+$$
+\mathcal{L}=\mathcal{L}_{\mathrm{act}}+\mathcal{L}_{\mathrm{tac}}+0.5\mathcal{L}_{\mathrm{future}}.
+$$
+
+The action expert trains across the full noise interval to retain standalone action generation; the tactile expert learns refinement over the interval after the split.
+
+### Training and robot setup
+
+The reported recipe is **22,889 hours of egocentric human pretraining → 100 hours of tactile robot mid-training → approximately 100 demonstrations per downstream task**. The mid-training dataset spans 502 feasible combinations drawn from 207 objects and 22 motor primitives. This emphasizes broad contact interactions rather than repeatedly collecting complete, narrowly defined tasks.
+
+Experiments use a Dexmate Vega-1 bimanual robot with Sharpa Wave dexterous hands, three head/wrist cameras, and tactile signals from all ten fingertips. Collection streams are synchronized at 30 Hz. Human-video pretraining has no touch input; tactile grounding is introduced during robot mid-training.
+
+</Collapsible>
+
+## Key Results
+
+**The scoring protocol matters.** Each task is evaluated over 16 rollouts with randomized initial object configurations. Although the paper calls the metric success rate, it uses progress-based rubrics that award partial credit in multi-stage tasks. The 65% below is therefore not a binary full-task completion rate. All numbers here follow the arXiv v2 tables.
+
+- **Average across 12 tasks**: EgoScale **35% → T-Rex 65%**, a gain of **30 percentage points**. Tasks include page flipping, egg transfer, toothpaste application, and lock opening (Table 1).
+- **Contribution of touch**: Across six representative tasks, removing touch gives **42%**, versus **65%** for the full model, a gain of **23 percentage points**. Removing asynchronous refinement lowers the reported average to **60%** (Table 2).
+- **Training recipe**: On six representative tasks, human pretraining without tactile mid-training reaches **45%**; combining both reaches **65%** (Table 3). The data recipe contributes alongside the tactile policy design.
+
+<Figure src="./tab-1.png" caption="Table 1: Comparison of T-Rex and Baseline Methods Across 12 Tactile-reactive Manipulation Tasks. Success rates (%) are computed over 16 evaluation rollouts per task then across tasks." />
+
+These comparisons apply to the paper’s robot, training, and evaluation setup. Baselines differ in pretraining and architecture, so the entire main-table gap cannot be attributed to architecture alone. Table 2 provides more direct evidence about tactile inputs and asynchronous processing through ablations.
+
+## Achievements and Limitations
+
+**Key achievements**
+
+- Demonstrates how tactile robot mid-training can adapt priors learned from human video that contains no tactile input.
+- Combines temporal force history with spatial deformation and validates faster tactile refinement during real bimanual manipulation.
+- Provides a motor-primitive/object-centered data recipe and 12 evaluation tasks, with ablations of representation, control, and training data.
+
+**Limitations**
+
+- **Author-noted**: Long-horizon tasks requiring precise contact coordination and tight tolerances remain difficult to teleoperate and execute. Reinforcement learning or online interaction-based refinement could help. Sensor distortion, cross-device calibration drift, and missing dense palm sensing also constrain performance; unified representations for heterogeneous sensors and richer whole-hand hardware are proposed directions.
+- 🤖 Progress-based scores from 16 rollouts per task on one robot/sensor setup do not establish reliability across embodiments or sustained operation. Follow-up evaluation should report full completion separately from partial progress and test changes in robot and sensor hardware.
+
+[Paper v2](https://arxiv.org/abs/2606.17055v2) · [Project and demos](https://tactile-reactive-dexterous.github.io/) · [Code](https://github.com/ZhuoyangLiu2005/T-Rex) · [Dataset page](https://huggingface.co/datasets/zekaiwang/trex_dataset)
+
+Figures, tables, and original captions: Dantong Niu et al., *T-Rex: Tactile-Reactive Dexterous Manipulation*, 2026, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Assets were extracted and resized for display; Korean captions are translations.
+
+## Terry's memo
+
+- *(None)*
