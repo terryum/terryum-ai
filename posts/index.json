@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-24T13:38:11.405Z",
-  "total_posts": 89,
+  "generated_at": "2026-09-28T23:47:35.663Z",
+  "total_posts": 90,
   "posts": [
     {
       "post_number": 1,
@@ -4640,6 +4640,10 @@
           "note": "Both essays discuss what kind of talent and career environment compounds under pressure."
         },
         {
+          "target": "260530-where-should-i-work",
+          "type": "related"
+        },
+        {
           "target": "260603-age-of-virtue-generals",
           "type": "related"
         },
@@ -4651,6 +4655,7 @@
       "idea_status": null,
       "related_posts": [
         "260523-why-work-at-early-startups",
+        "260530-where-should-i-work",
         "260603-age-of-virtue-generals",
         "260810-human-workers-first-condition-trust"
       ],
@@ -6592,6 +6597,10 @@
           "type": "related"
         },
         {
+          "target": "260530-where-should-i-work",
+          "type": "related"
+        },
+        {
           "target": "260618-value-from-finite-resources",
           "type": "related"
         }
@@ -6600,6 +6609,7 @@
       "related_posts": [
         "260523-why-work-at-early-startups",
         "260528-hiring-for-agentic-execution",
+        "260530-where-should-i-work",
         "260618-value-from-finite-resources"
       ],
       "taxonomy_primary": "career/trust-capital",
@@ -6876,6 +6886,69 @@
       "taxonomy_secondary": [
         "robotics/hand"
       ],
+      "visibility": "public",
+      "allowed_groups": []
+    },
+    {
+      "post_number": 90,
+      "slug": "260530-where-should-i-work",
+      "content_type": "essays",
+      "title_en": "What Kind of Company Should I Work For?",
+      "title_ko": "어떤 회사에서 일해야 하는가?",
+      "summary_ko": "최전선의 방식, 문제와의 거리, 비대칭 자산, 조직의 진실성. AI 시대의 좋은 일터를 판단하는 네 가지 질문.",
+      "summary_en": "Frontier ways of working, proximity to problems, asymmetric assets, and organizational honesty: four questions for choosing a workplace in the AI era.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "Career",
+      "subfields": [
+        "ai-native work",
+        "work environment",
+        "career growth"
+      ],
+      "key_concepts": [
+        "career-growth",
+        "ai-native-work",
+        "work-environment",
+        "founder-mode",
+        "legacy-industry"
+      ],
+      "methodology": [],
+      "contribution_type": null,
+      "tags": [
+        "Essays",
+        "Career",
+        "AI",
+        "Startup",
+        "Organization"
+      ],
+      "source_author": null,
+      "source_date": null,
+      "published_at": "2026-09-28T23:44:18.278Z",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "AI 시대의 좋은 일터는 최전선의 일하는 방식과 실제 문제, 비대칭 자산, 조직의 진실성을 갖춘 곳이다.",
+        "problem": "회사의 크기와 업종, 외부에 내세우는 비전만으로는 그곳에서 실제로 성장할 수 있을지 판단하기 어렵다.",
+        "solution": "일하는 방식, 문제와의 거리, 복제하기 어려운 자산, 조직의 말과 현실의 일치를 기준으로 일터를 평가한다.",
+        "key_result": "스타트업과 전통 제조기업 모두 진짜 문제를 해결하며 성장할 수 있는 일터가 될 수 있다.",
+        "limitations": []
+      },
+      "relations": [
+        {
+          "target": "260528-hiring-for-agentic-execution",
+          "type": "related"
+        },
+        {
+          "target": "260810-human-workers-first-condition-trust",
+          "type": "related"
+        }
+      ],
+      "idea_status": null,
+      "related_posts": [
+        "260528-hiring-for-agentic-execution",
+        "260810-human-workers-first-condition-trust"
+      ],
+      "taxonomy_primary": null,
+      "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
     }
@@ -8370,6 +8443,26 @@
       {
         "from": "2604-harnessing-claude-intelligence",
         "to": "2502-ai-co-scientist",
+        "type": "related"
+      },
+      {
+        "from": "260528-hiring-for-agentic-execution",
+        "to": "260530-where-should-i-work",
+        "type": "related"
+      },
+      {
+        "from": "260810-human-workers-first-condition-trust",
+        "to": "260530-where-should-i-work",
+        "type": "related"
+      },
+      {
+        "from": "260530-where-should-i-work",
+        "to": "260528-hiring-for-agentic-execution",
+        "type": "related"
+      },
+      {
+        "from": "260530-where-should-i-work",
+        "to": "260810-human-workers-first-condition-trust",
         "type": "related"
       }
     ],
@@ -10439,13 +10532,15 @@
       85
     ],
     "ai-native-work": [
-      86
+      86,
+      90
     ],
     "high-trust-network": [
       86
     ],
     "career-growth": [
-      86
+      86,
+      90
     ],
     "RialTo": [
       87
@@ -10500,6 +10595,15 @@
     ],
     "asynchronous-control": [
       89
+    ],
+    "work-environment": [
+      90
+    ],
+    "founder-mode": [
+      90
+    ],
+    "legacy-industry": [
+      90
     ]
   },
   "domain_stats": {
@@ -10524,7 +10628,7 @@
     "Life Strategy": 1,
     "biology": 2,
     "Machine Learning": 1,
-    "Career": 1
+    "Career": 2
   },
   "taxonomy_stats": {
     "robotics/brain/vla": 12,

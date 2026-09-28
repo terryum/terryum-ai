@@ -1,0 +1,59 @@
+{
+  "post_id": "260530-where-should-i-work",
+  "slug": "260530-where-should-i-work",
+  "post_number": 90,
+  "published_at": "2026-09-28T23:44:18.278Z",
+  "updated_at": "2026-09-28T23:44:18.278Z",
+  "status": "published",
+  "content_type": "essays",
+  "visibility": "public",
+  "tags": [
+    "Essays",
+    "Career",
+    "AI",
+    "Startup",
+    "Organization"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "reading_time_min": 12,
+  "domain": "Career",
+  "subfields": [
+    "ai-native work",
+    "work environment",
+    "career growth"
+  ],
+  "key_concepts": [
+    "career-growth",
+    "ai-native-work",
+    "work-environment",
+    "founder-mode",
+    "legacy-industry"
+  ],
+  "idea_status": null,
+  "related_posts": [
+    "260528-hiring-for-agentic-execution",
+    "260810-human-workers-first-condition-trust"
+  ],
+  "relations": [
+    {
+      "target": "260528-hiring-for-agentic-execution",
+      "type": "related"
+    },
+    {
+      "target": "260810-human-workers-first-condition-trust",
+      "type": "related"
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "AI 시대의 좋은 일터는 최전선의 일하는 방식과 실제 문제, 비대칭 자산, 조직의 진실성을 갖춘 곳이다.",
+    "problem": "회사의 크기와 업종, 외부에 내세우는 비전만으로는 그곳에서 실제로 성장할 수 있을지 판단하기 어렵다.",
+    "solution": "일하는 방식, 문제와의 거리, 복제하기 어려운 자산, 조직의 말과 현실의 일치를 기준으로 일터를 평가한다.",
+    "key_result": "스타트업과 전통 제조기업 모두 진짜 문제를 해결하며 성장할 수 있는 일터가 될 수 있다.",
+    "limitations": []
+  },
+  "figures": [],
+  "tables": [],
+  "newsletter_eligible": false,
+  "featured": false
+}

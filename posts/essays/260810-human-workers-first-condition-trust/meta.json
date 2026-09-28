@@ -42,6 +42,7 @@
   "related_posts": [
     "260523-why-work-at-early-startups",
     "260528-hiring-for-agentic-execution",
+    "260530-where-should-i-work",
     "260618-value-from-finite-resources"
   ],
   "taxonomy_primary": "career/trust-capital",
@@ -56,6 +57,10 @@
     },
     {
       "target": "260528-hiring-for-agentic-execution",
+      "type": "related"
+    },
+    {
+      "target": "260530-where-should-i-work",
       "type": "related"
     },
     {
