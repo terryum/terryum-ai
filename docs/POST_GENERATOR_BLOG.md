@@ -2,7 +2,7 @@
 
 > ⚠️ **이 문서는 deprecated.** 직접 작성한 글의 발행은 더 이상 이 문서가 아니라 **`/post` 스킬 (terry-obsidian repo canonical)** 을 통해 수행한다.
 >
-> 이 문서는 옛 IA(Ideas / Research / Essays)를 전제로 작성되어 있어 현재 구조와 모순된다. 자세한 내용은 아래 "현재 구조"를 참조하고, 파이프라인 상세는 `~/Codes/personal/terry-obsidian/.claude/skills/post/SKILL.md` 를 본다.
+> 이 문서는 옛 IA(Ideas / Research / Essays)를 전제로 작성되어 있어 현재 구조와 모순된다. 자세한 내용은 아래 "현재 구조"를 참조하고, 파이프라인 상세는 `~/Codes/personal/knowledge/terry-obsidian/.claude/skills/post/SKILL.md` 를 본다.
 
 ---
 

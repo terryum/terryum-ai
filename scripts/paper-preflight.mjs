@@ -20,7 +20,7 @@ const require = createRequire(import.meta.url);
 const Ajv = require('ajv');
 const matter = require('gray-matter');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const kgRoot = process.env.TERRY_PAPERS_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+const kgRoot = process.env.TERRY_PAPERS_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 const args = process.argv.slice(2);
 const slug = args.find((arg) => !arg.startsWith('--')) || args.find((arg) => arg.startsWith('--slug='))?.slice(7);
 const strict = args.includes('--strict');

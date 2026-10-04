@@ -26,7 +26,7 @@ const BATCH_SIZE = 50; // OpenAI allows up to 2048, but keep batches small
 // Where per-paper insight JSON lives (terry-papers KB). Used to enrich
 // embedding text with Terry's memos + research gaps for paper posts.
 const KB_PATH = process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 
 // CLI args
 const args = process.argv.slice(2);

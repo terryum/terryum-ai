@@ -85,7 +85,7 @@ argument-hint: "<slug 또는 #번호> [--force]"
 
 ### 1-c) 비공개 포스트의 참조 정리
 
-terry-private repo (`~/Codes/personal/terry-private/posts/<type>/<other_slug>/`) 의 모든 비공개 포스트에서:
+terry-private repo (`~/Codes/personal/terryum-ai/terry-private/posts/<type>/<other_slug>/`) 의 모든 비공개 포스트에서:
 - `meta.json` `relations[]` 배열에서 `target === <삭제할 slug>` 항목 제거
 - `{ko,en}.mdx` frontmatter의 `references[].post_slug === slug` → `post_slug` 필드만 제거
 - 변경이 있으면 파일 저장 (terry-private 측 git commit 은 D7 단계에서 처리)
@@ -136,7 +136,7 @@ rm -rf public/posts/<slug>/
 terryum-ai 측은 메타만 들고 있으므로 위 `posts/{type}/<slug>/` 가 보통 비어있음 — 있으면 동일하게 `rm -rf`. 본문은 terry-private repo 에 있다:
 
 ```bash
-rm -rf ~/Codes/personal/terry-private/posts/<type>/<slug>/
+rm -rf ~/Codes/personal/terryum-ai/terry-private/posts/<type>/<slug>/
 ```
 
 terry-private 의 git commit/push 는 D7 에서 처리.
@@ -189,9 +189,9 @@ grep -rl "[[<slug>]]" "$HOME/Documents/Obsidian Vault/" 2>/dev/null
 ## Step D6) Knowledge Base 업데이트 (terry-papers)
 
 ```bash
-node scripts/export-knowledge.mjs   # 기본 출력: ~/Codes/personal/terry-papers
+node scripts/export-knowledge.mjs   # 기본 출력: ~/Codes/personal/terryum-ai/terry-papers
 node scripts/sync-obsidian-kg.mjs   # KG → vault/Papers KB/ 시각화 (삭제된 노드 제거)
-cd ~/Codes/personal/terry-papers && git add papers/ knowledge-index.json \
+cd ~/Codes/personal/terryum-ai/terry-papers && git add papers/ knowledge-index.json \
   && git commit -m "kb: remove <slug>" && git push && cd -
 ```
 
@@ -203,7 +203,7 @@ cd ~/Codes/personal/terry-papers && git add papers/ knowledge-index.json \
 
 ### 7-a) terryum-ai (공개·비공개 모두)
 ```bash
-cd ~/Codes/personal/terryum-ai
+cd ~/Codes/personal/terryum-ai/site
 git add posts/ public/posts/
 git commit -m "chore: delete post <slug>"
 # push 는 사용자가 직접 (harness 가 main 직접 push 차단)
@@ -213,7 +213,7 @@ git commit -m "chore: delete post <slug>"
 
 ### 7-b) terry-private (비공개 포스트만)
 ```bash
-cd ~/Codes/personal/terry-private
+cd ~/Codes/personal/terryum-ai/terry-private
 git add posts/
 git commit -m "chore: delete post <slug>"
 # push 는 사용자가 직접

@@ -52,7 +52,7 @@ async function ensureBucket() {
 }
 
 async function uploadCover() {
-  const surveyDir = '/Users/terrytaewoongum/Codes/personal/terry-surveys/surveys/physical-ai-manufacturing/assets';
+  const surveyDir = '/Users/terrytaewoongum/Codes/personal/terryum-ai/terry-surveys/framework/surveys/physical-ai-manufacturing/assets';
   const assets = [
     { file: path.join(surveyDir, 'cover.webp'), key: `${SLUG}/cover.webp`, contentType: 'image/webp' },
     { file: path.join(surveyDir, 'og.png'),    key: `${SLUG}/og.png`,    contentType: 'image/png' },

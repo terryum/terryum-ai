@@ -11,7 +11,7 @@
  * Default output path resolution:
  *   1. --out=<path> CLI flag
  *   2. RESEARCH_KB_PATH env var
- *   3. ~/Codes/personal/terry-papers
+ *   3. ~/Codes/personal/terryum-ai/terry-papers
  */
 
 import fs from 'fs/promises';
@@ -24,7 +24,7 @@ const PAPERS_DIR = path.join(POSTS_DIR, 'papers');
 const args = process.argv.slice(2);
 const outDir = args.find(a => a.startsWith('--out='))?.split('=')[1]
   || process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 const withEmbeddings = args.includes('--with-embeddings');
 
 // ── Parse Terry's memo from MDX ──

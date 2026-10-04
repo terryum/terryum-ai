@@ -40,8 +40,8 @@ const argMap = Object.fromEntries(args.filter(a => a.startsWith('--') && a.inclu
 }));
 const FLAGS = new Set(args.filter(a => a.startsWith('--') && !a.includes('=')).map(a => a.replace(/^--/, '')));
 
-const OUT_DIR = argMap.out || process.env.RESEARCH_KB_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
-const SURVEYS_REPO = argMap.surveys || path.join(os.homedir(), 'Codes', 'personal', 'terry-surveys');
+const OUT_DIR = argMap.out || process.env.RESEARCH_KB_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
+const SURVEYS_REPO = argMap.surveys || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-surveys', 'framework');
 const SURVEYS_ROOT = path.join(SURVEYS_REPO, 'surveys');
 const REFS_INDEX_PATH = path.join(SURVEYS_REPO, 'bibtex', 'refs_index.json');
 const BIBTEX_PATH = path.join(SURVEYS_REPO, 'bibtex', 'references.bib');

@@ -19,7 +19,7 @@ const query = value('query') || args.find((arg) => !arg.startsWith('--'));
 const arxivId = value('arxiv-id')?.replace(/v\d+$/, '');
 const limit = Math.max(1, Math.min(30, Number(value('limit') || 12)));
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const kgRoot = process.env.TERRY_PAPERS_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+const kgRoot = process.env.TERRY_PAPERS_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 
 if (!query) {
   console.error('Usage: node scripts/paper-kg-context.mjs --query=<title/concepts> [--arxiv-id=<id>] [--limit=12]');

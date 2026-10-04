@@ -36,7 +36,7 @@ const argMap = Object.fromEntries(
 );
 const TOP_N = parseInt(argMap['top-n'] || '10', 10);
 const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 
 function loadJson(p) {
   if (!fs.existsSync(p)) return null;

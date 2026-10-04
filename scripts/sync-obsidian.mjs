@@ -10,7 +10,7 @@
  * Vault path resolution order:
  *   1. --vault=<path> CLI flag
  *   2. OBSIDIAN_VAULT_PATH env var
- *   3. ~/Codes/personal/terry-obsidian/vault (current canonical location)
+ *   3. ~/Codes/personal/knowledge/terry-obsidian/vault (current canonical location)
  *   4. ~/Documents/Obsidian Vault (legacy fallback)
  */
 
@@ -38,7 +38,7 @@ async function resolveVaultRoot() {
   if (vaultArg) return vaultArg;
   if (process.env.OBSIDIAN_VAULT_PATH) return process.env.OBSIDIAN_VAULT_PATH;
   const candidates = [
-    path.join(os.homedir(), 'Codes', 'personal', 'terry-obsidian', 'vault'),
+    path.join(os.homedir(), 'Codes', 'personal', 'knowledge', 'terry-obsidian', 'vault'),
     path.join(os.homedir(), 'Documents', 'Obsidian Vault'),
   ];
   for (const c of candidates) {
@@ -808,7 +808,7 @@ async function main() {
   // Stored formats seen in the wild (from oldest to newest):
   //   "From Terry/..."                       (very old vault-relative — pre-restructure)
   //   "vault/From Terry/..."                 (repo-relative — pre-restructure)
-  //   "~/Codes/personal/terry-obsidian/..."  (tilde-absolute)
+  //   "~/Codes/personal/knowledge/terry-obsidian/..."  (tilde-absolute)
   //   "/Users/.../vault/..."                 (absolute)
   //   "vault/Public/..." | "vault/Private/..." (current canonical, post-restructure)
   const vaultParent = path.dirname(VAULT_ROOT);

@@ -12,7 +12,7 @@
  *   args:  --top-n=10        candidates to return (default 10)
  *          --restrict        candidate-only (skip external fallback signal)
  *          --kb=<path>       terry-papers root (default: $RESEARCH_KB_PATH or
- *                            ~/Codes/personal/terry-papers)
+ *                            ~/Codes/personal/terryum-ai/terry-papers)
  *
  *   stdout: JSON { query, mode, candidates: [...] }
  */
@@ -32,7 +32,7 @@ const FLAGS = new Set(args.filter(a => a.startsWith('--') && !a.includes('=')).m
 
 const TOP_N = parseInt(argMap['top-n'] || '10', 10);
 const RESTRICTED = FLAGS.has('restrict');
-const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 
 // Topic relevance dominates ("what about X?"); other signals are tiebreakers.
 // Weights and anchor floor (excludes high-citation but off-topic candidates)

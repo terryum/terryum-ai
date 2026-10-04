@@ -15,7 +15,7 @@
  *   node scripts/upload-private-mdx.mjs \
  *     --type=notes \
  *     --slug=260424-foo \
- *     --source=/Users/terrytaewoongum/Codes/personal/terry-private/posts/notes/260424-foo
+ *     --source=/Users/terrytaewoongum/Codes/personal/terryum-ai/terry-private/posts/notes/260424-foo
  *
  *   node scripts/upload-private-mdx.mjs --type=papers --slug=xxx --source=... --skip-meta
  *   node scripts/upload-private-mdx.mjs --type=papers --slug=xxx --source=... --dry-run

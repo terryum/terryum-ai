@@ -77,7 +77,7 @@ argument-hint: "<질문 또는 연구 방향 설명> [#인덱스 참조]"
 ### Step 2) Internal: anchor + traversal
 
 ```bash
-cd ~/Codes/personal/terryum-ai
+cd ~/Codes/personal/terryum-ai/site
 node scripts/paper-search-internal.mjs --query="<정제된 Q>" --top-k=3 --depth=2 --top-n=10 --json > /tmp/paper-search-internal.json
 ```
 

@@ -49,7 +49,7 @@ await loadEnv();
 const WEIGHTS = await loadWeights();
 
 const KB_PATH = process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 
 const args = process.argv.slice(2);
 const internalArg = args.find(a => a.startsWith('--internal='))?.split('=')[1];

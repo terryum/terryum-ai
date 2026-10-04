@@ -30,14 +30,14 @@ const argMap = Object.fromEntries(
 const FLAGS = new Set(args.filter(a => a.startsWith('--') && !a.includes('=')).map(a => a.replace(/^--/, '')));
 
 const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 const DRY_RUN = FLAGS.has('dry-run');
 
 async function resolveVaultRoot() {
   if (argMap.vault) return argMap.vault;
   if (process.env.OBSIDIAN_VAULT_PATH) return process.env.OBSIDIAN_VAULT_PATH;
   const candidates = [
-    path.join(os.homedir(), 'Codes', 'personal', 'terry-obsidian', 'vault'),
+    path.join(os.homedir(), 'Codes', 'personal', 'knowledge', 'terry-obsidian', 'vault'),
     path.join(os.homedir(), 'Documents', 'Obsidian Vault'),
   ];
   for (const c of candidates) {

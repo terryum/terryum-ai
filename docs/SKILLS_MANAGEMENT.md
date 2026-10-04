@@ -17,7 +17,7 @@
 ## 2. 심링크는 절대경로로
 
 - ❌ `ln -s ../../../terry-artlab-homepage/.claude/skills/post post`
-- ✅ `ln -s /Users/terrytaewoongum/Codes/personal/terryum-ai/.claude/skills/post post`
+- ✅ `ln -s /Users/terrytaewoongum/Codes/personal/terryum-ai/site/.claude/skills/post post`
 
 상대경로는 **워크스페이스 리네임 시 집단 붕괴**한다 (2026-04-21 실제 발생: terry-surveys 심링크 6개가 `terry-artlab-homepage` → `terryum-ai` 리네임으로 일제히 깨짐).
 

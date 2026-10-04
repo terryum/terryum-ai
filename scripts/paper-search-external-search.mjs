@@ -15,7 +15,7 @@
  *   node scripts/paper-search-external-search.mjs --concepts="a,b,c"
  *
  *   --max-per-source=20    cap per source (default 20)
- *   --kb=<path>            terry-papers root (default: $RESEARCH_KB_PATH or ~/Codes/personal/terry-papers)
+ *   --kb=<path>            terry-papers root (default: $RESEARCH_KB_PATH or ~/Codes/personal/terryum-ai/terry-papers)
  *   --no-exclude-internal  keep candidates that match an internal slug
  */
 
@@ -34,7 +34,7 @@ const QUERY = argMap.query;
 const CONCEPTS = argMap.concepts;
 const MAX_PER_SOURCE = parseInt(argMap['max-per-source'] || '20', 10);
 const KB_PATH = argMap.kb || process.env.RESEARCH_KB_PATH
-  || path.join(os.homedir(), 'Codes', 'personal', 'terry-papers');
+  || path.join(os.homedir(), 'Codes', 'personal', 'terryum-ai', 'terry-papers');
 const EXCLUDE_INTERNAL = !FLAGS.has('no-exclude-internal');
 
 if (!QUERY && !CONCEPTS) {

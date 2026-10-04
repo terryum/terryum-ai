@@ -2,8 +2,8 @@
 # sync-skills.sh — homepage의 콘텐츠 스킬을 terry-obsidian에 심링크로 동기화
 # 새 스킬이 추가되면 자동으로 심링크 생성, 삭제된 스킬은 깨진 심링크 제거
 
-HP_SKILLS="/Users/terrytaewoongum/Codes/personal/terryum-ai/.claude/skills"
-OB_SKILLS="/Users/terrytaewoongum/Codes/personal/terry-obsidian/.claude/skills"
+HP_SKILLS="/Users/terrytaewoongum/Codes/personal/terryum-ai/site/.claude/skills"
+OB_SKILLS="/Users/terrytaewoongum/Codes/personal/knowledge/terry-obsidian/.claude/skills"
 
 # Obsidian 자체 관리 스킬 (심링크 대상 아님)
 OBSIDIAN_OWN="write draft memo tagging obsidian-cli obsidian-markdown obsidian-orchestrator paper-search"
