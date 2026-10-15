@@ -1,0 +1,216 @@
+{
+  "post_id": "2609-astra-llm-as-robot-policy",
+  "slug": "2609-astra-llm-as-robot-policy",
+  "post_number": 91,
+  "published_at": "2026-10-15T16:07:44+09:00",
+  "updated_at": "2026-10-15T16:07:44+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "LLM as Policy",
+    "Manipulation",
+    "Benchmark"
+  ],
+  "display_tags": [
+    "LLM as Policy",
+    "Robotics",
+    "Benchmark"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 3: Capabilities and limits of Astra used as a policy. Each panel shows one episode in three camera views; the task and observed evidence appear below. Panels (a)–(c) show capabilities and panels (d)–(f) show limits. These examples establish occurrence, not frequency.",
+  "cover_figure_number": 3,
+  "thumb_source": "./fig-3.png",
+  "thumb_position": "centre",
+  "reading_time_min": 8,
+  "source_date": "2026-09-21",
+  "source_url": "https://arxiv.org/abs/2609.24170",
+  "source_title": "An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond",
+  "source_author": "Wenbo Zhang et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://robodojo-benchmark.com/report/gpt-6-astra-eval",
+  "code_url": "https://github.com/RoboProbe/RoboProbe",
+  "arxiv_id": "2609.24170",
+  "doi": "10.48550/arXiv.2609.24170",
+  "google_scholar_url": "https://scholar.google.com/scholar?q=an-unexpected-robot-policy",
+  "source_authors_full": [
+    {
+      "name": "Wenbo Zhang"
+    },
+    {
+      "name": "Kaixuan Wang"
+    },
+    {
+      "name": "Yutao Ouyang"
+    },
+    {
+      "name": "Xiaoyu Huang"
+    },
+    {
+      "name": "Liyang Li"
+    },
+    {
+      "name": "Kailun Su"
+    },
+    {
+      "name": "Weiyang Jin"
+    },
+    {
+      "name": "Wenhao Chai"
+    },
+    {
+      "name": "Haotian Liang"
+    },
+    {
+      "name": "Zhiyang Dou"
+    },
+    {
+      "name": "Yue Chen"
+    },
+    {
+      "name": "Tianxing Chen"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Two ways to turn an observation into an executable action. Top: a dual-process controller separates a language model for semantic planning from a pretrained motor policy for execution. VLA denotes a vision language action model; WAM denotes a world action model. Bottom: in the LLM-as-policy setting, the language model selects motion targets directly. Non-learned post-processing converts these targets into executable commands without a pretrained motor policy.",
+      "caption_ko": "그림 1: 관측을 실행 가능한 행동으로 바꾸는 두 가지 방식. 위: 이중 과정 제어기는 의미적 계획을 담당하는 언어 모델과 실행을 담당하는 사전학습 운동 정책을 분리한다. VLA는 비전 언어 행동 모델, WAM은 세계 행동 모델이다. 아래: LLM-as-policy 설정에서는 언어 모델이 동작 목표를 직접 선택한다. 비학습 후처리가 사전학습 운동 정책 없이 이 목표를 실행 가능한 명령으로 변환한다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: The model-facing context and execution loop. A frozen language model chooses world-frame end-effector (EEF) targets at the grasp point through move_eef. The action conversion module is non-learned. It validates the request, converts grasp-point targets to flange poses, plans joint paths, and constructs executable joint commands. Requested gripper changes follow the arm-motion phase. The two return routes are the two branches of a request. A rejected target returns an error as the tool result and causes no motion, so the model retries against the same observation; this is the dashed route. An accepted target returns its planned duration, executes, and only then produces the next observation with the achieved state and arrival error; this is the solid route. give_up requests termination, but only the environment determines success. The context retains the latest two RGB frames from each camera.",
+      "caption_ko": "그림 2: 모델이 받는 문맥과 실행 루프. 고정된 언어 모델은 move_eef를 통해 파지 지점의 월드 좌표계 말단장치(EEF) 목표를 선택한다. 행동 변환 모듈은 학습되지 않았다. 요청을 검증하고, 파지 지점 목표를 플랜지 자세로 변환하며, 관절 경로를 계획하고 실행 가능한 관절 명령을 구성한다. 요청된 그리퍼 변경은 팔 동작 이후에 수행한다. 두 반환 경로는 요청의 두 분기이다. 거절된 목표는 도구 결과로 오류를 반환하고 움직임을 일으키지 않으므로 같은 관측에서 재시도한다(점선). 수락된 목표는 계획 실행 시간을 반환하고 실행한 뒤, 도달 상태와 도착 오차를 포함한 다음 관측을 생성한다(실선). give_up은 종료를 요청하지만 성공은 환경만 판단한다. 문맥에는 각 카메라의 최근 두 RGB 프레임을 유지한다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Capabilities and limits of Astra used as a policy. Each panel shows one episode in three camera views; the task and observed evidence appear below. Panels (a)–(c) show capabilities and panels (d)–(f) show limits. These examples establish occurrence, not frequency.",
+      "caption_ko": "그림 3: 정책으로 사용한 Astra의 능력과 한계. 각 패널은 한 에피소드를 세 카메라 시점으로 보여주며 아래에 과제와 관측 근거를 제시한다. (a)–(c)는 능력, (d)–(f)는 한계이다. 이 사례들은 해당 행동이 나타남을 보여줄 뿐 빈도를 입증하지 않는다."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: RoboDojo-Sim board, Score/SR% per cell: the top ten of 43 ranked entries plus the two remaining LLM controllers, which rank 28 and 33. Ranks are over all 43; the public submission contains only the 40 policy rows, where the same order gives DM0.5 rank 1. † DeepSeek-Flash is 1 seed \\times 10 episodes per task, not 50. Policy rows are a 2026-09-10 leaderboard snapshot. The full 43-row board is Table 5.",
+      "caption_ko": "표 1: RoboDojo-Sim 순위표. 각 셀은 Score/SR%이다. 총 43개 항목 중 상위 10개와 나머지 두 LLM 제어기(28위와 33위)를 제시한다. 순위는 전체 43개 기준이며, 공개 제출물에는 정책 40개만 포함되어 같은 순서에서 DM0.5가 1위이다. † DeepSeek-Flash는 시드 1개 × 과제당 10에피소드로, 50에피소드가 아니다. 정책 행은 2026-09-10 순위표 스냅샷이다. 전체 43행은 표 5에 있다."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 2: Complementary task-level outcomes. Left: Astra reaches at least 20% SR while every public policy remains below 5%. Right: the strongest public policy reaches at least 20% while Astra remains below 5%. Xiaomi denotes Xiaomi-Robotics-1; G0.5, GalaxeaVLA (G0.5).",
+      "caption_ko": "표 2: 상보적인 과제별 결과. 왼쪽: Astra의 SR이 20% 이상이고 모든 공개 정책은 5% 미만인 과제. 오른쪽: 최강 공개 정책은 20% 이상이지만 Astra는 5% 미만인 과제. Xiaomi는 Xiaomi-Robotics-1, G0.5는 GalaxeaVLA(G0.5)이다."
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Demonstration ICL on 340 matched task–layout pairs: the same 34 tasks and ten layouts per task under each condition. The two demonstration conditions are new runs of 340 episodes each; the zero-shot baseline is the official 50-episode Astra campaign restricted to those exact pairs.",
+      "caption_ko": "표 3: 대응되는 과제–배치 쌍 340개에 대한 시연 ICL. 조건마다 같은 34개 과제와 과제당 10개 배치를 사용한다. 두 시연 조건은 각각 340에피소드의 신규 실행이다. 제로샷 기준은 공식 과제당 50에피소드 Astra 평가에서 정확히 같은 쌍만 추린 것이다."
+    }
+  ],
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "robot-manipulation",
+    "embodied-reasoning",
+    "robot-policy-evaluation"
+  ],
+  "taxonomy_primary": "robotics/brain",
+  "taxonomy_secondary": [
+    "robotics/brain/vla",
+    "ai/llm"
+  ],
+  "contribution_type": "evaluation",
+  "key_concepts": [
+    "LLM-as-policy",
+    "GPT-6-Astra",
+    "RoboDojo",
+    "zero-shot-manipulation",
+    "non-learned-action-conversion",
+    "end-effector-targets",
+    "in-context-learning",
+    "precision-control",
+    "within-episode-adaptation"
+  ],
+  "methodology": [
+    "closed-loop-tool-calling",
+    "inverse-kinematics",
+    "joint-path-planning",
+    "benchmark-evaluation",
+    "matched-demonstration-probe",
+    "perturbation-probe"
+  ],
+  "relations": [
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "cites",
+      "note": "The related-work section contrasts pretrained VLA action experts with a frozen LLM selecting motion targets."
+    },
+    {
+      "target": "2603-capx-coding-agents-manipulation",
+      "type": "sharesTopicWith",
+      "note": "Both investigate language-model-based manipulation through executable interfaces; this study emits EEF targets rather than synthesizing a skill library."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A frozen GPT-6 Astra selects robot motion targets through non-learned conversion, leading a RoboDojo leaderboard snapshot while remaining weak at precise and dynamic manipulation.",
+    "problem": "Can a general-purpose language model select executable manipulation targets without robot-specific fine-tuning or a pretrained motor policy?",
+    "solution": "Closed-loop RGB and robot-state observations feed a frozen LLM that calls move_eef; non-learned validation, pose conversion and joint-path planning execute the requests.",
+    "key_result": "Across 42 tasks and 2,100 Astra trials, leaderboard Average SR is 22.48% and Score 28.97 versus DM0.5 at 19.34% and 24.90; the public policies receive different task information.",
+    "limitations": [
+      "Single seed and one principal simulator; public policy rows were a snapshot with non-equivalent input information.",
+      "Precision, dynamic control and coordinated bimanual manipulation remain weak; RGB and EEF interface limitations are confounded with model capability.",
+      "Real-robot evaluation stopped after unsafe actions and hardware damage; retained trials are diagnostic, not a completed benchmark.",
+      "Perturbation traces do not isolate adaptation, and the demonstration probe tests one insertion protocol."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "Do within-episode corrections transfer across tasks and embodiments under controlled history and feedback ablations?",
+      "source": "author",
+      "relates_to": [
+        "within-episode-adaptation",
+        "cross-embodiment"
+      ]
+    },
+    {
+      "question": "How much of the precision ceiling comes from RGB-only sensing and the EEF target interface rather than model reasoning?",
+      "source": "author",
+      "relates_to": [
+        "precision-control",
+        "action-representation"
+      ]
+    },
+    {
+      "question": "Does the aggregate advantage survive equal task information, repeated seeds and matched time or inference budgets?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "benchmark-comparability",
+        "inference-cost"
+      ]
+    }
+  ],
+  "future_directions": [
+    "Test correction transfer across tasks and embodiments with history, visual-feedback and motion-feedback ablations.",
+    "Repeat comparisons with equivalent task descriptions, multiple evaluation seeds and reported inference latency and cost.",
+    "Evaluate richer sensing and action interfaces to separate perception and motor-interface limits from model capability."
+  ],
+  "next_reading": [
+    "2603-capx-coding-agents-manipulation",
+    "2410-pi0-vla-flow-model"
+  ],
+  "survey_hooks": [
+    "LLM-as-policy versus pretrained motor policies",
+    "semantic competence versus precision control",
+    "benchmark input parity and deployment reliability"
+  ],
+  "ai_research_question": "When can a frozen general-purpose LLM select useful robot motion targets, and what prevents reliable precision control?"
+}

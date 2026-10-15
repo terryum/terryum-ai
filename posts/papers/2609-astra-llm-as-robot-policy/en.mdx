@@ -1,0 +1,103 @@
+---
+locale: "en"
+translation_of: "2609-astra-llm-as-robot-policy:ko"
+title: "An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond"
+summary: "The study evaluates Astra selecting manipulation targets through non-learned action conversion. It reaches 22.48% Average SR across 42 RoboDojo tasks but remains weak at precision control, with unequal task information limiting the public-policy comparison."
+card_summary: "A frozen language model can select useful manipulation targets without a pretrained motor policy, but the effect is strongly model-specific. Astra’s semantic strengths coexist with a substantial precision and execution gap."
+published_at: "2026-10-15T16:07:44+09:00"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2609.24170"
+source_date: "2026-09-21"
+terrys_memo: ""
+references:
+  - title: "Code as Policies: Language Model Programs for Embodied Control"
+    author: "Jacky Liang et al."
+    description: "Language-model programs over control APIs provide the high-level-planning contrast used in the related work."
+    arxiv_url: "https://arxiv.org/abs/2209.07753"
+    scholar_url: "https://scholar.google.com/scholar?q=2209.07753"
+    category: "foundational"
+  - title: "Language Models as Zero-Shot Trajectory Generators"
+    author: "Teyun Kwon et al."
+    description: "A direct-action precursor generating trajectories with GPT-4, with separate detection and segmentation models."
+    arxiv_url: "https://arxiv.org/abs/2310.11604"
+    scholar_url: "https://scholar.google.com/scholar?q=2310.11604"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "A pretrained VLA with a flow-matching action expert, contrasting with the frozen LLM and non-learned conversion evaluated here."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=2410.24164"
+    category: "recent"
+  - title: "XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment"
+    author: "XPolicyLab Community et al."
+    description: "Provides the public policy evaluation ecosystem used for the leaderboard snapshot comparison."
+    arxiv_url: "https://arxiv.org/abs/2608.09892"
+    scholar_url: "https://scholar.google.com/scholar?q=2608.09892"
+    category: "recent"
+---
+
+## TL;DR
+
+A frozen language model can select useful manipulation targets without a pretrained motor policy, but the effect is strongly model-specific. Astra's semantic strengths coexist with a substantial precision and execution gap.
+
+## Problem
+
+Robot systems commonly separate language-based planning from fast learned motor control. Direct LLM control has been demonstrated, but its capability across a complete public benchmark remains unclear. Small qualitative demonstrations also obscure whether semantic understanding translates into reliable contact and coordinated motion. This study evaluates a frozen LLM as the target-selecting policy across RoboDojo and examines where that arrangement fails.
+
+## Key Idea
+
+**LLM as policy** means no learned policy sits between the language model and robot, and the model receives no robot- or task-specific fine-tuning for this evaluation.
+
+- The LLM receives RGB views, robot state, task instructions and interaction history, then selects end-effector targets.
+- A non-learned module validates targets, converts poses and plans executable joint paths. This is still a substantial geometric execution stack.
+- The study evaluates complete benchmark coverage, demonstration conditioning and selected perturbation responses separately.
+
+<Figure src="./fig-1.png" caption="Figure 1: Two ways to turn an observation into an executable action. Top: a dual-process controller separates a language model for semantic planning from a pretrained motor policy for execution. VLA denotes a vision language action model; WAM denotes a world action model. Bottom: in the LLM-as-policy setting, the language model selects motion targets directly. Non-learned post-processing converts these targets into executable commands without a pretrained motor policy." />
+
+<Collapsible title="Detailed Method">
+
+### Observation and action loop
+
+Each turn includes three RGB views, 14 grasp-point state dimensions, 12 read-only joint angles and the remaining step budget. Text history is retained, while images are kept for only the latest two observation turns. The prompt includes the official instruction plus a wiki-derived task recipe and scoring stages. It also advises active viewing with an idle wrist camera.
+
+The model calls `move_eef` or `give_up`. Motion targets can specify either or both arms; omitted dimensions retain observed values. Non-learned conversion validates requests, converts grasp-point targets to flange poses and plans joint paths, resampled at 25 Hz. **25 Hz is the path execution rate, not the LLM inference frequency.** Rejected requests produce feedback without motion; accepted requests return an achieved state and target error after execution. The model sees no metric depth, privileged object poses or reward state.
+
+<Figure src="./fig-2.png" caption="Figure 2: The model-facing context and execution loop. A frozen language model chooses world-frame end-effector (EEF) targets at the grasp point through move_eef. The action conversion module is non-learned. It validates the request, converts grasp-point targets to flange poses, plans joint paths, and constructs executable joint commands. Requested gripper changes follow the arm-motion phase. The two return routes are the two branches of a request. A rejected target returns an error as the tool result and causes no motion, so the model retries against the same observation; this is the dashed route. An accepted target returns its planned duration, executes, and only then produces the next observation with the achieved state and arrival error; this is the solid route. give_up requests termination, but only the environment determines success. The context retains the latest two RGB frames from each camera." />
+
+### Evaluation boundary
+
+Astra and GPT-5.5 each run 50 episodes on all 42 tasks; DeepSeek-Flash runs ten per task. All use medium reasoning effort and generally 100 calls per episode, with one evaluation seed. Score measures mean process reward multiplied by 100; SR requires full task success. The leaderboard Average equally weights five axes rather than pooling all episodes. Public policy rows come from a September 10, 2026 snapshot and were not rerun with equivalent wiki-derived text.
+
+### Context probes
+
+The one-shot probe compares the same 340 task–layout pairs across 34 tasks, inserting a demonstration from another layout as images plus EEF poses or as text. The perturbation probe uses eight `general_pickup` layouts already solved without perturbation. Its selected traces can show corrections, but do not isolate adaptation from feedback control, repeated attempts or prior robustness.
+
+</Collapsible>
+
+## Key Results
+
+- **Overall benchmark**: Astra reaches **28.97 Score / 22.48% Average SR**, versus DM0.5 at **24.90 / 19.34%** (+3.14 percentage points in SR). Astra's 2,100 trials include 472 full successes; pooled Score is 28.72. GPT-5.5 and DeepSeek-Flash reach only 0.88% and 1.92% Average SR, respectively; the latter uses fewer episodes.
+- **Uneven capability**: Generalization SR is 30.50% versus DM0.5's 10.95%, but Precision SR is only **4.00% versus 16.75%**. Long-Horizon and Memory also trail DM0.5. Leading aggregate rank does not mean consistently superior execution.
+- **One-shot context**: On matched pairs, zero-shot success is **22.9%**, falling to **17.9%** with image/EEF demonstrations and **12.9%** with text demonstrations. This is evidence about the tested insertion protocol, not a general failure of few-shot learning.
+
+<Figure src="./tab-1.png" caption="Table 1: RoboDojo-Sim board, Score/SR% per cell: the top ten of 43 ranked entries plus the two remaining LLM controllers, which rank 28 and 33. Ranks are over all 43; the public submission contains only the 40 policy rows, where the same order gives DM0.5 rank 1. † DeepSeek-Flash is 1 seed \\times 10 episodes per task, not 50. Policy rows are a 2026-09-10 leaderboard snapshot. The full 43-row board is Table 5." />
+
+The paper also reports selected real-hardware trials, mobile humanoid recordings and piano-controller synthesis. These use separate protocols and do not enter the official simulation ranking. The real-hardware campaign stopped following unsafe actions and equipment damage, with no person injured; the retained 33 trials cannot establish general reliability.
+
+## Achievements and Limitations
+
+### What's New
+
+- A complete 42-task evaluation places three frozen LLM controllers alongside a 40-policy public board.
+- Task-level analysis separates semantic/open-ended strengths from precision, dynamics and bimanual weaknesses.
+- Matched demonstration tests and perturbation traces distinguish demonstration conditioning from within-episode correction.
+
+### Limitations
+
+- **Author-noted**: One seed and one main simulator; unequal task information relative to public policies; a smaller DeepSeek-Flash evaluation; selected perturbation layouts; incomplete real-world evaluation. Closed-model benchmark contamination remains unquantified.
+- **Author-noted**: RGB-only sensing, the EEF target interface, context truncation and latency may explain some failures. No history ablation establishes a learning mechanism, and qualitative examples establish occurrence rather than frequency.
+- 🤖 A matched comparison of task information, wall-clock time and inference budget is needed to determine whether the aggregate lead offers an operational advantage over pretrained policies.
+
+## Terry's memo
+
+- *(None)*

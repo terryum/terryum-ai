@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-28T23:47:35.663Z",
-  "total_posts": 90,
+  "generated_at": "2026-10-15T07:51:01.182Z",
+  "total_posts": 91,
   "posts": [
     {
       "post_number": 1,
@@ -6951,6 +6951,87 @@
       "taxonomy_secondary": [],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 91,
+      "slug": "2609-astra-llm-as-robot-policy",
+      "content_type": "papers",
+      "title_en": "An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond",
+      "title_ko": "An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond",
+      "summary_ko": "고정된 LLM이 사전학습 운동 정책 없이도 조작 목표를 선택할 수 있지만, 그 효과는 모델에 따라 크게 다르다. Astra의 의미 이해 강점은 정밀 제어와 안정적인 실행으로 그대로 이어지지 않는다.",
+      "summary_en": "A frozen language model can select useful manipulation targets without a pretrained motor policy, but the effect is strongly model-specific. Astra’s semantic strengths coexist with a substantial precision and execution gap.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-manipulation",
+        "embodied-reasoning",
+        "robot-policy-evaluation"
+      ],
+      "key_concepts": [
+        "LLM-as-policy",
+        "GPT-6-Astra",
+        "RoboDojo",
+        "zero-shot-manipulation",
+        "non-learned-action-conversion",
+        "end-effector-targets",
+        "in-context-learning",
+        "precision-control",
+        "within-episode-adaptation"
+      ],
+      "methodology": [
+        "closed-loop-tool-calling",
+        "inverse-kinematics",
+        "joint-path-planning",
+        "benchmark-evaluation",
+        "matched-demonstration-probe",
+        "perturbation-probe"
+      ],
+      "contribution_type": "evaluation",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "LLM as Policy",
+        "Manipulation",
+        "Benchmark"
+      ],
+      "source_author": "Wenbo Zhang et al.",
+      "source_date": "2026-09-21",
+      "published_at": "2026-10-15T16:07:44+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A frozen GPT-6 Astra selects robot motion targets through non-learned conversion, leading a RoboDojo leaderboard snapshot while remaining weak at precise and dynamic manipulation.",
+        "problem": "Can a general-purpose language model select executable manipulation targets without robot-specific fine-tuning or a pretrained motor policy?",
+        "solution": "Closed-loop RGB and robot-state observations feed a frozen LLM that calls move_eef; non-learned validation, pose conversion and joint-path planning execute the requests.",
+        "key_result": "Across 42 tasks and 2,100 Astra trials, leaderboard Average SR is 22.48% and Score 28.97 versus DM0.5 at 19.34% and 24.90; the public policies receive different task information.",
+        "limitations": [
+          "Single seed and one principal simulator; public policy rows were a snapshot with non-equivalent input information.",
+          "Precision, dynamic control and coordinated bimanual manipulation remain weak; RGB and EEF interface limitations are confounded with model capability.",
+          "Real-robot evaluation stopped after unsafe actions and hardware damage; retained trials are diagnostic, not a completed benchmark.",
+          "Perturbation traces do not isolate adaptation, and the demonstration probe tests one insertion protocol."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "cites",
+          "note": "The related-work section contrasts pretrained VLA action experts with a frozen LLM selecting motion targets."
+        },
+        {
+          "target": "2603-capx-coding-agents-manipulation",
+          "type": "sharesTopicWith",
+          "note": "Both investigate language-model-based manipulation through executable interfaces; this study emits EEF targets rather than synthesizing a skill library."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain",
+      "taxonomy_secondary": [
+        "robotics/brain/vla",
+        "ai/llm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7787,6 +7868,11 @@
       },
       {
         "from": "260528-hiring-for-agentic-execution",
+        "to": "260530-where-should-i-work",
+        "type": "related"
+      },
+      {
+        "from": "260528-hiring-for-agentic-execution",
         "to": "260603-age-of-virtue-generals",
         "type": "related"
       },
@@ -8142,6 +8228,11 @@
       },
       {
         "from": "260810-human-workers-first-condition-trust",
+        "to": "260530-where-should-i-work",
+        "type": "related"
+      },
+      {
+        "from": "260810-human-workers-first-condition-trust",
         "to": "260618-value-from-finite-resources",
         "type": "related"
       },
@@ -8193,6 +8284,26 @@
       {
         "from": "2606-t-rex-tactile-reactive-dexterous",
         "to": "2512-unitachand",
+        "type": "sharesTopicWith"
+      },
+      {
+        "from": "260530-where-should-i-work",
+        "to": "260528-hiring-for-agentic-execution",
+        "type": "related"
+      },
+      {
+        "from": "260530-where-should-i-work",
+        "to": "260810-human-workers-first-condition-trust",
+        "type": "related"
+      },
+      {
+        "from": "2609-astra-llm-as-robot-policy",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "cites"
+      },
+      {
+        "from": "2609-astra-llm-as-robot-policy",
+        "to": "2603-capx-coding-agents-manipulation",
         "type": "sharesTopicWith"
       },
       {
@@ -8444,26 +8555,6 @@
         "from": "2604-harnessing-claude-intelligence",
         "to": "2502-ai-co-scientist",
         "type": "related"
-      },
-      {
-        "from": "260528-hiring-for-agentic-execution",
-        "to": "260530-where-should-i-work",
-        "type": "related"
-      },
-      {
-        "from": "260810-human-workers-first-condition-trust",
-        "to": "260530-where-should-i-work",
-        "type": "related"
-      },
-      {
-        "from": "260530-where-should-i-work",
-        "to": "260528-hiring-for-agentic-execution",
-        "type": "related"
-      },
-      {
-        "from": "260530-where-should-i-work",
-        "to": "260810-human-workers-first-condition-trust",
-        "type": "related"
       }
     ],
     "clusters": [
@@ -8598,7 +8689,8 @@
           34,
           35,
           69,
-          84
+          84,
+          91
         ],
         "core_concepts": [
           "zero-shot-generalization",
@@ -8866,7 +8958,8 @@
       76,
       80,
       84,
-      88
+      88,
+      91
     ],
     "outlier_papers": [
       73,
@@ -10604,10 +10697,37 @@
     ],
     "legacy-industry": [
       90
+    ],
+    "LLM-as-policy": [
+      91
+    ],
+    "GPT-6-Astra": [
+      91
+    ],
+    "RoboDojo": [
+      91
+    ],
+    "zero-shot-manipulation": [
+      91
+    ],
+    "non-learned-action-conversion": [
+      91
+    ],
+    "end-effector-targets": [
+      91
+    ],
+    "in-context-learning": [
+      91
+    ],
+    "precision-control": [
+      91
+    ],
+    "within-episode-adaptation": [
+      91
     ]
   },
   "domain_stats": {
-    "robotics": 49,
+    "robotics": 50,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -10641,12 +10761,12 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 12,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 27,
-    "ai/llm:secondary": 6,
+    "robotics/brain": 28,
+    "ai/llm:secondary": 7,
     "ai/society": 6,
     "ai/agents:secondary": 3,
     "robotics/brain:secondary": 3,
-    "robotics/brain/vla:secondary": 4,
+    "robotics/brain/vla:secondary": 5,
     "infra/serverless": 2,
     "ops/security:secondary": 1,
     "ai/productivity:secondary": 1,
@@ -10703,7 +10823,7 @@
     "startup/career:secondary": 1,
     "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 48,
+    "robotics": 49,
     "ai": 20,
     "biology": 2
   }
