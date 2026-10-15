@@ -1,0 +1,103 @@
+---
+locale: "ko"
+translation_of: "2609-astra-llm-as-robot-policy:en"
+title: "An Unexpected Robot Policy: Early Evaluations of GPT-6 Astra on RoboDojo and Beyond"
+summary: "Astra가 비학습 행동 변환을 통해 로봇 조작 목표를 직접 선택하도록 평가했다. RoboDojo 42개 과제에서 Average SR 22.48%를 기록했지만 정밀 제어에서는 약했고, 공개 정책과 입력 정보가 달라 비교 해석에 주의가 필요하다."
+card_summary: "고정된 LLM이 사전학습 운동 정책 없이도 조작 목표를 선택할 수 있지만, 그 효과는 모델에 따라 크게 다르다. Astra의 의미 이해 강점은 정밀 제어와 안정적인 실행으로 그대로 이어지지 않는다."
+published_at: "2026-10-15T16:07:44+09:00"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2609.24170"
+source_date: "2026-09-21"
+terrys_memo: ""
+references:
+  - title: "Code as Policies: Language Model Programs for Embodied Control"
+    author: "Jacky Liang et al."
+    description: "제어 API 위의 언어 모델 프로그램으로, 관련 연구에서 고수준 계획 방식의 비교 축을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2209.07753"
+    scholar_url: "https://scholar.google.com/scholar?q=2209.07753"
+    category: "foundational"
+  - title: "Language Models as Zero-Shot Trajectory Generators"
+    author: "Teyun Kwon et al."
+    description: "GPT-4로 궤적을 생성한 직접 행동 생성의 선행 연구이며 별도 검출·분할 모델에 의존했다."
+    arxiv_url: "https://arxiv.org/abs/2310.11604"
+    scholar_url: "https://scholar.google.com/scholar?q=2310.11604"
+    category: "foundational"
+  - title: "π₀: A Vision-Language-Action Flow Model for General Robot Control"
+    author: "Kevin Black et al."
+    description: "Flow matching 행동 전문가를 갖춘 사전학습 VLA로, 본 논문의 고정 LLM·비학습 변환과 대비된다."
+    arxiv_url: "https://arxiv.org/abs/2410.24164"
+    scholar_url: "https://scholar.google.com/scholar?q=2410.24164"
+    category: "recent"
+  - title: "XPolicyLab: A Unified Standard and Open Ecosystem for Robot Policy Evaluation and Deployment"
+    author: "XPolicyLab Community et al."
+    description: "공개 정책 순위표 스냅샷 비교에 사용한 평가 생태계를 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2608.09892"
+    scholar_url: "https://scholar.google.com/scholar?q=2608.09892"
+    category: "recent"
+---
+
+## TL;DR
+
+고정된 언어 모델이 사전학습 운동 정책 없이도 조작 목표를 선택할 수 있지만, 그 효과는 모델에 따라 크게 다르다. Astra의 의미 이해 강점은 정밀 제어와 안정적인 실행으로 그대로 이어지지 않는다.
+
+## 문제
+
+로봇 시스템은 보통 언어 기반 계획과 빠른 학습 기반 운동 제어를 분리한다. LLM의 직접 제어 사례는 등장했지만, 공개 벤치마크 전체에서 어디까지 작동하는지는 불분명했다. 정성적인 성공 영상만으로는 의미 이해가 정밀 접촉과 양팔 협응으로 이어지는지도 알기 어렵다. 이 논문은 고정된 LLM이 동작 목표를 선택하는 정책이 될 수 있는지 RoboDojo 전체 과제에서 평가한다.
+
+## 핵심 아이디어
+
+**LLM as policy**의 조건은 언어 모델과 로봇 사이에 학습된 정책이 없고, 이번 평가를 위한 로봇·과제별 파인튜닝을 하지 않는 것이다.
+
+- LLM이 RGB 영상, 로봇 상태, 과제 설명과 상호작용 이력을 보고 말단장치 목표를 정한다.
+- 비학습 모듈이 목표 검증, 자세 변환, 실행 가능한 관절 경로 계획을 맡는다. 기하학적 실행 스택은 여전히 필요하다.
+- 전체 벤치마크 평가, 시연 문맥 효과, 교란 상황의 수정 행동을 각각 나누어 분석한다.
+
+<Figure src="./fig-1.png" caption="Figure 1: Two ways to turn an observation into an executable action. Top: a dual-process controller separates a language model for semantic planning from a pretrained motor policy for execution. VLA denotes a vision language action model; WAM denotes a world action model. Bottom: in the LLM-as-policy setting, the language model selects motion targets directly. Non-learned post-processing converts these targets into executable commands without a pretrained motor policy." />
+
+<Collapsible title="구체적 방법">
+
+### 관측과 행동 루프
+
+매 턴 세 RGB 시점, 파지 지점 상태 14차원, 읽기 전용 관절각 12개, 남은 스텝 예산을 제공한다. 텍스트 이력은 유지하지만 영상은 최근 두 관측 턴만 남긴다. 프롬프트에는 공식 지시 외에 위키에서 가져온 과제 설명과 채점 단계가 포함된다. 사용하지 않는 손목 카메라로 작업 공간을 살피라는 조언도 준다.
+
+모델은 `move_eef` 또는 `give_up`을 호출한다. 한쪽 또는 양쪽 팔의 목표를 지정하며, 생략한 차원은 관측값을 유지한다. 비학습 변환기는 요청 검증, 파지 지점에서 플랜지 자세로의 변환, 관절 경로 계획을 수행하고 25 Hz로 재샘플링해 실행한다. **25 Hz는 경로 실행 주기이며 LLM 추론 빈도가 아니다.** 거절된 요청은 이동 없이 오류를 돌려주고, 수락된 요청은 실행 후 도달 상태와 목표 오차를 제공한다. 모델은 미터 단위 깊이, 특권 객체 자세, 보상 상태를 받지 않는다.
+
+<Figure src="./fig-2.png" caption="Figure 2: The model-facing context and execution loop. A frozen language model chooses world-frame end-effector (EEF) targets at the grasp point through move_eef. The action conversion module is non-learned. It validates the request, converts grasp-point targets to flange poses, plans joint paths, and constructs executable joint commands. Requested gripper changes follow the arm-motion phase. The two return routes are the two branches of a request. A rejected target returns an error as the tool result and causes no motion, so the model retries against the same observation; this is the dashed route. An accepted target returns its planned duration, executes, and only then produces the next observation with the achieved state and arrival error; this is the solid route. give_up requests termination, but only the environment determines success. The context retains the latest two RGB frames from each camera." />
+
+### 평가 조건
+
+Astra와 GPT-5.5는 42개 과제에서 각각 과제당 50에피소드, DeepSeek-Flash는 10에피소드를 실행한다. 추론 노력은 medium, 기본 예산은 에피소드당 100호출이며 평가 시드는 하나다. Score는 평균 과정 보상에 100을 곱한 값이고, SR은 과제 전체 성공률이다. 순위표 Average는 다섯 평가 축의 단순 평균이어서 모든 에피소드를 합친 수치와 다르다. 공개 정책은 2026년 9월 10일 순위표 스냅샷이며, LLM과 같은 위키 설명을 주고 다시 실행한 결과가 아니다.
+
+### 문맥 실험
+
+One-shot 실험은 34개 과제의 동일한 과제–배치 쌍 340개를 비교한다. 다른 배치의 시연을 영상과 EEF 자세, 또는 텍스트로 넣는다. 교란 실험은 교란 없이 이미 성공한 `general_pickup` 배치 8개만 사용한다. 일부 실행 이력에서 수정은 관측되지만, 이를 적응 학습·일반 피드백 제어·반복 시도·기존 강건성 중 무엇이 만들었는지 분리하지 못한다.
+
+</Collapsible>
+
+## 주요 결과
+
+- **종합 벤치마크**: Astra는 **Score 28.97 / Average SR 22.48%**, DM0.5는 **24.90 / 19.34%**로 SR이 3.14%p 높다. Astra는 2,100회 중 472회 완전 성공했으며 에피소드 통합 Score는 28.72다. GPT-5.5와 DeepSeek-Flash의 Average SR은 각각 0.88%, 1.92%이고 후자는 평가 에피소드가 적다.
+- **불균형한 능력**: Generalization SR은 30.50%로 DM0.5의 10.95%보다 높지만, Precision은 **4.00%로 DM0.5의 16.75%보다 낮다**. Long-Horizon과 Memory도 DM0.5에 뒤진다. 종합 1위를 모든 종류의 실행 능력 우위로 해석하면 안 된다.
+- **One-shot 문맥**: 대응 쌍 기준 제로샷 성공률 **22.9%**가 영상·EEF 시연에서는 **17.9%**, 텍스트 시연에서는 **12.9%**로 낮아졌다. 이 결과는 실험한 시연 삽입 방식에 관한 것으로, few-shot 학습 일반의 실패를 뜻하지 않는다.
+
+<Figure src="./tab-1.png" caption="Table 1: RoboDojo-Sim board, Score/SR% per cell: the top ten of 43 ranked entries plus the two remaining LLM controllers, which rank 28 and 33. Ranks are over all 43; the public submission contains only the 40 policy rows, where the same order gives DM0.5 rank 1. † DeepSeek-Flash is 1 seed \\times 10 episodes per task, not 50. Policy rows are a 2026-09-10 leaderboard snapshot. The full 43-row board is Table 5." />
+
+실물 로봇 진단, 이동형 휴머노이드 영상, 피아노 제어 코드 생성도 다루지만 별도 프로토콜이며 공식 시뮬레이션 순위에 포함되지 않는다. 실물 평가는 위험한 동작과 장비 손상 이후 중단됐고 인명 피해는 없었다. 남겨진 33회 진단 시행으로 일반적인 실물 신뢰성을 추정할 수 없다.
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- 42개 과제 전체에서 고정된 LLM 제어기 3개를 평가하고 공개 정책 40개의 순위표와 나란히 비교했다.
+- 과제별 분석으로 의미 이해·개방형 과제의 강점과 정밀도·동역학·양팔 협응의 약점을 구분했다.
+- 대응 시연 실험과 교란 실행 이력을 통해 시연 문맥 효과와 에피소드 안에서의 수정 행동을 별도로 살폈다.
+
+### 한계점
+
+- **저자 언급**: 단일 시드와 주요 시뮬레이터 하나, 공개 정책과 다른 과제 정보, DeepSeek-Flash의 적은 시행 수, 선택된 교란 배치, 미완료 실물 평가라는 제약이 있다. 비공개 모델의 벤치마크 관련 사전학습 오염도 정량화하지 못했다.
+- **저자 언급**: RGB 관측, EEF 목표 인터페이스, 문맥 유지 방식, 지연이 실패 원인일 수 있다. 이력 제거 실험이 없어 적응 메커니즘을 입증하지 못하며, 정성 사례는 발생 여부만 보여준다.
+- 🤖 과제 정보·실제 소요 시간·추론 예산을 맞춘 비교가 있어야 종합 점수 우위가 사전학습 정책 대비 실용적 이점으로 이어지는지 판단할 수 있다.
+
+## Terry's memo
+
+- *(None)*
