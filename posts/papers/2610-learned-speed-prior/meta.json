@@ -1,0 +1,256 @@
+{
+  "post_id": "2610-learned-speed-prior",
+  "slug": "2610-learned-speed-prior",
+  "post_number": 92,
+  "published_at": "2026-10-30T07:38:03+09:00",
+  "updated_at": "2026-10-30T07:38:03+09:00",
+  "status": "published",
+  "content_type": "papers",
+  "visibility": "public",
+  "tags": [
+    "Papers",
+    "Robotics",
+    "VLA",
+    "Imitation Learning",
+    "Trajectory Retiming"
+  ],
+  "display_tags": [
+    "VLA",
+    "Speed Prior",
+    "Robot Control"
+  ],
+  "cover_image": "./cover.webp",
+  "cover_thumb": "./cover-thumb.webp",
+  "cover_caption": "Figure 3: Real-world tasks and their instructions, each shown at its initial scene (1) and its goal (2). The policies for stacking cups, folding towel and cleaning trash are fine-tuned on handheld YUBI demonstrations, and placing bananas and placing cubes are performed zero-shot (Appendix H).",
+  "cover_figure_number": 3,
+  "thumb_source": "./fig-3.png",
+  "thumb_position": "centre",
+  "reading_time_min": 7,
+  "source_date": "2026-10-23",
+  "source_url": "https://arxiv.org/abs/2610.32676",
+  "source_title": "Retiming Robot Demonstrations with a Learned Speed Prior",
+  "source_author": "Seungyong Moon, Deokjae Lee, Hansang Lee et al.",
+  "source_type": "arXiv",
+  "source_project_url": "https://mllab.snu.ac.kr/projects/learned_speed_prior/",
+  "arxiv_id": "2610.32676",
+  "doi": "10.48550/arXiv.2610.32676",
+  "google_scholar_url": "https://scholar.google.com/scholar?&q=retiming-robot-demonstrations-with",
+  "source_authors_full": [
+    {
+      "name": "Seungyong Moon",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Deokjae Lee",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Hansang Lee",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Munkhtselmeg Battsengel",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Youngin Kim",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Seonghyeon Yun",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Sungjin Jeon",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "SongEun Kim",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Jeongmin Park",
+      "affiliation": "Seoul National University"
+    },
+    {
+      "name": "Hyun Oh Song",
+      "affiliation": "Seoul National University"
+    }
+  ],
+  "figures": [
+    {
+      "number": 1,
+      "src": "./fig-1.png",
+      "caption": "Figure 1: Learning the pace from demonstrations. (1) Paths are resampled every 2 cm of arc length and read in windows of 17 nodes. (2) The prior predicts a distribution over the log speed of every interval. (3) Reading a source path with the target label gives a quantile of the speed along the path. (4) Integrating this speed gives the clock.",
+      "caption_ko": "그림 1: 시연에서 동작 속도를 학습한다. (1) 경로를 호 길이 2 cm마다 재표본화하고 17개 노드의 윈도로 읽는다. (2) 사전분포 모델은 각 구간의 로그 속도 분포를 예측한다. (3) 소스 경로를 타깃 라벨로 읽으면 경로상의 속도 분위수를 얻는다. (4) 이 속도를 적분해 시간축을 만든다."
+    },
+    {
+      "number": 2,
+      "src": "./fig-2.png",
+      "caption": "Figure 2: One execution cycle. (1) From an observation on the running plan, the policy predicts a new chunk and its pace. (2) Draft fits a smooth path within boxes around the kept waypoints and times it at the pace unless a limit binds. (3) Splice joins the running plan to this path at the earliest point it reaches on time. (4) Smooth solves one minimum-jerk program through the boxes at their scheduled times, within all limits, giving the new plan.",
+      "caption_ko": "그림 2: 한 번의 실행 주기. (1) 진행 중인 계획 위의 관측으로부터 정책이 새 청크와 속도를 예측한다. (2) Draft는 유지한 웨이포인트 주변의 박스 안에 부드러운 경로를 맞추고, 제약이 활성화되지 않으면 해당 속도로 시간을 배정한다. (3) Splice는 진행 중인 계획을 이 경로에서 제시간에 도달할 수 있는 가장 이른 지점에 연결한다. (4) Smooth는 예정된 시각에 박스를 통과하면서 모든 제약을 만족하는 하나의 최소 jerk 최적화 문제를 풀어 새 계획을 만든다."
+    },
+    {
+      "number": 3,
+      "src": "./fig-3.png",
+      "caption": "Figure 3: Real-world tasks and their instructions, each shown at its initial scene (1) and its goal (2). The policies for stacking cups, folding towel and cleaning trash are fine-tuned on handheld YUBI demonstrations, and placing bananas and placing cubes are performed zero-shot (Appendix H).",
+      "caption_ko": "그림 3: 실제 과제와 지시문. 각 과제의 초기 장면 (1)과 목표 (2)를 보여준다. 컵 쌓기, 수건 접기, 쓰레기 치우기 정책은 YUBI 휴대형 시연으로 미세조정하며, 바나나 놓기와 큐브 놓기는 제로샷으로 수행한다(부록 H)."
+    },
+    {
+      "number": 4,
+      "src": "./fig-4.png",
+      "caption": "Figure 4: Success rate (left) and TPR (right) against speed-up on RoboLab. Gray labels give the commanded speed-up. TPR (Appendix G) is in successes per minute, with the time limit of each task. Bars are 95% intervals of the gain over the uniform curve, bootstrapped over tasks.",
+      "caption_ko": "그림 4: RoboLab에서 속도 증가율에 따른 성공률(왼쪽)과 TPR(오른쪽). 회색 라벨은 명령한 속도 증가율이다. TPR(부록 G)은 과제별 제한 시간을 적용한 분당 성공 수이다. 막대는 과제 단위 부트스트랩으로 구한 균일 가속 곡선 대비 이득의 95% 구간이다."
+    },
+    {
+      "number": 5,
+      "src": "./fig-5.png",
+      "caption": "Figure 5: Mean task progress over time on the real-robot placing bananas task, over 30 trials per condition. Each banana placed in the tray within the 30 s limit adds half of a trial, and curves average over trials, so curves further up and to the left progress faster.",
+      "caption_ko": "그림 5: 실제 로봇 바나나 놓기 과제에서 조건별 30회 실험의 시간에 따른 평균 과제 진행도. 30초 제한 내 쟁반에 놓은 바나나 하나는 한 시행의 절반에 해당하며 곡선은 시행 평균이므로 더 위쪽과 왼쪽에 있는 곡선일수록 빠르게 진행한다."
+    },
+    {
+      "number": 6,
+      "src": "./fig-6.png",
+      "caption": "Figure 6: Mean task progress over time on the real-robot placing cubes task, over 30 trials per condition. Each cube placed in the bin within the 60 s limit adds one ninth of a trial, and curves average over trials, so curves further up and to the left progress faster.",
+      "caption_ko": "그림 6: 실제 로봇 큐브 놓기 과제에서 조건별 30회 실험의 시간에 따른 평균 과제 진행도. 60초 제한 내 통에 놓은 큐브 하나는 한 시행의 9분의 1에 해당하며 곡선은 시행 평균이므로 더 위쪽과 왼쪽에 있는 곡선일수록 빠르게 진행한다."
+    }
+  ],
+  "tables": [
+    {
+      "number": 1,
+      "src": "./tab-1.png",
+      "caption": "Table 1: Throughput and motion quality at matched speed-up on RoboLab. TPR is in successes per minute, Peak is the peak end-effector speed in m/s and Jerk the integrated squared jerk in 10³ m²/s⁵. SPARC, Peak and Jerk use the episodes that every execution of the baseline and our policy in Figure 4 completes.",
+      "caption_ko": "표 1: RoboLab에서 비슷한 속도 증가율로 비교한 처리량과 동작 품질. TPR은 분당 성공 수, Peak는 말단장치 최고 속도(m/s), Jerk는 제곱 jerk의 적분(10³ m²/s⁵)이다. SPARC, Peak, Jerk는 그림 4의 기준 정책 및 제안 정책의 모든 실행 조건에서 성공한 에피소드로 계산한다."
+    },
+    {
+      "number": 2,
+      "src": "./tab-2.png",
+      "caption": "Table 2: Real-robot results on the YUBI tasks of Figure 3. Ours (1x) runs our controller at α=1, and Ours (q90), (q95) and (q99) on the tempo channels of the 0.9, 0.95 and 0.99 quantiles. TPR is in successes per minute, ATR in seconds and UPH in items per hour. Appendix G defines the metrics.",
+      "caption_ko": "표 2: 그림 3의 YUBI 과제에 대한 실제 로봇 결과. Ours (1x)는 α=1에서 제안 제어기를 실행하며, Ours (q90), (q95), (q99)는 각각 0.9, 0.95, 0.99 분위수의 템포 채널로 실행한다. TPR은 분당 성공 수, ATR은 초, UPH는 시간당 처리한 물체 수이다. 지표는 부록 G에서 정의한다."
+    },
+    {
+      "number": 3,
+      "src": "./tab-3.png",
+      "caption": "Table 3: Accuracy of the speed prior on held-out validation windows, each domain read with its own label. Coverage is the fraction of recorded speeds at or below the predicted quantile. Pinball losses are in natural log speed, for the prior and for an input-blind predictor that returns the training quantiles of the domain. R² is the fraction of the variance of recorded log speed explained by the predicted median, within episodes after removing each episode’s mean and between episodes among the episode means, over the episodes with at least five windows. The variance between episodes is 18% of the total on DROID and 12% on FastUMI-100K, and the R² over all windows, 0.95 and 0.93, is the average of the two columns weighted by these shares.",
+      "caption_ko": "표 3: 각 도메인을 해당 라벨로 읽은 미관측 검증 윈도에서 속도 사전분포의 정확도. Coverage는 기록 속도가 예측 분위수 이하인 비율이다. Pinball loss는 자연로그 속도 단위이며, 모델과 도메인별 학습 분위수만 반환하는 입력 비의존 예측기를 비교한다. R²는 예측 중앙값이 설명하는 기록 로그 속도의 분산 비율로, 윈도가 5개 이상인 에피소드에서 에피소드 평균 제거 후의 내부 변동과 에피소드 평균 사이의 변동을 구분한다. 에피소드 간 분산은 전체의 DROID 18%, FastUMI-100K 12%이며 전체 윈도 R² 0.95와 0.93은 이 비중으로 두 열을 가중평균한 값이다."
+    },
+    {
+      "number": 4,
+      "src": "./tab-4.png",
+      "caption": "Table 4: Speed around gripper events on held-out validation windows. Windows are grouped by the arc length from their center interval to the nearest interval in which the gripper opening changes by more than 0.05. Speeds are medians relative to the transit group, whose recorded and predicted medians are 228\\text{\\,}\\mathrm{m}m/s228\\text{\\,}\\mathrm{m}m/s on DROID and 274\\text{\\,}\\mathrm{m}m/s273\\text{\\,}\\mathrm{m}m/s on FastUMI-100K. In the same interval the gripper moves and keeps its source pace. The median clock reads DROID with the FastUMI-100K label, and its speed-up is the geometric mean ratio of its median to the median read with the DROID label.",
+      "caption_ko": "표 4: 미관측 검증 윈도에서 그리퍼 이벤트 주변의 속도. 윈도 중심 구간부터 그리퍼 열림이 0.05보다 크게 변하는 가장 가까운 구간까지의 호 길이로 그룹을 나눈다. 속도는 이동 구간 그룹 대비 중앙값이며, 해당 그룹의 기록 및 예측 중앙값은 DROID에서 각각 228, 228 mm/s, FastUMI-100K에서 각각 274, 273 mm/s이다. 동일 구간에서는 그리퍼가 움직이며 소스 속도를 유지한다. 중앙값 시간축은 DROID를 FastUMI-100K 라벨로 읽으며, 속도 증가율은 DROID 라벨로 읽은 중앙값 대비 비율의 기하평균이다."
+    },
+    {
+      "number": 5,
+      "src": "./tab-5.png",
+      "caption": "Table 5: Settings that differ between the setups. The DROID zero-shot tasks of Appendix H are placing bananas and placing cubes.",
+      "caption_ko": "표 5: 두 실험 설정 사이에서 다른 설정값. 부록 H의 DROID 제로샷 과제는 바나나 놓기와 큐브 놓기이다."
+    },
+    {
+      "number": 6,
+      "src": "./tab-6.png",
+      "caption": "Table 6: Settings of our controller (Ours) and the PD baseline (PD), shared by both setups. An entry that spans both columns applies to each of them.",
+      "caption_ko": "표 6: 두 실험 설정에 공통으로 적용하는 제안 제어기(Ours)와 PD 기준 제어기(PD)의 설정값. 두 열에 걸친 항목은 양쪽 모두에 적용한다."
+    },
+    {
+      "number": 7,
+      "src": "./tab-7.png",
+      "caption": "Table 7: Real-robot results on the placing bananas task (“put bananas into the tray”), with 30 trials per setting. PD is the baseline controller of Appendix F, Ours (1x) runs our controller at α=1 and Ours (q99) on the tempo channel of the 0.99 quantile. Bananas is the mean number of bananas placed within 30 s, and Both the number of trials that place both.",
+      "caption_ko": "표 7: 바나나 놓기 과제(바나나를 쟁반에 넣기)의 실제 로봇 결과로, 설정당 30회 시행한다. PD는 부록 F의 기준 제어기이며 Ours (1x)는 α=1, Ours (q99)는 0.99 분위수 템포 채널로 제안 제어기를 실행한다. Bananas는 30초 내 놓은 바나나 수의 평균이며 Both는 두 개 모두 놓은 시행 수이다."
+    },
+    {
+      "number": 8,
+      "src": "./tab-8.png",
+      "caption": "Table 8: Real-robot results on the placing cubes task (“put all the gray cubes into the white bin”), with 30 trials per setting. PD is the baseline controller of Appendix F, Ours (1x) runs our controller at α=1 and Ours (q99) on the tempo channel of the 0.99 quantile. Cubes is the mean number of cubes placed within 60 s, and All 9 the number of trials that place all nine.",
+      "caption_ko": "표 8: 큐브 놓기 과제(회색 큐브를 모두 흰색 통에 넣기)의 실제 로봇 결과로, 설정당 30회 시행한다. PD는 부록 F의 기준 제어기이며 Ours (1x)는 α=1, Ours (q99)는 0.99 분위수 템포 채널로 제안 제어기를 실행한다. Cubes는 60초 내 놓은 큐브 수의 평균이며 All 9는 아홉 개 모두 놓은 시행 수이다."
+    }
+  ],
+  "terrys_memo": "",
+  "newsletter_eligible": false,
+  "featured": false,
+  "domain": "robotics",
+  "subfields": [
+    "robot-manipulation",
+    "imitation-learning",
+    "trajectory-optimization"
+  ],
+  "taxonomy_primary": "robotics/brain/vla",
+  "taxonomy_secondary": [
+    "robotics/arm"
+  ],
+  "contribution_type": "method",
+  "key_concepts": [
+    "learned-speed-prior",
+    "trajectory-retiming",
+    "tempo-channels",
+    "VLA",
+    "handheld-demonstrations",
+    "kinodynamic-constraints",
+    "minimum-jerk",
+    "cross-domain-pace-transfer"
+  ],
+  "methodology": [
+    "categorical-speed-modeling",
+    "quantile-retiming",
+    "classifier-free-guidance",
+    "behavior-cloning",
+    "time-optimal-path-parameterization",
+    "minimum-jerk-optimization",
+    "real-time-chunk-splicing"
+  ],
+  "relations": [
+    {
+      "target": "2402-umi-universal-manipulation-interface",
+      "type": "cites",
+      "note": "Section 3.2 cites UMI as the handheld demonstration paradigm; FastUMI-100K supplies the target pace."
+    },
+    {
+      "target": "2410-pi0-vla-flow-model",
+      "type": "sharesTopicWith",
+      "note": "Both study flow-based VLA manipulation; this paper fine-tunes π0.5 rather than the earlier π0 policy."
+    }
+  ],
+  "ai_summary": {
+    "one_liner": "A learned distribution over path-dependent speed retimes demonstrations to a faster human pace, while a constrained controller executes predicted tempo smoothly.",
+    "problem": "Demonstration policies inherit teleoperator hesitation and inconsistent timing; uniform acceleration ignores task-dependent pace and robot limits.",
+    "solution": "Learn a domain-conditioned speed distribution across tasks, integrate quantile clocks, fine-tune π0.5 with tempo channels, and track chunks using constrained Draft–Splice–Smooth optimization.",
+    "key_result": "RoboLab: 60.8% success at 2.38× speed versus 53.0% at 2.48× uniform speed, with 52% less integrated squared jerk. Real cups: 6.02 s to 3.50 s, both 29/30 successes under the same controller.",
+    "limitations": [
+      "The prior cannot transfer speeds beyond those demonstrated.",
+      "Human-adjacent deployment requires additional safety validation.",
+      "AI analysis: the complete system is evaluated on one real robot platform and five tasks; cross-robot robustness remains unestablished."
+    ]
+  },
+  "research_gaps": [
+    {
+      "question": "How can policies safely exceed all demonstrated speeds rather than only transfer observed human paces?",
+      "source": "author",
+      "relates_to": [
+        "learned-speed-prior",
+        "speed-extrapolation"
+      ]
+    },
+    {
+      "question": "Does pace transfer and constrained execution generalize across robot dynamics and richer contact tasks?",
+      "source": "ai_analysis",
+      "relates_to": [
+        "cross-embodiment",
+        "kinodynamic-constraints"
+      ]
+    }
+  ],
+  "future_directions": [
+    "AI-proposed: combine learned pace priors with dynamics-aware exploration to test safe extrapolation beyond demonstrated speeds.",
+    "AI-proposed: evaluate cross-robot transfer and contact-rich tasks with separate clock and controller ablations."
+  ],
+  "next_reading": [
+    "2402-umi-universal-manipulation-interface",
+    "2410-pi0-vla-flow-model"
+  ],
+  "survey_hooks": [
+    "Separating geometric paths from demonstration clocks",
+    "Learning human pace versus uniform policy acceleration",
+    "Bridging VLA action chunks and constrained real-time execution"
+  ],
+  "ai_research_question": "Can task-dependent timing be learned across demonstration domains and transferred to robot policies without losing reliability or smoothness?"
+}

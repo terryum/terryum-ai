@@ -1,0 +1,101 @@
+---
+locale: "en"
+translation_of: "2610-learned-speed-prior:ko"
+title: "Retiming Robot Demonstrations with a Learned Speed Prior"
+summary: "A learned speed prior retimes demonstrations and adds tempo channels to π0.5. Cup stacking drops from 6.02 s to 3.50 s with 29/30 successes in both conditions; RoboLab shows 52% lower jerk at similar execution speed."
+card_summary: "Robot policies inherit a demonstrator’s hesitation and inconsistent timing. A learned path-dependent speed distribution retimes demonstrations, while a constrained controller executes the predicted tempo."
+published_at: "2026-10-30T07:38:03+09:00"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2610.32676"
+source_date: "2026-10-23"
+terrys_memo: ""
+references:
+  - title: "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots"
+    author: "Cheng Chi et al."
+    description: "Handheld demonstration paradigm cited when defining source and target domains."
+    arxiv_url: "https://arxiv.org/abs/2402.10329"
+    scholar_url: "https://scholar.google.com/scholar?q=2402.10329"
+    category: "foundational"
+  - title: "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset"
+    author: "Alexander Khazatsky et al."
+    description: "Provides teleoperated source demonstrations and the baseline policy setting."
+    arxiv_url: "https://arxiv.org/abs/2403.12945"
+    scholar_url: "https://scholar.google.com/scholar?q=2403.12945"
+    category: "foundational"
+  - title: "FastUMI-100K: Advancing Data-Driven Robotic Manipulation with a Large-Scale UMI-Style Dataset"
+    author: "K. Liu et al."
+    description: "Provides the faster handheld target domain for the first-stage shared speed prior."
+    arxiv_url: "https://arxiv.org/abs/2510.08022"
+    scholar_url: "https://scholar.google.com/scholar?q=2510.08022"
+    category: "foundational"
+  - title: "SpeedAug: Policy Acceleration via Tempo-Enriched Policy and RL Fine-Tuning"
+    author: "T. Nam et al."
+    description: "Related speed-learning approach using random tempo augmentation and task-environment RL."
+    arxiv_url: "https://arxiv.org/abs/2512.00062"
+    scholar_url: "https://scholar.google.com/scholar?q=2512.00062"
+    category: "recent"
+---
+
+## TL;DR
+
+Robot policies inherit a demonstrator’s hesitation and inconsistent timing. A learned path-dependent speed distribution retimes demonstrations, while a constrained controller executes the predicted tempo.
+
+## Problem
+
+Imitation learning copies when a teleoperator moves as well as what they do. The same useful path can therefore come with inconsistent action timing, pauses and hesitation. Existing acceleration methods often need task-specific fits, labels or prescribed rates, while uniformly shortening every step ignores where precision matters. This paper learns a speed distribution shared across tasks and transfers the pace of faster demonstrators to all source paths.
+
+## Key Idea
+
+**Separate the geometric path from its clock.** Preserve the demonstration’s motion path and infer how long each local interval should take.
+
+- A speed prior reads an instruction, a path window, wrist images and a source/target domain label, then predicts a distribution of local speeds.
+- A chosen quantile yields a clock: the median gives consistent training targets, while higher quantiles supply faster tempo channels.
+- A constrained controller follows the requested pace where feasible and slows locally when robot limits bind.
+
+<Figure src="./fig-1.png" caption="Figure 1: Learning the pace from demonstrations. (1) Paths are resampled every 2 cm of arc length and read in windows of 17 nodes. (2) The prior predicts a distribution over the log speed of every interval. (3) Reading a source path with the target label gives a quantile of the speed along the path. (4) Integrating this speed gives the clock." />
+
+<Collapsible title="Detailed Method">
+
+### A speed distribution over a path
+
+Path progress combines translation, rotation and gripper opening in one arc-length metric. Paths are sampled every 2 cm and processed in 17-node windows. A transformer predicts categorical arm and gripper log-speed distributions over 256 bins from 1 to 5,000 mm/s. A two-hot cross-entropy objective models the effective speed determined by the slower actuator rather than regressing one average speed.
+
+The first-stage prior uses DROID teleoperation and FastUMI-100K handheld demonstrations. To transfer pace without confusing visual domain with timing, training drops images with probability 0.5. At retiming, a classifier-free-guidance-style difference between target and source logits without images adjusts the source prediction with images. When grippers differ, gripper speed retains its source label.
+
+Integrating inverse quantile speed produces a replacement clock. π0.5 is fine-tuned on joint-action chunks under the median clock, with additional dimensions predicting q90, q95 and q99 tempo. These channels specify time per action; they do not simply multiply all movements by one constant. For the three real-robot fine-tuning tasks, the prior is adapted per task using the shortest quarter of its handheld episodes as the target domain, then retimes all demonstrations. Thus the shared first-stage prior does not eliminate task adaptation in this experiment.
+
+### Executing variable tempo
+
+**Draft** fits a minimum-jerk path through tolerance boxes and times it under velocity, acceleration and torque limits. **Splice** joins it to the running plan at the earliest feasible point reached on schedule. **Smooth** solves a final minimum-jerk program while preserving position, velocity and acceleration continuity. Tempo is an upper bound on execution speed, not a promise that every requested speed is physically achievable.
+
+<Figure src="./fig-2.png" caption="Figure 2: One execution cycle. (1) From an observation on the running plan, the policy predicts a new chunk and its pace. (2) Draft fits a smooth path within boxes around the kept waypoints and times it at the pace unless a limit binds. (3) Splice joins the running plan to this path at the earliest point it reaches on time. (4) Smooth solves one minimum-jerk program through the boxes at their scheduled times, within all limits, giving the new plan." />
+
+</Collapsible>
+
+## Main Results
+
+- **RoboLab, 120 tasks × 10 episodes:** Table 1 reports 60.8% success at 2.38× realized speed for q99, versus 53.0% at 2.48× for uniformly accelerated execution. Integrated squared jerk falls from 2.41 to 1.16, about 52%. These operating points have similar, rather than identical, measured speeds; motion-quality metrics use episodes completed by every compared execution. Simulation uses joint-target interpolation without the proposed controller, isolating the clocks.
+- **Real cup stacking, same proposed controller:** the recorded-timing baseline takes 6.02 s and the retimed q95 policy 3.50 s, a 1.72× speed-up, both succeeding in 29/30 trials. Times average successful rollouts. Training only on the fastest quarter yields 9/30 successes.
+- **Controller effect, isolated from retiming:** the recorded-timing towel policy succeeds in 4/30 trials with PD and 29/30 with the proposed controller. This benefit belongs to execution control and should be separated from the learned-clock contribution.
+
+<Figure src="./tab-2.png" caption="Table 2: Real-robot results on the YUBI tasks of Figure 3. Ours (1x) runs our controller at α=1, and Ours (q90), (q95) and (q99) on the tempo channels of the 0.9, 0.95 and 0.99 quantiles. TPR is in successes per minute, ATR in seconds and UPH in items per hour. Appendix G defines the metrics." />
+
+The [project page](https://mllab.snu.ac.kr/projects/learned_speed_prior/) includes real-time videos, but its selected single-run times are different from Table 2’s repeated-trial averages. The paper’s SAIL comparison also uses a different robot and training data, so it does not establish a controlled head-to-head gain.
+
+## Achievements and Limitations
+
+### Achievements
+
+- Learns a reusable, task-dependent pace distribution and transfers it to paths not demonstrated by the faster target group.
+- Keeps the diversity of all demonstrations rather than discarding slower episodes, which performs better than fast-only behavior cloning in the reported experiments.
+- Connects variable-tempo VLA chunks to continuous constrained execution; simulation and real-robot comparisons distinguish the timing and controller effects.
+
+### Limitations
+
+- **Author-stated:** the prior transfers speeds someone has demonstrated; it cannot accelerate beyond the observed pace support.
+- **Author-stated deployment boundary:** experiments are in a controlled laboratory. Deployment near humans requires additional safety validation.
+- **🤖 AI analysis:** the complete real-world stack is tested on one robot platform and five tasks. Its robustness across robot dynamics and richer contact tasks remains unestablished.
+
+## Terry's memo
+
+- *(None)*

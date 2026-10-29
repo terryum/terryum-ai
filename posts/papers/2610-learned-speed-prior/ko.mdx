@@ -1,0 +1,101 @@
+---
+locale: "ko"
+translation_of: "2610-learned-speed-prior:en"
+title: "Learned Speed Prior: 시연의 경로는 유지하고 동작의 시간축을 학습하다"
+summary: "상황별 속도 사전분포로 시연을 재시간화하고 π0.5에 템포 채널을 학습한다. 컵 쌓기를 6.02초에서 3.50초로 단축하면서 두 조건 모두 29/30 성공했고, RoboLab에서는 비슷한 실행 속도에서 jerk가 52% 감소했다."
+card_summary: "로봇이 조작자의 망설임까지 모방하는 문제를, 경로별 속도 분포를 학습해 시연의 시간축을 바꾸는 방식으로 해결한다. 예측한 템포는 로봇의 동역학 제약을 만족하는 제어기로 실행한다."
+published_at: "2026-10-30T07:38:03+09:00"
+source_type: "arXiv"
+source_url: "https://arxiv.org/abs/2610.32676"
+source_date: "2026-10-23"
+terrys_memo: ""
+references:
+  - title: "Universal Manipulation Interface: In-The-Wild Robot Teaching Without In-The-Wild Robots"
+    author: "Cheng Chi et al."
+    description: "소스·타깃 도메인을 설명할 때 인용하는 휴대형 시연 수집 방식이다."
+    arxiv_url: "https://arxiv.org/abs/2402.10329"
+    scholar_url: "https://scholar.google.com/scholar?q=2402.10329"
+    category: "foundational"
+  - title: "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset"
+    author: "Alexander Khazatsky et al."
+    description: "속도를 바꿀 원격조작 시연과 기준 정책의 데이터 설정을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2403.12945"
+    scholar_url: "https://scholar.google.com/scholar?q=2403.12945"
+    category: "foundational"
+  - title: "FastUMI-100K: Advancing Data-Driven Robotic Manipulation with a Large-Scale UMI-Style Dataset"
+    author: "K. Liu et al."
+    description: "1단계 공통 속도 사전분포의 빠른 휴대형 타깃 도메인을 제공한다."
+    arxiv_url: "https://arxiv.org/abs/2510.08022"
+    scholar_url: "https://scholar.google.com/scholar?q=2510.08022"
+    category: "foundational"
+  - title: "SpeedAug: Policy Acceleration via Tempo-Enriched Policy and RL Fine-Tuning"
+    author: "T. Nam et al."
+    description: "무작위 속도 증강과 과제 환경 RL을 사용하는 관련 정책 가속 접근이다."
+    arxiv_url: "https://arxiv.org/abs/2512.00062"
+    scholar_url: "https://scholar.google.com/scholar?q=2512.00062"
+    category: "recent"
+---
+
+## TL;DR
+
+로봇이 조작자의 망설임까지 모방하는 문제를, 경로별 속도 분포를 학습해 시연의 시간축을 바꾸는 방식으로 해결한다. 예측한 템포는 로봇의 동역학 제약을 만족하는 제어기로 실행한다.
+
+## 문제
+
+모방학습은 조작자가 무엇을 했는지뿐 아니라 언제 움직였는지까지 배운다. 그래서 같은 유효한 경로에도 제각각의 행동 시간, 정지, 망설임이 섞인다. 기존 가속 기법은 과제별 모델 학습이나 라벨, 정해진 배속을 요구하는 경우가 많고, 모든 구간을 일괄 가속하면 정밀도가 필요한 순간을 구분하지 못한다. 이 논문은 과제 전반에 공유되는 속도 분포를 학습하고, 빠른 시연자의 템포를 전체 소스 경로에 옮긴다.
+
+## 핵심 아이디어
+
+**기하학적 경로와 그 경로를 따라가는 시간축을 분리한다.** 시연의 동작 경로는 유지하고 각 구간에 얼마의 시간을 쓸지 추정한다.
+
+- 속도 사전분포 모델은 지시문, 경로 윈도, 손목 이미지, 소스·타깃 도메인 라벨을 읽어 국소 속도 분포를 예측한다.
+- 선택한 분위수로 시간축을 만든다. 중앙값은 일관된 학습 타깃을, 높은 분위수는 더 빠른 템포 채널을 제공한다.
+- 제약을 고려하는 제어기가 가능한 구간에서는 예측 템포를 따르고, 로봇 한계에 걸리는 구간만 늦춘다.
+
+<Figure src="./fig-1.png" caption="Figure 1: Learning the pace from demonstrations. (1) Paths are resampled every 2 cm of arc length and read in windows of 17 nodes. (2) The prior predicts a distribution over the log speed of every interval. (3) Reading a source path with the target label gives a quantile of the speed along the path. (4) Integrating this speed gives the clock." />
+
+<Collapsible title="구체적 방법">
+
+### 경로 위의 속도 분포
+
+경로 진행량은 병진 이동, 회전, 그리퍼 열림을 하나의 호 길이 지표로 결합한다. 경로를 2 cm 간격으로 재표본화해 17개 노드의 윈도로 읽는다. Transformer는 팔과 그리퍼의 로그 속도를 각각 1~5,000 mm/s 범위의 256개 범주로 예측한다. 단일 평균 속도를 회귀하는 대신, 두 구동부 중 더 느린 쪽이 결정하는 실효 속도를 two-hot 교차 엔트로피로 학습한다.
+
+1단계 모델은 DROID 원격조작 시연과 FastUMI-100K 휴대형 시연을 함께 사용한다. 이미지가 드러내는 도메인과 템포를 혼동하지 않도록 학습 중 0.5 확률로 이미지를 제거한다. 재시간화할 때는 이미지 없는 타깃·소스 예측의 logit 차이를 이미지가 있는 소스 예측에 더하는 classifier-free guidance 형태의 보정을 적용한다. 두 도메인의 그리퍼가 다르면 그리퍼 속도에는 소스 라벨을 유지한다.
+
+분위수 속도의 역수를 적분해 새 시간축을 만든다. 중앙값 시간축의 관절 행동 청크로 π0.5를 미세조정하고, q90·q95·q99 템포를 예측하는 행동 차원을 추가한다. 템포는 행동별 실행 시간을 정하므로 전체 동작에 같은 배속을 곱하는 방식과 다르다. 실제 로봇의 세 미세조정 과제에서는 과제마다 가장 짧은 25%의 휴대형 에피소드를 타깃으로 삼아 prior를 적응시킨 뒤 전체 시연을 재시간화한다. 따라서 공통 prior를 한 번 학습한다는 설명이 이 실험의 과제별 적응까지 없앤다는 뜻은 아니다.
+
+### 가변 템포 실행
+
+**Draft**는 웨이포인트 허용 박스를 통과하는 최소 jerk 경로를 만들고 속도·가속도·토크 한계 안에서 시간을 배정한다. **Splice**는 진행 중인 계획에서 새 경로의 제시간에 도달 가능한 가장 이른 지점으로 연결한다. **Smooth**는 위치·속도·가속도의 연속성을 유지하는 최종 최소 jerk 최적화를 수행한다. 예측 템포는 실행 속도의 상한이며, 모든 요청 속도를 물리적으로 달성한다는 보장이 아니다.
+
+<Figure src="./fig-2.png" caption="Figure 2: One execution cycle. (1) From an observation on the running plan, the policy predicts a new chunk and its pace. (2) Draft fits a smooth path within boxes around the kept waypoints and times it at the pace unless a limit binds. (3) Splice joins the running plan to this path at the earliest point it reaches on time. (4) Smooth solves one minimum-jerk program through the boxes at their scheduled times, within all limits, giving the new plan." />
+
+</Collapsible>
+
+## 주요 결과
+
+- **RoboLab 120개 과제 × 10회:** 표 1에서 q99 정책은 실제 측정 2.38배 속도에서 성공률 60.8%, 균일 가속 정책은 2.48배에서 53.0%이다. 제곱 jerk 적분은 2.41→1.16으로 약 52% 줄었다. 측정 속도는 유사하지만 완전히 같지는 않으며, 동작 품질은 비교한 모든 실행 조건에서 성공한 에피소드로 계산한다. 시뮬레이션에서는 제안 제어기 없이 관절 목표를 보간해 시간축 효과를 분리한다.
+- **실제 컵 쌓기, 같은 제안 제어기:** 원래 시간축으로 학습한 기준 정책의 6.02초가 재시간화 q95 정책에서 3.50초로 단축된다(1.72배). 둘 다 29/30회 성공이며 시간은 성공 시행의 평균이다. 가장 빠른 25%만 학습한 정책은 9/30회 성공에 그친다.
+- **재시간화와 구분한 제어기 효과:** 원래 시간축으로 학습한 수건 정책은 PD에서 4/30회, 제안 제어기에서 29/30회 성공한다. 이 개선은 실행 제어의 기여이므로 학습한 시간축의 효과와 구분해야 한다.
+
+<Figure src="./tab-2.png" caption="Table 2: Real-robot results on the YUBI tasks of Figure 3. Ours (1x) runs our controller at α=1, and Ours (q90), (q95) and (q99) on the tempo channels of the 0.9, 0.95 and 0.99 quantiles. TPR is in successes per minute, ATR in seconds and UPH in items per hour. Appendix G defines the metrics." />
+
+[프로젝트 페이지](https://mllab.snu.ac.kr/projects/learned_speed_prior/)에서 실제 속도의 영상을 볼 수 있다. 다만 페이지의 선택된 단일 시연 시간은 표 2의 반복 실험 평균과 다르다. 논문의 SAIL 비교도 로봇과 학습 데이터가 달라 통제된 직접 비교로 해석할 수 없다.
+
+## 달성점과 한계점
+
+### 새롭게 달성한 점
+
+- 과제별 맥락에 따른 속도 분포를 공통 모델로 학습하고, 빠른 타깃 시연자가 직접 지나가지 않은 경로에도 그 템포를 옮긴다.
+- 느린 시연을 버리지 않고 전체 시연의 다양성을 보존하며, 보고된 실험에서는 빠른 시연만 골라 학습하는 행동복제보다 나은 결과를 보인다.
+- 가변 템포 VLA 청크를 연속적이고 제약을 만족하는 실행으로 연결한다. 시뮬레이션과 실제 로봇 비교를 통해 시간축과 제어기의 기여를 구분한다.
+
+### 한계점
+
+- **저자 언급:** 누군가 시연한 속도를 옮기는 방식이므로 관측된 템포 범위를 넘어 가속할 수 없다.
+- **저자 언급 적용 범위:** 실험은 통제된 실험실에서 수행했으며, 사람 주변 배치에는 추가 안전성 검증이 필요하다.
+- **🤖 AI 분석:** 전체 실제 시스템은 로봇 플랫폼 하나와 다섯 과제로 평가했다. 다른 로봇의 동역학이나 더 풍부한 접촉 과제로의 강건성은 입증되지 않았다.
+
+## Terry's memo
+
+- *(None)*

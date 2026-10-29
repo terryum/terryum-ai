@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T07:51:01.182Z",
-  "total_posts": 91,
+  "generated_at": "2026-10-29T22:44:52.333Z",
+  "total_posts": 92,
   "posts": [
     {
       "post_number": 1,
@@ -7032,6 +7032,85 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 92,
+      "slug": "2610-learned-speed-prior",
+      "content_type": "papers",
+      "title_en": "Retiming Robot Demonstrations with a Learned Speed Prior",
+      "title_ko": "Learned Speed Prior: 시연의 경로는 유지하고 동작의 시간축을 학습하다",
+      "summary_ko": "로봇이 조작자의 망설임까지 모방하는 문제를, 경로별 속도 분포를 학습해 시연의 시간축을 바꾸는 방식으로 해결한다. 예측한 템포는 로봇의 동역학 제약을 만족하는 제어기로 실행한다.",
+      "summary_en": "Robot policies inherit a demonstrator’s hesitation and inconsistent timing. A learned path-dependent speed distribution retimes demonstrations, while a constrained controller executes the predicted tempo.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-manipulation",
+        "imitation-learning",
+        "trajectory-optimization"
+      ],
+      "key_concepts": [
+        "learned-speed-prior",
+        "trajectory-retiming",
+        "tempo-channels",
+        "VLA",
+        "handheld-demonstrations",
+        "kinodynamic-constraints",
+        "minimum-jerk",
+        "cross-domain-pace-transfer"
+      ],
+      "methodology": [
+        "categorical-speed-modeling",
+        "quantile-retiming",
+        "classifier-free-guidance",
+        "behavior-cloning",
+        "time-optimal-path-parameterization",
+        "minimum-jerk-optimization",
+        "real-time-chunk-splicing"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Imitation Learning",
+        "Trajectory Retiming"
+      ],
+      "source_author": "Seungyong Moon, Deokjae Lee, Hansang Lee et al.",
+      "source_date": "2026-10-23",
+      "published_at": "2026-10-30T07:38:03+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A learned distribution over path-dependent speed retimes demonstrations to a faster human pace, while a constrained controller executes predicted tempo smoothly.",
+        "problem": "Demonstration policies inherit teleoperator hesitation and inconsistent timing; uniform acceleration ignores task-dependent pace and robot limits.",
+        "solution": "Learn a domain-conditioned speed distribution across tasks, integrate quantile clocks, fine-tune π0.5 with tempo channels, and track chunks using constrained Draft–Splice–Smooth optimization.",
+        "key_result": "RoboLab: 60.8% success at 2.38× speed versus 53.0% at 2.48× uniform speed, with 52% less integrated squared jerk. Real cups: 6.02 s to 3.50 s, both 29/30 successes under the same controller.",
+        "limitations": [
+          "The prior cannot transfer speeds beyond those demonstrated.",
+          "Human-adjacent deployment requires additional safety validation.",
+          "AI analysis: the complete system is evaluated on one real robot platform and five tasks; cross-robot robustness remains unestablished."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2402-umi-universal-manipulation-interface",
+          "type": "cites",
+          "note": "Section 3.2 cites UMI as the handheld demonstration paradigm; FastUMI-100K supplies the target pace."
+        },
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "sharesTopicWith",
+          "note": "Both study flow-based VLA manipulation; this paper fine-tunes π0.5 rather than the earlier π0 policy."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -8307,254 +8386,14 @@
         "type": "sharesTopicWith"
       },
       {
-        "from": "2201-mano-hand-model",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
+        "from": "2610-learned-speed-prior",
+        "to": "2402-umi-universal-manipulation-interface",
+        "type": "cites"
       },
       {
-        "from": "2201-mano-hand-model",
-        "to": "2512-unitachand",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2201-mano-hand-model",
-        "to": "2602-robopaint",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2407-tactile-skin-inhand-translation",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "related"
-      },
-      {
-        "from": "2409-3dtactile-dex",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2410-pi0-vla-flow-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2501-dexforce-force-informed-actions",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2504-pp-tac",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "related"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "compares_with"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2505-dexumi",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "related"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
+        "from": "2610-learned-speed-prior",
         "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2505-forcevla-force-aware-moe",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "uses_method"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2501-dexforce-force-informed-actions",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2506-exostart",
-        "to": "2505-forcevla-force-aware-moe",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2506-exostart",
-        "type": "compares_with"
-      },
-      {
-        "from": "2509-dexop",
-        "to": "2407-stretchable-glove-hand-pose",
-        "type": "addresses_task"
-      },
-      {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2511-gen0-embodied-foundation-model",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2511-pi0-6-recap",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "builds_on"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2512-unitachand",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-osmo-tactile-glove",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2409-3dtactile-dex",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2407-tactile-skin-inhand-translation",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2504-pp-tac",
-        "type": "related"
-      },
-      {
-        "from": "2512-unitachand",
-        "to": "2505-dexumi",
-        "type": "related"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2505-dexumi",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2506-exostart",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2509-dexop",
-        "type": "compares_with"
-      },
-      {
-        "from": "2602-robopaint",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2603-capx-coding-agents-manipulation",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-medical-ai-scientist",
-        "to": "2502-ai-co-scientist",
-        "type": "compares_with"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2603-roboclaw-agentic-long-horizon",
-        "to": "2603-capx-coding-agents-manipulation",
-        "type": "compares_with"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-gen0-embodied-foundation-model",
-        "type": "builds_on"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2410-pi0-vla-flow-model",
-        "type": "related"
-      },
-      {
-        "from": "2604-gen1-scaling-mastery",
-        "to": "2511-pi0-6-recap",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2603-meta-harness-optimization",
-        "type": "related"
-      },
-      {
-        "from": "2604-harnessing-claude-intelligence",
-        "to": "2502-ai-co-scientist",
-        "type": "related"
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -8573,7 +8412,8 @@
           56,
           62,
           67,
-          89
+          89,
+          92
         ],
         "core_concepts": [
           "VLA",
@@ -8788,7 +8628,8 @@
           56,
           62,
           67,
-          89
+          89,
+          92
         ],
         "core_concepts": [
           "VLA"
@@ -8982,7 +8823,8 @@
       56,
       62,
       67,
-      89
+      89,
+      92
     ],
     "flow-matching": [
       1,
@@ -10724,10 +10566,31 @@
     ],
     "within-episode-adaptation": [
       91
+    ],
+    "learned-speed-prior": [
+      92
+    ],
+    "trajectory-retiming": [
+      92
+    ],
+    "tempo-channels": [
+      92
+    ],
+    "handheld-demonstrations": [
+      92
+    ],
+    "kinodynamic-constraints": [
+      92
+    ],
+    "minimum-jerk": [
+      92
+    ],
+    "cross-domain-pace-transfer": [
+      92
     ]
   },
   "domain_stats": {
-    "robotics": 50,
+    "robotics": 51,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -10751,8 +10614,8 @@
     "Career": 2
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 12,
-    "robotics/arm:secondary": 18,
+    "robotics/brain/vla": 13,
+    "robotics/arm:secondary": 19,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -10761,7 +10624,7 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 12,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 28,
+    "robotics/brain": 29,
     "ai/llm:secondary": 7,
     "ai/society": 6,
     "ai/agents:secondary": 3,
@@ -10823,7 +10686,7 @@
     "startup/career:secondary": 1,
     "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 49,
+    "robotics": 50,
     "ai": 20,
     "biology": 2
   }
