@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-15T07:08:02.153Z",
-  "total_posts": 88,
+  "generated_at": "2026-10-29T22:38:15.846Z",
+  "total_posts": 89,
   "posts": [
     {
       "post_number": 1,
@@ -6775,6 +6775,85 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 92,
+      "slug": "2610-learned-speed-prior",
+      "content_type": "papers",
+      "title_en": "Retiming Robot Demonstrations with a Learned Speed Prior",
+      "title_ko": "Learned Speed Prior: 시연의 경로는 유지하고 동작의 시간축을 학습하다",
+      "summary_ko": "로봇이 조작자의 망설임까지 모방하는 문제를, 경로별 속도 분포를 학습해 시연의 시간축을 바꾸는 방식으로 해결한다. 예측한 템포는 로봇의 동역학 제약을 만족하는 제어기로 실행한다.",
+      "summary_en": "Robot policies inherit a demonstrator’s hesitation and inconsistent timing. A learned path-dependent speed distribution retimes demonstrations, while a constrained controller executes the predicted tempo.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "robot-manipulation",
+        "imitation-learning",
+        "trajectory-optimization"
+      ],
+      "key_concepts": [
+        "learned-speed-prior",
+        "trajectory-retiming",
+        "tempo-channels",
+        "VLA",
+        "handheld-demonstrations",
+        "kinodynamic-constraints",
+        "minimum-jerk",
+        "cross-domain-pace-transfer"
+      ],
+      "methodology": [
+        "categorical-speed-modeling",
+        "quantile-retiming",
+        "classifier-free-guidance",
+        "behavior-cloning",
+        "time-optimal-path-parameterization",
+        "minimum-jerk-optimization",
+        "real-time-chunk-splicing"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "Papers",
+        "Robotics",
+        "VLA",
+        "Imitation Learning",
+        "Trajectory Retiming"
+      ],
+      "source_author": "Seungyong Moon, Deokjae Lee, Hansang Lee et al.",
+      "source_date": "2026-10-23",
+      "published_at": "2026-10-30T07:38:03+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "A learned distribution over path-dependent speed retimes demonstrations to a faster human pace, while a constrained controller executes predicted tempo smoothly.",
+        "problem": "Demonstration policies inherit teleoperator hesitation and inconsistent timing; uniform acceleration ignores task-dependent pace and robot limits.",
+        "solution": "Learn a domain-conditioned speed distribution across tasks, integrate quantile clocks, fine-tune π0.5 with tempo channels, and track chunks using constrained Draft–Splice–Smooth optimization.",
+        "key_result": "RoboLab: 60.8% success at 2.38× speed versus 53.0% at 2.48× uniform speed, with 52% less integrated squared jerk. Real cups: 6.02 s to 3.50 s, both 29/30 successes under the same controller.",
+        "limitations": [
+          "The prior cannot transfer speeds beyond those demonstrated.",
+          "Human-adjacent deployment requires additional safety validation.",
+          "AI analysis: the complete system is evaluated on one real robot platform and five tasks; cross-robot robustness remains unestablished."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2402-umi-universal-manipulation-interface",
+          "type": "cites",
+          "note": "Section 3.2 cites UMI as the handheld demonstration paradigm; FastUMI-100K supplies the target pace."
+        },
+        {
+          "target": "2410-pi0-vla-flow-model",
+          "type": "sharesTopicWith",
+          "note": "Both study flow-based VLA manipulation; this paper fine-tunes π0.5 rather than the earlier π0 policy."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/brain/vla",
+      "taxonomy_secondary": [
+        "robotics/arm"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -7988,6 +8067,16 @@
         "from": "2609-astra-llm-as-robot-policy",
         "to": "2603-capx-coding-agents-manipulation",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2610-learned-speed-prior",
+        "to": "2402-umi-universal-manipulation-interface",
+        "type": "cites"
+      },
+      {
+        "from": "2610-learned-speed-prior",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "sharesTopicWith"
       }
     ],
     "clusters": [
@@ -8005,7 +8094,8 @@
           55,
           56,
           62,
-          67
+          67,
+          92
         ],
         "core_concepts": [
           "VLA",
@@ -8218,7 +8308,8 @@
           55,
           56,
           62,
-          67
+          67,
+          92
         ],
         "core_concepts": [
           "VLA"
@@ -8395,7 +8486,8 @@
       55,
       56,
       62,
-      67
+      67,
+      92
     ],
     "flow-matching": [
       1,
@@ -10090,10 +10182,31 @@
     ],
     "within-episode-adaptation": [
       91
+    ],
+    "learned-speed-prior": [
+      92
+    ],
+    "trajectory-retiming": [
+      92
+    ],
+    "tempo-channels": [
+      92
+    ],
+    "handheld-demonstrations": [
+      92
+    ],
+    "kinodynamic-constraints": [
+      92
+    ],
+    "minimum-jerk": [
+      92
+    ],
+    "cross-domain-pace-transfer": [
+      92
     ]
   },
   "domain_stats": {
-    "robotics": 48,
+    "robotics": 49,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -10117,8 +10230,8 @@
     "Career": 1
   },
   "taxonomy_stats": {
-    "robotics/brain/vla": 11,
-    "robotics/arm:secondary": 17,
+    "robotics/brain/vla": 12,
+    "robotics/arm:secondary": 18,
     "robotics/arm/force-control": 2,
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
@@ -10127,7 +10240,7 @@
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 11,
     "robotics/arm/exoskeleton:secondary": 1,
-    "robotics/brain": 26,
+    "robotics/brain": 27,
     "ai/llm:secondary": 7,
     "ai/society": 6,
     "ai/agents:secondary": 3,
@@ -10189,7 +10302,7 @@
     "startup/career:secondary": 1,
     "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 47,
+    "robotics": 48,
     "ai": 20,
     "biology": 2
   }
