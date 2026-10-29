@@ -7037,7 +7037,7 @@
       "post_number": 92,
       "slug": "2610-learned-speed-prior",
       "content_type": "papers",
-      "title_en": "Retiming Robot Demonstrations with a Learned Speed Prior",
+      "title_en": "Learned Speed Prior: Retiming Robot Demonstrations",
       "title_ko": "Learned Speed Prior: 시연의 경로는 유지하고 동작의 시간축을 학습하다",
       "summary_ko": "로봇이 조작자의 망설임까지 모방하는 문제를, 경로별 속도 분포를 학습해 시연의 시간축을 바꾸는 방식으로 해결한다. 예측한 템포는 로봇의 동역학 제약을 만족하는 제어기로 실행한다.",
       "summary_en": "Robot policies inherit a demonstrator’s hesitation and inconsistent timing. A learned path-dependent speed distribution retimes demonstrations, while a constrained controller executes the predicted tempo.",
@@ -8394,6 +8394,256 @@
         "from": "2610-learned-speed-prior",
         "to": "2410-pi0-vla-flow-model",
         "type": "sharesTopicWith"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2512-unitachand",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2201-mano-hand-model",
+        "to": "2602-robopaint",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2407-tactile-skin-inhand-translation",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "related"
+      },
+      {
+        "from": "2409-3dtactile-dex",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2410-pi0-vla-flow-model",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2501-dexforce-force-informed-actions",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2504-pp-tac",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "related"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "compares_with"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2505-dexumi",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "related"
+      },
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2505-forcevla-force-aware-moe",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "uses_method"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2501-dexforce-force-informed-actions",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2506-exostart",
+        "to": "2505-forcevla-force-aware-moe",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2506-exostart",
+        "type": "compares_with"
+      },
+      {
+        "from": "2509-dexop",
+        "to": "2407-stretchable-glove-hand-pose",
+        "type": "addresses_task"
+      },
+      {
+        "from": "2511-gen0-embodied-foundation-model",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2511-gen0-embodied-foundation-model",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2511-pi0-6-recap",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "builds_on"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2512-unitachand",
+        "type": "compares_with"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2409-3dtactile-dex",
+        "type": "related"
+      },
+      {
+        "from": "2512-osmo-tactile-glove",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2409-3dtactile-dex",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2407-tactile-skin-inhand-translation",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2504-pp-tac",
+        "type": "related"
+      },
+      {
+        "from": "2512-unitachand",
+        "to": "2505-dexumi",
+        "type": "related"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2505-dexumi",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2506-exostart",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2509-dexop",
+        "type": "compares_with"
+      },
+      {
+        "from": "2602-robopaint",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2603-capx-coding-agents-manipulation",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "compares_with"
+      },
+      {
+        "from": "2603-medical-ai-scientist",
+        "to": "2502-ai-co-scientist",
+        "type": "compares_with"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2603-roboclaw-agentic-long-horizon",
+        "to": "2603-capx-coding-agents-manipulation",
+        "type": "compares_with"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2511-gen0-embodied-foundation-model",
+        "type": "builds_on"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2410-pi0-vla-flow-model",
+        "type": "related"
+      },
+      {
+        "from": "2604-gen1-scaling-mastery",
+        "to": "2511-pi0-6-recap",
+        "type": "related"
+      },
+      {
+        "from": "2604-harnessing-claude-intelligence",
+        "to": "2603-meta-harness-optimization",
+        "type": "related"
+      },
+      {
+        "from": "2604-harnessing-claude-intelligence",
+        "to": "2502-ai-co-scientist",
+        "type": "related"
       }
     ],
     "clusters": [
