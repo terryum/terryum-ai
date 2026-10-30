@@ -21,6 +21,8 @@ on:
 
 jobs:
   publish:
+    # Paper publishing uses [skip social]; explicit dispatch remains available.
+    if: ${{ github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[skip social]') }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
