@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-29T22:44:52.333Z",
-  "total_posts": 92,
+  "generated_at": "2026-11-18T09:35:32.747Z",
+  "total_posts": 93,
   "posts": [
     {
       "post_number": 1,
@@ -7111,6 +7111,89 @@
       ],
       "visibility": "public",
       "allowed_groups": []
+    },
+    {
+      "post_number": 93,
+      "slug": "2505-contact-trust-region",
+      "content_type": "papers",
+      "title_en": "Contact Trust Region: Feasible Local Models for Dexterous Manipulation",
+      "title_ko": "Contact Trust Region: 접촉의 방향성을 반영하는 조작 계획",
+      "summary_ko": "접촉 동역학의 선형 근사를 어디까지 믿을 수 있는지 접촉력의 실행 가능성으로 제한한다. CTR과 완화형 R-CTR은 물리적으로 불가능한 당김 예측을 줄여, 적은 계산량으로 손안 조작과 양팔 조작을 계획한다.",
+      "summary_en": "CTR restricts where a local contact model can be trusted using physical feasibility of predicted contact forces. Its relaxed variant supports low-compute in-hand and bimanual manipulation by excluding impossible pulling predictions.",
+      "cover_image": "./cover.webp",
+      "cover_thumb": "./cover-thumb.webp",
+      "domain": "robotics",
+      "subfields": [
+        "contact-dynamics",
+        "contact-implicit-planning",
+        "model-predictive-control",
+        "in-hand-manipulation"
+      ],
+      "key_concepts": [
+        "contact-trust-region",
+        "relaxed-contact-trust-region",
+        "unilateral-contact",
+        "primal-dual-sensitivity",
+        "convex-quasidynamic-contact",
+        "contact-smoothing",
+        "roadmap-planning",
+        "grasp-synthesis"
+      ],
+      "methodology": [
+        "implicit-differentiation",
+        "convex-contact-model",
+        "log-barrier-smoothing",
+        "second-order-cone-constraints",
+        "successive-convexification",
+        "model-predictive-control",
+        "sampling-based-grasp-search",
+        "roadmap-construction"
+      ],
+      "contribution_type": "method",
+      "tags": [
+        "robotics",
+        "contact-rich-manipulation",
+        "contact-dynamics",
+        "model-predictive-control",
+        "motion-planning",
+        "dexterous-manipulation"
+      ],
+      "source_author": "H.J. Terry Suh, Tao Pang, Tong Zhao, Russ Tedrake",
+      "source_date": "2025-05-04",
+      "published_at": "2026-11-18T18:21:06+09:00",
+      "citation_count": null,
+      "ai_summary": {
+        "one_liner": "CTR constrains local contact models by predicted force and geometry feasibility; relaxed CTR supports low-compute MPC, grasp synthesis and cube roadmap planning.",
+        "problem": "A symmetric ellipsoidal trust region can predict pulling where unilateral contact permits only pushing.",
+        "solution": "Differentiate both primal configurations and dual contact forces, then intersect a local ellipsoid with feasibility constraints; R-CTR retains only dual feasibility to avoid excessive conservatism.",
+        "key_result": "In CQDC evaluation, bimanual translation error falls from 8.6 mm (ETR) to 2.0 mm (R-CTR), and Allegro rotation error from 21.4 to 9.8 mrad. A cube roadmap is built in under 10 CPU minutes; hardware achieves 150 consecutive edge transitions before hand overheating.",
+        "limitations": [
+          "Quasidynamic contact predictions differ substantially from second-order simulation and hardware.",
+          "The global connection recipe depends on Allegro kinematics and cube symmetry.",
+          "Lost contact, residual failures and the role of primal feasibility remain incompletely understood."
+        ]
+      },
+      "relations": [
+        {
+          "target": "2206-global-planning-contact",
+          "type": "extends",
+          "note": "Builds on Pang et al. (2023) CQDC and smoothing, adding primal/dual feasibility trust regions, closed-loop MPC, grasp synthesis and roadmap planning."
+        },
+        {
+          "target": "2303-diffusion-policy",
+          "type": "sharesGoalWith",
+          "note": "Section 9.1 proposes planner-generated expert trajectories for goal-conditioned diffusion policies; policy training is a future direction, not an evaluated CTR result."
+        }
+      ],
+      "idea_status": null,
+      "related_posts": null,
+      "taxonomy_primary": "robotics/hand/dexterous",
+      "taxonomy_secondary": [
+        "robotics/brain/rl-policy",
+        "robotics/arm/force-control"
+      ],
+      "visibility": "public",
+      "allowed_groups": []
     }
   ],
   "knowledge_graph": {
@@ -8644,6 +8727,16 @@
         "from": "2604-harnessing-claude-intelligence",
         "to": "2502-ai-co-scientist",
         "type": "related"
+      },
+      {
+        "from": "2505-contact-trust-region",
+        "to": "2206-global-planning-contact",
+        "type": "extends"
+      },
+      {
+        "from": "2505-contact-trust-region",
+        "to": "2303-diffusion-policy",
+        "type": "sharesGoalWith"
       }
     ],
     "clusters": [
@@ -8739,7 +8832,8 @@
           10,
           17,
           38,
-          76
+          76,
+          93
         ],
         "core_concepts": [
           "dexterous-manipulation"
@@ -9050,7 +9144,8 @@
       80,
       84,
       88,
-      91
+      91,
+      93
     ],
     "outlier_papers": [
       73,
@@ -10837,10 +10932,34 @@
     ],
     "cross-domain-pace-transfer": [
       92
+    ],
+    "contact-trust-region": [
+      93
+    ],
+    "relaxed-contact-trust-region": [
+      93
+    ],
+    "unilateral-contact": [
+      93
+    ],
+    "primal-dual-sensitivity": [
+      93
+    ],
+    "convex-quasidynamic-contact": [
+      93
+    ],
+    "contact-smoothing": [
+      93
+    ],
+    "roadmap-planning": [
+      93
+    ],
+    "grasp-synthesis": [
+      93
     ]
   },
   "domain_stats": {
-    "robotics": 51,
+    "robotics": 52,
     "ml": 3,
     "ai": 7,
     "philosophy": 2,
@@ -10870,7 +10989,7 @@
     "robotics/hand/tactile": 10,
     "robotics/arm/exoskeleton": 3,
     "robotics/hand:secondary": 3,
-    "robotics/hand/dexterous": 4,
+    "robotics/hand/dexterous": 5,
     "ai/agent": 9,
     "robotics/hand/dexterous:secondary": 12,
     "robotics/arm/exoskeleton:secondary": 1,
@@ -10890,9 +11009,9 @@
     "infra/cost": 1,
     "infra/serverless:secondary": 1,
     "ops/cleanup:secondary": 1,
-    "robotics/brain/rl-policy:secondary": 1,
+    "robotics/brain/rl-policy:secondary": 2,
     "robotics/brain/rl-policy": 9,
-    "robotics/arm/force-control:secondary": 1,
+    "robotics/arm/force-control:secondary": 2,
     "ai/tooling:secondary": 2,
     "startup/career": 1,
     "startup/organization:secondary": 1,
@@ -10915,7 +11034,7 @@
     "robotics/perception/depth:secondary": 1,
     "robotics/simulation/sim-to-real:secondary": 3,
     "robotics/whole-body": 1,
-    "robotics/hand": 15,
+    "robotics/hand": 16,
     "ai/business": 1,
     "software/economics:secondary": 1,
     "career/trust-capital:secondary": 1,
@@ -10936,7 +11055,7 @@
     "startup/career:secondary": 1,
     "ai-organization/work:secondary": 1,
     "robotics/arm": 5,
-    "robotics": 50,
+    "robotics": 51,
     "ai": 20,
     "biology": 2
   }

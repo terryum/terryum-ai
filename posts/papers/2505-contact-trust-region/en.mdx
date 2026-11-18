@@ -1,0 +1,91 @@
+---
+locale: "en"
+title: "Contact Trust Region: Feasible Local Models for Dexterous Manipulation"
+summary: "Contact Trust Region augments local contact dynamics with primal and dual feasibility. R-CTR reduces bimanual translation error from 8.6 to 2.0 mm in CQDC evaluation, while a cube roadmap takes under 10 minutes to construct on a laptop CPU."
+card_summary: "CTR restricts where a local contact model can be trusted using physical feasibility of predicted contact forces. Its relaxed variant supports low-compute in-hand and bimanual manipulation by excluding impossible pulling predictions."
+terrys_memo: ""
+references:
+  - title: "Global Planning for Contact-Rich Manipulation via Local Smoothing of Quasi-dynamic Contact Models"
+    author: "Pang, Suh, Yang and Tedrake (2023)"
+    description: "Direct foundation for CQDC and contact smoothing. CTR adds feasibility constraints to local state and force sensitivity models."
+    arxiv_url: "https://arxiv.org/abs/2206.10787"
+    category: "foundational"
+  - title: "A Convex Quasistatic Time-Stepping Scheme for Rigid Multibody Systems with Contact and Friction"
+    author: "Pang and Tedrake (2021)"
+    description: "Convex contact/friction model underpinning the dynamics; the paper also discusses its hydroplaning artifact."
+    arxiv_url: "https://doi.org/10.1109/ICRA48506.2021.9560941"
+    category: "foundational"
+  - title: "Learning Dexterous In-Hand Manipulation"
+    author: "OpenAI et al. (2019)"
+    description: "RL context for dexterous in-hand manipulation. CTR offers a lower-compute model-based alternative, without a matched head-to-head benchmark."
+    arxiv_url: "https://arxiv.org/abs/1808.00177"
+    category: "recent"
+  - title: "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion"
+    author: "Chi et al. (2023/2024)"
+    description: "Proposed planner-to-policy direction: train a goal-conditioned diffusion policy on synthesized expert trajectories; this is discussed rather than evaluated."
+    arxiv_url: "https://arxiv.org/abs/2303.04137"
+    category: "recent"
+---
+
+## TL;DR
+
+CTR restricts where a local contact model can be trusted using physical feasibility of predicted contact forces. Its relaxed variant supports low-compute in-hand and bimanual manipulation by excluding impossible pulling predictions.
+
+## Problem
+
+Pushing and pulling are not interchangeable in contact-rich manipulation. Differentiable simulators make local optimization tractable, but a conventional ellipsoidal trust region (ETR) can admit physically impossible contact-force predictions. Explicitly optimizing all contact modes and complementarity constraints is computationally difficult. This paper asks where a local contact model can be trusted, and uses contact feasibility to answer that question.
+
+## Core idea
+
+When a finger pushes a box, withdrawing the finger does not pull the box along. CTR restores that asymmetry to the local model.
+
+- **Differentiate both state and force**: obtain sensitivities of next-state primal variables and contact-force dual variables from the convex quasidynamic contact (CQDC) model.
+- **CTR**: intersect an ellipsoidal region with feasibility constraints on linearized primal and dual predictions, including friction constraints.
+- **R-CTR**: drop the potentially overconservative primal feasibility constraint while retaining dual feasibility of predicted contact forces.
+
+<Figure src="./fig-5.png" caption={"Figure 5: Visualization of the A-CTR \\mathcal{S}^{\\mathcal{A}}_{\\mathbf{\\Sigma},\\kappa} (primal and dual), RA-CTR \\tilde{\\mathcal{S}}^{\\mathcal{A}}_{\\mathbf{\\Sigma},\\kappa} (dual only) and the action-only object motion set \\mathcal{M}^{\\mathcal{A},\\mathrm{o}}_{\\mathrm{\\Sigma},\\kappa} under the different linearization points shown in the illustrations. In the “Trust Region” row, the “True Samples” subplot is obtained by uniformly sampling 2000 points from the ball \\left\\lVert{\\delta u}\\right\\rVert\\leq 0.1; samples in the following columns are obtained by rejecting samples that do not satisfy the respective constraints. In the “Object Motion Set” row, the “True Samples” subplot is obtained by passing the \\delta u samples from the trust region subplot above through the true contact dynamics (8); samples in the following columns are obtained by mapping the \\delta u samples from the corresponding trust region subplot through the linear map defined in (29)."} number={5} />
+
+<Collapsible title="Method details">
+
+CQDC computes the next robot/object configuration using convex optimization over geometry and friction. Log-barrier smoothing and implicit differentiation provide local sensitivities of both configurations and contact forces. CTR reinstates feasibility conditions omitted by a bare linearization, yielding convex constraints. R-CTR keeps only the dual conditions as a practical relaxation.
+
+MPC optimizes a trajectory inside this local representation, applies the first action, and replans. Initial-guess heuristics mitigate the gap between smoothed planning dynamics and actual nonsmooth contact. Execution under second-order dynamics also requires practical changes such as planning a short future trajectory before executing and replanning. Low offline compute therefore should not be read as high-frequency online control.
+
+Local MPC cannot reliably discover long-horizon moves that first break contact and reposition fingers. The authors sample initial grasps favorable for a target object motion, then connect grasps using MPC and collision-free hand repositioning. A global roadmap reuses these connections, exploiting the cube's 24 rotational symmetries.
+
+<Figure src="./fig-21.png" caption={"Figure 21: A complete path generated by our roadmap-based global planner. The object configuration in each frame is highlighted at the lower-left corner. (a) shows the starting configuration, which in this example is a vertex already in the roadmap. (b) can be reached from (a) with a -90^{\\circ} yaw. (c) has the same object configuration as (b), but the hand has repositioned for a 90^{\\circ} pitch. (d) is system configuration after the pitch. (e) shows the system reaching the goal configuration from (d). The path (a)-(d) is part of the roadmap and generated offline. (d)-(e) is generated online using collision-free planning and local MPC."} number={21} />
+
+</Collapsible>
+
+## Main results
+
+- **Local CQDC planning, Table 3**: mean bimanual translation error drops from ETR's **8.6 to 2.0 mm**, and rotation error from **9.6 to 2.1 mrad** with R-CTR. Allegro rotation error falls from **21.4 to 9.8 mrad**. These are evaluations within the planning model, not hardware errors.
+- **Hardware feedback, Table 6**: closed-loop versus open-loop rotation error improves from **0.056 to 0.024 rad** for IiwaBimanual and **0.323 to 0.258 rad** for AllegroHand. Allegro translation error increases from 0.014 to 0.018 m, so the improvement is not uniform across metrics.
+- **Roadmap, Section 8**: the cube roadmap takes **under 10 minutes** on a standard laptop CPU. Hardware executes **150 consecutive edge transitions** before the hand overheats; online inference takes a few seconds. This is a sequence on one constructed roadmap, not 150 arbitrary objects or universal task success.
+
+<Figure src="./tab-3.png" caption={"Table 3: Mean translation and rotation errors for the combined errors in Figure 11. Each cell displays the mean (std)."} number={3} />
+
+<Figure src="./tab-6.png" caption={"Table 6: Translation and rotation errors for simulation (Sim) and hardware (HW) experiments. Each cell displays the mean (standard deviation)."} number={6} />
+
+## Achievements and limitations
+
+Achievements:
+
+- Links the validity region of differentiable contact models to geometric and force feasibility, exposing the unilateral structure lost by symmetric trust regions.
+- Reuses that representation for local MPC, grasp synthesis and roadmap planning, with bimanual and in-hand hardware demonstrations.
+- Establishes a practical model-based route to contact-rich planning alongside computationally intensive RL. Expert-data synthesis and RL exploration are discussed as future integrations.
+
+Limitations:
+
+- **Author-noted**: quasidynamic predictions still differ from second-order dynamics. Slip and lost contact remain; constraints and heuristics reduce these failures without fully explaining them.
+- Global connections rely heavily on Allegro kinematics and cube symmetry. Asymmetric objects or unstable poses require explicit stability reasoning during hand repositioning, such as finger gaiting.
+- The roles of feasibility constraints and rare planner failures remain incompletely understood. Exploiting sparsity and pruning inactive contact constraints are proposed speed improvements.
+- 🤖 The compute savings are promising, but general superiority over RL is not established by a comparison matched for sensing, object diversity and online latency.
+
+## Terry's memo
+
+- *(None)*
+
+## Sources and project
+
+[Paper v4](https://arxiv.org/html/2505.02291v4) · [Project and demos](https://ctr.theaiinstitute.com/) · [Public experiment data](https://github.com/bdaiinstitute/crm-website/tree/main/public/data). At the time checked, the project's code button is labeled Code (coming soon).
