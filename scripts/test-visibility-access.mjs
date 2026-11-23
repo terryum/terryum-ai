@@ -16,6 +16,16 @@ const privateSurveys = [
   ['robot-motion-101-part-3', '로봇 움직이기 101 (3/3)'],
   ['chinese-robot-company-map', '중국 로봇기업 지도'],
 ];
+const previewSlug = process.env.TEST_PREVIEW_SURVEY_SLUG;
+if (previewSlug) {
+  const { default: fs } = await import('node:fs/promises');
+  const registry = JSON.parse(await fs.readFile(new URL('../projects/surveys/surveys.json', import.meta.url)));
+  const entry = registry.surveys.find(({ slug }) => slug === previewSlug);
+  if (!entry || entry.visibility !== 'private' || !entry.preview_embed_url || entry.embed_url) {
+    throw new Error('Expected a preview-only private survey registry entry');
+  }
+  privateSurveys.push([previewSlug, entry.title.ko]);
+}
 
 function assert(value, message) {
   if (!value) throw new Error(message);
@@ -97,19 +107,21 @@ assert(adminHtml.includes('aria-label="비공개"'), 'admin home omitted the pri
 for (const [slug] of privateSurveys) {
   const memberResponse = await request(`/ko/surveys/${slug}`, member);
   assert(memberResponse.status === 404, `${slug}: member detail returned ${memberResponse.status}`);
+  const proxyPrefix = `/api/private-surveys/${slug}/${slug === previewSlug ? '__preview/' : ''}`;
 
   for (const locale of ['ko', 'en']) {
     const response = await request(`/${locale}/surveys/${slug}`, cookie);
     const html = await response.text();
     assert(response.status === 200, `${slug}/${locale}: admin detail returned ${response.status}`);
     assert(
-      html.includes(`/api/private-surveys/${slug}/${locale}/`),
+      html.includes(`${proxyPrefix}${locale}/`),
       `${slug}/${locale}: admin detail omitted the private proxy iframe`,
     );
     assert(!html.includes(`${slug}.pages.dev`), `${slug}/${locale}: detail leaked the Pages URL`);
+    assert(!html.includes(`${slug}-preview.pages.dev`), `${slug}/${locale}: detail leaked the preview Pages URL`);
   }
 
-  const proxyPath = `/api/private-surveys/${slug}/ko/`;
+  const proxyPath = `${proxyPrefix}ko/`;
   const anonymousProxy = await privateSurveyRequest(proxyPath);
   assert(anonymousProxy.status === 404, `${slug}: anonymous proxy returned ${anonymousProxy.status}`);
   assert((await anonymousProxy.text()) === '', `${slug}: anonymous proxy returned a body`);
@@ -142,7 +154,7 @@ for (const [slug] of privateSurveys) {
       `${slug}: proxy omitted frame-ancestors`,
     );
 
-    const englishProxy = await privateSurveyRequest(`/api/private-surveys/${slug}/en/`, cookie);
+    const englishProxy = await privateSurveyRequest(`${proxyPrefix}en/`, cookie);
     assert(englishProxy.status === 200, `${slug}: English admin proxy returned ${englishProxy.status}`);
   }
 }

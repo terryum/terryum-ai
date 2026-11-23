@@ -119,7 +119,11 @@ async function handle(
 
   const { slug, path = [] } = await context.params;
   const survey = await getSurvey(slug);
-  if (survey?.visibility !== 'private' || !survey.embed_url) return hiddenNotFound();
+  if (!survey) return hiddenNotFound();
+  const wantsPreview = path[0] === '__preview';
+  const origin = wantsPreview ? survey.preview_embed_url : survey.embed_url;
+  const originPath = wantsPreview ? path.slice(1) : path;
+  if (!origin || (!wantsPreview && survey.visibility !== 'private')) return hiddenNotFound();
 
   const clientId = process.env.CF_ACCESS_CLIENT_ID;
   const clientSecret = process.env.CF_ACCESS_CLIENT_SECRET;
@@ -131,7 +135,7 @@ async function handle(
     });
   }
 
-  const originUrl = buildOriginUrl(survey.embed_url, path, request.nextUrl.search);
+  const originUrl = buildOriginUrl(origin, originPath, request.nextUrl.search);
   if (!originUrl) return hiddenNotFound();
 
   let upstream: Response | null;

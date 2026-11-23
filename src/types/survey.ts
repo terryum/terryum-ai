@@ -11,6 +11,7 @@ export interface SurveyMeta extends AccessFields {
   toc: BilingualText[]; // table of contents (chapter titles, bilingual)
   links: ResourceLink[];
   embed_url?: string;
+  preview_embed_url?: string;
   status: 'active' | 'archived' | 'wip';
   featured: boolean;
   order: number;

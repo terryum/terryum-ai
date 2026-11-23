@@ -1,6 +1,131 @@
 {
-  "next_survey_number": 15,
+  "next_survey_number": 16,
   "surveys": [
+    {
+      "slug": "geometry-of-robotics",
+      "survey_number": 15,
+      "title": {
+        "ko": "Geometry of Robotics",
+        "en": "Geometry of Robotics"
+      },
+      "description": {
+        "ko": "로봇이 어디로 움직일 수 있는지 살펴보고, 피드백이 그 움직임을 어떤 조건에서 보장하는지 따져 봅니다. 5부 24장.",
+        "en": "Explore where a robot can move and what feedback can guarantee about the motion it makes across 5 parts and 24 chapters."
+      },
+      "cover_image": "/images/projects/survey-geometry-of-robotics-cover.webp",
+      "tech_stack": [
+        "Robotics",
+        "Geometry",
+        "Robot Control",
+        "Robot Learning"
+      ],
+      "toc": [
+        {
+          "ko": "구성공간 — 로봇이 지나갈 수 있는 길",
+          "en": "Configuration Spaces — Where a Robot Can Move"
+        },
+        {
+          "ko": "매니폴드 — 한 점에서 본 속도와 힘",
+          "en": "Manifolds — Velocities and Forces at a Point"
+        },
+        {
+          "ko": "Lie group — 강체 자세와 유한 변위",
+          "en": "Lie Groups — Poses and Finite Displacements"
+        },
+        {
+          "ko": "Lie group의 미분 — 오차와 프레임",
+          "en": "Differentiation on Lie Groups — Errors and Frames"
+        },
+        {
+          "ko": "기구학 — 관절에서 end-effector까지",
+          "en": "Kinematics — From Joints to the End Effector"
+        },
+        {
+          "ko": "Twist와 wrench — 일률을 보존하는 변환",
+          "en": "Twists and Wrenches — Transforming Power Pairs"
+        },
+        {
+          "ko": "강체 동역학 — 관절 토크의 계산",
+          "en": "Rigid-Body Dynamics — Computing Joint Torques"
+        },
+        {
+          "ko": "변분 역학 — 관성 행렬에서 운동방정식까지",
+          "en": "Variational Mechanics — From Inertia to Motion"
+        },
+        {
+          "ko": "피드백 — 모델 오차가 생기면",
+          "en": "Feedback — When the Model Is Wrong"
+        },
+        {
+          "ko": "선형 상태공간 — LQR과 상태 관측",
+          "en": "Linear State Space — LQR and State Observation"
+        },
+        {
+          "ko": "비선형 안정성 — 에너지와 증명 조건",
+          "en": "Nonlinear Stability — Energy and Proof Conditions"
+        },
+        {
+          "ko": "조작기 제어 — 추종에서 접촉까지",
+          "en": "Manipulator Control — From Tracking to Contact"
+        },
+        {
+          "ko": "궤적 최적화 — 계획에 피드백 붙이기",
+          "en": "Trajectory Optimization — Closing the Loop Around a Plan"
+        },
+        {
+          "ko": "MPC — 토크 한계 안에서 움직이기",
+          "en": "Model Predictive Control — Moving Under Torque Limits"
+        },
+        {
+          "ko": "비홀로노믹 제약 — 허용 속도와 도달 범위",
+          "en": "Nonholonomic Constraints — Admissible Velocities"
+        },
+        {
+          "ko": "Lie bracket — 미끄러지지 않고 주차하기",
+          "en": "Lie Brackets — Parking Without Lateral Slip"
+        },
+        {
+          "ko": "Connection과 holonomy — 순환 운동의 순변위",
+          "en": "Connections and Holonomy — Net Motion from a Cycle"
+        },
+        {
+          "ko": "기하학적 피드백 — 회전과 자세 추종",
+          "en": "Geometric Feedback — Rotation and Pose Tracking"
+        },
+        {
+          "ko": "접촉 기하학 — 구름과 파지",
+          "en": "Contact Geometry — Rolling and Grasping"
+        },
+        {
+          "ko": "매니폴드 최적화 — 계획과 반응형 정책",
+          "en": "Manifold Optimization — Planning and Reactive Policies"
+        },
+        {
+          "ko": "Lie group 상태추정 — 자세와 불확실성",
+          "en": "Lie-Group Estimation — Poses and Uncertainty"
+        },
+        {
+          "ko": "Riemannian 통계 — 매니폴드 위의 평균",
+          "en": "Riemannian Statistics — Means on Manifolds"
+        },
+        {
+          "ko": "Equivariant learning — 과제가 허용하는 대칭",
+          "en": "Equivariant Learning — The Symmetries a Task Allows"
+        },
+        {
+          "ko": "학습과 피드백 — 정책을 폐루프에 넣기",
+          "en": "Learning and Feedback — Putting a Policy in the Loop"
+        }
+      ],
+      "links": [],
+      "preview_embed_url": "https://geometry-of-robotics-preview.pages.dev/",
+      "status": "active",
+      "featured": false,
+      "order": 0,
+      "published_at": "2026-11-23",
+      "updated_at": "2026-11-23",
+      "visibility": "private"
+    },
     {
       "slug": "chinese-robot-company-map",
       "survey_number": 14,
